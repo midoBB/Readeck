@@ -1,6 +1,6 @@
 {{- if .TotalPages > 1 -}}
   <nav class="my-4 flex items-center justify-center">
-    <div class="flex-1 flex justify-between sm:hidden">
+    <div class="hidden flex-1 +sm:flex justify-between">
       {{- if .PreviousPage -}}
         <a href="{{ .PreviousPage }}" class="px-4 py-2 border border-gray-300 rounded-md hf:text-primary">Previous</a>
       {{- else -}}
@@ -11,7 +11,7 @@
       {{- end -}}
     </div>
 
-    <div class="hidden overflow-hidden sm:flex items-center justify-center flex-shrink border border-gray-300 rounded-md divide-x">
+    <div class="+sm:hidden overflow-hidden flex items-center justify-center flex-shrink border border-gray-300 rounded-md divide-x">
       {{- if .PreviousPage -}}
         <a href="{{ .PreviousPage }}" class="py-2 px-4 hf:bg-gray-200 hf:text-primary"
          aria-label="Go to previous page">{{ yield icon(name="o-chevron-l") }}</a>

@@ -4,12 +4,13 @@
 
 <turbo-frame id="bookmark-bottom-actions-{{ .ID }}">
 <form action="{{ urlFor(`/bookmarks`, .ID) }}" method="post"
- class="flex flex-col justify-center sm:flex-row"
+ class="flex flex-row +sm:flex-col justify-center"
  data-controller="turbo-form"
  data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
  data-turbo-form-method-value="patch">
   {{ yield csrfField() }}
-  <button class="btn-outlined-primary rounded-full whitespace-nowrap mb-2 sm:mb-0 sm:mr-4" name="is_archived" value="{{ .IsArchived ? 0 : 1 }}">
+  <button class="btn-outlined-primary rounded-full whitespace-nowrap mb-0 mr-4 +sm:mr-0 +sm:mb-2"
+   name="is_archived" value="{{ .IsArchived ? 0 : 1 }}">
     {{ yield icon(name=(.IsArchived ? "o-archive-on" : "o-archive-off")) }}
     {{ textArch }}
   </button>

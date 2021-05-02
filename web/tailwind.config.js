@@ -35,6 +35,13 @@ module.exports = {
         "Segoe UI Symbol", "Noto Color Emoji",
       ],
     },
+    screens: {
+      "sm": {min: "640px"},
+      "md": {min: "769px"},
+      "lg": {min: "1024px"},
+      "+md": {max: "768px"},
+      "+sm": {max: "639px"},
+    },
     extend: {
       fontSize: {
         "h1": "2.5rem",

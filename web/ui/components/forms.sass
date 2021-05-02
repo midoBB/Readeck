@@ -11,10 +11,10 @@
 
   // Horizontal field
   .field-h
-    @apply flex-none md:flex md:items-baseline max-w-xl
+    @apply flex +sm:block items-baseline max-w-xl
 
     & > label:first-child, & > .field-spacer:first-child
-      @apply w-44 md:mr-2
+      @apply w-44 mr-2 +sm:mr-0
 
   // Field with an error
   .field-err

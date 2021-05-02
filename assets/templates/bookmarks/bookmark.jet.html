@@ -37,7 +37,7 @@
       <div class="flex flex-row mb-2">
         {{- if isset(.Item.Resources.thumbnail) -}}
         <div class="order-2 ml-2">
-          <span class="block relative overflow-hidden pt-16/9 w-20 sm:w-36 lg:w-44">
+          <span class="block relative overflow-hidden pt-16/9 w-44 +sm:w-20 +md:w-36">
             <img src="{{ .Item.Resources.thumbnail.Src }}" alt=""
               class="absolute top-0 h-full w-full object-cover object-center rounded-bl"
               width="{{ .Item.Resources.thumbnail.Width }}"

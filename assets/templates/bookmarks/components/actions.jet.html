@@ -25,11 +25,11 @@
     data-turbo-form-method-value="patch">
       {{ yield csrfField() }}
       <div class="inline-flex">
-        <button class="btn-outlined-primary leading-none rounded-l-full border-r-0 pl-3" name="is_marked" value="{{ .IsMarked ? 0 : 1 }}"
+        <button class="btn-outlined-primary leading-none rounded-l-full border-r-0 h-9 pl-3" name="is_marked" value="{{ .IsMarked ? 0 : 1 }}"
         title="{{ textFav }}">
           {{ yield icon(name=(.IsMarked ? "o-favorite-on" : "o-favorite-off")) }}
         </button>
-        <button class="btn-outlined-primary leading-none rounded-r-full border-l-0 pr-3" name="is_archived" value="{{ .IsArchived ? 0 : 1 }}"
+        <button class="btn-outlined-primary leading-none rounded-r-full border-l-0 h-9 pr-3" name="is_archived" value="{{ .IsArchived ? 0 : 1 }}"
         title="{{ textArch }}">
           {{ yield icon(name=(.IsArchived ? "o-archive-on" : "o-archive-off")) }}
         </button>
@@ -39,7 +39,7 @@
     <form action="{{ urlFor(`/bookmarks`, .ID, `delete`) }}" method="post">
       {{ yield csrfField() }}
       <input type="hidden" name="_to" value="{{ currentPath }}" />
-      <button class="btn-outlined-danger leading-none rounded-full px-2" name="is_deleted" value="1"
+      <button class="btn-outlined-danger leading-none rounded-full w-9 h-9 px-2" name="is_deleted" value="1"
         data-controller="turbo-form"
         data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
         data-turbo-form-method-value="patch">

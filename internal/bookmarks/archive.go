@@ -34,8 +34,9 @@ var (
 // newArchive runs the archiver and returns a BookmarkArchive instance.
 func newArchive(_ context.Context, ex *extract.Extractor) (*archiver.Archiver, error) {
 	req := &archiver.Request{
-		Input: bytes.NewReader(ex.HTML),
-		URL:   ex.Drop().URL,
+		Client: ex.Client(),
+		Input:  bytes.NewReader(ex.HTML),
+		URL:    ex.Drop().URL,
 	}
 
 	arc, err := archiver.New(req)

@@ -224,6 +224,23 @@ function generate_favicons() {
     .pipe(gulp.dest("./media/favicons"))
 }
 
+async function generate_rnd_icons(done) {
+  let res = []
+
+  let root = path.resolve("./media/rndicons")
+  let files = await fs.promises.readdir(root)
+  for (let x of files) {
+    x = path.join(root, x)
+    let c = await fs.promises.readFile(x)
+    res.push(c.toString())
+  }
+
+  let dest = path.join(DEST, "rndicons.json")
+  await fs.promises.writeFile(dest, JSON.stringify(res))
+
+  done()
+}
+
 // copy_files copies some files to the destination.
 function copy_files() {
   return mergeStream(
@@ -280,6 +297,7 @@ const full_build = gulp.series(
   gulp.parallel(
     js_bundle,
     icon_sprite,
+    generate_rnd_icons,
     copy_files,
     css_bundle,
   ),
@@ -324,6 +342,7 @@ exports.clean = clean_all
 exports.js = js_bundle
 exports.css = gulp.series(clean_css, css_bundle)
 exports.icons = icon_sprite
+exports.rndicons = generate_rnd_icons
 exports.favicons = generate_favicons
 exports.copy = copy_files
 

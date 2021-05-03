@@ -2,28 +2,47 @@ package assets
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"time"
 
 	"github.com/go-chi/chi/v5"
 
+	"github.com/readeck/readeck/assets"
 	"github.com/readeck/readeck/configs"
 	"github.com/readeck/readeck/internal/server"
 )
 
 type ctxNameKey struct{}
 
+var rndIcons = []string{}
+
+func init() {
+	f := assets.StaticFilesFS()
+	fp, err := f.Open("rndicons.json")
+	if err != nil {
+		panic(err)
+	}
+
+	d := json.NewDecoder(fp)
+	if err = d.Decode(&rndIcons); err != nil {
+		panic(err)
+	}
+}
+
 const svgGradient = `<?xml version="1.0" encoding="UTF-8"?>` +
 	`<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 256 160" width="256" height="160">` +
 	`<defs>` +
 	`<linearGradient id="gradient" x1="30%%" x2="70%%" y2="100%%">` +
-	`<stop stop-color="hsl(%d, 70%%, 50%%)" offset="0"/>` +
-	`<stop stop-color="hsl(%d, 70%%, 50%%)" offset="0.7"/>` +
-	`<stop stop-color="hsl(%d, 70%%, 50%%)" offset="1"/>` +
+	`<stop stop-color="hsl(%d, 20%%, 80%%)" offset="0"/>` +
+	`<stop stop-color="hsl(%d, 20%%, 83%%)" offset="1"/>` +
 	`</linearGradient>` +
 	`</defs>` +
 	`<rect width="100%%" height="100%%" fill="url(#gradient)"/>` +
+	`<svg preserveAspectRatio="xMinYMin meet" x="130" y="35" viewBox="0 0 24 24" fill="#ffffff55">` +
+	`%s` +
+	`</svg>` +
 	`</svg>`
 
 type hashCode int
@@ -40,6 +59,7 @@ func (c hashCode) GetLastModified() []time.Time {
 // is based on the name.
 func randomSvg(s *server.Server) http.Handler {
 	r := chi.NewRouter()
+	nbIcons := len(rndIcons)
 
 	withHashCode := func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -58,12 +78,10 @@ func randomSvg(s *server.Server) http.Handler {
 	}
 
 	r.With(withHashCode).Get("/", func(w http.ResponseWriter, r *http.Request) {
-		c1 := r.Context().Value(ctxNameKey{}).(hashCode)
-		c2 := (c1 + 120) % 360
-		c3 := (c2 + 25) % 360
+		hcode := r.Context().Value(ctxNameKey{}).(hashCode)
 
 		w.Header().Set("Content-Type", "image/svg+xml")
-		fmt.Fprintf(w, svgGradient, c1, c2, c3)
+		fmt.Fprintf(w, svgGradient, hcode, hcode, rndIcons[int(hcode)%nbIcons])
 	})
 	return r
 }

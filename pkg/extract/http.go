@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"net/http"
+	"net/http/cookiejar"
 	"time"
 
 	"golang.org/x/net/idna"
@@ -22,7 +23,13 @@ func (t *Transport) RoundTrip(req *http.Request) (*http.Response, error) {
 	if err := t.checkDestIP(req); err != nil {
 		return nil, err
 	}
-	req.Header = t.header
+
+	for k, v := range t.header {
+		for _, x := range v {
+			req.Header.Add(k, x)
+		}
+	}
+
 	return t.tr.RoundTrip(req)
 }
 
@@ -68,6 +75,7 @@ func (t *Transport) checkDestIP(r *http.Request) error {
 func NewClient() *http.Client {
 	client := http.DefaultClient
 	client.Timeout = 10 * time.Second
+	client.Jar, _ = cookiejar.New(nil)
 
 	tr := http.DefaultTransport
 	htr, ok := tr.(*http.Transport)

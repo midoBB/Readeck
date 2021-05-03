@@ -179,8 +179,8 @@ function proseCSS(theme) {
       backgroundColor: theme("colors.yellow.300"),
     },
 
-    "img": {
-      maxWith: "100%",
+    "img, figure": {
+      maxWidth: "100%",
     },
 
     "figure": {

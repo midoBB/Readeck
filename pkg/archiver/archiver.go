@@ -12,6 +12,8 @@ import (
 	"golang.org/x/sync/semaphore"
 )
 
+var ctxNodeKey struct{}
+
 // ArchiveFlag is an archiver feature to enable.
 type ArchiveFlag uint8
 

@@ -52,18 +52,9 @@ func createAbsoluteURL(uri string, base *url.URL) string {
 	return base.ResolveReference(tmp).String()
 }
 
-// cleanURL removes fragment (#fragment) and UTM queries from URL
+// cleanURL removes URL fragment (#fragment)
 func cleanURL(uri *url.URL) {
-	queries := uri.Query()
-
-	for key := range queries {
-		if strings.HasPrefix(key, "utm_") {
-			queries.Del(key)
-		}
-	}
-
 	uri.Fragment = ""
-	uri.RawQuery = queries.Encode()
 }
 
 // sanitizeStyleURL sanitizes the URL in CSS by removing `url()`,

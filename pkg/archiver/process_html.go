@@ -490,6 +490,7 @@ func (arc *Archiver) processURLNode(ctx context.Context, node *html.Node, attrNa
 	uri := dom.GetAttribute(node, attrName)
 	content, contentType, err := arc.processURL(ctx, uri, baseURL.String())
 	if err != nil && err != errSkippedURL {
+		arc.SendEvent(ctx, &EventError{Err: err, URI: uri})
 		return err
 	}
 
@@ -597,14 +598,16 @@ func (arc *Archiver) processEmbedNode(ctx context.Context, node *html.Node, base
 }
 
 func (arc *Archiver) processMediaNode(ctx context.Context, node *html.Node, baseURL *url.URL) error {
+	ctx = context.WithValue(ctx, ctxNodeKey, node)
+
 	err := arc.processURLNode(ctx, node, "src", baseURL)
 	if err != nil {
-		return err
+		dom.RemoveAttribute(node, "src")
 	}
 
 	err = arc.processURLNode(ctx, node, "poster", baseURL)
 	if err != nil {
-		return err
+		dom.RemoveAttribute(node, "poster")
 	}
 
 	if !dom.HasAttribute(node, "srcset") {
@@ -619,7 +622,8 @@ func (arc *Archiver) processMediaNode(ctx context.Context, node *html.Node, base
 
 		content, contentType, err := arc.processURL(ctx, oldURL, baseURL.String())
 		if err != nil && err != errSkippedURL {
-			return err
+			arc.SendEvent(ctx, &EventError{Err: err, URI: oldURL})
+			continue
 		}
 
 		newSet := oldURL
@@ -631,8 +635,13 @@ func (arc *Archiver) processMediaNode(ctx context.Context, node *html.Node, base
 		newSets = append(newSets, newSet)
 	}
 
-	newSrcset := strings.Join(newSets, ",")
-	dom.SetAttribute(node, "srcset", newSrcset)
+	if len(newSets) > 0 {
+		newSrcset := strings.Join(newSets, ",")
+		dom.SetAttribute(node, "srcset", newSrcset)
+	} else {
+		dom.RemoveAttribute(node, "srcset")
+	}
+
 	return nil
 }
 

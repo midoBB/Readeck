@@ -8,6 +8,12 @@ import (
 	"io/ioutil"
 	"net/url"
 	"strings"
+
+	"github.com/go-shiori/dom"
+	"github.com/h2non/filetype"
+	"github.com/h2non/filetype/matchers"
+	"github.com/h2non/filetype/types"
+	"golang.org/x/net/html"
 )
 
 var errSkippedURL = errors.New("skip processing url")
@@ -40,12 +46,12 @@ func (arc *Archiver) processURL(ctx context.Context, uri string, parentURL strin
 		return nil, "", errSkippedURL
 	}
 
-	// Parse URL to make sure it's valid request URL. If not, there might be
-	// some error while preparing document, so just skip this URL
+	// Parse URL to make sure it's valid request URL. If not, then
+	// it's a real error.
 	parsedURL, err := url.ParseRequestURI(uri)
 	if err != nil || parsedURL.Scheme == "" || parsedURL.Hostname() == "" {
 		arc.SendEvent(ctx, &EventError{errSkippedURL, uri})
-		return nil, "", errSkippedURL
+		return nil, "", errors.New("can't parse URL")
 	}
 
 	// Check in cache to see if this URL already processed
@@ -118,6 +124,10 @@ func (arc *Archiver) processURL(ctx context.Context, uri string, parentURL strin
 		}
 	}
 
+	if err := arc.checkContent(ctx, bodyContent); err != nil {
+		return nil, "", err
+	}
+
 	// Save data URL to cache
 	arc.Lock()
 	arc.Cache[uri] = Asset{
@@ -127,4 +137,30 @@ func (arc *Archiver) processURL(ctx context.Context, uri string, parentURL strin
 	arc.Unlock()
 
 	return bodyContent, contentType, nil
+}
+
+// checkContent checks if the downloaded content is really what it is supposed to
+// be. For now, only check if an image is really an image.
+func (arc *Archiver) checkContent(ctx context.Context, content []byte) error {
+	node, ok := ctx.Value(ctxNodeKey).(*html.Node)
+	if !ok || dom.TagName(node) != "img" {
+		return nil
+	}
+
+	t, _ := filetype.Match(content)
+	if _, ok := imageTypes[t]; !ok {
+		return errors.New("not an image")
+	}
+
+	return nil
+}
+
+var imageTypes = map[types.Type]bool{
+	matchers.TypeJpeg: true,
+	matchers.TypePng:  true,
+	matchers.TypeGif:  true,
+	matchers.TypeWebp: true,
+	matchers.TypeIco:  true,
+	matchers.TypeBmp:  true,
+	matchers.TypeTiff: true,
 }

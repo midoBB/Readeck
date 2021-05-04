@@ -24,6 +24,7 @@ require (
 	github.com/gorilla/csrf v1.7.0
 	github.com/gorilla/schema v1.2.0
 	github.com/gorilla/sessions v1.2.1
+	github.com/h2non/filetype v1.1.1 // indirect
 	github.com/hlandau/passlib v1.0.11
 	github.com/jackc/pgx/v4 v4.11.0
 	github.com/jarcoal/httpmock v1.0.8

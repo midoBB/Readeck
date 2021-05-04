@@ -34,6 +34,7 @@ func Readability(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 	}
 
 	fixNoscriptImages(m.Dom)
+	convertPictureNodes(m.Dom, m)
 
 	// It's a shame we have to render the document instead of passing
 	// directly the node. But that's how readability works for now.
@@ -203,6 +204,45 @@ func isSingleImage(node *html.Node) bool {
 	}
 
 	return isSingleImage(children[0])
+}
+
+func convertPictureNodes(top *html.Node, m *extract.ProcessMessage) {
+	nodes := dom.GetElementsByTagName(top, "picture")
+	dom.ForEachNode(nodes, func(node *html.Node, _ int) {
+		// A picture tag contains zero or more <source> elements
+		// and an <img> element. We take all the srcset values from
+		// each <source>, add them to the <img> srcset and then replace
+		// the picture element with the img.
+
+		// First get or create an img element
+		imgs := dom.GetElementsByTagName(node, "img")
+		var img *html.Node
+		if len(imgs) == 0 {
+			img = dom.CreateElement("img")
+		} else {
+			img = imgs[0]
+		}
+
+		// Collect all the srcset attributes
+		set := []string{}
+		sources := dom.GetElementsByTagName(node, "source")
+		for _, n := range sources {
+			if dom.HasAttribute(n, "srcset") {
+				set = append(set, dom.GetAttribute(n, "srcset"))
+			}
+		}
+
+		// Including the one in the <img> if present
+		if dom.HasAttribute(img, "srcset") {
+			set = append(set, dom.GetAttribute(img, "srcset"))
+		}
+
+		// Now mix them all together and replace the picture
+		// element.
+		dom.SetAttribute(img, "srcset", strings.Join(set, ","))
+
+		dom.ReplaceChild(node.Parent, img, node)
+	})
 }
 
 func fixImages(top *html.Node, m *extract.ProcessMessage) {

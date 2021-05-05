@@ -40,7 +40,7 @@
        group-hover:text-primary group-focus-within:text-primary"><a href="{{ url }}"
       data-turbo-frame="_top" class="hf:text-primary-dark">{{ default(.Title, "untitled") }}</a></h3>
 
-      <span class="flex flex-wrap items-center mb-2 text-xs text-gray-600 {{ if .IsDeleted }}opacity-50{{ end }}">
+      <span class="flex items-center mb-2 text-xs text-gray-600 {{ if .IsDeleted }}opacity-50{{ end }}">
         {{- if isset(.Resources.icon) -}}
           <img class="h-4 w-auto filter grayscale opacity-50
            group-hover:filter-none group-hover:opacity-100

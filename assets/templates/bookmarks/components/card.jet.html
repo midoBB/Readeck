@@ -75,9 +75,10 @@
         {{- else -}}
           <form action="{{url }}" method="post"
           class="flex-grow text-gray-200 group-hover:text-primary group-focus-within:text-primary"
-          data-controller="turbo-form"
+          data-controller="turbo-form turbo-reload"
           data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
-          data-turbo-form-method-value="patch">
+          data-turbo-form-method-value="patch"
+          data-turbo-reload-frame-id-value="bookmark-list">
             {{ yield csrfField() }}
             <input type="hidden" name="_to" value="{{ currentPath }}" />
             <button

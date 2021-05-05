@@ -22,7 +22,7 @@
   {{- end -}}
   </turbo-frame>
 {{- else -}}
-  <turbo-frame id="bookmark-card-{{ .ID }}">
+  <turbo-frame id="bookmark-card-{{ .ID }}" {{ if .IsDeleted }}data-bookmark-deleted="true"{{ end }}>
   {{- yield card() content -}}
     <a href="{{ url }}" class="{{ if .IsDeleted }}opacity-50{{ end }}">
       {{ if isset(.Resources.thumbnail) -}}

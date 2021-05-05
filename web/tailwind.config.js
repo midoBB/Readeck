@@ -41,6 +41,7 @@ module.exports = {
       "lg": {min: "1024px"},
       "+md": {max: "768px"},
       "+sm": {max: "639px"},
+      "print": {raw: "print"},
     },
     extend: {
       fontSize: {

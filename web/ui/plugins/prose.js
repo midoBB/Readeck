@@ -98,12 +98,19 @@ function proseCSS(theme) {
 
     "a, a:visited": {
       "color": theme("colors.primary.DEFAULT"),
+
+      "@media print": {
+        color: "#000",
+        fontWeight: 600,
+        textDecoration: "underline",
+      },
     },
 
     "a:focus, a:hover, a:active": {
       "color": theme("colors.primary.dark"),
       "textDecoration": "underline",
     },
+
 
     "em, dfn, i": {
       fontStyle: "italic",

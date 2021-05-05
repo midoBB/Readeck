@@ -3,7 +3,7 @@
 {{- textFav := .IsMarked ? "Remove from favorites" : "Add to favorites" -}}
 
 <turbo-frame id="bookmark-actions-{{ .ID }}">
-<div class="flex bg-gray-100 px-4 py-2 items-center">
+<div class="flex bg-gray-100 px-4 py-2 items-center print:hidden">
   {{- if .IsDeleted -}}
     <span class="text-red-700" data-deleted="true">
       This bookmark will be removed in a few seconds.

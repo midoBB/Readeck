@@ -26,14 +26,14 @@
       <p class="text-lg">Bookmark is loading…</p>
     </div>
   {{- else -}}
-    <div class="max-w-3xl mx-auto">
-      <h1 class="text-2xl font-serif">{{ .Item.Title }}</h1>
+    <div class="max-w-3xl mx-auto mt-4 print:mt-2 print:max-w-none">
+      <h1 class="text-3xl +sm:text-2xl font-serif">{{ .Item.Title }}</h1>
       {{- if !empty(.Item.Description) -}}
-        <p class="mt-1 text-lg leading-tight text-justify font-serif italic">{{ .Item.Description }}</p>
+        <p class="mt-2 text-lg leading-tight text-justify font-serif italic">{{ .Item.Description }}</p>
       {{- end -}}
     </div>
 
-    <div class="group max-w-3xl mx-auto rounded shadow mt-4 overflow-hidden">
+    <div class="group max-w-3xl mx-auto rounded shadow my-8 overflow-hidden print:shadow-none print:border print:max-w-none">
       <div class="flex flex-row mb-2">
         {{- if isset(.Item.Resources.thumbnail) -}}
         <div class="order-2 ml-2">
@@ -79,6 +79,9 @@
         </div>
       </div>
 
+      <p class="ml-4 mb-4 font-semibold hidden print:block">{{ .Item.URL }}</p>
+
+
       {{ include "./components/labels_form" .Item }}
 
       {{- if len(.Item.Errors) -}}
@@ -100,7 +103,7 @@
     {{- end -}}
 
     {{- if .Item.Type == "article" -}}
-      <div class="max-w-3xl mt-6 mx-auto">
+      <div class="max-w-3xl mx-auto print:max-w-none">
         <div class="font-serif text-lg leading-normal prose">
           {{- rawCopy(.Out, .HTML) -}}
         </div>
@@ -111,7 +114,7 @@
       {{ include "./components/bookmark_video" .Item }}
     {{- end -}}
 
-    <div class="max-w-3xl mx-auto mt-6 pt-6 border-t">
+    <div class="max-w-3xl mx-auto mt-6 pt-6 border-t print:hidden">
     {{- include "./components/bottom_actions" .Item -}}
     </div>
   {{- end -}}

@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/CloudyKit/jet/v6"
+	"github.com/OneOfOne/xxhash"
 )
 
 var funcMap = map[string]jet.Func{
@@ -42,6 +43,10 @@ var funcMap = map[string]jet.Func{
 	"date": func(a jet.Arguments) reflect.Value {
 		a.RequireNumOfArguments("date", 2, 2)
 		return reflect.ValueOf(ToDateFmt(a.Get(0), a.Get(1)))
+	},
+	"checksum": func(a jet.Arguments) reflect.Value {
+		a.RequireNumOfArguments("checksum", 1, 1)
+		return reflect.ValueOf(xxhash.ChecksumString32(ToString(a.Get(0))))
 	},
 }
 

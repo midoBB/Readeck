@@ -11,7 +11,7 @@
    data-turbo-refresh-on-value="[data-loading]"
    data-turbo-refresh-src-value="{{ urlFor(`/api/bookmarks`, .ID) }}">
   {{- yield card() content -}}
-    {{- yield card_image(src=urlFor(`/assets/rnd`, .ID) + ".svg",
+    {{- yield card_image(src=urlFor(`/assets/rnd`, checksum(.URL)) + ".svg",
                          width=256, height=160) -}}
     <div class="flex-grow px-2 py-6 text-center">
       <div class="text-4xl" data-loading="true">
@@ -30,7 +30,7 @@
                              width=.Resources.thumbnail.Width,
                              height=.Resources.thumbnail.Height) -}}
       {{- else -}}
-        {{- yield card_image(src=urlFor(`/assets/rnd`, .ID) + ".svg",
+        {{- yield card_image(src=urlFor(`/assets/rnd`, checksum(.URL)) + ".svg",
                              width=256, height=160) -}}
       {{- end }}
     </a>

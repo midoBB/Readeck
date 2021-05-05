@@ -13,7 +13,6 @@ import (
 	"github.com/h2non/filetype"
 	"github.com/h2non/filetype/matchers"
 	"github.com/h2non/filetype/types"
-	"golang.org/x/net/html"
 )
 
 var errSkippedURL = errors.New("skip processing url")
@@ -142,7 +141,7 @@ func (arc *Archiver) processURL(ctx context.Context, uri string, parentURL strin
 // checkContent checks if the downloaded content is really what it is supposed to
 // be. For now, only check if an image is really an image.
 func (arc *Archiver) checkContent(ctx context.Context, content []byte) error {
-	node, ok := ctx.Value(ctxNodeKey).(*html.Node)
+	node, ok := GetContextNode(ctx)
 	if !ok || dom.TagName(node) != "img" {
 		return nil
 	}

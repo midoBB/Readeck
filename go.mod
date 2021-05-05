@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	github.com/CloudyKit/jet/v6 v6.1.0
-	github.com/OneOfOne/xxhash v1.2.8 // indirect
+	github.com/OneOfOne/xxhash v1.2.8
 	github.com/antchfx/htmlquery v1.2.3
 	github.com/antchfx/xpath v1.1.11 // indirect
 	github.com/anthonynsimon/bild v0.13.0
@@ -25,7 +25,7 @@ require (
 	github.com/gorilla/csrf v1.7.0
 	github.com/gorilla/schema v1.2.0
 	github.com/gorilla/sessions v1.2.1
-	github.com/h2non/filetype v1.1.1 // indirect
+	github.com/h2non/filetype v1.1.1
 	github.com/hlandau/passlib v1.0.11
 	github.com/jackc/pgx/v4 v4.11.0
 	github.com/jarcoal/httpmock v1.0.8

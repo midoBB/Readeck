@@ -9,6 +9,7 @@ import (
 	"sync"
 	"time"
 
+	"golang.org/x/net/html"
 	"golang.org/x/sync/semaphore"
 )
 
@@ -141,4 +142,10 @@ func (arc *Archiver) downloadFile(url string, parentURL string) (*http.Response,
 	}
 
 	return resp, nil
+}
+
+// GetContextNode returns the html node stored in the context.
+func GetContextNode(ctx context.Context) (node *html.Node, ok bool) {
+	node, ok = ctx.Value(ctxNodeKey).(*html.Node)
+	return
 }

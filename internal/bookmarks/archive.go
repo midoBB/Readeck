@@ -7,9 +7,11 @@ import (
 	"io/ioutil"
 	"net/url"
 	"path"
+	"strconv"
 	"strings"
 	"time"
 
+	"github.com/go-shiori/dom"
 	"github.com/lithammer/shortuuid"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/sync/semaphore"
@@ -173,6 +175,13 @@ func imageProcessor(ctx context.Context, arc *archiver.Archiver, input io.Reader
 	if err != nil {
 		arc.SendEvent(ctx, &archiver.EventError{Err: err, URI: uri.String()})
 		return []byte{}, "", nil
+	}
+
+	// Set width and height on the <img> element
+	node, ok := archiver.GetContextNode(ctx)
+	if ok && dom.TagName(node) == "img" {
+		dom.SetAttribute(node, "width", strconv.FormatInt(int64(im.Width()), 10))
+		dom.SetAttribute(node, "height", strconv.FormatInt(int64(im.Height()), 10))
 	}
 
 	arc.SendEvent(ctx, archiver.EventInfo{"uri": uri.String(), "format": im.Format()})

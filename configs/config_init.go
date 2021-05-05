@@ -16,6 +16,7 @@ data_directory = "{{ .Main.DataDirectory }}"
 [server]
 host = "{{ .Server.Host }}"
 port = {{ .Server.Port }}
+allowed_hosts = ["{{ .Server.Host }}"]
 
 [database]
 source = "{{ .Database.Source }}"

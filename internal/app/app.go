@@ -50,10 +50,8 @@ func appPersistentPreRun(_ *cobra.Command, _ []string) error {
 		return fmt.Errorf("error loading configuration (%s)", err)
 	}
 
-	if updateConfig() {
-		if err := configs.WriteConfig(configPath); err != nil {
-			return err
-		}
+	if err := initConfig(); err != nil {
+		return err
 	}
 
 	// Enforce debug in dev mode
@@ -152,13 +150,16 @@ func createConfigFile(filename string) error {
 	return nil
 }
 
-func updateConfig() bool {
+func initConfig() error {
+	// If secret key is empty, we're facing a new configuration file and
+	// must write it to a file.
 	if configs.Config.Main.SecretKey == "" {
 		configs.Config.Main.SecretKey = configs.GenerateKey(48, 64)
-		return true
+		configs.Config.Server.AllowedHosts = []string{configs.Config.Server.Host}
+		return configs.WriteConfig(configPath)
 	}
 
-	return false
+	return nil
 }
 
 func createFolder(name string) error {

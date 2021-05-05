@@ -82,7 +82,7 @@
       {{ include "./components/labels_form" .Item }}
 
       {{- if len(.Item.Errors) -}}
-        <div data-controller="reveal" class="mt-4">
+        <div data-controller="reveal" class="my-4 px-4">
           <span data-reveal-target="trigger"
             class="text-sm bg-red-700 text-white inline-block p-0.5 rounded">{{ yield icon(name="o-error") }}
           Errors occured during extraction</span>

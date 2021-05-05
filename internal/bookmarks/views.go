@@ -52,7 +52,9 @@ func (h *bookmarkViews) bookmarkList(w http.ResponseWriter, r *http.Request) {
 				f.Errors.Add(err)
 			} else {
 				redir := []string{"/bookmarks"}
-				if !h.srv.IsTurboRequest(r) {
+				if h.srv.IsTurboRequest(r) {
+					redir = append(redir, "unread")
+				} else {
 					redir = append(redir, b.UID)
 				}
 				h.srv.Redirect(w, r, redir...)

@@ -12,7 +12,8 @@
   <div class="flex flex-row +md:flex-col">
     <div class="flex-grow mr-4 +md:mb-4 +md:mr-0">
       <form action="{{ urlFor(`/bookmarks`) }}" method="post"
-       data-controller="turbo-form">
+       data-controller="turbo-form"
+       data-turbo-frame="_top">
         {{ yield csrfField() }}
         <div class="flex">
           <input type="text" name="url" size="15"

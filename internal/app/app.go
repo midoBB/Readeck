@@ -3,11 +3,13 @@ package app
 import (
 	"errors"
 	"fmt"
+	"math/rand"
 	"net/url"
 	"os"
 	"os/signal"
 	"path"
 	"syscall"
+	"time"
 
 	"github.com/mattn/go-colorable"
 	log "github.com/sirupsen/logrus"
@@ -28,6 +30,8 @@ var rootCmd = &cobra.Command{
 var configPath string
 
 func init() {
+	rand.Seed(time.Now().UnixNano())
+
 	rootCmd.PersistentFlags().StringVarP(
 		&configPath, "config", "c",
 		"", "Configuration file",

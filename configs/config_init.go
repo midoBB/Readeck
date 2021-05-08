@@ -4,7 +4,6 @@ import (
 	"math/rand"
 	"os"
 	"text/template"
-	"time"
 )
 
 const initialConfiguration = `
@@ -53,7 +52,6 @@ func GenerateKey(minLen, maxLen int) string {
 	if minLen >= maxLen {
 		panic("maxLen must be greater then minLen")
 	}
-	rand.Seed(time.Now().UnixNano())
 
 	runes := []rune{}
 	for _, table := range keyChars {

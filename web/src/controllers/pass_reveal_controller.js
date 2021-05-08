@@ -32,6 +32,15 @@ export default class extends Controller {
 
     // Set the icon
     this.iconValue = this.iconShowValue
+
+    // If the target is part of a form, we must set its type back
+    // to password on form submit.
+    let f = this.fieldTarget.closest("form")
+    if (f !== null) {
+      f.addEventListener("submit", evt => {
+        this.fieldTarget.setAttribute("type", "password")
+      })
+    }
   }
 
   iconValueChanged() {

@@ -8,6 +8,7 @@ import (
 	"github.com/doug-martin/goqu/v9"
 	"github.com/go-chi/chi/v5"
 
+	"github.com/readeck/readeck/configs"
 	"github.com/readeck/readeck/internal/auth/users"
 	"github.com/readeck/readeck/internal/server"
 	"github.com/readeck/readeck/pkg/form"
@@ -38,6 +39,13 @@ func newAuthHandler(s *server.Server) *authHandler {
 	s.AddRoute("/login", r)
 	r.Get("/", h.loginView)
 	r.Post("/", h.login)
+
+	if configs.CanSendEmail() {
+		r.Get("/recover", h.recover)
+		r.Post("/recover", h.recover)
+		r.Get("/recover/{code}", h.recover)
+		r.Post("/recover/{code}", h.recover)
+	}
 
 	// Authenticated routes
 	ar := s.AuthenticatedRouter()
@@ -84,7 +92,7 @@ func (h *authHandler) login(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *authHandler) renderLoginForm(w http.ResponseWriter, r *http.Request, status int, f *form.Form) {
-	h.srv.RenderTemplate(w, r, status, "/auth/login", map[string]interface{}{
+	h.srv.RenderTemplate(w, r, status, "/auth/login", server.TC{
 		"Form": f,
 	})
 }

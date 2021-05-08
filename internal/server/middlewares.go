@@ -131,7 +131,7 @@ func (w *responseWriterInterceptor) WriteHeader(statusCode int) {
 		w.ResponseWriter.WriteHeader(statusCode)
 	}()
 
-	if statusCode < 400 { // immediate shortcut
+	if statusCode < 400 || statusCode == 422 { // immediate shortcut
 		return
 	}
 	w.statusCode = statusCode

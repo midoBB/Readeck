@@ -14,6 +14,7 @@ import (
 	"github.com/gorilla/csrf"
 
 	"github.com/readeck/readeck/assets"
+	"github.com/readeck/readeck/configs"
 	"github.com/readeck/readeck/internal/auth"
 	"github.com/readeck/readeck/internal/auth/users"
 	"github.com/readeck/readeck/pkg/glob"
@@ -178,6 +179,7 @@ func (s *Server) initTemplates() {
 func (s *Server) templateVars(r *http.Request) jet.VarMap {
 	return make(jet.VarMap).
 		Set("basePath", s.BasePath).
+		Set("canSendEmail", configs.CanSendEmail()).
 		Set("csrfName", csrfFieldName).
 		Set("csrfToken", csrf.Token(r)).
 		Set("currentPath", s.CurrentPath(r)).

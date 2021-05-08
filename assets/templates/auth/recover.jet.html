@@ -1,0 +1,66 @@
+{{ extends "./base" }}
+{{ import "/_libs/forms" }}
+
+{{ block title() }}Recover your password{{ end }}
+
+{{ block main() }}
+  {{- step := .Form.Fields.step.Value() -}}
+
+  <h2 class="text-xl mb-4 border-b">Password recovery</h2>
+  {{- if step == 0 -}}
+    <form action="" method="post">
+      {{ yield formErrors(form=.Form) }}
+      {{ yield csrfField() }}
+      <input type="hidden" name="step" value="{{ step }}" />
+
+      <p class="mt-4">No worries, it happens to anyone.</p>
+      <p class="mt-2 mb-6">Please provide the email address you used to create
+      your account and we'll send you a message with a link to recover your
+      password.</p>
+
+      {{ yield textField(field=.Form.Fields.email,
+                        name="email",
+                        label="Email address",
+                        class="max",
+      ) }}
+      <button class="btn block mt-6 w-full rounded-md text-white bg-gray-800 border-gray-800" type="submit">Send me a recovery link</button>
+      <p class="mt-4 text-center"><a href="{{ urlFor(`/login`) }}" class="link">Cancel and go back to login</a></p>
+    </form>
+  {{- else if step == 1 -}}
+    {{- yield message(type="success") content -}}
+      <p>Almost there!</p>
+      <p class="mt-2">We have sent an email to
+      <strong>{{ .Form.Fields.email.Value() }}</strong>
+      with further instructions.</p>
+    {{- end -}}
+  {{- else if step == 2 -}}
+    {{- if isset(.Error) -}}
+      {{- yield message(type="error") content }}{{ .Error }}{{ end -}}
+    {{- else -}}
+      <form action="" method="post">
+        {{ yield formErrors(form=.Form) }}
+        {{ yield csrfField() }}
+        <input type="hidden" name="step" value="{{ step }}" />
+
+        {{ yield textField(field=.Form.Fields.password,
+                          type="password",
+                          name="password",
+                          label="New password",
+                          class="max",
+                          help="must be at least 8 characters long",
+                          controlAttrs=attrList("data-controller", "pass-reveal",
+                                                "data-pass-reveal-icon-show-value", "o-show",
+                                                "data-pass-reveal-icon-hide-value", "o-hide"),
+                          inputAttrs=attrList("data-pass-reveal-target", "field"),
+        ) }}
+        <button class="btn block mt-6 w-full rounded-md text-white bg-gray-800 border-gray-800" type="submit">Update your password</button>
+        <p class="mt-4 text-center"><a href="{{ urlFor(`/login`) }}" class="link">Cancel and go back to login</a></p>
+    {{- end -}}
+  {{- else if step == 3 -}}
+    {{- yield message(type="success") content -}}
+      <p>Your password has been changed.</p>
+      <p class="mt-2"><a class="link" href="{{ urlFor(`/login`) }}">Go to the login page</a></p>
+    {{- end -}}
+  {{- end -}}
+
+{{ end }}

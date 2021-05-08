@@ -39,6 +39,7 @@ type config struct {
 	Main      configMain      `json:"main"`
 	Server    configServer    `json:"server"`
 	Database  configDB        `json:"database"`
+	Email     configEmail     `json:"email"`
 	Extractor configExtractor `json:"extractor"`
 }
 
@@ -66,6 +67,17 @@ type configDB struct {
 type configSession struct {
 	CookieName string `json:"cookie_name"`
 	MaxAge     int    `json:"max_age"` // in minutes
+}
+
+type configEmail struct {
+	Debug       bool   `json:"debug"`
+	Host        string `json:"host"`
+	Port        int    `json:"port"`
+	Username    string `json:"username"`
+	Password    string `json:"password"`
+	SSL         bool   `json:"ssl"`
+	From        string `json:"from"`
+	FromNoReply string `json:"from_noreply"`
 }
 
 type configExtractor struct {
@@ -137,6 +149,9 @@ var Config = config{
 		},
 	},
 	Database: configDB{},
+	Email: configEmail{
+		Port: 25,
+	},
 	Extractor: configExtractor{
 		NumWorkers: runtime.NumCPU(),
 		DeniedIPs: []configIPNet{
@@ -165,6 +180,13 @@ func LoadConfiguration(configPath string) error {
 
 	if Config.Database.Source == "" {
 		Config.Database.Source = fmt.Sprintf("sqlite3:%s/db.sqlite3", Config.Main.DataDirectory)
+	}
+
+	if Config.Email.From == "" {
+		Config.Email.From = fmt.Sprintf("noreply@%s", Config.Server.Host)
+	}
+	if Config.Email.FromNoReply == "" {
+		Config.Email.FromNoReply = Config.Email.From
 	}
 
 	loadKeys(Config.Main.SecretKey)
@@ -241,4 +263,9 @@ func BuildTime() time.Time {
 		return startTime
 	}
 	return buildTime
+}
+
+// CanSendEmail returns true if emails can be sent
+func CanSendEmail() bool {
+	return Config.Email.Host != "" || Config.Email.Debug
 }

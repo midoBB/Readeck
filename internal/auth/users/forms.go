@@ -18,7 +18,8 @@ type (
 )
 
 var (
-	isValidPassword = validation.NewStringRule(func(v string) bool {
+	// IsValidPassword is the password validation rule
+	IsValidPassword = validation.NewStringRule(func(v string) bool {
 		if strings.TrimSpace(v) == "" {
 			return false
 		}
@@ -61,7 +62,7 @@ func (pf *PasswordForm) SetUser(f *form.Form, u *User) {
 
 // Validate validates the form.
 func (pf *PasswordForm) Validate(f *form.Form) {
-	f.Fields["password"].Validate(form.IsRequired, isValidPassword)
+	f.Fields["password"].Validate(form.IsRequired, IsValidPassword)
 
 	// If a user was passed in context, then "current"
 	// is mandatory and must match the current user

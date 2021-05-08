@@ -1,38 +1,38 @@
-{{ extends "/base" }}
+{{ extends "./base" }}
 {{ import "/_libs/forms" }}
 
 {{ block title() }}Login{{ end }}
 
-{{ block body() }}
-<main class="w-full max-w-sm py-10 px-6 mt-12 m-auto bg-white rounded-md shadow-md">
-  <h1 class="text-3xl font-bold text-center text-gray-700">Readeck</h1>
+{{ block main() }}
+<form action="" method="post" data-controller="login-form"
+  data-action="login-form#validate">
 
-  <form class="mt-6" action="" method="post" data-controller="login-form"
-   data-action="login-form#validate">
+  {{ yield formErrors(form=.Form) }}
+  {{ yield csrfField() }}
 
-    {{ yield formErrors(form=.Form) }}
-    {{ yield csrfField() }}
+  {{ yield textField(field=.Form.Fields.username,
+                      name="username",
+                      label="Username",
+                      class="max",
+                      inputAttrs=attrList("data-login-form-target", "username"),
+  ) }}
+  {{ yield textField(field=.Form.Fields.password,
+                      type="password",
+                      name="password",
+                      label="Password",
+                      controlAttrs=attrList(
+                        "data-controller", "pass-reveal",
+                        "data-pass-reveal-icon-show-value", "o-show",
+                        "data-pass-reveal-icon-hide-value", "o-hide"),
+                      inputAttrs=attrList(
+                        "data-pass-reveal-target", "field",
+                        "data-login-form-target", "password"),
+  ) }}
 
-    {{ yield textField(field=.Form.Fields.username,
-                       name="username",
-                       label="Username",
-                       class="max",
-                       inputAttrs=attrList("data-login-form-target", "username"),
-    ) }}
-    {{ yield textField(field=.Form.Fields.password,
-                       type="password",
-                       name="password",
-                       label="Password",
-                       controlAttrs=attrList(
-                         "data-controller", "pass-reveal",
-                         "data-pass-reveal-icon-show-value", "o-show",
-                         "data-pass-reveal-icon-hide-value", "o-hide"),
-                       inputAttrs=attrList(
-                         "data-pass-reveal-target", "field",
-                         "data-login-form-target", "password"),
-    ) }}
+  <button class="btn block mt-6 w-full rounded-md text-white bg-gray-800 border-gray-800" type="submit">Login</button>
+</form>
 
-    <button class="btn block mt-6 w-full rounded-md text-white bg-gray-800 border-gray-800" type="submit">Login</button>
-  </form>
-</main>
+{{- if canSendEmail -}}
+  <p class="mt-4 text-center"><a href="{{ urlFor(`/login/recover`) }}" class="link">Forgot your password?</a></p>
+{{- end -}}
 {{ end }}

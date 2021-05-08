@@ -25,6 +25,7 @@
         data-current="{{ pathIs(`/bookmarks/favorites`) }}"
       href="{{ urlFor(`/bookmarks`, `favorites`) }}">{{ yield icon(name="o-favorite-off") }} Favorites</a></li>
     </ul>
+    {{ try }}{{ yield bookmarkMenu() }}{{ end }}
     {{- end -}}
   </div>
 {{- end -}}

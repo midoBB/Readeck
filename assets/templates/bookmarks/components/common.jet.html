@@ -3,3 +3,7 @@
   icon(name=icon, class="svgicon w-4 ml-0.5 mr-1.5") }}
 {{ yield content }}</li>
 {{- end -}}
+
+{{- block type_icon(icon) -}}
+<span class="absolute z-10 top-1 right-1 bg-black bg-opacity-25 text-white flex items-center justify-center w-6 h-6 rounded-full">{{ yield icon(name=icon) }}</span>
+{{- end -}}

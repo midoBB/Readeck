@@ -44,6 +44,9 @@ module.exports = {
       "print": {raw: "print"},
     },
     extend: {
+      contrast: {
+        "105": "1.05",
+      },
       fontSize: {
         "h1": "2.5rem",
         "h2": "2rem",
@@ -87,6 +90,18 @@ module.exports = {
       ],
       boxShadow: [
         "group-hf",
+        "hf",
+      ],
+      brightness: [
+        "group-hf",
+        "group-hover",
+        "group-focus-within",
+        "hf",
+      ],
+      contrast: [
+        "group-hf",
+        "group-hover",
+        "group-focus-within",
         "hf",
       ],
       filter: [

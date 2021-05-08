@@ -1,5 +1,6 @@
 {{- import "/_libs/common" -}}
 {{- import "./card_blocks" -}}
+{{- import "./common" -}}
 {{- textArch := .IsArchived ? "Remove from archive" : "Move to archive" -}}
 {{- textFav := .IsMarked ? "Remove from favorites" : "Add to favorites" -}}
 
@@ -24,7 +25,13 @@
 {{- else -}}
   <turbo-frame id="bookmark-card-{{ .ID }}" {{ if .IsDeleted }}data-bookmark-deleted="true"{{ end }}>
   {{- yield card() content -}}
-    <a href="{{ url }}" class="{{ if .IsDeleted }}opacity-50{{ end }}">
+    <a href="{{ url }}" class="{{ if .IsDeleted }}opacity-50{{ end }} relative">
+      {{- if .DocumentType == "photo" -}}
+        {{- yield type_icon(icon="o-photo") -}}
+      {{- else if .DocumentType == "video" -}}
+        {{- yield type_icon(icon="o-video") -}}
+      {{- end -}}
+
       {{ if isset(.Resources.thumbnail) -}}
         {{- yield card_image(src=.Resources.thumbnail.Src,
                              width=.Resources.thumbnail.Width,

@@ -75,7 +75,8 @@ type configEmail struct {
 	Port        int    `json:"port"`
 	Username    string `json:"username"`
 	Password    string `json:"password"`
-	SSL         bool   `json:"ssl"`
+	Encryption  string `json:"encryption"`
+	Insecure    bool   `json:"insecure"`
 	From        string `json:"from"`
 	FromNoReply string `json:"from_noreply"`
 }

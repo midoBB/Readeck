@@ -2,6 +2,7 @@ package signin
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -74,8 +75,9 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 			mailTc["RecoverLink"] = h.srv.AbsoluteURL(r, "/login/recover", code)
 		}
 		err = email.SendEmail(
-			configs.Config.Email.FromNoReply, rf.Email,
-			"Test",
+			fmt.Sprintf("Readeck <%s>", configs.Config.Email.FromNoReply),
+			rf.Email,
+			"Password recovery",
 			"recover.tmpl", mailTc,
 		)
 		if err != nil {

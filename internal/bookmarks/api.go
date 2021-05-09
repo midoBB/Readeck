@@ -295,6 +295,12 @@ func (api *bookmarkAPI) withBookmarkFilters(next http.Handler) http.Handler {
 			filters.setArchived(true)
 		case "favorites":
 			filters.setMarked(true)
+		case "articles":
+			filters.Type = "article"
+		case "pictures":
+			filters.Type = "photo"
+		case "videos":
+			filters.Type = "video"
 		}
 
 		ctx := context.WithValue(r.Context(), ctxFilterForm{}, filters)
@@ -365,6 +371,10 @@ func (api *bookmarkAPI) withBookmarkList(next http.Handler) http.Handler {
 		}
 		if filters.IsArchived != nil {
 			ds = ds.Where(goqu.C("is_archived").Table("b").Eq(goqu.V(filters.IsArchived)))
+		}
+
+		if filters.Type != "" {
+			ds = ds.Where(goqu.C("type").Table("b").Eq(filters.Type))
 		}
 
 		ds = ds.
@@ -679,8 +689,9 @@ type searchForm struct {
 }
 
 type filterForm struct {
-	IsMarked   *bool `json:"is_marked"`
-	IsArchived *bool `json:"is_archived"`
+	IsMarked   *bool  `json:"is_marked"`
+	IsArchived *bool  `json:"is_archived"`
+	Type       string `json:"type"`
 }
 
 func (ff *filterForm) setMarked(v bool) {

@@ -25,7 +25,7 @@ func newBookmarkViews(api *bookmarkAPI) *bookmarkViews {
 	r.With(h.srv.WithPermission("read")).Group(func(r chi.Router) {
 		r.With(api.withDefaultLimit(24), api.withBookmarkList).Get("/", h.bookmarkList)
 		r.With(api.withDefaultLimit(24), api.withBookmarkFilters, api.withBookmarkList).
-			Get("/{filter:(unread|archives|favorites)}", h.bookmarkList)
+			Get("/{filter:(unread|archives|favorites|articles|videos|pictures)}", h.bookmarkList)
 		r.With(api.withBookmark).Get("/{uid:[a-zA-Z0-9]{18,22}}", h.bookmarkInfo)
 	})
 
@@ -63,6 +63,12 @@ func (h *bookmarkViews) bookmarkList(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	count, err := Bookmarks.CountAll(auth.GetRequestUser(r))
+	if err != nil {
+		h.srv.Error(w, r, err)
+		return
+	}
+
 	// Retrieve the bookmark list
 	bl := r.Context().Value(ctxBookmarkListKey{}).(bookmarkList)
 
@@ -75,6 +81,7 @@ func (h *bookmarkViews) bookmarkList(w http.ResponseWriter, r *http.Request) {
 		"Form":       f,
 		"Pagination": bl.Pagination,
 		"Bookmarks":  bl.Items,
+		"Count":      count,
 	}
 
 	if q, ok := r.Context().Value(ctxSearchString{}).(string); ok && q != "" {

@@ -1,4 +1,4 @@
-{{- if .Resources.image -}}
+{{- if isset(.Resources.image) -}}
 <div class="video-wrapper">
   <div class="video-player"
    data-controller="video" data-video-embed-value="{{ .Embed }}">

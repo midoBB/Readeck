@@ -3,13 +3,35 @@
 
 {{ block title() }}Bookmarks{{ end }}
 
+{{- block bookmarkMenu() -}}
+<ul class="mt-4">
+  {{- if isset(.Count.ByType.article) && .Count.ByType.article > 0 }}
+  <li class="mb-1"><a class="sidebar:link group"
+    data-current="{{ pathIs(`/bookmarks/articles`) }}"
+    href="{{ urlFor(`/bookmarks/articles`) }}">{{ yield icon(name="o-file") }} Articles</a></li>
+  {{- end -}}
+
+  {{- if isset(.Count.ByType.video) && .Count.ByType.video > 0 }}
+  <li class="mb-1"><a class="sidebar:link group"
+    data-current="{{ pathIs(`/bookmarks/videos`) }}"
+    href="{{ urlFor(`/bookmarks/videos`) }}">{{ yield icon(name="o-video") }} Videos</a></li>
+  {{- end -}}
+
+  {{- if isset(.Count.ByType.photo) && .Count.ByType.photo > 0 }}
+  <li class="mb-1"><a class="sidebar:link group"
+    data-current="{{ pathIs(`/bookmarks/pictures`) }}"
+    href="{{ urlFor(`/bookmarks/pictures`) }}">{{ yield icon(name="o-photo") }} Pictures</a></li>
+  {{- end -}}
+</ul>
+{{- end -}}
+
 {{ block mainContent() -}}
 <turbo-frame id="bookmark-list"
  data-controller="turbo-refresh"
  data-turbo-refresh-interval-value="10"
  data-turbo-refresh-on-value="[data-bookmark-deleted='true']">
 
-  <div class="flex flex-row +md:flex-col">
+  <div class="flex flex-row +md:flex-col mb-8">
     <div class="flex-grow mr-4 +md:mb-4 +md:mr-0">
       <form action="{{ urlFor(`/bookmarks`) }}" method="post"
        data-controller="turbo-form"

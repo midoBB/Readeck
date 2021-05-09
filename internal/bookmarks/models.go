@@ -164,6 +164,56 @@ func (m *BookmarkManager) DeleteUserBookmakrs(u *users.User) error {
 	return nil
 }
 
+type countQueryResult struct {
+	Count      int    `db:"count"`
+	IsArchived bool   `db:"is_archived"`
+	IsMarked   bool   `db:"is_marked"`
+	Type       string `db:"type"`
+}
+
+type CountResult struct {
+	Total    int
+	Archived int
+	Marked   int
+	ByType   map[string]int
+}
+
+func (m *BookmarkManager) CountAll(u *users.User) (CountResult, error) {
+	ds := Bookmarks.Query().
+		Select(
+			goqu.COUNT(goqu.C("id")).As("count"),
+			goqu.C("is_marked"),
+			goqu.C("is_archived"),
+			goqu.C("type"),
+		).
+		Where(goqu.C("user_id").Eq(u.ID)).
+		GroupBy(
+			goqu.C("is_marked"),
+			goqu.C("is_archived"),
+			goqu.C("type"),
+		)
+
+	res := CountResult{ByType: map[string]int{}}
+	items := []*countQueryResult{}
+	if err := ds.ScanStructs(&items); err != nil {
+		return res, err
+	}
+
+	for _, x := range items {
+		res.Total += x.Count
+		if x.IsArchived {
+			res.Archived += x.Count
+		}
+		if x.IsMarked {
+			res.Marked += x.Count
+		}
+		if x.Type != "" {
+			res.ByType[x.Type] += x.Count
+		}
+	}
+	return res, nil
+}
+
 // Update updates some bookmark values.
 func (b *Bookmark) Update(v interface{}) error {
 	if b.ID == 0 {

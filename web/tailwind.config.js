@@ -44,6 +44,9 @@ module.exports = {
       "print": {raw: "print"},
     },
     extend: {
+      boxShadow: {
+        "sidebar": "5px 0 10px -5px rgba(0, 0, 0, 0.1)",
+      },
       contrast: {
         "105": "1.05",
       },

@@ -2,11 +2,8 @@
 {{- inProfile := pathIs("/profile", "/profile/*") -}}
 {{- inAdmin := pathIs("/admin", "/admin/*") -}}
 
-<h1 class="text-center text-xl leading-none font-bold">Readeck</h1>
-
-
 {{- if  hasPermission("/bookmarks", "read") -}}
-  <div class="my-4 pt-4 border-t">
+  <div class="mb-4 pt-4 border-t">
     <h2 class="sidebar:title" data-current="{{ inBookmarks }}"><a
     class="sidebar:link" href="{{ urlFor(`/bookmarks/unread`)}}">{{- yield icon(name=(inBookmarks ? "o-chevron-d" : "o-chevron-r")) }}
     Bookmarks</a></h2>
@@ -32,7 +29,7 @@
 
 {{- if !user.IsAnonymous() -}}
   {{- if  hasPermission("/profile", "read") -}}
-    <div class="my-4 pt-4 border-t">
+    <div class="mb-4 pt-4 border-t">
       <h2 class="sidebar:title" data-current="{{ inProfile }}"><a
       class="sidebar:link" href="{{ urlFor(`/profile`)}}">{{- yield icon(name=(inProfile ? "o-chevron-d" : "o-chevron-r")) }}
       {{ user.Username }}</a></h2>
@@ -52,7 +49,7 @@
   {{- end -}}
 
   {{- if  hasPermission("/admin", "read") -}}
-    <div class="my-4 pt-4 border-t">
+    <div class="mb-4 pt-4 border-t">
       <h2 class="sidebar:title" data-current="{{ inAdmin }}"><a
       class="sidebar:link" href="{{ urlFor(`/admin`) }}">{{- yield icon(name=(inAdmin ? "o-chevron-d" : "o-chevron-r")) }}
       Management</a></h2>
@@ -65,7 +62,7 @@
     </div>
   {{- end -}}
 
-  <div class="my-4 pt-4 pl-2 border-t">
+  <div class="mb-4 pt-4 pl-2 border-t">
     <form class="block" action="{{ urlFor(`/logout`)}}" method="post">
       {{ yield csrfField() }}
       <button class="hf:text-primary font-semibold" type="submit">{{ yield icon(name="o-logout") }} Logout</button>

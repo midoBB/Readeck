@@ -2,25 +2,30 @@
 {{ import "/_libs/forms" }}
 
 {{ block body() -}}
-<div class="min-h-screen max-w-7xl mx-auto md:flex print:max-w-none">
-  <main class="order-2 flex-grow px-4 pt-4 pb-16">
-    {{ yield flashes() }}
-    {{ yield mainContent() }}
-  </main>
-
-  <label for="--sl-toggle" class="+md:inline-flex hidden fixed z-50 right-4 bottom-2 w-14 h-14
-  items-center justify-center cursor-pointer rounded-full bg-primary text-white">{{ yield icon(name="o-menu") }}</label>
+<div class="layout:app print:max-w-none">
   <input type="checkbox" id="--sl-toggle" class="sidebar:ctrl">
-  <div class="sidebar:content order-1 flex-shrink-0
-    pr-4 top-0 overflow-y-auto z-40
-    flex justify-start text-gray-800
-    sticky h-screen w-64 left-auto bottom-auto
-    +md:fixed +md:bottom-0 +md:left-0 +md:right-0 +md:w-full +md:text-lg
-    print:hidden">
-    <nav class="w-full min-h-full h-max-content max-w-md z-40 p-4 shadow-lg bg-gradient-to-r from-gray-50 to-gray-100">
+  <div class="layout:sidebar print:hidden
+    +md:bg-gray-800 +md:bg-none +md:text-white +md:shadow-md
+    shadow-sidebar bg-gradient-to-r from-gray-50 to-gray-100">
+    <div class="flex p-4 +md:py-2 +md:px-4 items-center">
+      <h1 class="flex-grow text-center text-xl leading-none font-bold"><a
+       href="{{ urlFor(`/`) }}">Readeck</a></h1>
+      <span class="flex-shrink hidden +md:block">
+        <label for="--sl-toggle" class="inline-flex
+        items-center justify-center cursor-pointer">
+          {{- yield icon(name="o-menu", class="inline-block", svgClass="w-8 h-8") -}}
+        </label>
+      </span>
+    </div>
+    <nav class="sidebar:content px-4">
       {{ include "./nav" }}
     </nav>
   </div>
+
+  <main class="layout:main px-4 pt-4 pb-8">
+    {{ yield flashes() }}
+    {{ yield mainContent() }}
+  </main>
 </div>
 
 {{- end}}

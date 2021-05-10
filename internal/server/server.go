@@ -55,7 +55,7 @@ func New(basePath string) *Server {
 			},
 		),
 		s.ErrorPages,
-		s.SetSecurityHeaders(),
+		s.SetSecurityHeaders,
 	)
 
 	return s

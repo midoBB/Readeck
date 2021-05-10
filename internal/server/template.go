@@ -184,6 +184,7 @@ func (s *Server) templateVars(r *http.Request) jet.VarMap {
 		Set("csrfToken", csrf.Token(r)).
 		Set("currentPath", s.CurrentPath(r)).
 		Set("request", r).
+		Set("scriptNonce", r.Context().Value(ctxCSPNonceKey{}).(string)).
 		Set("user", auth.GetRequestUser(r)).
 		Set("flashes", s.Flashes(r))
 }

@@ -1,12 +1,18 @@
 package server
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
 
+	"github.com/lithammer/shortuuid/v3"
 	"github.com/readeck/readeck/configs"
+)
+
+type (
+	ctxCSPNonceKey struct{}
 )
 
 func setHost(r *http.Request) error {
@@ -104,25 +110,29 @@ func (s *Server) InitRequest(next http.Handler) http.Handler {
 }
 
 // SetSecurityHeaders adds some headers to improve client side security.
-func (s *Server) SetSecurityHeaders() func(next http.Handler) http.Handler {
-	cspHeader := strings.Join([]string{
+func (s *Server) SetSecurityHeaders(next http.Handler) http.Handler {
+	cspHeader := []string{
 		"default-src 'self'",
 		"img-src 'self' data:",
 		"media-src 'self' data:",
 		"style-src 'self' 'unsafe-inline'",
 		"child-src *", // Allow iframes for videos
-	}, "; ")
-
-	return func(next http.Handler) http.Handler {
-		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			w.Header().Add("Content-Security-Policy", cspHeader)
-			w.Header().Set("Permissions-Policy", "interest-cohort=()")
-			w.Header().Set("Referrer-Policy", "same-origin")
-			w.Header().Add("X-Frame-Options", "DENY")
-			w.Header().Add("X-Content-Type-Options", "nosniff")
-			w.Header().Add("X-XSS-Protection", "1; mode=block")
-
-			next.ServeHTTP(w, r)
-		})
 	}
+
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		nonce := shortuuid.New()
+		csp := strings.Join(append(
+			cspHeader, fmt.Sprintf("script-src 'self' 'nonce-%s'", nonce),
+		), "; ")
+
+		w.Header().Add("Content-Security-Policy", csp)
+		w.Header().Set("Permissions-Policy", "interest-cohort=()")
+		w.Header().Set("Referrer-Policy", "same-origin")
+		w.Header().Add("X-Frame-Options", "DENY")
+		w.Header().Add("X-Content-Type-Options", "nosniff")
+		w.Header().Add("X-XSS-Protection", "1; mode=block")
+
+		ctx := context.WithValue(r.Context(), ctxCSPNonceKey{}, nonce)
+		next.ServeHTTP(w, r.Clone(ctx))
+	})
 }

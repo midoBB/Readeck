@@ -78,6 +78,7 @@ func writeNotModified(w http.ResponseWriter) {
 	h := w.Header()
 	delete(h, "Content-Type")
 	delete(h, "Content-Length")
+	delete(h, "Content-Security-Policy")
 	if h.Get("Etag") != "" {
 		delete(h, "Last-Modified")
 	}

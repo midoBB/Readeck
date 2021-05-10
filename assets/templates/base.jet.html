@@ -10,6 +10,10 @@
   <meta name="x-csrf-token" content="{{ csrfToken }}" />
   <meta name="x-icons" content="{{ assetURL(`img/icons.svg`) }}" />
 
+  <style>
+  body.js [data-reveal-visible-value='false'] [data-reveal-target='content'] { display: none; }
+  </style>
+
   <link rel="stylesheet" href="{{ assetURL(`bundle.css`) }}">
   <script type="module" src="{{ assetURL(`bundle.js`) }}"></script>
 
@@ -26,9 +30,11 @@
 </head>
 
 <body data-turbo="false" class="no-js bg-gray-50 text-gray-900 font-sans leading-tight tracking-normal print:text-black print:bg-white">
-<script type="module" nonce="{{ scriptNonce }}">
-document.body.classList.remove("no-js")
-document.body.classList.add("js")
+<script nonce="{{ scriptNonce }}">
+if ('noModule' in HTMLScriptElement.prototype) {
+  document.body.classList.remove("no-js")
+  document.body.classList.add("js")
+}
 </script>
 {{ yield body() }}
 </body>

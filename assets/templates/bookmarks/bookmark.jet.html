@@ -33,7 +33,7 @@
       {{- end -}}
     </div>
 
-    <div class="group max-w-3xl mx-auto rounded shadow my-8 overflow-hidden print:shadow-none print:border print:max-w-none">
+    <div class="group max-w-3xl mx-auto rounded shadow mt-8 overflow-hidden print:shadow-none print:border print:max-w-none">
       <div class="flex flex-row mb-2">
         {{- if isset(.Item.Resources.thumbnail) -}}
         <div class="order-2 ml-2">
@@ -102,6 +102,8 @@
     {{- if user.Settings.DebugInfo -}}
       {{ include "./components/debug" map("log", ._log, "props", ._props) }}
     {{- end -}}
+
+    <br class="block mt-8">
 
     {{- if .Item.Type == "article" -}}
       <div class="max-w-3xl mx-auto print:max-w-none">

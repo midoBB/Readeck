@@ -107,6 +107,10 @@ module.exports = {
         "group-focus-within",
         "hf",
       ],
+      display: [
+        "js",
+        "no-js",
+      ],
       filter: [
         "group-hf",
         "group-hover",

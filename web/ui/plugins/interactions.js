@@ -23,6 +23,18 @@ module.exports = plugin(function({addVariant, config, e}) {
     }
   }
 
+  addVariant("js", ({ modifySelectors, separator }) => {
+    modifySelectors(({ className }) => {
+      return `body.js .${e(`js${separator}${className}`)}`
+    })
+  })
+
+  addVariant("no-js", ({ modifySelectors, separator }) => {
+    modifySelectors(({ className }) => {
+      return `body.no-js .${e(`no-js${separator}${className}`)}`
+    })
+  })
+
   addVariant("data-current", ({ modifySelectors, separator }) => {
     modifySelectors(({ className }) => {
       return `.${e(`data-current${separator}${className}`)}[data-current='true']`

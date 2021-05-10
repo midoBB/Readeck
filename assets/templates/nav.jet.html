@@ -5,9 +5,8 @@
 {{- if  hasPermission("/bookmarks", "read") -}}
   <div class="mb-4 pt-4 border-t" data-controller="reveal"
    data-reveal-visible-value="{{ inBookmarks }}">
-    <h2 class="sidebar:title" data-current="{{ inBookmarks }}"><a
-    data-reveal-target="trigger"
-    class="sidebar:link" href="{{ urlFor(`/bookmarks/unread`)}}">{{- yield icon(name=(inBookmarks ? "o-chevron-d" : "o-chevron-r")) }}
+    <h2 class="sidebar:title" data-current="{{ inBookmarks }}"><a data-reveal-target="trigger"
+    href="{{ urlFor(`/bookmarks/unread`)}}">{{- yield icon(name=(inBookmarks ? "o-chevron-d" : "o-chevron-r")) }}
     Bookmarks</a></h2>
     <ul class="mt-2" data-reveal-target="content">
       <li class="mb-1"><a class="sidebar:link"
@@ -31,9 +30,8 @@
   {{- if  hasPermission("/profile", "read") -}}
     <div class="mb-4 pt-4 border-t" data-controller="reveal"
      data-reveal-visible-value="{{ inProfile }}">
-      <h2 class="sidebar:title" data-current="{{ inProfile }}"><a
-      data-reveal-target="trigger"
-      class="sidebar:link" href="{{ urlFor(`/profile`)}}">{{- yield icon(name=(inProfile ? "o-chevron-d" : "o-chevron-r")) }}
+      <h2 class="sidebar:title" data-current="{{ inProfile }}"><a data-reveal-target="trigger"
+      href="{{ urlFor(`/profile`)}}">{{- yield icon(name=(inProfile ? "o-chevron-d" : "o-chevron-r")) }}
       {{ user.Username }}</a></h2>
       <ul class="mt-2" data-reveal-target="content">
         <li class="mb-1"><a class="sidebar:link" href="{{ urlFor(`/profile`) }}"
@@ -51,9 +49,8 @@
   {{- if  hasPermission("/admin", "read") -}}
     <div class="mb-4 pt-4 border-t" data-controller="reveal"
      data-reveal-visible-value="{{ inAdmin }}">
-      <h2 class="sidebar:title" data-current="{{ inAdmin }}"><a
-      data-reveal-target="trigger"
-      class="sidebar:link" href="{{ urlFor(`/admin`) }}">{{- yield icon(name=(inAdmin ? "o-chevron-d" : "o-chevron-r")) }}
+      <h2 class="sidebar:title" data-current="{{ inAdmin }}"><a data-reveal-target="trigger"
+      href="{{ urlFor(`/admin`) }}">{{- yield icon(name=(inAdmin ? "o-chevron-d" : "o-chevron-r")) }}
       Management</a></h2>
       <ul class="mt-2" data-reveal-target="content">
         <li class="mb-1"><a class="sidebar:link" href="{{ urlFor(`/admin/users`) }}"

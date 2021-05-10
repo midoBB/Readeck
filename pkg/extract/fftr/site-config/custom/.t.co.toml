@@ -1,0 +1,3 @@
+single_page_link_selectors = [
+    "//title",
+]

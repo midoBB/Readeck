@@ -25,7 +25,11 @@
   {{ yield head() }}
 </head>
 
-<body data-turbo="false" class="bg-gray-50 text-gray-900 font-sans leading-tight tracking-normal print:text-black print:bg-white">
+<body data-turbo="false" class="no-js bg-gray-50 text-gray-900 font-sans leading-tight tracking-normal print:text-black print:bg-white">
+<script type="module" nonce="{{ scriptNonce }}">
+document.body.classList.remove("no-js")
+document.body.classList.add("js")
+</script>
 {{ yield body() }}
 </body>
 </html>

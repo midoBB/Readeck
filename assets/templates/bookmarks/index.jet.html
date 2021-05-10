@@ -4,7 +4,7 @@
 {{ block title() }}Bookmarks{{ end }}
 
 {{- block bookmarkMenu() -}}
-<ul class="mt-4">
+<ul class="mt-4" data-reveal-target="content">
   {{- if isset(.Count.ByType.article) && .Count.ByType.article > 0 }}
   <li class="mb-1"><a class="sidebar:link group"
     data-current="{{ pathIs(`/bookmarks/articles`) }}"

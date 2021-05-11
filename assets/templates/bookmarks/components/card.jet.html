@@ -66,21 +66,23 @@
       {{- end }}</ul>
       {{- end }}
 
-      <div class="flex flex-grow items-center mt-2 text-lg">
+      <div class="flex flex-grow items-end mt-2 text-lg">
         {{- if .IsDeleted -}}
-          <span class="text-red-700 text-xs font-semibold">
-            This bookmark will be removed in a few seconds.
-          </span>
-          <form action="{{ url }}" method="post">
-            {{ yield csrfField() }}
-            <input type="hidden" name="cancel" value="1" />
-            <input type="hidden" name="_to" value="{{ currentPath }}" />
-            <button type="submit" name="is_deleted" value="0"
-              class="btn-primary whitespace-nowrap text-sm py-1 ml-2"
-              data-controller="turbo-form"
-              data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
-              data-turbo-form-method-value="patch">{{ yield icon(name="o-undo") }} Undo</button>
-          </form>
+          <div class="flex items-center">
+            <span class="text-red-700 text-xs font-semibold">
+              This bookmark will be removed in a few seconds.
+            </span>
+            <form action="{{ url }}" method="post">
+              {{ yield csrfField() }}
+              <input type="hidden" name="cancel" value="1" />
+              <input type="hidden" name="_to" value="{{ currentPath }}" />
+              <button type="submit" name="is_deleted" value="0"
+                class="btn-primary whitespace-nowrap text-sm py-1 ml-2"
+                data-controller="turbo-form"
+                data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
+                data-turbo-form-method-value="patch">{{ yield icon(name="o-undo") }} Undo</button>
+            </form>
+          </div>
         {{- else -}}
           <form action="{{url }}" method="post"
           class="flex-grow text-gray-200 group-hover:text-primary group-focus-within:text-primary"

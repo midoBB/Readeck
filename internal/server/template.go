@@ -185,6 +185,7 @@ func (s *Server) templateVars(r *http.Request) jet.VarMap {
 		Set("csrfName", csrfFieldName).
 		Set("csrfToken", csrf.Token(r)).
 		Set("currentPath", s.CurrentPath(r)).
+		Set("isTurbo", s.IsTurboRequest(r)).
 		Set("request", r).
 		Set("scriptNonce", scriptNone).
 		Set("user", auth.GetRequestUser(r)).

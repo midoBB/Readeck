@@ -132,7 +132,8 @@ function js_bundle() {
       format: "esm",
       platform: "browser",
       metafile: false,
-      minify: true,
+      minifyIdentifiers: true,
+      minifyWhitespace: true,
       logLevel: "warning",
       plugins: [
         stimulusPlugin(),

@@ -12,14 +12,16 @@
    data-turbo-refresh-on-value="[data-loading]"
    data-turbo-refresh-src-value="{{ urlFor(`/api/bookmarks`, .ID) }}">
   {{- yield card() content -}}
-    {{- yield card_image(src=urlFor(`/assets/rnd`, checksum(.URL)) + ".svg",
-                         width=256, height=160) -}}
-    <div class="flex-grow px-2 py-6 text-center">
-      <div class="text-4xl" data-loading="true">
+    <div class="relative">
+      {{- yield card_image(src=urlFor(`/assets/rnd`, checksum(.URL)) + ".svg",
+                           width=256, height=160) -}}
+    </div>
+    <div class="flex-grow flex lg:flex-col px-2 items-center">
+      <div class="text-4xl lg:flex-grow text-center order-2 lg:order-1 lg:py-6" data-loading="true">
         {{- yield spinner() -}}
       </div>
+      <p class="flex-grow +sm:hidden lg:flex-grow-0 lg:order-2 pb-2 text-sm font-semibold">Loading {{ .Site }}…</p>
     </div>
-    <p class="p-2 text-sm font-semibold">Loading {{ .Site }}…</p>
   {{- end -}}
   </turbo-frame>
 {{- else -}}
@@ -64,7 +66,7 @@
       {{- end }}</ul>
       {{- end }}
 
-      <div class="flex flex-grow items-end mt-2 text-lg">
+      <div class="flex flex-grow items-center mt-2 text-lg">
         {{- if .IsDeleted -}}
           <span class="text-red-700 text-xs font-semibold">
             This bookmark will be removed in a few seconds.
@@ -74,7 +76,7 @@
             <input type="hidden" name="cancel" value="1" />
             <input type="hidden" name="_to" value="{{ currentPath }}" />
             <button type="submit" name="is_deleted" value="0"
-              class="btn-primary whitespace-nowrap text-sm py-1"
+              class="btn-primary whitespace-nowrap text-sm py-1 ml-2"
               data-controller="turbo-form"
               data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
               data-turbo-form-method-value="patch">{{ yield icon(name="o-undo") }} Undo</button>

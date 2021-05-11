@@ -6,19 +6,20 @@
   <div class="mb-4 pt-4 border-t" data-controller="reveal"
    data-reveal-visible-value="{{ inBookmarks }}">
     <h2 class="sidebar:title" data-current="{{ inBookmarks }}"><a data-reveal-target="trigger"
+    class="block"
     href="{{ urlFor(`/bookmarks/unread`)}}">{{- yield icon(name=(inBookmarks ? "o-chevron-d" : "o-chevron-r")) }}
     Bookmarks</a></h2>
     <ul class="mt-2" data-reveal-target="content">
-      <li class="mb-1"><a class="sidebar:link"
+      <li><a class="sidebar:link"
         data-current="{{ pathIs(`/bookmarks`) }}"
       href="{{ urlFor(`/bookmarks`) }}">{{ yield icon(name="o-library") }} All</a></li>
-      <li class="mb-1"><a class="sidebar:link"
+      <li><a class="sidebar:link"
         data-current="{{ pathIs(`/bookmarks/unread`) }}"
       href="{{ urlFor(`/bookmarks`, `unread`) }}">{{ yield icon(name="o-check-off") }} Unread</a></li>
-      <li class="mb-1"><a class="sidebar:link"
+      <li><a class="sidebar:link"
         data-current="{{ pathIs(`/bookmarks/archives`) }}"
       href="{{ urlFor(`/bookmarks`, `archives`) }}">{{ yield icon(name="o-archive-off") }} Archive</a></li>
-      <li class="mb-1"><a class="sidebar:link"
+      <li><a class="sidebar:link"
         data-current="{{ pathIs(`/bookmarks/favorites`) }}"
       href="{{ urlFor(`/bookmarks`, `favorites`) }}">{{ yield icon(name="o-favorite-off") }} Favorites</a></li>
     </ul>
@@ -31,15 +32,16 @@
     <div class="mb-4 pt-4 border-t" data-controller="reveal"
      data-reveal-visible-value="{{ inProfile }}">
       <h2 class="sidebar:title" data-current="{{ inProfile }}"><a data-reveal-target="trigger"
+      class="block"
       href="{{ urlFor(`/profile`)}}">{{- yield icon(name=(inProfile ? "o-chevron-d" : "o-chevron-r")) }}
       {{ user.Username }}</a></h2>
       <ul class="mt-2" data-reveal-target="content">
-        <li class="mb-1"><a class="sidebar:link" href="{{ urlFor(`/profile`) }}"
+        <li><a class="sidebar:link" href="{{ urlFor(`/profile`) }}"
         data-current="{{ pathIs(`/profile`) }}">{{ yield icon(name="o-user") }} Profile</a></li>
-        <li class="mb-1"><a class="sidebar:link" href="{{ urlFor(`/profile/password`) }}"
+        <li><a class="sidebar:link" href="{{ urlFor(`/profile/password`) }}"
         data-current="{{ pathIs(`/profile/password`) }}">{{ yield icon(name="o-key") }} Password</a></li>
         {{ if hasPermission("/profile/tokens", "read") -}}
-          <li class="mb-1"><a class="sidebar:link" href="{{ urlFor(`/profile/tokens`) }}"
+          <li><a class="sidebar:link" href="{{ urlFor(`/profile/tokens`) }}"
           data-current="{{ pathIs(`/profile/tokens`, `/profile/tokens/*`) }}">{{ yield icon(name="o-terminal") }} API Tokens</a></li>
         {{- end }}
       </ul>
@@ -50,10 +52,11 @@
     <div class="mb-4 pt-4 border-t" data-controller="reveal"
      data-reveal-visible-value="{{ inAdmin }}">
       <h2 class="sidebar:title" data-current="{{ inAdmin }}"><a data-reveal-target="trigger"
+      class="block"
       href="{{ urlFor(`/admin`) }}">{{- yield icon(name=(inAdmin ? "o-chevron-d" : "o-chevron-r")) }}
       Management</a></h2>
       <ul class="mt-2" data-reveal-target="content">
-        <li class="mb-1"><a class="sidebar:link" href="{{ urlFor(`/admin/users`) }}"
+        <li><a class="sidebar:link" href="{{ urlFor(`/admin/users`) }}"
       data-current="{{ pathIs(`/admin/users`, `/admin/users/*`) }}">{{ yield icon(name="o-user") }} Users</a></li>
       </ul>
     </div>

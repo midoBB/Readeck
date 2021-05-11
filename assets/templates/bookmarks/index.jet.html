@@ -6,19 +6,19 @@
 {{- block bookmarkMenu() -}}
 <ul class="mt-4" data-reveal-target="content">
   {{- if isset(.Count.ByType.article) && .Count.ByType.article > 0 }}
-  <li class="mb-1"><a class="sidebar:link group"
+  <li><a class="sidebar:link group"
     data-current="{{ pathIs(`/bookmarks/articles`) }}"
     href="{{ urlFor(`/bookmarks/articles`) }}">{{ yield icon(name="o-file") }} Articles</a></li>
   {{- end -}}
 
   {{- if isset(.Count.ByType.video) && .Count.ByType.video > 0 }}
-  <li class="mb-1"><a class="sidebar:link group"
+  <li><a class="sidebar:link group"
     data-current="{{ pathIs(`/bookmarks/videos`) }}"
     href="{{ urlFor(`/bookmarks/videos`) }}">{{ yield icon(name="o-video") }} Videos</a></li>
   {{- end -}}
 
   {{- if isset(.Count.ByType.photo) && .Count.ByType.photo > 0 }}
-  <li class="mb-1"><a class="sidebar:link group"
+  <li><a class="sidebar:link group"
     data-current="{{ pathIs(`/bookmarks/pictures`) }}"
     href="{{ urlFor(`/bookmarks/pictures`) }}">{{ yield icon(name="o-photo") }} Pictures</a></li>
   {{- end -}}

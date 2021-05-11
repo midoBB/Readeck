@@ -98,6 +98,9 @@ function proseCSS(theme) {
 
     "a, a:visited": {
       "color": theme("colors.primary.DEFAULT"),
+      textDecorationLine: "underline",
+      textDecorationStyle: "dotted",
+      textDecorationColor: theme("colors.gray.400"),
 
       "@media print": {
         color: "#000",

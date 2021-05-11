@@ -177,6 +177,8 @@ func (s *Server) initTemplates() {
 // templateVars returns the default variables set for a template
 // in the request's context.
 func (s *Server) templateVars(r *http.Request) jet.VarMap {
+	scriptNone, _ := r.Context().Value(ctxCSPNonceKey{}).(string)
+
 	return make(jet.VarMap).
 		Set("basePath", s.BasePath).
 		Set("canSendEmail", configs.CanSendEmail()).
@@ -184,7 +186,7 @@ func (s *Server) templateVars(r *http.Request) jet.VarMap {
 		Set("csrfToken", csrf.Token(r)).
 		Set("currentPath", s.CurrentPath(r)).
 		Set("request", r).
-		Set("scriptNonce", r.Context().Value(ctxCSPNonceKey{}).(string)).
+		Set("scriptNonce", scriptNone).
 		Set("user", auth.GetRequestUser(r)).
 		Set("flashes", s.Flashes(r))
 }

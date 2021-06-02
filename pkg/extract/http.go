@@ -73,7 +73,7 @@ func (t *Transport) checkDestIP(r *http.Request) error {
 
 // NewClient returns a new http.Client with our custom transport.
 func NewClient() *http.Client {
-	client := http.DefaultClient
+	client := &http.Client{}
 	client.Timeout = 10 * time.Second
 	client.Jar, _ = cookiejar.New(nil)
 

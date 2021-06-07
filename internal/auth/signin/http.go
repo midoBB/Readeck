@@ -8,8 +8,8 @@ import (
 	"github.com/doug-martin/goqu/v9"
 	"github.com/go-chi/chi/v5"
 
-	"github.com/readeck/readeck/configs"
 	"github.com/readeck/readeck/internal/auth/users"
+	"github.com/readeck/readeck/internal/email"
 	"github.com/readeck/readeck/internal/server"
 	"github.com/readeck/readeck/pkg/form"
 )
@@ -40,7 +40,7 @@ func newAuthHandler(s *server.Server) *authHandler {
 	r.Get("/", h.loginView)
 	r.Post("/", h.login)
 
-	if configs.CanSendEmail() {
+	if email.CanSendEmail() {
 		r.Get("/recover", h.recover)
 		r.Post("/recover", h.recover)
 		r.Get("/recover/{code}", h.recover)

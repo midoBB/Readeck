@@ -52,7 +52,7 @@ func Driver() Connector {
 // be retrieved using DB() (holding the sql.DB reference) and Q() (holding
 // the goqu.Database reference).
 func Open(dsn string) error {
-	if driver != nil {
+	if db != nil {
 		return errors.New("a connection can only be opened once")
 	}
 
@@ -85,6 +85,9 @@ func Open(dsn string) error {
 // Close closes the connection to the database.
 func Close() error {
 	if db != nil {
+		defer func() {
+			db = nil
+		}()
 		return db.Close()
 	}
 

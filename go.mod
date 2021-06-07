@@ -30,6 +30,7 @@ require (
 	github.com/jackc/pgx/v4 v4.11.0
 	github.com/jarcoal/httpmock v1.0.8
 	github.com/jsummers/gobmp v0.0.0-20151104160322-e2ba15ffa76e // indirect
+	github.com/kinbiko/jsonassert v1.0.1
 	github.com/komkom/toml v0.0.0-20210317065440-24f427ca88cc
 	github.com/leebenson/conform v1.2.2
 	github.com/lithammer/shortuuid v3.0.0+incompatible

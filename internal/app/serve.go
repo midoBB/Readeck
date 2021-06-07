@@ -39,7 +39,18 @@ func runServe(_ *cobra.Command, _ []string) error {
 	}
 
 	s := server.New(configs.Config.Server.Prefix)
+	if err := InitServer(s); err != nil {
+		return err
+	}
 
+	log.WithField("url", fmt.Sprintf("http://%s:%d%s",
+		configs.Config.Server.Host, configs.Config.Server.Port, s.BasePath),
+	).Info("Starting server")
+	return s.ListenAndServe()
+}
+
+// InitServer setups all the routes.
+func InitServer(s *server.Server) error {
 	// Init session store
 	if err := s.InitSession(); err != nil {
 		return err
@@ -71,8 +82,5 @@ func runServe(_ *cobra.Command, _ []string) error {
 		cookbook.SetupRoutes(s)
 	}
 
-	log.WithField("url", fmt.Sprintf("http://%s:%d%s",
-		configs.Config.Server.Host, configs.Config.Server.Port, s.BasePath),
-	).Info("Starting server")
-	return s.ListenAndServe()
+	return nil
 }

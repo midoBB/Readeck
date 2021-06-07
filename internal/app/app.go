@@ -18,6 +18,7 @@ import (
 	"github.com/readeck/readeck/configs"
 	"github.com/readeck/readeck/internal/auth/users"
 	"github.com/readeck/readeck/internal/db"
+	"github.com/readeck/readeck/internal/email"
 	"github.com/readeck/readeck/pkg/extract/fftr"
 )
 
@@ -42,27 +43,8 @@ func init() {
 	)
 }
 
-func appPersistentPreRun(_ *cobra.Command, _ []string) error {
-	if configPath == "" {
-		configPath = "config.toml"
-	}
-	if err := createConfigFile(configPath); err != nil {
-		return err
-	}
-
-	if err := configs.LoadConfiguration(configPath); err != nil {
-		return fmt.Errorf("error loading configuration (%s)", err)
-	}
-
-	if err := initConfig(); err != nil {
-		return err
-	}
-
-	// Enforce debug in dev mode
-	if configs.Config.Main.DevMode {
-		configs.Config.Main.LogLevel = "debug"
-	}
-
+// InitApp prepares the app for running the server or the tests.
+func InitApp() {
 	// Setup logger
 	lvl, err := log.ParseLevel(configs.Config.Main.LogLevel)
 	if err != nil {
@@ -83,14 +65,15 @@ func appPersistentPreRun(_ *cobra.Command, _ []string) error {
 		addSiteConfig(x.Name, x.Src)
 	}
 
-	dsn, err := url.Parse(configs.Config.Database.Source)
-	if err != nil {
-		log.WithError(err).Fatal("Can't read database source value")
-	}
-
 	// Create required folders
 	if err := createFolder(configs.Config.Main.DataDirectory); err != nil {
 		log.WithError(err).Fatal("Can't create data directory")
+	}
+
+	// Database URL
+	dsn, err := url.Parse(configs.Config.Database.Source)
+	if err != nil {
+		log.WithError(err).Fatal("Can't read database source value")
 	}
 
 	// SQLite data path
@@ -125,6 +108,33 @@ func appPersistentPreRun(_ *cobra.Command, _ []string) error {
 			log.WithError(err).Fatal()
 		}
 	}
+
+	// Init email sending
+	email.InitSender()
+}
+
+func appPersistentPreRun(_ *cobra.Command, _ []string) error {
+	if configPath == "" {
+		configPath = "config.toml"
+	}
+	if err := createConfigFile(configPath); err != nil {
+		return err
+	}
+
+	if err := configs.LoadConfiguration(configPath); err != nil {
+		return fmt.Errorf("error loading configuration (%s)", err)
+	}
+
+	if err := initConfig(); err != nil {
+		return err
+	}
+
+	// Enforce debug in dev mode
+	if configs.Config.Main.DevMode {
+		configs.Config.Main.LogLevel = "debug"
+	}
+
+	InitApp()
 
 	return nil
 }

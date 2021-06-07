@@ -2,6 +2,7 @@ package email
 
 import (
 	"crypto/tls"
+	"errors"
 	"fmt"
 	"os"
 	"path"
@@ -15,12 +16,39 @@ import (
 	"github.com/readeck/readeck/configs"
 )
 
+// Sender is the default email sender. It's made public so it can be
+// overriden during tests.
+var Sender sender
+
+// InitSender initializes the default email sender base on the
+// configuration.
+func InitSender() {
+	if configs.Config.Email.Debug {
+		Sender = &StdOutSender{}
+		return
+	}
+
+	if configs.Config.Email.Host != "" {
+		Sender = &SMTPSender{}
+		return
+	}
+}
+
+// CanSendEmail returns true when we can send emails.
+func CanSendEmail() bool {
+	return Sender != nil
+}
+
 // SendEmail sends a message to the given email address using
 // a template (go template from assets/templates/emails).
 func SendEmail(
 	from string, to string, subject string,
 	tpl string, context map[string]interface{},
 ) error {
+	if !CanSendEmail() {
+		return errors.New("no email sender defined")
+	}
+
 	m := mail.NewMSG()
 	m.SetFrom(from).
 		AddTo(to).
@@ -41,22 +69,30 @@ func SendEmail(
 		return m.Error
 	}
 
-	if configs.Config.Email.Debug {
-		return sendStdout(m)
-	}
-	return sendSMTP(m)
+	return Sender.SendEmail(m)
 }
 
-// sendStdout "sends" an email to stdout.
-func sendStdout(m *mail.Email) error {
+// sender defines an email sender.
+type sender interface {
+	SendEmail(*mail.Email) error
+}
+
+// StdOutSender implements EmailSender for stdout.
+type StdOutSender struct{}
+
+// SendEmail "sends" an email to stdout.
+func (s *StdOutSender) SendEmail(m *mail.Email) error {
 	fmt.Fprintln(os.Stdout, "=== Outbound email ===================================================")
 	fmt.Fprint(os.Stdout, m.GetMessage())
 	fmt.Fprintln(os.Stdout, "\n======================================================================")
 	return nil
 }
 
-// sendSMTP sends the message using smtp.
-func sendSMTP(m *mail.Email) error {
+// SMTPSender implements EmailSender for SMTP.
+type SMTPSender struct{}
+
+// SendEmail sends an email using SMTP.
+func (s *SMTPSender) SendEmail(m *mail.Email) error {
 	server := mail.NewSMTPClient()
 	server.Host = configs.Config.Email.Host
 	server.Port = configs.Config.Email.Port

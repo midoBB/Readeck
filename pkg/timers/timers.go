@@ -62,3 +62,9 @@ func (ts *TimerStore) Exists(id interface{}) bool {
 	_, ok := ts.timers[id]
 	return ok
 }
+
+func (ts *TimerStore) StopAll() {
+	for id := range ts.timers {
+		ts.Stop(id)
+	}
+}

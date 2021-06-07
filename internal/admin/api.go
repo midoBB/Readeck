@@ -209,7 +209,7 @@ func (api *adminAPI) userCreate(w http.ResponseWriter, r *http.Request) {
 
 	form.Bind(f, r)
 	if !f.IsValid() {
-		api.srv.Render(w, r, http.StatusBadRequest, f)
+		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
 		return
 	}
 
@@ -232,7 +232,7 @@ func (api *adminAPI) userUpdate(w http.ResponseWriter, r *http.Request) {
 
 	form.Bind(f, r)
 	if !f.IsValid() {
-		api.srv.Render(w, r, http.StatusBadRequest, f)
+		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
 		return
 	}
 
@@ -287,6 +287,6 @@ func newUserItem(s *server.Server, r *http.Request, u *users.User, base string) 
 		Username:  u.Username,
 		Email:     u.Email,
 		Group:     u.Group,
-		IsDeleted: userTimers.Exists(u.ID),
+		IsDeleted: UserTimers.Exists(u.ID),
 	}
 }

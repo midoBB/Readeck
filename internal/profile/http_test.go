@@ -1,0 +1,229 @@
+package profile_test
+
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+
+	"github.com/readeck/readeck/internal/profile"
+	. "github.com/readeck/readeck/internal/testing"
+)
+
+func TestPermissions(t *testing.T) {
+	app := NewTestApp(t)
+	defer func() {
+		app.Close(t)
+		profile.TokenTimers.StopAll()
+	}()
+
+	client := NewClient(t, app)
+
+	tokens := map[string]string{
+		"admin":    app.Users["admin"].Token.UID,
+		"user":     app.Users["user"].Token.UID,
+		"staff":    app.Users["staff"].Token.UID,
+		"disabled": app.Users["disabled"].Token.UID,
+		"":         "abcdefgh",
+	}
+
+	users := []string{"admin", "staff", "user", "disabled", ""}
+	for _, user := range users {
+		RunRequestSequence(t, client, user,
+			// API
+			RequestTest{
+				JSON:   true,
+				Target: "/api/profile",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 401)
+					}
+				},
+			},
+			RequestTest{
+				JSON:   true,
+				Target: "/api/profile/tokens",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 401)
+					}
+				},
+			},
+			RequestTest{
+				Method: "PATCH",
+				Target: "/api/profile",
+				JSON:   map[string]string{},
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 401)
+					}
+				},
+			},
+			RequestTest{
+				Method: "PUT",
+				Target: "/api/profile/password",
+				JSON:   map[string]string{},
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						assert.Equal(t, r.StatusCode, 422)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 401)
+					}
+				},
+			},
+
+			// Views
+			RequestTest{
+				Target: "/profile",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Method: "POST",
+				Target: "/profile",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 303)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Target: "/profile/password",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Method: "POST",
+				Target: "/profile/password",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Target: "/profile/tokens",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff":
+						r.AssertStatus(t, 200)
+					case "user", "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Method: "POST",
+				Target: "/profile/tokens",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff":
+						r.AssertStatus(t, 303)
+					case "user", "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Target: "/profile/tokens/" + tokens[user],
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff":
+						r.AssertStatus(t, 200)
+					case "user", "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Method: "POST",
+				Target: "/profile/tokens/" + tokens[user],
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff":
+						r.AssertStatus(t, 303)
+					case "user", "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Target: "/profile/tokens/" + tokens[user],
+			},
+			RequestTest{
+				Method: "POST",
+				Target: "/profile/tokens/" + tokens[user] + "/delete",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff":
+						r.AssertStatus(t, 303)
+					case "user", "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+		)
+	}
+}

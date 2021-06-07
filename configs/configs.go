@@ -179,6 +179,12 @@ func LoadConfiguration(configPath string) error {
 		return err
 	}
 
+	InitConfiguration()
+	return nil
+}
+
+// InitConfiguration applies some default computed values on the configuration.
+func InitConfiguration() {
 	if Config.Database.Source == "" {
 		Config.Database.Source = fmt.Sprintf("sqlite3:%s/db.sqlite3", Config.Main.DataDirectory)
 	}
@@ -191,8 +197,6 @@ func LoadConfiguration(configPath string) error {
 	}
 
 	loadKeys(Config.Main.SecretKey)
-
-	return nil
 }
 
 // loadKeys prepares all the keys derivated from the configuration's
@@ -264,9 +268,4 @@ func BuildTime() time.Time {
 		return startTime
 	}
 	return buildTime
-}
-
-// CanSendEmail returns true if emails can be sent
-func CanSendEmail() bool {
-	return Config.Email.Host != "" || Config.Email.Debug
 }

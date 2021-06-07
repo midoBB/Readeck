@@ -193,11 +193,11 @@ func (v *profileViews) tokenDelete(w http.ResponseWriter, r *http.Request) {
 	}()
 
 	if df.Cancel {
-		tokenTimers.Stop(ti.Token.ID)
+		TokenTimers.Stop(ti.Token.ID)
 		return
 	}
 
-	tokenTimers.Start(ti.Token.ID, 20*time.Second, func() {
+	TokenTimers.Start(ti.Token.ID, 20*time.Second, func() {
 		log := v.srv.Log(r).WithField("token", ti.UID)
 		if err := ti.Token.Delete(); err != nil {
 			log.WithError(err).Error("removing token")

@@ -61,6 +61,20 @@ func New(basePath string) *Server {
 	return s
 }
 
+// Init initializes the server and the template engine.
+func (s *Server) Init() {
+	// System routes
+	s.AddRoute("/api/sys", s.sysRoutes())
+
+	// Add the profiler in dev mode
+	if configs.Config.Main.DevMode {
+		s.AddRoute("/debug", s.debugRoutes())
+	}
+
+	// Init templates
+	s.initTemplates()
+}
+
 // AuthenticatedRouter returns a chi.Router instance
 // with middlewares to force authentication.
 func (s *Server) AuthenticatedRouter() chi.Router {
@@ -82,23 +96,13 @@ func (s *Server) AddRoute(pattern string, handler http.Handler) {
 
 // ListenAndServe starts the HTTP server
 func (s *Server) ListenAndServe() error {
+	s.Init()
+
 	srv := &http.Server{
 		Addr:           fmt.Sprintf("%s:%d", configs.Config.Server.Host, configs.Config.Server.Port),
 		Handler:        s.Router,
 		MaxHeaderBytes: 1 << 20,
 	}
-
-	// System routes
-	s.AddRoute("/api/sys", s.sysRoutes())
-
-	// Add the profiler in dev mode
-	if configs.Config.Main.DevMode {
-		s.AddRoute("/debug", s.debugRoutes())
-	}
-
-	// Init templates
-	s.initTemplates()
-
 	return srv.ListenAndServe()
 }
 

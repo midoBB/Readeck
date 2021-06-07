@@ -20,8 +20,8 @@ type adminViews struct {
 	*adminAPI
 }
 
-// Token deletion timers
-var userTimers = timers.NewTimerStore()
+// UserTimers contains the user deletion timers
+var UserTimers = timers.NewTimerStore()
 
 type deleteForm struct {
 	Cancel bool `json:"cancel"`
@@ -39,7 +39,6 @@ func newAdminViews(api *adminAPI) *adminViews {
 	})
 
 	r.With(api.srv.WithPermission("write")).Group(func(r chi.Router) {
-		r.With(api.withUserList).Post("/users", h.userList)
 		r.Post("/users/add", h.userCreate)
 		r.With(api.withUser).Post("/users/{id:\\d+}", h.userInfo)
 		r.With(api.withUser).Post("/users/{id:\\d+}/delete", h.userDelete)
@@ -124,10 +123,10 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 				h.srv.AddFlash(w, r, "success", "User updated")
 				h.srv.Redirect(w, r, fmt.Sprint(u.ID))
 				return
-			} else {
-				h.srv.Error(w, r, err)
-				return
 			}
+
+			h.srv.Error(w, r, err)
+			return
 		}
 	}
 
@@ -155,11 +154,11 @@ func (h *adminViews) userDelete(w http.ResponseWriter, r *http.Request) {
 	}()
 
 	if df.Cancel {
-		userTimers.Stop(u.ID)
+		UserTimers.Stop(u.ID)
 		return
 	}
 
-	userTimers.Start(u.ID, 20*time.Second, func() {
+	UserTimers.Start(u.ID, 20*time.Second, func() {
 		log := h.srv.Log(r).WithField("id", u.ID)
 		if err := h.deleteUser(r, u); err != nil {
 			log.WithError(err).Error("removing user")

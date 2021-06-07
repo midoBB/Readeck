@@ -1,0 +1,102 @@
+package signin_test
+
+import (
+	"net/url"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+
+	. "github.com/readeck/readeck/internal/testing"
+)
+
+func TestSignin(t *testing.T) {
+	app := NewTestApp(t)
+	defer app.Close(t)
+
+	client := NewClient(t, app)
+
+	t.Run("login view", func(t *testing.T) {
+		type loginTest struct {
+			user          string
+			password      string
+			loginStatus   int
+			profileStatus int
+		}
+		tests := []loginTest{
+			{"", "", 400, 303},
+			{"admin", "admin", 303, 200},
+			{"user", "user", 303, 200},
+			{"disabled", "disabled", 303, 403},
+			{"admin", "nope", 401, 303},
+		}
+
+		for _, test := range tests {
+			// Since we perform login, we run the tests with no user
+			RunRequestSequence(t, client, "",
+				RequestTest{
+					Target:         "/",
+					ExpectStatus:   303,
+					ExpectRedirect: "/login",
+				},
+				RequestTest{
+					Target:       "/login",
+					ExpectStatus: 200,
+				},
+				RequestTest{
+					Method: "POST",
+					Target: "/login",
+					Form: url.Values{
+						"username": {test.user},
+						"password": {test.password},
+					},
+					ExpectStatus: test.loginStatus,
+					ExpectRedirect: func() string {
+						if test.loginStatus == 303 {
+							return "/"
+						}
+						return ""
+					}(),
+				},
+				RequestTest{
+					Target:       "/profile",
+					ExpectStatus: test.profileStatus,
+				},
+			)
+		}
+	})
+
+	t.Run("logout view", func(t *testing.T) {
+		RunRequestSequence(t, client, "",
+			RequestTest{
+				Method:       "POST",
+				Target:       "/logout",
+				Form:         url.Values{},
+				ExpectStatus: 303,
+			},
+		)
+		RunRequestSequence(t, client, "user",
+			RequestTest{
+				Target:       "/profile",
+				ExpectStatus: 200,
+				Assert: func(t *testing.T, _ *Response) {
+					assert.Len(t, client.Cookies(), 2)
+				},
+			},
+			RequestTest{
+				Method:         "POST",
+				Target:         "/logout",
+				Form:           url.Values{},
+				ExpectStatus:   303,
+				ExpectRedirect: "/",
+				Assert: func(t *testing.T, _ *Response) {
+					assert.Len(t, client.Cookies(), 1)
+				},
+			},
+			RequestTest{
+				Target:         "/",
+				ExpectStatus:   303,
+				ExpectRedirect: "/login",
+			},
+		)
+	})
+}

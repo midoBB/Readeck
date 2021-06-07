@@ -31,7 +31,7 @@ type ctxJobRequestID struct{}
 // page extraction.
 func StartWorkerPool(workers int) {
 	if workerPool != nil {
-		panic("ExtractPool is already started")
+		return
 	}
 
 	workerPool = workerpool.New(workers)

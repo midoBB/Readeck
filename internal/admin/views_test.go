@@ -1,0 +1,137 @@
+package admin_test
+
+import (
+	"fmt"
+	"net/url"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+
+	"github.com/readeck/readeck/internal/admin"
+	. "github.com/readeck/readeck/internal/testing"
+)
+
+func TestViews(t *testing.T) {
+	app := NewTestApp(t)
+	defer func() {
+		app.Close(t)
+		admin.UserTimers.StopAll()
+	}()
+
+	client := NewClient(t, app)
+	u1, err := NewTestUser("test1", "test1@localhost", "test1", "user")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Run("users", func(t *testing.T) {
+		RunRequestSequence(t, client, "admin",
+			RequestTest{
+				Target:         "/admin",
+				ExpectStatus:   303,
+				ExpectRedirect: "/admin/users",
+			},
+			RequestTest{
+				Target:         "/admin/users",
+				ExpectStatus:   200,
+				ExpectContains: "Users</h1>",
+			},
+			RequestTest{
+				Target:         "/admin/users/add",
+				ExpectStatus:   200,
+				ExpectContains: "New User</h1>",
+			},
+
+			// Create user
+			RequestTest{
+				Method:         "POST",
+				Target:         "/admin/users/add",
+				Form:           url.Values{},
+				ExpectStatus:   200,
+				ExpectContains: "Please check your form for errors.",
+			},
+			RequestTest{
+				Target: "/admin/users/add",
+			},
+			RequestTest{
+				Method: "POST",
+				Target: "/admin/users/add",
+				Form: url.Values{
+					"username": {"test3"},
+					"password": {"1234"},
+					"email":    {"test3@localhost"},
+				},
+				ExpectStatus:   303,
+				ExpectRedirect: `^/admin/users/\d+$`,
+			},
+
+			// Update user
+			RequestTest{
+				Target:         fmt.Sprintf("/admin/users/%d", u1.User.ID),
+				ExpectStatus:   200,
+				ExpectContains: "test1</h1>",
+			},
+			RequestTest{
+				Method:         "POST",
+				Target:         fmt.Sprintf("/admin/users/%d", u1.User.ID),
+				ExpectStatus:   303,
+				ExpectRedirect: fmt.Sprintf("/admin/users/%d", u1.User.ID),
+			},
+			RequestTest{
+				Target:         fmt.Sprintf("/admin/users/%d", u1.User.ID),
+				ExpectStatus:   200,
+				ExpectContains: "<strong>User updated</strong>",
+			},
+
+			// Udpate current user
+			RequestTest{
+				Target: fmt.Sprintf("/admin/users/%d", app.Users["admin"].User.ID),
+			},
+			RequestTest{
+				Method:         "POST",
+				Target:         fmt.Sprintf("/admin/users/%d", app.Users["admin"].User.ID),
+				ExpectStatus:   303,
+				ExpectRedirect: fmt.Sprintf("/admin/users/%d", app.Users["admin"].User.ID),
+			},
+			RequestTest{
+				Target:         fmt.Sprintf("/admin/users/%d", u1.User.ID),
+				ExpectStatus:   200,
+				ExpectContains: "<strong>User updated</strong>",
+			},
+
+			// Delete user
+			RequestTest{
+				Target: fmt.Sprintf("/admin/users/%d", u1.User.ID),
+			},
+			RequestTest{
+				Method:         "POST",
+				Target:         fmt.Sprintf("/admin/users/%d/delete", u1.User.ID),
+				ExpectStatus:   303,
+				ExpectRedirect: fmt.Sprintf("/admin/users/%d", u1.User.ID),
+			},
+			RequestTest{
+				Target:         fmt.Sprintf("/admin/users/%d", u1.User.ID),
+				ExpectStatus:   200,
+				ExpectContains: "User will be removed in a few seconds",
+				Assert: func(t *testing.T, r *Response) {
+					assert.True(t, admin.UserTimers.Exists(u1.User.ID))
+				},
+			},
+
+			// Cancel deletion
+			RequestTest{
+				Target: fmt.Sprintf("/admin/users/%d", u1.User.ID),
+			},
+			RequestTest{
+				Method:         "POST",
+				Target:         fmt.Sprintf("/admin/users/%d/delete", u1.User.ID),
+				Form:           url.Values{"cancel": {"1"}},
+				ExpectStatus:   303,
+				ExpectRedirect: fmt.Sprintf("/admin/users/%d", u1.User.ID),
+				Assert: func(t *testing.T, _ *Response) {
+					assert.False(t, admin.UserTimers.Exists(u1.User.ID))
+				},
+			},
+		)
+	})
+}

@@ -28,7 +28,8 @@ var acceptOffers = []string{
 
 // Csrf setup the CSRF protection.
 func (s *Server) Csrf() func(next http.Handler) http.Handler {
-	CSRF := csrf.Protect(configs.CsrfKey(),
+	CSRF := csrf.Protect(
+		configs.CsrfKey(),
 		csrf.CookieName(csrfCookieName),
 		csrf.Path(path.Join(s.BasePath)),
 		csrf.HttpOnly(true),

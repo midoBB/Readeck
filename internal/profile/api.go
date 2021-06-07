@@ -28,8 +28,8 @@ type profileAPI struct {
 	srv *server.Server
 }
 
-// Token deletion timers
-var tokenTimers = timers.NewTimerStore()
+// TokenTimers contains token deletion timers
+var TokenTimers = timers.NewTimerStore()
 
 // newProfileAPI returns a SettingAPI with its routes set up.
 func newProfileAPI(s *server.Server) *profileAPI {
@@ -259,6 +259,6 @@ func newTokenItem(s *server.Server, r *http.Request, t *tokens.Token, base strin
 		Created:   t.Created,
 		Expires:   t.Expires,
 		IsEnabled: t.IsEnabled,
-		IsDeleted: tokenTimers.Exists(t.ID),
+		IsDeleted: TokenTimers.Exists(t.ID),
 	}
 }

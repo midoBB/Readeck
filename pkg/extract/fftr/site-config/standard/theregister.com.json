@@ -22,7 +22,12 @@
     "//link[contains(@href, 'm.theregister')]"
   ],
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "class=\"blockextract\"",
+      "class=\"blockquote\""
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {

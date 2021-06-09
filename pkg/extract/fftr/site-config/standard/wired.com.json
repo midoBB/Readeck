@@ -34,6 +34,8 @@
     "visually-hidden",
     "inset-left-component",
     "recirc-most-popular",
+    "callout--has-top-border",
+    "newsletter-subscribe-form",
     "wpgallery"
   ],
   "strip_image_src": null,

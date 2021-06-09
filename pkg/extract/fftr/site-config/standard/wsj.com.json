@@ -25,6 +25,7 @@
   ],
   "strip_id_or_class": [
     "insetFullBracket",
+    "newsletter-inset",
     "insettipBox",
     "recipeACShopAndBuyText",
     "article__byline",

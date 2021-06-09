@@ -1,16 +1,18 @@
 {
   "title_selectors": [
-    "//h1[@class=\"post-title\"]"
+    "//h2[1]"
   ],
   "body_selectors": [
-    "//div[contains(@class, 'post-content')]"
+    "//div[contains(@class, 'story-container')]"
   ],
   "date_selectors": null,
   "author_selectors": [
-    "//div[@class=\"post-informations\"]//a[@class=\"highlight\"]"
+    "//div[contains(@class, 'story-meta-author')]"
   ],
   "strip_selectors": [
-    "//div[@class=\"post-informations\"]"
+    "//p[contains(@class, 'authors')]",
+    "//div[@class=\"story-tags\"]",
+    "//div[@class=\"story-related\"]"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -24,7 +26,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.canardpc.com/357/fouine-peaks-thimbleweed-park",
+      "url": "https://www.blast-info.fr/articles/2021/quand-le-jeu-video-tire-a-droite-episode-1-pixels-et-culottes-courtes-k6uqgfpeTsasamW1-eYv7g",
       "contains": []
     }
   ]

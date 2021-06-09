@@ -1,19 +1,16 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[@id='area-article-first-block'] | //div[@id='mod-a-body-after-first-para']"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' entry-content ')]"
   ],
   "date_selectors": [
-    "//span[@class='pubdate']"
+    "//meta[@property=\"article:published_time\"]/@content"
   ],
-  "author_selectors": [
-    "//div[@id='mod-article-byline']/span[3]"
-  ],
-  "strip_selectors": [
-    "//div[@id='mod-article-byline']"
-  ],
+  "author_selectors": null,
+  "strip_selectors": null,
   "strip_id_or_class": [
-    "byline"
+    "s-share-buttons",
+    "s-share-w-c"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -26,7 +23,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.chicagotribune.com/classified/automotive/used/chi-auto-refinance-pros-cons-20130513,0,4116070.story",
+      "url": "https://consortiumnews.com/2021/04/29/the-guardian-misinforms-on-uk-role-in-world/",
       "contains": []
     }
   ]

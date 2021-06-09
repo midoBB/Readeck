@@ -11,12 +11,15 @@
     "//div[@class='byline']//a"
   ],
   "strip_selectors": [
-    "//h1[@class='post__title']"
+    "//h1[@class='post__title']",
+    "//aside"
   ],
   "strip_id_or_class": [
     "eyebrow",
     "post__footer",
-    "social__list"
+    "social__list",
+    "ad-wrapper",
+    "adInserts_0"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -26,6 +29,10 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": [
+    [
+      "data-src=\"",
+      "src=\""
+    ],
     [
       "\u003ch2 class=\"post__deck\"\u003e",
       "\u003cp\u003e"

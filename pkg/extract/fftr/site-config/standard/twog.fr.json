@@ -1,22 +1,18 @@
 {
-  "title_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' article-titles ')]//h1"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[@id=\"article-content\"]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' article-body ')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": null,
   "strip_id_or_class": [
-    "container_form_alert",
-    "spinner-container wide",
-    "child-briefs-container"
+    "tweet-box-footer"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
-  "prune": true,
+  "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
@@ -24,7 +20,11 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.nextinpact.com/news/102862-free-problemes-dns-a-repetition-rendent-difficile-navigation-web.htm",
+      "url": "https://twog.fr/quand-emmanuel-macron-papote-avec-selena-gomez",
+      "contains": []
+    },
+    {
+      "url": "https://www.twog.fr/category/comptwoirs/feed/",
       "contains": []
     }
   ]

@@ -1,17 +1,11 @@
 {
-  "title_selectors": [
-    "//h1[@class=\"post-title\"]"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, 'post-content')]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' chapo ')]"
   ],
   "date_selectors": null,
-  "author_selectors": [
-    "//div[@class=\"post-informations\"]//a[@class=\"highlight\"]"
-  ],
-  "strip_selectors": [
-    "//div[@class=\"post-informations\"]"
-  ],
+  "author_selectors": null,
+  "strip_selectors": null,
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -24,7 +18,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.canardpc.com/357/fouine-peaks-thimbleweed-park",
+      "url": "https://www.aerobuzz.fr/depose-minute/aerodromes-de-proximite/",
       "contains": []
     }
   ]

@@ -1,10 +1,12 @@
 {
   "title_selectors": null,
-  "body_selectors": null,
-  "date_selectors": null,
-  "author_selectors": [
-    "//meta[@property=\"og:site_name\"]/@content"
+  "body_selectors": [
+    "//div[contains(@class, \"introduction\")] | //div[contains(@class, 'field__items')]"
   ],
+  "date_selectors": [
+    "//div[contains(@class, 'main-column')]//time[contains(@class, \"datetime\")]/@datetime"
+  ],
+  "author_selectors": null,
   "strip_selectors": null,
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -18,10 +20,8 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.medialens.org/2012/the-illusion-of-democracy/",
-      "contains": [
-        "In an era of permanent war, economic meltdown"
-      ]
+      "url": "https://www.cnrs.fr/fr/cnrsinfo/lespace-au-quotidien",
+      "contains": []
     }
   ]
 }

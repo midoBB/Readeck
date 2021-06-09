@@ -9,7 +9,9 @@
   "author_selectors": [
     "//div[@id=\"titrage-contenu\"]//a[starts-with(@href,'/recherche.php?auteur_id=')]"
   ],
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//aside[@class=\"article-aside-teaser\"]"
+  ],
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,

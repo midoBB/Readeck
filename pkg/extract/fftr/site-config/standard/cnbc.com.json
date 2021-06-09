@@ -12,9 +12,12 @@
     "//meta[@name=\"author\"]/@content"
   ],
   "strip_selectors": [
-    "//div[contains(@id, 'Placeholder-ArticleBody-Video')]"
+    "//div[contains(@id, 'Placeholder-ArticleBody-Video')]",
+    "//svg"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "InlineImage-closeEnlargedImage"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

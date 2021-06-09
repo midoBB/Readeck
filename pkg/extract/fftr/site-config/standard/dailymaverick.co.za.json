@@ -13,7 +13,19 @@
     "//p[contains(@class, 'image-caption')]"
   ],
   "strip_id_or_class": [
-    "lightgallery-icon"
+    "lightgallery-icon",
+    "subscribe-button",
+    "author-bio",
+    "follow-author",
+    "save-for-later",
+    "addthis_tool",
+    "speechkit-container",
+    "lightgallery",
+    "comments",
+    "comments-area",
+    "top_article_poc-3",
+    "article-share",
+    "widget_top_article_poc"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

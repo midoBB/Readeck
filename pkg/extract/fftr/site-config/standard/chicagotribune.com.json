@@ -1,7 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[starts-with(@id, 'tweet_')]"
+    "//div[@isleadart=\"true\" or contains(concat(' ',normalize-space(@class),' '),' bdy--ctn ')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
@@ -14,27 +14,14 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": [
-    [
-      "src=\"/images/1px.png\"",
-      ""
-    ],
-    [
-      "data-src=",
-      "src="
-    ]
-  ],
+  "replace_strings": null,
   "http_headers": null,
   "tests": [
     {
-      "url": "https://threadreaderapp.com/thread/1232407401678147586.html?refreshed=yes",
+      "url": "https://www.chicagotribune.com/entertainment/movies/michael-phillips/ct-mov-butch-sundance-anniversary-0709-20190711-7z56swetxve5fmogazonyzbdmy-story.html",
       "contains": [
-        "I know better, trust me"
+        "Farrelly arranged for Steven Spielberg to see it."
       ]
-    },
-    {
-      "url": "https://threadreaderapp.com/thread/1389650690683936770.html",
-      "contains": []
     }
   ]
 }

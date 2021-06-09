@@ -17,7 +17,11 @@
     "//div[@class=\"gk__breadcrumb\"]",
     "//p[@class=\"ed__header__info--top\"]",
     "//div[contains(@class, \"ed__review__article__header__price\")]",
-    "//ul[contains(@class, 'js-preview-list')]"
+    "//ul[contains(@class, 'js-preview-list')]",
+    "//div[@class=\"gk__text__container g2__o-hl-itm g2__vr--24 g2__vr--16--v-sm--mw\"]",
+    "//h2[contains(@class, \"ed__review__article__footer__user-reviews__title\")]",
+    "//div[@class=\"row--nmrg\"]",
+    "//div[contains(@class, 'ed__editorial__footer--light')]"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -28,6 +32,10 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": [
+    [
+      "\u003cdiv class=\"numbers\"\u003e",
+      "\u003cdiv class=\"numbers\"\u003eNote :"
+    ],
     [
       "\u003cfooter\u003e",
       "\u003cdiv\u003e"

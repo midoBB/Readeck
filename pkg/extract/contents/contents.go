@@ -41,7 +41,7 @@ func Readability(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 	buf := &bytes.Buffer{}
 	html.Render(buf, m.Dom)
 
-	article, err := readability.FromReader(buf, m.Extractor.Drop().URL.String())
+	article, err := readability.FromReader(buf, m.Extractor.Drop().URL)
 	if err != nil {
 		m.Log.WithError(err).Error("readability error")
 		m.ResetContent()

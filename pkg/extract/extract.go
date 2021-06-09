@@ -397,7 +397,7 @@ func convertBodyNodes(top *html.Node) *html.Node {
 	}
 	for _, node := range dom.GetElementsByTagName(top, "body") {
 		for _, c := range dom.ChildNodes(node) {
-			dom.AppendChild(doc, c)
+			doc.AppendChild(dom.Clone(c, true))
 		}
 	}
 

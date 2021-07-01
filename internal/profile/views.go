@@ -62,7 +62,7 @@ func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
 				// Set the new seed in the session.
 				// We needn't save the session since AddFlash does it already.
 				sess := v.srv.GetSession(r)
-				sess.Values["s"] = user.Seed
+				sess.Payload.Seed = user.Seed
 				v.srv.AddFlash(w, r, "success", "Profile updated")
 			}
 
@@ -94,7 +94,7 @@ func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 				// Set the new seed in the session.
 				// We needn't save the session since AddFlash does it already.
 				sess := v.srv.GetSession(r)
-				sess.Values["s"] = user.Seed
+				sess.Payload.Seed = user.Seed
 				v.srv.AddFlash(w, r, "success", "Your password was changed.")
 			}
 

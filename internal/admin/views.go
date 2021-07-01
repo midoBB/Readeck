@@ -117,8 +117,8 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 				// Refresh session if same user
 				if auth.GetRequestUser(r).ID == u.ID {
 					sess := h.srv.GetSession(r)
-					sess.Values["u"] = u.ID
-					sess.Values["s"] = u.Seed
+					sess.Payload.User = u.ID
+					sess.Payload.Seed = u.Seed
 				}
 				h.srv.AddFlash(w, r, "success", "User updated")
 				h.srv.Redirect(w, r, fmt.Sprint(u.ID))

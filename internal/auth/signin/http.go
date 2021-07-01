@@ -3,7 +3,6 @@ package signin
 import (
 	"errors"
 	"net/http"
-	"time"
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/go-chi/chi/v5"
@@ -83,9 +82,8 @@ func (h *authHandler) login(w http.ResponseWriter, r *http.Request) {
 
 	// User is authenticated, let's carry on
 	sess := h.srv.GetSession(r)
-	sess.Values["u"] = user.ID
-	sess.Values["s"] = user.Seed
-	sess.Values["t"] = time.Now().Unix()
+	sess.Payload.User = user.ID
+	sess.Payload.Seed = user.Seed
 	sess.Save(r, w)
 
 	h.srv.Redirect(w, r, "/")
@@ -99,7 +97,7 @@ func (h *authHandler) renderLoginForm(w http.ResponseWriter, r *http.Request, st
 
 func (h *authHandler) logout(w http.ResponseWriter, r *http.Request) {
 	sess := h.srv.GetSession(r)
-	sess.Options.MaxAge = -1
+	sess.MaxAge = -1
 	if err := sess.Save(r, w); err != nil {
 		h.srv.Error(w, r, err)
 		return

@@ -2,13 +2,11 @@ package server
 
 import (
 	"context"
-	"encoding/gob"
 	"net/http"
 	"path"
 
-	"github.com/gorilla/sessions"
-
 	"github.com/readeck/readeck/configs"
+	"github.com/readeck/readeck/internal/sessions"
 )
 
 type (
@@ -17,38 +15,30 @@ type (
 )
 
 var (
-	store sessions.Store
+	sessionHandler *sessions.Handler
 )
 
-// FlashMessage contains a message type and content.
-type FlashMessage struct {
-	Type    string
-	Message string
-}
-
-// InitSession creates the session store.
+// InitSession creates the session handler.
 func (s *Server) InitSession() error {
-	// Register flash message type
-	gob.Register(FlashMessage{})
-
-	// Create the session store
-	store = sessions.NewCookieStore(configs.CookieHashKey(), configs.CookieBlockKey())
+	// Create the session handler
+	sessionHandler = sessions.NewHandler(
+		configs.Config.Server.Session.CookieName,
+		configs.CookieHashKey(),
+		configs.CookieBlockKey(),
+		sessions.Path(path.Join(s.BasePath)),
+		sessions.MaxAge(configs.Config.Server.Session.MaxAge),
+	)
 
 	return nil
 }
 
-// WithSession initialize a session store that will be available
+// WithSession initialize a session handler that will be available
 // on the included routes.
 func (s *Server) WithSession() func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			// Store session
-			session, _ := store.Get(r, configs.Config.Server.Session.CookieName)
-			session.Options.HttpOnly = true
-			session.Options.Secure = r.URL.Scheme == "https"
-			session.Options.MaxAge = configs.Config.Server.Session.MaxAge
-			session.Options.SameSite = http.SameSiteStrictMode
-			session.Options.Path = path.Join(s.BasePath)
+			session, _ := sessionHandler.New(r)
 
 			ctx := r.Context()
 			ctx = context.WithValue(ctx, ctxSessionKey{}, session)
@@ -76,19 +66,15 @@ func (s *Server) GetSession(r *http.Request) *sessions.Session {
 // AddFlash saves a flash message in the session.
 func (s *Server) AddFlash(w http.ResponseWriter, r *http.Request, typ, msg string) error {
 	session := s.GetSession(r)
-	session.AddFlash(FlashMessage{typ, msg})
+	session.AddFlash(typ, msg)
 	return session.Save(r, w)
 }
 
 // Flashes returns the flash messages retrieved from the session
-// store in the session middleware.
-func (s *Server) Flashes(r *http.Request) []FlashMessage {
+// in the session middleware.
+func (s *Server) Flashes(r *http.Request) []sessions.FlashMessage {
 	if msgs := r.Context().Value(ctxFlashKey{}); msgs != nil {
-		res := make([]FlashMessage, len(msgs.([]interface{})))
-		for i, item := range msgs.([]interface{}) {
-			res[i] = item.(FlashMessage)
-		}
-		return res
+		return msgs.([]sessions.FlashMessage)
 	}
-	return make([]FlashMessage, 0)
+	return make([]sessions.FlashMessage, 0)
 }

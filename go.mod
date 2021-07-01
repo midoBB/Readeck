@@ -24,7 +24,7 @@ require (
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/gorilla/csrf v1.7.0
 	github.com/gorilla/schema v1.2.0
-	github.com/gorilla/sessions v1.2.1
+	github.com/gorilla/securecookie v1.1.1
 	github.com/h2non/filetype v1.1.1
 	github.com/hlandau/passlib v1.0.11
 	github.com/jackc/pgproto3/v2 v2.0.7 // indirect

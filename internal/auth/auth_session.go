@@ -2,12 +2,11 @@ package auth
 
 import (
 	"net/http"
-	"time"
 
 	"github.com/doug-martin/goqu/v9"
-	"github.com/gorilla/sessions"
 
 	"github.com/readeck/readeck/internal/auth/users"
+	"github.com/readeck/readeck/internal/sessions"
 )
 
 // SessionAuthProvider is the last authentication provider.
@@ -39,7 +38,6 @@ func (p *SessionAuthProvider) Authenticate(w http.ResponseWriter, r *http.Reques
 
 	// At this point, the user is granted access.
 	// We renew its session for another max age duration.
-	sess.Values["t"] = time.Now().Unix()
 	sess.Save(r, w)
 	return SetRequestAuthInfo(r, &Info{
 		Provider: &ProviderInfo{
@@ -54,30 +52,15 @@ func (p *SessionAuthProvider) checkSession(sess *sessions.Session) (u *users.Use
 		return
 	}
 
-	// Check expired first
-	st, ok := sess.Values["t"].(int64)
-	if !ok {
-		return
-	}
-	if time.Now().Unix() > st+int64(sess.Options.MaxAge) {
+	if sess.Payload.User == 0 {
 		return
 	}
 
-	seed, ok := sess.Values["s"].(int)
-	if !ok {
-		return
-	}
-
-	id, ok := sess.Values["u"].(int)
-	if !ok {
-		return
-	}
-
-	if u, err = users.Users.GetOne(goqu.C("id").Eq(id)); err != nil {
+	if u, err = users.Users.GetOne(goqu.C("id").Eq(sess.Payload.User)); err != nil {
 		return nil, err
 	}
 
-	if u.Seed != seed {
+	if u.Seed != sess.Payload.Seed {
 		return nil, nil
 	}
 
@@ -85,7 +68,7 @@ func (p *SessionAuthProvider) checkSession(sess *sessions.Session) (u *users.Use
 }
 
 func (p *SessionAuthProvider) clearSession(sess *sessions.Session, w http.ResponseWriter, r *http.Request) {
-	sess.Options.MaxAge = -1
+	sess.MaxAge = -1
 	sess.Save(r, w)
 	p.Redirect(w, r)
 }

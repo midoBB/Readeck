@@ -18,6 +18,27 @@
       data-current="{{ pathIs(`/bookmarks/favorites`) }}"
     href="{{ urlFor(`/bookmarks`, `favorites`) }}">{{ yield icon(name="o-favorite-off") }} Favorites</a></li>
   </ul>
-  {{ try }}{{ yield bookmarkMenu() }}{{ end }}
+
+  {{- if isset(.Count) }}
+    <ul class="mt-4" data-reveal-target="content">
+      {{- if isset(.Count.ByType.article) && .Count.ByType.article > 0 }}
+      <li><a class="sidebar:link group"
+        data-current="{{ pathIs(`/bookmarks/articles`) }}"
+        href="{{ urlFor(`/bookmarks/articles`) }}">{{ yield icon(name="o-file") }} Articles</a></li>
+      {{- end -}}
+
+      {{- if isset(.Count.ByType.video) && .Count.ByType.video > 0 }}
+      <li><a class="sidebar:link group"
+        data-current="{{ pathIs(`/bookmarks/videos`) }}"
+        href="{{ urlFor(`/bookmarks/videos`) }}">{{ yield icon(name="o-video") }} Videos</a></li>
+      {{- end -}}
+
+      {{- if isset(.Count.ByType.photo) && .Count.ByType.photo > 0 }}
+      <li><a class="sidebar:link group"
+        data-current="{{ pathIs(`/bookmarks/pictures`) }}"
+        href="{{ urlFor(`/bookmarks/pictures`) }}">{{ yield icon(name="o-photo") }} Pictures</a></li>
+      {{- end -}}
+    </ul>
+  {{ end -}}
   {{- end -}}
 {{- end -}}

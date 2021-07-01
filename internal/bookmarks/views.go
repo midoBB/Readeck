@@ -107,13 +107,21 @@ func (h *bookmarkViews) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 		if os.IsNotExist(err) {
 			ctx["HTML"] = strings.NewReader("")
 		} else {
-			panic(err)
+			h.srv.Error(w, r, err)
+			return
 		}
 	} else {
 		ctx["HTML"] = buf
 	}
 
 	ctx["Out"] = w
+
+	count, err := Bookmarks.CountAll(auth.GetRequestUser(r))
+	if err != nil {
+		h.srv.Error(w, r, err)
+		return
+	}
+	ctx["Count"] = count
 
 	if user.Settings.DebugInfo {
 		for k, x := range map[string]string{

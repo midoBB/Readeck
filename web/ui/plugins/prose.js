@@ -166,6 +166,7 @@ function proseCSS(theme) {
       border: `1px solid ${theme("colors.gray.300")}`,
       backgroundColor: "rgba(0,0,0,.03)",
       whiteSpace: "pre-wrap",
+      overflowX: "auto",
 
       "code": {
         padding: 0,

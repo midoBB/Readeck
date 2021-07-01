@@ -7,6 +7,7 @@ import (
 	"github.com/doug-martin/goqu/v9"
 	"github.com/go-chi/chi/v5"
 
+	"github.com/readeck/readeck/internal/auth"
 	"github.com/readeck/readeck/internal/auth/users"
 	"github.com/readeck/readeck/internal/email"
 	"github.com/readeck/readeck/internal/server"
@@ -47,7 +48,11 @@ func newAuthHandler(s *server.Server) *authHandler {
 	}
 
 	// Authenticated routes
-	ar := s.AuthenticatedRouter()
+	ar := chi.NewRouter()
+	ar.Use(
+		s.WithSession(),
+		auth.Required,
+	)
 	s.AddRoute("/logout", ar)
 
 	ar.Post("/", h.logout)

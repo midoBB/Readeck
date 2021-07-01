@@ -34,7 +34,7 @@ func (s *Server) Csrf() func(next http.Handler) http.Handler {
 		csrf.Path(path.Join(s.BasePath)),
 		csrf.HttpOnly(true),
 		csrf.MaxAge(0),
-		csrf.SameSite(csrf.SameSiteStrictMode),
+		csrf.SameSite(csrf.SameSiteLaxMode),
 		csrf.FieldName(csrfFieldName),
 		csrf.RequestHeader(csrfHeaderName),
 	)

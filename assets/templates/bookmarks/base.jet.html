@@ -1,0 +1,23 @@
+{{ extends "/app" }}
+{{ import "/_libs/sidebar" }}
+
+{{- block preContent() -}}
+  {{- yield sidebar() content -}}
+  <h2 class="sidebar:title">Bookmarks</h2>
+  <ul class="mt-2">
+    <li><a class="sidebar:link"
+      data-current="{{ pathIs(`/bookmarks`) }}"
+    href="{{ urlFor(`/bookmarks`) }}">{{ yield icon(name="o-library") }} All</a></li>
+    <li><a class="sidebar:link"
+      data-current="{{ pathIs(`/bookmarks/unread`) }}"
+    href="{{ urlFor(`/bookmarks`, `unread`) }}">{{ yield icon(name="o-check-off") }} Unread</a></li>
+    <li><a class="sidebar:link"
+      data-current="{{ pathIs(`/bookmarks/archives`) }}"
+    href="{{ urlFor(`/bookmarks`, `archives`) }}">{{ yield icon(name="o-archive-off") }} Archive</a></li>
+    <li><a class="sidebar:link"
+      data-current="{{ pathIs(`/bookmarks/favorites`) }}"
+    href="{{ urlFor(`/bookmarks`, `favorites`) }}">{{ yield icon(name="o-favorite-off") }} Favorites</a></li>
+  </ul>
+  {{ try }}{{ yield bookmarkMenu() }}{{ end }}
+  {{- end -}}
+{{- end -}}

@@ -79,6 +79,7 @@ module.exports = {
         "hf",
       ],
       backgroundOpacity: [
+        "data-current",
         "group-hf",
         "hf",
       ],
@@ -124,6 +125,12 @@ module.exports = {
         "group-hf",
         "group-hover",
         "group-focus-within",
+        "hf",
+      ],
+      ringWidth: [
+        "hf",
+      ],
+      ringColor: [
         "hf",
       ],
       textColor: [

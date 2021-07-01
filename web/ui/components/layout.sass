@@ -1,25 +1,36 @@
 @layer components
+  .layout\:nav
+    &>div
+      @apply max-w-7xl mx-auto px-4 py-2
+
   .layout\:app
-    @apply min-h-screen max-w-7xl mx-auto flex
+    @apply min-h-screen max-w-7xl mx-auto flex px-4
     @apply +md:block
+
 
   .layout\:sidebar
     @apply sticky top-0
     @apply overflow-y-auto max-h-screen
-    @apply z-50
-    @apply w-64 flex-shrink-0
-    @apply +md:w-full
+    @apply z-20
+    @apply w-48 flex-shrink-0 mr-4
+    @apply +md:w-full +md:-mx-4 +md:px-4 +md:fixed +md:bottom-0 +md:top-auto
 
   .layout\:main
     @apply flex-grow
+    @apply pt-4 pb-8
 
 @layer components
+  .sidebar\:toggle
+    @apply hidden +md:inline-flex
+    @apply fixed z-30 w-12 h-12 bottom-2 left-2
+    @apply items-center justify-center py-2
+    @apply cursor-pointer select-none
+
   .sidebar\:ctrl
     display: none
 
   .sidebar\:ctrl:not(:checked) + .layout\:sidebar
-    .sidebar\:content
-      @apply +md:hidden
+    @apply +md:hidden
 
   .sidebar\:title
     @apply uppercase data-current:font-bold
@@ -29,3 +40,15 @@
     @apply +md:hf:text-primary data-current:font-bold +md:data-current:text-primary-light
     @apply block leading-none py-1 pl-1 mb-1 border-l-2 border-transparent hf:border-primary data-current:border-primary-dark
     @apply +md:mb-2 +md:text-lg
+
+@layer components
+  .nav\:link
+    @apply font-semibold block py-3 px-2.5 rounded-full
+    @apply hf:bg-black hf:bg-opacity-30 hf:ring-1 hf:ring-white
+    @apply data-current:bg-black data-current:bg-opacity-50
+
+  .menu\:ctrl
+    display: none
+
+  .menu\:ctrl:not(:checked) + ul
+    display: none

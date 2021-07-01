@@ -18,7 +18,7 @@ export default class extends Controller {
   connect() {
     // Create the button
     this.icon = icon.getIcon()
-    $(this.icon).addClass("align-middle")
+    $(this.icon).addClass("align-middle", "inline-block")
 
     $(this.fieldTarget)
       .addClass("pr-8")

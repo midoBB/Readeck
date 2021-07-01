@@ -1,0 +1,12 @@
+{{ extends "/app" }}
+{{ import "/_libs/sidebar" }}
+
+{{- block preContent() -}}
+  {{- yield sidebar() content -}}
+  <h2 class="sidebar:title">Administration</h2>
+  <ul class="mt-2">
+    <li><a class="sidebar:link" href="{{ urlFor(`/admin/users`) }}"
+      data-current="{{ pathIs(`/admin/users`, `/admin/users/*`) }}">{{ yield icon(name="o-user") }} Users</a></li>
+  </ul>
+  {{- end -}}
+{{- end -}}

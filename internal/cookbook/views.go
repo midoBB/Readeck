@@ -1,6 +1,7 @@
 package cookbook
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -16,12 +17,15 @@ func newCookbookViews(api *cookbookAPI) *cookbookViews {
 	v := &cookbookViews{r, api}
 
 	r.With(api.srv.WithPermission("read")).Group(func(r chi.Router) {
-		r.Get("/", v.typoView)
+		r.Get("/", v.templateView("prose"))
 	})
 
 	return v
 }
 
-func (v *cookbookViews) typoView(w http.ResponseWriter, r *http.Request) {
-	v.srv.RenderTemplate(w, r, 200, "cookbook/prose", nil)
+func (v *cookbookViews) templateView(name string) func(w http.ResponseWriter, r *http.Request) {
+	template := fmt.Sprintf("cookbook/%s", name)
+	return func(w http.ResponseWriter, r *http.Request) {
+		v.srv.RenderTemplate(w, r, 200, template, nil)
+	}
 }

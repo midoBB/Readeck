@@ -1,0 +1,11 @@
+{{ extends "/app" }}
+{{ import "/_libs/sidebar" }}
+
+{{- block preContent() -}}
+  {{- yield sidebar() content -}}
+  <h2 class="sidebar:title">Cookbook</h2>
+  <ul class="mt-2">
+    <li><a class="sidebar:link" data-current="{{ pathIs(`/cookbook`) }}" href="{{ urlFor(`/cookbook`) }}">Typography</a></li>
+  </ul>
+  {{- end -}}
+{{- end -}}

@@ -1,10 +1,15 @@
 const colors = require("tailwindcss/colors")
 
-module.exports = {
-  purge: [
-    "src/**/*.js",
-    "../assets/templates/**/*.jet.html",
-  ],
+var config = {
+  purge: {
+    content:[
+      "src/**/*.js",
+      "../assets/templates/**/*.jet.html",
+    ],
+    options: {
+      safelist: [],
+    },
+  },
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
@@ -57,7 +62,7 @@ module.exports = {
       },
       gridTemplateColumns: {
         "bk-tools": "2fr auto auto",
-        "cards": "repeat(auto-fill, minmax(14rem, 1fr))",
+        "cards": "repeat(auto-fill, minmax(12rem, 1fr))",
       },
       height: {
         "max-content": "max-content",
@@ -67,6 +72,9 @@ module.exports = {
       },
       width: {
         "md": "28rem",
+      },
+      maxWidth: {
+        "view": "72rem",
       },
     },
   },
@@ -157,3 +165,5 @@ module.exports = {
     require("./ui/plugins/prose"),
   ],
 }
+
+module.exports = config

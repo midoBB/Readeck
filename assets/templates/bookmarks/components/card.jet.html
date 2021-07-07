@@ -61,9 +61,14 @@
       </span>
 
       {{ if len(.Labels) -}}
-      <ul class="inline-flex flex-wrap justify-start {{ if .IsDeleted }}opacity-50{{ end }}">{{ range .Labels -}}
-        <li class="text-sm bg-gray-300 leading-none py-1 px-1 mr-1 rounded">{{ . }}</li>
-      {{- end }}</ul>
+      <ul class="inline-flex flex-wrap justify-start {{ if .IsDeleted }}opacity-50{{ end }}">
+      {{- range .Labels -}}
+        <li class="mr-1 mb-2"><a href="{{ urlFor(`/bookmarks/labels`, .) }}"
+         class="text-sm bg-gray-100 leading-none py-1 px-1.5 border rounded-md
+          hf:bg-yellow-100"
+         >{{ . }}</a></li>
+      {{- end -}}
+      </ul>
       {{- end }}
 
       <div class="flex flex-grow items-end mt-2 text-lg">

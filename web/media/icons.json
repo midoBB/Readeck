@@ -18,6 +18,7 @@
   "o-hide":         "node_modules/boxicons/svg/solid/bxs-show.svg",
   "o-info":         "node_modules/boxicons/svg/solid/bxs-info-circle.svg",
   "o-key":          "node_modules/boxicons/svg/solid/bxs-key.svg",
+  "o-label":        "node_modules/boxicons/svg/regular/bx-purchase-tag-alt.svg",
   "o-library":      "node_modules/boxicons/svg/regular/bx-library.svg",
   "o-link":         "node_modules/boxicons/svg/regular/bx-link.svg",
   "o-logout":       "node_modules/boxicons/svg/regular/bx-log-out.svg",

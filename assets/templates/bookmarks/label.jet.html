@@ -1,0 +1,32 @@
+{{ extends "./base" }}
+{{- import "/_libs/pagination" -}}
+
+{{ block title() }}Label - {{ .Label }}{{ end }}
+
+{{ block mainContent() -}}
+<form action="" method="post">
+  {{ yield csrfField() }}
+  <div class="flex items-center">
+    {{ yield icon(name="o-label", class="h-6 w-6 mr-2", svgClass="h-6 w-6") }}
+    <input type="text" name="name" value="{{ .Label }}"
+    class="form-input font-semibold w-full max-w-md rounded-r-none" />
+    <button type="submit" class="btn btn-primary rounded-l-none">rename</button>
+  </div>
+</form>
+
+<turbo-frame id="bookmark-list"
+ data-controller="turbo-refresh"
+ data-turbo-refresh-interval-value="10"
+ data-turbo-refresh-on-value="[data-bookmark-deleted='true']">
+
+  {{- include "/_libs/pagination" .Pagination -}}
+
+  <div class="my-4 grid lg:grid-cols-cards gap-4">
+  {{- range .Bookmarks -}}
+    {{- include "./components/card" . -}}
+  {{- end -}}
+  </div>
+
+  {{- include "/_libs/pagination" .Pagination -}}
+</turbo-frame>
+{{- end }}

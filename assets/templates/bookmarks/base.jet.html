@@ -4,6 +4,13 @@
 {{- block preContent() -}}
   {{- yield sidebar() content -}}
   <h2 class="sidebar:title">Bookmarks</h2>
+
+  <form class="mt-2 ml-0.5 mr-1 flex" action="{{ urlFor(`/bookmarks/search`) }}" method="get">
+    <input title="search in bookmarks" class="form-input rounded-full pl-4 pr-8 w-full max-w-xs +md:max-w-none" size="14"
+    type="text" name="q" value="{{ isset(.Q) ? .Q : `` }}" placeholder="search" />
+    <button title="search" class="leading-normal -ml-6 mr-2">{{ yield icon(name="o-search") }}</button>
+  </form>
+
   <ul class="mt-2">
     <li><a class="sidebar:link"
       data-current="{{ pathIs(`/bookmarks`) }}"
@@ -40,5 +47,13 @@
       {{- end -}}
     </ul>
   {{ end -}}
-  {{- end -}}
+
+  <h2 class="mt-4 sidebar:subtitle">Labels</h2>
+  <ul class="mt-2">
+    <li><a class="sidebar:link"
+    data-current="{{ pathIs(`/bookmarks/labels`) }}"
+     href="{{ urlFor(`/bookmarks/labels`) }}">{{ yield icon(name="o-label") }} All Labels</a></li>
+  </ul>
+
+  {{- end -}} {* /content() *}
 {{- end -}}

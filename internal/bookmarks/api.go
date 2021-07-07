@@ -22,6 +22,7 @@ import (
 
 	"github.com/readeck/readeck/configs"
 	"github.com/readeck/readeck/internal/auth"
+	"github.com/readeck/readeck/internal/db"
 	"github.com/readeck/readeck/internal/server"
 	"github.com/readeck/readeck/pkg/form"
 	"github.com/readeck/readeck/pkg/timers"
@@ -35,6 +36,7 @@ var deleteTimer = timers.NewTimerStore()
 type (
 	ctxBookmarkKey     struct{}
 	ctxBookmarkListKey struct{}
+	ctxLabelListKey    struct{}
 	ctxSearchString    struct{}
 	ctxFilterForm      struct{}
 	ctxDefaultLimit    struct{}
@@ -65,7 +67,8 @@ func newBookmarkAPI(s *server.Server) *bookmarkAPI {
 			r.Get("/{uid:[a-zA-Z0-9]{18,22}}/article", api.bookmarkArticle)
 			r.Get("/{uid:[a-zA-Z0-9]{18,22}}/x/*", api.bookmarkResource)
 		})
-
+		r.With(api.withLabelList).Get("/labels", api.labelList)
+		r.Get("/labels/{label}", api.labelInfo)
 	})
 
 	r.With(api.srv.WithPermission("api:bookmarks", "write")).Group(func(r chi.Router) {
@@ -74,6 +77,7 @@ func newBookmarkAPI(s *server.Server) *bookmarkAPI {
 			r.Patch("/{uid:[a-zA-Z0-9]{18,22}}", api.bookmarkUpdate)
 			r.Delete("/{uid:[a-zA-Z0-9]{18,22}}", api.bookmarkDelete)
 		})
+		r.Patch("/labels/{label}", api.labelUpdate)
 	})
 
 	return api
@@ -258,6 +262,68 @@ func (api *bookmarkAPI) bookmarkResource(w http.ResponseWriter, r *http.Request)
 	fs.ServeHTTP(w, r2)
 }
 
+func (api *bookmarkAPI) labelList(w http.ResponseWriter, r *http.Request) {
+	res := r.Context().Value(ctxLabelListKey{}).([]*labelItem)
+	for i, item := range res {
+		res[i].Href = api.srv.AbsoluteURL(r, ".", item.Name).String()
+	}
+
+	api.srv.Render(w, r, http.StatusOK, res)
+}
+
+func (api *bookmarkAPI) labelInfo(w http.ResponseWriter, r *http.Request) {
+	label := chi.URLParam(r, "label")
+	ds := Bookmarks.Query().
+		Select("id").
+		Where(
+			goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
+		)
+	ds = Bookmarks.AddLabelFilter(ds, []string{label})
+	count, err := ds.Count()
+	if err != nil {
+		api.srv.Error(w, r, err)
+		return
+	}
+
+	if count == 0 {
+		api.srv.Status(w, r, http.StatusNotFound)
+		return
+	}
+
+	u := api.srv.AbsoluteURL(r, "/api/bookmarks")
+	q := u.Query()
+	q.Add("label", label)
+	u.RawQuery = q.Encode()
+
+	api.srv.Render(w, r, http.StatusOK, map[string]interface{}{
+		"count":          count,
+		"href":           api.srv.AbsoluteURL(r).String(),
+		"href_bookmarks": u.String(),
+	})
+}
+
+func (api *bookmarkAPI) labelUpdate(w http.ResponseWriter, r *http.Request) {
+	label := chi.URLParam(r, "label")
+	lf := &labelForm{}
+	f := form.NewForm(lf)
+	form.Bind(f, r)
+
+	if !f.IsValid() {
+		api.srv.Render(w, r, http.StatusBadRequest, f)
+		return
+	}
+
+	ids, err := api.renameLabel(r, label, lf.Name)
+	if err != nil {
+		api.srv.Error(w, r, err)
+		return
+	}
+	if len(ids) == 0 {
+		api.srv.Status(w, r, http.StatusNotFound)
+		return
+	}
+}
+
 // withBookmark returns a router that will fetch a bookmark and add it into the
 // request's context. It also deals with if-modified-since header.
 func (api *bookmarkAPI) withBookmark(next http.Handler) http.Handler {
@@ -308,6 +374,17 @@ func (api *bookmarkAPI) withBookmarkFilters(next http.Handler) http.Handler {
 	})
 }
 
+func (api *bookmarkAPI) withLabel(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		label := chi.URLParam(r, "label")
+		filters := &filterForm{}
+		filters.Labels = []string{label}
+
+		ctx := context.WithValue(r.Context(), ctxFilterForm{}, filters)
+		next.ServeHTTP(w, r.Clone(ctx))
+	})
+}
+
 func (api *bookmarkAPI) withDefaultLimit(limit int) func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -341,7 +418,7 @@ func (api *bookmarkAPI) withBookmarkList(next http.Handler) http.Handler {
 				"b.is_marked", "b.is_archived",
 				"b.labels", "b.description", "b.word_count", "b.file_path", "b.files").
 			Where(
-				goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
+				goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
 			)
 
 		ds = ds.Order(goqu.I("created").Desc())
@@ -377,6 +454,10 @@ func (api *bookmarkAPI) withBookmarkList(next http.Handler) http.Handler {
 			ds = ds.Where(goqu.C("type").Table("b").Eq(filters.Type))
 		}
 
+		if len(filters.Labels) > 0 {
+			ds = Bookmarks.AddLabelFilter(ds, filters.Labels)
+		}
+
 		ds = ds.
 			Limit(uint(pf.Limit)).
 			Offset(uint(pf.Offset))
@@ -409,6 +490,24 @@ func (api *bookmarkAPI) withBookmarkList(next http.Handler) http.Handler {
 			api.srv.WriteEtag(w, res)
 		}
 		api.srv.WithCaching(next).ServeHTTP(w, r.Clone(ctx))
+	})
+}
+
+func (api *bookmarkAPI) withLabelList(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ds := Bookmarks.GetLabels().
+			Where(
+				goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
+			)
+
+		res := []*labelItem{}
+		if err := ds.ScanStructs(&res); err != nil {
+			api.srv.Error(w, r, err)
+			return
+		}
+
+		ctx := context.WithValue(r.Context(), ctxLabelListKey{}, res)
+		next.ServeHTTP(w, r.Clone(ctx))
 	})
 }
 
@@ -535,6 +634,45 @@ func (api *bookmarkAPI) updateBookmark(b *Bookmark, uf *updateForm, r *http.Requ
 
 	updated["id"] = b.UID
 	return updated, nil
+}
+
+func (api *bookmarkAPI) renameLabel(r *http.Request, old, new string) ([]int, error) {
+	ds := Bookmarks.Query().
+		Select("b.id", "b.labels").
+		Where(goqu.C("user_id").Eq(auth.GetRequestUser(r).ID))
+	ds = Bookmarks.AddLabelFilter(ds, []string{old})
+
+	list := []*Bookmark{}
+	if err := ds.ScanStructs(&list); err != nil {
+		return nil, err
+	}
+
+	if len(list) == 0 {
+		return []int{}, nil
+	}
+
+	ids := make([]int, len(list))
+	cases := goqu.Case()
+	casePlaceholder := "?"
+	if db.Driver().Dialect() == "postgres" {
+		casePlaceholder = "?::jsonb"
+	}
+
+	for i, x := range list {
+		ids[i] = x.ID
+		x.replaceLabel(old, new)
+		cases = cases.When(goqu.C("id").Eq(x.ID), goqu.L(casePlaceholder, x.Labels))
+	}
+
+	_, err := db.Q().Update(TableName).Prepared(true).
+		Set(goqu.Record{"labels": cases}).
+		Where(goqu.C("id").In(ids)).
+		Executor().Exec()
+	if err != nil {
+		return nil, err
+	}
+
+	return ids, nil
 }
 
 func (api *bookmarkAPI) launchDelete(b *Bookmark, r *http.Request) {
@@ -684,14 +822,29 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *Bookmark, base string
 	return res
 }
 
+type labelItem struct {
+	Name  string `json:"name"`
+	Count int    `json:"count"`
+	Href  string `json:"href"`
+}
+
+type labelForm struct {
+	Name string `json:"name" conform:"trim"`
+}
+
+func (cf *labelForm) Validate(f *form.Form) {
+	f.Fields["name"].Validate(form.IsRequired)
+}
+
 type searchForm struct {
 	Query string `json:"q" conform:"trim"`
 }
 
 type filterForm struct {
-	IsMarked   *bool  `json:"is_marked"`
-	IsArchived *bool  `json:"is_archived"`
-	Type       string `json:"type"`
+	IsMarked   *bool    `json:"is_marked"`
+	IsArchived *bool    `json:"is_archived"`
+	Type       string   `json:"type"`
+	Labels     []string `json:"label"`
 }
 
 func (ff *filterForm) setMarked(v bool) {

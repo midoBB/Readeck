@@ -122,7 +122,7 @@ func (s *Server) initTemplates() {
 		}
 
 		r := args.Runtime().Resolve("request").Interface().(*http.Request)
-		return reflect.ValueOf(s.AbsoluteURL(r, parts...).Path)
+		return reflect.ValueOf(s.AbsoluteURL(r, parts...).EscapedPath())
 	})
 	views.AddGlobalFunc("pathIs", func(args jet.Arguments) reflect.Value {
 		r := args.Runtime().Resolve("request").Interface().(*http.Request)

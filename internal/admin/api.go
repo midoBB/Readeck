@@ -35,12 +35,12 @@ func newAdminAPI(s *server.Server) *adminAPI {
 	r := s.AuthenticatedRouter()
 	api := &adminAPI{r, s}
 
-	r.With(api.srv.WithPermission("read")).Group(func(r chi.Router) {
+	r.With(api.srv.WithPermission("api:admin:users", "read")).Group(func(r chi.Router) {
 		r.With(api.withUserList).Get("/users", api.userList)
 		r.With(api.withUser).Get("/users/{id:\\d+}", api.userInfo)
 	})
 
-	r.With(api.srv.WithPermission("write")).Group(func(r chi.Router) {
+	r.With(api.srv.WithPermission("api:admin:users", "write")).Group(func(r chi.Router) {
 		r.With(api.withUserList).Post("/users", api.userCreate)
 		r.With(api.withUser).Patch("/users/{id:\\d+}", api.userUpdate)
 		r.With(api.withUser).Delete("/users/{id:\\d+}", api.userDelete)

@@ -9,7 +9,7 @@
     data-current="{{ pathIs(`/profile`) }}">{{ yield icon(name="o-user") }} Profile</a></li>
     <li><a class="sidebar:link" href="{{ urlFor(`/profile/password`) }}"
     data-current="{{ pathIs(`/profile/password`) }}">{{ yield icon(name="o-key") }} Password</a></li>
-    {{ if hasPermission("/profile/tokens", "read") -}}
+    {{ if hasPermission("profile:tokens", "read") -}}
       <li><a class="sidebar:link" href="{{ urlFor(`/profile/tokens`) }}"
       data-current="{{ pathIs(`/profile/tokens`, `/profile/tokens/*`) }}">{{ yield icon(name="o-terminal") }} API Tokens</a></li>
     {{- end }}

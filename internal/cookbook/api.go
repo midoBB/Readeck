@@ -35,7 +35,7 @@ func newCookbookAPI(s *server.Server) *cookbookAPI {
 
 	api := &cookbookAPI{Router: r, srv: s}
 	api.loadURLs()
-	r.With(api.srv.WithPermission("read")).Group(func(r chi.Router) {
+	r.With(api.srv.WithPermission("api:cookbook", "read")).Group(func(r chi.Router) {
 		r.Get("/urls", api.urlList)
 		r.Get("/extract", api.extract)
 	})

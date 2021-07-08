@@ -59,18 +59,17 @@ func (s *Server) Csrf() func(next http.Handler) http.Handler {
 // the given action.
 //
 // In the RBAC configuration, the user's group is the subject, the
-// request's path is the object and "act" is the action.
-func (s *Server) WithPermission(act string) func(next http.Handler) http.Handler {
+// given "obj" is the object and "act" is the action.
+func (s *Server) WithPermission(obj, act string) func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			u := auth.GetRequestUser(r)
-			p := "/" + strings.TrimPrefix(r.URL.Path, s.BasePath)
-			ok := u.HasPermission(p, act)
+			ok := u.HasPermission(obj, act)
 
 			logger := s.Log(r).WithFields(log.Fields{
 				"user":    u.Username,
 				"sub":     u.Group,
-				"obj":     p,
+				"obj":     obj,
 				"act":     act,
 				"granted": ok,
 			})

@@ -31,14 +31,14 @@ func newAdminViews(api *adminAPI) *adminViews {
 	r := api.srv.AuthenticatedRouter()
 	h := &adminViews{r, api}
 
-	r.With(api.srv.WithPermission("read")).Group(func(r chi.Router) {
+	r.With(api.srv.WithPermission("admin:users", "read")).Group(func(r chi.Router) {
 		r.With(api.withUserList).Get("/", h.main)
 		r.With(api.withUserList).Get("/users", h.userList)
 		r.Get("/users/add", h.userCreate)
 		r.With(api.withUser).Get("/users/{id:\\d+}", h.userInfo)
 	})
 
-	r.With(api.srv.WithPermission("write")).Group(func(r chi.Router) {
+	r.With(api.srv.WithPermission("admin:users", "write")).Group(func(r chi.Router) {
 		r.Post("/users/add", h.userCreate)
 		r.With(api.withUser).Post("/users/{id:\\d+}", h.userInfo)
 		r.With(api.withUser).Post("/users/{id:\\d+}/delete", h.userDelete)

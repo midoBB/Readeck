@@ -16,7 +16,7 @@ func newCookbookViews(api *cookbookAPI) *cookbookViews {
 	r := api.srv.AuthenticatedRouter()
 	v := &cookbookViews{r, api}
 
-	r.With(api.srv.WithPermission("read")).Group(func(r chi.Router) {
+	r.With(api.srv.WithPermission("cookbook", "read")).Group(func(r chi.Router) {
 		r.Get("/", v.templateView("prose"))
 	})
 

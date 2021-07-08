@@ -36,12 +36,12 @@ func newProfileAPI(s *server.Server) *profileAPI {
 	r := s.AuthenticatedRouter()
 	api := &profileAPI{r, s}
 
-	r.With(api.srv.WithPermission("read")).Group(func(r chi.Router) {
+	r.With(api.srv.WithPermission("api:profile", "read")).Group(func(r chi.Router) {
 		r.Get("/", api.profileInfo)
 		r.With(api.withTokenList).Get("/tokens", api.tokenList)
 	})
 
-	r.With(api.srv.WithPermission("write")).Group(func(r chi.Router) {
+	r.With(api.srv.WithPermission("api:profile", "write")).Group(func(r chi.Router) {
 		r.Patch("/", api.profileUpdate)
 		r.Put("/password", api.passwordUpdate)
 	})

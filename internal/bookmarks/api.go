@@ -58,7 +58,7 @@ func newBookmarkAPI(s *server.Server) *bookmarkAPI {
 
 	api := &bookmarkAPI{r, s}
 
-	r.With(api.srv.WithPermission("read")).Group(func(r chi.Router) {
+	r.With(api.srv.WithPermission("api:bookmarks", "read")).Group(func(r chi.Router) {
 		r.With(api.withBookmarkList).Get("/", api.bookmarkList)
 		r.With(api.withBookmark).Group(func(r chi.Router) {
 			r.Get("/{uid:[a-zA-Z0-9]{18,22}}", api.bookmarkInfo)
@@ -68,7 +68,7 @@ func newBookmarkAPI(s *server.Server) *bookmarkAPI {
 
 	})
 
-	r.With(api.srv.WithPermission("write")).Group(func(r chi.Router) {
+	r.With(api.srv.WithPermission("api:bookmarks", "write")).Group(func(r chi.Router) {
 		r.Post("/", api.bookmarkCreate)
 		r.With(api.withBookmark).Group(func(r chi.Router) {
 			r.Patch("/{uid:[a-zA-Z0-9]{18,22}}", api.bookmarkUpdate)

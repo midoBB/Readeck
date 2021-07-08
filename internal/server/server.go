@@ -193,7 +193,7 @@ func (s *Server) Log(r *http.Request) *log.Entry {
 // information.
 func (s *Server) sysRoutes() http.Handler {
 	r := s.AuthenticatedRouter()
-	r.Use(s.WithPermission("read"))
+	r.Use(s.WithPermission("system", "read"))
 
 	type memInfo struct {
 		Alloc      uint64 `json:"alloc"`
@@ -246,7 +246,7 @@ func (s *Server) sysRoutes() http.Handler {
 
 func (s *Server) debugRoutes() http.Handler {
 	r := s.AuthenticatedRouter()
-	r.Use(s.WithPermission("read"))
+	r.Use(s.WithPermission("system", "read"))
 	r.Mount("/", middleware.Profiler())
 	return r
 }

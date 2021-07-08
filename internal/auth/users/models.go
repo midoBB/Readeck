@@ -10,6 +10,7 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/hlandau/passlib"
+	log "github.com/sirupsen/logrus"
 
 	"github.com/readeck/readeck/internal/acls"
 	"github.com/readeck/readeck/internal/db"
@@ -213,6 +214,7 @@ func (u *User) HasPermission(obj, act string) bool {
 	}
 	r, err := acls.Check(u.Group, obj, act)
 	if err != nil {
+		log.WithError(err).Error("ACL check error")
 		return false
 	}
 	return r

@@ -24,16 +24,22 @@ func newProfileViews(api *profileAPI) *profileViews {
 	r := api.srv.AuthenticatedRouter()
 	v := &profileViews{r, api}
 
-	r.With(api.srv.WithPermission("read")).Group(func(r chi.Router) {
+	r.With(api.srv.WithPermission("profile", "read")).Group(func(r chi.Router) {
 		r.Get("/", v.userProfile)
 		r.Get("/password", v.userPassword)
+	})
+
+	r.With(api.srv.WithPermission("profile", "write")).Group(func(r chi.Router) {
+		r.Post("/", v.userProfile)
+		r.Post("/password", v.userPassword)
+	})
+
+	r.With(api.srv.WithPermission("profile:tokens", "read")).Group(func(r chi.Router) {
 		r.With(api.withTokenList).Get("/tokens", v.tokenList)
 		r.With(api.withToken).Get("/tokens/{uid}", v.tokenInfo)
 	})
 
-	r.With(api.srv.WithPermission("write")).Group(func(r chi.Router) {
-		r.Post("/", v.userProfile)
-		r.Post("/password", v.userPassword)
+	r.With(api.srv.WithPermission("profile:tokens", "write")).Group(func(r chi.Router) {
 		r.Post("/tokens", v.tokenCreate)
 		r.With(api.withToken).Post("/tokens/{uid}", v.tokenInfo)
 		r.With(api.withToken).Post("/tokens/{uid}/delete", v.tokenDelete)

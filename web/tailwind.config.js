@@ -20,12 +20,12 @@ var config = {
       gray: colors.warmGray,
       red: colors.red,
       green: colors.lime,
-      blue: colors.lightBlue,
+      blue: colors.sky,
       yellow: colors.amber,
       primary: {
-        light: colors.lightBlue[300],
-        DEFAULT: colors.lightBlue[600],
-        dark: colors.lightBlue[800],
+        light: colors.sky[300],
+        DEFAULT: colors.sky[600],
+        dark: colors.sky[800],
       },
     },
     fontFamily: {

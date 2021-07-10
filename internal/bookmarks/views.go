@@ -26,7 +26,12 @@ func newBookmarkViews(api *bookmarkAPI) *bookmarkViews {
 		r.With(api.withDefaultLimit(24), api.withBookmarkList).Get("/", h.bookmarkList)
 		r.With(api.withDefaultLimit(24), api.withBookmarkFilters, api.withBookmarkList).
 			Get("/{filter:(unread|archives|favorites|articles|videos|pictures)}", h.bookmarkList)
+		r.With(api.withDefaultLimit(24), api.withBookmarkList).
+			Get("/search", h.bookmarkList)
 		r.With(api.withBookmark).Get("/{uid:[a-zA-Z0-9]{18,22}}", h.bookmarkInfo)
+		r.With(api.withLabelList).Get("/labels", h.labelList)
+		r.With(api.withDefaultLimit(24), api.withLabel, api.withBookmarkList).
+			Get("/labels/{label}", h.labelInfo)
 	})
 
 	r.With(h.srv.WithPermission("bookmarks", "write")).Group(func(r chi.Router) {
@@ -35,6 +40,8 @@ func newBookmarkViews(api *bookmarkAPI) *bookmarkViews {
 			r.Post("/{uid:[a-zA-Z0-9]{18,22}}", h.bookmarkUpdate)
 			r.Post("/{uid:[a-zA-Z0-9]{18,22}}/delete", h.bookmarkDelete)
 		})
+		r.With(api.withDefaultLimit(24), api.withLabel, api.withBookmarkList).
+			Post("/labels/{label}", h.labelInfo)
 	})
 
 	return h
@@ -187,4 +194,60 @@ func (h *bookmarkViews) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	h.srv.Redirect(w, r, redir)
+}
+
+func (h *bookmarkViews) labelList(w http.ResponseWriter, r *http.Request) {
+	labels := r.Context().Value(ctxLabelListKey{}).([]*labelItem)
+	ctx := server.TC{
+		"Labels": labels,
+	}
+
+	h.srv.RenderTemplate(w, r, 200, "/bookmarks/labels", ctx)
+}
+
+func (h *bookmarkViews) labelInfo(w http.ResponseWriter, r *http.Request) {
+	bl := r.Context().Value(ctxBookmarkListKey{}).(bookmarkList)
+
+	if bl.Pagination.TotalCount == 0 {
+		h.srv.Status(w, r, http.StatusNotFound)
+		return
+	}
+
+	// POST, update label name
+	if r.Method == http.MethodPost {
+		label := chi.URLParam(r, "label")
+		lf := &labelForm{}
+		f := form.NewForm(lf)
+		form.Bind(f, r)
+
+		if f.IsValid() {
+			_, err := h.renameLabel(r, label, lf.Name)
+			if err != nil {
+				h.srv.Error(w, r, err)
+				return
+			}
+			h.srv.Redirect(w, r, "/bookmarks/labels", lf.Name)
+			return
+		}
+	}
+
+	bl.Items = make([]bookmarkItem, len(bl.items))
+	for i, item := range bl.items {
+		bl.Items[i] = newBookmarkItem(h.srv, r, item, ".")
+	}
+
+	count, err := Bookmarks.CountAll(auth.GetRequestUser(r))
+	if err != nil {
+		h.srv.Error(w, r, err)
+		return
+	}
+
+	ctx := server.TC{
+		"Label":      chi.URLParam(r, "label"),
+		"Pagination": bl.Pagination,
+		"Bookmarks":  bl.Items,
+		"Count":      count,
+	}
+
+	h.srv.RenderTemplate(w, r, 200, "/bookmarks/label", ctx)
 }

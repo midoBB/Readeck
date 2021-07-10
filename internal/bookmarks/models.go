@@ -11,12 +11,14 @@ import (
 	"path"
 	"path/filepath"
 	"regexp"
+	"sort"
 	"strings"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/lithammer/shortuuid/v3"
 	log "github.com/sirupsen/logrus"
+	"github.com/thoas/go-funk"
 
 	"github.com/readeck/readeck/configs"
 	"github.com/readeck/readeck/internal/auth/users"
@@ -164,6 +166,43 @@ func (m *BookmarkManager) DeleteUserBookmakrs(u *users.User) error {
 	return nil
 }
 
+// GetLabels returns a dataset that returns all the tags
+// defined in the bookmark table.
+func (m *BookmarkManager) GetLabels() *goqu.SelectDataset {
+	switch db.Driver().Dialect() {
+	case "postgres":
+		return db.Q().Select(
+			goqu.COUNT(goqu.C("id").Table("b")).As("count"),
+			goqu.C("name"),
+		).
+			From(
+				goqu.T(TableName).As("b"),
+				goqu.L(`jsonb_array_elements_text(
+					case jsonb_typeof(b.labels)
+					when 'array' then b.labels
+					else '[]' end
+					)`).As("name"),
+			).
+			GroupBy(goqu.C("name")).
+			Order(goqu.C("name").Asc())
+	case "sqlite3":
+		return db.Q().
+			Select(
+				goqu.COUNT(goqu.C("id").Table("b")).As("count"),
+				goqu.C("value").Table("l").As("name"),
+			).
+			From(
+				goqu.T(TableName).As("b"),
+				goqu.Func("json_each", goqu.C("labels").Table("b")).As("l"),
+			).
+			Where(goqu.C("value").Table("l").Neq(nil)).
+			GroupBy(goqu.C("name")).
+			Order(goqu.C("name").Asc())
+	}
+
+	return nil
+}
+
 type countQueryResult struct {
 	Count      int    `db:"count"`
 	IsArchived bool   `db:"is_archived"`
@@ -212,6 +251,26 @@ func (m *BookmarkManager) CountAll(u *users.User) (CountResult, error) {
 		}
 	}
 	return res, nil
+}
+
+// AddLabelFilter adds a filter query for the given labels
+func (m *BookmarkManager) AddLabelFilter(ds *goqu.SelectDataset, labels []string) *goqu.SelectDataset {
+	exp := goqu.And()
+
+	switch db.Driver().Dialect() {
+	case "postgres":
+		v, _ := json.Marshal(labels)
+		exp = exp.Append(
+			goqu.L("b.labels @> ?::jsonb", v),
+		)
+	case "sqlite3":
+		exp = exp.Append(goqu.Func("json_type", goqu.C("labels").Table("b")).Eq("array"))
+
+		for _, label := range labels {
+			exp = exp.Append(goqu.Func("json_array_includes", goqu.C("labels").Table("b"), label))
+		}
+	}
+	return ds.Where(exp)
 }
 
 // Update updates some bookmark values.
@@ -378,6 +437,22 @@ func (b *Bookmark) getArticle(baseURL string) (*strings.Reader, error) {
 	res = rxHTMLEnd.ReplaceAllString(res, "")
 
 	return strings.NewReader(res), nil
+}
+
+// replaceLabel replaces "old" label with "new" in the
+// bookmark's Labels. It does not save the bookmark into
+// the database.
+func (b *Bookmark) replaceLabel(old, new string) {
+	if b.Labels == nil {
+		return
+	}
+	for i, v := range b.Labels {
+		if v == old {
+			b.Labels[i] = new
+		}
+	}
+	b.Labels = funk.UniqString(b.Labels)
+	sort.Strings(b.Labels)
 }
 
 // GetSumStrings returns the string used to generate the etag

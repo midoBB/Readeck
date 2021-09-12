@@ -41,6 +41,7 @@ type config struct {
 	Database  configDB        `json:"database"`
 	Email     configEmail     `json:"email"`
 	Extractor configExtractor `json:"extractor"`
+	Worker    configWorker    `json:"worker"`
 }
 
 type configMain struct {
@@ -79,6 +80,12 @@ type configEmail struct {
 	Insecure    bool   `json:"insecure"`
 	From        string `json:"from"`
 	FromNoReply string `json:"from_noreply"`
+}
+
+type configWorker struct {
+	DSN         string `json:"dsn"`
+	NumWorkers  int    `json:"num_workers"`
+	StartWorker bool   `json:"start_worker"`
 }
 
 type configExtractor struct {
@@ -152,6 +159,11 @@ var Config = config{
 	Database: configDB{},
 	Email: configEmail{
 		Port: 25,
+	},
+	Worker: configWorker{
+		DSN:         "memory://",
+		NumWorkers:  runtime.NumCPU(),
+		StartWorker: true,
 	},
 	Extractor: configExtractor{
 		NumWorkers: runtime.NumCPU(),

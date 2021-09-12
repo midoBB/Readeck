@@ -5,7 +5,6 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/readeck/readeck/internal/profile"
 	. "github.com/readeck/readeck/internal/testing"
 )
 
@@ -13,7 +12,6 @@ func TestPermissions(t *testing.T) {
 	app := NewTestApp(t)
 	defer func() {
 		app.Close(t)
-		profile.TokenTimers.StopAll()
 	}()
 
 	client := NewClient(t, app)

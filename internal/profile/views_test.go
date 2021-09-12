@@ -1,6 +1,8 @@
 package profile_test
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/url"
 	"path"
 	"testing"
@@ -9,7 +11,6 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/readeck/readeck/internal/auth/tokens"
-	"github.com/readeck/readeck/internal/profile"
 	. "github.com/readeck/readeck/internal/testing"
 )
 
@@ -17,7 +18,6 @@ func TestViews(t *testing.T) {
 	app := NewTestApp(t)
 	defer func() {
 		app.Close(t)
-		profile.TokenTimers.StopAll()
 	}()
 
 	client := NewClient(t, app)
@@ -118,7 +118,22 @@ func TestViews(t *testing.T) {
 					if err != nil {
 						t.Error(err)
 					}
-					assert.True(t, profile.TokenTimers.Exists(token.ID))
+
+					// An event was sent
+					assert.Len(t, Events().Records("task"), 1)
+					evt := map[string]interface{}{}
+					json.Unmarshal(Events().Records("task")[0], &evt)
+					assert.Equal(t, evt["name"], "token.delete")
+					assert.Equal(t, evt["id"], float64(token.ID))
+
+					// There's a task in the store
+					task := fmt.Sprintf("tasks:token.delete:%d", token.ID)
+					m := Store().Get(task)
+					assert.NotEmpty(t, m)
+
+					payload := map[string]interface{}{}
+					json.Unmarshal([]byte(m), &payload)
+					assert.Equal(t, payload["delay"], float64(20))
 				},
 			},
 
@@ -138,7 +153,11 @@ func TestViews(t *testing.T) {
 					if err != nil {
 						t.Error(err)
 					}
-					assert.False(t, profile.TokenTimers.Exists(token.ID))
+
+					// The task is not in the store anymore
+					task := fmt.Sprintf("tasks:token.delete:%d", token.ID)
+					m := Store().Get(task)
+					assert.Empty(t, m)
 				},
 			},
 		)

@@ -1,7 +1,6 @@
 package server
 
 import (
-	"fmt"
 	"net/http"
 	"net/url"
 	"os"
@@ -92,18 +91,6 @@ func (s *Server) AuthenticatedRouter() chi.Router {
 // the BasePath.
 func (s *Server) AddRoute(pattern string, handler http.Handler) {
 	s.Router.Mount(path.Join(s.BasePath, pattern), handler)
-}
-
-// ListenAndServe starts the HTTP server
-func (s *Server) ListenAndServe() error {
-	s.Init()
-
-	srv := &http.Server{
-		Addr:           fmt.Sprintf("%s:%d", configs.Config.Server.Host, configs.Config.Server.Port),
-		Handler:        s.Router,
-		MaxHeaderBytes: 1 << 20,
-	}
-	return srv.ListenAndServe()
 }
 
 // AbsoluteURL resolve the absolute URL for the given ref path parts.

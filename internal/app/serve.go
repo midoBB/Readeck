@@ -1,7 +1,13 @@
 package app
 
 import (
+	"context"
 	"fmt"
+	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -11,6 +17,7 @@ import (
 	"github.com/readeck/readeck/internal/assets"
 	"github.com/readeck/readeck/internal/auth/signin"
 	"github.com/readeck/readeck/internal/bookmarks"
+	"github.com/readeck/readeck/internal/bus"
 	"github.com/readeck/readeck/internal/cookbook"
 	"github.com/readeck/readeck/internal/dashboard"
 	"github.com/readeck/readeck/internal/profile"
@@ -29,8 +36,9 @@ func init() {
 }
 
 var serveCmd = &cobra.Command{
-	Use:  "serve",
-	RunE: runServe,
+	Use:   "serve",
+	Short: "start HTTP server",
+	RunE:  runServe,
 }
 
 func runServe(_ *cobra.Command, _ []string) error {
@@ -38,15 +46,70 @@ func runServe(_ *cobra.Command, _ []string) error {
 		return fmt.Errorf("The server.allowed_hosts setting is not set")
 	}
 
+	// Prepare HTTP server
 	s := server.New(configs.Config.Server.Prefix)
 	if err := InitServer(s); err != nil {
 		return err
 	}
 
-	log.WithField("url", fmt.Sprintf("http://%s:%d%s",
-		configs.Config.Server.Host, configs.Config.Server.Port, s.BasePath),
-	).Info("Starting server")
-	return s.ListenAndServe()
+	srv := &http.Server{
+		Addr:           fmt.Sprintf("%s:%d", configs.Config.Server.Host, configs.Config.Server.Port),
+		Handler:        s.Router,
+		MaxHeaderBytes: 1 << 20,
+	}
+
+	if err := bus.Load(); err != nil {
+		return err
+	}
+
+	stop := make(chan os.Signal, 2)
+	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
+
+	// Start the HTTP server
+	go func() {
+		log.WithField("url", fmt.Sprintf("http://%s:%d%s",
+			configs.Config.Server.Host, configs.Config.Server.Port, s.BasePath),
+		).Info("starting server")
+		if err := srv.ListenAndServe(); err != nil {
+			if err == http.ErrServerClosed {
+				log.Info("stopping server...")
+				return
+			}
+			panic(err)
+		}
+	}()
+
+	// Start the embed standalone worker.
+	startBus := configs.Config.Worker.StartWorker || bus.Protocol() == "memory"
+	if startBus {
+		go func() {
+			bus.Tasks().Start()
+			log.Info("workers started")
+		}()
+	}
+
+	// Server shutdown
+	<-stop
+
+	log.Info("shutting down...")
+	defer cleanup()
+
+	// Graceful http shutdown
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	if err := srv.Shutdown(ctx); err != nil {
+		panic(err)
+	}
+	log.Info("server stopped")
+
+	if startBus {
+		log.Info("stopping workers...")
+		bus.Tasks().Stop()
+		log.Info("workers stopped")
+	}
+
+	return nil
 }
 
 // InitServer setups all the routes.
@@ -82,5 +145,6 @@ func InitServer(s *server.Server) error {
 		cookbook.SetupRoutes(s)
 	}
 
+	s.Init()
 	return nil
 }

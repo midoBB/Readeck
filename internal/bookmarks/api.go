@@ -17,21 +17,16 @@ import (
 	"github.com/doug-martin/goqu/v9"
 	"github.com/go-chi/chi/v5"
 	"github.com/leebenson/conform"
-	log "github.com/sirupsen/logrus"
 	"github.com/thoas/go-funk"
 
-	"github.com/readeck/readeck/configs"
 	"github.com/readeck/readeck/internal/auth"
 	"github.com/readeck/readeck/internal/db"
 	"github.com/readeck/readeck/internal/server"
 	"github.com/readeck/readeck/pkg/form"
-	"github.com/readeck/readeck/pkg/timers"
 	"github.com/readeck/readeck/pkg/zipfs"
 )
 
 var validSchemes = map[string]bool{"http": true, "https": true}
-
-var deleteTimer = timers.NewTimerStore()
 
 type (
 	ctxBookmarkKey     struct{}
@@ -51,11 +46,6 @@ type bookmarkAPI struct {
 // newBookmarkAPI returns a BookmarkApi with all the routes
 // set up.
 func newBookmarkAPI(s *server.Server) *bookmarkAPI {
-	// Start the job workers
-	w := configs.Config.Extractor.NumWorkers
-	StartWorkerPool(w)
-	log.WithField("workers", w).Info("Started extract workers")
-
 	r := s.AuthenticatedRouter()
 
 	api := &bookmarkAPI{r, s}
@@ -239,7 +229,10 @@ func (api *bookmarkAPI) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	api.launchDelete(b, r)
+	if err := api.launchDelete(b, r); err != nil {
+		api.srv.Error(w, r, err)
+		return
+	}
 	w.WriteHeader(http.StatusNoContent)
 }
 
@@ -534,13 +527,11 @@ func (api *bookmarkAPI) createBookmark(r *http.Request, u string, html []byte) (
 	}
 
 	// Start extraction job
-	ctx := context.WithValue(
-		context.Background(),
-		ctxJobRequestID{},
-		api.srv.GetReqID(r),
-	)
-	enqueueExtractPage(ctx, b, html)
-	return b, nil
+	return b, extractPageTask.Run(b.ID, extractParams{
+		BookmarkID: b.ID,
+		HTML:       html,
+		RequestID:  api.srv.GetReqID(r),
+	})
 }
 
 // loadCreateParamsHTML return the url and html passed in a multi-part form.
@@ -624,10 +615,14 @@ func (api *bookmarkAPI) updateBookmark(b *Bookmark, uf *updateForm, r *http.Requ
 			return updated, err
 		}
 		if d, ok := deleted.(bool); ok && d {
-			api.launchDelete(b, r)
+			if err := api.launchDelete(b, r); err != nil {
+				return updated, err
+			}
 			updated["is_deleted"] = d
 		} else if ok && !d {
-			api.cancelDelete(b, r)
+			if err := api.cancelDelete(b, r); err != nil {
+				return updated, err
+			}
 			updated["is_deleted"] = d
 		}
 	}
@@ -675,25 +670,20 @@ func (api *bookmarkAPI) renameLabel(r *http.Request, old, new string) ([]int, er
 	return ids, nil
 }
 
-func (api *bookmarkAPI) launchDelete(b *Bookmark, r *http.Request) {
-	l := api.srv.Log(r).WithField("uid", b.UID).WithField("id", b.ID)
-	l.Debug("launching bookmark removal")
+func (api *bookmarkAPI) launchDelete(b *Bookmark, r *http.Request) error {
+	api.srv.Log(r).
+		WithField("uid", b.UID).WithField("id", b.ID).
+		Debug("launching bookmark removal")
 
-	deleteTimer.Start(b.ID, 20*time.Second, func() {
-		if err := b.Delete(); err != nil {
-			l.WithError(err).Error("Error deleting bookmark")
-			return
-		}
-
-		l.Debug("bookmark deleted")
-	})
+	return deleteBookmarkTask.Run(b.ID, b.ID)
 }
 
-func (api *bookmarkAPI) cancelDelete(b *Bookmark, r *http.Request) {
-	api.srv.Log(r).WithField("uid", b.UID).WithField("id", b.ID).
+func (api *bookmarkAPI) cancelDelete(b *Bookmark, r *http.Request) error {
+	api.srv.Log(r).
+		WithField("uid", b.UID).WithField("id", b.ID).
 		Debug("removal canceled")
 
-	deleteTimer.Stop(b.ID)
+	return deleteBookmarkTask.Cancel(b.ID)
 }
 
 // bookmarkList is a paginated list of BookmarkItem instances.
@@ -771,7 +761,7 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *Bookmark, base string
 		Lang:         b.Lang,
 		DocumentType: b.DocumentType,
 		Description:  b.Description,
-		IsDeleted:    deleteTimer.Exists(b.ID),
+		IsDeleted:    deleteBookmarkTask.IsRunning(b.ID),
 		IsMarked:     b.IsMarked,
 		IsArchived:   b.IsArchived,
 		Labels:       make([]string, 0),

@@ -143,13 +143,15 @@ func NewTestApp(t *testing.T) *TestApp {
 	configs.Config.Email.Host = "localhost"
 	email.Sender = ta
 
+	// Start event manager
+	startEventManager()
+
 	// Init test server
 	ta.Srv = server.New(configs.Config.Server.Prefix)
 	err = app.InitServer(ta.Srv)
 	if err != nil {
 		t.Fatal(err)
 	}
-	ta.Srv.Init()
 
 	return ta
 }
@@ -162,6 +164,10 @@ func (ta *TestApp) Close(t *testing.T) {
 	if err := os.RemoveAll(ta.TmpDir); err != nil {
 		t.Logf("error removing temporary folder: %s", err)
 	}
+
+	// Reset the bus
+	Events().Stop()
+	Store().Clear()
 }
 
 // SendEmail implements email.sender interface and stores the last sent message.

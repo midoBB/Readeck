@@ -6,9 +6,7 @@ import (
 	"math/rand"
 	"net/url"
 	"os"
-	"os/signal"
 	"path"
-	"syscall"
 	"time"
 
 	"github.com/mattn/go-colorable"
@@ -215,24 +213,5 @@ func addSiteConfig(name, src string) {
 
 // Run starts the application
 func Run() error {
-	go func() {
-		sigchan := make(chan os.Signal, 10)
-		signal.Notify(sigchan,
-			os.Interrupt, os.Kill,
-			syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT,
-			syscall.SIGKILL, syscall.SIGHUP,
-		)
-		<-sigchan
-		println("Bye!")
-
-		cleanup()
-		os.Exit(0)
-	}()
-
-	if err := rootCmd.Execute(); err != nil {
-		log.WithError(err).Fatal()
-		os.Exit(1)
-	}
-
-	return nil
+	return rootCmd.Execute()
 }

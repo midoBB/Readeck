@@ -287,6 +287,15 @@ func newUserItem(s *server.Server, r *http.Request, u *users.User, base string) 
 		Username:  u.Username,
 		Email:     u.Email,
 		Group:     u.Group,
-		IsDeleted: UserTimers.Exists(u.ID),
+		IsDeleted: deleteUserTask.IsRunning(u.ID),
 	}
+}
+
+func deleteUser(u *users.User) error {
+	// Remove user's bookmarks first
+	if err := bookmarks.Bookmarks.DeleteUserBookmakrs(u); err != nil {
+		return err
+	}
+
+	return u.Delete()
 }

@@ -3,7 +3,6 @@ package profile_test
 import (
 	"testing"
 
-	"github.com/readeck/readeck/internal/profile"
 	. "github.com/readeck/readeck/internal/testing"
 )
 
@@ -11,7 +10,6 @@ func TestAPI(t *testing.T) {
 	app := NewTestApp(t)
 	defer func() {
 		app.Close(t)
-		profile.TokenTimers.StopAll()
 	}()
 
 	client := NewClient(t, app)

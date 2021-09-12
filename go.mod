@@ -19,9 +19,11 @@ require (
 	github.com/gammazero/workerpool v1.1.2
 	github.com/go-chi/chi/v5 v5.0.3
 	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
+	github.com/go-redis/redis/v8 v8.11.0
 	github.com/go-shiori/dom v0.0.0-20210627111528-4e4722cd0d65
 	github.com/go-shiori/go-readability v0.0.0-20210627123243-82cc33435520
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
+	github.com/google/uuid v1.3.0
 	github.com/gorilla/csrf v1.7.0
 	github.com/gorilla/schema v1.2.0
 	github.com/gorilla/securecookie v1.1.1

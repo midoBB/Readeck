@@ -1,13 +1,13 @@
 package admin_test
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/url"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/readeck/readeck/internal/admin"
 	. "github.com/readeck/readeck/internal/testing"
 )
 
@@ -15,7 +15,6 @@ func TestViews(t *testing.T) {
 	app := NewTestApp(t)
 	defer func() {
 		app.Close(t)
-		admin.UserTimers.StopAll()
 	}()
 
 	client := NewClient(t, app)
@@ -114,7 +113,17 @@ func TestViews(t *testing.T) {
 				ExpectStatus:   200,
 				ExpectContains: "User will be removed in a few seconds",
 				Assert: func(t *testing.T, r *Response) {
-					assert.True(t, admin.UserTimers.Exists(u1.User.ID))
+					// An event was sent
+					assert.Len(t, Events().Records("task"), 1)
+					evt := map[string]interface{}{}
+					json.Unmarshal(Events().Records("task")[0], &evt)
+					assert.Equal(t, evt["name"], "user.delete")
+					assert.Equal(t, evt["id"], float64(u1.User.ID))
+
+					// There's a task in the store
+					task := fmt.Sprintf("tasks:user.delete:%d", u1.User.ID)
+					m := Store().Get(task)
+					assert.NotEmpty(t, m)
 				},
 			},
 
@@ -129,7 +138,10 @@ func TestViews(t *testing.T) {
 				ExpectStatus:   303,
 				ExpectRedirect: fmt.Sprintf("/admin/users/%d", u1.User.ID),
 				Assert: func(t *testing.T, _ *Response) {
-					assert.False(t, admin.UserTimers.Exists(u1.User.ID))
+					// The task is not in the store anymore
+					task := fmt.Sprintf("tasks:user.delete:%d", u1.User.ID)
+					m := Store().Get(task)
+					assert.Empty(t, m)
 				},
 			},
 		)

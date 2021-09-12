@@ -14,7 +14,6 @@ import (
 	"github.com/readeck/readeck/internal/auth/users"
 	"github.com/readeck/readeck/internal/server"
 	"github.com/readeck/readeck/pkg/form"
-	"github.com/readeck/readeck/pkg/timers"
 )
 
 type (
@@ -27,9 +26,6 @@ type profileAPI struct {
 	chi.Router
 	srv *server.Server
 }
-
-// TokenTimers contains token deletion timers
-var TokenTimers = timers.NewTimerStore()
 
 // newProfileAPI returns a SettingAPI with its routes set up.
 func newProfileAPI(s *server.Server) *profileAPI {
@@ -259,6 +255,6 @@ func newTokenItem(s *server.Server, r *http.Request, t *tokens.Token, base strin
 		Created:   t.Created,
 		Expires:   t.Expires,
 		IsEnabled: t.IsEnabled,
-		IsDeleted: TokenTimers.Exists(t.ID),
+		IsDeleted: deleteTokenTask.IsRunning(t.ID),
 	}
 }

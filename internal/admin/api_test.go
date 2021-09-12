@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/readeck/readeck/internal/admin"
 	. "github.com/readeck/readeck/internal/testing"
 )
 
@@ -12,7 +11,6 @@ func TestAPI(t *testing.T) {
 	app := NewTestApp(t)
 	defer func() {
 		app.Close(t)
-		admin.UserTimers.StopAll()
 	}()
 
 	client := NewClient(t, app)

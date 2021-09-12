@@ -3,7 +3,6 @@ package admin
 import (
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/go-chi/chi/v5"
 
@@ -11,7 +10,6 @@ import (
 	"github.com/readeck/readeck/internal/auth/users"
 	"github.com/readeck/readeck/internal/server"
 	"github.com/readeck/readeck/pkg/form"
-	"github.com/readeck/readeck/pkg/timers"
 )
 
 // adminViews is an HTTP handler for the user profile web views
@@ -19,9 +17,6 @@ type adminViews struct {
 	chi.Router
 	*adminAPI
 }
-
-// UserTimers contains the user deletion timers
-var UserTimers = timers.NewTimerStore()
 
 type deleteForm struct {
 	Cancel bool `json:"cancel"`
@@ -154,16 +149,9 @@ func (h *adminViews) userDelete(w http.ResponseWriter, r *http.Request) {
 	}()
 
 	if df.Cancel {
-		UserTimers.Stop(u.ID)
+		deleteUserTask.Cancel(u.ID)
 		return
 	}
 
-	UserTimers.Start(u.ID, 20*time.Second, func() {
-		log := h.srv.Log(r).WithField("id", u.ID)
-		if err := h.deleteUser(r, u); err != nil {
-			log.WithError(err).Error("removing user")
-			return
-		}
-		log.Debug("user removed")
-	})
+	deleteUserTask.Run(u.ID, u.ID)
 }

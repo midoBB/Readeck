@@ -182,10 +182,15 @@ func (h *bookmarkViews) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var err error
 	if df.Cancel {
-		h.cancelDelete(b, r)
+		err = h.cancelDelete(b, r)
 	} else {
-		h.launchDelete(b, r)
+		err = h.launchDelete(b, r)
+	}
+	if err != nil {
+		h.srv.Error(w, r, err)
+		return
 	}
 
 	redir := "/bookmarks"

@@ -14,6 +14,7 @@ import (
 	"golang.org/x/net/html"
 
 	"github.com/go-shiori/dom"
+	"github.com/readeck/readeck/pkg/glob"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -42,6 +43,14 @@ type (
 		step         ProcessStep
 		canceled     bool
 		values       map[string]interface{}
+	}
+
+	// ProxyMatcher describes a mapping of host/url for proxy dispatch.
+	ProxyMatcher interface {
+		// Returns the matching host
+		Host() string
+		// Returns the proxy URL
+		URL() *url.URL
 	}
 )
 
@@ -191,6 +200,23 @@ func SetDeniedIPs(netList []*net.IPNet) func(e *Extractor) {
 	return func(e *Extractor) {
 		if t, ok := e.client.Transport.(*Transport); ok {
 			t.deniedIPs = netList
+		}
+	}
+}
+
+// SetProxyList adds a new proxy dispatcher function to the HTTP transport.
+func SetProxyList(list []ProxyMatcher) func(e *Extractor) {
+	return func(e *Extractor) {
+		t := e.client.Transport.(*Transport)
+		htr := t.tr.(*http.Transport)
+		htr.Proxy = func(r *http.Request) (*url.URL, error) {
+			for _, p := range list {
+				if glob.Glob(p.Host(), r.URL.Host) {
+					e.GetLogger().WithField("proxy", p.URL().String()).Debug("using proxy")
+					return p.URL(), nil
+				}
+			}
+			return nil, nil
 		}
 	}
 }

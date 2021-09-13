@@ -133,6 +133,11 @@ func extractPageHandler(data interface{}) {
 		return
 	}
 
+	proxyList := make([]extract.ProxyMatcher, len(configs.Config.Extractor.ProxyMatch))
+	for i, x := range configs.Config.Extractor.ProxyMatch {
+		proxyList[i] = x
+	}
+
 	ex, err := extract.New(
 		b.URL,
 		params.HTML,
@@ -141,6 +146,7 @@ func extractPageHandler(data interface{}) {
 			"bookmark_id": b.ID,
 		}),
 		extract.SetDeniedIPs(configs.ExtractorDeniedIPs()),
+		extract.SetProxyList(proxyList),
 	)
 	if err != nil {
 		logger.WithError(err).Error()

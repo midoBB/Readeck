@@ -86,7 +86,11 @@ func NewClient() *http.Client {
 		htr.ForceAttemptHTTP2 = false
 	}
 
-	t := &Transport{tr: http.DefaultTransport, header: http.Header{}}
+	t := &Transport{
+		tr:        htr,
+		header:    http.Header{},
+		deniedIPs: []*net.IPNet{},
+	}
 
 	t.SetHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:75.0) Gecko/20100101 Firefox/75.0")
 	t.SetHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")

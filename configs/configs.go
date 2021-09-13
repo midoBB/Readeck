@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net"
+	"net/url"
 	"os"
 	"runtime"
 	"time"
@@ -92,6 +93,7 @@ type configExtractor struct {
 	NumWorkers int                `json:"workers"`
 	SiteConfig []configSiteConfig `json:"site_config"`
 	DeniedIPs  []configIPNet      `json:"denied_ips"`
+	ProxyMatch []configProxyMatch `json:"proxy_match"`
 }
 
 type configSiteConfig struct {
@@ -137,6 +139,44 @@ func (ci *configIPNet) UnmarshalJSON(d []byte) error {
 	return nil
 }
 
+type configProxyMatch struct {
+	host string
+	url  *url.URL
+}
+
+func (pm *configProxyMatch) UnmarshalJSON(d []byte) error {
+	var s map[string]string
+	err := json.Unmarshal(d, &s)
+	if err != nil {
+		return err
+	}
+
+	if _, ok := s["host"]; !ok {
+		return fmt.Errorf(`"host" not in %s`, d)
+	}
+	if _, ok := s["url"]; !ok {
+		return fmt.Errorf(`"url" not in %s`, d)
+	}
+
+	proxy, err := url.Parse(s["url"])
+	if err != nil {
+		return fmt.Errorf("error with proxy URL %s in %s", s["url"], d)
+	}
+
+	pm.host = s["host"]
+	pm.url = proxy
+
+	return nil
+}
+
+func (pm configProxyMatch) Host() string {
+	return pm.host
+}
+
+func (pm configProxyMatch) URL() *url.URL {
+	return pm.url
+}
+
 // Config holds the configuration data from configuration files
 // or flags.
 //
@@ -167,10 +207,12 @@ var Config = config{
 	},
 	Extractor: configExtractor{
 		NumWorkers: runtime.NumCPU(),
+		SiteConfig: []configSiteConfig{},
 		DeniedIPs: []configIPNet{
 			newConfigIPNet("127.0.0.0/8"),
 			newConfigIPNet("::1/128"),
 		},
+		ProxyMatch: []configProxyMatch{},
 	},
 }
 

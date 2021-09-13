@@ -413,6 +413,7 @@ func TestMeta(t *testing.T) {
 			dom.SetAttribute(node, "sizes", "64x64 32x32")
 
 			fi, err = newFavicon(node, base)
+			assert.Nil(t, err)
 			assert.Equal(t, "http://example.net/favicon.png", fi.Href)
 			assert.Equal(t, "image/png", fi.Type)
 			assert.Equal(t, [2]int{64, 64}, fi.Size)
@@ -425,7 +426,9 @@ func TestMeta(t *testing.T) {
 			dom.SetAttribute(node, "href", "/favicon.png")
 			dom.RemoveAttribute(node, "sizes")
 			dom.RemoveAttribute(node, "type")
+
 			fi, err = newFavicon(node, base)
+			assert.Nil(t, err)
 			assert.Equal(t, "http://example.net/favicon.png", fi.Href)
 			assert.Equal(t, "image/png", fi.Type)
 			assert.Equal(t, [2]int{32, 32}, fi.Size)

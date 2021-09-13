@@ -110,13 +110,14 @@ func (f *directFileServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		defer fd.Close()
 		st, err := fd.Stat()
 		if st.IsDir() {
 			http.Error(w, http.StatusText(http.StatusForbidden), http.StatusForbidden)
+			fd.Close()
 			return
 		} else if err != nil {
 			http.Error(w, http.StatusText(500), 500)
+			fd.Close()
 			return
 		}
 
@@ -133,6 +134,7 @@ func (f *directFileServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 		// And in any case, we use the build time as Last-Modified
 		http.ServeContent(w, r, name, mtime, fd)
+		fd.Close()
 		return
 	}
 }

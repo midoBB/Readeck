@@ -93,17 +93,19 @@ func NewConfigForURL(src *url.URL, folders ConfigFolderList) (*Config, error) {
 
 	for _, x := range fileList {
 		fp, _ := x.cf.Open(x.name)
-		defer fp.Close()
 
 		cf, err := NewConfig(fp, x.format)
 		if err != nil {
+			fp.Close()
 			return nil, err
 		}
 		if !res.AutoDetectOnFailure {
+			fp.Close()
 			break
 		}
 		cf.Files = []string{path.Join(x.cf.Name, x.name)}
 		res.Merge(cf)
+		fp.Close()
 	}
 
 	return res, nil

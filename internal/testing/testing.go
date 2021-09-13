@@ -397,11 +397,12 @@ func (r *Response) Path() string {
 	return u.String()
 }
 
-// AssertLocation checks that the expected target is present in a Location header.
+// AssertStatus checks the response's expected status.
 func (r *Response) AssertStatus(t *testing.T, expected int) {
 	assert.Equal(t, expected, r.StatusCode)
 }
 
+// AssertRedirect checks that the expected target is present in a Location header.
 func (r *Response) AssertRedirect(t *testing.T, expected string) {
 	assert.Regexp(t, expected, r.Redirect)
 }

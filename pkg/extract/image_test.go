@@ -97,7 +97,11 @@ func TestRemoteImage(t *testing.T) {
 			for _, x := range tests {
 				t.Run(x.format, func(t *testing.T) {
 					ri, err := NewRemoteImage(x.path, nil)
-					defer ri.Close()
+					defer func() {
+						if err := ri.Close(); err != nil {
+							panic(err)
+						}
+					}()
 					assert.Nil(t, err)
 
 					ri.SetFormat(x.format)

@@ -5,7 +5,6 @@ linters:
   fast: true
   enable:
     - revive
-    # - golint
     - govet
     - gosimple
     - deadcode
@@ -16,7 +15,7 @@ linters:
     - dupl
     - gocritic
     # - errcheck
-    # - staticcheck
+    - staticcheck
     # - gocognit
     # - gocyclo
 
@@ -36,10 +35,10 @@ issues:
 
 linters-settings:
   gocognit:
-    min-complexity: 20
+    min-complexity: 60
 
   gocyclo:
-    min-complexity: 20
+    min-complexity: 30
 
   misspell:
     locale: US
@@ -50,10 +49,12 @@ linters-settings:
       - name: blank-imports
       - name: context-as-argument
       - name: context-keys-type
+      - name: defer
       - name: dot-imports
       - name: error-return
       - name: error-strings
       - name: error-naming
+      - name: errorf
       - name: exported
       - name: if-return
       - name: increment-decrement

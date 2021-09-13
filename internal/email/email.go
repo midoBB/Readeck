@@ -17,7 +17,7 @@ import (
 )
 
 // Sender is the default email sender. It's made public so it can be
-// overriden during tests.
+// overridden during tests.
 var Sender sender
 
 // InitSender initializes the default email sender base on the

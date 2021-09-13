@@ -210,6 +210,8 @@ type countQueryResult struct {
 	Type       string `db:"type"`
 }
 
+// CountResult contains the result of the total bookmark count with marked, archived and types
+// breakdown.
 type CountResult struct {
 	Total    int
 	Archived int
@@ -217,6 +219,7 @@ type CountResult struct {
 	ByType   map[string]int
 }
 
+// CountAll returns a CountResult of all bookmarks for a given user.
 func (m *BookmarkManager) CountAll(u *users.User) (CountResult, error) {
 	ds := Bookmarks.Query().
 		Select(
@@ -416,15 +419,22 @@ func (b *Bookmark) getArticle(baseURL string) (*strings.Reader, error) {
 		}
 
 		// Extract document
-		if entry.Name == a.Name {
-			fp, err := entry.Open()
-			if err != nil {
-				return nil, err
+		var err error
+		var fp io.ReadCloser
+		func() {
+			if entry.Name == a.Name {
+				fp, err = entry.Open()
+				if err != nil {
+					return
+				}
+				defer fp.Close()
+				if _, err = io.Copy(buf, fp); err != nil {
+					return
+				}
 			}
-			defer fp.Close()
-			if _, err := io.Copy(buf, fp); err != nil {
-				return nil, err
-			}
+		}()
+		if err != nil {
+			return nil, err
 		}
 	}
 
@@ -483,7 +493,7 @@ func (s *Strings) Scan(value interface{}) error {
 	return nil
 }
 
-// Value encode a Strings instance for storage.
+// Value encodes a Strings instance for storage.
 func (s Strings) Value() (driver.Value, error) {
 	v, err := json.Marshal(s)
 	if err != nil {

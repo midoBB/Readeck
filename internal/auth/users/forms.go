@@ -81,16 +81,20 @@ func (pf *PasswordForm) Validate(f *form.Form) {
 	}
 }
 
+// GroupChoice is a form field with a choice of group names.
 type GroupChoice string
 
+// Options returns the valid field's choices.
 func (c *GroupChoice) Options() [][2]string {
 	return availableGroups
 }
 
+// String returns the string value of the field.
 func (c *GroupChoice) String() string {
 	return fmt.Sprint(*c)
 }
 
+// Validate performs the field validation.
 func (c *GroupChoice) Validate(f *form.Field) error {
 	value, isNil := validation.Indirect(f.Value())
 	if isNil || validation.IsEmpty(value) {

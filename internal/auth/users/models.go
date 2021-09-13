@@ -220,10 +220,12 @@ func (u *User) HasPermission(obj, act string) bool {
 	return r
 }
 
+// UserSettings contains some user settings.
 type UserSettings struct {
 	DebugInfo bool `json:"debug_info"`
 }
 
+// Scan loads a UserSettings instance from a column.
 func (s *UserSettings) Scan(value interface{}) error {
 	if value == nil {
 		return nil
@@ -237,6 +239,7 @@ func (s *UserSettings) Scan(value interface{}) error {
 	return nil
 }
 
+// Value encodes a UserSettings value for storage.
 func (s *UserSettings) Value() (driver.Value, error) {
 	v, err := json.Marshal(s)
 	if err != nil {

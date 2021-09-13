@@ -75,20 +75,22 @@ func initTaskManager() {
 	}
 }
 
-// Protocol returns the superbus protocol in use
+// Protocol returns the superbus protocol in use.
 func Protocol() string {
 	return protocol
 }
 
-// Tasks returns the default task manager
+// Tasks returns the default task manager.
 func Tasks() *superbus.TaskManager {
 	return taskManager
 }
 
+// Events returns the default event manager.
 func Events() superbus.EventManager {
 	return eventManager
 }
 
+// Store returns the default store.
 func Store() superbus.Store {
 	return store
 }

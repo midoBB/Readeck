@@ -206,7 +206,7 @@ func isSingleImage(node *html.Node) bool {
 	return isSingleImage(children[0])
 }
 
-func convertPictureNodes(top *html.Node, m *extract.ProcessMessage) {
+func convertPictureNodes(top *html.Node, _ *extract.ProcessMessage) {
 	nodes := dom.GetElementsByTagName(top, "picture")
 	dom.ForEachNode(nodes, func(node *html.Node, _ int) {
 		// A picture tag contains zero or more <source> elements

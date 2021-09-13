@@ -41,7 +41,6 @@ func (f *messageFormatter) Format(entry *log.Entry) ([]byte, error) {
 }
 
 var messageLogFormat = messageFormatter{withPrefix: true}
-var errorLogFormat = messageFormatter{withPrefix: false}
 
 type messageLogHook struct {
 	e *Extractor
@@ -59,7 +58,6 @@ func (h *messageLogHook) Fire(entry *log.Entry) error {
 	b, _ := messageLogFormat.Format(entry)
 	h.e.Logs = append(h.e.Logs, strings.TrimSpace(string(b)))
 	if entry.Level <= log.ErrorLevel {
-		b, _ = errorLogFormat.Format(entry)
 		h.e.errors = append(h.e.errors, errors.New(entry.Message))
 	}
 

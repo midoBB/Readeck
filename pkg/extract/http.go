@@ -87,7 +87,7 @@ func NewClient() *http.Client {
 	}
 
 	t := &Transport{
-		tr:        htr,
+		tr:        tr,
 		header:    http.Header{},
 		deniedIPs: []*net.IPNet{},
 	}

@@ -54,10 +54,16 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	proxyList := make([]extract.ProxyMatcher, len(configs.Config.Extractor.ProxyMatch))
+	for i, x := range configs.Config.Extractor.ProxyMatch {
+		proxyList[i] = x
+	}
+
 	ex, err := extract.New(
 		src, nil,
 		extract.SetLogFields(&log.Fields{"@id": api.srv.GetReqID(r)}),
 		extract.SetDeniedIPs(configs.ExtractorDeniedIPs()),
+		extract.SetProxyList(proxyList),
 	)
 	if err != nil {
 		panic(err)

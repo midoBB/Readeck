@@ -1,0 +1,14 @@
+replace_strings=[
+    [
+        "\" data-src=\"",
+        "\"\u003e\u003cimg src=\""
+    ],
+    [
+      "\" data-responsive=\"",
+      "\" /\u003e\u003cspan data-responsive=\""
+    ],
+    [
+      "\u003cfigure style=\"",
+      "\u003c/span\u003e\u003cfigure data-style=\""
+    ]
+]

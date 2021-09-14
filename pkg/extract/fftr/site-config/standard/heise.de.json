@@ -29,6 +29,7 @@
     "//style",
     "//span[@class='source']",
     "//figure[@class='printversion__logo']",
+    "//figure[@class='branding']",
     "//a-ad",
     "//footer",
     "//a-collapse"

@@ -24,6 +24,7 @@
     "//gpt-ad",
     "//div[contains(@class, 'ArticleBio_social')]",
     "//*[contains(@class, 'ArticleRecirc')]",
+    "//*[contains(@class, 'ArticleRelatedContentModule')]",
     "//div[@class='moreOnBoxWithImages']",
     "//p[contains(., 'This article available online at:')]",
     "//p[contains(., 'This article available online at:')]/following::*",

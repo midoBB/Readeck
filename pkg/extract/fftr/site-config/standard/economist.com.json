@@ -16,7 +16,9 @@
     "newsletter-form--inline",
     "layout-article-links",
     "layout-sticky-rail",
-    "article__aside"
+    "article__aside",
+    "_newsletterContentPromo",
+    "article-audio-player__cta"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

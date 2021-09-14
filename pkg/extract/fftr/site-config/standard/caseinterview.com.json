@@ -1,17 +1,12 @@
 {
-  "title_selectors": [
-    "//head/title"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, 'post-content')]"
+    "(//div[@data-elementor-type=\"wp-post\"])[1]"
   ],
   "date_selectors": null,
-  "author_selectors": [
-    "//meta[@name=\"author\"]/@content"
-  ],
+  "author_selectors": null,
   "strip_selectors": [
-    "//div[contains(@class, 'content-summary')]",
-    "//aside"
+    "//footer"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -25,7 +20,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://io9.gizmodo.com/the-expanses-keon-alexander-and-dominique-tipper-on-mar-1845951334",
+      "url": "https://caseinterview.com/mece",
       "contains": []
     }
   ]

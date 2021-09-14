@@ -22,6 +22,9 @@
   ],
   "strip_id_or_class": [
     "iqadtile4",
+    "gbox_affiliate",
+    "seminars",
+    "supplementary",
     "list-jtoc",
     "table-jtoc",
     "implied",
@@ -29,7 +32,8 @@
     "comments",
     "footer",
     "job-market",
-    "tags"
+    "tags",
+    "topictags"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -42,7 +46,7 @@
   ],
   "replace_strings": null,
   "http_headers": {
-    "Cookie": "golem_consent20=cmp|210127"
+    "Cookie": "golem_consent20=cmp|210630"
   },
   "tests": [
     {

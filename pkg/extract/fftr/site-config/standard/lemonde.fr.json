@@ -27,7 +27,9 @@
     "//ul[contains(@class, 'meta__social')]",
     "//link[@rel='stylesheet']"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "message--register"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

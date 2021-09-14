@@ -1,23 +1,17 @@
 {
-  "title_selectors": [
-    "//head/title"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, 'post-content')]"
+    "//main"
   ],
   "date_selectors": null,
-  "author_selectors": [
-    "//meta[@name=\"author\"]/@content"
-  ],
+  "author_selectors": null,
   "strip_selectors": [
-    "//div[contains(@class, 'content-summary')]",
-    "//svg",
+    "//button",
     "//aside"
   ],
   "strip_id_or_class": [
-    "magnifier",
-    "js_commerce-inset-permalink",
-    "ad-commerce"
+    "video-wrapper",
+    "article-newsletter"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -30,7 +24,11 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://gizmodo.com/the-new-bad-tick-is-going-to-take-over-half-the-united-1831079855",
+      "url": "https://www.texasmonthly.com/interactive/20-essential-texas-rap-tracks/",
+      "contains": []
+    },
+    {
+      "url": "https://www.texasmonthly.com/arts-entertainment/dennis-quaid-king-of-sports-movies/",
       "contains": []
     }
   ]

@@ -4,7 +4,8 @@
   ],
   "body_selectors": [
     "//div[contains(concat(' ',normalize-space(@class),' '),' feature-body ')]",
-    "//div[contains(concat(' ',normalize-space(@class),' '),' post-inner ')]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' post-inner ')]",
+    "//div[@id=\"main\"]"
   ],
   "date_selectors": [
     "//div[contains(concat(' ',normalize-space(@class),' '),' timestamp ')]//time"
@@ -14,7 +15,8 @@
   ],
   "strip_selectors": null,
   "strip_id_or_class": [
-    "share-links"
+    "share-links",
+    "hide-desktop-alt"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -40,6 +42,10 @@
     },
     {
       "url": "http://foreignpolicy.com/2016/04/26/fear-this-man-cyber-warfare-hacking-team-david-vincenzetti/",
+      "contains": []
+    },
+    {
+      "url": "https://foreignpolicy.com/2020/04/22/climate-change-security-poverty-food-water-fragile-states-peacegames/",
       "contains": []
     }
   ]

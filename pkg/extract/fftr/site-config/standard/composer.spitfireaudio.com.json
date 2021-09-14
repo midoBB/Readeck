@@ -1,23 +1,19 @@
 {
-  "title_selectors": [
-    "//head/title"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, 'post-content')]"
+    "//div[@id=\"app\"]"
   ],
   "date_selectors": null,
-  "author_selectors": [
-    "//meta[@name=\"author\"]/@content"
-  ],
+  "author_selectors": null,
   "strip_selectors": [
-    "//div[contains(@class, 'content-summary')]",
-    "//svg",
-    "//aside"
+    "//v-menu",
+    "//v-article"
   ],
   "strip_id_or_class": [
-    "magnifier",
-    "js_commerce-inset-permalink",
-    "ad-commerce"
+    "header-container",
+    "footer",
+    "header__hamburger",
+    "main-menu"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -30,7 +26,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://gizmodo.com/the-new-bad-tick-is-going-to-take-over-half-the-united-1831079855",
+      "url": "https://composer.spitfireaudio.com/en/articles/danny-elfman-on-the-evolution-of-midi-composing-ideas-on-voice-notes-tim-burton",
       "contains": []
     }
   ]

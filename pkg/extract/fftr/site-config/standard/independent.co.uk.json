@@ -19,7 +19,8 @@
     "//amp-carousel",
     "//amp-lightbox",
     "//h5[contains(., 'READ MORE:')]",
-    "//h5[contains(., 'Read more:')]"
+    "//h5[contains(., 'Read more:')]",
+    "//div[contains(@id, 'playinc-article-component')]"
   ],
   "strip_id_or_class": [
     "mobile-only",

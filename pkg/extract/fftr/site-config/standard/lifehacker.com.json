@@ -11,9 +11,14 @@
   ],
   "strip_selectors": [
     "//div[contains(@class, 'content-summary')]",
+    "//svg",
     "//aside"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "magnifier",
+    "js_commerce-inset-permalink",
+    "ad-commerce"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

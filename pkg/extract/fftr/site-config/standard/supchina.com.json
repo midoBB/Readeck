@@ -1,18 +1,13 @@
 {
   "title_selectors": [
-    "//head/title"
+    "//h1"
   ],
   "body_selectors": [
-    "//div[contains(@class, 'post-content')]"
+    "//article[contains(concat(' ',normalize-space(@class),' '),' post ')]"
   ],
   "date_selectors": null,
-  "author_selectors": [
-    "//meta[@name=\"author\"]/@content"
-  ],
-  "strip_selectors": [
-    "//div[contains(@class, 'content-summary')]",
-    "//aside"
-  ],
+  "author_selectors": null,
+  "strip_selectors": null,
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -25,7 +20,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://vitals.lifehacker.com/use-these-apps-for-tracking-strength-workouts-1830938052",
+      "url": "https://supchina.com/2021/07/22/how-to-understand-chinese-politics-through-data/",
       "contains": []
     }
   ]

@@ -4,6 +4,7 @@ import (
 	"archive/zip"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"os"
 	"path"
 	"strings"
@@ -84,7 +85,6 @@ func (c *bookmarkContainer) ReplaceLinks(orig, repl string) (err error) {
 		)
 	}
 
-	fmt.Printf("%+v\n", args)
 	replacer := strings.NewReplacer(args...)
 	res := replacer.Replace(c.articleContent.String())
 	c.articleContent.Reset()
@@ -104,4 +104,12 @@ func (c *bookmarkContainer) ExtractBody() (err error) {
 // GetArticle returns a string of the article's HTML.
 func (c *bookmarkContainer) GetArticle() string {
 	return c.articleContent.String()
+}
+
+func (c *bookmarkContainer) GetFile(name string) ([]byte, error) {
+	fd, err := c.z.Open(name)
+	if err != nil {
+		return nil, err
+	}
+	return ioutil.ReadAll(fd)
 }

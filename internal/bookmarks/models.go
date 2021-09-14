@@ -5,14 +5,12 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"errors"
-	"io"
 	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
 	"regexp"
 	"sort"
-	"strings"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
@@ -386,67 +384,6 @@ func (b *Bookmark) getInnerFile(name string) ([]byte, error) {
 	}
 
 	return ioutil.ReadAll(fd)
-}
-
-// getArticle returns the article content
-func (b *Bookmark) getArticle(baseURL string) (*strings.Reader, error) {
-	a, ok := b.Files["article"]
-	if !ok {
-		return nil, os.ErrNotExist
-	}
-
-	p := b.getFilePath()
-	if p == "" {
-		return nil, os.ErrNotExist
-	}
-
-	z, err := zip.OpenReader(p)
-	if err != nil {
-		return nil, err
-	}
-	defer z.Close()
-
-	replaceArgs := []string{}
-	buf := new(strings.Builder)
-
-	for _, entry := range z.File {
-		// Build the resource url replacement list
-		if !strings.HasSuffix(entry.Name, "/") && strings.HasPrefix(entry.Name, resourceDirName) {
-			replaceArgs = append(replaceArgs,
-				"./"+entry.Name,
-				baseURL+"/"+entry.Name)
-			continue
-		}
-
-		// Extract document
-		var err error
-		var fp io.ReadCloser
-		func() {
-			if entry.Name == a.Name {
-				fp, err = entry.Open()
-				if err != nil {
-					return
-				}
-				defer fp.Close()
-				if _, err = io.Copy(buf, fp); err != nil {
-					return
-				}
-			}
-		}()
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	// Replace resource links
-	replacer := strings.NewReplacer(replaceArgs...)
-	res := replacer.Replace(buf.String())
-
-	// Extract the content body by removing the outter parts
-	res = rxHTMLStart.ReplaceAllString(res, "")
-	res = rxHTMLEnd.ReplaceAllString(res, "")
-
-	return strings.NewReader(res), nil
 }
 
 // replaceLabel replaces "old" label with "new" in the

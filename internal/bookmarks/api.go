@@ -3,6 +3,7 @@ package bookmarks
 import (
 	"context"
 	"errors"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"mime"
@@ -506,8 +507,28 @@ func (api *bookmarkAPI) withLabelList(next http.Handler) http.Handler {
 
 // getBookmarkArticle returns a strings.Reader containing the
 // HTML content of a bookmark. Only the body is retrieved.
-func (api *bookmarkAPI) getBookmarkArticle(b *bookmarkItem) (*strings.Reader, error) {
-	return b.getArticle(b.mediaURL.String())
+func (api *bookmarkAPI) getBookmarkArticle(b *bookmarkItem) (r *strings.Reader, err error) {
+	var c *bookmarkContainer
+	if c, err = b.openContainer(); err != nil {
+		return
+	}
+	defer c.Close()
+
+	if err = c.LoadArticle(); err != nil {
+		return
+	}
+
+	if err = c.ReplaceLinks(
+		"./_resources",
+		fmt.Sprintf("%s/_resources", b.mediaURL.String()),
+	); err != nil {
+		return
+	}
+	if err = c.ExtractBody(); err != nil {
+		return
+	}
+
+	return strings.NewReader(c.GetArticle()), nil
 }
 
 // createBookmark creates a new bookmark and starts the extraction process.

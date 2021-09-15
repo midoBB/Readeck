@@ -11,13 +11,14 @@ import gulpEsbuild from "gulp-esbuild"
 import gulpFavicons from "@flexis/favicons/lib/stream"
 import gulpPostcss from "gulp-postcss"
 import gulpRename from "gulp-rename"
-import * as gulpSass from "@mr-hope/gulp-sass"
+import gulpSass from "gulp-sass"
 import gulpSourcemaps from "gulp-sourcemaps"
 import gulpSvgStore from "gulp-svgstore"
 import vinylSourceStream from "vinyl-source-stream"
 
 import del from "del"
 import mergeStream from "merge-stream"
+import sass from "sass"
 import through from "through2"
 
 import {stimulusPlugin} from "esbuild-plugin-stimulus"
@@ -25,6 +26,7 @@ import {stimulusPlugin} from "esbuild-plugin-stimulus"
 
 const DEST=path.resolve("../assets/www")
 
+const sassCompiler = gulpSass(sass)
 
 // hashName returns a gulp stream for hashing filenames with the
 // same pattern.
@@ -151,6 +153,7 @@ function js_bundle() {
 function css_bundle() {
   const processors = [
     require("postcss-import"),
+    require("./ui/plugins/prose"),
     require("tailwindcss"),
     require("postcss-copy")({
       basePath: [
@@ -177,7 +180,7 @@ function css_bundle() {
       "ui/index.sass",
     ])
     .pipe(gulpSourcemaps.init())
-    .pipe(gulpSass.sass().on("error", gulpSass.sass.logError))
+    .pipe(sassCompiler().on("error", sassCompiler.logError))
     .pipe(gulpRename("bundle.css"))
     .pipe(gulpPostcss(processors))
     .pipe(hashName())

@@ -1,0 +1,202 @@
+@use "sass:math"
+
+$line-height: 1.5
+
+@layer components
+  .prose-grid
+    background-image: linear-gradient(#F5D6F5 1px, transparent 1px)
+    background-size: 100% $line-height*1em
+
+  .prose
+    h1
+      font-size: 2.4em
+      flow-block: $line-height 2.4
+
+    h2
+      font-size: 2.2em
+      flow-block: $line-height 2.2
+
+    h3
+      font-size: 1.6em
+      flow-block: $line-height 1.6
+
+    h4
+      font-size: 1.2em
+      flow-block: $line-height 1.2
+
+    h5
+      font-size: 1em
+      flow-block: $line-height 1
+
+    h6
+      font-size: 0.9em
+      flow-block: $line-height 0.9
+
+    p, blockquote, address, figure, hr
+      flow-block: $line-height 1
+      padding: 0
+
+    p, li, dd
+      text-align: justify
+
+    strong, time, b
+      font-weight: bold
+
+    a, a:visited
+      @apply text-primary
+      text-decoration-line: underline
+      text-decoration-style: dotted
+      text-decoration-color: theme('colors.gray.400')
+
+      @media print
+        color: #000
+        font-weight: 600
+        text-decoration: underline
+
+    a:focus, a:hover, a:active
+      @apply text-primary-dark
+      text-decoration: underline
+
+    em, dfn, i
+      font-style: italic
+
+    sub, sup
+      font-size: 75%
+      line-height: 0
+      position: relative
+      vertical-align: baseline
+
+    sup
+      top: -.5em
+
+    sub
+      bottom: -.25em
+
+    small
+      font-size: 80%
+
+    blockquote
+      background: rgba(0,0,0,.03)
+      border-left: 5px solid theme('colors.gray.300')
+      padded-box: $line-height 0.5 0
+
+      *:last-child
+        margin-bottom: 0
+
+    cite
+      font-style: italic
+
+    q:before
+      content: open-quote
+    q:after
+      content: close-quote
+
+    pre
+      font-size: 0.9em
+      flow-block: $line-height 0.9
+      padded-box: math.div($line-height, 0.9) 0.5 1
+      border: 1px solid theme('colors.gray.300')
+      background: rgba(0,0,0,.03)
+      white-space: pre-wrap
+      overflow-x: auto
+
+      code
+        padding: 0
+        border: 0
+        background-color: transparent
+        color: inherit
+
+    code, kbd, samp, var
+      font-size: 0.875em
+      line-height: 1
+      padding: 1px 3px
+      border-radius: theme('borderRadius.sm')
+      background-color: rgba(0,0,0,.04)
+
+    mark
+      line-height: 1
+      padding: 1px 3px
+      background-color: theme('colors.yellow.300')
+
+    img, figure
+      max-width: 100%
+
+    figure
+      display: inline-block
+      width: auto
+      margin-left: auto
+      margin-right: auto
+      border: 1px solid theme('colors.gray.200')
+      padded-box: $line-height 0.5 1
+
+      img, svg, pre
+        display: block
+        margin: 0 auto
+
+      figcaption
+        font-size: 0.9em
+        vertical-flow: $line-height 0.9
+
+      *:last-child
+        margin-bottom: 0
+
+    ul, ol, dl
+      flow-block: $line-height 1
+      padding: 0
+
+    ul, ol
+      padding-left: $line-height*1em
+      list-style-position: inside
+
+    ul
+      list-style: disc
+      &>li
+        line-height: $line-height*0.986
+
+    ol
+      padding-left: $line-height*1em
+      list-style-position: inside
+      list-style: decimal
+
+    li
+      p, ul, ol
+        margin-top: 0
+        margin-bottom: 0
+
+    dl
+      dt
+        font-weight: bold
+      dd
+        margin: 0 0 0 $line-height*1em
+        padding: 0
+
+
+    table
+      flow-block: $line-height 1
+      table-layout: fixed
+      border-collapse: collapse
+      border-spacing: 0
+      margin-top: -2px
+
+    caption
+      color: theme('colors.gray.800')
+      font-style: italic
+      margin-bottom: 0
+
+    td, th
+      padded-box: $line-height 0.25 0.5
+      vertical-align: top
+      min-width: 2em
+      text-align: left
+      border: 1px solid theme('colors.gray.400')
+
+    th
+      font-weight: bold
+      background-color: rgba(0,0,0,.03)
+
+    thead tr:last-child th
+      border-bottom-color: theme('colors.gray.700')
+
+    tfoot
+      td, th
+        font-style: italic

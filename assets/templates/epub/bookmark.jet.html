@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ .Item.Lang }}">
+<head>
+  <title>{{ .Item.Title }}</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data:;"/>
+  <meta http-equiv="Content-Security-Policy" content="connect-src 'none';"/>
+  <meta http-equiv="Content-Security-Policy" content="script-src 'none';"/>
+  <meta http-equiv="Content-Security-Policy" content="style-src 'self';"/>
+  <meta http-equiv="Content-Security-Policy" content="frame-src 'none'; child-src 'none';"/>
+  <meta http-equiv="Content-Security-Policy" content="media-src 'none';"/>
+  <link rel="stylesheet" type="text/css" href="./styles/stylesheet.css"/>
+</head>
+
+<body>
+<h1 class="title">{{ .Item.Title }}</h1>
+{{- if !empty(.Item.Description) -}}
+<p class="desc">{{ .Item.Description }}</p>
+{{- end -}}
+
+<ul class="info">
+  <li>
+    {{- if isset(.Item.Resources.icon) -}}
+    <img class="icon" alt="" src="{{ .Item.Resources.icon.Src }}"
+      width="{{ .Item.Resources.icon.Width }}"
+      height="{{ .Item.Resources.icon.Height }}">
+    {{- end -}}
+    <strong>{{ default(.Item.SiteName, "no site name") }}</strong>
+  </li>
+  {{- if !empty(.Item.Published) -}}
+    <li>Published on {{ date(.Item.Published, "02 January 2006") }}</li>
+  {{- end -}}
+  {{- if !empty(.Item.Authors) -}}
+    <li>By {{ join(.Item.Authors, ", ") }}</li>
+  {{- end -}}
+    <li><a href="{{ .Item.URL }}">{{ .Item.Domain }}</a></li>
+  {{- if .Item.Type == "article" && .Item.ReadingTime() > 0 -}}
+    <li>About {{ .Item.ReadingTime() }}&nbsp;min read</li>
+  {{- end -}}
+</ul>
+
+{{- if .Item.Type == "article" -}}
+  <main class="content">
+  {{ raw(.Content) }}
+  </main>
+{{- else if .Item.Type == "photo" -}}
+  <main class="photo">
+    <img src="{{ .Item.Resources.image.Src }}" alt="" />
+  </main>
+{{ else if .Item.Type == "video" -}}
+  <main class="photo">
+    <img src="{{ .Item.Resources.image.Src }}" alt="" />
+  </main>
+{{- end -}}
+</body>
+</html>

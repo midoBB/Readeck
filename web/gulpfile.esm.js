@@ -149,7 +149,7 @@ function js_bundle() {
     .pipe(gulp.dest(DEST))
 }
 
-// css creates the CSS bundle.
+// css_bundle creates the CSS bundle.
 function css_bundle() {
   const processors = [
     require("postcss-import"),
@@ -187,6 +187,25 @@ function css_bundle() {
     .pipe(gulpSourcemaps.write("."))
     .pipe(destCompress("gz"))
     .pipe(destCompress("br"))
+    .pipe(gulp.dest(DEST))
+}
+
+// css_epub create the css file used for epub export
+function css_epub() {
+  const processors = [
+    require("postcss-import"),
+    require("./ui/plugins/prose"),
+    require("autoprefixer"),
+  ]
+
+  return gulp
+    .src([
+      "ui/epub/stylesheet.sass",
+    ])
+    .pipe(gulpSourcemaps.init())
+    .pipe(sassCompiler().on("error", sassCompiler.logError))
+    .pipe(gulpRename("epub.css"))
+    .pipe(gulpPostcss(processors))
     .pipe(gulp.dest(DEST))
 }
 
@@ -304,6 +323,7 @@ const full_build = gulp.series(
     generate_rnd_icons,
     copy_files,
     css_bundle,
+    css_epub,
   ),
   write_manifest,
 )
@@ -325,6 +345,7 @@ function watch_css() {
     gulp.series(
       clean_css,
       css_bundle,
+      css_epub,
       write_manifest,
     ),
   )
@@ -344,7 +365,8 @@ function watch_media() {
 
 exports.clean = clean_all
 exports.js = js_bundle
-exports.css = gulp.series(clean_css, css_bundle)
+exports.css = gulp.series(clean_css, css_bundle, css_epub)
+exports.epub = css_epub
 exports.icons = icon_sprite
 exports.rndicons = generate_rnd_icons
 exports.favicons = generate_favicons

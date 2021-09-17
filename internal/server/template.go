@@ -53,6 +53,11 @@ func init() {
 	)
 }
 
+// GetTemplate returns a template from the current views.
+func GetTemplate(name string) (*jet.Template, error) {
+	return views.GetTemplate(name)
+}
+
 // RenderTemplate yields an HTML response using the given template and context.
 func (s *Server) RenderTemplate(w http.ResponseWriter, r *http.Request, status int,
 	name string, ctx TC) {

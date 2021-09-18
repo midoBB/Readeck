@@ -3,7 +3,7 @@
 {{- textFav := .IsMarked ? "Remove from favorites" : "Add to favorites" -}}
 
 <turbo-frame id="bookmark-actions-{{ .ID }}">
-<div class="flex bg-gray-100 px-4 py-2 items-center print:hidden">
+<div class="flex bg-gray-100 px-4 py-2 items-center gap-2 print:hidden">
   {{- if .IsDeleted -}}
     <span class="text-red-700" data-deleted="true">
       This bookmark will be removed in a few seconds.
@@ -19,7 +19,6 @@
     </form>
   {{- else -}}
     <form action="{{ urlFor(`/bookmarks`, .ID) }}" method="post"
-    class="flex-grow"
     data-controller="turbo-form"
     data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
     data-turbo-form-method-value="patch">
@@ -36,7 +35,13 @@
       </div>
     </form>
 
-    <form action="{{ urlFor(`/bookmarks`, .ID, `delete`) }}" method="post">
+    {{ if hasPermission("api:bookmarks", "export") -}}
+    <a href="{{ urlFor(`/api/bookmarks`, .ID, `article.epub`) }}"
+     class="btn-outlined-primary leading-none rounded-full h-9 px-3">{{ yield icon(name="o-download") }}&nbsp;download ebook</a>
+    {{- end }}
+
+    <form action="{{ urlFor(`/bookmarks`, .ID, `delete`) }}" method="post"
+     class="ml-auto">
       {{ yield csrfField() }}
       <input type="hidden" name="_to" value="{{ currentPath }}" />
       <button class="btn-outlined-danger leading-none rounded-full w-9 h-9 px-2" name="is_deleted" value="1"

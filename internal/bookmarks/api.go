@@ -492,7 +492,6 @@ func (api *bookmarkAPI) withBookmarkList(next http.Handler) http.Handler {
 		// result according to the IDs order.
 		if len(filters.IDs) > 0 {
 			ds = ds.Where(
-				goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
 				goqu.C("uid").Table("b").In(filters.IDs),
 			)
 

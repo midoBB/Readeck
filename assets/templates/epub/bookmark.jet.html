@@ -24,7 +24,7 @@
     {{- if isset(.Item.Resources.icon) -}}
     <img class="icon" alt="" src="{{ .Item.Resources.icon.Src }}"
       width="{{ .Item.Resources.icon.Width }}"
-      height="{{ .Item.Resources.icon.Height }}">
+      height="{{ .Item.Resources.icon.Height }}" />
     {{- end -}}
     <strong>{{ default(.Item.SiteName, "no site name") }}</strong>
   </li>

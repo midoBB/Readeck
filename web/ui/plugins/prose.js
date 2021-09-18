@@ -61,15 +61,12 @@ function paddedBox(lineHeight, factor, border) {
   border = border || 0
   let p = factor * lineHeight
 
-  let padding = `${p}em`
+  let res = [{prop: "padding", value: `${p}em`}]
   if (border > 0) {
-    padding = `calc(${p}em - ${border}px) ${p}em`
+    res.push({prop: "padding", value: `calc(${p}em - ${border}px) ${p}em`})
   }
 
-  return [
-    {prop: "padding", value: `${p}em`},
-    {prop: "padding", value: padding},
-  ]
+  return res
 }
 
 const plugin = () => {

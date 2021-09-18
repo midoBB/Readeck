@@ -11,6 +11,7 @@
   "o-clock":        "node_modules/boxicons/svg/regular/bx-stopwatch.svg",
   "o-copy":         "node_modules/boxicons/svg/solid/bxs-copy.svg",
   "o-cross":        "node_modules/boxicons/svg/solid/bxs-x-circle.svg",
+  "o-download":     "node_modules/boxicons/svg/regular/bx-download.svg",
   "o-error":        "node_modules/boxicons/svg/solid/bxs-bolt-circle.svg",
   "o-favorite-off": "node_modules/boxicons/svg/regular/bx-heart.svg",
   "o-favorite-on":  "node_modules/boxicons/svg/solid/bxs-heart.svg",

@@ -162,7 +162,6 @@ var config = {
   plugins: [
     require("./ui/plugins/interactions"),
     require("./ui/plugins/forms"),
-    require("./ui/plugins/prose"),
   ],
 }
 

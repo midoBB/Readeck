@@ -3,6 +3,7 @@ package bookmarks
 import (
 	"context"
 	"errors"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"mime"
@@ -29,12 +30,13 @@ import (
 var validSchemes = map[string]bool{"http": true, "https": true}
 
 type (
-	ctxBookmarkKey     struct{}
-	ctxBookmarkListKey struct{}
-	ctxLabelListKey    struct{}
-	ctxSearchString    struct{}
-	ctxFilterForm      struct{}
-	ctxDefaultLimit    struct{}
+	ctxBookmarkKey       struct{}
+	ctxBookmarkListKey   struct{}
+	ctxLabelListKey      struct{}
+	ctxSearchString      struct{}
+	ctxFilterForm        struct{}
+	ctxDefaultLimit      struct{}
+	ctxWithoutPagination struct{}
 )
 
 // bookmarkAPI is the base bookmark API router.
@@ -57,6 +59,14 @@ func newBookmarkAPI(s *server.Server) *bookmarkAPI {
 			r.Get("/{uid:[a-zA-Z0-9]{18,22}}/article", api.bookmarkArticle)
 			r.Get("/{uid:[a-zA-Z0-9]{18,22}}/x/*", api.bookmarkResource)
 		})
+
+		r.With(api.srv.WithPermission("api:bookmarks", "export")).Group(func(r chi.Router) {
+			r.With(api.withoutPagination, api.withBookmarkList).
+				Get("/export.{format}", api.bookmarkExport)
+			r.With(api.withBookmark).
+				Get("/{uid:[a-zA-Z0-9]{18,22}}/article.{format}", api.bookmarkExport)
+		})
+
 		r.With(api.withLabelList).Get("/labels", api.labelList)
 		r.Get("/labels/{label}", api.labelInfo)
 	})
@@ -118,6 +128,37 @@ func (api *bookmarkAPI) bookmarkArticle(w http.ResponseWriter, r *http.Request) 
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.WriteHeader(200)
 	io.Copy(w, buf)
+}
+
+// bookmarkExport renders a list of bookmarks in the requested export format.
+func (api *bookmarkAPI) bookmarkExport(w http.ResponseWriter, r *http.Request) {
+	var fn func(http.ResponseWriter, *http.Request, ...*Bookmark)
+
+	// Check if we have a valid format
+	format := chi.URLParam(r, "format")
+	switch format {
+	case "epub":
+		fn = api.exportBookmarksEPUB
+	default:
+		api.srv.Status(w, r, http.StatusNotFound)
+		return
+	}
+
+	// If we have a bookmark list
+	bl, ok := r.Context().Value(ctxBookmarkListKey{}).(bookmarkList)
+	if ok {
+		fn(w, r, bl.items...)
+		return
+	}
+
+	// Just one bookmark?
+	b, ok := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
+	if ok {
+		fn(w, r, b)
+		return
+	}
+
+	api.srv.Status(w, r, http.StatusNotFound)
 }
 
 // bookmarkCreate creates a new bookmark.
@@ -387,6 +428,13 @@ func (api *bookmarkAPI) withDefaultLimit(limit int) func(next http.Handler) http
 	}
 }
 
+func (api *bookmarkAPI) withoutPagination(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ctx := context.WithValue(r.Context(), ctxWithoutPagination{}, true)
+		next.ServeHTTP(w, r.Clone(ctx))
+	})
+}
+
 func (api *bookmarkAPI) withBookmarkList(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		res := bookmarkList{}
@@ -451,9 +499,29 @@ func (api *bookmarkAPI) withBookmarkList(next http.Handler) http.Handler {
 			ds = Bookmarks.AddLabelFilter(ds, filters.Labels)
 		}
 
+		// Filtering by ids. In this case we include all the given IDs and we sort the
+		// result according to the IDs order.
+		if len(filters.IDs) > 0 {
+			ds = ds.Where(
+				goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
+				goqu.C("uid").Table("b").In(filters.IDs),
+			)
+
+			orderging := goqu.Case().Value(goqu.C("uid").Table("b"))
+			for i, x := range filters.IDs {
+				orderging = orderging.When(x, i)
+			}
+			ds = ds.Order(orderging.Asc())
+		}
+
 		ds = ds.
 			Limit(uint(pf.Limit)).
 			Offset(uint(pf.Offset))
+
+		noPagination, _ := r.Context().Value(ctxWithoutPagination{}).(bool)
+		if noPagination {
+			ds = ds.ClearLimit().ClearOffset()
+		}
 
 		var count int64
 		var err error
@@ -506,8 +574,28 @@ func (api *bookmarkAPI) withLabelList(next http.Handler) http.Handler {
 
 // getBookmarkArticle returns a strings.Reader containing the
 // HTML content of a bookmark. Only the body is retrieved.
-func (api *bookmarkAPI) getBookmarkArticle(b *bookmarkItem) (*strings.Reader, error) {
-	return b.getArticle(b.mediaURL.String())
+func (api *bookmarkAPI) getBookmarkArticle(b *bookmarkItem) (r *strings.Reader, err error) {
+	var c *bookmarkContainer
+	if c, err = b.openContainer(); err != nil {
+		return
+	}
+	defer c.Close()
+
+	if err = c.LoadArticle(); err != nil {
+		return
+	}
+
+	if err = c.ReplaceLinks(
+		"./_resources",
+		fmt.Sprintf("%s/_resources", b.mediaURL.String()),
+	); err != nil {
+		return
+	}
+	if err = c.ExtractBody(); err != nil {
+		return
+	}
+
+	return strings.NewReader(c.GetArticle()), nil
 }
 
 // createBookmark creates a new bookmark and starts the extraction process.
@@ -835,6 +923,7 @@ type filterForm struct {
 	IsArchived *bool    `json:"is_archived"`
 	Type       string   `json:"type"`
 	Labels     []string `json:"label"`
+	IDs        []string `json:"id"`
 }
 
 func (ff *filterForm) setMarked(v bool) {
@@ -868,4 +957,8 @@ type updateForm struct {
 type deleteForm struct {
 	Cancel  bool   `json:"cancel"`
 	RedirTo string `json:"_to"`
+}
+
+type exportForm struct {
+	IDs []string `json:"id"`
 }

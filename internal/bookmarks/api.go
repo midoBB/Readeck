@@ -962,7 +962,3 @@ type deleteForm struct {
 	Cancel  bool   `json:"cancel"`
 	RedirTo string `json:"_to"`
 }
-
-type exportForm struct {
-	IDs []string `json:"id"`
-}

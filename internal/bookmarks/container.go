@@ -13,9 +13,9 @@ import (
 // bookmarkContainer is a wrapper around zip.ReadCloser
 // to handle a bookmark's zipfile.
 type bookmarkContainer struct {
-	z              *zip.ReadCloser
-	articleName    string
-	articleContent *strings.Builder
+	*zip.ReadCloser
+	articleFilename string
+	articleContent  *strings.Builder
 }
 
 // openContainer opens the bookmark's zipfile and returns a new
@@ -32,25 +32,20 @@ func (b *Bookmark) openContainer() (*bookmarkContainer, error) {
 	}
 
 	res := &bookmarkContainer{
-		z:              z,
+		ReadCloser:     z,
 		articleContent: new(strings.Builder),
 	}
 	if a, ok := b.Files["article"]; ok {
-		res.articleName = a.Name
+		res.articleFilename = a.Name
 	}
 
 	return res, nil
 }
 
-// Close closes the zipfile.
-func (c *bookmarkContainer) Close() error {
-	return c.z.Close()
-}
-
 // ListResources returns a list of files located under "_resources/".
 func (c *bookmarkContainer) ListResources() []*zip.File {
 	res := []*zip.File{}
-	for _, entry := range c.z.File {
+	for _, entry := range c.File {
 		if !strings.HasSuffix(entry.Name, "/") && strings.HasPrefix(entry.Name, resourceDirName) {
 			res = append(res, entry)
 		}
@@ -61,11 +56,11 @@ func (c *bookmarkContainer) ListResources() []*zip.File {
 
 // LoadArticle loads the bookmark´s article when it exists.
 func (c *bookmarkContainer) LoadArticle() error {
-	if c.articleName == "" {
+	if c.articleFilename == "" {
 		return os.ErrNotExist
 	}
 
-	fp, err := c.z.Open(c.articleName)
+	fp, err := c.Open(c.articleFilename)
 	if err != nil {
 		return err
 	}
@@ -106,10 +101,12 @@ func (c *bookmarkContainer) GetArticle() string {
 	return c.articleContent.String()
 }
 
+// GetFile returns a file's content.
 func (c *bookmarkContainer) GetFile(name string) ([]byte, error) {
-	fd, err := c.z.Open(name)
+	fd, err := c.Open(name)
 	if err != nil {
 		return nil, err
 	}
+	defer fd.Close()
 	return ioutil.ReadAll(fd)
 }

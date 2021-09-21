@@ -3,6 +3,7 @@ package bookmarks
 import (
 	"regexp"
 	"strings"
+	"unicode"
 
 	"github.com/go-shiori/dom"
 	"golang.org/x/net/html"
@@ -51,7 +52,8 @@ func (p bleachPolicy) removeEmptyNodes(top *html.Node) {
 		if len(dom.Children(node)) > 0 {
 			return false
 		}
-		if strings.TrimSpace(dom.TextContent(node)) != "" {
+
+		if strings.TrimFunc(dom.TextContent(node), isHTMLSpace) != "" {
 			return false
 		}
 		return true
@@ -63,4 +65,16 @@ func (p bleachPolicy) setLinkRel(top *html.Node) {
 	dom.ForEachNode(dom.QuerySelectorAll(top, "a"), func(node *html.Node, _ int) {
 		dom.SetAttribute(node, "rel", "nofollow noopener noreferrer")
 	})
+}
+
+// isHTMLSpace returns true if a rune is a space as defined by the HTML spec
+func isHTMLSpace(r rune) bool {
+	if uint32(r) <= unicode.MaxLatin1 {
+		switch r {
+		case '\t', '\n', '\r', ' ':
+			return true
+		}
+		return false
+	}
+	return false
 }

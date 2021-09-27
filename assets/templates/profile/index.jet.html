@@ -11,14 +11,14 @@
   {{ yield csrfField() }}
 
   {{ yield textField(
-    field=.Form.Fields.username,
+    field=.Form.Get("username"),
     name="username",
     label="Username",
     class="field-h",
   ) }}
 
   {{ yield textField(
-    field=.Form.Fields.email,
+    field=.Form.Get("email"),
     type="email",
     name="email",
     label="Email",

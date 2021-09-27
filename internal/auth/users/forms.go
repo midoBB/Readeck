@@ -40,10 +40,10 @@ type ProfileForm struct {
 
 // Validate validates the form
 func (sf *ProfileForm) Validate(f *form.Form) {
-	f.Fields["username"].Validate(
+	f.Get("username").Validate(
 		form.IsRequiredOrNull, isValidUsername,
 	)
-	f.Fields["email"].Validate(
+	f.Get("email").Validate(
 		form.IsRequiredOrNull, form.IsValidEmail,
 	)
 }
@@ -62,7 +62,7 @@ func (pf *PasswordForm) SetUser(f *form.Form, u *User) {
 
 // Validate validates the form.
 func (pf *PasswordForm) Validate(f *form.Form) {
-	f.Fields["password"].Validate(form.IsRequired, IsValidPassword)
+	f.Get("password").Validate(form.IsRequired, IsValidPassword)
 
 	// If a user was passed in context, then "current"
 	// is mandatory and must match the current user
@@ -72,12 +72,12 @@ func (pf *PasswordForm) Validate(f *form.Form) {
 		return
 	}
 
-	f.Fields["current"].Validate(form.IsRequired)
+	f.Get("current").Validate(form.IsRequired)
 	if !f.IsValid() {
 		return
 	}
 	if !u.CheckPassword(pf.Current) {
-		f.Fields["current"].Errors.Add(errors.New("invalid password"))
+		f.Get("current").Errors.Add(errors.New("invalid password"))
 	}
 }
 
@@ -123,21 +123,21 @@ type CreateForm struct {
 
 // Validate validates the form.
 func (uf *CreateForm) Validate(f *form.Form) {
-	f.Fields["username"].Validate(form.IsRequired, isValidUsername)
-	f.Fields["password"].Validate(form.IsRequired)
-	f.Fields["email"].Validate(form.IsRequired, form.IsValidEmail)
-	f.Fields["group"].Validate(form.IsRequiredOrNull)
+	f.Get("username").Validate(form.IsRequired, isValidUsername)
+	f.Get("password").Validate(form.IsRequired)
+	f.Get("email").Validate(form.IsRequired, form.IsValidEmail)
+	f.Get("group").Validate(form.IsRequiredOrNull)
 
 	// Check that username is not already in use
 	c, err := Users.Query().Where(
 		goqu.C("username").Eq(uf.Username),
 	).Count()
 	if err != nil {
-		f.Errors.Add(errors.New("validation process error"))
+		f.Errors().Add(errors.New("validation process error"))
 		return
 	}
 	if c > 0 {
-		f.Fields["username"].Errors.Add(errors.New("username is already in use"))
+		f.Get("username").Errors.Add(errors.New("username is already in use"))
 	}
 
 	// Check that email is not already in use
@@ -145,11 +145,11 @@ func (uf *CreateForm) Validate(f *form.Form) {
 		goqu.C("email").Eq(uf.Email),
 	).Count()
 	if err != nil {
-		f.Errors.Add(errors.New("validation process error"))
+		f.Errors().Add(errors.New("validation process error"))
 		return
 	}
 	if c > 0 {
-		f.Fields["email"].Errors.Add(errors.New("email is already in use"))
+		f.Get("email").Errors.Add(errors.New("email is already in use"))
 	}
 }
 
@@ -170,9 +170,9 @@ func (uf *UpdateForm) SetUser(f *form.Form, u *User) {
 
 // Validate validates the form
 func (uf *UpdateForm) Validate(f *form.Form) {
-	f.Fields["username"].Validate(form.IsRequiredOrNull, isValidUsername)
-	f.Fields["email"].Validate(form.IsRequiredOrNull, form.IsValidEmail)
-	f.Fields["group"].Validate(form.IsRequiredOrNull)
+	f.Get("username").Validate(form.IsRequiredOrNull, isValidUsername)
+	f.Get("email").Validate(form.IsRequiredOrNull, form.IsValidEmail)
+	f.Get("group").Validate(form.IsRequiredOrNull)
 
 	u := f.Context().Value(ctxUserFormKey{}).(*User)
 
@@ -183,11 +183,11 @@ func (uf *UpdateForm) Validate(f *form.Form) {
 			goqu.C("id").Neq(u.ID),
 		).Count()
 		if err != nil {
-			f.Errors.Add(errors.New("validation process error"))
+			f.Errors().Add(errors.New("validation process error"))
 			return
 		}
 		if c > 0 {
-			f.Fields["username"].Errors.Add(errors.New("username is already in use"))
+			f.Get("username").Errors.Add(errors.New("username is already in use"))
 		}
 	}
 
@@ -198,11 +198,11 @@ func (uf *UpdateForm) Validate(f *form.Form) {
 			goqu.C("id").Neq(u.ID),
 		).Count()
 		if err != nil {
-			f.Errors.Add(errors.New("validation process error"))
+			f.Errors().Add(errors.New("validation process error"))
 			return
 		}
 		if c > 0 {
-			f.Fields["email"].Errors.Add(errors.New("email is already in use"))
+			f.Get("email").Errors.Add(errors.New("email is already in use"))
 		}
 	}
 }

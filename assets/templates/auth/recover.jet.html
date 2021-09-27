@@ -4,7 +4,7 @@
 {{ block title() }}Recover your password{{ end }}
 
 {{ block main() }}
-  {{- step := .Form.Fields.step.Value() -}}
+  {{- step := .Form.Get("step").Value() -}}
 
   <h2 class="text-xl mb-4 border-b">Password recovery</h2>
   {{- if step == 0 -}}
@@ -18,7 +18,7 @@
       your account and we'll send you a message with a link to recover your
       password.</p>
 
-      {{ yield textField(field=.Form.Fields.email,
+      {{ yield textField(field=.Form.Get("email"),
                         name="email",
                         label="Email address",
                         class="max",
@@ -30,7 +30,7 @@
     {{- yield message(type="success") content -}}
       <p>Almost there!</p>
       <p class="mt-2">We have sent an email to
-      <strong>{{ .Form.Fields.email.Value() }}</strong>
+      <strong>{{ .Form.Get("email").Value() }}</strong>
       with further instructions.</p>
     {{- end -}}
   {{- else if step == 2 -}}
@@ -42,7 +42,7 @@
         {{ yield csrfField() }}
         <input type="hidden" name="step" value="{{ step }}" />
 
-        {{ yield textField(field=.Form.Fields.password,
+        {{ yield textField(field=.Form.Get("password"),
                           type="password",
                           name="password",
                           label="New password",

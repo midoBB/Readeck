@@ -18,12 +18,12 @@
         <div class="flex">
           <input type="text" name="url" id="create-url" size="15"
            class="form-input rounded-l-full rounded-r-none pl-4 w-full"
-           value="{{ string(.Form.Fields.url.Value()) }}" placeholder="https://" />
+           value="{{ string(.Form.Get(`url`).Value()) }}" placeholder="https://" />
           <button class="btn-primary rounded-l-none rounded-r-full -r-full pr-4 whitespace-nowrap"
            type="submit">Save link</button>
         </div>
 
-        {{ range .Form.Fields.url.Errors }}<p class="ml-4 text-red-700"><strong>{{ . }}</strong></p>{{ end }}
+        {{ range .Form.Get("url").Errors }}<p class="ml-4 text-red-700"><strong>{{ . }}</strong></p>{{ end }}
 
         {{- if (!isset(.Q) || empty(.Q)) && pathIs("/bookmarks") && .Pagination.TotalCount == 0 -}}
           <p><strong>You don't have any bookmark yet. Start saving pages now!</strong></p>

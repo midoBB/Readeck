@@ -2,7 +2,7 @@
   {{- if !form.IsValid() -}}
     {{- yield message(type="error") content -}}
       <strong class="text-red-700">Errors</strong>
-      {{ range form.Errors }}
+      {{ range form.Errors() }}
         <p>{{ . }}</p>
       {{ else }}
         <p>Please check your form for errors.</p>

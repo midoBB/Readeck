@@ -80,7 +80,7 @@ func (h *authHandler) login(w http.ResponseWriter, r *http.Request) {
 
 	user, err := users.Users.GetOne(goqu.C("username").Eq(u.Username))
 	if err != nil || !user.CheckPassword(u.Password) {
-		f.Errors.Add(errors.New("Invalid user and/or password"))
+		f.Errors().Add(errors.New("Invalid user and/or password"))
 		h.renderLoginForm(w, r, http.StatusUnauthorized, f)
 		return
 	}
@@ -117,6 +117,6 @@ type loginForm struct {
 }
 
 func (lf *loginForm) Validate(f *form.Form) {
-	f.Fields["username"].Validate(form.IsRequired)
-	f.Fields["password"].Validate(form.IsRequired)
+	f.Get("username").Validate(form.IsRequired)
+	f.Get("password").Validate(form.IsRequired)
 }

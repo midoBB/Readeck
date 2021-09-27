@@ -56,7 +56,7 @@ func (h *bookmarkViews) bookmarkList(w http.ResponseWriter, r *http.Request) {
 		form.Bind(f, r)
 		if f.IsValid() {
 			if b, err := h.createBookmark(r, cf.URL, nil); err != nil {
-				f.Errors.Add(err)
+				f.Errors().Add(err)
 			} else {
 				redir := []string{"/bookmarks"}
 				if h.srv.IsTurboRequest(r) {

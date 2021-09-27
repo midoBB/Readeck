@@ -20,24 +20,24 @@
   {{ yield formErrors(form=.Form) }}
   {{ yield csrfField() }}
 
-  {{ yield textField(field=.Form.Fields.username,
+  {{ yield textField(field=.Form.Get("username"),
                      name="username",
                      label="Username",
                      class="field-h") }}
 
-  {{ yield textField(field=.Form.Fields.email,
+  {{ yield textField(field=.Form.Get("email"),
                      type="email",
                      name="email",
                      label="Email address",
                      class="field-h",) }}
 
-  {{ yield selectField(field=.Form.Fields.group,
+  {{ yield selectField(field=.Form.Get("group"),
                        name="group",
                        label="Group",
                        class="field-h",
-                       options=.Form.Fields.group.Value().Options(),) }}
+                       options=.Form.Get("group").Value().Options(),) }}
 
-  {{ yield textField(field=.Form.Fields.password,
+  {{ yield textField(field=.Form.Get("password"),
                      type="password",
                      name="password",
                      label="Password",

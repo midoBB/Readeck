@@ -25,8 +25,8 @@ type (
 	Form struct {
 		ctx      context.Context
 		instance interface{}
-		Fields   map[string]*Field
-		Errors   Errors
+		fields   map[string]*Field
+		errors   Errors
 	}
 
 	// Field represents a form field.
@@ -115,7 +115,7 @@ func NewForm(instance interface{}) *Form {
 	}
 	ret := &Form{
 		instance: instance,
-		Fields:   map[string]*Field{},
+		fields:   map[string]*Field{},
 	}
 
 	for i := 0; i < val.NumField(); i++ {
@@ -144,10 +144,25 @@ func NewForm(instance interface{}) *Form {
 			Name:     tp.Name,
 			Type:     tp.Type,
 		}
-		ret.Fields[name] = o
+		ret.fields[name] = o
 	}
 
 	return ret
+}
+
+// Fields returns the form's field mapping.
+func (f *Form) Fields() map[string]*Field {
+	return f.fields
+}
+
+// Errors returns the form's error list.
+func (f *Form) Errors() *Errors {
+	return &f.errors
+}
+
+// Get returns a field with a given name.
+func (f *Form) Get(name string) *Field {
+	return f.fields[name]
 }
 
 // MarshalJSON performs the form's JSON serialization.
@@ -158,19 +173,19 @@ func (f *Form) MarshalJSON() ([]byte, error) {
 		Fields  map[string]*Field `json:"fields"`
 	}{
 		f.IsValid(),
-		f.Errors,
-		f.Fields,
+		f.errors,
+		f.fields,
 	})
 }
 
 // IsValid returns true when the form and its fields have no error
 func (f *Form) IsValid() bool {
-	if len(f.Errors) > 0 {
+	if len(f.errors) > 0 {
 		return false
 	}
 
-	for k := range f.Fields {
-		if len(f.Fields[k].Errors) > 0 {
+	for k := range f.fields {
+		if len(f.fields[k].Errors) > 0 {
 			return false
 		}
 	}
@@ -184,14 +199,14 @@ func (f *Form) BindValues(values url.Values) {
 	if err != nil {
 		if err, ok := err.(schema.MultiError); ok {
 			for k, err := range err {
-				if _, ok := f.Fields[k]; ok {
+				if _, ok := f.fields[k]; ok {
 					if _, ok := err.(schema.ConversionError); ok {
-						f.Fields[k].Errors.Add(errors.New("Invalid input"))
+						f.fields[k].Errors.Add(errors.New("Invalid input"))
 					} else {
-						f.Fields[k].Errors.Add(errors.New("Unknown error"))
+						f.fields[k].Errors.Add(errors.New("Unknown error"))
 					}
 				} else {
-					f.Errors.Add(err)
+					f.errors.Add(err)
 				}
 			}
 		}
@@ -204,7 +219,7 @@ func (f *Form) BindValues(values url.Values) {
 func (f *Form) BindJSON(r io.Reader) {
 	err := json.NewDecoder(r).Decode(f.instance)
 	if err != nil {
-		f.Errors.Add(err)
+		f.errors.Add(err)
 		return
 	}
 
@@ -220,7 +235,7 @@ func (f *Form) Validate() {
 	}
 
 	// Validate each field's inner type implementing FieldValidator
-	for _, field := range f.Fields {
+	for _, field := range f.fields {
 		if fi, ok := field.instance.Interface().(FieldValidator); ok {
 			if err := fi.Validate(field); err != nil {
 				field.Errors.Add(err)
@@ -251,7 +266,7 @@ func (f *Form) SetContext(ctx context.Context) *Form {
 func Bind(f *Form, r *http.Request, validators ...func(f *Form)) {
 	mediaType, _, err := mime.ParseMediaType(r.Header.Get("content-type"))
 	if err != nil {
-		f.Errors.Add(errors.New("Invalid content-type"))
+		f.errors.Add(errors.New("Invalid content-type"))
 		return
 	}
 
@@ -263,7 +278,7 @@ func Bind(f *Form, r *http.Request, validators ...func(f *Form)) {
 		r.ParseForm()
 		f.BindValues(r.PostForm)
 	default:
-		f.Errors.Add(errors.New("Unknown content-type"))
+		f.errors.Add(errors.New("Unknown content-type"))
 	}
 	for _, fn := range validators {
 		fn(f)

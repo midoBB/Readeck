@@ -20,13 +20,13 @@ type PaginationForm struct {
 // Validate validates the PaginationForm values
 func (pf *PaginationForm) Validate(f *form.Form) {
 	if pf.Offset < 0 {
-		f.Fields["offset"].Errors.Add(errors.New("Must be a positive number"))
+		f.Get("offset").Errors.Add(errors.New("Must be a positive number"))
 	}
 	if pf.Limit < 0 {
-		f.Fields["limit"].Errors.Add(errors.New("Must be a positive number"))
+		f.Get("limit").Errors.Add(errors.New("Must be a positive number"))
 	}
 	if pf.Limit > 100 {
-		f.Fields["limit"].Errors.Add(errors.New("Must be inferior or equal to 100"))
+		f.Get("limit").Errors.Add(errors.New("Must be inferior or equal to 100"))
 	}
 }
 

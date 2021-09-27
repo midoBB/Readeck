@@ -898,7 +898,7 @@ type labelForm struct {
 }
 
 func (cf *labelForm) Validate(f *form.Form) {
-	f.Fields["name"].Validate(form.IsRequired)
+	f.Get("name").Validate(form.IsRequired)
 }
 
 type searchForm struct {
@@ -942,7 +942,7 @@ type createForm struct {
 }
 
 func (cf *createForm) Validate(f *form.Form) {
-	f.Fields["url"].Validate(
+	f.Get("url").Validate(
 		form.IsRequired,
 		form.IsValidURL(validSchemes),
 	)

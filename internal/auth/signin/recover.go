@@ -30,11 +30,11 @@ var recoverDelay = time.Duration(2 * time.Hour)
 func (rf *recoverForm) Validate(f *form.Form) {
 	switch rf.Step {
 	case 0, 1:
-		f.Fields["email"].Validate(
+		f.Get("email").Validate(
 			form.IsRequiredOrNull, form.IsValidEmail,
 		)
 	case 2, 3:
-		f.Fields["password"].Validate(form.IsRequired, users.IsValidPassword)
+		f.Get("password").Validate(form.IsRequired, users.IsValidPassword)
 	}
 }
 
@@ -56,7 +56,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 
 		user, err := users.Users.GetOne(goqu.C("email").Eq(rf.Email))
 		if err != nil && !errors.Is(err, users.ErrNotFound) {
-			f.Errors.Add(errors.New("An error occurred"))
+			f.Errors().Add(errors.New("An error occurred"))
 			return
 		}
 
@@ -82,7 +82,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 		)
 		if err != nil {
 			h.srv.Log(r).WithError(err).Error("sending email")
-			f.Errors.Add(errors.New("An error occurred while sending the email"))
+			f.Errors().Add(errors.New("An error occurred while sending the email"))
 			return
 		}
 
@@ -117,7 +117,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 		defer func() {
 			if err != nil {
 				h.srv.Log(r).WithError(err).Error("password update")
-				f.Errors.Add(errors.New("An error occurred"))
+				f.Errors().Add(errors.New("An error occurred"))
 			}
 		}()
 

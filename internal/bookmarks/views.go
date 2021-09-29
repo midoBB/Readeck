@@ -68,6 +68,11 @@ func (h *bookmarkViews) bookmarkList(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 		}
+
+		// Now, the form can be invalid again
+		if !f.IsValid() {
+			w.WriteHeader(http.StatusUnprocessableEntity)
+		}
 	}
 
 	count, err := Bookmarks.CountAll(auth.GetRequestUser(r))

@@ -16,7 +16,7 @@ require (
 	github.com/dop251/goja v0.0.0-20210630164231-8f81471d5d0b
 	github.com/doug-martin/goqu/v9 v9.16.0
 	github.com/fatih/color v1.12.0
-	github.com/go-chi/chi/v5 v5.0.3
+	github.com/go-chi/chi/v5 v5.0.4
 	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
 	github.com/go-redis/redis/v8 v8.11.0
 	github.com/go-shiori/dom v0.0.0-20210627111528-4e4722cd0d65

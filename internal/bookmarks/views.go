@@ -135,22 +135,26 @@ func (h *bookmarkViews) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	}
 	ctx["Count"] = count
 
+	// Load bookmark debug information if the user needs them.
 	if user.Settings.DebugInfo {
 		c, err := b.openContainer()
-		if err != nil {
+		if err != nil && !os.IsNotExist(err) {
 			h.srv.Error(w, r, err)
 			return
 		}
-		defer c.Close()
 
-		for k, x := range map[string]string{
-			"_props": "props.json",
-			"_log":   "log",
-		} {
-			if r, err := c.GetFile(x); err != nil {
-				ctx[k] = err.Error()
-			} else {
-				ctx[k] = string(r)
+		if c != nil {
+			defer c.Close()
+
+			for k, x := range map[string]string{
+				"_props": "props.json",
+				"_log":   "log",
+			} {
+				if r, err := c.GetFile(x); err != nil {
+					ctx[k] = err.Error()
+				} else {
+					ctx[k] = string(r)
+				}
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-import { Controller } from "stimulus"
+import { Controller } from "@hotwired/stimulus"
 
 // This controller reload a given turbo-frame at a given interval
 // until it find a target named "loaded" in its content.

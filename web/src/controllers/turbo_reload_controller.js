@@ -1,4 +1,4 @@
-import { Controller } from "stimulus"
+import { Controller } from "@hotwired/stimulus"
 
 // This controller listens for turbo:submit-end events
 // and reload the frame with the ID given by data-turbo-reload-frame-id-value

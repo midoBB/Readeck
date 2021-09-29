@@ -11,6 +11,7 @@
     "@flexis/favicons": "^1.5.0",
     "@fontsource/lora": "^4.5.0",
     "@fontsource/public-sans": "^4.5.0",
+    "@hotwired/stimulus": "^3.0.0",
     "@hotwired/turbo": "^7.0.1",
     "boxicons": "^2.0.9",
     "cssnano": "^5.0.8",
@@ -37,7 +38,6 @@
     "postcss-preset-env": "^6.7.0",
     "postcss-selector-parser": "^6.0.6",
     "sass": "^1.42.1",
-    "stimulus": "^2.0.0",
     "tailwindcss": "^2.2.16",
     "through2": "^4.0.2",
     "vinyl-source-stream": "^2.0.0"

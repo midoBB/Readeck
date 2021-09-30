@@ -150,6 +150,14 @@ type SearchTerm struct {
 	Quotes bool
 }
 
+// Quoted returns the term's value with quotes when needed.
+func (st SearchTerm) Quoted() string {
+	if st.Quotes {
+		return `"` + st.Value + `"`
+	}
+	return st.Value
+}
+
 // Parse returns a list of SearchTerm from input string.
 func Parse(input string) ([]SearchTerm, error) {
 	s := NewScanner(input)

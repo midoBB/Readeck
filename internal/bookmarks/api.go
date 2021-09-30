@@ -33,9 +33,8 @@ type (
 	ctxBookmarkKey     struct{}
 	ctxBookmarkListKey struct{}
 	ctxLabelListKey    struct{}
-	ctxSearchString    struct{}
-	ctxFilterForm      struct{}
-	ctxDefaultLimit    struct{}
+	ctxFiltersKey      struct{}
+	ctxDefaultLimitKey struct{}
 )
 
 // bookmarkAPI is the base bookmark API router.
@@ -385,7 +384,7 @@ func (api *bookmarkAPI) withBookmark(next http.Handler) http.Handler {
 func (api *bookmarkAPI) withBookmarkFilters(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		filter := chi.URLParam(r, "filter")
-		filters := &filterForm{}
+		filters := newFilterForm()
 
 		switch filter {
 		case "unread":
@@ -402,24 +401,24 @@ func (api *bookmarkAPI) withBookmarkFilters(next http.Handler) http.Handler {
 			filters.Type = "video"
 		}
 
-		next.ServeHTTP(w, r.Clone(filters.saveContext(r)))
+		next.ServeHTTP(w, r.Clone(filters.saveContext(r.Context())))
 	})
 }
 
 func (api *bookmarkAPI) withLabel(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		label := chi.URLParam(r, "label")
-		filters := &filterForm{}
-		filters.Labels = []string{label}
+		filters := newFilterForm()
+		filters.Labels = label
 
-		next.ServeHTTP(w, r.Clone(filters.saveContext(r)))
+		next.ServeHTTP(w, r.Clone(filters.saveContext(r.Context())))
 	})
 }
 
 func (api *bookmarkAPI) withDefaultLimit(limit int) func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			ctx := context.WithValue(r.Context(), ctxDefaultLimit{}, limit)
+			ctx := context.WithValue(r.Context(), ctxDefaultLimitKey{}, limit)
 			next.ServeHTTP(w, r.Clone(ctx))
 		})
 	}
@@ -427,9 +426,9 @@ func (api *bookmarkAPI) withDefaultLimit(limit int) func(next http.Handler) http
 
 func (api *bookmarkAPI) withoutPagination(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		ff := newFilterForm(r)
+		ff := newContextFilterForm(r.Context())
 		ff.noPagination = true
-		next.ServeHTTP(w, r.Clone(ff.saveContext(r)))
+		next.ServeHTTP(w, r.Clone(ff.saveContext(r.Context())))
 	})
 }
 
@@ -443,7 +442,7 @@ func (api *bookmarkAPI) withBookmarkList(next http.Handler) http.Handler {
 			return
 		}
 		if pf.Limit == 0 {
-			if limit, ok := r.Context().Value(ctxDefaultLimit{}).(int); ok {
+			if limit, ok := r.Context().Value(ctxDefaultLimitKey{}).(int); ok {
 				pf.Limit = limit
 			} else {
 				pf.Limit = 50
@@ -462,44 +461,12 @@ func (api *bookmarkAPI) withBookmarkList(next http.Handler) http.Handler {
 
 		ds = ds.Order(goqu.I("created").Desc())
 
-		// Search filter
-		search := &searchForm{}
-		sf := form.NewForm(search)
-		sf.BindValues(r.URL.Query())
-		if search.Query != "" {
-			st := newSearchString(search.Query)
-			ds = st.toSelectDataSet(ds)
-		}
-
-		filters := newFilterForm(r)
-
-		if filters.IsMarked != nil {
-			ds = ds.Where(goqu.C("is_marked").Table("b").Eq(goqu.V(filters.IsMarked)))
-		}
-		if filters.IsArchived != nil {
-			ds = ds.Where(goqu.C("is_archived").Table("b").Eq(goqu.V(filters.IsArchived)))
-		}
-
-		if filters.Type != "" {
-			ds = ds.Where(goqu.C("type").Table("b").Eq(filters.Type))
-		}
-
-		if len(filters.Labels) > 0 {
-			ds = Bookmarks.AddLabelFilter(ds, filters.Labels)
-		}
-
-		// Filtering by ids. In this case we include all the given IDs and we sort the
-		// result according to the IDs order.
-		if len(filters.IDs) > 0 {
-			ds = ds.Where(
-				goqu.C("uid").Table("b").In(filters.IDs),
-			)
-
-			orderging := goqu.Case().Value(goqu.C("uid").Table("b"))
-			for i, x := range filters.IDs {
-				orderging = orderging.When(x, i)
-			}
-			ds = ds.Order(orderging.Asc())
+		// Filters (search and other filters)
+		filters := newContextFilterForm(r.Context())
+		filters.BindValues(r.URL.Query())
+		filters.Validate()
+		if filters.IsValid() {
+			ds = filters.toSelectDataSet(ds)
 		}
 
 		ds = ds.
@@ -529,10 +496,8 @@ func (api *bookmarkAPI) withBookmarkList(next http.Handler) http.Handler {
 
 		res.Pagination = api.srv.NewPagination(r, int(count), pf.Limit, pf.Offset)
 
-		ctx := context.WithValue(r.Context(), ctxBookmarkListKey{}, res)
-		if search.Query != "" {
-			ctx = context.WithValue(ctx, ctxSearchString{}, search.Query)
-		}
+		ctx := filters.saveContext(r.Context())
+		ctx = context.WithValue(ctx, ctxBookmarkListKey{}, res)
 
 		if r.Method == http.MethodGet {
 			api.srv.WriteEtag(w, res)
@@ -899,42 +864,6 @@ type labelForm struct {
 
 func (cf *labelForm) Validate(f *form.Form) {
 	f.Get("name").Validate(form.IsRequired)
-}
-
-type searchForm struct {
-	Query string `json:"q" conform:"trim"`
-}
-
-type filterForm struct {
-	IsMarked     *bool    `json:"is_marked"`
-	IsArchived   *bool    `json:"is_archived"`
-	Type         string   `json:"type"`
-	Labels       []string `json:"label"`
-	IDs          []string `json:"id"`
-	noPagination bool
-}
-
-func newFilterForm(r *http.Request) *filterForm {
-	// We use the already existing filter form if it's present
-	// in the request's context
-	ff, ok := r.Context().Value(ctxFilterForm{}).(*filterForm)
-	if !ok {
-		ff = &filterForm{}
-		f := form.NewForm(ff)
-		f.BindValues(r.URL.Query())
-	}
-	return ff
-}
-
-func (ff *filterForm) setMarked(v bool) {
-	ff.IsMarked = &v
-}
-func (ff *filterForm) setArchived(v bool) {
-	ff.IsArchived = &v
-}
-
-func (ff *filterForm) saveContext(r *http.Request) context.Context {
-	return context.WithValue(r.Context(), ctxFilterForm{}, ff)
 }
 
 type createForm struct {

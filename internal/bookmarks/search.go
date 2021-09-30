@@ -17,24 +17,84 @@ var allowedSearchFields = map[string]bool{
 	"title":  true,
 }
 
-type searchString struct {
-	terms []searchstring.SearchTerm
-}
+// searchString is a list of search terms
+type searchString []searchstring.SearchTerm
 
-func newSearchString(input string) (res *searchString) {
-	res = &searchString{}
-	st, err := searchstring.Parse(input)
+// newSearchString parse an in and returns a new searchString.
+func newSearchString(input string) (res searchString) {
+	var err error
+	res, err = searchstring.Parse(input)
 	if err != nil {
 		return
 	}
-	res.terms = st
 	return
+}
+
+// addField adds untagged terms from the input to the searchString
+// with a defined field name.
+func (st *searchString) addField(name, input string) {
+	var n searchString
+	var err error
+	n, err = searchstring.Parse(input)
+	if err != nil {
+		return
+	}
+	fields, _ := n.popField("")
+	for _, x := range fields {
+		x.Field = name
+		*st = append(*st, x)
+	}
+}
+
+// dedup returns a new searchString instance without duplicates
+func (st searchString) dedup() (res searchString) {
+	res = searchString{}
+	seen := make(map[string]map[string]struct{})
+	for _, t := range st {
+		if _, ok := seen[t.Field][t.Value]; !ok {
+			res = append(res, t)
+			if _, ok := seen[t.Field]; !ok {
+				seen[t.Field] = make(map[string]struct{})
+			}
+			seen[t.Field][t.Value] = struct{}{}
+		}
+	}
+
+	return res
+}
+
+// popField removes the given field types and returns a new
+// the removed fields and the new instance.
+func (st searchString) popField(fieldName string) (fields searchString, newString searchString) {
+	fields = searchString{}
+	newString = searchString{}
+
+	for _, t := range st {
+		if t.Field == fieldName {
+			fields = append(fields, t)
+		} else {
+			newString = append(newString, t)
+		}
+	}
+
+	return
+}
+
+// fieldString returns a string for all the terms of a given field.
+func (st searchString) fieldString(name string) string {
+	res := []string{}
+	for _, x := range st {
+		if x.Field == name {
+			res = append(res, x.Quoted())
+		}
+	}
+	return strings.Join(res, " ")
 }
 
 // toSelectDataSet returns an augmented select dataset including the search query.
 // Its implementation differs on database dialect.
-func (st *searchString) toSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset {
-	if len(st.terms) == 0 {
+func (st searchString) toSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset {
+	if len(st) == 0 {
 		return ds
 	}
 
@@ -48,13 +108,13 @@ func (st *searchString) toSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectData
 	panic("dialect not implemented")
 }
 
-func (st *searchString) toPG(ds *goqu.SelectDataset) *goqu.SelectDataset {
+func (st searchString) toPG(ds *goqu.SelectDataset) *goqu.SelectDataset {
 	where := goqu.And()
 	order := []exp.OrderedExpression{}
 
 	// In order to use the GIN indexes, we build a fairly big but very efficient query.
 	// For general search, we add a group of OR clauses to the main clauses list.
-	for _, x := range st.terms {
+	for _, x := range st {
 		var fields = []string{"bs.title", "bs.description", "bs.text", "bs.site", "bs.author", "bs.label"}
 
 		value := x.Value
@@ -82,7 +142,7 @@ func (st *searchString) toPG(ds *goqu.SelectDataset) *goqu.SelectDataset {
 		Order(order...)
 }
 
-func (st *searchString) toSQLite(ds *goqu.SelectDataset) *goqu.SelectDataset {
+func (st searchString) toSQLite(ds *goqu.SelectDataset) *goqu.SelectDataset {
 	// This is a huge mess. We must pass the search query as a full literal,
 	// otherwise it fails on many edge cases.
 	// /!\ HERE ARE DRAGONS!
@@ -90,7 +150,7 @@ func (st *searchString) toSQLite(ds *goqu.SelectDataset) *goqu.SelectDataset {
 	matchQ := []string{}
 	rpl := strings.NewReplacer(`"`, `""`, `'`, `''`)
 
-	for _, x := range st.terms {
+	for _, x := range st {
 		q := fmt.Sprintf(`"%s"`, rpl.Replace(x.Value))
 
 		if x.Field != "" && allowedSearchFields[x.Field] {

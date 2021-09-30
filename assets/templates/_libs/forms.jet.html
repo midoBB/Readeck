@@ -74,7 +74,7 @@
                       controlAttrs=controlAttrs) content -}}
     <select name="{{ name }}" id="{{ name }}" class="{{ inputClass }}" {{ inputAttrs|raw }}>
       {{- range options -}}
-        <option value="{{ .[0] }}" {{ if string(value) == .[0] }}selected="selected"{{ end }}>{{ .[1] }}</option>
+        <option value="{{ .[0] }}" {{ if string(value) == string(.[0]) }}selected="selected"{{ end }}>{{ .[1] }}</option>
       {{- end -}}
     </select>
   {{- end -}}

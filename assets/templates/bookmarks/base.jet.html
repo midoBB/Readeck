@@ -5,9 +5,10 @@
   {{- yield sidebar() content -}}
   <h2 class="sidebar:title">Bookmarks</h2>
 
-  <form class="mt-2 ml-0.5 mr-1 flex" action="{{ urlFor(`/bookmarks/search`) }}" method="get">
+  <form class="mt-2 ml-0.5 mr-1 flex" action="{{ urlFor(`/bookmarks`) }}" method="get">
+    <input type="hidden" name="bf" value="1" />
     <input title="search in bookmarks" class="form-input rounded-full pl-4 pr-8 w-full max-w-xs +md:max-w-none" size="14"
-    type="text" name="q" value="{{ isset(.Q) ? .Q : `` }}" placeholder="search" />
+    type="text" name="q" value="{{ isset(.Filters) ? .Filters.Search : `` }}" placeholder="search" />
     <button title="search" class="leading-normal -ml-6 mr-2">{{ yield icon(name="o-search") }}</button>
   </form>
 
@@ -27,7 +28,7 @@
   </ul>
 
   {{- if isset(.Count) }}
-    <ul class="mt-4" data-reveal-target="content">
+    <ul class="mt-4">
       {{- if isset(.Count.ByType.article) && .Count.ByType.article > 0 }}
       <li><a class="sidebar:link"
         data-current="{{ pathIs(`/bookmarks/articles`) }}"

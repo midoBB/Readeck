@@ -26,8 +26,6 @@ func newBookmarkViews(api *bookmarkAPI) *bookmarkViews {
 		r.With(api.withDefaultLimit(24), api.withBookmarkList).Get("/", h.bookmarkList)
 		r.With(api.withDefaultLimit(24), api.withBookmarkFilters, api.withBookmarkList).
 			Get("/{filter:(unread|archives|favorites|articles|videos|pictures)}", h.bookmarkList)
-		r.With(api.withDefaultLimit(24), api.withBookmarkList).
-			Get("/search", h.bookmarkList)
 		r.With(api.withBookmark).Get("/{uid:[a-zA-Z0-9]{18,22}}", h.bookmarkInfo)
 		r.With(api.withLabelList).Get("/labels", h.labelList)
 		r.With(api.withDefaultLimit(24), api.withLabel, api.withBookmarkList).
@@ -96,8 +94,8 @@ func (h *bookmarkViews) bookmarkList(w http.ResponseWriter, r *http.Request) {
 		"Count":      count,
 	}
 
-	if q, ok := r.Context().Value(ctxSearchString{}).(string); ok && q != "" {
-		ctx["Q"] = q
+	if filters, ok := r.Context().Value(ctxFiltersKey{}).(*filterForm); ok {
+		ctx["Filters"] = filters
 	}
 
 	h.srv.RenderTemplate(w, r, 200, "/bookmarks/index", ctx)

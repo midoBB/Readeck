@@ -31,76 +31,78 @@
       </form>
   </div>
 
-  {{- if isset(.Filters) }}
-  <form action="{{ urlFor(`/bookmarks`) }}" class="my-4 p-4 bg-gray-100 border rounded text-sm">
-    <h3>{{ yield icon(name="o-filter") }} Filters</h3>
-    {{ yield textField(
-        field=.Filters.Get("q"),
-        type="text",
-        name="q",
-        label="Search",
-        class="mb-0",
-      ) }}
-    <div class="grid grid-cols-3 gap-2 +md:grid-cols-2">
-      {* <div class="field mb-0">
-        <label for="" class="block">Title</label>
-        <input type="text" name="title" class="form-input w-full" />
-      </div> *}
-      {{ yield textField(
-        field=.Filters.Get("title"),
-        type="text",
-        name="title",
-        label="Title",
-        class="mb-0",
-      ) }}
-      {{ yield textField(
-        field=.Filters.Get("author"),
-        type="text",
-        name="author",
-        label="Author",
-        class="mb-0",
-      ) }}
-      {{ yield textField(
-        field=.Filters.Get("site"),
-        type="text",
-        name="site",
-        label="Site",
-        class="mb-0",
-      ) }}
-
-      {{ yield textField(
-        field=.Filters.Get("label"),
-        type="text",
-        name="label",
-        label="Label",
-        class="field",
-      ) }}
-
-      <div class="col-span-2 flex flex-wrap gap-2">
-        {{ yield selectField(field=.Filters.Get("is_marked"),
-          name="is_marked",
-          label="Is Favourite",
+  {{- if isset(.Filters) && .Count.Total > 0 }}
+  <form action="{{ urlFor(`/bookmarks`) }}" method="get"
+   data-controller="reveal"
+   data-reveal-visible-value="{{ .Filters.Active }}"
+   class="my-4 p-2 bg-gray-100 border rounded">
+    <input type="hidden" name="bf" value="1" />
+    <a data-reveal-target="trigger" href="#"
+     class="block font-semibold hf:text-primary">{{ yield icon(name="o-filter") }} Filters</a>
+    <div data-reveal-target="content" class="text-sm">
+      <div class="grid grid-cols-3 gap-2 +md:grid-cols-2">
+        {{ yield textField(
+          field=.Filters.Get("q"),
+          type="text",
+          name="q",
+          label="Search",
+          class="mb-0 col-span-3 +md:col-span-2",
+        ) }}
+        {{ yield textField(
+          field=.Filters.Get("title"),
+          type="text",
+          name="title",
+          label="Title",
           class="mb-0",
-          options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
         ) }}
-        {{ yield selectField(field=.Filters.Get("is_archived"),
-          name="is_archived",
-          label="Is Archived",
+        {{ yield textField(
+          field=.Filters.Get("author"),
+          type="text",
+          name="author",
+          label="Author",
           class="mb-0",
-          options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
+        ) }}
+        {{ yield textField(
+          field=.Filters.Get("site"),
+          type="text",
+          name="site",
+          label="Site",
+          class="mb-0",
         ) }}
 
-        {{ yield selectField(field=.Filters.Get("type"),
-          name="type",
-          label="Type",
-          class="field",
-          options=.Filters.Get("type").Value().Options(),
+        {{ yield textField(
+          field=.Filters.Get("label"),
+          type="text",
+          name="label",
+          label="Label",
+          class="mb-0",
         ) }}
-      </div>
-      <div>
-        <button class="btn btn-primary">Search</button>
-      </div>
 
+        <div class="col-span-2 flex flex-wrap gap-2">
+          {{ yield selectField(field=.Filters.Get("is_marked"),
+            name="is_marked",
+            label="Is Favourite",
+            class="mb-0",
+            options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
+          ) }}
+          {{ yield selectField(field=.Filters.Get("is_archived"),
+            name="is_archived",
+            label="Is Archived",
+            class="mb-0",
+            options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
+          ) }}
+
+          {{ yield selectField(field=.Filters.Get("type"),
+            name="type",
+            label="Type",
+            class="mb-0",
+            options=.Filters.Get("type").Value().Options(),
+          ) }}
+        </div>
+        <div class="mt-2 col-span-3 +md:col-span-2">
+          <button class="btn btn-primary">Search</button>
+        </div>
+      </div>
     </div>
   </form>
   {{ end -}}

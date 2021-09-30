@@ -18,6 +18,7 @@ type filterForm struct {
 	// This lets us override some Form methods.
 	*form.Form `json:"-"`
 
+	Active       bool       `json:"bf"`
 	Search       string     `json:"q"`
 	Title        string     `json:"title"`
 	Author       string     `json:"author"`
@@ -36,7 +37,7 @@ type typeChoice string
 
 // Options returns the field's choices, including an empty value.
 func (t typeChoice) Options() [][2]string {
-	return append([][2]string{{"", ""}}, availableTypes...)
+	return append([][2]string{{"", "All"}}, availableTypes...)
 }
 
 // Validate performs the field validation.

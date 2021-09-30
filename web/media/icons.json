@@ -16,7 +16,7 @@
   "o-favorite-off": "node_modules/boxicons/svg/regular/bx-heart.svg",
   "o-favorite-on":  "node_modules/boxicons/svg/solid/bxs-heart.svg",
   "o-file":         "node_modules/boxicons/svg/regular/bx-file.svg",
-  "o-filter":       "node_modules/boxicons/svg/regular/bx-filter.svg",
+  "o-filter":       "node_modules/boxicons/svg/regular/bx-filter-alt.svg",
   "o-hide":         "node_modules/boxicons/svg/solid/bxs-show.svg",
   "o-info":         "node_modules/boxicons/svg/solid/bxs-info-circle.svg",
   "o-key":          "node_modules/boxicons/svg/solid/bxs-key.svg",

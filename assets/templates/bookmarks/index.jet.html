@@ -25,8 +25,8 @@
 
         {{ range .Form.Get("url").Errors }}<p class="ml-4 text-red-700"><strong>{{ . }}</strong></p>{{ end }}
 
-        {{- if (!isset(.Q) || empty(.Q)) && pathIs("/bookmarks") && .Pagination.TotalCount == 0 -}}
-          <p><strong>You don't have any bookmark yet. Start saving pages now!</strong></p>
+        {{- if .Count.Total == 0 -}}
+        <p><strong>You don't have any bookmark yet. Start saving pages now!</strong></p>
         {{- end -}}
       </form>
   </div>

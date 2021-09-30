@@ -9,7 +9,6 @@ import (
 	"path"
 	"time"
 
-	"github.com/mattn/go-colorable"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
@@ -54,7 +53,7 @@ func InitApp() {
 		log.SetFormatter(&log.TextFormatter{
 			ForceColors: true,
 		})
-		log.SetOutput(colorable.NewColorableStdout())
+		log.SetOutput(os.Stdout)
 		log.SetLevel(log.TraceLevel)
 	}
 

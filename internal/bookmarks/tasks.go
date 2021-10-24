@@ -26,8 +26,9 @@ import (
 )
 
 var (
-	extractPageTask    superbus.Task
-	deleteBookmarkTask superbus.Task
+	extractPageTask      superbus.Task
+	deleteBookmarkTask   superbus.Task
+	deleteCollectionTask superbus.Task
 )
 
 type (
@@ -66,6 +67,20 @@ func init() {
 			}),
 			superbus.WithTaskHandler(deleteBookmarkHandler),
 		)
+
+		deleteCollectionTask = bus.Tasks().NewTask(
+			"collection.delete",
+			superbus.WithTaskDelay(20),
+			superbus.WithUnmarshall(func(data []byte) interface{} {
+				var res int
+				err := json.Unmarshal(data, &res)
+				if err != nil {
+					panic(err)
+				}
+				return res
+			}),
+			superbus.WithTaskHandler(collectionDeleteHandler),
+		)
 	})
 }
 
@@ -86,6 +101,26 @@ func deleteBookmarkHandler(data interface{}) {
 	}
 
 	logger.Info("bookmark removed")
+}
+
+func collectionDeleteHandler(data interface{}) {
+	id := data.(int)
+	logger := log.WithField("id", id)
+
+	logger.Debug("deleting collection")
+
+	c, err := Collections.GetOne(goqu.C("id").Eq(id))
+	if err != nil {
+		logger.WithError(err).Error("collection retrieve")
+		return
+	}
+
+	if err := c.Delete(); err != nil {
+		logger.WithError(err).Error("collection removal")
+		return
+	}
+
+	logger.Info("collection removed")
 }
 
 func extractPageHandler(data interface{}) {

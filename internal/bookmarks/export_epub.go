@@ -18,7 +18,7 @@ import (
 
 var uuidURL = uuid.Must(uuid.Parse("6ba7b811-9dad-11d1-80b4-00c04fd430c8"))
 
-func (api *bookmarkAPI) exportBookmarksEPUB(w http.ResponseWriter, r *http.Request, bookmarks ...*Bookmark) {
+func (api *apiRouter) exportBookmarksEPUB(w http.ResponseWriter, r *http.Request, bookmarks ...*Bookmark) {
 	if len(bookmarks) == 0 {
 		api.srv.Status(w, r, http.StatusNotFound)
 		return
@@ -28,7 +28,12 @@ func (api *bookmarkAPI) exportBookmarksEPUB(w http.ResponseWriter, r *http.Reque
 	var title string
 	if len(bookmarks) == 1 {
 		title = bookmarks[0].Title
+	} else if collection, ok := r.Context().Value(ctxCollectionKey{}).(*Collection); ok {
+		title = collection.Name
+	} else {
+		title = "Readec Bookmarks"
 	}
+
 	filename := fmt.Sprintf("%s-%s", bookmarks[0].Created.Format("2006-01-02"), slug.Slug(title))
 
 	id := ""

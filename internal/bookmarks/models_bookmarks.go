@@ -7,7 +7,6 @@ import (
 	"os"
 	"path"
 	"path/filepath"
-	"regexp"
 	"sort"
 	"time"
 
@@ -52,11 +51,8 @@ var (
 	// Bookmarks is the bookmark query manager
 	Bookmarks = BookmarkManager{}
 
-	// ErrNotFound is returned when a bookmark record was not found.
-	ErrNotFound = errors.New("not found")
-
-	rxHTMLStart = regexp.MustCompile(`^(.*?)<body>`)
-	rxHTMLEnd   = regexp.MustCompile(`</body>\s*</html>\s*$`)
+	// ErrBookmarkNotFound is returned when a bookmark record was not found.
+	ErrBookmarkNotFound = errors.New("not found")
 
 	// availableTypes are the allowed bookmark types
 	availableTypes = [][2]string{
@@ -160,7 +156,7 @@ func (m *BookmarkManager) GetOne(expressions ...goqu.Expression) (*Bookmark, err
 	case err != nil:
 		return nil, err
 	case !found:
-		return nil, ErrNotFound
+		return nil, ErrBookmarkNotFound
 	}
 
 	return &b, nil

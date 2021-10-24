@@ -287,15 +287,22 @@ func WithTaskDelay(d int) TaskOption {
 
 // Run launches the task.
 func (t Task) Run(id interface{}, data interface{}) error {
+	t.Log().WithField("id", id).Info("starting task")
 	return t.tm.Launch(t.name, id, t.delay, data)
 }
 
 // Cancel removes the task's payload, effectively canceling it.
 func (t Task) Cancel(id interface{}) error {
+	t.Log().WithField("id", id).Info("canceling task")
 	return t.tm.store.Del(t.tm.getOperationKey(t.name, id))
 }
 
 // IsRunning returns true if the task is currently running or in the queue.
 func (t Task) IsRunning(id interface{}) bool {
 	return t.tm.store.Get(t.tm.getOperationKey(t.name, id)) != ""
+}
+
+// Log returns a log entry for the task.
+func (t Task) Log() *log.Entry {
+	return log.WithField("name", t.name)
 }

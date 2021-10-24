@@ -33,10 +33,12 @@ const (
 // WriteEtag adds an Etag header to the response, based on
 // the values sent by GetSumStrings. The build date is always
 // included.
-func (s *Server) WriteEtag(w http.ResponseWriter, i Etager) {
+func (s *Server) WriteEtag(w http.ResponseWriter, i ...Etager) {
 	h := crc64.New(crc64.MakeTable(crc64.ISO))
-	for _, x := range i.GetSumStrings() {
-		h.Write([]byte(x))
+	for _, tager := range i {
+		for _, x := range tager.GetSumStrings() {
+			h.Write([]byte(x))
+		}
 	}
 	h.Write([]byte(configs.BuildTime().String()))
 
@@ -75,13 +77,12 @@ func (s *Server) WithCaching(next http.Handler) http.Handler {
 }
 
 func writeNotModified(w http.ResponseWriter) {
-	h := w.Header()
-	delete(h, "Content-Type")
-	delete(h, "Content-Length")
-	delete(h, "Content-Security-Policy")
-	if h.Get("Etag") != "" {
-		delete(h, "Last-Modified")
-	}
+	w.Header().Del("Content-Type")
+	w.Header().Del("Content-Length")
+	w.Header().Del("Content-Security-Policy")
+	w.Header().Del("Last-Modified")
+	w.Header().Del("Etag")
+
 	w.WriteHeader(http.StatusNotModified)
 }
 

@@ -1,47 +1,61 @@
 package server
 
 import (
-	"errors"
 	"fmt"
 	"math"
 	"net/http"
 	"net/url"
 	"strconv"
 
-	"github.com/readeck/readeck/pkg/form"
+	"github.com/readeck/readeck/pkg/forms"
 )
 
 // PaginationForm is a default form for pagination
 type PaginationForm struct {
-	Limit  int `json:"limit"`
-	Offset int `json:"offset"`
+	*forms.Form
 }
 
-// Validate validates the PaginationForm values
-func (pf *PaginationForm) Validate(f *form.Form) {
-	if pf.Offset < 0 {
-		f.Get("offset").Errors.Add(errors.New("Must be a positive number"))
+func newPaginationForm() *PaginationForm {
+	return &PaginationForm{forms.Must(
+		forms.NewIntegerField("limit", forms.Gte(0), forms.Lte(100)),
+		forms.NewIntegerField("offset", forms.Gte(0)),
+	)}
+}
+
+func (f *PaginationForm) Limit() int {
+	if f.Get("limit").IsNil() {
+		return 0
 	}
-	if pf.Limit < 0 {
-		f.Get("limit").Errors.Add(errors.New("Must be a positive number"))
+	return f.Get("limit").Value().(int)
+}
+
+func (f *PaginationForm) Offset() int {
+	if f.Get("offset").IsNil() {
+		return 0
 	}
-	if pf.Limit > 100 {
-		f.Get("limit").Errors.Add(errors.New("Must be inferior or equal to 100"))
-	}
+	return f.Get("offset").Value().(int)
+}
+
+func (f *PaginationForm) SetLimit(v int) {
+	f.Get("limit").Set(v)
 }
 
 // GetPageParams returns the pagination parameters from the query string
-func (s *Server) GetPageParams(r *http.Request) (*PaginationForm, *form.Form) {
-	params := &PaginationForm{}
-	f := form.NewForm(params)
-	f.BindValues(r.URL.Query())
-	f.Validate()
+func (s *Server) GetPageParams(r *http.Request, defaultLimit int) *PaginationForm {
+	f := newPaginationForm()
+	f.Get("limit").Set(0)
+	f.Get("offset").Set(0)
+	forms.UnmarshalValues(f, r.URL.Query())
 
 	if !f.IsValid() {
-		return nil, f
+		return nil
 	}
 
-	return params, f
+	if f.Get("limit").Value().(int) == 0 {
+		f.SetLimit(defaultLimit)
+	}
+
+	return f
 }
 
 // Pagination holds all the information regarding pagination

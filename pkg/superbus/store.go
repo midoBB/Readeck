@@ -81,10 +81,15 @@ func (s *MemStore) Get(key string) string {
 }
 
 // Set insert or replace the value for the given key.
-func (s *MemStore) Set(key, value string, _ time.Duration) error {
+func (s *MemStore) Set(key, value string, expiration time.Duration) error {
 	s.Lock()
 	defer s.Unlock()
 	s.data[key] = value
+
+	time.AfterFunc(expiration, func() {
+		delete(s.data, key)
+	})
+
 	return nil
 }
 

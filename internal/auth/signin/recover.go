@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
@@ -12,24 +13,28 @@ import (
 
 	"github.com/readeck/readeck/configs"
 	"github.com/readeck/readeck/internal/auth/users"
+	"github.com/readeck/readeck/internal/bus"
 	"github.com/readeck/readeck/internal/email"
 	"github.com/readeck/readeck/internal/server"
 	"github.com/readeck/readeck/pkg/forms"
 )
 
-var recoverCodes = map[string]int{}
-var recoverDelay = time.Duration(2 * time.Hour)
-
 type recoverForm struct {
 	*forms.Form
+	ttl    time.Duration
+	prefix string
 }
 
 func newRecoverForm() *recoverForm {
-	return &recoverForm{forms.Must(
-		forms.NewIntegerField("step", forms.Required),
-		forms.NewTextField("email", forms.Trim),
-		forms.NewTextField("password"),
-	)}
+	return &recoverForm{
+		Form: forms.Must(
+			forms.NewIntegerField("step", forms.Required),
+			forms.NewTextField("email", forms.Trim),
+			forms.NewTextField("password"),
+		),
+		ttl:    time.Duration(2 * time.Hour),
+		prefix: "recover_code",
+	}
 }
 
 func (f *recoverForm) Validate() {
@@ -45,6 +50,26 @@ func (f *recoverForm) Validate() {
 	default:
 		f.AddErrors("", errors.New("invalid step"))
 	}
+}
+
+func (f *recoverForm) saveCode(code string, userID int) {
+	bus.Store().Set(fmt.Sprintf("%s_%s", f.prefix, code), fmt.Sprint(userID), f.ttl)
+}
+
+func (f *recoverForm) getCode(code string) (int, bool) {
+	v := bus.Store().Get(fmt.Sprintf("%s_%s", f.prefix, code))
+	if v == "" {
+		return 0, false
+	}
+	userID, err := strconv.Atoi(v)
+	if err != nil {
+		return 0, false
+	}
+	return userID, true
+}
+
+func (f *recoverForm) delCode(code string) {
+	bus.Store().Del(fmt.Sprintf("%s_%s", f.prefix, code))
 }
 
 func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
@@ -75,11 +100,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 		}
 		code := shortuuid.New()
 		if user != nil {
-			recoverCodes[code] = user.ID
-
-			time.AfterFunc(recoverDelay, func() {
-				delete(recoverCodes, code)
-			})
+			f.saveCode(code, user.ID)
 
 			mailTc["RecoverLink"] = h.srv.AbsoluteURL(r, "/login/recover", code)
 		}
@@ -102,7 +123,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 		var err error
 		var user *users.User
 
-		userID, ok := recoverCodes[recoverCode]
+		userID, ok := f.getCode(recoverCode)
 		if !ok {
 			tc["Error"] = "Invalid recovery code"
 			return
@@ -138,7 +159,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		delete(recoverCodes, recoverCode)
+		f.delCode(recoverCode)
 		f.Get("step").Set(3)
 	}
 

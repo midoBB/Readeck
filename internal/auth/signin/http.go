@@ -1,17 +1,14 @@
 package signin
 
 import (
-	"errors"
 	"net/http"
 
-	"github.com/doug-martin/goqu/v9"
 	"github.com/go-chi/chi/v5"
 
 	"github.com/readeck/readeck/internal/auth"
-	"github.com/readeck/readeck/internal/auth/users"
 	"github.com/readeck/readeck/internal/email"
 	"github.com/readeck/readeck/internal/server"
-	"github.com/readeck/readeck/pkg/form"
+	"github.com/readeck/readeck/pkg/forms"
 )
 
 // SetupRoutes mounts the routes for the auth domain.
@@ -37,7 +34,7 @@ func newAuthHandler(s *server.Server) *authHandler {
 
 	h := &authHandler{r, s}
 	s.AddRoute("/login", r)
-	r.Get("/", h.loginView)
+	r.Get("/", h.login)
 	r.Post("/", h.login)
 
 	if email.CanSendEmail() {
@@ -60,42 +57,32 @@ func newAuthHandler(s *server.Server) *authHandler {
 	return h
 }
 
-func (h *authHandler) loginView(w http.ResponseWriter, r *http.Request) {
-	u := &loginForm{}
-	f := form.NewForm(u)
-
-	h.renderLoginForm(w, r, 200, f)
-}
-
 func (h *authHandler) login(w http.ResponseWriter, r *http.Request) {
-	u := new(loginForm)
-	f := form.NewForm(u)
+	f := newLoginForm()
 
-	form.Bind(f, r)
+	if r.Method == http.MethodPost {
+		forms.Bind(f, r)
 
-	if !f.IsValid() {
-		h.renderLoginForm(w, r, http.StatusBadRequest, f)
-		return
+		if f.IsValid() {
+			user := f.checkUser()
+			if user != nil {
+				// User is authenticated, let's carry on
+				sess := h.srv.GetSession(r)
+				sess.Payload.User = user.ID
+				sess.Payload.Seed = user.Seed
+				sess.Save(r, w)
+
+				h.srv.Redirect(w, r, "/")
+			}
+			// we must set the content type to avoid the
+			// error middleware interception.
+			w.Header().Set("content-type", "text/html; charset=utf-8")
+			w.WriteHeader(http.StatusUnauthorized)
+		}
+		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
 
-	user, err := users.Users.GetOne(goqu.C("username").Eq(u.Username))
-	if err != nil || !user.CheckPassword(u.Password) {
-		f.Errors().Add(errors.New("Invalid user and/or password"))
-		h.renderLoginForm(w, r, http.StatusUnauthorized, f)
-		return
-	}
-
-	// User is authenticated, let's carry on
-	sess := h.srv.GetSession(r)
-	sess.Payload.User = user.ID
-	sess.Payload.Seed = user.Seed
-	sess.Save(r, w)
-
-	h.srv.Redirect(w, r, "/")
-}
-
-func (h *authHandler) renderLoginForm(w http.ResponseWriter, r *http.Request, status int, f *form.Form) {
-	h.srv.RenderTemplate(w, r, status, "/auth/login", server.TC{
+	h.srv.RenderTemplate(w, r, http.StatusOK, "/auth/login", server.TC{
 		"Form": f,
 	})
 }
@@ -109,14 +96,4 @@ func (h *authHandler) logout(w http.ResponseWriter, r *http.Request) {
 	}
 
 	h.srv.Redirect(w, r, "/")
-}
-
-type loginForm struct {
-	Username string `json:"username" conform:"trim"`
-	Password string `json:"password"`
-}
-
-func (lf *loginForm) Validate(f *form.Form) {
-	f.Get("username").Validate(form.IsRequired)
-	f.Get("password").Validate(form.IsRequired)
 }

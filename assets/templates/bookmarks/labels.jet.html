@@ -11,7 +11,7 @@ anything to a label, including emojis!</p>
 
 <ul class="flex flex-wrap gap-4">
 {{- range .Labels -}}
-  <li><a href="{{ urlFor(`/bookmarks/labels`, .Name) }}"
+  <li><a href="{{ urlFor(`/bookmarks/labels`) }}/{{ url(.Name) }}"
    class="inline-flex items-center gap-1 border rounded-full
    py-2 px-4 font-semibold
    hf:bg-yellow-100"

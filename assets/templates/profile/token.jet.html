@@ -33,14 +33,12 @@
 
   {{ yield checkboxField(
     field=.Form.Get("is_enabled"),
-    name="is_enabled",
     label="Enabled",
     class="field-h",
   ) }}
 
   {{ yield dateField(
     field=.Form.Get("expires"),
-    name="expires",
     label="Expires at",
     class="field-h",
   ) }}

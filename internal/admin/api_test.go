@@ -110,25 +110,77 @@ func TestAPI(t *testing.T) {
 					"errors": null,
 					"fields": {
 						"email": {
-							"value": "",
+							"is_bound": false,
+							"is_null": true,
+							"value": null,
 							"errors": [
-								"cannot be blank"
+								"field is required"
 							]
 						},
 						"group": {
-							"value": null,
-							"errors": null
+							"is_bound": false,
+							"is_null": false,
+							"value": "user",
+							"errors": ["field is required"]
 						},
 						"password": {
-							"value": "",
+							"is_bound": false,
+							"is_null": true,
+							"value": null,
 							"errors": [
-								"cannot be blank"
+								"field is required"
 							]
 						},
 						"username": {
-							"value": "",
+							"is_bound": false,
+							"is_null": true,
+							"value": null,
 							"errors": [
-								"cannot be blank"
+								"field is required"
+							]
+						}
+					}
+				}`,
+			},
+			RequestTest{
+				Method: "POST",
+				Target: "/api/admin/users",
+				JSON: map[string]string{
+					"group": "foo",
+				},
+				ExpectStatus: 422,
+				ExpectJSON: `{
+					"is_valid": false,
+					"errors": null,
+					"fields": {
+						"email": {
+							"is_bound": false,
+							"is_null": true,
+							"value": null,
+							"errors": [
+								"field is required"
+							]
+						},
+						"group": {
+							"is_bound": true,
+							"is_null": false,
+							"value": "foo",
+							"errors": ["must be one of none, user, staff, admin"]
+						},
+						"password": {
+							"is_bound": false,
+							"is_null": true,
+							"value": null,
+							"errors": [
+								"field is required"
+							]
+						},
+						"username": {
+							"is_bound": false,
+							"is_null": true,
+							"value": null,
+							"errors": [
+								"field is required"
 							]
 						}
 					}
@@ -149,18 +201,26 @@ func TestAPI(t *testing.T) {
 					"errors": null,
 					"fields": {
 						"email": {
+							"is_bound": true,
+							"is_null": false,
 							"value": "test2@localhost",
 							"errors": null
 						},
 						"group": {
+							"is_bound": true,
+							"is_null": false,
 							"value": "user",
 							"errors": null
 						},
 						"password": {
+							"is_bound": true,
+							"is_null": false,
 							"value": "1234",
 							"errors": null
 						},
 						"username": {
+							"is_bound": true,
+							"is_null": false,
 							"value": "user",
 							"errors": [
 								"username is already in use"
@@ -184,20 +244,26 @@ func TestAPI(t *testing.T) {
 					"errors": null,
 					"fields": {
 						"email": {
+							"is_bound": true,
+							"is_null": false,
 							"value": "user@localhost",
-							"errors": [
-								"email is already in use"
-							]
+							"errors": ["email address is already in use"]
 						},
 						"group": {
+							"is_bound": true,
+							"is_null": false,
 							"value": "user",
 							"errors": null
 						},
 						"password": {
+							"is_bound": true,
+							"is_null": false,
 							"value": "1234",
 							"errors": null
 						},
 						"username": {
+							"is_bound": true,
+							"is_null": false,
 							"value": "test2",
 							"errors": null
 						}
@@ -222,7 +288,9 @@ func TestAPI(t *testing.T) {
 				Target:       fmt.Sprintf("/api/admin/users/%d", u1.User.ID),
 				JSON:         map[string]string{},
 				ExpectStatus: 200,
-				ExpectJSON:   `{}`,
+				ExpectJSON: `{
+					"id": "<<PRESENCE>>"
+				}`,
 			},
 			RequestTest{
 				Method: "PATCH",
@@ -235,9 +303,10 @@ func TestAPI(t *testing.T) {
 				},
 				ExpectStatus: 200,
 				ExpectJSON: `{
+					"id": "<<PRESENCE>>",
 					"email": "test3@localhost",
 					"group": "user",
-					"password": "",
+					"password": "-",
 					"updated": "<<PRESENCE>>",
 					"username": "test3"
 				}`,

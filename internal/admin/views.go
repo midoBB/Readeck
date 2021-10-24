@@ -9,17 +9,13 @@ import (
 	"github.com/readeck/readeck/internal/auth"
 	"github.com/readeck/readeck/internal/auth/users"
 	"github.com/readeck/readeck/internal/server"
-	"github.com/readeck/readeck/pkg/form"
+	"github.com/readeck/readeck/pkg/forms"
 )
 
 // adminViews is an HTTP handler for the user profile web views
 type adminViews struct {
 	chi.Router
 	*adminAPI
-}
-
-type deleteForm struct {
-	Cancel bool `json:"cancel"`
 }
 
 func newAdminViews(api *adminAPI) *adminViews {
@@ -62,24 +58,22 @@ func (h *adminViews) userList(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *adminViews) userCreate(w http.ResponseWriter, r *http.Request) {
-	uf := &users.CreateForm{}
-	f := form.NewForm(uf)
-
-	if r.Method == http.MethodGet {
-		defaultGroup := users.GroupChoice("user")
-		uf.Group = &defaultGroup
-	}
+	f := users.NewUserForm()
+	f.Get("group").Set("user")
 
 	if r.Method == http.MethodPost {
-		form.Bind(f, r)
+		forms.Bind(f, r)
 		if f.IsValid() {
-			u, err := h.createUser(uf)
-			if err == nil {
+			u, err := f.CreateUser()
+			if err != nil {
+				h.srv.Log(r).Error(err)
+			} else {
 				h.srv.AddFlash(w, r, "success", "User created")
 				h.srv.Redirect(w, r, "./..", fmt.Sprint(u.ID))
 				return
 			}
 		}
+		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
 
 	ctx := server.TC{
@@ -92,23 +86,16 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 	u := r.Context().Value(ctxUserKey{}).(*users.User)
 	item := newUserItem(h.srv, r, u, "./..")
 
-	uf := &users.UpdateForm{}
-	f := form.NewForm(uf)
-	uf.SetUser(f, u)
-	g := users.GroupChoice(u.Group)
-
-	if r.Method == http.MethodGet {
-		uf.Username = &u.Username
-		uf.Email = &u.Email
-		uf.Group = &g
-	}
+	f := users.NewUserForm()
+	f.SetUser(u)
 
 	if r.Method == http.MethodPost {
-		form.Bind(f, r)
+		forms.Bind(f, r)
 
 		if f.IsValid() {
-			_, err := h.updateUser(u, uf)
-			if err == nil {
+			if _, err := f.UpdateUser(u); err != nil {
+				h.srv.Log(r).Error(err)
+			} else {
 				// Refresh session if same user
 				if auth.GetRequestUser(r).ID == u.ID {
 					sess := h.srv.GetSession(r)
@@ -119,10 +106,8 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 				h.srv.Redirect(w, r, fmt.Sprint(u.ID))
 				return
 			}
-
-			h.srv.Error(w, r, err)
-			return
 		}
+		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
 
 	ctx := server.TC{
@@ -134,9 +119,8 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *adminViews) userDelete(w http.ResponseWriter, r *http.Request) {
-	df := &deleteForm{}
-	f := form.NewForm(df)
-	form.Bind(f, r)
+	f := newDeleteForm()
+	forms.Bind(f, r)
 
 	u := r.Context().Value(ctxUserKey{}).(*users.User)
 	if u.ID == auth.GetRequestUser(r).ID {
@@ -144,14 +128,6 @@ func (h *adminViews) userDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	defer func() {
-		h.srv.Redirect(w, r, "..", fmt.Sprint(u.ID))
-	}()
-
-	if df.Cancel {
-		deleteUserTask.Cancel(u.ID)
-		return
-	}
-
-	deleteUserTask.Run(u.ID, u.ID)
+	f.trigger(u)
+	h.srv.Redirect(w, r, "..", fmt.Sprint(u.ID))
 }

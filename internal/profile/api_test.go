@@ -53,7 +53,6 @@ func TestAPI(t *testing.T) {
 			ExpectJSON: `{
 					"id": {{ .Users.user.User.ID }},
 					"email": "newuser@localhost",
-					"seed": "<<PRESENCE>>",
 					"updated": "<<PRESENCE>>",
 					"username":"newuser"
 				}`,
@@ -70,12 +69,19 @@ func TestAPI(t *testing.T) {
 					"errors":null,
 					"fields":{
 						"email":{
-							"value":null,
+							"is_null": false,
+							"is_bound": false,
+							"value": "<<PRESENCE>>",
 							"errors":null
 						},
 						"username":{
+							"is_null": false,
+							"is_bound": true,
 							"value":"",
-							"errors":["cannot be blank"]
+							"errors":[
+								"field is required",
+        						"must contain English letters, digits, \"_\" and \"-\" only"
+							]
 						}
 					}
 				}`,
@@ -101,10 +107,14 @@ func TestAPI(t *testing.T) {
 				"errors":null,
 				"fields":{
 					"current":{
-						"value":"",
+						"is_null": true,
+						"is_bound": false,
+						"value":null,
 						"errors":null
 					},
 					"password":{
+						"is_null": false,
+						"is_bound": true,
 						"value":"  ",
 						"errors":["password must be at least 8 character long"]
 					}

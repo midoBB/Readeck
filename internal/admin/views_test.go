@@ -46,7 +46,7 @@ func TestViews(t *testing.T) {
 				Method:         "POST",
 				Target:         "/admin/users/add",
 				Form:           url.Values{},
-				ExpectStatus:   200,
+				ExpectStatus:   422,
 				ExpectContains: "Please check your form for errors.",
 			},
 			RequestTest{
@@ -59,6 +59,7 @@ func TestViews(t *testing.T) {
 					"username": {"test3"},
 					"password": {"1234"},
 					"email":    {"test3@localhost"},
+					"group":    {"user"},
 				},
 				ExpectStatus:   303,
 				ExpectRedirect: `^/admin/users/\d+$`,

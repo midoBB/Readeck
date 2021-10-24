@@ -8,7 +8,7 @@
   <form class="mt-2 ml-0.5 mr-1 flex" action="{{ urlFor(`/bookmarks`) }}" method="get">
     <input type="hidden" name="bf" value="1" />
     <input title="search in bookmarks" class="form-input rounded-full pl-4 pr-8 w-full max-w-xs +md:max-w-none" size="14"
-    type="text" name="q" value="{{ isset(.Filters) ? .Filters.Search : `` }}" placeholder="search" />
+    type="text" name="search" value="{{ isset(.Filters) ? .Filters.Get(`search`).String() : `` }}" placeholder="search" />
     <button title="search" class="leading-normal -ml-6 mr-2">{{ yield icon(name="o-search") }}</button>
   </form>
 
@@ -49,12 +49,20 @@
     </ul>
   {{ end -}}
 
+  <h2 class="mt-4 sidebar:subtitle">Collections</h2>
+  <ul class="mt-2">
+    <li><a class="sidebar:link"
+     data-current="{{ pathIs(`/bookmarks/collections`) }}"
+     href="{{ urlFor(`/bookmarks/collections`) }}">{{ yield icon(name="o-collection") }} All Collections</a></li>
+  </ul>
+
   <h2 class="mt-4 sidebar:subtitle">Labels</h2>
   <ul class="mt-2">
     <li><a class="sidebar:link"
-    data-current="{{ pathIs(`/bookmarks/labels`) }}"
+     data-current="{{ pathIs(`/bookmarks/labels`) }}"
      href="{{ urlFor(`/bookmarks/labels`) }}">{{ yield icon(name="o-label") }} All Labels</a></li>
   </ul>
+
 
   {{- end -}} {* /content() *}
 {{- end -}}

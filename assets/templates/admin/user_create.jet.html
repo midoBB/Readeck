@@ -11,25 +11,20 @@
   {{ yield csrfField() }}
 
   {{ yield textField(field=.Form.Get("username"),
-                     name="username",
                      label="Username",
-                     class="field-h",) }}
+                     class="field-h") }}
 
   {{ yield textField(field=.Form.Get("email"),
                      type="email",
-                     name="email",
                      label="Email address",
-                     class="field-h",) }}
+                     class="field-h") }}
 
   {{ yield selectField(field=.Form.Get("group"),
-                       name="group",
                        label="Group",
-                       class="field-h",
-                       options=.Form.Get("group").Value().Options(),) }}
+                       class="field-h") }}
 
   {{ yield textField(field=.Form.Get("password"),
                      type="password",
-                     name="password",
                      label="Password",
                      class="field-h",
                      controlAttrs=attrList("data-controller", "pass-reveal",

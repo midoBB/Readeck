@@ -23,7 +23,7 @@ func TestSignin(t *testing.T) {
 			profileStatus int
 		}
 		tests := []loginTest{
-			{"", "", 400, 303},
+			{"", "", 422, 303},
 			{"admin", "admin", 303, 200},
 			{"user", "user", 303, 200},
 			{"disabled", "disabled", 303, 403},

@@ -5,85 +5,37 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"mime"
 	"net/http"
 	"net/url"
 	"path"
-	"sort"
 	"strconv"
 	"strings"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
+	"github.com/doug-martin/goqu/v9/exp"
 	"github.com/go-chi/chi/v5"
-	"github.com/leebenson/conform"
-	"github.com/thoas/go-funk"
 
 	"github.com/readeck/readeck/internal/auth"
-	"github.com/readeck/readeck/internal/db"
 	"github.com/readeck/readeck/internal/server"
-	"github.com/readeck/readeck/pkg/form"
+	"github.com/readeck/readeck/pkg/forms"
 	"github.com/readeck/readeck/pkg/zipfs"
 )
 
-var validSchemes = map[string]bool{"http": true, "https": true}
-
 type (
-	ctxBookmarkKey     struct{}
-	ctxBookmarkListKey struct{}
-	ctxLabelListKey    struct{}
-	ctxFiltersKey      struct{}
-	ctxDefaultLimitKey struct{}
+	ctxBookmarkKey          struct{}
+	ctxBookmarkListKey      struct{}
+	ctxBookmarkListTagerKey struct{}
+	ctxLabelKey             struct{}
+	ctxLabelListKey         struct{}
+	ctxFiltersKey           struct{}
+	ctxDefaultLimitKey      struct{}
 )
-
-// bookmarkAPI is the base bookmark API router.
-type bookmarkAPI struct {
-	chi.Router
-	srv *server.Server
-}
-
-// newBookmarkAPI returns a BookmarkApi with all the routes
-// set up.
-func newBookmarkAPI(s *server.Server) *bookmarkAPI {
-	r := s.AuthenticatedRouter()
-
-	api := &bookmarkAPI{r, s}
-
-	r.With(api.srv.WithPermission("api:bookmarks", "read")).Group(func(r chi.Router) {
-		r.With(api.withBookmarkList).Get("/", api.bookmarkList)
-		r.With(api.withBookmark).Group(func(r chi.Router) {
-			r.Get("/{uid:[a-zA-Z0-9]{18,22}}", api.bookmarkInfo)
-			r.Get("/{uid:[a-zA-Z0-9]{18,22}}/article", api.bookmarkArticle)
-			r.Get("/{uid:[a-zA-Z0-9]{18,22}}/x/*", api.bookmarkResource)
-		})
-
-		r.With(api.srv.WithPermission("api:bookmarks", "export")).Group(func(r chi.Router) {
-			r.With(api.withoutPagination, api.withBookmarkList).
-				Get("/export.{format}", api.bookmarkExport)
-			r.With(api.withBookmark).
-				Get("/{uid:[a-zA-Z0-9]{18,22}}/article.{format}", api.bookmarkExport)
-		})
-
-		r.With(api.withLabelList).Get("/labels", api.labelList)
-		r.Get("/labels/{label}", api.labelInfo)
-	})
-
-	r.With(api.srv.WithPermission("api:bookmarks", "write")).Group(func(r chi.Router) {
-		r.Post("/", api.bookmarkCreate)
-		r.With(api.withBookmark).Group(func(r chi.Router) {
-			r.Patch("/{uid:[a-zA-Z0-9]{18,22}}", api.bookmarkUpdate)
-			r.Delete("/{uid:[a-zA-Z0-9]{18,22}}", api.bookmarkDelete)
-		})
-		r.Patch("/labels/{label}", api.labelUpdate)
-	})
-
-	return api
-}
 
 // bookmarkList renders a paginated list of the connected
 // user bookmarks in JSON.
-func (api *bookmarkAPI) bookmarkList(w http.ResponseWriter, r *http.Request) {
+func (api *apiRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 	bl := r.Context().Value(ctxBookmarkListKey{}).(bookmarkList)
 
 	bl.Items = make([]bookmarkItem, len(bl.items))
@@ -96,7 +48,7 @@ func (api *bookmarkAPI) bookmarkList(w http.ResponseWriter, r *http.Request) {
 }
 
 // bookmarkInfo renders a given bookmark items in JSON.
-func (api *bookmarkAPI) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
+func (api *apiRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
 	item := newBookmarkItem(api.srv, r, b, "./..")
 
@@ -112,7 +64,7 @@ func (api *bookmarkAPI) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 
 // bookmarkArticle renders the article HTML content of a bookmark.
 // Note that only the body's content is rendered.
-func (api *bookmarkAPI) bookmarkArticle(w http.ResponseWriter, r *http.Request) {
+func (api *apiRouter) bookmarkArticle(w http.ResponseWriter, r *http.Request) {
 	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
 
 	bi := newBookmarkItem(api.srv, r, b, "")
@@ -129,7 +81,7 @@ func (api *bookmarkAPI) bookmarkArticle(w http.ResponseWriter, r *http.Request) 
 }
 
 // bookmarkExport renders a list of bookmarks in the requested export format.
-func (api *bookmarkAPI) bookmarkExport(w http.ResponseWriter, r *http.Request) {
+func (api *apiRouter) bookmarkExport(w http.ResponseWriter, r *http.Request) {
 	var fn func(http.ResponseWriter, *http.Request, ...*Bookmark)
 
 	// Check if we have a valid format
@@ -160,36 +112,32 @@ func (api *bookmarkAPI) bookmarkExport(w http.ResponseWriter, r *http.Request) {
 }
 
 // bookmarkCreate creates a new bookmark.
-func (api *bookmarkAPI) bookmarkCreate(w http.ResponseWriter, r *http.Request) {
-	var uri string
+func (api *apiRouter) bookmarkCreate(w http.ResponseWriter, r *http.Request) {
 	var html []byte
 	var err error
 	ct, _, _ := mime.ParseMediaType(r.Header.Get("content-type"))
 
+	f := newCreateForm(auth.GetRequestUser(r).ID, api.srv.GetReqID(r))
+
 	if ct == "multipart/form-data" {
 		// A multipart form must provide a section with the url and
 		// another one with the html source.
-		uri, html, err = api.loadCreateParamsHTML(w, r)
+		f.Bind()
+		html, err = f.loadMultipart(r)
 		if err != nil {
-			api.srv.Message(w, r, &server.Message{
-				Status:  http.StatusBadRequest,
-				Message: err.Error(),
-			})
+			api.srv.Error(w, r, err)
 			return
 		}
 	} else {
-		cf := &createForm{}
-		f := form.NewForm(cf)
-
-		form.Bind(f, r)
-		if !f.IsValid() {
-			api.srv.Render(w, r, http.StatusBadRequest, f)
-			return
-		}
-		uri = cf.URL
+		forms.Bind(f, r)
 	}
 
-	b, err := api.createBookmark(r, uri, html)
+	if !f.IsValid() {
+		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
+		return
+	}
+
+	b, err := f.createBookmark(html)
 	if err != nil {
 		api.srv.Error(w, r, err)
 		return
@@ -203,10 +151,9 @@ func (api *bookmarkAPI) bookmarkCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 // bookmarkUpdate updates an existing bookmark.
-func (api *bookmarkAPI) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
-	uf := &updateForm{}
-	f := form.NewForm(uf)
-	form.Bind(f, r)
+func (api *apiRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
+	f := newUpdateForm()
+	forms.Bind(f, r)
 
 	if !f.IsValid() {
 		api.srv.Render(w, r, http.StatusBadRequest, f)
@@ -215,7 +162,7 @@ func (api *bookmarkAPI) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 
 	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
 
-	updated, err := api.updateBookmark(b, uf, r)
+	updated, err := f.update(b)
 	if err != nil {
 		api.srv.Error(w, r, err)
 		return
@@ -223,6 +170,7 @@ func (api *bookmarkAPI) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 
 	updated["href"] = api.srv.AbsoluteURL(r).String()
 
+	// On a turbo request, we'll return the updated components.
 	if api.srv.IsTurboRequest(r) {
 		item := newBookmarkItem(api.srv, r, b, "./..")
 
@@ -260,7 +208,7 @@ func (api *bookmarkAPI) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 }
 
 // bookmarkDelete deletes a bookmark.
-func (api *bookmarkAPI) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
+func (api *apiRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
 
 	if err := b.Update(map[string]interface{}{}); err != nil {
@@ -268,7 +216,9 @@ func (api *bookmarkAPI) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := api.launchDelete(b, r); err != nil {
+	f := newDeleteForm()
+	f.Get("cancel").Set(false)
+	if err := f.trigger(b); err != nil {
 		api.srv.Error(w, r, err)
 		return
 	}
@@ -280,7 +230,7 @@ func (api *bookmarkAPI) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 // the sidecar zip file of a bookmark.
 // Note that for images, we'll use another route that is not
 // authenticated and thus, much faster.
-func (api *bookmarkAPI) bookmarkResource(w http.ResponseWriter, r *http.Request) {
+func (api *apiRouter) bookmarkResource(w http.ResponseWriter, r *http.Request) {
 	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
 	p := path.Clean(chi.URLParam(r, "*"))
 
@@ -294,17 +244,21 @@ func (api *bookmarkAPI) bookmarkResource(w http.ResponseWriter, r *http.Request)
 	fs.ServeHTTP(w, r2)
 }
 
-func (api *bookmarkAPI) labelList(w http.ResponseWriter, r *http.Request) {
+// labelList returns the list of all labels.
+func (api *apiRouter) labelList(w http.ResponseWriter, r *http.Request) {
 	res := r.Context().Value(ctxLabelListKey{}).([]*labelItem)
 	for i, item := range res {
-		res[i].Href = api.srv.AbsoluteURL(r, ".", item.Name).String()
+		u := api.srv.AbsoluteURL(r, ".")
+		u.Path += item.Name.Path()
+		res[i].Href = u.String()
 	}
 
 	api.srv.Render(w, r, http.StatusOK, res)
 }
 
-func (api *bookmarkAPI) labelInfo(w http.ResponseWriter, r *http.Request) {
-	label := chi.URLParam(r, "label")
+// labelInfo return the information about a label.
+func (api *apiRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
+	label := r.Context().Value(ctxLabelKey{}).(string)
 	ds := Bookmarks.Query().
 		Select("id").
 		Where(
@@ -324,28 +278,28 @@ func (api *bookmarkAPI) labelInfo(w http.ResponseWriter, r *http.Request) {
 
 	u := api.srv.AbsoluteURL(r, "/api/bookmarks")
 	q := u.Query()
-	q.Add("label", label)
+	q.Add("label", fmt.Sprintf(`"%s"`, label))
 	u.RawQuery = q.Encode()
 
 	api.srv.Render(w, r, http.StatusOK, map[string]interface{}{
+		"name":           label,
 		"count":          count,
 		"href":           api.srv.AbsoluteURL(r).String(),
 		"href_bookmarks": u.String(),
 	})
 }
 
-func (api *bookmarkAPI) labelUpdate(w http.ResponseWriter, r *http.Request) {
-	label := chi.URLParam(r, "label")
-	lf := &labelForm{}
-	f := form.NewForm(lf)
-	form.Bind(f, r)
+func (api *apiRouter) labelUpdate(w http.ResponseWriter, r *http.Request) {
+	label := r.Context().Value(ctxLabelKey{}).(string)
+	f := newLabelForm(auth.GetRequestUser(r).ID)
+	forms.Bind(f, r)
 
 	if !f.IsValid() {
 		api.srv.Render(w, r, http.StatusBadRequest, f)
 		return
 	}
 
-	ids, err := api.renameLabel(r, label, lf.Name)
+	ids, err := f.rename(label)
 	if err != nil {
 		api.srv.Error(w, r, err)
 		return
@@ -358,7 +312,7 @@ func (api *bookmarkAPI) labelUpdate(w http.ResponseWriter, r *http.Request) {
 
 // withBookmark returns a router that will fetch a bookmark and add it into the
 // request's context. It also deals with if-modified-since header.
-func (api *bookmarkAPI) withBookmark(next http.Handler) http.Handler {
+func (api *apiRouter) withBookmark(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		uid := chi.URLParam(r, "uid")
 
@@ -381,7 +335,7 @@ func (api *bookmarkAPI) withBookmark(next http.Handler) http.Handler {
 	})
 }
 
-func (api *bookmarkAPI) withBookmarkFilters(next http.Handler) http.Handler {
+func (api *apiRouter) withBookmarkFilters(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		filter := chi.URLParam(r, "filter")
 		filters := newFilterForm()
@@ -394,28 +348,36 @@ func (api *bookmarkAPI) withBookmarkFilters(next http.Handler) http.Handler {
 		case "favorites":
 			filters.setMarked(true)
 		case "articles":
-			filters.Type = "article"
+			filters.setType("article")
 		case "pictures":
-			filters.Type = "photo"
+			filters.setType("photo")
 		case "videos":
-			filters.Type = "video"
+			filters.setType("video")
 		}
 
 		next.ServeHTTP(w, r.Clone(filters.saveContext(r.Context())))
 	})
 }
 
-func (api *bookmarkAPI) withLabel(next http.Handler) http.Handler {
+func (api *apiRouter) withLabel(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		label := chi.URLParam(r, "label")
-		filters := newFilterForm()
-		filters.Labels = label
+		label, err := url.QueryUnescape(chi.URLParam(r, "label"))
+		if err != nil {
+			api.srv.Error(w, r, err)
+			return
+		}
 
-		next.ServeHTTP(w, r.Clone(filters.saveContext(r.Context())))
+		ctx := context.WithValue(r.Context(), ctxLabelKey{}, label)
+
+		filters := newFilterForm()
+		filters.Get("labels").Set(fmt.Sprintf(`"%s"`, label))
+		ctx = filters.saveContext(ctx)
+
+		next.ServeHTTP(w, r.Clone(ctx))
 	})
 }
 
-func (api *bookmarkAPI) withDefaultLimit(limit int) func(next http.Handler) http.Handler {
+func (api *apiRouter) withDefaultLimit(limit int) func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			ctx := context.WithValue(r.Context(), ctxDefaultLimitKey{}, limit)
@@ -424,29 +386,63 @@ func (api *bookmarkAPI) withDefaultLimit(limit int) func(next http.Handler) http
 	}
 }
 
-func (api *bookmarkAPI) withoutPagination(next http.Handler) http.Handler {
+func (api *apiRouter) withoutPagination(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		ff := newContextFilterForm(r.Context())
-		ff.noPagination = true
-		next.ServeHTTP(w, r.Clone(ff.saveContext(r.Context())))
+		f := newContextFilterForm(r.Context())
+		f.noPagination = true
+		next.ServeHTTP(w, r.Clone(f.saveContext(r.Context())))
 	})
 }
 
-func (api *bookmarkAPI) withBookmarkList(next http.Handler) http.Handler {
+func (api *apiRouter) withCollectionFilters(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var c *Collection
+		var ok bool
+		var err error
+		ctx := r.Context()
+		c, ok = ctx.Value(ctxCollectionKey{}).(*Collection)
+		if !ok {
+			// No collection in context, let's see if we have an ID
+			uid := r.URL.Query().Get("collection")
+			if uid == "" {
+				next.ServeHTTP(w, r)
+				return
+			}
+
+			c, err = Collections.GetOne(
+				goqu.C("uid").Eq(uid),
+				goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
+			)
+			if err != nil {
+				api.srv.Status(w, r, http.StatusNotFound)
+				return
+			}
+			ctx = context.WithValue(r.Context(), ctxCollectionKey{}, c)
+		}
+
+		// Apply filters
+		f := newCollectionForm()
+		f.setCollection(c)
+		f.Filters.order = []exp.OrderedExpression{goqu.I("created").Desc()}
+		ctx = f.Filters.saveContext(ctx)
+
+		next.ServeHTTP(w, r.Clone(ctx))
+	})
+}
+
+func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		res := bookmarkList{}
 
-		pf, _ := api.srv.GetPageParams(r)
+		limit, ok := r.Context().Value(ctxDefaultLimitKey{}).(int)
+		if !ok {
+			limit = 50
+		}
+
+		pf := api.srv.GetPageParams(r, limit)
 		if pf == nil {
 			api.srv.Status(w, r, http.StatusNotFound)
 			return
-		}
-		if pf.Limit == 0 {
-			if limit, ok := r.Context().Value(ctxDefaultLimitKey{}).(int); ok {
-				pf.Limit = limit
-			} else {
-				pf.Limit = 50
-			}
 		}
 
 		ds := Bookmarks.Query().
@@ -463,15 +459,14 @@ func (api *bookmarkAPI) withBookmarkList(next http.Handler) http.Handler {
 
 		// Filters (search and other filters)
 		filters := newContextFilterForm(r.Context())
-		filters.BindValues(r.URL.Query())
-		filters.Validate()
+		forms.UnmarshalValues(filters, r.URL.Query())
 		if filters.IsValid() {
 			ds = filters.toSelectDataSet(ds)
 		}
 
 		ds = ds.
-			Limit(uint(pf.Limit)).
-			Offset(uint(pf.Offset))
+			Limit(uint(pf.Limit())).
+			Offset(uint(pf.Offset()))
 
 		if filters.noPagination {
 			ds = ds.ClearLimit().ClearOffset()
@@ -480,7 +475,7 @@ func (api *bookmarkAPI) withBookmarkList(next http.Handler) http.Handler {
 		var count int64
 		var err error
 		if count, err = ds.ClearOrder().ClearLimit().ClearOffset().Count(); err != nil {
-			if errors.Is(err, ErrNotFound) {
+			if errors.Is(err, ErrBookmarkNotFound) {
 				api.srv.TextMessage(w, r, http.StatusNotFound, "not found")
 			} else {
 				api.srv.Error(w, r, err)
@@ -494,19 +489,25 @@ func (api *bookmarkAPI) withBookmarkList(next http.Handler) http.Handler {
 			return
 		}
 
-		res.Pagination = api.srv.NewPagination(r, int(count), pf.Limit, pf.Offset)
+		res.Pagination = api.srv.NewPagination(r, int(count), pf.Limit(), pf.Offset())
 
 		ctx := filters.saveContext(r.Context())
 		ctx = context.WithValue(ctx, ctxBookmarkListKey{}, res)
 
+		tagers := []server.Etager{res}
+		t, ok := r.Context().Value(ctxBookmarkListTagerKey{}).([]server.Etager)
+		if ok {
+			tagers = append(tagers, t...)
+		}
+
 		if r.Method == http.MethodGet {
-			api.srv.WriteEtag(w, res)
+			api.srv.WriteEtag(w, tagers...)
 		}
 		api.srv.WithCaching(next).ServeHTTP(w, r.Clone(ctx))
 	})
 }
 
-func (api *bookmarkAPI) withLabelList(next http.Handler) http.Handler {
+func (api *apiRouter) withLabelList(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ds := Bookmarks.GetLabels().
 			Where(
@@ -526,7 +527,7 @@ func (api *bookmarkAPI) withLabelList(next http.Handler) http.Handler {
 
 // getBookmarkArticle returns a strings.Reader containing the
 // HTML content of a bookmark. Only the body is retrieved.
-func (api *bookmarkAPI) getBookmarkArticle(b *bookmarkItem) (r *strings.Reader, err error) {
+func (api *apiRouter) getBookmarkArticle(b *bookmarkItem) (r *strings.Reader, err error) {
 	var c *bookmarkContainer
 	if c, err = b.openContainer(); err != nil {
 		return
@@ -548,182 +549,6 @@ func (api *bookmarkAPI) getBookmarkArticle(b *bookmarkItem) (r *strings.Reader, 
 	}
 
 	return strings.NewReader(c.GetArticle()), nil
-}
-
-// createBookmark creates a new bookmark and starts the extraction process.
-func (api *bookmarkAPI) createBookmark(r *http.Request, u string, html []byte) (*Bookmark, error) {
-	uri, _ := url.Parse(u)
-
-	b := &Bookmark{
-		UserID:   &auth.GetRequestUser(r).ID,
-		State:    StateLoading,
-		URL:      uri.String(),
-		Site:     uri.Hostname(),
-		SiteName: uri.Hostname(),
-	}
-
-	if err := Bookmarks.Create(b); err != nil {
-		return nil, err
-	}
-
-	// Start extraction job
-	return b, extractPageTask.Run(b.ID, extractParams{
-		BookmarkID: b.ID,
-		HTML:       html,
-		RequestID:  api.srv.GetReqID(r),
-	})
-}
-
-// loadCreateParamsHTML return the url and html passed in a multi-part form.
-// The content is then passed to the extractor which won't fetch the HTML from
-// the provided url.
-func (api *bookmarkAPI) loadCreateParamsHTML(_ http.ResponseWriter, r *http.Request) (uri string, html []byte, err error) {
-	const maxMemory = 8 << 20
-	err = r.ParseMultipartForm(maxMemory)
-	if err != nil {
-		return
-	}
-
-	cf := &createForm{r.FormValue("url")}
-	f := form.NewForm(cf)
-	conform.Strings(cf)
-	f.Validate()
-
-	if !f.IsValid() {
-		err = errors.New("Invalid URL")
-		return
-	}
-	uri = cf.URL
-
-	reader, _, err := r.FormFile("src")
-	if errors.Is(err, http.ErrMissingFile) {
-		err = errors.New(`File "src" not found`)
-		return
-	} else if err != nil {
-		return
-	}
-
-	html, err = ioutil.ReadAll(reader)
-	return
-}
-
-// updateBookmark update a bookmark and returns the fields
-// that have been modified.
-func (api *bookmarkAPI) updateBookmark(b *Bookmark, uf *updateForm, r *http.Request) (map[string]interface{}, error) {
-	updated := map[string]interface{}{}
-	var deleted interface{}
-
-	if uf.IsMarked != nil {
-		b.IsMarked = *uf.IsMarked
-		updated["is_marked"] = b.IsMarked
-	}
-	if uf.IsArchived != nil {
-		b.IsArchived = *uf.IsArchived
-		updated["is_archived"] = b.IsArchived
-	}
-	if uf.IsDeleted != nil {
-		deleted = *uf.IsDeleted
-	}
-
-	// Set labels
-	labelsChanged := false
-	if uf.Labels != nil {
-		b.Labels = funk.UniqString(uf.Labels)
-		labelsChanged = true
-	}
-
-	// Add labels
-	if uf.AddLabels != nil {
-		b.Labels = funk.UniqString(append(b.Labels, uf.AddLabels...))
-		labelsChanged = true
-	}
-
-	// Remove has the last say
-	if uf.RemoveLabels != nil {
-		_, b.Labels = funk.DifferenceString(uf.RemoveLabels, b.Labels)
-		labelsChanged = true
-	}
-
-	if labelsChanged {
-		sort.Strings(b.Labels)
-		updated["labels"] = b.Labels
-	}
-
-	if len(updated) > 0 || deleted != nil {
-		updated["updated"] = time.Now()
-		if err := b.Update(updated); err != nil {
-			return updated, err
-		}
-		if d, ok := deleted.(bool); ok && d {
-			if err := api.launchDelete(b, r); err != nil {
-				return updated, err
-			}
-			updated["is_deleted"] = d
-		} else if ok && !d {
-			if err := api.cancelDelete(b, r); err != nil {
-				return updated, err
-			}
-			updated["is_deleted"] = d
-		}
-	}
-
-	updated["id"] = b.UID
-	return updated, nil
-}
-
-func (api *bookmarkAPI) renameLabel(r *http.Request, old, new string) ([]int, error) {
-	ds := Bookmarks.Query().
-		Select("b.id", "b.labels").
-		Where(goqu.C("user_id").Eq(auth.GetRequestUser(r).ID))
-	ds = Bookmarks.AddLabelFilter(ds, []string{old})
-
-	list := []*Bookmark{}
-	if err := ds.ScanStructs(&list); err != nil {
-		return nil, err
-	}
-
-	if len(list) == 0 {
-		return []int{}, nil
-	}
-
-	ids := make([]int, len(list))
-	cases := goqu.Case()
-	casePlaceholder := "?"
-	if db.Driver().Dialect() == "postgres" {
-		casePlaceholder = "?::jsonb"
-	}
-
-	for i, x := range list {
-		ids[i] = x.ID
-		x.replaceLabel(old, new)
-		cases = cases.When(goqu.C("id").Eq(x.ID), goqu.L(casePlaceholder, x.Labels))
-	}
-
-	_, err := db.Q().Update(TableName).Prepared(true).
-		Set(goqu.Record{"labels": cases}).
-		Where(goqu.C("id").In(ids)).
-		Executor().Exec()
-	if err != nil {
-		return nil, err
-	}
-
-	return ids, nil
-}
-
-func (api *bookmarkAPI) launchDelete(b *Bookmark, r *http.Request) error {
-	api.srv.Log(r).
-		WithField("uid", b.UID).WithField("id", b.ID).
-		Debug("launching bookmark removal")
-
-	return deleteBookmarkTask.Run(b.ID, b.ID)
-}
-
-func (api *bookmarkAPI) cancelDelete(b *Bookmark, r *http.Request) error {
-	api.srv.Log(r).
-		WithField("uid", b.UID).WithField("id", b.ID).
-		Debug("removal canceled")
-
-	return deleteBookmarkTask.Cancel(b.ID)
 }
 
 // bookmarkList is a paginated list of BookmarkItem instances.
@@ -853,41 +678,13 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *Bookmark, base string
 }
 
 type labelItem struct {
-	Name  string `json:"name"`
-	Count int    `json:"count"`
-	Href  string `json:"href"`
+	Name  labelString `json:"name"`
+	Count int         `json:"count"`
+	Href  string      `json:"href"`
 }
 
-type labelForm struct {
-	Name string `json:"name" conform:"trim"`
-}
+type labelString string
 
-func (cf *labelForm) Validate(f *form.Form) {
-	f.Get("name").Validate(form.IsRequired)
-}
-
-type createForm struct {
-	URL string `json:"url" conform:"trim"`
-}
-
-func (cf *createForm) Validate(f *form.Form) {
-	f.Get("url").Validate(
-		form.IsRequired,
-		form.IsValidURL(validSchemes),
-	)
-}
-
-type updateForm struct {
-	IsMarked     *bool   `json:"is_marked"`
-	IsArchived   *bool   `json:"is_archived"`
-	IsDeleted    *bool   `json:"is_deleted"`
-	Labels       Strings `json:"labels"`
-	AddLabels    Strings `json:"add_labels"`
-	RemoveLabels Strings `json:"remove_labels"`
-	RedirTo      string  `json:"_to"`
-}
-
-type deleteForm struct {
-	Cancel  bool   `json:"cancel"`
-	RedirTo string `json:"_to"`
+func (s labelString) Path() string {
+	return url.QueryEscape(string(s))
 }

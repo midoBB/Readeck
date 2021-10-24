@@ -151,7 +151,7 @@ func TestPermissions(t *testing.T) {
 				Assert: func(t *testing.T, r *Response) {
 					switch user {
 					case "admin":
-						r.AssertStatus(t, 200)
+						r.AssertStatus(t, 422)
 					case "":
 						r.AssertStatus(t, 303)
 						r.AssertRedirect(t, "/login")

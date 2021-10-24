@@ -7,7 +7,13 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"regexp"
 	"strings"
+)
+
+var (
+	rxHTMLStart = regexp.MustCompile(`^(.*?)<body>`)
+	rxHTMLEnd   = regexp.MustCompile(`</body>\s*</html>\s*$`)
 )
 
 // bookmarkContainer is a wrapper around zip.ReadCloser

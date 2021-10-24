@@ -14,7 +14,8 @@
     {{ yield icon(name=(.IsArchived ? "o-archive-on" : "o-archive-off")) }}
     {{ textArch }}
   </button>
-  <button class="btn-outlined-primary rounded-full whitespace-nowrap" name="is_marked" value="{{ .IsMarked ? 0 : 1 }}">
+  <button class="btn-outlined-primary rounded-full whitespace-nowrap"
+   name="is_marked" value="{{ .IsMarked ? 0 : 1 }}">
     {{ yield icon(name=(.IsMarked ? "o-favorite-on" : "o-favorite-off")) }}
     {{ textFav }}
   </button>

@@ -19,7 +19,6 @@
       password.</p>
 
       {{ yield textField(field=.Form.Get("email"),
-                        name="email",
                         label="Email address",
                         class="max",
       ) }}
@@ -44,7 +43,6 @@
 
         {{ yield textField(field=.Form.Get("password"),
                           type="password",
-                          name="password",
                           label="New password",
                           class="max",
                           help="must be at least 8 characters long",

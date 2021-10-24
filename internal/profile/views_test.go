@@ -41,8 +41,9 @@ func TestViews(t *testing.T) {
 				Form: url.Values{
 					"username": {"   "},
 				},
-				ExpectStatus: 200,
+				ExpectStatus: 422,
 			},
+			RequestTest{Target: "/profile"},
 			RequestTest{
 				Method: "POST",
 				Target: "/profile",
@@ -50,7 +51,7 @@ func TestViews(t *testing.T) {
 					"username": {"user"},
 					"email":    {"invalid"},
 				},
-				ExpectStatus: 200,
+				ExpectStatus: 422,
 			},
 		)
 	})

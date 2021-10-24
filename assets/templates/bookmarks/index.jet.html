@@ -1,4 +1,5 @@
 {{ extends "./base" }}
+{{- import "/_libs/forms" -}}
 {{- import "/_libs/pagination" -}}
 
 {{ block title() }}Bookmarks{{ end }}
@@ -18,11 +19,14 @@
         <div class="flex">
           <input type="text" name="url" id="create-url" size="15"
            class="form-input rounded-l-full rounded-r-none pl-4 w-full"
-           value="{{ string(.Form.Get(`url`).Value()) }}" placeholder="https://" />
+           value="{{ string(.Form.Get(`url`).String()) }}" placeholder="https://" />
           <button class="btn-primary rounded-l-none rounded-r-full -r-full pr-4 whitespace-nowrap"
            type="submit">Save link</button>
         </div>
 
+        {{- if .Form.Errors() -}}
+          {{ range .Form.Errors() }}<p class="ml-4 text-red-700"><strong>{{ .Error() }}</strong></p>{{- end -}}
+        {{- end -}}
         {{ range .Form.Get("url").Errors }}<p class="ml-4 text-red-700"><strong>{{ . }}</strong></p>{{ end }}
 
         {{- if .Count.Total == 0 -}}
@@ -34,7 +38,7 @@
   {{- if isset(.Filters) && .Count.Total > 0 }}
   <form action="{{ urlFor(`/bookmarks`) }}" method="get"
    data-controller="reveal"
-   data-reveal-visible-value="{{ .Filters.Active }}"
+   data-reveal-visible-value="{{ .Filters.IsActive() }}"
    class="my-4 p-2 bg-gray-100 border rounded">
     <input type="hidden" name="bf" value="1" />
     <a data-reveal-target="trigger" href="#"
@@ -42,61 +46,47 @@
     <div data-reveal-target="content" class="text-sm">
       <div class="grid grid-cols-3 gap-2 +md:grid-cols-2">
         {{ yield textField(
-          field=.Filters.Get("q"),
-          type="text",
-          name="q",
+          field=.Filters.Get("search"),
           label="Search",
           class="mb-0 col-span-3 +md:col-span-2",
         ) }}
         {{ yield textField(
           field=.Filters.Get("title"),
-          type="text",
-          name="title",
           label="Title",
           class="mb-0",
         ) }}
         {{ yield textField(
           field=.Filters.Get("author"),
-          type="text",
-          name="author",
           label="Author",
           class="mb-0",
         ) }}
         {{ yield textField(
           field=.Filters.Get("site"),
-          type="text",
-          name="site",
           label="Site",
           class="mb-0",
         ) }}
 
         {{ yield textField(
-          field=.Filters.Get("label"),
-          type="text",
-          name="label",
+          field=.Filters.Get("labels"),
           label="Label",
           class="mb-0",
         ) }}
 
         <div class="col-span-2 flex flex-wrap gap-2">
           {{ yield selectField(field=.Filters.Get("is_marked"),
-            name="is_marked",
             label="Is Favourite",
             class="mb-0",
             options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
           ) }}
           {{ yield selectField(field=.Filters.Get("is_archived"),
-            name="is_archived",
             label="Is Archived",
             class="mb-0",
             options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
           ) }}
 
           {{ yield selectField(field=.Filters.Get("type"),
-            name="type",
             label="Type",
             class="mb-0",
-            options=.Filters.Get("type").Value().Options(),
           ) }}
         </div>
         <div class="mt-2 col-span-3 +md:col-span-2">

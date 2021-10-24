@@ -2,8 +2,10 @@
   {{- if !form.IsValid() -}}
     {{- yield message(type="error") content -}}
       <strong class="text-red-700">Errors</strong>
-      {{ range form.Errors() }}
-        <p>{{ . }}</p>
+      {{- if form.Errors() -}}
+        {{ range form.Errors() }}
+          <p>{{ .Error() }}</p>
+        {{- end -}}
       {{ else }}
         <p>Please check your form for errors.</p>
       {{ end }}
@@ -13,6 +15,7 @@
 
 
 {{- block formField(field, name, label, help, class="", controlAttrs="") -}}
+  {{- if !name -}}{{ name = field.Name() }}{{- end -}}
   {{- if field.Errors -}}{{ class = class + " field-err" }}{{- end -}}
 
   <div class="field{{ if class }} {{ class }}{{ end }}">
@@ -39,7 +42,7 @@
   {{- if type == "password" -}}
     {{ value = "" }}
   {{- else if value == nil -}}
-    {{ value = field.Value() }}
+    {{ value = field.String() }}
   {{- end -}}
 
   {{- yield formField(field=field, name=name, label=label, help=help, class=class,
@@ -51,10 +54,10 @@
 
 
 {{- block dateField(
-  field, value=nil, type="text", name, label, class, help,
+  field, value=nil, name, label, class, help,
   controlAttrs="", inputAttrs="", inputClass="form-input",
 ) -}}
-  {{ value = date(field.Value(), "2006-01-02") }}
+  {{ value = field.String() }}
   {{ yield textField(field=field, value=value, type="date", name=name,
                      label=label, class=class, help=help,
                      controlAttrs=controlAttrs, inputAttrs=inputAttrs,
@@ -62,13 +65,40 @@
 {{- end -}}
 
 
+{{- block checkboxField(
+  field, checked=nil, name, label, class="", help
+) -}}
+  {{- if !name -}}{{ name = field.Name() }}{{- end -}}
+  {{- if checked == nil }}{{ checked = field.Value() }}{{ end -}}
+  {{- if field.Errors -}}{{ class = class + " with-errors" }}{{ end }}
+  <div class="field{{ if class }} {{ class }}{{ end }}">
+    <span class="field-spacer">&nbsp;</span>
+    <div class="control">
+      <input type="hidden" name="{{ name }}" value="f" />
+      <input type="checkbox" id="{{ name }}" name="{{ name }}"
+       class="form-checkbox" value="t"
+       {{- if checked }} checked="checked"{{ end -}} />
+      <label class="label-inline" for="{{ name }}">{{ label }}</label>
+      {{ if field.Errors }}
+        <ul class="mt-1 list-disc list-inside text-red-700">
+        {{- range field.Errors }}
+          <li>{{ . }}</li>
+        {{ end -}}
+        </ul>
+      {{ end }}
+      {{ if help }}<span class="block mt-1 text-green-700">{{ help }}{{ end }}
+    </div>
+  </div>
+{{- end -}}
+
+
 {{- block selectField(
-  field, value=nil, options, name, label, class, help,
+  field, value=nil, name, options, label, class, help,
   controlAttrs="", inputAttrs="", inputClass="form-select w-full"
 ) -}}
-  {{- if value == nil -}}
-    {{ value = field.Value() }}
-  {{- end -}}
+  {{- if !name -}}{{ name = field.Name() }}{{- end -}}
+  {{- if value == nil -}}{{ value = field.Value() }}{{- end -}}
+  {{- if !options -}}{{ options = field.Choices() }}{{- end -}}
   {{- if field.Errors -}}{{ class = class + " with-errors" }}{{ end }}
   {{- yield formField(field=field, name=name, label=label, help=help, class=class,
                       controlAttrs=controlAttrs) content -}}
@@ -78,21 +108,4 @@
       {{- end -}}
     </select>
   {{- end -}}
-{{- end -}}
-
-
-{{- block checkboxField(
-  field, checked=nil, name, label, class="", help
-) -}}
-  {{- if checked == nil }}{{ checked = field.Value() }}{{ end -}}
-  {{- if field.Errors -}}{{ class = class + " with-errors" }}{{ end }}
-  <div class="field{{ if class }} {{ class }}{{ end }}">
-    <span class="field-spacer">&nbsp;</span>
-    <div class="control">
-      <input type="checkbox" id="{{ name }}" name="{{ name }}"
-       class="form-checkbox"
-       {{- if checked }} checked="checked"{{ end -}} />
-      <label class="label-inline" for="{{ name }}">{{ label }}</label>
-    </div>
-  </div>
 {{- end -}}

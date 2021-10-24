@@ -3,7 +3,7 @@
 <ul class="inline" id="bookmark-label-list-{{ .ID }}">
 {{- range .Labels -}}
   <li class="inline-flex items-center text-sm bg-gray-100 py-1 px-1.5 mr-1 mb-1 border rounded-md"
-  ><a data-turbo="false" href="{{ urlFor(`/bookmarks/labels`, .) }}" class="hf:text-primary">{{ . }}</a>
+  ><a data-turbo="false" href="{{ urlFor(`/bookmarks/labels`) }}/{{ url(.) }}" class="hf:text-primary">{{ . }}</a>
   <button class="ml-1 text-gray-600 hf:text-red-700"
    type="submit" name="remove_labels" value="{{ . }}"
   >{{ yield icon(name="o-cross", class="", svgClass="h-5 w-5") }}</button>

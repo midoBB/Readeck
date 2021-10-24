@@ -4,7 +4,7 @@
 {{- textArch := .IsArchived ? "Remove from archive" : "Move to archive" -}}
 {{- textFav := .IsMarked ? "Remove from favorites" : "Add to favorites" -}}
 
-{{- url := urlFor(`/bookmarks`, .ID) }}
+{{- _url := urlFor(`/bookmarks`, .ID) }}
 {{- if !.Loaded -}}
   <turbo-frame id="bookmark-card-{{ .ID }}"
    data-controller="turbo-refresh"
@@ -27,7 +27,7 @@
 {{- else -}}
   <turbo-frame id="bookmark-card-{{ .ID }}" {{ if .IsDeleted }}data-bookmark-deleted="true"{{ end }}>
   {{- yield card() content -}}
-    <a href="{{ url }}" class="{{ if .IsDeleted }}opacity-50{{ end }} relative">
+    <a href="{{ _url }}" class="{{ if .IsDeleted }}opacity-50{{ end }} relative">
       {{- if .DocumentType == "photo" -}}
         {{- yield type_icon(icon="o-photo") -}}
       {{- else if .DocumentType == "video" -}}
@@ -46,7 +46,7 @@
 
     <div class="flex-grow p-2 flex flex-col">
       <h3 class="mb-2 leading-tight font-semibold {{ if .IsDeleted }}opacity-50{{ end }}
-       group-hover:text-primary group-focus-within:text-primary"><a href="{{ url }}"
+       group-hover:text-primary group-focus-within:text-primary"><a href="{{ _url }}"
       data-turbo-frame="_top" class="hf:text-primary-dark">{{ default(.Title, "untitled") }}</a></h3>
 
       <span class="flex items-center mb-2 text-xs text-gray-600 {{ if .IsDeleted }}opacity-50{{ end }}">
@@ -63,7 +63,7 @@
       {{ if len(.Labels) -}}
       <ul class="inline-flex flex-wrap justify-start {{ if .IsDeleted }}opacity-50{{ end }}">
       {{- range .Labels -}}
-        <li class="mr-1 mb-2"><a href="{{ urlFor(`/bookmarks/labels`, .) }}"
+        <li class="mr-1 mb-2"><a href="{{ urlFor(`/bookmarks/labels`) }}/{{ url(.) }}"
          class="text-sm bg-gray-100 leading-none py-1 px-1.5 border rounded-md
           hf:bg-yellow-100"
          >{{ . }}</a></li>
@@ -77,7 +77,7 @@
             <span class="text-red-700 text-xs font-semibold">
               This bookmark will be removed in a few seconds.
             </span>
-            <form action="{{ url }}" method="post">
+            <form action="{{ _url }}" method="post">
               {{ yield csrfField() }}
               <input type="hidden" name="cancel" value="1" />
               <input type="hidden" name="_to" value="{{ currentPath }}" />
@@ -89,7 +89,7 @@
             </form>
           </div>
         {{- else -}}
-          <form action="{{url }}" method="post"
+          <form action="{{ _url }}" method="post"
           class="flex-grow text-gray-200 group-hover:text-primary group-focus-within:text-primary"
           data-controller="turbo-form turbo-reload"
           data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"

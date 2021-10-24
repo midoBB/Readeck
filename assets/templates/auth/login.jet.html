@@ -11,14 +11,12 @@
   {{ yield csrfField() }}
 
   {{ yield textField(field=.Form.Get("username"),
-                      name="username",
                       label="Username",
                       class="max",
                       inputAttrs=attrList("data-login-form-target", "username"),
   ) }}
   {{ yield textField(field=.Form.Get("password"),
                       type="password",
-                      name="password",
                       label="Password",
                       controlAttrs=attrList(
                         "data-controller", "pass-reveal",

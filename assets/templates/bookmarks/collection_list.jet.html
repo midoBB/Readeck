@@ -1,0 +1,62 @@
+{{ extends "./base" }}
+{{ import "/_libs/list"}}
+
+{{- block title() -}}Bookmark Collections{{- end -}}
+
+{{- block mainContent() -}}
+<h1 class="title text-h2">Bookmark Collections</h1>
+
+{{- if len(.Collections) == 0 -}}
+  <div class="prose">
+    <p>Collections let you easily organize and export your bookmarks
+    by saving search requests of your choice.
+    When you create a new bookmark that matches a collection's criteria,
+    it will appear immediately.
+    Here are some examples:</p>
+    <ul>
+      <li>The unread articles (no photos or videos),</li>
+      <li>The archived articles from "wikipedia.org"</li>
+      <li>The pictures with the tag "cat",</li>
+      <li>The articles that contain "breaking" in their title</li>
+    </ul>
+  </div>
+{{- end -}}
+
+<p class="my-4"><a href="{{ urlFor(`./add`) }}"
+ class="btn-primary">Create a new collection</a></p>
+
+{{- if len(.Collections) > 0 -}}
+<turbo-frame id="collection-list"
+ data-controller="turbo-refresh"
+ data-turbo-refresh-interval-value="10"
+ data-turbo-refresh-on-value="[data-collection-deleted='true']">
+  {{- yield list() content -}}
+  {{- range .Collections -}}
+    {{- yield list_item(class="flex items-center") content -}}
+      <div class="flex-grow">
+        <div>
+          <a class="link" href="{{ urlFor(`.`, .ID) }}">{{ .Name }}</a>
+        </div>
+        <div><small>Created on: {{ date(.Created, "2006-01-02") }}</small></div>
+      </div>
+      {{- if .IsDeleted -}}
+        <div class="flex items-center max-w-xs"
+         data-collection-deleted="true">
+          <span class="text-red-700 text-xs font-semibold">
+            This collection will be removed in a few seconds.
+          </span>
+          <form action="{{ urlFor(`.`, .ID, `delete`) }}" method="post">
+            {{ yield csrfField() }}
+            <input type="hidden" name="cancel" value="1" />
+            <button type="submit"
+            class="btn-primary whitespace-nowrap text-sm py-1 ml-2">{{ yield icon(name="o-undo") }} Undo</button>
+          </form>
+        </div>
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- end -}}
+</turbo-frame>
+{{- end -}}
+
+{{- end -}}

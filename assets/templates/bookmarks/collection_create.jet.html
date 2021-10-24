@@ -1,0 +1,73 @@
+{{ extends "./base" }}
+{{ import "/_libs/forms"}}
+
+{{- block title() -}}New Collection{{- end -}}
+
+{{- block mainContent() -}}
+<h1 class="title text-h2">New Collection</h1>
+
+<form action="{{ urlFor() }}" method="post">
+  {{ yield formErrors(form=.Form) }}
+  {{ yield csrfField() }}
+
+  {{ yield csrfField() }}
+  <div data-reveal-target="content" class="text-sm mt-2">
+    <div class="grid grid-cols-3 gap-2 +md:grid-cols-2">
+      {{ yield textField(
+        field=.Form.Get("name"),
+        label="Name",
+        class="mb-0 col-span-3 +md:col-span-2",
+      ) }}
+      {{ yield textField(
+        field=.Form.Get("search"),
+        label="Search",
+        class="mb-0 col-span-3 +md:col-span-2",
+      ) }}
+      {{ yield textField(
+        field=.Form.Get("title"),
+        label="Title",
+        class="mb-0",
+      ) }}
+      {{ yield textField(
+        field=.Form.Get("author"),
+        label="Author",
+        class="mb-0",
+      ) }}
+      {{ yield textField(
+        field=.Form.Get("site"),
+        label="Site",
+        class="mb-0",
+      ) }}
+
+      {{ yield textField(
+        field=.Form.Get("labels"),
+        label="Label",
+        class="mb-0",
+      ) }}
+
+      <div class="col-span-2 flex flex-wrap gap-2">
+        {{ yield selectField(
+          field=.Form.Get("is_marked"),
+          label="Is Favourite",
+          class="mb-0",
+          options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
+        ) }}
+        {{ yield selectField(
+          field=.Form.Get("is_archived"),
+          label="Is Archived",
+          class="mb-0",
+          options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
+        ) }}
+
+        {{ yield selectField(
+          field=.Form.Get("type"),
+          label="Type",
+          class="mb-0",
+        ) }}
+      </div>
+    </div>
+  </div>
+
+  <p class="mt-4"><button class="btn-primary" type="submit">Save</button></p>
+</form>
+{{- end -}}

@@ -7,9 +7,8 @@ import (
 
 	"github.com/readeck/readeck/internal/auth"
 	"github.com/readeck/readeck/internal/auth/tokens"
-	"github.com/readeck/readeck/internal/auth/users"
 	"github.com/readeck/readeck/internal/server"
-	"github.com/readeck/readeck/pkg/form"
+	"github.com/readeck/readeck/pkg/forms"
 )
 
 // profileViews is an HTTP handler for the user profile web views
@@ -50,30 +49,25 @@ func newProfileViews(api *profileAPI) *profileViews {
 // userProfile handles GET and POST requests on /profile.
 func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
 	user := auth.GetRequestUser(r)
-	pf := &users.ProfileForm{}
-	f := form.NewForm(pf)
-
-	if r.Method == http.MethodGet {
-		pf.Username = &user.Username
-		pf.Email = &user.Email
-	}
+	f := newProfileForm()
+	f.setUser(user)
 
 	if r.Method == http.MethodPost {
-		form.Bind(f, r)
+		forms.Bind(f, r)
 		if f.IsValid() {
-			if _, err := v.UpdateProfile(user, pf); err != nil {
-				v.srv.AddFlash(w, r, "error", "Error while updating profile")
+			if _, err := f.updateUser(user); err != nil {
+				v.srv.Log(r).Error(err)
 			} else {
 				// Set the new seed in the session.
-				// We needn't save the session since AddFlash does it already.
+				// We needn't save the session since AddFlash does that already.
 				sess := v.srv.GetSession(r)
 				sess.Payload.Seed = user.Seed
 				v.srv.AddFlash(w, r, "success", "Profile updated")
+				v.srv.Redirect(w, r, "profile")
+				return
 			}
-
-			v.srv.Redirect(w, r, "profile")
-			return
 		}
+		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
 
 	ctx := server.TC{
@@ -84,28 +78,26 @@ func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
 
 // userPassword handles GET and POST requests on /profile/password
 func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
-	pf := &users.PasswordForm{}
-	f := form.NewForm(pf)
+	f := newPasswordForm()
 
 	if r.Method == http.MethodPost {
 		user := auth.GetRequestUser(r)
-		pf.SetUser(f, user)
-
-		form.Bind(f, r)
+		f.setUser(user)
+		forms.Bind(f, r)
 		if f.IsValid() {
-			if err := v.UpdatePassword(user, pf); err != nil {
-				v.srv.AddFlash(w, r, "error", "Error while updating your password")
+			if err := f.updatePassword(user); err != nil {
+				v.srv.Log(r).Error(err)
 			} else {
 				// Set the new seed in the session.
 				// We needn't save the session since AddFlash does it already.
 				sess := v.srv.GetSession(r)
 				sess.Payload.Seed = user.Seed
 				v.srv.AddFlash(w, r, "success", "Your password was changed.")
+				v.srv.Redirect(w, r, "password")
+				return
 			}
-
-			v.srv.Redirect(w, r, "password")
-			return
 		}
+		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
 
 	ctx := server.TC{
@@ -144,32 +136,24 @@ func (v *profileViews) tokenCreate(w http.ResponseWriter, r *http.Request) {
 
 func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 	ti := r.Context().Value(ctxtTokenKey{}).(tokenItem)
-
-	tf := &tokenForm{}
-	f := form.NewForm(tf)
+	f := newTokenForm()
 
 	if r.Method == http.MethodGet {
-		tf.Expires = ti.Token.Expires
-		tf.IsEnabled = ti.Token.IsEnabled
+		f.setToken(ti.Token)
 	}
 
 	if r.Method == http.MethodPost {
-		form.Bind(f, r)
+		forms.Bind(f, r)
 		if f.IsValid() {
-			if tf.Expires != nil && tf.Expires.IsZero() {
-				tf.Expires = nil
-			}
-			ti.Token.IsEnabled = tf.IsEnabled
-			ti.Token.Expires = tf.Expires
-			if err := ti.Token.Save(); err != nil {
-				v.srv.Log(r).WithError(err).Error("server error")
-				v.srv.AddFlash(w, r, "error", "Error while updating token")
+			if err := f.updateToken(ti.Token); err != nil {
+				v.srv.Log(r).Error(err)
 			} else {
 				v.srv.AddFlash(w, r, "success", "Token was updated.")
+				v.srv.Redirect(w, r, ti.UID)
+				return
 			}
-			v.srv.Redirect(w, r, ti.UID)
-			return
 		}
+		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
 
 	jwt, err := tokens.NewJwtToken(ti.UID)
@@ -188,19 +172,11 @@ func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (v *profileViews) tokenDelete(w http.ResponseWriter, r *http.Request) {
-	df := &deleteForm{}
-	f := form.NewForm(df)
-	form.Bind(f, r)
+	f := newDeleteTokenForm()
+	forms.Bind(f, r)
 
 	ti := r.Context().Value(ctxtTokenKey{}).(tokenItem)
-	defer func() {
-		v.srv.Redirect(w, r, "..", ti.UID)
-	}()
 
-	if df.Cancel {
-		deleteTokenTask.Cancel(ti.Token.ID)
-		return
-	}
-
-	deleteTokenTask.Run(ti.Token.ID, ti.Token.ID)
+	f.trigger(ti.Token)
+	v.srv.Redirect(w, r, "..", ti.UID)
 }

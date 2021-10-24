@@ -14,7 +14,7 @@ import (
 	"github.com/readeck/readeck/internal/auth/users"
 	"github.com/readeck/readeck/internal/bookmarks"
 	"github.com/readeck/readeck/internal/server"
-	"github.com/readeck/readeck/pkg/form"
+	"github.com/readeck/readeck/pkg/forms"
 )
 
 type (
@@ -53,19 +53,16 @@ func (api *adminAPI) withUserList(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		res := userList{}
 
-		pf, _ := api.srv.GetPageParams(r)
+		pf := api.srv.GetPageParams(r, 50)
 		if pf == nil {
 			api.srv.Status(w, r, http.StatusNotFound)
 			return
 		}
-		if pf.Limit == 0 {
-			pf.Limit = 50
-		}
 
 		ds := users.Users.Query().
 			Order(goqu.I("username").Asc()).
-			Limit(uint(pf.Limit)).
-			Offset(uint(pf.Offset))
+			Limit(uint(pf.Limit())).
+			Offset(uint(pf.Offset()))
 
 		var count int64
 		var err error
@@ -84,7 +81,7 @@ func (api *adminAPI) withUserList(next http.Handler) http.Handler {
 			return
 		}
 
-		res.Pagination = api.srv.NewPagination(r, int(count), pf.Limit, pf.Offset)
+		res.Pagination = api.srv.NewPagination(r, int(count), pf.Limit(), pf.Offset())
 
 		ctx := context.WithValue(r.Context(), ctxUserListKey{}, res)
 		next.ServeHTTP(w, r.Clone(ctx))
@@ -106,68 +103,6 @@ func (api *adminAPI) withUser(next http.Handler) http.Handler {
 		ctx := context.WithValue(r.Context(), ctxUserKey{}, u)
 		next.ServeHTTP(w, r.Clone(ctx))
 	})
-}
-
-func (api *adminAPI) createUser(uf *users.CreateForm) (*users.User, error) {
-	u := &users.User{
-		Username: uf.Username,
-		Email:    uf.Email,
-		Password: uf.Password,
-	}
-	if uf.Group != nil {
-		u.Group = uf.Group.String()
-	} else {
-		u.Group = "user"
-	}
-
-	return u, users.Users.Create(u)
-}
-
-func (api *adminAPI) updateUser(u *users.User, uf *users.UpdateForm) (map[string]interface{}, error) {
-	updated := map[string]interface{}{}
-
-	if uf.Username != nil {
-		updated["username"] = uf.Username
-	}
-	if uf.Email != nil {
-		updated["email"] = uf.Email
-	}
-	if uf.Group != nil {
-		updated["group"] = uf.Group
-	}
-	if uf.Password != nil && *uf.Password != "" {
-		var err error
-		if updated["password"], err = u.HashPassword(*uf.Password); err != nil {
-			return updated, nil
-		}
-	}
-
-	if uf.Settings != nil {
-		updated["settings"] = uf.Settings
-	}
-
-	if len(updated) == 0 {
-		return updated, nil
-	}
-
-	// Update the seed when password is changed.
-	if updated["password"] != nil {
-		updated["seed"] = u.SetSeed()
-	}
-
-	defer func() {
-		if uf.Password != nil {
-			updated["password"] = ""
-		}
-		delete(updated, "seed")
-	}()
-
-	updated["updated"] = time.Now()
-	if err := u.Update(updated); err != nil {
-		return updated, err
-	}
-
-	return updated, nil
 }
 
 func (api *adminAPI) deleteUser(r *http.Request, u *users.User) error {
@@ -204,16 +139,14 @@ func (api *adminAPI) userInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *adminAPI) userCreate(w http.ResponseWriter, r *http.Request) {
-	uf := &users.CreateForm{}
-	f := form.NewForm(uf)
-
-	form.Bind(f, r)
+	f := users.NewUserForm()
+	forms.Bind(f, r)
 	if !f.IsValid() {
 		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
 		return
 	}
 
-	u, err := api.createUser(uf)
+	u, err := f.CreateUser()
 	if err != nil {
 		api.srv.Error(w, r, err)
 		return
@@ -224,19 +157,18 @@ func (api *adminAPI) userCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *adminAPI) userUpdate(w http.ResponseWriter, r *http.Request) {
-	uf := &users.UpdateForm{}
-	f := form.NewForm(uf)
+	f := users.NewUserForm()
 
 	u := r.Context().Value(ctxUserKey{}).(*users.User)
-	uf.SetUser(f, u)
+	f.SetUser(u)
 
-	form.Bind(f, r)
+	forms.Bind(f, r)
 	if !f.IsValid() {
 		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
 		return
 	}
 
-	updated, err := api.updateUser(u, uf)
+	updated, err := f.UpdateUser(u)
 	if err != nil {
 		api.srv.Error(w, r, err)
 		return

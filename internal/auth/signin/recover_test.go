@@ -25,9 +25,12 @@ func TestRecover(t *testing.T) {
 				ExpectStatus: 200,
 			},
 			RequestTest{
-				Method:       "POST",
-				Target:       "/login/recover",
-				Form:         url.Values{"email": {"user@localhost"}},
+				Method: "POST",
+				Target: "/login/recover",
+				Form: url.Values{
+					"step":  {"0"},
+					"email": {"user@localhost"},
+				},
 				ExpectStatus: 200,
 				Assert: func(t *testing.T, _ *Response) {
 					assert.Contains(t, app.LastEmail, "login/recover/")
@@ -78,9 +81,12 @@ func TestRecover(t *testing.T) {
 				ExpectStatus: 200,
 			},
 			RequestTest{
-				Method:       "POST",
-				Target:       "/login/recover",
-				Form:         url.Values{"email": {"nope@localhost"}},
+				Method: "POST",
+				Target: "/login/recover",
+				Form: url.Values{
+					"step":  {"0"},
+					"email": {"nope@localhost"},
+				},
 				ExpectStatus: 200,
 				Assert: func(t *testing.T, _ *Response) {
 					assert.Contains(

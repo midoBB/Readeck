@@ -13,7 +13,7 @@ import (
 	"github.com/readeck/readeck/internal/auth/tokens"
 	"github.com/readeck/readeck/internal/auth/users"
 	"github.com/readeck/readeck/internal/server"
-	"github.com/readeck/readeck/pkg/form"
+	"github.com/readeck/readeck/pkg/forms"
 )
 
 type (
@@ -43,39 +43,6 @@ func newProfileAPI(s *server.Server) *profileAPI {
 	})
 
 	return api
-}
-
-// UpdateProfile updates the user profile information.
-func (api *profileAPI) UpdateProfile(u *users.User, sf *users.ProfileForm) (map[string]interface{}, error) {
-	updated := map[string]interface{}{}
-	if sf.Email != nil {
-		u.Email = *sf.Email
-		updated["email"] = u.Email
-	}
-	if sf.Username != nil {
-		u.Username = *sf.Username
-		updated["username"] = u.Username
-	}
-
-	if len(updated) > 0 {
-		updated["updated"] = time.Now()
-		updated["seed"] = u.SetSeed()
-		if err := u.Update(updated); err != nil {
-			return updated, err
-		}
-	}
-
-	updated["id"] = u.ID
-	return updated, nil
-}
-
-// UpdatePassword updates the user password.
-func (api *profileAPI) UpdatePassword(u *users.User, pf *users.PasswordForm) (err error) {
-	if err = u.SetPassword(pf.Password); err != nil {
-		return
-	}
-	err = u.Update(map[string]interface{}{"seed": u.SetSeed()})
-	return
 }
 
 // userProfile is the mapping returned by the profileInfo route.
@@ -118,17 +85,17 @@ func (api *profileAPI) profileInfo(w http.ResponseWriter, r *http.Request) {
 
 // profileUpdate updates the current user profile information.
 func (api *profileAPI) profileUpdate(w http.ResponseWriter, r *http.Request) {
-	uf := &users.ProfileForm{}
-	f := form.NewForm(uf)
-	form.Bind(f, r)
+	user := auth.GetRequestUser(r)
+	f := newProfileForm()
+	f.setUser(user)
+	forms.Bind(f, r)
 
 	if !f.IsValid() {
 		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
 		return
 	}
 
-	user := auth.GetRequestUser(r)
-	updated, err := api.UpdateProfile(user, uf)
+	updated, err := f.updateUser(user)
 	if err != nil {
 		api.srv.Error(w, r, err)
 		return
@@ -139,9 +106,8 @@ func (api *profileAPI) profileUpdate(w http.ResponseWriter, r *http.Request) {
 
 // passwordUpdate updates the current user's password.
 func (api *profileAPI) passwordUpdate(w http.ResponseWriter, r *http.Request) {
-	pf := &users.PasswordForm{}
-	f := form.NewForm(pf)
-	form.Bind(f, r)
+	f := newPasswordForm()
+	forms.Bind(f, r)
 
 	if !f.IsValid() {
 		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
@@ -149,7 +115,7 @@ func (api *profileAPI) passwordUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	user := auth.GetRequestUser(r)
-	if err := api.UpdatePassword(user, pf); err != nil {
+	if err := f.updatePassword(user); err != nil {
 		api.srv.Error(w, r, err)
 		return
 	}
@@ -161,13 +127,10 @@ func (api *profileAPI) withTokenList(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		res := tokenList{}
 
-		pf, _ := api.srv.GetPageParams(r)
+		pf := api.srv.GetPageParams(r, 30)
 		if pf == nil {
 			api.srv.Status(w, r, http.StatusNotFound)
 			return
-		}
-		if pf.Limit == 0 {
-			pf.Limit = 30
 		}
 
 		ds := tokens.Tokens.Query().
@@ -175,8 +138,8 @@ func (api *profileAPI) withTokenList(next http.Handler) http.Handler {
 				goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
 			).
 			Order(goqu.I("created").Desc()).
-			Limit(uint(pf.Limit)).
-			Offset(uint(pf.Offset))
+			Limit(uint(pf.Limit())).
+			Offset(uint(pf.Offset()))
 
 		count, err := ds.ClearOrder().ClearLimit().ClearOffset().Count()
 		if err != nil {
@@ -194,7 +157,7 @@ func (api *profileAPI) withTokenList(next http.Handler) http.Handler {
 			return
 		}
 
-		res.Pagination = api.srv.NewPagination(r, int(count), pf.Limit, pf.Offset)
+		res.Pagination = api.srv.NewPagination(r, int(count), pf.Limit(), pf.Offset())
 
 		res.Items = make([]tokenItem, len(items))
 		for i, item := range items {

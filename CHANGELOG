@@ -1,5 +1,22 @@
 # Changlog
 
+## [0.5.0] - 2021-10-25
+### Added
+- Password recovery
+- Label list and label management
+- Top menu and sidebar
+- Epub export of bookmark(s)
+- Advanced search
+- Collections
+
+### Changed
+- Refactored a lot of things
+- New forms library
+- Go 1.17
+
+### Fixed
+- Many things; this release is too big...
+
 ## [0.3.1] - 2021-05-02
 ### Changed
 - New design, more mobile friendly

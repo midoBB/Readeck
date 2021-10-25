@@ -22,6 +22,7 @@ func newPaginationForm() *PaginationForm {
 	)}
 }
 
+// Limit returns the current limit or zero if none was given.
 func (f *PaginationForm) Limit() int {
 	if f.Get("limit").IsNil() {
 		return 0
@@ -29,6 +30,7 @@ func (f *PaginationForm) Limit() int {
 	return f.Get("limit").Value().(int)
 }
 
+// Offset returns the current offset or 0 if none was given.
 func (f *PaginationForm) Offset() int {
 	if f.Get("offset").IsNil() {
 		return 0
@@ -36,6 +38,7 @@ func (f *PaginationForm) Offset() int {
 	return f.Get("offset").Value().(int)
 }
 
+// SetLimit sets the limit's value. It's used to set a default limit before binding the form.
 func (f *PaginationForm) SetLimit(v int) {
 	f.Get("limit").Set(v)
 }

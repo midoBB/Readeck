@@ -4,7 +4,6 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
@@ -105,76 +104,6 @@ func (c *Collection) Update(v interface{}) error {
 		Executor().Exec()
 
 	return err
-}
-
-func (c *Collection) get(name string) interface{} {
-	switch name {
-	case "name":
-		return c.Name
-	case "is_pinned":
-		return c.IsPinned
-	case "search":
-		return c.Filters.Search
-	case "title":
-		return c.Filters.Title
-	case "author":
-		return c.Filters.Author
-	case "site":
-		return c.Filters.Site
-	case "type":
-		return c.Filters.Type
-	case "labels":
-		return c.Filters.Labels
-	case "is_marked":
-		if c.Filters.IsMarked == nil {
-			return nil
-		}
-		return *c.Filters.IsMarked
-	case "is_archived":
-		if c.Filters.IsArchived == nil {
-			return nil
-		}
-		return *c.Filters.IsArchived
-	}
-
-	panic(fmt.Errorf(`unknown field "%s"`, name))
-}
-
-func (c *Collection) set(name string, value interface{}) {
-	switch name {
-	case "name":
-		c.Name = value.(string)
-		return
-	case "is_pinned":
-		c.IsPinned = value.(bool)
-		return
-	case "search":
-		c.Filters.Search = value.(string)
-		return
-	case "title":
-		c.Filters.Title = value.(string)
-		return
-	case "author":
-		c.Filters.Author = value.(string)
-		return
-	case "site":
-		c.Filters.Site = value.(string)
-		return
-	case "type":
-		c.Filters.Type = value.(string)
-		return
-	case "labels":
-		c.Filters.Labels = value.(string)
-		return
-	case "is_marked":
-		c.Filters.IsMarked = value.(*bool)
-		return
-	case "is_archived":
-		c.Filters.IsArchived = value.(*bool)
-		return
-	}
-
-	panic(fmt.Errorf(`unknown field "%s"`, name))
 }
 
 func (c *Collection) flatten() map[string]interface{} {

@@ -10,13 +10,13 @@ require (
 	github.com/anthonynsimon/bild v0.13.0
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
 	github.com/biessek/golang-ico v0.0.0-20180326222316-d348d9ea4670
-	github.com/casbin/casbin/v2 v2.37.3
+	github.com/casbin/casbin/v2 v2.38.0
 	github.com/cristalhq/jwt/v3 v3.1.0
-	github.com/dop251/goja v0.0.0-20210926120033-6e5fa0950d16
-	github.com/doug-martin/goqu/v9 v9.16.0
+	github.com/dop251/goja v0.0.0-20211022113120-dc8c55024d06
+	github.com/doug-martin/goqu/v9 v9.18.0
 	github.com/fatih/color v1.13.0
 	github.com/go-chi/chi/v5 v5.0.4
-	github.com/go-redis/redis/v8 v8.11.3
+	github.com/go-redis/redis/v8 v8.11.4
 	github.com/go-shiori/dom v0.0.0-20210627111528-4e4722cd0d65
 	github.com/go-shiori/go-readability v0.0.0-20210627123243-82cc33435520
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
@@ -38,13 +38,13 @@ require (
 	github.com/spf13/cobra v1.2.1
 	github.com/spyzhov/ajson v0.4.2
 	github.com/stretchr/testify v1.7.0
-	github.com/tdewolff/parse/v2 v2.5.21
+	github.com/tdewolff/parse/v2 v2.5.22
 	github.com/thoas/go-funk v0.9.1
 	github.com/xhit/go-simple-mail/v2 v2.10.0
 	golang.org/x/image v0.0.0-20210628002857-a66eb6448b8d
-	golang.org/x/net v0.0.0-20210929193557-e81a3d93ecf6
+	golang.org/x/net v0.0.0-20211020060615-d418f374d309
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/sys v0.0.0-20210927094055-39ccf1dd6fa6 // indirect
+	golang.org/x/sys v0.0.0-20211025201205-69cdffdb9359 // indirect
 	golang.org/x/text v0.3.7
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect
 	gopkg.in/hlandau/measurable.v1 v1.0.1 // indirect

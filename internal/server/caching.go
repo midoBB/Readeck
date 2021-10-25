@@ -72,6 +72,13 @@ func (s *Server) WithCaching(next http.Handler) http.Handler {
 			return
 		}
 
+		// Cancel the caching headers when there are messages.
+		// It prevents the message to stay on the page forever.
+		if len(s.Flashes(r)) > 0 {
+			w.Header().Del("Last-Modified")
+			w.Header().Del("Etag")
+		}
+
 		next.ServeHTTP(w, r)
 	})
 }

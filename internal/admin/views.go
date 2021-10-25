@@ -120,6 +120,7 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 
 func (h *adminViews) userDelete(w http.ResponseWriter, r *http.Request) {
 	f := newDeleteForm()
+	f.Get("_to").Set("/admin/users")
 	forms.Bind(f, r)
 
 	u := r.Context().Value(ctxUserKey{}).(*users.User)
@@ -129,5 +130,5 @@ func (h *adminViews) userDelete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	f.trigger(u)
-	h.srv.Redirect(w, r, "..", fmt.Sprint(u.ID))
+	h.srv.Redirect(w, r, f.Get("_to").String())
 }

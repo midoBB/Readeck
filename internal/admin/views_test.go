@@ -107,7 +107,7 @@ func TestViews(t *testing.T) {
 				Method:         "POST",
 				Target:         fmt.Sprintf("/admin/users/%d/delete", u1.User.ID),
 				ExpectStatus:   303,
-				ExpectRedirect: fmt.Sprintf("/admin/users/%d", u1.User.ID),
+				ExpectRedirect: "/admin/users",
 			},
 			RequestTest{
 				Target:         fmt.Sprintf("/admin/users/%d", u1.User.ID),
@@ -137,7 +137,7 @@ func TestViews(t *testing.T) {
 				Target:         fmt.Sprintf("/admin/users/%d/delete", u1.User.ID),
 				Form:           url.Values{"cancel": {"1"}},
 				ExpectStatus:   303,
-				ExpectRedirect: fmt.Sprintf("/admin/users/%d", u1.User.ID),
+				ExpectRedirect: "/admin/users",
 				Assert: func(t *testing.T, _ *Response) {
 					// The task is not in the store anymore
 					task := fmt.Sprintf("tasks:user.delete:%d", u1.User.ID)

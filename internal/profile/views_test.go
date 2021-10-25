@@ -107,10 +107,10 @@ func TestViews(t *testing.T) {
 				Method:         "POST",
 				Target:         "{{ (index .History 0).Path }}/delete",
 				ExpectStatus:   303,
-				ExpectRedirect: "/profile/tokens/.+",
+				ExpectRedirect: "/profile/tokens",
 			},
 			RequestTest{
-				Target:         "{{ (index .History 0).Redirect }}",
+				Target:         "{{ (index .History 1).Path }}",
 				ExpectStatus:   200,
 				ExpectContains: "Token will be removed in a few seconds",
 				Assert: func(t *testing.T, r *Response) {
@@ -147,9 +147,12 @@ func TestViews(t *testing.T) {
 				Target:         "{{ (index .History 0).Path }}/delete",
 				Form:           url.Values{"cancel": {"1"}},
 				ExpectStatus:   303,
-				ExpectRedirect: "/profile/tokens/.+",
+				ExpectRedirect: "/profile/tokens",
+			},
+			RequestTest{
+				Target: "{{ (index .History 1).Path }}",
 				Assert: func(t *testing.T, r *Response) {
-					_, tokenID := path.Split(r.Redirect)
+					_, tokenID := path.Split(r.URL.Path)
 					token, err := tokens.Tokens.GetOne(goqu.C("uid").Eq(tokenID))
 					if err != nil {
 						t.Error(err)

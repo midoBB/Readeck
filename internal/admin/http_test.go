@@ -181,7 +181,7 @@ func TestPermissions(t *testing.T) {
 					switch user {
 					case "admin":
 						r.AssertStatus(t, 303)
-						r.AssertRedirect(t, fmt.Sprintf("/admin/users/%d", u2.User.ID))
+						r.AssertRedirect(t, "/admin/users")
 					case "":
 						r.AssertStatus(t, 303)
 						r.AssertRedirect(t, "/login")

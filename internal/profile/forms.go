@@ -177,6 +177,7 @@ type deleteTokenForm struct {
 func newDeleteTokenForm() *deleteTokenForm {
 	return &deleteTokenForm{forms.Must(
 		forms.NewBooleanField("cancel"),
+		forms.NewTextField("_to"),
 	)}
 }
 

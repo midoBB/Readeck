@@ -12,6 +12,7 @@ type deleteForm struct {
 func newDeleteForm() *deleteForm {
 	return &deleteForm{forms.Must(
 		forms.NewBooleanField("cancel"),
+		forms.NewTextField("_to"),
 	)}
 }
 

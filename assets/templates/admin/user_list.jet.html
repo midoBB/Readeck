@@ -11,20 +11,41 @@
 {{ if .Users }}
 {{ include "/_libs/pagination" .Pagination }}
 
-{{ yield list(class="my-6") content}}
-{{ range .Users }}
-  {{ yield list_item() content }}
-    <div>
-      <strong><a class="link" href="{{ urlFor(`.`, .ID) }}">{{ .Username }}</a></strong>
-      ({{ .Group }})
-    </div>
-    <div class="text-sm">
-      Created on: {{ date(.Created, "2006-01-02") }},
-      Last update: {{ date(.Updated, "2006-01-02") }}
-    </div>
+<turbo-frame id="user-list"
+ data-controller="turbo-refresh"
+ data-turbo-refresh-interval-value="10"
+ data-turbo-refresh-on-value="[data-user-deleted='true']">
+  {{ yield list(class="my-6") content}}
+  {{ range .Users }}
+    {{ yield list_item(class="flex items-center") content }}
+      <div class="flex-grow">
+        <div>
+          <strong><a class="link" href="{{ urlFor(`.`, .ID) }}">{{ .Username }}</a></strong>
+          ({{ .Group }})
+        </div>
+        <div class="text-sm">
+          Created on: {{ date(.Created, "2006-01-02") }},
+          Last update: {{ date(.Updated, "2006-01-02") }}
+        </div>
+      </div>
+      {{- if .IsDeleted -}}
+        <div class="flex items-center max-w-xs"
+          data-user-deleted="true">
+          <span class="text-red-700 text-xs font-semibold">
+            This user will be removed in a few seconds.
+          </span>
+          <form action="{{ urlFor(`.`, .ID, `delete`) }}" method="post">
+            {{ yield csrfField() }}
+            <input type="hidden" name="cancel" value="1" />
+            <button type="submit"
+            class="btn-primary whitespace-nowrap text-sm py-1 ml-2">{{ yield icon(name="o-undo") }} Undo</button>
+          </form>
+        </div>
+      {{- end -}}
+    {{ end }}
   {{ end }}
-{{ end }}
-{{ end }}
+  {{ end }}
+</turbo-frame>
 
 {{ include "/_libs/pagination" .Pagination }}
 {{ end }}

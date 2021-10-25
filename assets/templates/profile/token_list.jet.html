@@ -15,24 +15,45 @@
 {{ if .Tokens }}
 {{ include "/_libs/pagination" .Pagination }}
 
-{{ yield list() content }}
-{{ range .Tokens }}
-  {{ yield list_item() content }}
-    <div>
-      {{- if .IsEnabled -}}
-        {{ yield icon(name="o-check-on", class="svgicon text-green-700") }}
-      {{- else -}}
-        {{ yield icon(name="o-cross", class="svgicon text-red-700") }}
-      {{- end }}
-      <a class="link" href="{{ urlFor(`.`, .ID ) }}">{{ .ID }}</a>
-      <small>- {{ .Application }}</small>
-    </div>
-    <div><small>Created on: {{ date(.Created, "2006-01-02") }}
-    {{- if .Expires }} (Expires on: {{ date(.Expires, "2006-01-02") }}){{ end -}}
-    </small></div>
+<turbo-frame id="token-list"
+ data-controller="turbo-refresh"
+ data-turbo-refresh-interval-value="10"
+ data-turbo-refresh-on-value="[data-user-deleted='true']">
+  {{ yield list() content }}
+  {{ range .Tokens }}
+    {{ yield list_item(class="flex items-center") content }}
+      <div class="flex-grow">
+        <div>
+          {{- if .IsEnabled -}}
+            {{ yield icon(name="o-check-on", class="svgicon text-green-700") }}
+          {{- else -}}
+            {{ yield icon(name="o-cross", class="svgicon text-red-700") }}
+          {{- end }}
+          <a class="link" href="{{ urlFor(`.`, .ID ) }}">{{ .ID }}</a>
+          <small>- {{ .Application }}</small>
+        </div>
+        <div><small>Created on: {{ date(.Created, "2006-01-02") }}
+        {{- if .Expires }} (Expires on: {{ date(.Expires, "2006-01-02") }}){{ end -}}
+        </small></div>
+      </div>
+      {{- if .IsDeleted -}}
+        <div class="flex items-center max-w-xs"
+          data-user-deleted="true">
+          <span class="text-red-700 text-xs font-semibold">
+            This token will be removed in a few seconds.
+          </span>
+          <form action="{{ urlFor(`.`, .ID, `delete`) }}" method="post">
+            {{ yield csrfField() }}
+            <input type="hidden" name="cancel" value="1" />
+            <button type="submit"
+            class="btn-primary whitespace-nowrap text-sm py-1 ml-2">{{ yield icon(name="o-undo") }} Undo</button>
+          </form>
+        </div>
+      {{- end -}}
+    {{ end }}
   {{ end }}
-{{ end }}
-{{ end }}
+  {{ end }}
+</turbo-frame>
 
 {{ include "/_libs/pagination" .Pagination }}
 {{ end }}

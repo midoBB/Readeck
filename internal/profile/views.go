@@ -173,10 +173,11 @@ func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 
 func (v *profileViews) tokenDelete(w http.ResponseWriter, r *http.Request) {
 	f := newDeleteTokenForm()
+	f.Get("_to").Set("/profile/tokens")
 	forms.Bind(f, r)
 
 	ti := r.Context().Value(ctxtTokenKey{}).(tokenItem)
 
 	f.trigger(ti.Token)
-	v.srv.Redirect(w, r, "..", ti.UID)
+	v.srv.Redirect(w, r, f.Get("_to").String())
 }

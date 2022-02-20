@@ -1,7 +1,6 @@
 package server
 
 import (
-	"fmt"
 	"math"
 	"net/http"
 	"net/url"
@@ -190,7 +189,7 @@ func (s *Server) SendPaginationHeaders(
 		q.Set("limit", strconv.Itoa(limit))
 		q.Set("offset", strconv.Itoa(offset))
 		u.RawQuery = q.Encode()
-		w.Header().Add("Link", fmt.Sprintf(`<%s>; rel="%s"`, u.String(), rel))
+		NewLink(u.String()).WithRel(rel).Write(w)
 	}
 
 	if prevOffset >= 0 {

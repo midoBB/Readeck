@@ -147,6 +147,12 @@ func (api *apiRouter) bookmarkCreate(w http.ResponseWriter, r *http.Request) {
 		"Location",
 		api.srv.AbsoluteURL(r, ".", b.UID).String(),
 	)
+	w.Header().Add("bookmark-id", b.UID)
+	server.NewLink(api.srv.AbsoluteURL(r, "/bookmarks", b.UID).String()).
+		WithRel("alternate").
+		WithType("text/html").
+		Write(w)
+
 	api.srv.TextMessage(w, r, http.StatusAccepted, "Link submited")
 }
 
@@ -330,6 +336,12 @@ func (api *apiRouter) withBookmark(next http.Handler) http.Handler {
 			api.srv.WriteLastModified(w, b)
 			api.srv.WriteEtag(w, b)
 		}
+
+		w.Header().Add("bookmark-id", b.UID)
+		server.NewLink(api.srv.AbsoluteURL(r, "/bookmarks", b.UID).String()).
+			WithRel("alternate").
+			WithType("text/html").
+			Write(w)
 
 		api.srv.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
 	})

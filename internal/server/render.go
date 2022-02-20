@@ -22,6 +22,42 @@ type Error struct {
 	Error    string `json:"error"`
 }
 
+// Link contains a "Link" header information.
+type Link struct {
+	URL  string
+	Rel  string
+	Type string
+}
+
+// NewLink returns a new Link instance.
+func NewLink(url string) Link {
+	return Link{URL: url}
+}
+
+// WithRel adds a "rel" value to the link.
+func (l Link) WithRel(rel string) Link {
+	l.Rel = rel
+	return l
+}
+
+// WithType adds a "type" value to the link.
+func (l Link) WithType(t string) Link {
+	l.Type = t
+	return l
+}
+
+// Write adds the header to a ResponseWriter.
+func (l Link) Write(w http.ResponseWriter) {
+	h := fmt.Sprintf("<%s>", l.URL)
+	if l.Rel != "" {
+		h = fmt.Sprintf(`%s; rel="%s"`, h, l.Rel)
+	}
+	if l.Type != "" {
+		h = fmt.Sprintf(`%s; type="%s"`, h, l.Type)
+	}
+	w.Header().Add("Link", h)
+}
+
 // Render converts any value to JSON and sends the response.
 func (s *Server) Render(w http.ResponseWriter, r *http.Request, status int, value interface{}) {
 	b := &bytes.Buffer{}

@@ -41,7 +41,7 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		forms.Bind(f, r)
 		if f.IsValid() {
-			if b, err := f.createBookmark(nil); err != nil {
+			if b, err := f.createBookmark(); err != nil {
 				h.srv.Log(r).Error(err)
 			} else {
 				redir := []string{"/bookmarks"}

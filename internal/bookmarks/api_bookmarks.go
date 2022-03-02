@@ -113,20 +113,19 @@ func (api *apiRouter) bookmarkExport(w http.ResponseWriter, r *http.Request) {
 
 // bookmarkCreate creates a new bookmark.
 func (api *apiRouter) bookmarkCreate(w http.ResponseWriter, r *http.Request) {
-	var html []byte
 	var err error
 	ct, _, _ := mime.ParseMediaType(r.Header.Get("content-type"))
 
 	f := newCreateForm(auth.GetRequestUser(r).ID, api.srv.GetReqID(r))
 
 	if ct == "multipart/form-data" {
-		// A multipart form must provide a section with the url and
-		// another one with the html source.
+		// A multipart form must provide a section with the url and others "resource"
+		// with each cached resource.
 		f.Bind()
-		html, err = f.loadMultipart(r)
+		err = f.loadMultipart(r)
 		if err != nil {
-			api.srv.Error(w, r, err)
-			return
+			f.AddErrors("", fmt.Errorf("Unable to process input data"))
+			api.srv.Log(r).WithError(err).Error("input error")
 		}
 	} else {
 		forms.Bind(f, r)
@@ -137,7 +136,7 @@ func (api *apiRouter) bookmarkCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	b, err := f.createBookmark(html)
+	b, err := f.createBookmark()
 	if err != nil {
 		api.srv.Error(w, r, err)
 		return

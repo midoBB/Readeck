@@ -8,6 +8,7 @@ import (
 	"path"
 	"path/filepath"
 	"runtime"
+	"runtime/debug"
 	"strings"
 	"time"
 
@@ -34,8 +35,8 @@ var (
 type (
 	extractParams struct {
 		BookmarkID int
-		HTML       []byte
 		RequestID  string
+		Resources  []multipartResource
 	}
 )
 
@@ -144,6 +145,7 @@ func extractPageHandler(data interface{}) {
 		// Recover from any error that could have arose
 		if r := recover(); r != nil {
 			logger.WithField("recover", r).Error("error during extraction")
+			debug.PrintStack()
 			b.State = StateError
 			b.Errors = append(b.Errors, fmt.Sprintf("%v", r))
 			saved = false
@@ -175,7 +177,6 @@ func extractPageHandler(data interface{}) {
 
 	ex, err := extract.New(
 		b.URL,
-		params.HTML,
 		extract.SetLogFields(&log.Fields{
 			"@id":         params.RequestID,
 			"bookmark_id": b.ID,
@@ -186,6 +187,11 @@ func extractPageHandler(data interface{}) {
 	if err != nil {
 		logger.WithError(err).Error()
 		return
+	}
+
+	for _, x := range params.Resources {
+		// Inject resource in client's cache
+		ex.AddToCache(x.URL, x.Headers, bytes.NewReader(x.Data))
 	}
 
 	ex.AddProcessors(
@@ -199,7 +205,8 @@ func extractPageHandler(data interface{}) {
 		fftr.ReplaceStrings,
 	)
 
-	if len(params.HTML) == 0 {
+	// Check if main page is in cached resources
+	if ex.IsInCache(b.URL) {
 		ex.AddProcessors(fftr.FindContentPage, fftr.FindNextPage)
 	}
 

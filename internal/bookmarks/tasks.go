@@ -231,7 +231,6 @@ func extractPageHandler(data interface{}) {
 	b.URL = drop.UnescapedURL()
 	b.State = StateLoaded
 	b.Domain = drop.Domain
-	b.Title = drop.Title
 	b.Site = drop.URL.Hostname()
 	b.SiteName = drop.Site
 	b.Authors = Strings{}
@@ -240,6 +239,10 @@ func extractPageHandler(data interface{}) {
 	b.Description = drop.Description
 	b.Text = ex.Text
 	b.WordCount = len(strings.Fields(b.Text))
+
+	if b.Title == "" {
+		b.Title = drop.Title
+	}
 
 	for _, x := range drop.Authors {
 		b.Authors = append(b.Authors, x)

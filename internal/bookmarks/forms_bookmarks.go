@@ -78,7 +78,9 @@ func newCreateForm(userID int, requestID string) *createForm {
 				forms.Trim,
 				forms.Required,
 				forms.IsValidURL(validSchemes...),
-			)),
+			),
+			forms.NewTextField("title", forms.Trim),
+		),
 		userID:    userID,
 		requestID: requestID,
 	}
@@ -94,6 +96,9 @@ func (f *createForm) loadMultipart(r *http.Request) (err error) {
 
 	if err := f.Get("url").UnmarshalText([]byte(r.FormValue("url"))); err != nil {
 		f.AddErrors("url", err)
+	}
+	if err := f.Get("title").UnmarshalText([]byte(r.FormValue("title"))); err != nil {
+		f.AddErrors("title", err)
 	}
 
 	forms.Validate(f)
@@ -130,10 +135,12 @@ func (f *createForm) createBookmark() (b *Bookmark, err error) {
 	}
 
 	uri, _ := url.Parse(f.Get("url").String())
+
 	b = &Bookmark{
 		UserID:   &f.userID,
 		State:    StateLoading,
 		URL:      uri.String(),
+		Title:    f.Get("title").String(),
 		Site:     uri.Hostname(),
 		SiteName: uri.Hostname(),
 	}

@@ -23,6 +23,7 @@ type Info struct {
 type ProviderInfo struct {
 	Name        string
 	Application string
+	ID          string
 }
 
 // Provider is the interface that must implement any authentication

@@ -16,10 +16,20 @@ type Transport struct {
 	tr        http.RoundTripper
 	header    http.Header
 	deniedIPs []*net.IPNet
+	roundTrip transportCache
 }
+
+type transportCache func(*http.Request) (*http.Response, error)
 
 // RoundTrip is the transport interceptor.
 func (t *Transport) RoundTrip(req *http.Request) (*http.Response, error) {
+	if t.roundTrip != nil {
+		rsp, err := t.roundTrip(req)
+		if err != nil || rsp != nil {
+			return rsp, err
+		}
+	}
+
 	if err := t.checkDestIP(req); err != nil {
 		return nil, err
 	}
@@ -41,6 +51,11 @@ func (t *Transport) SetHeader(name, value string) {
 // GetHeader returns a header value from transport
 func (t *Transport) GetHeader(name string) string {
 	return t.header.Get(name)
+}
+
+// SetRoundTripper sets an extra transport's round trip function
+func (t *Transport) SetRoundTripper(f transportCache) {
+	t.roundTrip = f
 }
 
 func (t *Transport) checkDestIP(r *http.Request) error {

@@ -40,6 +40,7 @@ func newProfileAPI(s *server.Server) *profileAPI {
 	r.With(api.srv.WithPermission("api:profile", "write")).Group(func(r chi.Router) {
 		r.Patch("/", api.profileUpdate)
 		r.Put("/password", api.passwordUpdate)
+		r.With(api.withToken).Delete("/tokens/{uid}", api.tokenDelete)
 	})
 
 	return api
@@ -49,6 +50,7 @@ func newProfileAPI(s *server.Server) *profileAPI {
 type profileInfoProvider struct {
 	Name        string `json:"name"`
 	Application string `json:"application"`
+	ID          string `json:"id"`
 }
 type profileInfoUser struct {
 	Username string              `json:"username"`
@@ -70,6 +72,7 @@ func (api *profileAPI) profileInfo(w http.ResponseWriter, r *http.Request) {
 		Provider: profileInfoProvider{
 			Name:        info.Provider.Name,
 			Application: info.Provider.Application,
+			ID:          info.Provider.ID,
 		},
 		User: profileInfoUser{
 			Username: info.User.Username,
@@ -192,6 +195,16 @@ func (api *profileAPI) tokenList(w http.ResponseWriter, r *http.Request) {
 
 	api.srv.SendPaginationHeaders(w, r, tl.Pagination.TotalCount, tl.Pagination.Limit, tl.Pagination.Offset)
 	api.srv.Render(w, r, http.StatusOK, tl.Items)
+}
+
+func (api *profileAPI) tokenDelete(w http.ResponseWriter, r *http.Request) {
+	ti := r.Context().Value(ctxtTokenKey{}).(tokenItem)
+	if err := ti.Token.Delete(); err != nil {
+		api.srv.Error(w, r, err)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
 }
 
 type tokenList struct {

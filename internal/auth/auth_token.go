@@ -49,6 +49,7 @@ func (p *TokenAuthProvider) Authenticate(w http.ResponseWriter, r *http.Request)
 		Provider: &ProviderInfo{
 			Name:        "bearer token",
 			Application: res.Token.Application,
+			ID:          res.Token.UID,
 		},
 		User: res.User,
 	}), nil

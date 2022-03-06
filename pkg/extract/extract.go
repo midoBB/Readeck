@@ -5,6 +5,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net"
 	"net/http"
@@ -152,15 +153,16 @@ type Extractor struct {
 	Context   context.Context
 	LogFields *log.Fields
 
-	client     *http.Client
-	processors ProcessList
-	errors     Error
-	drops      []*Drop
+	client          *http.Client
+	processors      ProcessList
+	errors          Error
+	drops           []*Drop
+	cachedResources map[string]*cachedResource
 }
 
 // New returns an Extractor instance for a given URL,
 // with a default HTTP client.
-func New(src string, html []byte, options ...func(e *Extractor)) (*Extractor, error) {
+func New(src string, options ...func(e *Extractor)) (*Extractor, error) {
 	URL, err := url.Parse(src)
 	if err != nil {
 		return nil, err
@@ -168,20 +170,22 @@ func New(src string, html []byte, options ...func(e *Extractor)) (*Extractor, er
 	URL.Fragment = ""
 
 	res := &Extractor{
-		URL:        URL,
-		Visited:    URLList{},
-		Context:    context.TODO(),
-		client:     NewClient(),
-		processors: ProcessList{},
-		drops:      []*Drop{NewDrop(URL)},
+		URL:             URL,
+		Visited:         URLList{},
+		Context:         context.TODO(),
+		client:          NewClient(),
+		cachedResources: make(map[string]*cachedResource),
+		processors:      ProcessList{},
+		drops:           []*Drop{NewDrop(URL)},
 	}
 
-	if len(html) > 0 {
-		res.drops[0].Body = html
-	}
+	t := res.client.Transport.(*Transport)
+	t.SetRoundTripper(res.getFromCache)
 
 	for _, fn := range options {
-		fn(res)
+		if fn != nil {
+			fn(res)
+		}
 	}
 
 	return res, nil
@@ -224,6 +228,19 @@ func SetProxyList(list []ProxyMatcher) func(e *Extractor) {
 // Client returns the extractor's HTTP client.
 func (e *Extractor) Client() *http.Client {
 	return e.client
+}
+
+// AddToCache adds a resource to the extractor's resource cache.
+// The cache will be used by the HTTP client during its round trip.
+func (e *Extractor) AddToCache(url string, headers map[string]string, body io.ReadSeeker) {
+	e.cachedResources[url] = &cachedResource{headers: headers, data: &cacheEntry{body}}
+}
+
+// IsInCache returns true if a given URL is present in the
+// resource cache mapping.
+func (e *Extractor) IsInCache(url string) bool {
+	_, ok := e.cachedResources[url]
+	return ok
 }
 
 // Errors returns the extractor's error list.
@@ -394,6 +411,29 @@ func (e *Extractor) Run() {
 	e.runProcessors(m)
 }
 
+func (e *Extractor) getFromCache(req *http.Request) (*http.Response, error) {
+	u := req.URL.String()
+	entry, ok := e.cachedResources[u]
+	if !ok {
+		return nil, nil
+	}
+
+	e.GetLogger().WithField("url", u).Debug("cache hit")
+	headers := make(http.Header)
+	for k, v := range entry.headers {
+		headers.Set(k, v)
+	}
+
+	return &http.Response{
+		Status:        "OK",
+		StatusCode:    http.StatusOK,
+		Header:        headers,
+		Body:          entry.data,
+		Request:       req,
+		ContentLength: -1,
+	}, nil
+}
+
 func (e *Extractor) runProcessors(m *ProcessMessage) {
 	if e.processors == nil || len(e.processors) == 0 {
 		return
@@ -441,4 +481,26 @@ func (e *Extractor) setFinalHTML() {
 		buf.WriteString("\n")
 	}
 	e.HTML = buf.Bytes()
+}
+
+type cachedResource struct {
+	headers map[string]string
+	data    io.ReadCloser
+}
+
+type cacheEntry struct {
+	body io.ReadSeeker
+}
+
+func (cr *cacheEntry) Read(p []byte) (n int, err error) {
+	n, err = cr.body.Read(p)
+	if err == io.EOF {
+		cr.body.Seek(0, 0)
+	}
+	return n, err
+}
+
+func (cr *cacheEntry) Close() error {
+	cr.body.Seek(0, 0)
+	return nil
 }

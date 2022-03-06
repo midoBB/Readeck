@@ -57,6 +57,21 @@ func TestPermissions(t *testing.T) {
 				},
 			},
 			RequestTest{
+				JSON:   true,
+				Method: "DELETE",
+				Target: "/api/profile/tokens/notfound",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 404)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 401)
+					}
+				},
+			},
+			RequestTest{
 				Method: "PATCH",
 				Target: "/api/profile",
 				JSON:   map[string]string{},

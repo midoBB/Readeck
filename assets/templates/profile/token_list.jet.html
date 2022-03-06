@@ -30,7 +30,7 @@
             {{ yield icon(name="o-cross", class="svgicon text-red-700") }}
           {{- end }}
           <a class="link" href="{{ urlFor(`.`, .ID ) }}">{{ .ID }}</a>
-          <small>- {{ .Application }}</small>
+          - <small>{{ .Application }}</small>
         </div>
         <div><small>Created on: {{ date(.Created, "2006-01-02") }}
         {{- if .Expires }} (Expires on: {{ date(.Expires, "2006-01-02") }}){{ end -}}

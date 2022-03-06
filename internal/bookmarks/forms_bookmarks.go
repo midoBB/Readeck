@@ -1,9 +1,14 @@
 package bookmarks
 
 import (
+	"bufio"
 	"context"
+	"encoding/json"
 	"errors"
+	"fmt"
+	"io"
 	"io/ioutil"
+	"mime/multipart"
 	"net/http"
 	"net/url"
 	"sort"
@@ -11,17 +16,59 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/doug-martin/goqu/v9/exp"
+	"github.com/thoas/go-funk"
+
 	"github.com/readeck/readeck/internal/db"
 	"github.com/readeck/readeck/pkg/forms"
-	"github.com/thoas/go-funk"
 )
 
 var validSchemes = []string{"http", "https"}
+
+type multipartResource struct {
+	URL     string            `json:"url"`
+	Headers map[string]string `json:"headers"`
+	Data    []byte            `json:"data"`
+}
+
+// newMultipartResource returns a new instance of multipartResource from
+// an io.Reader. The input MUST contain a JSON payload on the first line
+// (with the url and headers) and the data on the remaining lines.
+func newMultipartResource(r io.Reader) (res multipartResource, err error) {
+	const bufSize = 256 << 10 // In KiB
+	bio := bufio.NewReaderSize(r, bufSize)
+
+	// Read the first line containing the JSON metadata
+	var line []byte
+	if line, err = bio.ReadBytes('\n'); err != nil {
+		return
+	}
+	if err = json.Unmarshal(line, &res); err != nil {
+		return
+	}
+
+	if res.URL == "" {
+		err = fmt.Errorf("No resource URL")
+		return
+	}
+
+	// Read the rest (the content)
+	res.Data, err = ioutil.ReadAll(bio)
+	if err != nil {
+		return
+	}
+	if len(res.Data) == 0 {
+		err = fmt.Errorf("No resource content")
+		return
+	}
+
+	return
+}
 
 type createForm struct {
 	*forms.Form
 	userID    int
 	requestID string
+	resources []multipartResource
 }
 
 func newCreateForm(userID int, requestID string) *createForm {
@@ -31,14 +78,16 @@ func newCreateForm(userID int, requestID string) *createForm {
 				forms.Trim,
 				forms.Required,
 				forms.IsValidURL(validSchemes...),
-			)),
+			),
+			forms.NewTextField("title", forms.Trim),
+		),
 		userID:    userID,
 		requestID: requestID,
 	}
 }
 
-func (f *createForm) loadMultipart(r *http.Request) (html []byte, err error) {
-	const maxMemory = 8 << 20
+func (f *createForm) loadMultipart(r *http.Request) (err error) {
+	const maxMemory = 16 << 20 // In MiB
 
 	err = r.ParseMultipartForm(maxMemory)
 	if err != nil {
@@ -48,32 +97,50 @@ func (f *createForm) loadMultipart(r *http.Request) (html []byte, err error) {
 	if err := f.Get("url").UnmarshalText([]byte(r.FormValue("url"))); err != nil {
 		f.AddErrors("url", err)
 	}
+	if err := f.Get("title").UnmarshalText([]byte(r.FormValue("title"))); err != nil {
+		f.AddErrors("title", err)
+	}
 
 	forms.Validate(f)
 	if !f.IsValid() { // no needs to go further
 		return
 	}
 
-	reader, _, err := r.FormFile("src")
-	if errors.Is(err, http.ErrMissingFile) {
-		f.AddErrors("", errors.New(`File "src" not found`))
-		return
+	// Fetch and store resources
+	for k, v := range r.MultipartForm.File {
+		if k != "resource" {
+			continue
+		}
+		for _, x := range v {
+			var file multipart.File
+			var resource multipartResource
+			var err error
+
+			if file, err = x.Open(); err != nil {
+				return err
+			}
+			if resource, err = newMultipartResource(file); err != nil {
+				return err
+			}
+			f.resources = append(f.resources, resource)
+		}
 	}
 
-	html, err = ioutil.ReadAll(reader)
 	return
 }
 
-func (f *createForm) createBookmark(html []byte) (b *Bookmark, err error) {
+func (f *createForm) createBookmark() (b *Bookmark, err error) {
 	if !f.IsBound() {
 		return nil, errors.New("form is not bound")
 	}
 
 	uri, _ := url.Parse(f.Get("url").String())
+
 	b = &Bookmark{
 		UserID:   &f.userID,
 		State:    StateLoading,
 		URL:      uri.String(),
+		Title:    f.Get("title").String(),
 		Site:     uri.Hostname(),
 		SiteName: uri.Hostname(),
 	}
@@ -91,8 +158,8 @@ func (f *createForm) createBookmark(html []byte) (b *Bookmark, err error) {
 	// Start extraction job
 	err = extractPageTask.Run(b.ID, extractParams{
 		BookmarkID: b.ID,
-		HTML:       html,
 		RequestID:  f.requestID,
+		Resources:  f.resources,
 	})
 	return
 }

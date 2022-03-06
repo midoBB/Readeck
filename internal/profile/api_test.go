@@ -1,6 +1,7 @@
 package profile_test
 
 import (
+	"fmt"
 	"testing"
 
 	. "github.com/readeck/readeck/internal/testing"
@@ -22,7 +23,8 @@ func TestAPI(t *testing.T) {
 			ExpectJSON: `{
 					"provider":{
 						"name":"bearer token",
-						"application":"tests"
+						"application":"tests",
+						"id":"<<PRESENCE>>"
 					},
 					"user":{
 						"username":"user",
@@ -122,4 +124,49 @@ func TestAPI(t *testing.T) {
 			}`,
 		},
 	)
+}
+
+func TestAPIDeleteToken(t *testing.T) {
+	app := NewTestApp(t)
+	defer func() {
+		app.Close(t)
+	}()
+
+	client := NewClient(t, app)
+
+	u1, err := NewTestUser("test1", "test1@localhost", "test1", "user")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	app.Users[u1.User.Username] = u1
+
+	RunRequestSequence(t, client, "user",
+		RequestTest{
+			JSON:         true,
+			Target:       fmt.Sprintf("/api/profile/tokens/%s", u1.Token.UID),
+			Method:       "DELETE",
+			ExpectStatus: 404,
+		},
+	)
+
+	RunRequestSequence(t, client, u1.User.Username,
+		RequestTest{
+			JSON:         true,
+			Target:       "/api/profile",
+			ExpectStatus: 200,
+		},
+		RequestTest{
+			JSON:         true,
+			Target:       fmt.Sprintf("/api/profile/tokens/%s", u1.Token.UID),
+			Method:       "DELETE",
+			ExpectStatus: 204,
+		},
+		RequestTest{
+			JSON:         true,
+			Target:       "/api/profile",
+			ExpectStatus: 401,
+		},
+	)
+
 }

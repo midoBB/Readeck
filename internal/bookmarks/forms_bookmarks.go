@@ -181,6 +181,7 @@ func newUpdateForm() *updateForm {
 	}
 
 	return &updateForm{forms.Must(
+		forms.NewTextField("title", forms.Trim),
 		forms.NewBooleanField("is_marked"),
 		forms.NewBooleanField("is_archived"),
 		forms.NewBooleanField("is_deleted"),
@@ -201,6 +202,11 @@ func (f *updateForm) update(b *Bookmark) (updated map[string]interface{}, err er
 			continue
 		}
 		switch n := field.Name(); n {
+		case "title":
+			if field.Value() != "" {
+				b.Title = field.String()
+				updated[n] = field.String()
+			}
 		case "is_marked":
 			b.IsMarked = field.Value().(bool)
 			updated[n] = field.Value()

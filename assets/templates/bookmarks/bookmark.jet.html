@@ -27,7 +27,8 @@
     </div>
   {{- else -}}
     <div class="max-w-3xl mx-auto mt-4 print:mt-2 print:max-w-none">
-      <h1 class="text-3xl +sm:text-2xl font-serif">{{ .Item.Title }}</h1>
+      {{ include "./components/title_form" .Item }}
+      
       {{- if !empty(.Item.Description) -}}
         <p class="mt-2 text-lg leading-tight text-justify font-serif italic">{{ .Item.Description }}</p>
       {{- end -}}

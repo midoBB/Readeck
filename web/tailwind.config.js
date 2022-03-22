@@ -67,6 +67,9 @@ var config = {
       height: {
         "max-content": "max-content",
       },
+      outline: {
+        "std": "1px dotted #666666",
+      },
       padding: {
         "16/9": "56.25%",
       },
@@ -134,6 +137,9 @@ var config = {
         "group-hover",
         "group-focus-within",
         "hf",
+      ],
+      outline: [
+        "hover",
       ],
       ringWidth: [
         "hf",

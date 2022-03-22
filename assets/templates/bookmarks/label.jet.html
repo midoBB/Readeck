@@ -6,12 +6,21 @@
 {{ block mainContent() -}}
 <form action="" method="post">
   {{ yield csrfField() }}
-  <div class="flex items-center">
-    {{ yield icon(name="o-label", class="h-6 w-6 mr-2", svgClass="h-6 w-6") }}
+  <h1 class="flex items-baseline gap-2 group title" data-controller="inplace-input">
+    {{ yield icon(name="o-label", class="text-h2 h-6 w-6 mr-2", svgClass="h-6 w-6") }}
+    {* JS context *}
+    <span class="no-js:hidden text-h2 mr-2 cursor-pointer hover:outline-std"
+     data-inplace-input-target="editable">{{ .Label }}</span>
+    {* Classic input field shown in no-JS *}
     <input type="text" name="name" value="{{ .Label }}"
-    class="form-input font-semibold w-full max-w-md rounded-r-none" />
-    <button type="submit" class="btn btn-primary rounded-l-none">rename</button>
-  </div>
+     class="js:hidden form-input font-semibold w-full max-w-md"
+     data-inplace-input-target="value" />
+    <button type="submit" class="text-h2 text-gray-300
+    group-hover:text-primary group-focus-within:text-primary"
+      data-inplace-input-target="button"
+      >{{ yield icon(name="o-pencil", svgClass="h-6 w-6") }}
+    </button>
+  </h1>
 </form>
 
 <turbo-frame id="bookmark-list"

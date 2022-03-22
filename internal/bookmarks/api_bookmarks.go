@@ -179,11 +179,17 @@ func (api *apiRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 	if api.srv.IsTurboRequest(r) {
 		item := newBookmarkItem(api.srv, r, b, "./..")
 
+		_, withTitle := updated["title"]
 		_, withLabels := updated["labels"]
 		_, withMarked := updated["is_marked"]
 		_, withArchived := updated["is_archived"]
 		_, withDeleted := updated["is_deleted"]
 
+		if withTitle {
+			api.srv.RenderTurboStream(w, r,
+				"/bookmarks/components/title_form", "replace",
+				"bookmark-title-"+b.UID, item)
+		}
 		if withLabels {
 			api.srv.RenderTurboStream(w, r,
 				"/bookmarks/components/labels", "replace",

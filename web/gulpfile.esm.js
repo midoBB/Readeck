@@ -6,6 +6,7 @@ import path from "path"
 import zlib from "zlib"
 
 import gulp from "gulp"
+import gulpCheerio from "gulp-cheerio"
 import gulpHash from "gulp-hash-filename"
 import gulpEsbuild from "gulp-esbuild"
 import gulpFavicons from "@flexis/favicons/lib/stream"
@@ -209,7 +210,7 @@ function css_epub() {
     .pipe(gulp.dest(DEST))
 }
 
-// icons creates the icon sprite file
+// icon_sprite creates the icon sprite file
 function icon_sprite() {
   // Icons are defined in this file
   const icons = JSON.parse(fs.readFileSync("./media/icons.json"))
@@ -222,6 +223,18 @@ function icon_sprite() {
       let p = path.relative(f.cwd, f.path)
       let id = Object.entries(icons).find(x => x[1] == p)[0]
       file.basename = id
+    }))
+    .pipe(gulpCheerio({
+      // Force viewBox attribute when missing
+      run: ($) => {
+        let e = $("svg")
+        if (e.attr("viewBox") === undefined) {
+          let w = e.attr("width") || "24"
+          let h = e.attr("height") || "24"
+          e.attr("viewBox", `0 0 ${w} ${h}`)
+        }
+      },
+      parserOptions: { xmlMode: true },
     }))
     .pipe(gulpSvgStore())
     .pipe(gulpRename("img/icons.svg"))

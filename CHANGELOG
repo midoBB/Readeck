@@ -1,5 +1,11 @@
 # Changlog
 
+## [0.6.0] - 2022-03-22
+### Added
+- Bookmark's title can be changed
+- Bookmark creation with multipart can receive any resources that could
+  be used later by the extraction and archive process.
+
 ## [0.5.0] - 2021-10-25
 ### Added
 - Password recovery

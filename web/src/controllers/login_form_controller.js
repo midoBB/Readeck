@@ -1,7 +1,7 @@
-import { Controller } from "@hotwired/stimulus"
+import {Controller} from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static get targets () {
+  static get targets() {
     return ["username", "password"]
   }
 
@@ -10,7 +10,8 @@ export default class extends Controller {
   }
 
   validate(evt) {
-    let u = this.usernameTarget.value.trim(), p = this.passwordTarget.value.trim()
+    let u = this.usernameTarget.value.trim(),
+      p = this.passwordTarget.value.trim()
     if (u == "" || p == "") {
       evt.preventDefault()
       if (u == "") {

@@ -27,12 +27,12 @@ function verticalFlow(lineHeight, fontSize) {
   let covers = Math.ceil(fontSize / lineHeight)
 
   // We could use one line less
-  if (covers > 1 && (covers - 1) * lineHeight / fontSize >= minLH) {
+  if (covers > 1 && ((covers - 1) * lineHeight) / fontSize >= minLH) {
     covers = covers - 1
   }
 
   // Set line height
-  let lh = covers * lineHeight / fontSize
+  let lh = (covers * lineHeight) / fontSize
   if (lh != lineHeight) {
     // res.lineHeight = roundP(lh)
     res.push({prop: "line-height", value: roundP(lh)})
@@ -83,7 +83,7 @@ const plugin = () => {
           if (params.length < 2) {
             throw new Error(`only ${params.length} parameter(s)`)
           }
-        } catch(e) {
+        } catch (e) {
           throw decl.error(`@prose-block takes 2 number parameters. (${e})`)
         }
 
@@ -101,7 +101,7 @@ const plugin = () => {
           if (params.length < 2) {
             throw new Error(`only ${params.length} parameter(s)`)
           }
-        } catch(e) {
+        } catch (e) {
           throw decl.error(`@prose-block takes 2 number parameters. (${e})`)
         }
 
@@ -119,7 +119,7 @@ const plugin = () => {
           if (params.length < 3) {
             throw new Error(`only ${params.length} parameter(s)`)
           }
-        } catch(e) {
+        } catch (e) {
           throw decl.error(`@prose-block takes 3 number parameters. (${e})`)
         }
 

@@ -1,10 +1,17 @@
 const svgToDataUri = require("mini-svg-data-uri")
 const plugin = require("tailwindcss/plugin")
-const { colors, spacing, borderWidth, borderRadius, outline } = require("tailwindcss/defaultTheme")
+const {
+  colors,
+  spacing,
+  borderWidth,
+  borderRadius,
+  outline,
+} = require("tailwindcss/defaultTheme")
 
-module.exports = plugin(function({addComponents, theme}) {
+module.exports = plugin(function ({addComponents, theme}) {
   const rules = {
     [[
+      // prettier-ignore
       ".form-input",
       ".form-textarea",
       ".form-select",
@@ -26,9 +33,12 @@ module.exports = plugin(function({addComponents, theme}) {
         "--tw-ring-offset-width": "0px",
         "--tw-ring-offset-color": "#fff",
         "--tw-ring-color": theme("colors.primary.DEFAULT", colors.blue[600]),
-        "--tw-ring-offset-shadow": "var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color)",
-        "--tw-ring-shadow": "var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color)",
-        boxShadow: "var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)",
+        "--tw-ring-offset-shadow":
+          "var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color)",
+        "--tw-ring-shadow":
+          "var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color)",
+        boxShadow:
+          "var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)",
         borderColor: theme("colors.primary.DEFAULT", colors.blue[600]),
       },
     },
@@ -96,9 +106,12 @@ module.exports = plugin(function({addComponents, theme}) {
         "--tw-ring-offset-width": "2px",
         "--tw-ring-offset-color": "#fff",
         "--tw-ring-color": theme("colors.primary.DEFAULT", colors.blue[600]),
-        "--tw-ring-offset-shadow": "var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color)",
-        "--tw-ring-shadow": "var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color)",
-        boxShadow: "var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)",
+        "--tw-ring-offset-shadow":
+          "var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color)",
+        "--tw-ring-shadow":
+          "var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color)",
+        boxShadow:
+          "var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)",
       },
 
       "&:checked:hover, &:checked:focus": {
@@ -154,6 +167,7 @@ module.exports = plugin(function({addComponents, theme}) {
 
       "&:focus": {
         outline: [
+          // prettier-ignore
           "1px solid ButtonText",
           "1px auto -webkit-focus-ring-color",
         ],

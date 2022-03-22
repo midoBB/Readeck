@@ -1,5 +1,6 @@
 const colors = require("tailwindcss/colors")
 
+// prettier-ignore
 var config = {
   purge: {
     content:[

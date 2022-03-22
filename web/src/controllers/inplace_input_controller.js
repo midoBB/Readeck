@@ -1,4 +1,4 @@
-import { Controller } from "@hotwired/stimulus"
+import {Controller} from "@hotwired/stimulus"
 
 import $ from "../lib/dq"
 import icon from "../lib/icon"

@@ -38,6 +38,7 @@
     "postcss-import": "^14.1.0",
     "postcss-preset-env": "^7.4.3",
     "postcss-selector-parser": "^6.0.9",
+    "prettier": "^2.6.0",
     "sass": "^1.49.9",
     "tailwindcss": "^2.2.19",
     "through2": "^4.0.2",

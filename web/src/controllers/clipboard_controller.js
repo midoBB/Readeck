@@ -1,13 +1,13 @@
-import { Controller } from "@hotwired/stimulus"
+import {Controller} from "@hotwired/stimulus"
 import $ from "../lib/dq"
 import icon from "../lib/icon"
 
 export default class extends Controller {
-  static get targets () {
+  static get targets() {
     return ["label", "content"]
   }
 
-  connect () {
+  connect() {
     $.E("button")
       .addClass("text-primary", "hf:text-primary-dark")
       .attr("type", "button")

@@ -1,11 +1,11 @@
-import { Controller } from "@hotwired/stimulus"
+import {Controller} from "@hotwired/stimulus"
 
 // This controller reload a given turbo-frame at a given interval
 // until it find a target named "loaded" in its content.
 // This replaces a meta refresh of the full page and can be used on
 // several frames on the same page.
 export default class extends Controller {
-  static get values () {
+  static get values() {
     return {
       // A CSS selector that triggers the refresh when present
       on: String,
@@ -16,9 +16,11 @@ export default class extends Controller {
     }
   }
 
-  connect () {
+  connect() {
     if (!this.onValue) {
-      throw new Error(`you must set data-${this.identifier}-on-value on the component`)
+      throw new Error(
+        `you must set data-${this.identifier}-on-value on the component`,
+      )
     }
 
     if (!this.hasSrcValue) {
@@ -33,14 +35,18 @@ export default class extends Controller {
     }
 
     this.observer = new MutationObserver(() => this.check())
-    this.observer.observe(this.element, { attributes: true, childList: true, subtree: true })
+    this.observer.observe(this.element, {
+      attributes: true,
+      childList: true,
+      subtree: true,
+    })
   }
 
-  disconnect () {
+  disconnect() {
     this.observer.disconnect()
   }
 
-  async check () {
+  async check() {
     await this.element.loaded
     if (this.isLoaded()) {
       return
@@ -55,10 +61,10 @@ export default class extends Controller {
 
       this.element.src = null
       this.timeout = null
-    }, this.intervalValue*1000)
+    }, this.intervalValue * 1000)
   }
 
-  isLoaded () {
+  isLoaded() {
     return this.element.querySelector(this.onValue) === null
   }
 }

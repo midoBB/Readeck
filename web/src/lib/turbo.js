@@ -1,7 +1,9 @@
 import * as Turbo from "@hotwired/turbo"
 const safeMethods = ["GET", "HEAD", "OPTIONS", "TRACE"]
 
-const csrfToken = document.querySelector('html>head>meta[name="x-csrf-token"]').content
+const csrfToken = document.querySelector(
+  'html>head>meta[name="x-csrf-token"]',
+).content
 
 Turbo.session.drive = false
 
@@ -21,5 +23,5 @@ document.addEventListener("turbo:submit-end", (evt) => {
   // attribute after form submission.
   evt.target
     .querySelectorAll("[data-turbo-empty-submit-end]")
-    .forEach(x => x.value = "")
+    .forEach((x) => (x.value = ""))
 })

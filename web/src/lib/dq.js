@@ -1,5 +1,5 @@
 function DQ(s, root) {
-  function q (s, root) {
+  function q(s, root) {
     root = root || document
     if (typeof s === "string") {
       return [...root.querySelectorAll(s)]
@@ -14,16 +14,17 @@ function DQ(s, root) {
 
   function applyTo(n, f) {
     if (n instanceof Text) {
-      iter(t => f(t, n))
+      iter((t) => f(t, n))
       return
     }
     n = DQ(n)
-    iter(t => n.each((e) => f(t, e)))
+    iter((t) => n.each((e) => f(t, e)))
   }
 
   let sel = q(s, root)
   let iter = sel.forEach.bind(sel)
 
+  // prettier-ignore
   return {
     each (f)                { iter(f); return this },
     css (k, v)              { iter(e => e.style[k] = v); return this },
@@ -61,6 +62,7 @@ function DQ(s, root) {
   }
 }
 
+// prettier-ignore
 DQ.E = (n, ns) => DQ(ns !== undefined ? document.createElementNS(ns, n) : document.createElement(n))
 DQ.T = (t) => document.createTextNode(t)
 

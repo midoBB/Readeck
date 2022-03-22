@@ -1,13 +1,13 @@
-import { Controller } from "@hotwired/stimulus"
+import {Controller} from "@hotwired/stimulus"
 import $ from "../lib/dq"
 import icon from "../lib/icon"
 
 export default class extends Controller {
-  static get targets () {
+  static get targets() {
     return ["field"]
   }
 
-  static get values () {
+  static get values() {
     return {
       iconShow: String,
       iconHide: String,
@@ -37,7 +37,7 @@ export default class extends Controller {
     // to password on form submit.
     let f = this.fieldTarget.closest("form")
     if (f !== null) {
-      f.addEventListener("submit", evt => {
+      f.addEventListener("submit", (evt) => {
         this.fieldTarget.setAttribute("type", "password")
       })
     }

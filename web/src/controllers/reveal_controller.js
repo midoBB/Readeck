@@ -1,17 +1,17 @@
-import { Controller } from "@hotwired/stimulus"
+import {Controller} from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static get targets () {
+  static get targets() {
     return ["trigger", "content"]
   }
-  static get values () {
+  static get values() {
     return {
       visible: Boolean,
     }
   }
 
-  connect () {
-    this.triggerTargets.forEach(e => {
+  connect() {
+    this.triggerTargets.forEach((e) => {
       e.style.cursor = "pointer"
       e.setAttribute("data-action", `click->${this.identifier}#toggle`)
     })
@@ -19,9 +19,9 @@ export default class extends Controller {
 
   visibleValueChanged() {
     if (this.visibleValue) {
-      this.contentTargets.forEach(e => e.style.display = "")
+      this.contentTargets.forEach((e) => (e.style.display = ""))
     } else {
-      this.contentTargets.forEach(e => e.style.display = "none")
+      this.contentTargets.forEach((e) => (e.style.display = "none"))
     }
   }
 

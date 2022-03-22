@@ -24,8 +24,7 @@ import through from "through2"
 
 import {stimulusPlugin} from "esbuild-plugin-stimulus"
 
-
-const DEST=path.resolve("../assets/www")
+const DEST = path.resolve("../assets/www")
 
 const sassCompiler = gulpSass(sass)
 
@@ -42,8 +41,12 @@ function hashName() {
 // It pushes the resulting file to the stream with an added suffix
 // (.gz or .br).
 function destCompress(format) {
-  return through.obj(function(file, _, done) {
-    if (file.isNull() || file._isCompressed || path.extname(file.basename) == ".map") {
+  return through.obj(function (file, _, done) {
+    if (
+      file.isNull() ||
+      file._isCompressed ||
+      path.extname(file.basename) == ".map"
+    ) {
       return done(null, file)
     }
 
@@ -53,12 +56,12 @@ function destCompress(format) {
     }
 
     let options, fn
-    let cf = file.clone({deep:true, contents: true})
+    let cf = file.clone({deep: true, contents: true})
     cf.basename = `${cf.basename}.${format}`
 
     if (format == "gz") {
       options = {
-        level:9,
+        level: 9,
       }
       fn = zlib.gzip
     } else if (format == "br") {
@@ -89,7 +92,7 @@ function destCompress(format) {
 
 // cleanFiles calls del() with some default options.
 function cleanFiles(...args) {
-  return del(args, {cwd:DEST, force:true})
+  return del(args, {cwd: DEST, force: true})
 }
 
 // clean_js remove the JS assets.
@@ -117,6 +120,7 @@ function clean_manifest() {
 // clean delete files in the destination folder
 function clean_all(done) {
   return gulp.series(
+    // prettier-ignore
     clean_js,
     clean_css,
     clean_media,
@@ -128,21 +132,21 @@ function clean_all(done) {
 function js_bundle() {
   return gulp
     .src("src/main.js")
-    .pipe(gulpEsbuild({
-      sourcemap: "inline",
-      outfile: "bundle.js",
-      bundle: true,
-      format: "esm",
-      platform: "browser",
-      metafile: false,
-      minifyIdentifiers: true,
-      minifyWhitespace: true,
-      logLevel: "warning",
-      plugins: [
-        stimulusPlugin(),
-      ],
-    }))
-    .pipe(gulpSourcemaps.init({loadMaps:true})) // This extracts the inline sourcemap
+    .pipe(
+      gulpEsbuild({
+        sourcemap: "inline",
+        outfile: "bundle.js",
+        bundle: true,
+        format: "esm",
+        platform: "browser",
+        metafile: false,
+        minifyIdentifiers: true,
+        minifyWhitespace: true,
+        logLevel: "warning",
+        plugins: [stimulusPlugin()],
+      }),
+    )
+    .pipe(gulpSourcemaps.init({loadMaps: true})) // This extracts the inline sourcemap
     .pipe(hashName())
     .pipe(gulpSourcemaps.write("."))
     .pipe(destCompress("gz"))
@@ -178,6 +182,7 @@ function css_bundle() {
 
   return gulp
     .src([
+      // prettier-ignore
       "ui/index.sass",
     ])
     .pipe(gulpSourcemaps.init())
@@ -201,6 +206,7 @@ function css_epub() {
 
   return gulp
     .src([
+      // prettier-ignore
       "ui/epub/stylesheet.sass",
     ])
     .pipe(gulpSourcemaps.init())
@@ -217,25 +223,29 @@ function icon_sprite() {
 
   return gulp
     .src(Object.values(icons))
-    .pipe(gulpRename((file, f) => {
-      // Set new filename on each entry in order to set
-      // a chosen ID on each symbol.
-      let p = path.relative(f.cwd, f.path)
-      let id = Object.entries(icons).find(x => x[1] == p)[0]
-      file.basename = id
-    }))
-    .pipe(gulpCheerio({
-      // Force viewBox attribute when missing
-      run: ($) => {
-        let e = $("svg")
-        if (e.attr("viewBox") === undefined) {
-          let w = e.attr("width") || "24"
-          let h = e.attr("height") || "24"
-          e.attr("viewBox", `0 0 ${w} ${h}`)
-        }
-      },
-      parserOptions: { xmlMode: true },
-    }))
+    .pipe(
+      gulpRename((file, f) => {
+        // Set new filename on each entry in order to set
+        // a chosen ID on each symbol.
+        let p = path.relative(f.cwd, f.path)
+        let id = Object.entries(icons).find((x) => x[1] == p)[0]
+        file.basename = id
+      }),
+    )
+    .pipe(
+      gulpCheerio({
+        // Force viewBox attribute when missing
+        run: ($) => {
+          let e = $("svg")
+          if (e.attr("viewBox") === undefined) {
+            let w = e.attr("width") || "24"
+            let h = e.attr("height") || "24"
+            e.attr("viewBox", `0 0 ${w} ${h}`)
+          }
+        },
+        parserOptions: {xmlMode: true},
+      }),
+    )
     .pipe(gulpSvgStore())
     .pipe(gulpRename("img/icons.svg"))
     .pipe(hashName())
@@ -247,16 +257,18 @@ function icon_sprite() {
 function generate_favicons() {
   return gulp
     .src("./media/img/favicon.svg")
-    .pipe(gulpFavicons({
-      icons: {
-        android: false,
-        apple: true,
-        appleStartup: false,
-        favicon: true,
-      },
-      verbose: true,
-      headers: false,
-    }))
+    .pipe(
+      gulpFavicons({
+        icons: {
+          android: false,
+          apple: true,
+          appleStartup: false,
+          favicon: true,
+        },
+        verbose: true,
+        headers: false,
+      }),
+    )
     .pipe(gulp.dest("./media/favicons"))
 }
 
@@ -323,12 +335,12 @@ async function write_manifest(done) {
   })
 }
 
-
 // ------------------------------------------------------------------
 // Gulp pipelines
 // ------------------------------------------------------------------
 
 const full_build = gulp.series(
+  // prettier-ignore
   clean_all,
   gulp.parallel(
     js_bundle,
@@ -342,6 +354,7 @@ const full_build = gulp.series(
 )
 
 function watch_js() {
+  // prettier-ignore
   gulp.watch(
     ["src/**/*"],
     gulp.series(
@@ -353,6 +366,7 @@ function watch_js() {
 }
 
 function watch_css() {
+  // prettier-ignore
   gulp.watch(
     ["tailwind.config.js", "ui/**/*", "../assets/templates/**/*.jet.html"],
     gulp.series(
@@ -365,6 +379,7 @@ function watch_css() {
 }
 
 function watch_media() {
+  // prettier-ignore
   gulp.watch(
     ["media/**/*"],
     gulp.series(
@@ -391,6 +406,7 @@ exports["watch:js"] = watch_js
 exports.dev = gulp.series(
   full_build,
   gulp.parallel(
+    // prettier-ignore
     watch_js,
     watch_css,
     watch_media,

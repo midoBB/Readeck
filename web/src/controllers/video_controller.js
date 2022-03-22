@@ -1,8 +1,8 @@
-import { Controller } from "@hotwired/stimulus"
+import {Controller} from "@hotwired/stimulus"
 import $ from "../lib/dq"
 
 export default class extends Controller {
-  static get values () {
+  static get values() {
     return {
       embed: String,
     }
@@ -20,7 +20,7 @@ export default class extends Controller {
     let w = parseInt(this.ifr.getAttr("width")) || 0
     let h = parseInt(this.ifr.getAttr("height")) || 0
     if (w > 0 && h > 0) {
-      this.element.style.paddingTop = `${100 * h / w}%`
+      this.element.style.paddingTop = `${(100 * h) / w}%`
     }
 
     this.playBtn = $.E("div")
@@ -34,4 +34,4 @@ export default class extends Controller {
     $("img", this.element).remove()
     this.ifr.appendTo(this.element)
   }
-};
+}

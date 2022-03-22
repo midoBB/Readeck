@@ -23,7 +23,6 @@ build:
 		-tags "$(BUILD_TAGS)" \
 		-ldflags="$(VERSION_FLAGS) -s -w" \
 		-o dist/readeck
-	upx --best --lzma -v --no-progress dist/readeck
 
 # Build the server with only PG support (full static)
 .PHONY: build-pg
@@ -32,7 +31,6 @@ build-pg:
 		-tags "$(BUILD_TAGS) without_sqlite" \
 		-ldflags="$(VERSION_FLAGS) -s -w" \
 		-o dist/readeck_pg
-	upx --best --lzma -v --no-progress dist/readeck_pg
 
 # Build the server in dev mode, without compiling the assets
 .PHONY: build-dev

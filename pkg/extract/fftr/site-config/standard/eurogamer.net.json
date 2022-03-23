@@ -9,7 +9,11 @@
   "author_selectors": [
     "//a[@itemprop='author']/text()"
   ],
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//figure[contains(@class, 'video')]",
+    "//div[contains(@class, 'onetrust-placeholder')]",
+    "//div[contains(@class, 'supporter-article-promo')]"
+  ],
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,

@@ -12,7 +12,9 @@
   "strip_selectors": [
     "//*[contains(@class, 'styled__Sidebar)]",
     "//*[contains(@class, 'styled__GuideNav)]",
-    "//*[contains(@class, 'SocialMetaWrapper')]"
+    "//*[contains(@class, 'SocialMetaWrapper')]",
+    "//button",
+    "//div[contains(@class, 'styled__GuideNav')]"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,

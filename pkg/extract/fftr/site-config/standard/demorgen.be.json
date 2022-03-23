@@ -1,6 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
+    "//header[@data-element-id=\"article-element-header\"] | //section[contains(@class, 'artstyle__main--container')]",
     "//article[@class='artstyle fu--type-default artstyle--type-default']"
   ],
   "date_selectors": [
@@ -10,9 +11,10 @@
     "//a[@class='artstyle__byline__author']"
   ],
   "strip_selectors": [
+    "//h1[@data-element-id=\"article-element-headertitle\"]",
     "//h4[@class='artstyle__labels']",
     "//section[@data-element-id='article-element-authors']",
-    "//aside[@class='artstyle__editorial-tips']"
+    "//aside"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -24,7 +26,7 @@
   "next_page_link_selectors": null,
   "replace_strings": null,
   "http_headers": {
-    "cookie": "pws=functional|analytics|content_recommendation|targeted_advertising|social_media; pwv=1"
+    "cookie": "authId=1; pws=functional|analytics|content_recommendation|targeted_advertising|social_media; pwv=1"
   },
   "tests": [
     {

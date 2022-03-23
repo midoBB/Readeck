@@ -19,7 +19,9 @@
     "//link[@rel='next']"
   ],
   "replace_strings": null,
-  "http_headers": null,
+  "http_headers": {
+    "user-agent": "PHP/7.4"
+  },
   "tests": [
     {
       "url": "http://t3n.de/news/zukunftstag-2017-t3n-818436/",

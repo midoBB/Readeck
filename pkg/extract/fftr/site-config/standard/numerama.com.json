@@ -3,12 +3,15 @@
     "//div[@class=\"post-title\"]//h1"
   ],
   "body_selectors": [
-    "//article[@class='post-content']"
+    "//div[contains(@class, 'post-content')]"
   ],
   "date_selectors": null,
-  "author_selectors": null,
+  "author_selectors": [
+    "//article//div[contains(@class, 'is-hidden-mobile')]//a[contains(@href, 'https://www.numerama.com/author/')][contains(@class, 'is-family-secondary')]"
+  ],
   "strip_selectors": [
     "//span[@class='summary-entry']",
+    "//div[contains(@class, 'article-footer')]",
     "//footer",
     "//noscript",
     "//div[@class=\"embedded-tag-container\"]",
@@ -16,7 +19,8 @@
     "//a[contains(@class, 'humanoid-videos__video-title')]"
   ],
   "strip_id_or_class": [
-    "js-cookies-bar"
+    "js-cookies-bar",
+    "index-menu"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -33,6 +37,10 @@
   ],
   "http_headers": null,
   "tests": [
+    {
+      "url": "https://www.numerama.com/sciences/818229-une-loi-mathematique-a-ete-decouverte-dans-les-dunes-de-sable-sur-terre-et-sur-mars.html",
+      "contains": []
+    },
     {
       "url": "http://www.numerama.com/sciences/243352-hubble-detecte-un-trou-noir-supermassif-propulse-hors-de-sa-galaxie.html",
       "contains": []

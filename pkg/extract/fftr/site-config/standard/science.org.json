@@ -1,0 +1,32 @@
+{
+  "title_selectors": [
+    "//h1[@class='news-article__hero__title']"
+  ],
+  "body_selectors": [
+    "//article[@class='news-article-content']"
+  ],
+  "date_selectors": [
+    "//span[@class='news-article__hero__date']",
+    "//ul[contains(concat(' ',normalize-space(@class),' '),' news-article__hero__bottom-meta ')]/li[1]"
+  ],
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": {
+    "Cookie": "cookiePolicy=iaccept; I2KBRCK=1"
+  },
+  "tests": [
+    {
+      "url": "https://www.science.org/content/blog-post/hiring-away",
+      "contains": []
+    }
+  ]
+}

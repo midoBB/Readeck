@@ -9,10 +9,10 @@
     "//time[contains(concat(' ',normalize-space(@class),' '),' c-byline__item ')]"
   ],
   "author_selectors": null,
-  "strip_selectors": [
-    "//h3"
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "c-read-more"
   ],
-  "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

@@ -3,7 +3,7 @@
     "//head/title"
   ],
   "body_selectors": [
-    "//div[contains(@class, 'post-content')]"
+    "//div[contains(@class, 'js_post-content')]"
   ],
   "date_selectors": null,
   "author_selectors": [

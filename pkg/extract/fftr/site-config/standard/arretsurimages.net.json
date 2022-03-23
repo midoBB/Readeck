@@ -1,18 +1,24 @@
 {
   "title_selectors": [
-    "//div[@id=\"titrage-contenu\"]/h1[@class=\"title\"]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' article-body ')]/h1"
   ],
   "body_selectors": [
-    "//div[@class=\"contenu-html\"]/div[@class=\"page-pane\"]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' article-body ')]"
   ],
-  "date_selectors": null,
+  "date_selectors": [
+    "//time[contains(concat(' ',normalize-space(@class),' '),' publication-date ')]/@datetime"
+  ],
   "author_selectors": [
-    "//div[@id=\"titrage-contenu\"]//a[starts-with(@href,'/recherche.php?auteur_id=')]"
+    "//li[contains(concat(' ',normalize-space(@class),' '),' author-name ')]/a[contains(concat(' ',normalize-space(@class),' '),' name-link ')]"
   ],
   "strip_selectors": [
-    "//aside[@class=\"article-aside-teaser\"]"
+    "//aside"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "mobile-only",
+    "article-header",
+    "content-stamp-component"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

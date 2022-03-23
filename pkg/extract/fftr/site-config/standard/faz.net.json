@@ -23,7 +23,8 @@
     "//a[@title='Zur Homepage FAZ.NET']",
     "//iframe",
     "//div[contains(@style, 'background-image')]",
-    "//img[@width='1']"
+    "//img[@width='1']",
+    "//footer[@class='tsr-Base_ContentMeta']"
   ],
   "strip_id_or_class": [
     "ArticlePagerTop",
@@ -72,7 +73,12 @@
     "VideoBox",
     "mmoObjectAsTeaserInArticle",
     "additionalStylesAudioVideo",
-    "hideMMElements"
+    "hideMMElements",
+    "js-aco-ContentPayment_Content",
+    "js-aco-ContentPayment_Panel",
+    "aco-ContentPayment_Link",
+    "mm-adbox",
+    "aut-Teaser"
   ],
   "strip_image_src": [
     "/l.gif?"
@@ -115,6 +121,10 @@
     },
     {
       "url": "https://www.faz.net/aktuell/feuilleton/debatten/keine-smart-city-in-toronto-google-stadt-ist-abgesagt-16763217.html?GEPC=s5",
+      "contains": []
+    },
+    {
+      "url": "https://www.faz.net/aktuell/wirtschaft/wohnen/christian-voelkers-der-immobilienmakler-der-superreichen-17778869.html",
       "contains": []
     }
   ]

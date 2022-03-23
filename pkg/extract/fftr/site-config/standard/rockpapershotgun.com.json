@@ -1,6 +1,6 @@
 {
   "title_selectors": [
-    "//h2"
+    "//h1[@class='title']"
   ],
   "body_selectors": null,
   "date_selectors": [
@@ -10,7 +10,8 @@
     "//p[@class='info']//a"
   ],
   "strip_selectors": [
-    "//div[ contains(@class, 'respond') ]  |  //h2  |  //h1"
+    "//div[ contains(@class, 'respond') ]  |  //h2  |  //h1",
+    "//div[ contains(@class, 'blue_billywig') ]"
   ],
   "strip_id_or_class": [
     "social",

@@ -1,7 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' news-news-content ')]"
+    "//article[contains(concat(' ',normalize-space(@class),' '),' article ')]//div[contains(concat(' ',normalize-space(@class),' '),' content ')]"
   ],
   "date_selectors": [
     "//meta[@itemprop=\"datePublished\"]/@content"
@@ -10,7 +10,13 @@
     "//meta[@name=\"author\"]/@content"
   ],
   "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "shoppingList",
+    "followUs",
+    "readmore",
+    "refurbStoreList",
+    "lastVideoList"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -22,7 +28,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.mac4ever.com/actu/104137_kim-kardashian-et-ses-soeurs-etaient-a-l-apple-store-de-soho-pour-presenter-leur-nouvelle-app",
+      "url": "https://www.mac4ever.com/actu/104137_kim-kardashian-et-ses-soeurs-etaient-a-l-apple-store-de-soho-pour-presenter-leur-nouvelle-app",
       "contains": []
     }
   ]

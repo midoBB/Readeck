@@ -12,7 +12,10 @@
     "//meta[@name='author']/@content"
   ],
   "strip_selectors": [
-    "//div[contains(@class, 'mediaCon')]//iframe"
+    "//div[contains(@class, 'mediaCon')]//iframe",
+    "//div[contains(@class, 'copytext__video')]",
+    "//div[contains(@class, 'copytext__audio')]",
+    "//div[contains(@class, 'meldungsfooter')]"
   ],
   "strip_id_or_class": [
     "infokasten",
@@ -28,7 +31,12 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "\u003cimg class=\"id-card__img\"",
+      "\u003cimg class=\"id-card__img\" width=\"128\" height=\"128\""
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {

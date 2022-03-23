@@ -47,10 +47,12 @@
     "a-pvg__body",
     "teaser_adliste",
     "a-article-header__service",
-    "legacy-img",
     "opinary-widget-embed",
     "article-sidebar",
-    "ad_"
+    "a-box__header",
+    "a-article-teaser",
+    "ad_",
+    "a-box"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

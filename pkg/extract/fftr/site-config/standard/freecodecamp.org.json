@@ -1,0 +1,37 @@
+{
+  "title_selectors": [
+    "//h1[contains(concat(' ',normalize-space(@class),' '),' post-full-title ')]"
+  ],
+  "body_selectors": [
+    "//section[contains(concat(' ',normalize-space(@class),' '),' post-content ')]"
+  ],
+  "date_selectors": [
+    "//time[contains(concat(' ',normalize-space(@class),' '),' post-full-meta-date ')]"
+  ],
+  "author_selectors": [
+    "//span[contains(concat(' ',normalize-space(@class),' '),' author-card-name ')]/a/text()"
+  ],
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "kg-embed-card"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.freecodecamp.org/news/how-to-manage-state-in-your-react-apps/",
+      "contains": []
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/learn-c-with-free-31-hour-course/",
+      "contains": []
+    }
+  ]
+}

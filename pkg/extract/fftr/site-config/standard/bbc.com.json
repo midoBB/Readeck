@@ -43,7 +43,8 @@
     "//section[@data-component=\"tag-list\"]",
     "//section[@data-component=\"see-alsos\"]",
     "//figcaption",
-    "//aside[contains(@class, 'sp-pullout')]"
+    "//aside[contains(@class, 'sp-pullout')]",
+    "//section[contains(@class, 'LinksWrapper')]"
   ],
   "strip_id_or_class": [
     "image-and-copyright-container",

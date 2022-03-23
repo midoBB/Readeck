@@ -3,6 +3,7 @@
     "//meta[@property=\"og:title\"]/@content"
   ],
   "body_selectors": [
+    "//div[@data-testid=\"ArticlePageChunks\"]",
     "//div[contains(@class, 'article__chunks') or contains(@class, 'content-header__dek')]",
     "(//article[contains(@class, 'body-copy')])[1]",
     "(//article[contains(@class, 'article-body-component')])[1]",
@@ -20,7 +21,8 @@
     "//div[@class='desc' or @class='slide' or @id='slide-info']",
     "//*[contains(concat(' ',normalize-space(@class),' '),' callout ')]",
     "//div[@id=\"social\"]",
-    "//img[contains(@alt, 'capital letter')]"
+    "//img[contains(@alt, 'capital letter')]",
+    "//hr[last()]/following::*"
   ],
   "strip_id_or_class": [
     "full-bleed-ad",
@@ -36,6 +38,7 @@
     "recirc-most-popular",
     "callout--has-top-border",
     "newsletter-subscribe-form",
+    "iframe-embed",
     "wpgallery"
   ],
   "strip_image_src": null,

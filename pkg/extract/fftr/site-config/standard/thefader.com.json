@@ -1,0 +1,32 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' content_blocks ')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//div[contains(concat(\" \",normalize-space(@class),\" \"),\" ad \")]"
+  ],
+  "strip_id_or_class": [
+    "custom_share_buttons_top",
+    "new_socials_bottom"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.thefader.com/2016/06/01/argentina-soccer-hooligan-murders-old-boys-barra-brava",
+      "contains": [
+        "ram themselves into supporters of other clubs"
+      ]
+    }
+  ]
+}

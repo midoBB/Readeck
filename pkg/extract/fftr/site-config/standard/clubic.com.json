@@ -17,6 +17,7 @@
   ],
   "strip_id_or_class": [
     "breadcrumb",
+    "breadcrumbs-tags",
     "kadmer-ad",
     "slideshow-head",
     "parse-shopper-resume-produit",

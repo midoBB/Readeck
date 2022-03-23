@@ -16,7 +16,10 @@
     "//li[@class='next']",
     "//span[@class='articleLocation']"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "related-container",
+    "share-in-article-container"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

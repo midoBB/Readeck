@@ -7,16 +7,19 @@
     "//header[contains(concat(' ',normalize-space(@class),' '),' o-page__content__head ')]//div[contains(concat(' ',normalize-space(@class),' '),' o-infos ')]//time[contains(concat(' ',normalize-space(@class),' '),' o-infos__date ')]"
   ],
   "author_selectors": [
-    "//header//a[contains(@href, '/users/')]"
+    "//header//a[contains(@href, '/users/')] | //header//div[contains(@class, \"c-portrait__infos\")]"
   ],
   "strip_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' o-page__footer ')]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' o-page__footer ')]",
+    "//noscript"
   ],
   "strip_id_or_class": [
     "c-same-subject",
+    "o-head",
     "c-kiosk--single",
     "o-page__footer",
     "o-page__figure__trigger",
+    "o-view-more",
     "c-comments",
     "c-epigraph"
   ],

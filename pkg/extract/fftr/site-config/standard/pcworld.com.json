@@ -1,11 +1,13 @@
 {
   "title_selectors": [
-    "//div[@class='articleHead']//h1"
+    "//h1[@class=\"entry-title\"]"
   ],
   "body_selectors": [
-    "//div[@class=\"main\"]"
+    "//div[@class=\"entry-content\"]"
   ],
-  "date_selectors": null,
+  "date_selectors": [
+    "//time[contains(concat(' ',normalize-space(@class), ' '), ' entry-date ')]/@datetime"
+  ],
   "author_selectors": [
     "//div[@class=\"author-name\"]/a[1]"
   ],
@@ -30,7 +32,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.pcworld.com/article/262034/are-printer-companies-gouging-us-on-laser-toner-pricing.html",
+      "url": "https://www.pcworld.com/article/262034/are-printer-companies-gouging-us-on-laser-toner-pricing.html",
       "contains": []
     }
   ]

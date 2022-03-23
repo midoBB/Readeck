@@ -1,16 +1,12 @@
 {
-  "title_selectors": [
-    "//head/title"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, 'post-content')]"
+    "//article"
   ],
   "date_selectors": null,
-  "author_selectors": [
-    "//meta[@name=\"author\"]/@content"
-  ],
+  "author_selectors": null,
   "strip_selectors": [
-    "//div[contains(@class, 'content-summary')]"
+    "//svg"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -24,7 +20,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://music.avclub.com/paul-williams-on-the-enduring-magic-and-no-longer-lost-1830862575",
+      "url": "https://www.riffreporter.de/de/wissen/klimakrise-artensterben-biodiversitaet-droht-sechstes-massenaussterben",
       "contains": []
     }
   ]

@@ -3,6 +3,7 @@
     "//meta[@property='og:title']/@content"
   ],
   "body_selectors": [
+    "//div[@class='summary' or contains(@class, 'article-body') or @class='byline']",
     "//main/article/div[@itemprop='articleBody']",
     "//div[contains(concat(' ',normalize-space(@class),' '),' article-page ')]",
     "//main/article/div[@class='article__wrap']"
@@ -23,6 +24,7 @@
     "//a[contains(@title, 'Dieser Artikel ')]",
     "//span[@class='figure__text']/text()[contains(., 'Dieser Text ')]",
     "//span[@class='figure__text']/text()[contains(., 'Dieser Artikel ')]",
+    "//h2[@class='visually-hidden']",
     "//a[@href='#']",
     "//form[@id='newsletter-teaser-form']",
     "//figure[@data-video-provider=\"brightcove\"]",
@@ -58,7 +60,8 @@
     ]
   ],
   "http_headers": {
-    "Cookie": "zonconsent=2022-09-03T19:45:59.150Z"
+    "Cookie": "zonconsent=2022-09-03T19:45:59.150Z",
+    "user-agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
   },
   "tests": [
     {

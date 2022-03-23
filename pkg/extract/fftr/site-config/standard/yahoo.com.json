@@ -12,7 +12,9 @@
   ],
   "strip_id_or_class": [
     "img-mask",
-    "StretchedBox"
+    "StretchedBox",
+    "module-spotIm",
+    "module-moreStories"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

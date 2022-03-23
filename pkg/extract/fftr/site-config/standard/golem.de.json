@@ -46,7 +46,8 @@
   ],
   "replace_strings": null,
   "http_headers": {
-    "Cookie": "golem_consent20=cmp|210630"
+    "Cookie": "golem_consent20=cmp|220101",
+    "user-agent": "Googlebot"
   },
   "tests": [
     {

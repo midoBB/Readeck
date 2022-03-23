@@ -1,21 +1,18 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//article[contains(@class, 'c-flex-article')]",
-    "//article//div[contains(@clss, 'article__content')]"
+    "//div[contains(@class, 'c-content-single-flexible-layout__body') or contains(@class, 'c-layout-text__body') or contains(@class, 'c-layout-image__container')]"
   ],
-  "date_selectors": [
-    "//meta[@property=\"article:published_time\"]/@content"
-  ],
-  "author_selectors": [
-    "//meta[@name=\"author\"]/@content"
-  ],
+  "date_selectors": null,
+  "author_selectors": null,
   "strip_selectors": [
-    "//a[@data-pin-custom=\"true\"]"
+    "//aside",
+    "//blockquote[contains(@class, 'pullquote')]"
   ],
   "strip_id_or_class": [
-    "block-recirc",
-    "social"
+    "c-social-share",
+    "o-content-cta",
+    "tangent--show-text"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -26,18 +23,18 @@
   "next_page_link_selectors": null,
   "replace_strings": [
     [
-      "data-original=\"http",
+      "data-src=\"http",
       "src=\"http"
     ]
   ],
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.outsideonline.com/2108066/emerald-citys-velo-thieves-have-problem-bike-batman",
+      "url": "https://www.outsideonline.com/culture/essays-culture/money-problems-outdoor-dirtbag-culture/",
       "contains": []
     },
     {
-      "url": "https://www.outsideonline.com/2412303/mike-shattuck-running-bipolar",
+      "url": "https://www.outsideonline.com/health/running/mike-shattuck-running-bipolar/",
       "contains": []
     }
   ]

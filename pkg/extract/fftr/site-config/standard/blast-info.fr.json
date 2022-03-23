@@ -1,18 +1,21 @@
 {
   "title_selectors": [
-    "//h2[1]"
+    "//h1"
   ],
   "body_selectors": [
     "//div[contains(@class, 'story-container')]"
   ],
-  "date_selectors": null,
+  "date_selectors": [
+    "//aside[contains(@class, 'story-meta-right')]//time/@datetime"
+  ],
   "author_selectors": [
     "//div[contains(@class, 'story-meta-author')]"
   ],
   "strip_selectors": [
     "//p[contains(@class, 'authors')]",
     "//div[@class=\"story-tags\"]",
-    "//div[@class=\"story-related\"]"
+    "//div[@class=\"story-related\"]",
+    "//header//div[contains(@class, 'btag')]"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,

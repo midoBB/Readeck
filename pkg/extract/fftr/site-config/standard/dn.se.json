@@ -1,30 +1,22 @@
 {
-  "title_selectors": [
-    "//h1[contains(@class, 'article__headline')]"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, 'article__body-content') or contains(@class, 'article__lead') or contains(@class, 'image-box__container')]",
-    "//div[@id=\"article-content\"]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' article__content ')] | //div[contains(concat(' ',normalize-space(@class),' '),' article__premium-content ')]"
   ],
-  "date_selectors": [
-    "substring(substring-after(//p[@class=\"published\"], 'Publicerad '), 0, 11)"
-  ],
-  "author_selectors": [
-    "//div[@id=\"byline\"]/div/p/strong"
-  ],
+  "date_selectors": null,
+  "author_selectors": null,
   "strip_selectors": [
-    "//div[@id=\"mirrors\"]"
+    "//div[@data-access=\"limited\"]",
+    "//div[@role=\"toolbar\"]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' author ')]",
+    "//footer"
   ],
   "strip_id_or_class": [
-    "advert-space",
-    "fbc-recommend",
-    "recommend",
-    "article-readers",
-    "article-addons",
-    "hook",
-    "footer",
-    "ad-head",
-    "atc-share-title"
+    "paywall-container",
+    "paywall__container",
+    "newsletter-in-article",
+    "article__tools",
+    "author--top"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -33,16 +25,7 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": [
-    [
-      "\u003cnoscript\u003e",
-      "\u003c!-- removed --\u003e"
-    ],
-    [
-      "\u003c/noscript\u003e",
-      "\u003c!-- removed --\u003e"
-    ]
-  ],
+  "replace_strings": null,
   "http_headers": null,
   "tests": [
     {

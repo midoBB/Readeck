@@ -1,61 +1,60 @@
-@layer components
-  .layout\:nav
-    &>div
-      @apply max-w-view mx-auto px-4 py-2
+.layout\:nav
+  &>div
+    @apply max-w-view mx-auto px-4 py-2
 
-  .layout\:app
-    @apply min-h-screen max-w-view mx-auto flex px-4
-    @apply +md:block
+.layout\:app
+  @apply min-h-screen max-w-view mx-auto flex px-4
+  @apply +md:block
 
 
-  .layout\:sidebar
-    @apply sticky top-0
-    @apply overflow-y-auto max-h-screen
-    @apply z-20
-    @apply w-48 flex-shrink-0 mr-4
-    @apply +md:w-full +md:-mx-4 +md:px-4 +md:fixed +md:bottom-0 +md:top-auto
+.layout\:sidebar
+  @apply sticky top-0
+  @apply overflow-y-auto max-h-screen
+  @apply z-20
+  @apply w-48 flex-shrink-0 mr-4
+  @apply +md:w-full +md:-mx-4 +md:px-4 +md:fixed +md:bottom-0 +md:top-auto
 
-  .layout\:main
-    @apply flex-grow
-    @apply pt-4 pb-8
+.layout\:main
+  @apply flex-grow
+  @apply pt-4 pb-8
 
-@layer components
-  .sidebar\:toggle
-    @apply hidden +md:inline-flex
-    @apply fixed z-30 w-12 h-12 bottom-2 left-2
-    @apply items-center justify-center py-2
-    @apply cursor-pointer select-none
 
-  .sidebar\:ctrl
-    display: none
+.sidebar\:toggle
+  @apply hidden +md:inline-flex
+  @apply fixed z-30 w-12 h-12 bottom-2 left-2
+  @apply items-center justify-center py-2
+  @apply cursor-pointer select-none
 
-  .sidebar\:ctrl:not(:checked) + .layout\:sidebar
-    @apply +md:hidden
+.sidebar\:ctrl
+  display: none
 
-  .sidebar\:title
-    @apply uppercase data-current:font-bold
+.sidebar\:ctrl:not(:checked) + .layout\:sidebar
+  @apply +md:hidden
 
-  .sidebar\:link
-    @apply hf:text-primary data-current:font-bold data-current:text-primary-dark
-    @apply +md:hf:text-primary data-current:font-bold +md:data-current:text-primary-light
-    @apply block leading-none py-1 pl-1 mb-1 border-l-2 border-transparent hf:border-primary data-current:border-primary-dark
-    @apply +md:mb-2 +md:text-lg
+.sidebar\:title
+  @apply uppercase data-current:font-bold
 
-    .svgicon svg
-      @apply w-5 h-5
+.sidebar\:link
+  @apply hf:text-primary data-current:font-bold data-current:text-primary-dark
+  @apply +md:hf:text-primary data-current:font-bold +md:data-current:text-primary-light
+  @apply block leading-none py-1 pl-1 mb-1 border-l-2 border-transparent hf:border-primary data-current:border-primary-dark
+  @apply +md:mb-2 +md:text-lg
 
-  .sidebar\:subtitle
-    padding-left: calc(.25rem + 2px)
-    @apply font-semibold
+  .svgicon svg
+    @apply w-5 h-5
 
-@layer components
-  .nav\:link
-    @apply font-semibold block py-3 px-2.5 rounded-full
-    @apply hf:bg-black hf:bg-opacity-30 hf:ring-1 hf:ring-white
-    @apply data-current:bg-black data-current:bg-opacity-50
+.sidebar\:subtitle
+  padding-left: calc(.25rem + 2px)
+  @apply font-semibold
 
-  .menu\:ctrl
-    display: none
 
-  .menu\:ctrl:not(:checked) + ul
-    display: none
+.nav\:link
+  @apply font-semibold block py-3 px-2.5 rounded-full
+  @apply hf:bg-black hf:bg-opacity-30 hf:ring-1 hf:ring-white
+  @apply data-current:bg-black data-current:bg-opacity-50
+
+.menu\:ctrl
+  display: none
+
+.menu\:ctrl:not(:checked) + ul
+  display: none

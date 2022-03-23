@@ -2,23 +2,17 @@ const colors = require("tailwindcss/colors")
 
 // prettier-ignore
 var config = {
-  purge: {
-    content:[
-      "src/**/*.js",
-      "../assets/templates/**/*.jet.html",
-    ],
-    options: {
-      safelist: [],
-    },
-  },
-  darkMode: false, // or 'media' or 'class'
+  content: [
+    "src/**/*.js",
+    "../assets/templates/**/*.jet.html",
+  ],
   theme: {
     colors: {
       transparent: "transparent",
       current: "currentColor",
       black: colors.black,
       white: colors.white,
-      gray: colors.warmGray,
+      gray: colors.stone,
       red: colors.red,
       green: colors.lime,
       blue: colors.sky,
@@ -68,9 +62,6 @@ var config = {
       height: {
         "max-content": "max-content",
       },
-      outline: {
-        "std": "1px dotted #666666",
-      },
       padding: {
         "16/9": "56.25%",
       },
@@ -80,90 +71,6 @@ var config = {
       maxWidth: {
         "view": "72rem",
       },
-    },
-  },
-  variants: {
-    extend: {
-      backgroundColor: [
-        "data-current",
-        "group-hf",
-        "group-focus-within",
-        "hf",
-      ],
-      backgroundOpacity: [
-        "data-current",
-        "group-hf",
-        "hf",
-      ],
-      borderColor: [
-        "data-current",
-        "group-hf",
-        "hf",
-      ],
-      borderOpacity: [
-        "group-hf",
-        "hf",
-      ],
-      boxShadow: [
-        "group-hf",
-        "hf",
-      ],
-      brightness: [
-        "group-hf",
-        "group-hover",
-        "group-focus-within",
-        "hf",
-      ],
-      contrast: [
-        "group-hf",
-        "group-hover",
-        "group-focus-within",
-        "hf",
-      ],
-      display: [
-        "js",
-        "no-js",
-      ],
-      filter: [
-        "group-hf",
-        "group-hover",
-        "group-focus-within",
-        "hf",
-      ],
-      fontWeight: [
-        "data-current",
-      ],
-      opacity: [
-        "group-hf",
-        "group-hover",
-        "group-focus-within",
-        "hf",
-      ],
-      outline: [
-        "hover",
-      ],
-      ringWidth: [
-        "hf",
-      ],
-      ringColor: [
-        "hf",
-      ],
-      textColor: [
-        "data-current",
-        "group-hf",
-        "group-focus-within",
-        "focus-within",
-        "hf",
-      ],
-      textDecoration: [
-        "group-hf",
-        "hf",
-      ],
-      textOpacity: [
-        "data-current",
-        "group-hf",
-        "hf",
-      ],
     },
   },
   plugins: [

@@ -1,12 +1,7 @@
 const svgToDataUri = require("mini-svg-data-uri")
 const plugin = require("tailwindcss/plugin")
-const {
-  colors,
-  spacing,
-  borderWidth,
-  borderRadius,
-  outline,
-} = require("tailwindcss/defaultTheme")
+const {spacing, borderWidth, borderRadius} = require("tailwindcss/defaultTheme")
+const colors = require("tailwindcss/colors")
 
 module.exports = plugin(function ({addComponents, theme}) {
   const rules = {
@@ -19,7 +14,7 @@ module.exports = plugin(function ({addComponents, theme}) {
     ]]: {
       appearance: "none",
       backgroundColor: "#fff",
-      borderColor: theme("colors.gray.300", colors.gray[300]),
+      borderColor: theme("colors.gray.300", colors.stone[300]),
       borderWidth: borderWidth["DEFAULT"],
       borderRadius: borderRadius.DEFAULT,
       padding: spacing[2],
@@ -27,8 +22,8 @@ module.exports = plugin(function ({addComponents, theme}) {
       lineHeight: theme("lineHeight.tight"),
 
       "&:focus": {
-        outline: outline.none[0],
-        outlineOffset: outline.none[1],
+        outline: "none",
+        outlineOffset: "0px",
         "--tw-ring-inset": "var(--tw-empty,/*!*/ /*!*/)",
         "--tw-ring-offset-width": "0px",
         "--tw-ring-offset-color": "#fff",
@@ -100,8 +95,8 @@ module.exports = plugin(function ({addComponents, theme}) {
       },
 
       "&:focus": {
-        outline: outline.none[0],
-        outlineOffset: outline.none[1],
+        outline: "none",
+        outlineOffset: "0px",
         "--tw-ring-inset": "var(--tw-empty,/*!*/ /*!*/)",
         "--tw-ring-offset-width": "2px",
         "--tw-ring-offset-color": "#fff",

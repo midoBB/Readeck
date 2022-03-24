@@ -5,8 +5,9 @@ module.exports = {
     browser: true,
   },
   extends: [],
+  parser: "@babel/eslint-parser",
   parserOptions: {
-    ecmaVersion: 2019,
+    requireConfigFile: false,
     sourceType: "module",
   },
   plugins: [],

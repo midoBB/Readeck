@@ -1,11 +1,9 @@
 import {Controller} from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static get values() {
-    return {
-      action: String,
-      method: String,
-    }
+  static values = {
+    action: String,
+    method: String,
   }
 
   connect() {

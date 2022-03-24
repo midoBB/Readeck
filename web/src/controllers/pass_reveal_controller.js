@@ -3,16 +3,12 @@ import $ from "../lib/dq"
 import icon from "../lib/icon"
 
 export default class extends Controller {
-  static get targets() {
-    return ["field"]
-  }
+  static targets = ["field"]
 
-  static get values() {
-    return {
-      iconShow: String,
-      iconHide: String,
-      icon: String,
-    }
+  static values = {
+    iconShow: String,
+    iconHide: String,
+    icon: String,
   }
 
   connect() {

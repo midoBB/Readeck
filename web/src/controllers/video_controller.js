@@ -2,10 +2,8 @@ import {Controller} from "@hotwired/stimulus"
 import $ from "../lib/dq"
 
 export default class extends Controller {
-  static get values() {
-    return {
-      embed: String,
-    }
+  static values = {
+    embed: String,
   }
 
   connect() {

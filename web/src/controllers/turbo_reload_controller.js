@@ -5,10 +5,8 @@ import {Controller} from "@hotwired/stimulus"
 // attribute by reloading the current page when the form is submited.
 // It obviously applies only to form elements.
 export default class extends Controller {
-  static get values() {
-    return {
-      frameId: String,
-    }
+  static values = {
+    frameId: String,
   }
 
   connect() {

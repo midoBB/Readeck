@@ -1,13 +1,10 @@
 import {Controller} from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static get targets() {
-    return ["trigger", "content"]
-  }
-  static get values() {
-    return {
-      visible: Boolean,
-    }
+  static targets = ["trigger", "content"]
+
+  static values = {
+    visible: Boolean,
   }
 
   connect() {

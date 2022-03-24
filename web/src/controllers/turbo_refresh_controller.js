@@ -5,15 +5,13 @@ import {Controller} from "@hotwired/stimulus"
 // This replaces a meta refresh of the full page and can be used on
 // several frames on the same page.
 export default class extends Controller {
-  static get values() {
-    return {
-      // A CSS selector that triggers the refresh when present
-      on: String,
-      // The page source to load, uses window.location if none
-      src: String,
-      // Refresh every given seconds
-      interval: Number,
-    }
+  static values = {
+    // A CSS selector that triggers the refresh when present
+    on: String,
+    // The page source to load, uses window.location if none
+    src: String,
+    // Refresh every given seconds
+    interval: Number,
   }
 
   connect() {

@@ -3,9 +3,7 @@ import $ from "../lib/dq"
 import icon from "../lib/icon"
 
 export default class extends Controller {
-  static get targets() {
-    return ["label", "content"]
-  }
+  static targets = ["label", "content"]
 
   connect() {
     $.E("button")

@@ -4,17 +4,13 @@ import $ from "../lib/dq"
 import icon from "../lib/icon"
 
 export default class extends Controller {
-  static get targets() {
-    return ["editable", "value", "button"]
-  }
+  static targets = ["editable", "value", "button"]
 
-  static get values() {
-    return {
-      saveIcon: {
-        type: String,
-        default: "o-check-on",
-      },
-    }
+  static values = {
+    saveIcon: {
+      type: String,
+      default: "o-check-on",
+    },
   }
 
   connect() {

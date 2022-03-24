@@ -1,9 +1,7 @@
 import {Controller} from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static get targets() {
-    return ["username", "password"]
-  }
+  static targets = ["username", "password"]
 
   connect() {
     this.usernameTarget.focus()

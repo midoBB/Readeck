@@ -335,6 +335,16 @@ func (f *labelForm) rename(old string) (ids []int, err error) {
 	return
 }
 
+type labelSearchForm struct {
+	*forms.Form
+}
+
+func newLabelSearchForm() *labelSearchForm {
+	return &labelSearchForm{forms.Must(
+		forms.NewTextField("q", forms.Trim, forms.RequiredOrNil),
+	)}
+}
+
 type filterForm struct {
 	*forms.Form
 	noPagination bool

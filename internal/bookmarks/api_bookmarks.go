@@ -531,6 +531,13 @@ func (api *apiRouter) withLabelList(next http.Handler) http.Handler {
 				goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
 			)
 
+		f := newLabelSearchForm()
+		forms.UnmarshalValues(f, r.URL.Query())
+		if f.Get("q").String() != "" {
+			q := strings.ReplaceAll(f.Get("q").String(), "*", "%")
+			ds = ds.Where(goqu.I("name").Like(q))
+		}
+
 		res := []*labelItem{}
 		if err := ds.ScanStructs(&res); err != nil {
 			api.srv.Error(w, r, err)

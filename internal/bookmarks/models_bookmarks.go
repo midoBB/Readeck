@@ -202,7 +202,8 @@ func (m *BookmarkManager) GetLabels() *goqu.SelectDataset {
 					)`).As("name"),
 			).
 			GroupBy(goqu.C("name")).
-			Order(goqu.C("name").Asc())
+			Order(goqu.C("name").Asc()).
+			Prepared(true)
 	case "sqlite3":
 		return db.Q().
 			Select(
@@ -215,7 +216,8 @@ func (m *BookmarkManager) GetLabels() *goqu.SelectDataset {
 			).
 			Where(goqu.C("value").Table("l").Neq(nil)).
 			GroupBy(goqu.C("name")).
-			Order(goqu.C("name").Asc())
+			Order(goqu.C("name").Asc()).
+			Prepared(true)
 	}
 
 	return nil

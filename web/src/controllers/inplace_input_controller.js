@@ -15,43 +15,17 @@ export default class extends Controller {
 
   connect() {
     this.editableTarget.tabIndex = 0
+    this.editableTarget.setAttribute("spellcheck", "false")
+
     this.icon = $("span.svgicon", this.buttonTarget).get()
 
-    this.editableTarget.addEventListener("keydown", (evt) => {
-      if (evt.key == "Enter") {
-        evt.preventDefault()
-      }
-    })
-    this.editableTarget.addEventListener("keyup", (evt) => {
-      if (evt.key == "Enter") {
-        evt.preventDefault()
-        this.buttonTarget.dispatchEvent(new MouseEvent("click"))
-      }
-    })
+    this.editableTarget.addEventListener("keydown", this.onKeyDown)
+    this.editableTarget.addEventListener("keyup", this.onKeyUp)
 
-    this.editableTarget.addEventListener("focus", () => {
-      if (this.editableTarget.contentEditable !== "true") {
-        this.startEditable()
-      }
-    })
+    this.editableTarget.addEventListener("click", this.onFocus)
+    this.editableTarget.addEventListener("focus", this.onFocus)
 
-    this.editableTarget.addEventListener("click", () => {
-      if (this.editableTarget.contentEditable !== "true") {
-        this.startEditable()
-      }
-    })
-
-    this.buttonTarget.addEventListener("click", (evt) => {
-      // Enable contenteditable on first click
-      if (this.editableTarget.contentEditable !== "true") {
-        evt.preventDefault()
-        this.startEditable()
-        return
-      }
-
-      // Submit value otherwise
-      this.valueTarget.value = this.editableTarget.textContent
-    })
+    this.buttonTarget.addEventListener("click", this.onButtonClick)
   }
 
   startEditable() {
@@ -61,5 +35,36 @@ export default class extends Controller {
     if (this.icon !== undefined && this.saveIconValue) {
       icon.swapIcon(this.icon.firstChild, this.saveIconValue)
     }
+  }
+
+  onKeyUp = (evt) => {
+    if (evt.key == "Enter") {
+      evt.preventDefault()
+      this.buttonTarget.dispatchEvent(new MouseEvent("click"))
+    }
+  }
+
+  onKeyDown = (evt) => {
+    if (evt.key == "Enter") {
+      evt.preventDefault()
+    }
+  }
+
+  onFocus = (evt) => {
+    if (this.editableTarget.contentEditable !== "true") {
+      this.startEditable()
+    }
+  }
+
+  onButtonClick = (evt) => {
+    // Enable contenteditable on first click
+    if (this.editableTarget.contentEditable !== "true") {
+      evt.preventDefault()
+      this.startEditable()
+      return
+    }
+
+    // Submit value otherwise
+    this.valueTarget.value = this.editableTarget.textContent
   }
 }

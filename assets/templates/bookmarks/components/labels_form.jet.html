@@ -7,12 +7,23 @@
   {{ yield csrfField() }}
   <input type="hidden" name="_to" value="{{ currentPath }}" />
   <button type="submit" style="display: none"></button>
-  <div class="">
+  <div>
     {{- include "./labels" . -}}
-    <div class="inline-flex text-sm items-center">
-      <input type="text" name="add_labels" placeholder="Add a new label"
-       class="bg-transparent border-gray-300 border-b p-1 w-28"
-       data-turbo-empty-submit-end="1" />
+    <div class="inline-flex text-sm items-center relative">
+      <div class="relative"
+       data-controller="autocomplete"
+       data-autocomplete-url-value="{{ urlFor(`/api/bookmarks/labels`) }}"
+       data-autocomplete-item-class="p-2 whitespace-nowrap hf:bg-primary hf:text-white cursor-pointer"
+       data-autocomplete-selected-class="bg-primary text-white">
+        <input type="text" name="add_labels" placeholder="Add a new label"
+         class="bg-transparent border-gray-300 border-b p-1 w-28"
+         data-turbo-empty-submit-end="1"
+         data-autocomplete-target="input" />
+        <input type="hidden" name="label_id" data-autocomplete-target="hidden"/>
+        <ul class="absolute z-50 border shadow bg-gray-50 min-w-full max-h-48 overflow-y-auto rounded"
+         data-autocomplete-target="results">
+        </ul>
+      </div>
       <button type="submit"
        class="bg-gray-200 text-white text-sm p-1 ml-2 rounded
        border border-transparent hf:border-primary-dark

@@ -28,13 +28,13 @@
   {{- else -}}
     <div class="max-w-3xl mx-auto mt-4 print:mt-2 print:max-w-none">
       {{ include "./components/title_form" .Item }}
-      
+
       {{- if !empty(.Item.Description) -}}
         <p class="mt-2 text-lg leading-tight text-justify font-serif italic">{{ .Item.Description }}</p>
       {{- end -}}
     </div>
 
-    <div class="group max-w-3xl mx-auto rounded shadow mt-8 overflow-hidden print:shadow-none print:border print:max-w-none">
+    <div class="group max-w-3xl mx-auto rounded shadow mt-8 print:shadow-none print:border print:max-w-none">
       <div class="flex flex-row mb-2">
         {{- if isset(.Item.Resources.thumbnail) -}}
         <div class="order-2 ml-2">

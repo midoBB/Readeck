@@ -1,5 +1,13 @@
 # Changlog
 
+## [0.6.1] - 2022-03-24
+### Added
+- Label autocomplete on bookmark's label form
+
+### Changed
+- Go 1.18
+- Dependencies upgrade (Go and JS)
+
 ## [0.6.0] - 2022-03-22
 ### Added
 - Bookmark's title can be changed

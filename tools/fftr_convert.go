@@ -1,3 +1,4 @@
+//go:build ignore
 // +build ignore
 
 package main
@@ -10,12 +11,13 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"path"
 	"path/filepath"
 	"regexp"
 	"strings"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/readeck/readeck/pkg/extract/fftr"
 )
@@ -66,12 +68,16 @@ func main() {
 			return nil
 		}
 
-		converTextConfig(name, destDir)
+		if err = converTextConfig(name, destDir); err != nil {
+			log.Errorf("%s\n           %s", name, err)
+			return nil
+		}
+
 		return nil
 	})
 }
 
-func converTextConfig(filename string, dest string) {
+func converTextConfig(filename string, dest string) error {
 	fp, err := os.Open(filename)
 	if err != nil {
 		log.Fatal(err)
@@ -80,11 +86,9 @@ func converTextConfig(filename string, dest string) {
 
 	cfg, err := newConfig(fp)
 	if err != nil {
-		log.Printf("ERROR: %s", filename)
-		log.Fatal(err)
+		return err
 	}
 
-	// log.Printf("%v", cfg)
 	buf := bytes.NewBuffer([]byte{})
 	encoder := json.NewEncoder(buf)
 	encoder.SetIndent("", "  ")
@@ -97,11 +101,14 @@ func converTextConfig(filename string, dest string) {
 	destFile = destFile[0:len(destFile)-len(path.Ext(destFile))] + ".json"
 	fd, err := os.Create(destFile)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	defer fd.Close()
-	fd.Write(buf.Bytes())
+	if _, err = fd.Write(buf.Bytes()); err != nil {
+		return err
+	}
 	log.Printf("ok: %s", destFile)
+	return nil
 }
 
 func newConfig(file io.Reader) (*fftr.Config, error) {

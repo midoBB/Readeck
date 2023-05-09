@@ -1,28 +1,29 @@
-"use strict"
+const fs = require("fs")
+const glob = require("glob")
+const path = require("path")
+const zlib = require("zlib")
 
-import fs from "fs"
-import glob from "glob"
-import path from "path"
-import zlib from "zlib"
+const gulp = require("gulp")
+const gulpCheerio = require("gulp-cheerio")
+const gulpHash = require("gulp-hash-filename")
+const gulpEsbuild = require("gulp-esbuild")
+const gulpFavicons = require("@flexis/favicons/lib/stream")
+const gulpPostcss = require("gulp-postcss")
+const gulpRename = require("gulp-rename")
+const gulpSass = require("gulp-sass")
+const gulpSourcemaps = require("gulp-sourcemaps")
+const gulpSvgStore = require("gulp-svgstore")
+const vinylSourceStream = require("vinyl-source-stream")
 
-import gulp from "gulp"
-import gulpCheerio from "gulp-cheerio"
-import gulpHash from "gulp-hash-filename"
-import gulpEsbuild from "gulp-esbuild"
-import gulpFavicons from "@flexis/favicons/lib/stream"
-import gulpPostcss from "gulp-postcss"
-import gulpRename from "gulp-rename"
-import gulpSass from "gulp-sass"
-import gulpSourcemaps from "gulp-sourcemaps"
-import gulpSvgStore from "gulp-svgstore"
-import vinylSourceStream from "vinyl-source-stream"
+const del = async (...args) => {
+  const {deleteSync} = await import("del")
+  return deleteSync(...args)
+}
+const mergeStream = require("merge-stream")
+const sass = require("sass")
+const through = require("through2")
 
-import del from "del"
-import mergeStream from "merge-stream"
-import sass from "sass"
-import through from "through2"
-
-import {stimulusPlugin} from "esbuild-plugin-stimulus"
+const {stimulusPlugin} = require("esbuild-plugin-stimulus")
 
 const DEST = path.resolve("../assets/www")
 

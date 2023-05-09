@@ -8,7 +8,11 @@
   "strip_selectors": [
     "//noscript"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "c-native-newsletterbox",
+    "c-crosslinks",
+    "tg-crosslinks"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -20,6 +24,7 @@
   ],
   "replace_strings": null,
   "http_headers": {
+    "cookie": "_sp_v1_consent=1!0:-1:-1:-1:-1:-1; t3n_consent=8",
     "user-agent": "PHP/7.4"
   },
   "tests": [

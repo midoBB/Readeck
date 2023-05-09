@@ -1,0 +1,61 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//main/div/div"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//main/div[1]/div[1]/div[1]",
+    "//svg",
+    "//button",
+    "//div[@class='_1AXbp _2QZGT'][last()]/div[@class='_2ezKP _1Abfj _3AP5M'][last()]"
+  ],
+  "strip_id_or_class": [
+    "_2D19b",
+    "_2ezKP _1TFtF _3AP5M",
+    "X5T8H",
+    "HygOp TVAk2",
+    "_3vVVr TVAk2"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003csection",
+      "\u003cdiv"
+    ],
+    [
+      "\u003carticle",
+      "\u003cdiv"
+    ],
+    [
+      "\u003cdiv class=\"lWOEI\" style=\"background-image:url(",
+      "\u003cimg class=\"lWOEI\" src=\""
+    ],
+    [
+      "g)\"\u003e\u003c/div\u003e",
+      "g\"\u003e"
+    ],
+    [
+      "f)\"\u003e\u003c/div\u003e",
+      "f\"\u003e"
+    ],
+    [
+      "/thumb_image-",
+      "/regular_image-"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://polka.academy/materials/917",
+      "contains": []
+    }
+  ]
+}

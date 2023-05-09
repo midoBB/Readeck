@@ -1,10 +1,15 @@
 {
   "title_selectors": null,
-  "body_selectors": null,
+  "body_selectors": [
+    "//div[@class='post-content']"
+  ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "pagination",
+    "post-tags"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -12,18 +17,9 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": [
-    "//link[@rel=\"next\"]"
+    "//a[contains(concat(' ',normalize-space(@class),' '),' next ')]"
   ],
-  "replace_strings": [
-    [
-      "\u003cstyle ",
-      "\u003c!--"
-    ],
-    [
-      "\u003c/style\u003e",
-      "--\u003e"
-    ]
-  ],
+  "replace_strings": null,
   "http_headers": null,
   "tests": [
     {

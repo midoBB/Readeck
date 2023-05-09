@@ -1,21 +1,23 @@
 {
   "title_selectors": [
-    "//div[@class='news-header-tit-box']//h1"
+    "//h1[contains(concat(' ',normalize-space(@class),' '),' landscapePhotoFull__title ')]"
   ],
   "body_selectors": [
-    "//div[@id='news-body-center']"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' innerArticle__content ')]"
   ],
   "date_selectors": [
-    "//time"
+    "//span[contains(concat(' ',normalize-space(@class),' '),' dateTime__created ')]"
   ],
   "author_selectors": [
-    "//a[@class='news-def-author']"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' authorSignature ')]"
   ],
   "strip_selectors": [
-    "//div[@id='news-body-center']//article",
-    "//section[contains(@class, 'inTextNews')]"
+    "//section[contains(@class, 'inTextNews')]",
+    "//img[@class='lqip__placeholder']"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "shareBar"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -27,7 +29,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.elconfidencial.com/tecnologia/2017-02-06/microsoft-windows-google-chrome_1327589/",
+      "url": "https://www.elconfidencial.com/economia/2022-06-05/julian-ariza-ccoo-carrillo-marcelino-camacho-franco-dictadura-carcel-sindicatos-pce-transicion-ruiz-gimenez-carabanchel-top-23-f-clase-obrera_3436368/",
       "contains": []
     }
   ]

@@ -20,11 +20,24 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "data-src=\"",
+      "data-src=\"https://images.motorsport-magazin.com/images"
+    ],
+    [
+      "srcset=\"",
+      "notneededsrcset=\""
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {
       "url": "https://www.motorsport-magazin.com/dtm/news-246125-dtm-2018-rahmenprogramm-klassik-tourenwagen/",
+      "contains": []
+    },
+    {
+      "url": "https://www.motorsport-magazin.com/formel1/news-279920-formel-1-sebastian-vettel-niemand-wird-sich-an-mich-erinnern/",
       "contains": []
     }
   ]

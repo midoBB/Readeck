@@ -22,7 +22,14 @@
   ],
   "strip_id_or_class": [
     "post-content-more",
-    "category-wrapper"
+    "category-wrapper",
+    "inline-newsletter-signup",
+    "notification-prompt-container",
+    "post-content-category",
+    "post-content-more",
+    "post-content-bottom",
+    "the-refresh-player-wrapper",
+    "ad-close-icon"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

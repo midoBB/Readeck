@@ -13,7 +13,7 @@
   ],
   "strip_selectors": [
     "//div[@data-component=\"JWPlayer\"]",
-    "//img[contains(concat(\" \", normalize-space(@class), \" \"), \" lazyload \")]",
+    "//picture/following-sibling::noscript[1]",
     "//button",
     "//svg",
     "//*[@data-app-hidden=\"true\"]",
@@ -35,12 +35,12 @@
   "next_page_link_selectors": null,
   "replace_strings": [
     [
-      "\u003cnoscript\u003e",
-      "\u003c!-- noscript --\u003e"
+      "src=\"data",
+      "data-src-disabled=\"data"
     ],
     [
-      "\u003c/noscript\u003e",
-      "\u003c!-- /noscript --\u003e"
+      "data-src=\"",
+      "src=\""
     ]
   ],
   "http_headers": null,

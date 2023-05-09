@@ -10,7 +10,10 @@
     "//meta[@name='author']/@content"
   ],
   "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "slideshow",
+    "gallery"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -26,6 +29,10 @@
       "contains": [
         "Sie protestieren nun schon seit Monaten für den weltweiten"
       ]
+    },
+    {
+      "url": "https://www.dw.com/ru/mat-soldata-iz-rf-pogibshego-v-ukraine-tam-prosto-mesivo/a-61263854",
+      "contains": []
     }
   ]
 }

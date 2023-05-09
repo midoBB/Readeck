@@ -1,0 +1,35 @@
+{
+  "title_selectors": [
+    "//h1//span"
+  ],
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' article-content ')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "desvio-container",
+    "article-links"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "sf-src",
+      "src"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.xatakamovil.com/mercado/telecos-usuarios-se-juegan-bruselas-que-remedies-como-afectaran-al-futuro-fusiones",
+      "contains": []
+    }
+  ]
+}

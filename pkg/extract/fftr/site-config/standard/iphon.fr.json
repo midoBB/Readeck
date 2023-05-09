@@ -13,7 +13,8 @@
     "mvp-soc-mob-list",
     "mvp-content-bot",
     "comp-vgrid",
-    "comp-box"
+    "comp-box",
+    "mvp-post-soc-list"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

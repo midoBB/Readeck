@@ -1,11 +1,16 @@
 {
   "title_selectors": null,
-  "body_selectors": [
-    "//div[@id=\"article\"]/h3 | //*[@id=\"mainContent\"]"
-  ],
+  "body_selectors": null,
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//h2[contains(@class,'ContentHead_title')]",
+    "//span[contains(@class,'ContentHead_text')]",
+    "//div[contains(@class,'ContentMetaInfo')]",
+    "//div[contains(@class,'ArticleContainer_related')]",
+    "//button",
+    "//div[contains(@id,'piano-premium')]/div/div/a"
+  ],
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -18,11 +23,11 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.tagesanzeiger.ch/zuerich/stadt/Nach-spektakulaerer-Abseilaktion-verhaftet/story/18039895",
+      "url": "http://partner-feeds.publishing.tamedia.ch/rss/tagesanzeiger/startseite",
       "contains": []
     },
     {
-      "url": "http://www.tagesanzeiger.ch/ausland/naher-osten-und-afrika/IS-zerstoert-auch-das-antike-Hatra/story/19865699",
+      "url": "https://www.tagesanzeiger.ch/wie-sich-facebook-in-regierungswahlen-einmischt-288495638056",
       "contains": []
     }
   ]

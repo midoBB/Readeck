@@ -3,7 +3,8 @@
     "//meta[@property=\"og:title\"]/@content"
   ],
   "body_selectors": [
-    "//*[@itemprop=\"articleBody\"]"
+    "//*[@itemprop=\"articleBody\"]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' sidebar_content ')]"
   ],
   "date_selectors": [
     "//meta[@property=\"article:published_time\"]/@content"
@@ -25,6 +26,10 @@
   "tests": [
     {
       "url": "https://crimereads.com/the-end-of-things-my-favorite-islands-in-crime-fiction/",
+      "contains": []
+    },
+    {
+      "url": "https://crimereads.com/invention-polygraph-lie-detector/",
       "contains": []
     }
   ]

@@ -1,9 +1,9 @@
 {
   "title_selectors": [
-    "//h1[@class=\"entry-title\"]"
+    "//h1[contains(concat(' ',normalize-space(@class),' '),' p-name ')]"
   ],
   "body_selectors": [
-    "//div[@class=\"entry-content\"]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' e-content ')]"
   ],
   "date_selectors": [
     "//time[contains(@class, \"published\")]/@datetime"
@@ -14,7 +14,11 @@
   "strip_selectors": [
     "//div[@class=\"abh_box abh_box_up abh_box_business\"]"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "tablepress-table-name",
+    "tablepress",
+    "tablepress-table-description"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -27,6 +31,14 @@
   "tests": [
     {
       "url": "https://puri.sm/posts/introducing-the-librem-key/",
+      "contains": []
+    },
+    {
+      "url": "https://puri.sm/posts/purism-usb-c-type-universal-chargers/",
+      "contains": []
+    },
+    {
+      "url": "https://puri.sm/posts/fosdem-2023-event-report/",
       "contains": []
     }
   ]

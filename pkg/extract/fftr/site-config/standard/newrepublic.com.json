@@ -9,7 +9,9 @@
   "author_selectors": [
     "//article//a[@itemprop=\"author\"]"
   ],
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//aside"
+  ],
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,

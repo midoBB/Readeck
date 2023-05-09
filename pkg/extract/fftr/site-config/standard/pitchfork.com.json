@@ -4,19 +4,29 @@
   ],
   "body_selectors": [
     "//article[contains(@class, 'main-content')]",
-    "//div[contains(@class, 'blocks-area')]"
+    "//div[contains(@class, 'blocks-area')]",
+    "//div[contains(@class, 'ArticlePageChunks')]",
+    "//main[@id=\"main-content\"]"
   ],
   "date_selectors": [
     "//time[@class='pub-date']/@datetime"
   ],
   "author_selectors": [
+    "//meta[@property=\"article:author\"]/@content",
     "//meta[@name=\"author\"]/@content",
     "//a[@class=\"authors-detail__display-name\"]"
   ],
   "strip_selectors": [
-    "//div[contains(@class, 'article-meta')]"
+    "//div[contains(@class, 'article-meta')]",
+    "//div[contains(@class, 'ContentFooterWrapper')]",
+    "//header",
+    "//footer"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "full-bleed-ad",
+    "row-mid-content-ad",
+    "grid-layout__aside"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -39,6 +49,12 @@
       "url": "https://pitchfork.com/thepitch/alex-ross-wagnerism-book-interview/",
       "contains": [
         "has been translated and contested"
+      ]
+    },
+    {
+      "url": "https://pitchfork.com/reviews/albums/lykotonon-promethean-pathology/",
+      "contains": [
+        "fellow Colorado heavy hitters"
       ]
     }
   ]

@@ -1,32 +1,45 @@
 {
-  "title_selectors": [
-    "//title"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[@id = 'intelliTXT']"
+    "//section[contains(concat(' ',normalize-space(@class),' '),' content-wrapper ')]"
   ],
-  "date_selectors": [
-    "//time[@itemprop = 'datePublished']"
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//aside",
+    "//svg"
   ],
-  "author_selectors": [
-    "//a[@itemprop = 'author']"
+  "strip_id_or_class": [
+    "ad-unit",
+    "table__instruction",
+    "imageGallery-wrapper",
+    "slice-container-newsletterForm"
   ],
-  "strip_selectors": null,
-  "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
   "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
-  "next_page_link_selectors": [
-    "//link[@rel='next']/@href"
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "src=\"https://vanilla.futurecdn.net/tomshardware/media/img/missing-image.svg\"",
+      "old-src=\"https://vanilla.futurecdn.net/tomshardware/media/img/missing-image.svg\""
+    ],
+    [
+      "data-original-mos=\"http",
+      "src=\"http"
+    ]
   ],
-  "replace_strings": null,
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.tomshardware.com/reviews/gaming-graphics-card-review,3107.html",
+      "url": "https://www.tomshardware.com/reviews/best-gpus,4380.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.tomshardware.com/reviews/drop-sense75",
       "contains": []
     }
   ]

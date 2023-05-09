@@ -14,6 +14,7 @@
   ],
   "strip_selectors": [
     "//button",
+    "//header[contains(@class, 'pw-post-byline-header')]",
     "//article//img[contains(@src, '?q=20') or contains(@src, 'max/34/')]",
     "//article//img[not(@src)]",
     "(//h1)[1]",
@@ -38,7 +39,9 @@
       "\u003c/div\u003e"
     ]
   ],
-  "http_headers": null,
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)"
+  },
   "tests": [
     {
       "url": "https://elemental.medium.com/the-dark-side-of-fitness-tracking-9b218989bc47",

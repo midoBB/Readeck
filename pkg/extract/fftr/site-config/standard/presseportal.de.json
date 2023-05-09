@@ -11,7 +11,10 @@
     "//p[contains(concat(' ',normalize-space(@class),' '),' date ')]"
   ],
   "strip_id_or_class": [
-    "story-sharing"
+    "story-sharing",
+    "date",
+    "customer",
+    "media-action"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -32,6 +35,10 @@
     [
       "data-src=\"",
       "src=\""
+    ],
+    [
+      "https://www.presseportal.de/some-default.jpg",
+      ""
     ]
   ],
   "http_headers": null,
@@ -42,9 +49,7 @@
     },
     {
       "url": "http://www.presseportal.de/pm/66749/2933779/koelner-stadt-anzeiger-bahnmitarbeiter-werden-in-nrw-immer-haeufiger-angegriffen-zahl-der/rss",
-      "contains": [
-        "kleineren Bahnhöfen installieren und erhofft"
-      ]
+      "contains": []
     },
     {
       "url": "http://www.presseportal.de/rss/presseportal.rss2",

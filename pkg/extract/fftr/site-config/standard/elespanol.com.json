@@ -10,7 +10,10 @@
   "strip_selectors": [
     "//section[@class='rel-news']"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "follow-topics-title",
+    "follow-container"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

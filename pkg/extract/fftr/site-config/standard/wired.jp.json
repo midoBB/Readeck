@@ -1,0 +1,70 @@
+{
+  "title_selectors": [
+    "//meta[@property=\"og:title\"]/@content"
+  ],
+  "body_selectors": [
+    "//div[@data-testid=\"ArticlePageChunks\"]",
+    "//div[contains(@class, 'article__chunks') or contains(@class, 'content-header__dek')]",
+    "(//article[contains(@class, 'body-copy')])[1]",
+    "(//article[contains(@class, 'article-body-component')])[1]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' entry ')]"
+  ],
+  "date_selectors": [
+    "//meta[@name='DisplayDate']/@content"
+  ],
+  "author_selectors": [
+    "//meta[@name='Author']/@content"
+  ],
+  "strip_selectors": [
+    "//p[contains(., 'Pages:') and contains(., 'View All')]",
+    "//p[@class='caption']",
+    "//div[@class='desc' or @class='slide' or @id='slide-info']",
+    "//*[contains(concat(' ',normalize-space(@class),' '),' callout ')]",
+    "//div[@id=\"social\"]",
+    "//img[contains(@alt, 'capital letter')]",
+    "(//hr)[last()]/following::*"
+  ],
+  "strip_id_or_class": [
+    "full-bleed-ad",
+    "layout__aside",
+    "pullquote",
+    "left_rail",
+    "related-container",
+    "radvert-caption-wrap",
+    "related",
+    "article-tags",
+    "visually-hidden",
+    "inset-left-component",
+    "recirc-most-popular",
+    "callout--has-top-border",
+    "newsletter-subscribe-form",
+    "iframe-embed",
+    "wpgallery"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cnoscript\u003e",
+      "\u003c!-- noscript --\u003e"
+    ],
+    [
+      "\u003c/noscript\u003e",
+      "\u003c!-- /noscript --\u003e"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://wired.jp/article/10-most-read-stories-february-2022/",
+      "contains": [
+        "07 Spotify"
+      ]
+    }
+  ]
+}

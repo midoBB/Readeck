@@ -9,7 +9,8 @@
   ],
   "strip_selectors": null,
   "strip_id_or_class": [
-    "embed-container"
+    "embed-container",
+    "listplans-shortcode-container"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

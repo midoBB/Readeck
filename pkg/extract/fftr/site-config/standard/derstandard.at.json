@@ -3,13 +3,14 @@
     "//div[@id='content-header']/h1"
   ],
   "body_selectors": [
-    "//div[@id='objectContent']"
+    "//article[@class='story-article']"
   ],
   "date_selectors": null,
   "author_selectors": [
-    "//span[@class='author']"
+    "//div[@class='article-origins']"
   ],
   "strip_selectors": [
+    "//nav",
     "//ul[@class='lookupLinksArtikel']",
     "//meta",
     "//div[@itemprop='publisher']",
@@ -25,9 +26,15 @@
     "//li[@class='empty']",
     "//ul[@class='lookup-links']",
     "//p[@class='article-pubdate']",
-    "//aside[@data-type='supplemental']"
+    "//aside[@data-type='supplemental']",
+    "//div[@class='article-byline']",
+    "//div[@class='article-meta']",
+    "//footer[starts-with(text(), 'Foto:')]"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "article-kicker",
+    "article-title"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -41,7 +48,7 @@
   },
   "tests": [
     {
-      "url": "http://derstandard.at/1318726018343/Breitband-LTE-Was-bringt-die-neue-Mobilfunk-Generation",
+      "url": "http://derstandard.at/rss",
       "contains": []
     },
     {

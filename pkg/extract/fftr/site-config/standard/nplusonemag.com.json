@@ -1,9 +1,7 @@
 {
-  "title_selectors": [
-    "/html/body/div[3]/div/div/h1"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//*[@id=\"article-body\"]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' post-body ')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
@@ -20,7 +18,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://nplusonemag.com/the-outskirts-of-progress",
+      "url": "https://www.nplusonemag.com/online-only/online-only/the-outskirts-of-progress/",
       "contains": []
     }
   ]

@@ -20,7 +20,9 @@
   ],
   "strip_id_or_class": [
     "js-cookies-bar",
-    "index-menu"
+    "index-menu",
+    "newsletter-form",
+    "newsletter-rgpd"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

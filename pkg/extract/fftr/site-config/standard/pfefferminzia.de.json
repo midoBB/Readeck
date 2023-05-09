@@ -1,0 +1,38 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@class='artical-outer']"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//div[@class='artical-author-info']/p/strong"
+  ],
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "mehr-zum-thema-outer",
+    "artical-download",
+    "reading-time-ad-word",
+    "artical-author-outer"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": [
+    "//link[@rel='next']"
+  ],
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.pfefferminzia.de/strategie-diese-fehler-in-der-altersvorsorge-sollten-sie-vermeiden/",
+      "contains": []
+    },
+    {
+      "url": "https://www.pfefferminzia.de/feed",
+      "contains": []
+    }
+  ]
+}

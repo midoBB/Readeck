@@ -9,10 +9,11 @@
   "author_selectors": null,
   "strip_selectors": [
     "//div[@class='io-word-count']",
-    "//ol[@class='breadcrumb']",
     "//aside"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "breadcrumb"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

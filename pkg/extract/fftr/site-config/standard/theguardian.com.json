@@ -33,6 +33,7 @@
     "//div[@data-print-layout=\"hide\"]",
     "//figcaption",
     "//svg",
+    "//gu-island",
     "//article//div[contains(@class, 'content__meta-container')]",
     "//iframe[@srcdoc]"
   ],

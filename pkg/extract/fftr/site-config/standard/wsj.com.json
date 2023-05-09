@@ -21,7 +21,9 @@
     "//*[contains(@style, 'visibility: hidden;')]",
     "//div[contains(@class, 'insetContent') and not(contains(@class, 'image'))]",
     "//div[contains(@class, 'carousel')]",
-    "//div[div[contains(@class, 'media-object-rich-text') and h4 and ul[@class=\"articleList\"]]]"
+    "//div[div[contains(@class, 'media-object-rich-text') and h4 and ul[@class=\"articleList\"]]]",
+    "//div[contains(@class, 'snippet')]",
+    "//div[contains(@class, 'media-object-video')]"
   ],
   "strip_id_or_class": [
     "insetFullBracket",
@@ -39,7 +41,7 @@
   "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": [
-    "//link[@rel=\"amphtml\"]/@href"
+    "concat('https://www.wsj.com/amp/', substring-after(//link[@rel=\"canonical\"]/@href, 'https://www.wsj.com/'))"
   ],
   "next_page_link_selectors": null,
   "replace_strings": null,
@@ -73,6 +75,10 @@
     },
     {
       "url": "https://www.wsj.com/articles/the-biggest-money-mistakes-we-makedecade-by-decade-1477275181",
+      "contains": []
+    },
+    {
+      "url": "https://www.wsj.com/articles/russia-figure-skating-world-championships-11646143414",
       "contains": []
     }
   ]

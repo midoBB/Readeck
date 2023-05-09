@@ -1,20 +1,22 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[(contains(@class,'content')) and (contains(@class,'node-blogs'))]",
-    "//div[contains(@class,'field-item')]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' c-article-content__container ')]"
   ],
-  "date_selectors": [
-    "//div[@class='article-date']"
-  ],
-  "author_selectors": [
-    "//div[@class='author-byline']/a"
-  ],
+  "date_selectors": null,
+  "author_selectors": null,
   "strip_selectors": [
-    "//ul[@class='flippy']",
-    "//div[contains(@class,'first-appeared-in')]"
+    "//aside",
+    "//div[contains(@class, '-newsletter')]"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "newsletter-inner-container",
+    "c-sponsored-article",
+    "c-share",
+    "c-sidebar",
+    "c-related-articles",
+    "newsletter-pop-up"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -26,15 +28,11 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.newstatesman.com/world/2018/05/leader-how-italian-election-result-exposed-europe-s-fraying-union",
+      "url": "https://www.newstatesman.com/politics/2018/05/leader-how-italian-election-result-exposed-europe-s-fraying-union",
       "contains": []
     },
     {
-      "url": "https://www.newstatesman.com/culture/books/2018/05/two-faces-philip-roth",
-      "contains": []
-    },
-    {
-      "url": "https://www.newstatesman.com/books/2011/02/montaigne-life-playing",
+      "url": "https://www.newstatesman.com/culture/2018/05/two-faces-philip-roth",
       "contains": []
     }
   ]

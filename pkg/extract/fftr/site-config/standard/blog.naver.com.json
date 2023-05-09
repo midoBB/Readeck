@@ -1,17 +1,15 @@
 {
   "title_selectors": [
-    "//span[@class='pcol1 itemSubjectBoldfont']"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' se-title-text ')]"
   ],
   "body_selectors": [
-    "//div[@id='postListBody']"
+    "//div[@id='viewTypeSelector']"
   ],
   "date_selectors": [
-    "//p[@class='date fil5 pcol2']"
+    "//p[contains(concat(' ',normalize-space(@class),' '),' blog_date ')]"
   ],
   "author_selectors": null,
-  "strip_selectors": [
-    "//div[@class='post-btn']"
-  ],
+  "strip_selectors": null,
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -19,15 +17,17 @@
   "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": [
-    "/html/frameset/frame[1]/attribute::src"
+    "concat(\"https://m.blog.naver.com/\", substring-after(//iframe[@id='mainFrame']/attribute::src, '/'))"
   ],
   "next_page_link_selectors": null,
   "replace_strings": null,
   "http_headers": null,
   "tests": [
     {
-      "url": "http://blog.naver.com/how2invest/110135068757",
-      "contains": []
+      "url": "https://blog.naver.com/jjy0501/222998721678",
+      "contains": [
+        "Gneiss anvil under an aurochs cranium"
+      ]
     }
   ]
 }

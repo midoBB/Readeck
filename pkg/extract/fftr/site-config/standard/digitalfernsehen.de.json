@@ -1,0 +1,33 @@
+{
+  "title_selectors": null,
+  "body_selectors": null,
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//button"
+  ],
+  "strip_id_or_class": [
+    "wp-caption-text",
+    "isc_image_list_box",
+    "td-adspot-title"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.digitalfernsehen.de/news/inhalte/fernsehen/der-bachelor-hat-seine-letzte-rose-verteilt-592095/",
+      "contains": []
+    },
+    {
+      "url": "https://www.digitalfernsehen.de/feed/",
+      "contains": []
+    }
+  ]
+}

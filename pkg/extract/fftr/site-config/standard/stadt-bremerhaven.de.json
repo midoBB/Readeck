@@ -10,7 +10,9 @@
     "//div[@class='aawp']"
   ],
   "strip_id_or_class": [
-    "aawp-disclaimer"
+    "aawp-disclaimer",
+    "su-posts",
+    "wp-embedded-content"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

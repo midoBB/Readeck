@@ -1,0 +1,39 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@class='outer']"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//td/h2[contains(@style, 'color: #16191f')]",
+    "//td/h2[contains(text(), 'Der nächste Newsletter')]",
+    "//td/h2[contains(text(), 'erscheint am')]",
+    "//table[contains(@style, 'background-color:#eef2ee;')]",
+    "//div[@class='sidebar']"
+  ],
+  "strip_id_or_class": [
+    "paragraph--type--cp-box-tile",
+    "spacer",
+    "footer"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.hessen.de/newsletter-feed",
+      "contains": []
+    },
+    {
+      "url": "https://hessen.de/node/10963/newsletter-preview",
+      "contains": []
+    }
+  ]
+}

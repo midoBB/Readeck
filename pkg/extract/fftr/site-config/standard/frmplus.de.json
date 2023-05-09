@@ -1,0 +1,43 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@id='main']"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//div[contains(@class, 'ce_text')]/h3",
+    "//p[@class='info']",
+    "//ol[@class='carousel-indicators']",
+    "//p[@class='back']"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cdiv class=\"bsc_spic\" style=\"background: url('",
+      "\u003cimg src='"
+    ],
+    [
+      "\u0026nbsp;",
+      ""
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.frmplus.de/aktuelles-reader/naechste-etappe-fuer-den-deutschlandtakt-spatenstich-fuer-zusaetzliche-gleise-und-neue-mainbruecke-im-knoten-frankfurt-stadion.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.frmplus.de/aktuelles-reader/homburger-damm-in-betrieb-genommen-zusaetzliches-gleis-zum-hauptbahnhof-fertiggestellt.html",
+      "contains": []
+    }
+  ]
+}

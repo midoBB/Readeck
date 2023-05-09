@@ -1,0 +1,68 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@class='TGN_site_Article']"
+  ],
+  "date_selectors": [
+    "//div[@class='article_top_dateline']"
+  ],
+  "author_selectors": [
+    "//span[@class='article_top_bylinebold']"
+  ],
+  "strip_selectors": [
+    "//div[starts-with(@id, 'TGN_CH_BO_Menu')]",
+    "//div[starts-with(@class, 'TGN_CH_BO_ChapterholderTop')]",
+    "//div[contains(@data-module-name, 'pullquote')]",
+    "//script",
+    "//canvas",
+    "//iframe"
+  ],
+  "strip_id_or_class": [
+    "article_top_head",
+    "article_top_subhead",
+    "article_top_byline",
+    "article_top_dateline",
+    "article_top_chim",
+    "article_top_metric_readtime",
+    "icon-dot",
+    "TGN_site_Innercollumn",
+    "InfoLinksALPixel",
+    "TGN_CH_BO_C_InlineByline",
+    "TGN_CH_BO_HeroHolder",
+    "TGN_site_Article_readnext",
+    "TGN_site_Article_cta",
+    "TGN_site_Article_comments"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "DMT_Image\" src=",
+      "DMT_Image\" dummy="
+    ],
+    [
+      "HF_IMG\" src=",
+      "HF_IMG\" dummy="
+    ],
+    [
+      "\" data-src=",
+      "\"  src="
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.gatesnotes.com/The-Age-of-AI-Has-Begun?WT.mc_id=20230321100000_Artificial-Intelligence_BG-TW_\u0026WT.tsrc=BGTW",
+      "contains": []
+    },
+    {
+      "url": "https://www.gatesnotes.com/My-trip-to-India-in-pictures",
+      "contains": []
+    }
+  ]
+}

@@ -38,7 +38,9 @@
       "\u003c/div\u003e"
     ]
   ],
-  "http_headers": null,
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)"
+  },
   "tests": [
     {
       "url": "https://medium.com/@savolai/kaytettavyyden-haasteet-keskustelukulttuurista-2-3-6844c0d7893b",

@@ -17,7 +17,9 @@
   ],
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": null,
+  "http_headers": {
+    "user-agent": "curl/7.83.1"
+  },
   "tests": [
     {
       "url": "http://www.nytimes.com/2010/07/13/science/13gravity.html?_r=1\u0026amp;pagewanted=print",

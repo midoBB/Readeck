@@ -3,14 +3,18 @@
     "//div[@class='article']/h1"
   ],
   "body_selectors": [
-    "//div[@id='articletext']"
+    "//div[@id='articletext']",
+    "//div[@id='article-body']"
   ],
   "date_selectors": [
     "substring-before(//p[@class='articletime'],'|')"
   ],
   "author_selectors": null,
   "strip_selectors": [
-    "//div[@class='inlineDiashow']"
+    "//div[@class='inlineDiashow']",
+    "//div[@class='meta__date']",
+    "//div[@class='meta__authors']",
+    "//div[@class='article__actions']"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -20,11 +24,56 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "?from=rss",
+      ""
+    ],
+    [
+      "https://www.diepresse.com/assets_v2/images/",
+      ""
+    ],
+    [
+      "class=\"figure__image lazyload\" data-src=",
+      "class=\"figure__image lazyload\" src="
+    ],
+    [
+      "/social_diepresse_nachrichten_paid/images/",
+      "/images/"
+    ],
+    [
+      "/social_diepresse_nachrichten/images/",
+      "/images/"
+    ],
+    [
+      "/social_diepresse_magazin_paid/images/",
+      "/images/"
+    ],
+    [
+      "/social_diepresse_magazin/images/",
+      "/images/"
+    ],
+    [
+      "/social_diepresse_meinung_paid/images/",
+      "/images/"
+    ],
+    [
+      "/social_diepresse_meinung/images/",
+      "/images/"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {
       "url": "http://diepresse.com/home/politik/aussenpolitik/701905/TibeterProteste_Nonne-verbrennt-sich-selbst?_vl_backlink=/home/politik/index.do",
+      "contains": []
+    },
+    {
+      "url": "https://www.diepresse.com/6115784/omikron-ba2-wann-infizierte-hoch-ansteckend-sind",
+      "contains": []
+    },
+    {
+      "url": "https://www.diepresse.com/rss/Wien",
       "contains": []
     }
   ]

@@ -1,0 +1,52 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@class='mod_newsreader block']"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//div[@class='layout_full block']/h1",
+    "//p[@class='info']",
+    "//p[@class='back']/a"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cfigure class=\"video_container\"\u003e",
+      "\u003cdiv\u003e"
+    ],
+    [
+      "\u003cvideo",
+      "\u003cdiv"
+    ],
+    [
+      "\u003csource type=\"video/mp4\" src",
+      "\u003ca href"
+    ],
+    [
+      "\u003c/video\u003e",
+      "Link zum Video\u003c/a\u003e\u003c/div\u003e"
+    ],
+    [
+      "\u003c/figure\u003e",
+      "\u003c/div\u003e"
+    ]
+  ],
+  "http_headers": {
+    "cookie": "dse_cookie=1-0-0"
+  },
+  "tests": [
+    {
+      "url": "https://www.mein-hbf-ffm.de/aktuelles-reader/db-informiert-zum-geplanten-fernbahntunnel.html",
+      "contains": []
+    }
+  ]
+}

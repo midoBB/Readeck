@@ -11,6 +11,7 @@
   "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": [
+    "//c-wiz[starts-with(., 'Opening http')]/a",
     "//div[starts-with(., 'Opening http')]/a"
   ],
   "next_page_link_selectors": null,

@@ -1,22 +1,25 @@
 {
-  "title_selectors": [
-    "//h1[@class='headline3']"
-  ],
+  "title_selectors": null,
   "body_selectors": [
+    "//article[contains(concat(' ',normalize-space(@class),' '),' content-view ')]",
+    "//div[contains(@class, 'article-body__content__')]",
     "//div[@id='articleImage' or @id='frame_fd1fade'] | //span[@id='article-text'] | //div[@class='pageNavigation']",
     "//article[@itemtype=\"http://schema.org/NewsArticle\"]"
   ],
-  "date_selectors": [
-    "//meta[@name=\"REVISION_DATE\"]/@content"
-  ],
-  "author_selectors": [
-    "substring-after(//p[@class=\"byline\"], 'By ')"
-  ],
+  "date_selectors": null,
+  "author_selectors": null,
   "strip_selectors": [
+    "//aside",
+    "//header",
+    "//div[contains(@data-testid, 'gallery')]",
     "//li[@class='next']",
-    "//span[@class='articleLocation']"
+    "//span[@class='articleLocation']",
+    "//div[contains(@class, 'registration-prompt')]",
+    "//*[@data-testid=\"toolbar-container\"]"
   ],
   "strip_id_or_class": [
+    "article-meta",
+    "related-items",
     "related-container",
     "share-in-article-container"
   ],
@@ -31,13 +34,19 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.reuters.com/article/2011/04/08/us-ivorycoast-killings-idUSTRE73732A20110408",
+      "url": "https://www.reuters.com/world/us/us-attorney-general-garland-confirms-fbi-investigating-trump-2022-08-11/",
       "contains": []
     },
     {
-      "url": "http://www.reuters.com/investigates/special-report/usa-taser-experts/",
+      "url": "https://www.reuters.com/investigates/special-report/usa-taser-experts/",
       "contains": [
         "Among the settlements examined by Reuters"
+      ]
+    },
+    {
+      "url": "https://www.reuters.com/investigates/adoption",
+      "contains": [
+        "There is one potential safeguard"
       ]
     }
   ]

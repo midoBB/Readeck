@@ -1,6 +1,6 @@
 {
   "title_selectors": [
-    "//h2[contains(@class, 'primary')]"
+    "//h1[contains(@class, 'headline-primary')]"
   ],
   "body_selectors": [
     "//*[@itemprop=\"articleBody\"]",
@@ -12,7 +12,9 @@
   "author_selectors": [
     "//*[@class='by']/a"
   ],
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//aside[contains(@class, \"related\")]"
+  ],
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -33,6 +35,10 @@
       "contains": [
         "after her favorite candy"
       ]
+    },
+    {
+      "url": "https://www.vulture.com/article/best-podcasts-of-2022.html",
+      "contains": []
     }
   ]
 }

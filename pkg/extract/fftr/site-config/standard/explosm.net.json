@@ -1,11 +1,11 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//img[@id='main-comic']"
+    "//*[@id=\"comic\"]/div/div[2]/div/span"
   ],
   "date_selectors": null,
   "author_selectors": [
-    "substring(//small[@class=\"author-credit-name\"], 4)"
+    "//*[@id=\"comic\"]/div/div[2]/div/div/div[1]"
   ],
   "strip_selectors": null,
   "strip_id_or_class": null,
@@ -20,7 +20,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://explosm.net/comics/3954/",
+      "url": "http://explosm.net/comics/3955/",
       "contains": []
     }
   ]

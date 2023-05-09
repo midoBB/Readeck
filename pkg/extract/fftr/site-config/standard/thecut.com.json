@@ -4,7 +4,8 @@
   ],
   "body_selectors": [
     "//*[@itemprop=\"articleBody\"]",
-    "//div[@id='story']"
+    "//div[@id='story']",
+    "//section[@class='body']"
   ],
   "date_selectors": [
     "substring-after(//*[@class='date'], 'Published')"
@@ -12,8 +13,13 @@
   "author_selectors": [
     "//*[@class='by']/a"
   ],
-  "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_selectors": [
+    "//button",
+    "//aside"
+  ],
+  "strip_id_or_class": [
+    "article-toc"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -23,7 +29,12 @@
   "next_page_link_selectors": [
     "//div[@class='page-navigation']//li[@class='next']/a"
   ],
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "\u003cp class=\"list-item-text\"\u003e",
+      "\u003cspan\u003e"
+    ]
+  ],
   "http_headers": {
     "Cookie": "nymuc=11111111111"
   },
@@ -33,6 +44,10 @@
       "contains": [
         "back to their home country"
       ]
+    },
+    {
+      "url": "https://www.thecut.com/article/tipping-rules-etiquette-rules.html",
+      "contains": []
     }
   ]
 }

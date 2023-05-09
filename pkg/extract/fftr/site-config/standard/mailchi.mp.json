@@ -1,0 +1,58 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@id=\"bodyTable\"]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "templatePreheader",
+    "mcnShareBlock",
+    "templateFooter",
+    "mcnFollowBlock"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003ctable",
+      "\u003cdiv"
+    ],
+    [
+      "\u003c/table",
+      "\u003c/div"
+    ],
+    [
+      "\u003ctbody",
+      "\u003cdiv"
+    ],
+    [
+      "\u003c/tbody",
+      "\u003c/div"
+    ],
+    [
+      "\u003ctr",
+      "\u003cdiv"
+    ],
+    [
+      "\u003c/tr",
+      "\u003c/div"
+    ],
+    [
+      "\u003ctd",
+      "\u003cdiv"
+    ],
+    [
+      "\u003c/td",
+      "\u003c/div"
+    ]
+  ],
+  "http_headers": null,
+  "tests": null
+}

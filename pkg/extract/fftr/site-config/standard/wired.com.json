@@ -19,10 +19,11 @@
     "//p[contains(., 'Pages:') and contains(., 'View All')]",
     "//p[@class='caption']",
     "//div[@class='desc' or @class='slide' or @id='slide-info']",
+    "//div[contains(@class, 'RecircMostPopularWrapper')]",
     "//*[contains(concat(' ',normalize-space(@class),' '),' callout ')]",
     "//div[@id=\"social\"]",
     "//img[contains(@alt, 'capital letter')]",
-    "//hr[last()]/following::*"
+    "(//hr)[last()]/following::*"
   ],
   "strip_id_or_class": [
     "full-bleed-ad",

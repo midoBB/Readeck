@@ -1,0 +1,43 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "(//article)[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//*[contains(@class, 'subjectsList')]",
+    "//svg",
+    "//div[@data-st-area=\"article-header\"]//*[contains(@class, 'article--title')]",
+    "//div[@data-st-area=\"article-header\"]//ul/li",
+    "//div[@data-st-area=\"article-header\"]//ul",
+    "//img[@width='56' and @height='45']",
+    "//h1[contains(@class, 'article--title')]",
+    "//blockquote[contains(@class, 'twitter-tweet')]",
+    "//button"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://wiadomosci.wp.pl/spedzil-dwa-miesiace-w-podziemiach-azowstalu-mowili-ze-mozemy-jezdzic-po-calej-ukrainie-a-i-tak-nas-dopadna-6769475637812128a",
+      "contains": []
+    },
+    {
+      "url": "https://wiadomosci.wp.pl/zareczyny-polityka-960-m-pod-ziemia-tak-sie-bawi-wladza-pis-6854775542082464a",
+      "contains": []
+    },
+    {
+      "url": "https://wiadomosci.wp.pl/pieklo-pieklo-pieklo-jachira-uderza-w-pis-6854849794407328a",
+      "contains": []
+    }
+  ]
+}

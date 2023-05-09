@@ -6,7 +6,9 @@
   ],
   "author_selectors": null,
   "strip_selectors": [
-    "//aside"
+    "//aside",
+    "//div[@class='provider-multi-box']",
+    "//div[@class='list list--mb']"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,

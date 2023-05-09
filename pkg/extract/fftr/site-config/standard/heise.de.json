@@ -2,7 +2,7 @@
   "title_selectors": null,
   "body_selectors": [
     "//article[contains(@class, 'printversion')]",
-    "//article[@id=\"meldung\"] | //div[@class='meldung_wrapper'] | //section[@id='artikel_text']"
+    "//article[@id=\"meldung\"] | //div[@class='meldung_wrapper'] | //section[@id='artikel_text'] | //article[contains(@class, 'xp__article')]"
   ],
   "date_selectors": [
     "//article//time[@itemprop=\"datePublished\"]/@datetime",
@@ -16,9 +16,11 @@
   "strip_selectors": [
     "//nav",
     "//time",
+    "//h1[@class='article__heading']",
     "//h4[@class='author']",
     "//div[@class='gallery compact']/h3",
     "//div[@class='gallery compact']/figcaption",
+    "//div[@class='publish-info']",
     "//p[@class='news_datum']",
     "//p[@class='artikel_datum']",
     "//p[@class='news_navi']",
@@ -32,7 +34,9 @@
     "//figure[@class='branding']",
     "//a-ad",
     "//footer",
-    "//a-collapse"
+    "//div/section[@data-component='TeaserList']/ancestor::div",
+    "//a-collapse",
+    "//div[@class=\"ff-a-img\"]//img[not(@data-ff-replacement)]"
   ],
   "strip_id_or_class": [
     "comments",
@@ -51,6 +55,8 @@
     "article-sidebar",
     "a-box__header",
     "a-article-teaser",
+    "article-header",
+    "a-box__target",
     "ad_",
     "a-box"
   ],
@@ -70,6 +76,14 @@
     "//a[@rel='next']"
   ],
   "replace_strings": [
+    [
+      "\u003ca-img",
+      "\u003cdiv class=\"ff-a-img\"\u003e\u003cimg data-ff-replacement=\"1\""
+    ],
+    [
+      "\u003c/a-img\u003e",
+      "\u003c/img\u003e\u003c/div\u003e"
+    ],
     [
       "\u003ch5\u003e",
       "\u003ch2\u003e"

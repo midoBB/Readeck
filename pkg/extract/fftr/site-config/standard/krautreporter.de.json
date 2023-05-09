@@ -20,8 +20,8 @@
       "\u003cimg notused="
     ],
     [
-      "ix-path=\"",
-      "src=\"https://krautreporter.imgix.net"
+      "ix-path='",
+      "src='https://krautreporter.imgix.net"
     ]
   ],
   "http_headers": null,

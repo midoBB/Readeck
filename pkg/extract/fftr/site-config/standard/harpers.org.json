@@ -10,12 +10,15 @@
   ],
   "author_selectors": null,
   "strip_selectors": [
-    "//aside"
+    "//aside",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' title-header ')]"
   ],
   "strip_id_or_class": [
     "related-issue-tout",
     "aria-font-adjusts",
-    "component-share-buttons"
+    "component-share-buttons",
+    "after-post-content",
+    "component-newsletter-signup"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

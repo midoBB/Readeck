@@ -7,7 +7,9 @@
   "author_selectors": null,
   "strip_selectors": null,
   "strip_id_or_class": [
-    "highlights"
+    "highlights",
+    "video-inline_carousel",
+    "video-inline_carousel__wrapper"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

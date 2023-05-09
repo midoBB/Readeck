@@ -15,7 +15,8 @@
     "followUs",
     "readmore",
     "refurbStoreList",
-    "lastVideoList"
+    "lastVideoList",
+    "similar"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

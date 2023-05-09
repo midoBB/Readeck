@@ -1,7 +1,8 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "(//article)[1]"
+    "(//article[contains(@class, 'detail--post')])[1]",
+    "(//main//section)[2]//div/div/div/div[contains(@class, 'elementor-column-wrap')]/div[contains(@class, 'elementor-widget-wrap')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
@@ -9,7 +10,9 @@
     "//div[contains(concat(' ',normalize-space(@class),' '),' detail__share ')]",
     "//div[contains(concat(' ',normalize-space(@class),' '),' list__bar ')]"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "elementor-hidden-mobile"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -22,6 +25,10 @@
   "tests": [
     {
       "url": "https://correctiv.org/ruhr/2019/10/11/die-co2-wende-vor-der-haustuer",
+      "contains": []
+    },
+    {
+      "url": "https://correctiv.org/aktuelles/klimawandel/2022/05/04/greenwashing-agrarkonzern-plant-solaranlage-und-will-dafuer-wald-roden/?utm_source=pocket-newtab-global-de-DE",
       "contains": []
     }
   ]

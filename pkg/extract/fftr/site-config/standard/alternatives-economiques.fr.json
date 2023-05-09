@@ -7,11 +7,13 @@
     "//header[contains(concat(' ',normalize-space(@class),' '),' o-page__content__head ')]//div[contains(concat(' ',normalize-space(@class),' '),' o-infos ')]//time[contains(concat(' ',normalize-space(@class),' '),' o-infos__date ')]"
   ],
   "author_selectors": [
-    "//header//a[contains(@href, '/users/')] | //header//div[contains(@class, \"c-portrait__infos\")]"
+    "//div[contains(@class, 'o-page__content__body')]//a[contains(@href, '/users/')] | //header//div[contains(@class, \"o-page__content__who\")]//a | //article//a[contains(@href, '/users/')]"
   ],
   "strip_selectors": [
     "//div[contains(concat(' ',normalize-space(@class),' '),' o-page__footer ')]",
-    "//noscript"
+    "//noscript",
+    "//div[contains(@class, 'o-page__content__who')]",
+    "//div[contains(@class, 'c-kiosk--single__body')]"
   ],
   "strip_id_or_class": [
     "c-same-subject",

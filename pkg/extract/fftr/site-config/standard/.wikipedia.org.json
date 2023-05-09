@@ -17,7 +17,8 @@
     "//div[@id='contentSub']",
     "//table[contains(@class, 'metadata')]",
     "//*[contains(@class, 'noprint')]",
-    "//span[@class='noexcerpt']"
+    "//span[@class='noexcerpt']",
+    "//math"
   ],
   "strip_id_or_class": [
     "editsection",

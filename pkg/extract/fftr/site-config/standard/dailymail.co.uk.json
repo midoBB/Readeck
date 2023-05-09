@@ -14,6 +14,7 @@
   "strip_selectors": [
     "//div[@class='explore-links']",
     "//div[@id='js-article-text']/br[position()=1]",
+    "//div[contains(@class, 'viewGalleryText')]",
     "//noscript",
     "//div[@itemprop=\"video\"]"
   ],
@@ -28,7 +29,8 @@
     "related-carousel",
     "reader-comments",
     "most-watched",
-    "most-read"
+    "most-read",
+    "imageCaption"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

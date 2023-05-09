@@ -1,18 +1,14 @@
 {
   "title_selectors": [
-    "//meta[@name='Title']/@content"
+    "//h1"
   ],
   "body_selectors": [
-    "//div[@class='article-content']"
+    "//article"
   ],
-  "date_selectors": [
-    "//meta[@name='DisplayDate']/@content"
-  ],
-  "author_selectors": [
-    "//meta[@name='Author']/@content"
-  ],
+  "date_selectors": null,
+  "author_selectors": null,
   "strip_selectors": [
-    "//div[@class='article-sidebar']"
+    "//div[@class='compartir-post']"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -26,7 +22,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.wired.de/collection/latest/der-vw-skandal-zeigt-ohne-vertrauen-ist-software-nicht-mehr-als-bose-magie",
+      "url": "https://www.microsiervos.com/archivo/espacio/pequeno-vistazo-interior-edificio-ensamblado-vehiculos-chino.html",
       "contains": []
     }
   ]

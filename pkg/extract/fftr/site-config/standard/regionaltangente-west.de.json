@@ -1,0 +1,46 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@id='main']"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//p[@class='info']",
+    "//p[@class='back']",
+    "//h1[@itemprop='name']",
+    "//ol[@class='carousel-indicators']"
+  ],
+  "strip_id_or_class": [
+    "ytelement",
+    "YTPrevPict"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cdiv class=\"bsc_spic\" style=\"background: url('",
+      "\u003cimg src='"
+    ],
+    [
+      "\u0026nbsp;",
+      ""
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.regionaltangente-west.de/baustellenblog-reader/vollsperrung-des-forstwegs-an-der-gehespitz.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.regionaltangente-west.de/baustellenblog-reader/bauarbeiten-im-pfa-sued-1-schreiten-voran.html",
+      "contains": []
+    }
+  ]
+}

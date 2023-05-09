@@ -1,13 +1,13 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[@class=\"textzone\"]"
+    "//section[@class=\"article-header\"] | //section[contains(@class, \"article-body\")]"
   ],
   "date_selectors": [
-    "//div[@class=\"titleinfo\"]//time[@itemprop=\"datePublished\"]/@datetime"
+    "//article//div[contains(@class, \"text-gray-darkest\")]//time/@datetime"
   ],
   "author_selectors": [
-    "//div[@class=\"titleinfo\"]//a[@itemprop=\"author\"]"
+    "//article//div[contains(@class, \"text-gray-darkest\")]//a[contains(@href, \"/informations/a-propos/\")]"
   ],
   "strip_selectors": null,
   "strip_id_or_class": null,

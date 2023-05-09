@@ -1,0 +1,36 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' content-body ')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//svg"
+  ],
+  "strip_id_or_class": [
+    "privacy-bar",
+    "privacy-modal",
+    "related-articles-placeholder",
+    "related-articles"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.defenseone.com/threats/2022/03/naval-brief-nuclear-threats-deployment-funding-chinas-naval-modernization-and-more/363012/",
+      "contains": []
+    },
+    {
+      "url": "https://www.defenseone.com/rss/all/",
+      "contains": []
+    }
+  ]
+}

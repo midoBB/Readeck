@@ -1,0 +1,48 @@
+{
+  "title_selectors": null,
+  "body_selectors": null,
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "c-contentHeader__author",
+    "id-Article-content-item.id-Article-advert.id-Article-advert--ad3",
+    "dataPolicySettings__description",
+    "additionalInfo",
+    "contentFooter",
+    "region--appendix",
+    "unbreakable",
+    "hideCompletely",
+    "c-form__button",
+    "img.image.imageSimple.ar__content",
+    "audioElement"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cspan aria-label=\"zum Video\"\u003e\u003c",
+      "\u003cspan aria-label=\"zum Video\"\u003ezum Video: \u003c"
+    ],
+    [
+      "\u003cspan aria-label=\"Audioseite\"\u003e\u003c",
+      "\u003cspan aria-label=\"Audioseite\"\u003ezur Audioseite: \u003c"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.hessenschau.de/rheinmain/index.rss",
+      "contains": []
+    },
+    {
+      "url": "https://www.hessenschau.de/panorama/weltkriegsbombe-im-frankfurter-osthafen-entschaerft,bombenfund-frankfurt-ostend-100.html",
+      "contains": []
+    }
+  ]
+}

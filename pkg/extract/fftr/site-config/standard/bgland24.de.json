@@ -1,0 +1,41 @@
+{
+  "title_selectors": null,
+  "body_selectors": null,
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "idjs-simpletab-nav-item",
+    "idjs-simpletab-content-close",
+    "id-AuthorList",
+    "id-Article-content-item-copyright",
+    "id-DonaldBreadcrumb",
+    "id-StoryElement-timestamp",
+    "id-StoryElement-authors",
+    "id-StoryElement-interactionBar",
+    "id-StoryElement-image-caption",
+    "id-Mediabox-info-el",
+    "id-Recommendation",
+    "id-js-relatedStory",
+    "id-Article-content-item.id-Article-advert.id-Article-advert--ad3",
+    "id-Article-advert.id-Article-content-item",
+    "id-Article-content-item.id-Article-advert",
+    "id-Article-advert--ad3",
+    "id-Article-advert"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": true,
+  "prune": true,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.bgland24.de/bgland/region-berchtesgaden/bischofswiesen-ort28409/schoenau-am-koenigssee-wieder-grosses-interesse-bei-fit-durch-unser-gmoa-2022-91285772.html",
+      "contains": []
+    }
+  ]
+}

@@ -1,9 +1,13 @@
 {
   "title_selectors": null,
-  "body_selectors": null,
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' articlecontent ')]/div[contains(concat(' ',normalize-space(@class),' '),' richtext ')]"
+  ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' articlecontent ')]/div[contains(concat(' ',normalize-space(@class),' '),' richtext ')]/div[not(contains(concat(' ',normalize-space(@class),' '),' e-image '))]"
+  ],
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -16,5 +20,10 @@
   "http_headers": {
     "user-agent": "curl/7.54.0"
   },
-  "tests": null
+  "tests": [
+    {
+      "url": "https://www.msn.com/en-us/news/technology/followers-are-a-valuable-currency-who-should-own-them/ar-AAXfrUU",
+      "contains": []
+    }
+  ]
 }

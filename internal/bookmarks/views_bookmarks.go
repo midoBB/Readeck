@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"strings"
 
 	"github.com/readeck/readeck/internal/auth"
 	"github.com/readeck/readeck/internal/server"
@@ -88,16 +87,10 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
 	ctx["Item"] = item
 
-	buf, err := h.getBookmarkArticle(&item)
+	var err error
+	ctx["HTML"], err = item.getArticle()
 	if err != nil {
-		if os.IsNotExist(err) {
-			ctx["HTML"] = strings.NewReader("")
-		} else {
-			h.srv.Error(w, r, err)
-			return
-		}
-	} else {
-		ctx["HTML"] = buf
+		h.srv.Log(r).Error(err)
 	}
 
 	ctx["Out"] = w

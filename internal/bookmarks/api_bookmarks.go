@@ -8,6 +8,7 @@ import (
 	"mime"
 	"net/http"
 	"net/url"
+	"os"
 	"path"
 	"strconv"
 	"strings"
@@ -16,6 +17,8 @@ import (
 	"github.com/doug-martin/goqu/v9"
 	"github.com/doug-martin/goqu/v9/exp"
 	"github.com/go-chi/chi/v5"
+	"github.com/go-shiori/dom"
+	"golang.org/x/net/html"
 
 	"github.com/readeck/readeck/internal/auth"
 	"github.com/readeck/readeck/internal/server"
@@ -68,9 +71,19 @@ func (api *apiRouter) bookmarkArticle(w http.ResponseWriter, r *http.Request) {
 	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
 
 	bi := newBookmarkItem(api.srv, r, b, "")
-	buf, err := api.getBookmarkArticle(&bi)
+	buf, err := bi.getArticle()
 	if err != nil {
-		api.srv.Error(w, r, err)
+		api.srv.Log(r).Error(err)
+	}
+
+	if api.srv.IsTurboRequest(r) {
+		api.srv.RenderTurboStream(w, r,
+			"/bookmarks/components/content_block", "replace",
+			"bookmark-content-"+b.UID, map[string]interface{}{
+				"Item": bi,
+				"HTML": buf,
+				"Out":  w,
+			})
 		return
 	}
 
@@ -321,6 +334,63 @@ func (api *apiRouter) labelUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func (api *apiRouter) annotationList(w http.ResponseWriter, r *http.Request) {
+	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
+	if b.Annotations != nil {
+		api.srv.Render(w, r, http.StatusOK, b.Annotations)
+		return
+	}
+
+	api.srv.Render(w, r, http.StatusOK, BookmarkAnnotations{})
+}
+
+func (api *apiRouter) annotationCreate(w http.ResponseWriter, r *http.Request) {
+	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
+	f := newAnnotationForm()
+	forms.Bind(f, r)
+	if !f.IsValid() {
+		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
+		return
+	}
+
+	bi := newBookmarkItem(api.srv, r, b, "")
+	id, annotation, err := f.addToBookmark(&bi)
+	if err != nil {
+		api.srv.Error(w, r, err)
+		return
+	}
+
+	w.Header().Add("Location", api.srv.AbsoluteURL(r, ".", id).String())
+	api.srv.Render(w, r, 200, map[string]interface{}{
+		"id":         id,
+		"annotation": annotation,
+	})
+}
+
+func (api *apiRouter) annotationDelete(w http.ResponseWriter, r *http.Request) {
+	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
+	id := chi.URLParam(r, "id")
+	if b.Annotations == nil {
+		api.srv.Status(w, r, http.StatusNotFound)
+		return
+	}
+	if _, ok := b.Annotations[id]; !ok {
+		api.srv.Status(w, r, http.StatusNotFound)
+		return
+	}
+
+	delete(b.Annotations, id)
+	err := b.Update(map[string]interface{}{
+		"annotations": b.Annotations,
+	})
+	if err != nil {
+		api.srv.Error(w, r, err)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}
+
 // withBookmark returns a router that will fetch a bookmark and add it into the
 // request's context. It also deals with if-modified-since header.
 func (api *apiRouter) withBookmark(next http.Handler) http.Handler {
@@ -549,32 +619,6 @@ func (api *apiRouter) withLabelList(next http.Handler) http.Handler {
 	})
 }
 
-// getBookmarkArticle returns a strings.Reader containing the
-// HTML content of a bookmark. Only the body is retrieved.
-func (api *apiRouter) getBookmarkArticle(b *bookmarkItem) (r *strings.Reader, err error) {
-	var c *bookmarkContainer
-	if c, err = b.openContainer(); err != nil {
-		return
-	}
-	defer c.Close()
-
-	if err = c.LoadArticle(); err != nil {
-		return
-	}
-
-	if err = c.ReplaceLinks(
-		"./_resources",
-		fmt.Sprintf("%s/_resources", b.mediaURL.String()),
-	); err != nil {
-		return
-	}
-	if err = c.ExtractBody(); err != nil {
-		return
-	}
-
-	return strings.NewReader(c.GetArticle()), nil
-}
-
 // bookmarkList is a paginated list of BookmarkItem instances.
 type bookmarkList struct {
 	items      []*Bookmark
@@ -620,7 +664,8 @@ type bookmarkItem struct {
 	Embed        string                   `json:"embed,omitempty"`
 	Errors       []string                 `json:"errors,omitempty"`
 
-	mediaURL *url.URL
+	mediaURL      *url.URL
+	annotationTag string
 }
 
 // bookmarkFile is a file attached to a bookmark. If the file is
@@ -656,7 +701,8 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *Bookmark, base string
 		Labels:       make([]string, 0),
 		Resources:    make(map[string]*bookmarkFile),
 
-		mediaURL: s.AbsoluteURL(r, "/bm", b.FilePath),
+		mediaURL:      s.AbsoluteURL(r, "/bm", b.FilePath),
+		annotationTag: "rd-annotation",
 	}
 
 	if b.Labels != nil {
@@ -699,6 +745,81 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *Bookmark, base string
 	}
 
 	return res
+}
+
+// getArticle returns a strings.Reader containing the
+// HTML content of a bookmark. Only the body is retrieved.
+//
+// Note: this method will always return a non nil strings.Reader. In case of error
+// it might be empty or the original one if some transformation failed.
+// This lets us test for error and log them when needed.
+func (bi bookmarkItem) getArticle() (*strings.Reader, error) {
+	var err error
+	var c *bookmarkContainer
+	if c, err = bi.openContainer(); err != nil {
+		return strings.NewReader(""), err
+	}
+	defer c.Close()
+
+	if err = c.LoadArticle(); err != nil {
+		if os.IsNotExist(err) {
+			return strings.NewReader(""), nil
+		}
+		return strings.NewReader(""), err
+	}
+
+	if err = c.ReplaceLinks(
+		"./_resources",
+		fmt.Sprintf("%s/_resources", bi.mediaURL.String()),
+	); err != nil {
+		return strings.NewReader(""), err
+	}
+
+	if err = c.ExtractBody(); err != nil {
+		return strings.NewReader(""), err
+	}
+
+	reader := strings.NewReader(c.GetArticle())
+
+	// Add bookmark annotations
+	if len(bi.Annotations) > 0 {
+		return bi.addAnnotations(reader)
+	}
+
+	return reader, nil
+}
+
+// addAnnotations adds the given annotations to the document's content.
+// annotations is a parameter for we can use this method to add existing annotations or
+// add a new one (and use this method as a validator)
+func (bi bookmarkItem) addAnnotations(input *strings.Reader) (*strings.Reader, error) {
+	var err error
+	var doc *html.Node
+
+	if doc, err = html.Parse(input); err != nil {
+		input.Seek(0, 0)
+		return input, err
+	}
+	root := dom.QuerySelector(doc, "body")
+
+	err = bi.Annotations.addToNode(root, bi.annotationTag, func(id string, n *html.Node, index int) {
+		if index == 0 {
+			dom.SetAttribute(n, "id", fmt.Sprintf("annotation-%s", id))
+		}
+		dom.SetAttribute(n, "data-annotation-id-value", id)
+	})
+	if err != nil {
+		input.Seek(0, 0)
+		return input, err
+	}
+
+	buf := new(strings.Builder)
+	if err = html.Render(buf, doc); err != nil {
+		input.Seek(0, 0)
+		return input, err
+	}
+	reader := strings.NewReader(buf.String())
+	return reader, nil
 }
 
 type labelItem struct {

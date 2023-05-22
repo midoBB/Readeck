@@ -24,78 +24,78 @@
   data-turbo-refresh-interval-value="10"
   data-turbo-refresh-on-value="[data-bookmark-deleted='true']">
     <form action="{{ urlFor() }}?edit=1" method="post"
-      data-controller="reveal"
-      data-reveal-visible-value="{{ .Editing }}"
-      class="my-4 p-2 bg-gray-100 border rounded">
+     class="my-4 p-2 bg-gray-100 border rounded">
       {{ yield formErrors(form=.Form) }}
       {{ yield csrfField() }}
-      <a data-reveal-target="trigger" href="#"
-      class="block link font-semibold">{{- yield icon(name="o-pencil") -}} Edit</a>
-      <div data-reveal-target="content" class="text-sm mt-2">
-        <div class="grid grid-cols-3 gap-2 +md:grid-cols-2">
-          {{ yield textField(
-            field=.Form.Get("name"),
-            label="Name",
-            class="mb-0 col-span-3 +md:col-span-2",
-          ) }}
-          {{ yield textField(
-            field=.Form.Get("search"),
-            label="Search",
-            class="mb-0 col-span-3 +md:col-span-2",
-          ) }}
-          {{ yield textField(
-            field=.Form.Get("title"),
-            label="Title",
-            class="mb-0",
-          ) }}
-          {{ yield textField(
-            field=.Form.Get("author"),
-            label="Author",
-            class="mb-0",
-          ) }}
-          {{ yield textField(
-            field=.Form.Get("site"),
-            label="Site",
-            class="mb-0",
-          ) }}
-
-          {{ yield textField(
-            field=.Form.Get("labels"),
-            label="Label",
-            class="mb-0",
-          ) }}
-
-          <div class="col-span-2 flex flex-wrap gap-2">
-            {{ yield selectField(
-              field=.Form.Get("is_marked"),
-              label="Is Favourite",
-              class="mb-0",
-              options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
+      <details {{- if .Editing }} open{{- end -}}>
+        <summary class="block link font-semibold"
+        >{{- yield icon(name="o-pencil") -}} Edit</summary>
+        <div class="text-sm mt-2">
+          <div class="grid grid-cols-3 gap-2 +md:grid-cols-2">
+            {{ yield textField(
+              field=.Form.Get("name"),
+              label="Name",
+              class="mb-0 col-span-3 +md:col-span-2",
             ) }}
-            {{ yield selectField(
-              field=.Form.Get("is_archived"),
-              label="Is Archived",
-              class="mb-0",
-              options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
+            {{ yield textField(
+              field=.Form.Get("search"),
+              label="Search",
+              class="mb-0 col-span-3 +md:col-span-2",
             ) }}
-
-            {{ yield selectField(
-              field=.Form.Get("type"),
-              label="Type",
+            {{ yield textField(
+              field=.Form.Get("title"),
+              label="Title",
               class="mb-0",
             ) }}
+            {{ yield textField(
+              field=.Form.Get("author"),
+              label="Author",
+              class="mb-0",
+            ) }}
+            {{ yield textField(
+              field=.Form.Get("site"),
+              label="Site",
+              class="mb-0",
+            ) }}
+
+            {{ yield textField(
+              field=.Form.Get("labels"),
+              label="Label",
+              class="mb-0",
+            ) }}
+
+            <div class="col-span-2 flex flex-wrap gap-2">
+              {{ yield selectField(
+                field=.Form.Get("is_marked"),
+                label="Is Favourite",
+                class="mb-0",
+                options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
+              ) }}
+              {{ yield selectField(
+                field=.Form.Get("is_archived"),
+                label="Is Archived",
+                class="mb-0",
+                options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
+              ) }}
+
+              {{ yield selectField(
+                field=.Form.Get("type"),
+                label="Type",
+                class="mb-0",
+              ) }}
+            </div>
+          </div>
+          <div class="mt-2 flex">
+            <p class="flex-grow">
+              <button class="btn btn-primary">Save</button>
+            </p>
+            <p>
+              <button class="btn-danger" formaction="{{ urlFor(`./delete`) }}" formmethod="post"
+              >{{ yield icon(name="o-trash") }} Delete collection</button>
+            </p>
           </div>
         </div>
-        <div class="mt-2 flex">
-          <p class="flex-grow">
-            <button class="btn btn-primary">Save</button>
-          </p>
-          <p>
-            <button class="btn-danger" formaction="{{ urlFor(`./delete`) }}" formmethod="post"
-            >{{ yield icon(name="o-trash") }} Delete collection</button>
-          </p>
-        </div>
-      </div>
+      </details>
     </form>
 
     {{- if hasPermission("api:bookmarks", "export") -}}

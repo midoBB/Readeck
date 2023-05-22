@@ -37,63 +37,62 @@
 
   {{- if isset(.Filters) && .Count.Total > 0 }}
   <form action="{{ urlFor(`/bookmarks`) }}" method="get"
-   data-controller="reveal"
-   data-reveal-visible-value="{{ .Filters.IsActive() }}"
    class="my-4 p-2 bg-gray-100 border rounded">
     <input type="hidden" name="bf" value="1" />
-    <a data-reveal-target="trigger" href="#"
-     class="block font-semibold hf:text-primary">{{ yield icon(name="o-filter") }} Filters</a>
-    <div data-reveal-target="content" class="text-sm">
-      <div class="grid grid-cols-3 gap-2 +md:grid-cols-2">
-        {{ yield textField(
-          field=.Filters.Get("search"),
-          label="Search",
-          class="mb-0 col-span-3 +md:col-span-2",
-        ) }}
-        {{ yield textField(
-          field=.Filters.Get("title"),
-          label="Title",
-          class="mb-0",
-        ) }}
-        {{ yield textField(
-          field=.Filters.Get("author"),
-          label="Author",
-          class="mb-0",
-        ) }}
-        {{ yield textField(
-          field=.Filters.Get("site"),
-          label="Site",
-          class="mb-0",
-        ) }}
-
-        {{ yield textField(
-          field=.Filters.Get("labels"),
-          label="Label",
-          class="mb-0",
-        ) }}
-
-        <div class="col-span-2 flex flex-wrap gap-2">
-          {{ yield selectField(field=.Filters.Get("is_marked"),
-            label="Is Favourite",
-            class="mb-0",
-            options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
+    <details {{- if .Filters.IsActive() }} open{{- end -}}>
+      <summary class="block font-semibold hf:text-primary">{{ yield icon(name="o-filter") }} Filters</summary>
+      <div class="text-sm">
+        <div class="grid grid-cols-3 gap-2 +md:grid-cols-2">
+          {{ yield textField(
+            field=.Filters.Get("search"),
+            label="Search",
+            class="mb-0 col-span-3 +md:col-span-2",
           ) }}
-          {{ yield selectField(field=.Filters.Get("is_archived"),
-            label="Is Archived",
-            class="mb-0",
-            options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
-          ) }}
-
-          {{ yield selectField(field=.Filters.Get("type"),
-            label="Type",
+          {{ yield textField(
+            field=.Filters.Get("title"),
+            label="Title",
             class="mb-0",
           ) }}
-        </div>
-        <div class="mt-2 col-span-3 +md:col-span-2">
-          <button class="btn btn-primary">Search</button>
+          {{ yield textField(
+            field=.Filters.Get("author"),
+            label="Author",
+            class="mb-0",
+          ) }}
+          {{ yield textField(
+            field=.Filters.Get("site"),
+            label="Site",
+            class="mb-0",
+          ) }}
+
+          {{ yield textField(
+            field=.Filters.Get("labels"),
+            label="Label",
+            class="mb-0",
+          ) }}
+
+          <div class="col-span-2 flex flex-wrap gap-2">
+            {{ yield selectField(field=.Filters.Get("is_marked"),
+              label="Is Favourite",
+              class="mb-0",
+              options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
+            ) }}
+            {{ yield selectField(field=.Filters.Get("is_archived"),
+              label="Is Archived",
+              class="mb-0",
+              options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
+            ) }}
+
+            {{ yield selectField(field=.Filters.Get("type"),
+              label="Type",
+              class="mb-0",
+            ) }}
+          </div>
+          <div class="mt-2 col-span-3 +md:col-span-2">
+            <button class="btn btn-primary">Search</button>
+          </div>
         </div>
       </div>
-    </div>
+    </details>
   </form>
   {{ end -}}
 

@@ -10,12 +10,6 @@
   <meta name="x-csrf-token" content="{{ csrfToken }}" />
   <meta name="x-icons" content="{{ assetURL(`img/icons.svg`) }}" />
 
-  {{- if !isTurbo }}
-  <style>
-  body.js [data-reveal-visible-value='false'] [data-reveal-target='content'] { display: none; }
-  </style>
-  {{ end -}}
-
   <link rel="stylesheet" href="{{ assetURL(`bundle.css`) }}">
   <script type="module" src="{{ assetURL(`bundle.js`) }}"></script>
 

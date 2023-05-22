@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum officiis
+      inventore a voluptatem ratione iure totam quis soluta officia, sed
+      doloremque dolorum fugiat laudantium quos? Asperiores obcaecati architecto
+      nihil fugit.
+    </p>
+
+    <h2>Title <span>test</span></h2>
+
+    <p>
+      Lorem <b>ipsum</b> dolor sit, amet consectetur adipisicing elit. Quibusdam
+      dolores est illo sint amet qui laudantium, officiis quos laboriosam sit,
+      hic temporibus deserunt magni harum dolore commodi! Rerum, ullam
+      repudiandae!
+    </p>
+
+    lorem ipsum
+
+    <ul>
+      <li>dolor sit</li>
+      <li>amet consectetur</li>
+    </ul>
+
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+        eaque, quia veritatis, minus autem illum quo iste cupiditate quasi eum
+        reiciendis alias asperiores nobis reprehenderit commodi perferendis.
+        Minima, beatae voluptate.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. A,
+        <strong>assumenda nesciunt <a href="#">sit eos</a> fugit</strong>,
+        numquam omnis, voluptate eum ullam possimus sequi temporibus autem
+        porro? Praesentium laboriosam ullam ipsam. Accusamus, eaque?
+      </p>
+    </div>
+
+    <p>
+      Lorem ipsum på svenska är en trevlig version på den berömda Lorem ipsum
+      varianten. “Med hjälp av en text som denna så ser man snabbt hur text kan
+      <b>placeras</b> och ‘hur det därefter ser ut’”. Kan vi få fram något
+      resultat på hur många som kom idag? Kanske kan man få ihop en lång text av
+      detta eller behövs det helt enkelt fler meningar?
+    </p>
+
+    <script>
+      function getSelector(node, offset) {
+        let p = node.parentElement;
+        const names = [];
+
+        // Get selector
+        while (p.parentElement && node !== document.body) {
+          if (p.id) {
+            names.unshift(`#${p.getAttribute("id")}`);
+            break;
+          } else {
+            let i = 1;
+            let s = p;
+            while (s.previousElementSibling) {
+              s = s.previousElementSibling;
+              if (s.tagName.toLowerCase() == p.tagName.toLowerCase()) {
+                i++;
+              }
+            }
+            names.unshift(`${p.tagName.toLowerCase()}[${i}]`);
+          }
+          p = p.parentElement;
+        }
+
+        // Get offset
+        let done = false;
+        let newOffset = 0;
+        walkTextNodes(node.parentElement, (n) => {
+          if (done) {
+            return;
+          }
+          if (n == node) {
+            done = true;
+          }
+          if (!done) {
+            newOffset += n.textContent.length;
+          } else {
+            newOffset += offset;
+          }
+        });
+
+        return { selector: names.join("/"), offset: newOffset };
+      }
+
+      function walkTextNodes(node, callback) {
+        for (let child = node.firstChild; child; child = child.nextSibling) {
+          if (child.nodeType == Node.TEXT_NODE) {
+            callback(child);
+          }
+          walkTextNodes(child, callback);
+        }
+      }
+
+      document.addEventListener("mouseup", () => {
+        let s = document.getSelection();
+        if (s.type.toLowerCase() != "range" || !s.toString().trim()) {
+          return;
+        }
+        if (s.rangeCount !== 1) {
+          return;
+        }
+        let r = s.getRangeAt(0);
+        if (r.collapsed) {
+          return;
+        }
+
+        if (
+          r.startContainer.nodeType != Node.TEXT_NODE ||
+          r.endContainer.nodeType != Node.TEXT_NODE
+        ) {
+          return;
+        }
+
+        const s_ = getSelector(r.startContainer, r.startOffset);
+        const e_ = getSelector(r.endContainer, r.endOffset);
+
+        console.log(r);
+        console.log({
+          start_selector: s_.selector,
+          start_offset: s_.offset,
+          end_selector: e_.selector,
+          end_offset: e_.offset,
+        });
+        console.log(
+          `"${s_.selector}", ${s_.offset}, "${e_.selector}", ${e_.offset}`
+        );
+      });
+    </script>
+  </body>
+</html>

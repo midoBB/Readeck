@@ -22,6 +22,7 @@ import (
 
 	"github.com/readeck/readeck/internal/auth"
 	"github.com/readeck/readeck/internal/server"
+	"github.com/readeck/readeck/pkg/annotate"
 	"github.com/readeck/readeck/pkg/forms"
 	"github.com/readeck/readeck/pkg/zipfs"
 )
@@ -356,7 +357,14 @@ func (api *apiRouter) annotationCreate(w http.ResponseWriter, r *http.Request) {
 	bi := newBookmarkItem(api.srv, r, b, "")
 	id, annotation, err := f.addToBookmark(&bi)
 	if err != nil {
-		api.srv.Error(w, r, err)
+		if errors.As(err, &annotate.ErrAnotate) {
+			api.srv.Message(w, r, &server.Message{
+				Status:  http.StatusBadRequest,
+				Message: err.Error(),
+			})
+		} else {
+			api.srv.Error(w, r, err)
+		}
 		return
 	}
 

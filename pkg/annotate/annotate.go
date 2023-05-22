@@ -1,6 +1,7 @@
 package annotate
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 
@@ -41,6 +42,20 @@ type AnnotationRange struct {
 // current wrapping position.
 type WrapCallback func(node *html.Node, index int)
 
+type annotationError struct {
+	msg string
+}
+
+func newError(s string, a ...any) *annotationError {
+	return &annotationError{msg: fmt.Sprintf(s, a...)}
+}
+
+func (e *annotationError) Error() string {
+	return e.msg
+}
+
+var ErrAnotate *annotationError
+
 // AddAnnotation is the main function that will add an annotation to a given root node.
 // It lets one set an annotation tag name and performs the overlap validation.
 // The root node is modified in place.
@@ -54,7 +69,7 @@ func AddAnnotation(
 	r, err := a.ToRange(func(ar *AnnotationRange) error {
 		for _, n := range ar.textNodes {
 			if n.Parent.Data == tagName {
-				return fmt.Errorf("overlapping annotation")
+				return newError("overlapping annotation")
 			}
 		}
 		return nil
@@ -86,7 +101,7 @@ func NewAnnotation(root *html.Node, startSelector string, startOffset int, endSe
 // range can be wraped later.
 func (a *Annotation) ToRange(validators ...func(*AnnotationRange) error) (r *AnnotationRange, err error) {
 	if a.root == nil {
-		return nil, fmt.Errorf("root node is not defined")
+		return nil, errors.New("root node is not defined")
 	}
 
 	r = &AnnotationRange{root: a.root}
@@ -131,12 +146,12 @@ func (a *Annotation) ToRange(validators ...func(*AnnotationRange) error) (r *Ann
 	// an empty text node list can be because the start element is after the end element
 	// (it won't work)
 	if len(r.textNodes) == 0 {
-		return nil, fmt.Errorf("no text nodes in range")
+		return nil, newError("no text nodes in range")
 	}
 
 	// when only one node, check boundaries are ok
 	if len(r.textNodes) == 1 && r.startOffset > r.endOffset {
-		return nil, fmt.Errorf("invalid range")
+		return nil, newError("invalid range")
 	}
 
 	for _, v := range validators {
@@ -182,7 +197,7 @@ func getTextNodeBoundary(root *html.Node, selector string, index int) (*html.Nod
 	}
 
 	if e == nil {
-		return nil, 0, fmt.Errorf(`element "%s" not found`, selector)
+		return nil, 0, newError(`element "%s" not found`, selector)
 	}
 	var textNode *html.Node
 	offset := 0
@@ -200,7 +215,7 @@ func getTextNodeBoundary(root *html.Node, selector string, index int) (*html.Nod
 	})
 
 	if textNode == nil {
-		return nil, 0, fmt.Errorf(`index "%d" is out of range`, index)
+		return nil, 0, newError(`index "%d" is out of range`, index)
 	}
 
 	return textNode, offset, nil
@@ -209,7 +224,7 @@ func getTextNodeBoundary(root *html.Node, selector string, index int) (*html.Nod
 // getSelector returns a CSS selector for a text node at the given offset.
 func getSelector(root *html.Node, node *html.Node, offset int) (string, int, error) {
 	if node.Type != html.TextNode {
-		return "", 0, fmt.Errorf("node is not a text node")
+		return "", 0, newError("node is not a text node")
 	}
 
 	p := node.Parent

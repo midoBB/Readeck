@@ -78,4 +78,5 @@ var migrationList = []migrationEntry{
 	}),
 
 	newMigrationEntry(2, "bookmark_collection", applyMigrationFile("02_bookmark_collection.sql")),
+	newMigrationEntry(3, "bookmark_annotations", applyMigrationFile("03_bookmark_annotations.sql")),
 }

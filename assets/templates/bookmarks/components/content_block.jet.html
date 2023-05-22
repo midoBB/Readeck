@@ -1,0 +1,44 @@
+{{ import "../../_libs/common" }}
+
+<turbo-frame id="bookmark-content-{{ .Item.ID }}"
+ {{- if .Item.Type == "article" -}}
+ src="{{ urlFor(`/api/bookmarks`, .Item.ID) }}/article"
+ disabled
+ data-controller="annotations"
+ data-annotations-api-url-value="{{ urlFor(`/api/bookmarks`, .Item.ID) }}/annotations"
+ data-annotations-hidden-class="hidden"
+ {{- end -}}
+>
+
+{{- if .Item.Type == "article" -}}
+  <div class="max-w-3xl mx-auto print:max-w-none relative">
+    <div class="hidden absolute top-0 left-0 right-0 z-50 rounded shadow bg-gray-800 text-white"
+     data-annotations-target="controlls">
+      <button data-annotations-target="controllCreate" data-action="click->annotations#save"
+       class="p-4"
+       title="highlight selection">{{ yield icon(name="o-highlight") }} Highlight</button>
+      <button data-annotations-target="controllDelete" data-action="click->annotations#delete"
+       class="p-4 text-red-200"
+       title="remove highlight(s)">{{ yield icon(name="o-trash") }} Remove Highlight(s)</button>
+    </div>
+    <div class="font-serif text-lg leading-normal prose"
+     data-annotations-target="root">
+      {{- rawCopy(.Out, .HTML) -}}
+    </div>
+  </div>
+{{- else if .Item.Type == "photo" -}}
+  <figure>
+    <img alt="" src="{{ .Item.Resources.image.Src }}"
+    class="mx-auto"
+    width="{{ .Item.Resources.image.Width }}" height="{{ .Item.Resources.image.Height }}">
+  </figure>
+{{- else if .Item.Type == "video" -}}
+  <div class="video-wrapper">
+    <div class="video-player"
+    data-controller="video" data-video-embed-value="{{ .Item.Embed }}">
+      <img alt="" src="{{ .Item.Resources.image.Src }}"
+      width="{{ .Item.Resources.image.Width }}" height="{{ .Item.Resources.image.Height }}">
+    </div>
+  </div>
+{{- end -}}
+</turbo-frame>

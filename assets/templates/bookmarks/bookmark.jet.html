@@ -106,17 +106,11 @@
 
     <br class="block mt-8">
 
-    {{- if .Item.Type == "article" -}}
-      <div class="max-w-3xl mx-auto print:max-w-none">
-        <div class="font-serif text-lg leading-normal prose">
-          {{- rawCopy(.Out, .HTML) -}}
-        </div>
-      </div>
-    {{- else if .Item.Type == "photo" -}}
-      {{ include "./components/bookmark_photo" .Item }}
-    {{- else if .Item.Type == "video" -}}
-      {{ include "./components/bookmark_video" .Item }}
-    {{- end -}}
+    {{ include "./components/content_block" map(
+      "Item", .Item,
+      "Out", .Out,
+      "HTML", .HTML
+    ) }}
 
     <div class="max-w-3xl mx-auto mt-6 pt-6 border-t print:hidden">
     {{- include "./components/bottom_actions" .Item -}}

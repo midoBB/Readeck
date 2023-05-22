@@ -19,6 +19,7 @@
   "o-file":         "node_modules/boxicons/svg/regular/bx-file.svg",
   "o-filter":       "node_modules/boxicons/svg/regular/bx-filter-alt.svg",
   "o-hide":         "node_modules/boxicons/svg/solid/bxs-show.svg",
+  "o-highlight":    "node_modules/boxicons/svg/regular/bx-highlight.svg",
   "o-info":         "node_modules/boxicons/svg/solid/bxs-info-circle.svg",
   "o-key":          "node_modules/boxicons/svg/solid/bxs-key.svg",
   "o-label":        "node_modules/boxicons/svg/regular/bx-purchase-tag-alt.svg",

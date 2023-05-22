@@ -51,6 +51,7 @@ func newAPIRouter(s *server.Server) *apiRouter {
 		r.With(api.withBookmark).Route("/{uid:[a-zA-Z0-9]{18,22}}", func(r chi.Router) {
 			r.Get("/", api.bookmarkInfo)
 			r.Get("/article", api.bookmarkArticle)
+			r.Get("/annotations", api.annotationList)
 			r.Get("/x/*", api.bookmarkResource)
 		})
 
@@ -76,6 +77,8 @@ func newAPIRouter(s *server.Server) *apiRouter {
 		r.With(api.withBookmark).Group(func(r chi.Router) {
 			r.Patch("/{uid:[a-zA-Z0-9]{18,22}}", api.bookmarkUpdate)
 			r.Delete("/{uid:[a-zA-Z0-9]{18,22}}", api.bookmarkDelete)
+			r.Post("/{uid:[a-zA-Z0-9]{18,22}}/annotations", api.annotationCreate)
+			r.Delete("/{uid:[a-zA-Z0-9]{18,22}}/annotations/{id:[a-zA-Z0-9]{18,22}}", api.annotationDelete)
 		})
 		r.With(api.withLabel).Patch("/labels/{label}", api.labelUpdate)
 	})

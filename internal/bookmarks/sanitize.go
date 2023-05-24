@@ -15,6 +15,26 @@ type bleachPolicy struct {
 	blockAttrs []*regexp.Regexp
 }
 
+var selfClosingTags map[string]struct{} = map[string]struct{}{
+	"area":     {},
+	"base":     {},
+	"br":       {},
+	"col":      {},
+	"command":  {},
+	"embed":    {},
+	"hr":       {},
+	"img":      {},
+	"input":    {},
+	"keygen":   {},
+	"link":     {},
+	"menuitem": {},
+	"meta":     {},
+	"param":    {},
+	"source":   {},
+	"track":    {},
+	"wbr":      {},
+}
+
 var bleach = bleachPolicy{
 	blockAttrs: []*regexp.Regexp{
 		regexp.MustCompile(`^class$`),
@@ -46,23 +66,34 @@ func (p bleachPolicy) clean(node *html.Node) {
 func (p bleachPolicy) removeEmptyNodes(top *html.Node) {
 	nodes := dom.QuerySelectorAll(top, "*")
 	dom.RemoveNodes(nodes, func(node *html.Node) bool {
-		if len(node.Attr) > 0 {
+		// Keep self closing tags
+		if _, ok := selfClosingTags[dom.TagName(node)]; ok {
 			return false
 		}
+
+		// Keep <a name> tags
+		if dom.TagName(node) == "a" && dom.GetAttribute(node, "name") != "" {
+			return false
+		}
+
+		// Keep nodes with children
 		if len(dom.Children(node)) > 0 {
 			return false
 		}
 
+		// Keep nodes with any text
 		if strings.TrimFunc(dom.TextContent(node), isHTMLSpace) != "" {
 			return false
 		}
+
+		// Remove node
 		return true
 	})
 }
 
 // setLinkRel adds a default "rel" attribute on all "a" tags.
 func (p bleachPolicy) setLinkRel(top *html.Node) {
-	dom.ForEachNode(dom.QuerySelectorAll(top, "a"), func(node *html.Node, _ int) {
+	dom.ForEachNode(dom.QuerySelectorAll(top, "a[href]"), func(node *html.Node, _ int) {
 		dom.SetAttribute(node, "rel", "nofollow noopener noreferrer")
 	})
 }

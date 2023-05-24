@@ -5,8 +5,6 @@ import (
 	"net/url"
 	"strings"
 
-	"golang.org/x/net/html"
-
 	"github.com/antchfx/htmlquery"
 	"github.com/araddon/dateparse"
 	"github.com/go-shiori/dom"
@@ -212,7 +210,7 @@ func StripTags(m *extract.ProcessMessage, next extract.Processor) extract.Proces
 
 	for _, value = range cfg.StripSelectors {
 		nodes, _ := htmlquery.QueryAll(m.Dom, value)
-		dom.RemoveNodes(nodes, func(_ *html.Node) bool { return true })
+		dom.RemoveNodes(nodes, nil)
 		m.Log.WithField("value", value).
 			WithField("nodes", len(nodes)).
 			Debug("fftr strip_tags")
@@ -225,7 +223,7 @@ func StripTags(m *extract.ProcessMessage, next extract.Processor) extract.Proces
 		)
 
 		nodes, _ := htmlquery.QueryAll(m.Dom, selector)
-		dom.RemoveNodes(nodes, func(_ *html.Node) bool { return true })
+		dom.RemoveNodes(nodes, nil)
 		m.Log.WithField("value", value).
 			WithField("nodes", len(nodes)).
 			Debug("fftr strip_id_or_class")
@@ -235,7 +233,7 @@ func StripTags(m *extract.ProcessMessage, next extract.Processor) extract.Proces
 		selector := fmt.Sprintf("//img[contains(@src, '%s')]", value)
 
 		nodes, _ := htmlquery.QueryAll(m.Dom, selector)
-		dom.RemoveNodes(nodes, func(_ *html.Node) bool { return true })
+		dom.RemoveNodes(nodes, nil)
 		m.Log.WithField("value", value).
 			WithField("nodes", len(nodes)).
 			Debug("fftr strip_image_src")

@@ -7,7 +7,7 @@
     "//meta[@property=\"DC.date.issued\"]/@content"
   ],
   "author_selectors": [
-    "substring-before(substring-after(//a[@class='show-more-link'],\"More about \"), \" …\")"
+    "//a[@class=\"author-post__author-title\"]"
   ],
   "strip_selectors": [
     "//figure[contains(@class, 'video-container')]",

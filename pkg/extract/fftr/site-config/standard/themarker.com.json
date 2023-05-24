@@ -1,21 +1,16 @@
 {
-  "title_selectors": [
-    "//h1[contains(@class, 'mainTitle')]"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[@id='article-box']"
+    "//div[@data-test=\"articleBody\"]"
   ],
   "date_selectors": null,
-  "author_selectors": [
-    "//ul[@class='author']//a[@rel='author']"
+  "author_selectors": null,
+  "strip_selectors": [
+    "//div[contains(@data-test, \"tags\")]",
+    "//ul[contains(@data-test, \"relatedArticles\")]",
+    "//button"
   ],
-  "strip_selectors": null,
-  "strip_id_or_class": [
-    "head",
-    "social-nav",
-    "rate",
-    "video"
-  ],
+  "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -23,11 +18,18 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
-  "http_headers": null,
+  "replace_strings": [
+    [
+      "data-src=\"https://",
+      "src=\"https://"
+    ]
+  ],
+  "http_headers": {
+    "user-agent": "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
+  },
   "tests": [
     {
-      "url": "http://www.themarker.com/markerweek/1.2093167",
+      "url": "https://www.themarker.com/magazine/2023-04-05/ty-article-magazine/.premium/00000187-2c74-ded8-ade7-ffffc7490000",
       "contains": []
     }
   ]

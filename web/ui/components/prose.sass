@@ -121,13 +121,14 @@ $line-height: 1.5
     img, figure
       max-width: 100%
 
+    img
+      @apply rounded
+
     figure
       display: inline-block
       width: auto
       margin-left: auto
       margin-right: auto
-      border: 1px solid theme('colors.gray.200')
-      padded-box: $line-height 0.5 1
 
       img, svg, pre
         display: block

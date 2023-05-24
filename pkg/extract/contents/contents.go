@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"regexp"
 	"sort"
-	"strconv"
 	"strings"
 
 	"golang.org/x/net/html"
@@ -14,12 +13,12 @@ import (
 	"github.com/go-shiori/go-readability"
 
 	"github.com/readeck/readeck/pkg/extract"
+	"github.com/readeck/readeck/pkg/extract/srcset"
 )
 
 var (
-	rxSpace     = regexp.MustCompile(`[ ]+`)
-	rxNewLine   = regexp.MustCompile(`\r?\n\s*(\r?\n)+`)
-	rxSrcsetURL = regexp.MustCompile(`(?i)(\S+)(?:\s+([\d.]+)[xw])?(\s*(?:,|$))`)
+	rxSpace   = regexp.MustCompile(`[ ]+`)
+	rxNewLine = regexp.MustCompile(`\r?\n\s*(\r?\n)+`)
 )
 
 // Readability is a processor that executes readability on the drop content.
@@ -36,12 +35,7 @@ func Readability(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 	fixNoscriptImages(m.Dom)
 	convertPictureNodes(m.Dom, m)
 
-	// It's a shame we have to render the document instead of passing
-	// directly the node. But that's how readability works for now.
-	buf := &bytes.Buffer{}
-	html.Render(buf, m.Dom)
-
-	article, err := readability.FromReader(buf, m.Extractor.Drop().URL)
+	article, err := readability.FromDocument(m.Dom, m.Extractor.Drop().URL)
 	if err != nil {
 		m.Log.WithError(err).Error("readability error")
 		m.ResetContent()
@@ -60,7 +54,6 @@ func Readability(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 	body := dom.CreateElement("body")
 	doc.AppendChild(body)
 	dom.AppendChild(body, article.Node)
-
 	// final cleanup
 	removeEmbeds(body)
 	fixImages(body, m)
@@ -239,7 +232,7 @@ func convertPictureNodes(top *html.Node, _ *extract.ProcessMessage) {
 
 		// Now mix them all together and replace the picture
 		// element.
-		dom.SetAttribute(img, "srcset", strings.Join(set, ","))
+		dom.SetAttribute(img, "srcset", strings.Join(set, ", "))
 
 		dom.ReplaceChild(node.Parent, img, node)
 	})
@@ -248,7 +241,6 @@ func convertPictureNodes(top *html.Node, _ *extract.ProcessMessage) {
 func fixImages(top *html.Node, m *extract.ProcessMessage) {
 	// Fix images with an srcset attribute and only keep the
 	// best one.
-
 	m.Log.Debug("fixing images")
 	nodes, err := htmlquery.QueryAll(top, "//*[@srcset]")
 	if err != nil {
@@ -256,41 +248,22 @@ func fixImages(top *html.Node, m *extract.ProcessMessage) {
 	}
 
 	dom.ForEachNode(nodes, func(node *html.Node, _ int) {
-		srcset := dom.GetAttribute(node, "srcset")
-		set := []srcSetItem{}
-		for _, x := range rxSrcsetURL.FindAllStringSubmatch(srcset, -1) {
-			src := x[1]
-			w := x[2]
-			if w == "" {
-				w = "1"
-			}
-			z, err := strconv.Atoi(w)
-			if err != nil {
+		sourceSet := srcset.SourceSet{}
+		for _, x := range srcset.Parse(dom.GetAttribute(node, "srcset")) {
+			if x.Height > 3072 || x.Width > 3072 {
 				continue
 			}
-
-			// This is insane, some sites serve images in the
-			// 12 or 20Mpx O_o
-			if z > 3072 {
-				continue
-			}
-			set = append(set, srcSetItem{src, z})
+			sourceSet = append(sourceSet, x)
 		}
-		sort.SliceStable(set, func(i int, j int) bool {
-			return set[i].dsc > set[j].dsc
+		sort.SliceStable(sourceSet, func(i, j int) bool {
+			return sourceSet[i].Width > sourceSet[j].Width
 		})
 
-		if len(set) > 0 {
-			dom.SetAttribute(node, "src", set[0].src)
+		if len(sourceSet) > 0 {
+			dom.SetAttribute(node, "src", sourceSet[0].URL)
 			dom.RemoveAttribute(node, "srcset")
-
 			dom.RemoveAttribute(node, "width")
 			dom.RemoveAttribute(node, "height")
 		}
 	})
-}
-
-type srcSetItem struct {
-	src string
-	dsc int
 }

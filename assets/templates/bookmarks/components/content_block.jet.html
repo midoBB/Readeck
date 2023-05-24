@@ -12,14 +12,18 @@
 
 {{- if .Item.Type == "article" -}}
   <div class="max-w-3xl mx-auto print:max-w-none relative">
-    <div class="hidden absolute top-0 left-0 right-0 z-50 rounded shadow bg-gray-800 text-white"
+    <div class="hidden absolute z-50"
      data-annotations-target="controlls">
-      <button data-annotations-target="controllCreate" data-action="click->annotations#save"
-       class="p-4"
-       title="highlight selection">{{ yield icon(name="o-highlight") }} Highlight</button>
-      <button data-annotations-target="controllDelete" data-action="click->annotations#delete"
-       class="p-4 text-red-200"
-       title="remove highlight(s)">{{ yield icon(name="o-trash") }} Remove Highlight(s)</button>
+      <div class="rounded-lg shadow-lg bg-gray-700 text-white">
+        <button data-annotations-target="controllCreate" data-action="click->annotations#save"
+        class="p-4 hf:text-primary-light"
+        title="highlight selection">{{ yield icon(name="o-highlight") }} Highlight</button>
+        <button data-annotations-target="controllDelete" data-action="click->annotations#delete"
+        class="p-4 text-red-200 hf:text-red-300"
+        title="remove highlight(s)">{{ yield icon(name="o-trash") }} Remove Highlight(s)</button>
+      </div>
+      <div class="h-0 w-0 border-x-8 border-x-transparent border-t-[8px] border-t-gray-700 mx-auto"
+       data-annotations-target="arrow"></div>
     </div>
     <div class="font-serif text-lg leading-normal prose"
      data-annotations-target="root">

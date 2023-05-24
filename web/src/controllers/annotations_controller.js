@@ -1,7 +1,13 @@
 import {Controller} from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["root", "controlls", "controllCreate", "controllDelete"]
+  static targets = [
+    "root",
+    "controlls",
+    "controllCreate",
+    "controllDelete",
+    "arrow",
+  ]
   static classes = ["hidden"]
   static values = {
     apiUrl: String,
@@ -59,13 +65,49 @@ export default class extends Controller {
     // Show controlls
     this.controllsTarget.classList.remove(this.hiddenClass)
 
-    // Set controlls position
-    const pY = this.element.getBoundingClientRect().top
+    // Get root, range and controlls coordinates
+    const rangeRect = this.annotation.range.getBoundingClientRect()
+    const rootRect = this.rootTarget.getBoundingClientRect()
+
+    // Controlls dimension
     const h = this.controllsTarget.clientHeight
-    const y = Math.round(
-      this.annotation.range.getBoundingClientRect().top - pY - h,
+    const w = this.controllsTarget.clientWidth
+
+    // Range position relative to its root element
+    const rangeTop = Math.round(rangeRect.top - rootRect.top)
+    const rangeLeft = Math.round(rangeRect.left - rootRect.left)
+    const rangeCenter = Math.round(rangeLeft + rangeRect.width / 2)
+
+    // Set controlls position
+    const y = Math.round(rangeTop - h)
+    // prettier-ignore
+    const x = Math.floor(
+      Math.max(
+        0,
+        Math.min(
+          rangeCenter - w / 2,
+          rootRect.width - w - 1,
+        ),
+      ),
     )
+
     this.controllsTarget.style.top = `calc(${y - 4}px)`
+    this.controllsTarget.style.left = `${x}px`
+
+    // Set arrow position
+    if (!this.hasArrowTarget) {
+      return
+    }
+    const arrowWidth = this.arrowTarget.offsetWidth
+    // prettier-ignore
+    const arrowX = Math.max(
+      arrowWidth / 2,
+      Math.min(
+        rangeCenter - x - arrowWidth / 2,
+        w - arrowWidth - arrowWidth / 2,
+      ),
+    )
+    this.arrowTarget.style.marginLeft = `${arrowX}px`
   }
 
   async hideControlls() {
@@ -217,16 +259,21 @@ class Annotation {
       return
     }
 
-    // If start and end are the same element node, it'a a double click
-    // on a tag. We'll cover the whole element
-    if (
-      range.startContainer.nodeType == Node.ELEMENT_NODE &&
-      range.startContainer == range.endContainer
-    ) {
+    // This handles double click on an element (in opposition to selecting text).
+    // Containers can be element and we only want to deal with text nodes.
+    if (range.startContainer.nodeType == Node.ELEMENT_NODE) {
       walkTextNodes(range.startContainer, (n, i) => {
         if (i == 0) {
           range.setStart(n, 0)
         }
+      })
+    }
+    if (range.endContainer.nodeType == Node.ELEMENT_NODE) {
+      let c = range.endContainer
+      if (range.endOffset == 0) {
+        c = range.endContainer.previousElementSibling
+      }
+      walkTextNodes(c, (n) => {
         range.setEnd(n, n.textContent.length)
       })
     }

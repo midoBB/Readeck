@@ -1,5 +1,17 @@
 # Changlog
 
+## [0.7.0] - 2023-05-24
+### Added
+- Highlights in reader content
+
+### Changed
+- Go 1.20
+- Dependencies upgrade (Go and JS)
+
+### Fixed
+- Extractor improvements
+- Site configuration update
+
 ## [0.6.1] - 2022-03-24
 ### Added
 - Label autocomplete on bookmark's label form

@@ -25,7 +25,8 @@
   {{ yield head() }}
 </head>
 
-<body class="no-js bg-gray-50 text-gray-900 font-sans leading-tight tracking-normal print:text-black print:bg-white">
+<body data-turbo="false"
+ class="no-js bg-gray-50 text-gray-900 font-sans leading-tight tracking-normal print:text-black print:bg-white">
 {{- if !isTurbo }}
 <script nonce="{{ scriptNonce }}">
 if ('noModule' in HTMLScriptElement.prototype) {

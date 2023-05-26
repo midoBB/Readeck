@@ -288,10 +288,17 @@ func (m *BookmarkManager) AddLabelFilter(ds *goqu.SelectDataset, labels []string
 			goqu.L("b.labels @> ?::jsonb", v),
 		)
 	case "sqlite3":
-		exp = exp.Append(goqu.Func("json_type", goqu.C("labels").Table("b")).Eq("array"))
+		exp = exp.Append(
+			goqu.Func("json_valid", goqu.C("labels").Table("b")),
+			goqu.Func("json_type", goqu.C("labels").Table("b")).Eq("array"),
+		)
 
 		for _, label := range labels {
-			exp = exp.Append(goqu.Func("json_array_includes", goqu.C("labels").Table("b"), label))
+			exp = exp.Append(
+				goqu.L("EXISTS ?", goqu.
+					From(goqu.Func("json_each", goqu.L("b.labels"))).
+					Where(goqu.L("json_each.value").Eq(label))),
+			)
 		}
 	}
 	return ds.Where(exp)

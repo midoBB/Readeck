@@ -1,29 +1,18 @@
-// +build !without_sqlite
+//go:build !without_sqlite
 
 package db
 
 import (
 	"database/sql"
-	"encoding/json"
 	"net/url"
 
 	"github.com/doug-martin/goqu/v9"
 	_ "github.com/doug-martin/goqu/v9/dialect/sqlite3" // dialect
-	"github.com/mattn/go-sqlite3"                      // driver
+	_ "github.com/mattn/go-sqlite3"                    // driver
 )
 
 func init() {
 	drivers["sqlite3"] = &sqliteConnector{}
-
-	sql.Register("sqlite3_extended",
-		&sqlite3.SQLiteDriver{
-			ConnectHook: func(conn *sqlite3.SQLiteConn) (err error) {
-				err = conn.RegisterFunc("json_array_includes", jsonArrayIncludes, true)
-				return
-			},
-		},
-	)
-
 }
 
 type sqliteConnector struct{}
@@ -44,7 +33,7 @@ func (c *sqliteConnector) Open(dsn *url.URL) (*sql.DB, error) {
 	q.Set("_journal", "WAL")
 	uri.RawQuery = q.Encode()
 
-	db, err := sql.Open("sqlite3_extended", uri.String())
+	db, err := sql.Open("sqlite3", uri.String())
 	if err != nil {
 		return nil, err
 	}
@@ -67,20 +56,4 @@ func (c *sqliteConnector) HasTable(name string) (bool, error) {
 	}
 
 	return res == name, nil
-}
-
-// jsonArrayIncludes returns true when a JSON array contains
-// the given value.
-func jsonArrayIncludes(field []byte, value string) bool {
-	f := []string{}
-	if err := json.Unmarshal(field, &f); err != nil {
-		return false
-	}
-	for _, v := range f {
-		if value == v {
-			return true
-		}
-	}
-
-	return false
 }

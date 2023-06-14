@@ -3,12 +3,12 @@ package extract
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"image"
 	"net/url"
 	"testing"
 
 	"github.com/jarcoal/httpmock"
+	"github.com/readeck/readeck/pkg/img"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -36,7 +36,7 @@ func TestRemoteImage(t *testing.T) {
 				{"url", "", "No image URL"},
 				{"404", "/404", "Invalid response status (404)"},
 				{"http", "/error", `Get "/error": HTTP`},
-				{"bogus", "/bogus", "image: unknown format"},
+				{"bogus", "/bogus", "no img handler for application/octet-stream"},
 			}
 
 			for _, x := range tests {
@@ -54,7 +54,6 @@ func TestRemoteImage(t *testing.T) {
 		for _, format := range formats {
 			t.Run(format, func(t *testing.T) {
 				ri, err := NewRemoteImage("/img."+format, nil)
-				fmt.Printf("%+v\n", ri)
 				if err != nil {
 					t.Fatal(err)
 				}
@@ -71,11 +70,11 @@ func TestRemoteImage(t *testing.T) {
 			h := ri.Height()
 			assert.Equal(t, []uint{240, 181}, []uint{w, h})
 
-			ri.Fit(uint(24), uint(24))
+			img.Fit(ri, uint(24), uint(24))
 			assert.Equal(t, uint(24), ri.Width())
 			assert.Equal(t, uint(18), ri.Height())
 
-			ri.Fit(240, 240)
+			img.Fit(ri, 240, 240)
 			assert.Equal(t, uint(24), ri.Width())
 			assert.Equal(t, uint(18), ri.Height())
 		})

@@ -3,6 +3,7 @@ package img
 import (
 	"bytes"
 	"errors"
+	"fmt"
 	"image"
 	"image/draw"
 	"io"
@@ -20,6 +21,21 @@ import (
 	"github.com/anthonynsimon/bild/transform"
 )
 
+func init() {
+	AddImageHandler(
+		func(r io.Reader) (Image, error) {
+			return NewNativeImage(r)
+		},
+		"image/bmp",
+		"image/gif",
+		"image/x-icon",
+		"image/jpeg",
+		"image/png",
+		"image/tiff",
+		"image/webp",
+	)
+}
+
 // NativeImage is the Image implementation using Go native
 // image tools.
 type NativeImage struct {
@@ -30,11 +46,10 @@ type NativeImage struct {
 	quality     uint8
 }
 
-// NewNativeImage returns an Image instance using Go native image tools.
+// NewNativeImage returns a NativeImage instance using Go native image tools.
 func NewNativeImage(r io.Reader) (*NativeImage, error) {
-	var b bytes.Buffer
-	r1 := io.TeeReader(r, &b)
-	c, format, err := image.DecodeConfig(r1)
+	buf := new(bytes.Buffer)
+	c, format, err := image.DecodeConfig(io.TeeReader(r, buf))
 	if err != nil {
 		return nil, err
 	}
@@ -44,7 +59,7 @@ func NewNativeImage(r io.Reader) (*NativeImage, error) {
 		return nil, errors.New("image is too big")
 	}
 
-	m, _, err := image.Decode(io.MultiReader(&b, r))
+	m, _, err := image.Decode(io.MultiReader(buf, r))
 	if err != nil {
 		return nil, err
 	}
@@ -71,6 +86,11 @@ func (im *NativeImage) Close() error {
 // Format returns the image format.
 func (im *NativeImage) Format() string {
 	return im.format
+}
+
+// ContentType returns the image mimetype.
+func (im *NativeImage) ContentType() string {
+	return fmt.Sprintf("image/%s", im.format)
 }
 
 // Width returns the image width.
@@ -109,31 +129,6 @@ func (im *NativeImage) Resize(w, h uint) error {
 	return nil
 }
 
-// Fit resizes the image keeping the aspect ratio and staying within
-// the given width and height.
-func (im *NativeImage) Fit(w, h uint) error {
-	ow := im.Width()
-	oh := im.Height()
-
-	if w > ow && h > oh {
-		return nil
-	}
-
-	srcAspectRatio := float64(ow) / float64(oh)
-	maxAspectRatio := float64(w) / float64(h)
-
-	var nw, nh uint
-	if srcAspectRatio > maxAspectRatio {
-		nw = w
-		nh = uint(float64(nw) / srcAspectRatio)
-	} else {
-		nh = h
-		nw = uint(float64(nh) * srcAspectRatio)
-	}
-
-	return im.Resize(nw, nh)
-}
-
 // Grayscale transforms the image to a grayscale version.
 func (im *NativeImage) Grayscale() error {
 	im.m = effect.Grayscale(im.m)
@@ -152,14 +147,8 @@ func (im *NativeImage) Gray16() error {
 	return nil
 }
 
-// Pipeline apply all the given ImageFilter functions to the image.
-func (im *NativeImage) Pipeline(filters ...ImageFilter) error {
-	for _, fn := range filters {
-		err := fn(im)
-		if err != nil {
-			return err
-		}
-	}
+// Clean is a noop function for this image family.
+func (im *NativeImage) Clean() error {
 	return nil
 }
 

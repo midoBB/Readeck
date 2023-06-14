@@ -11,6 +11,8 @@ import (
 	"strings"
 	"syscall"
 	"time"
+
+	"github.com/gabriel-vasile/mimetype"
 )
 
 // HTTPZipFile serves a zip file as an HTTP directory (without listing)
@@ -117,11 +119,14 @@ func (f HTTPZipFile) serveEntry(w http.ResponseWriter, r *http.Request, fd *os.F
 	defer fp.Close()
 
 	// Sniff the content
-	var buf [512]byte
-	n, _ := io.ReadFull(fp, buf[:])
-	ctype := http.DetectContentType(buf[:n])
+	buf := new(bytes.Buffer)
+	mtype, err := mimetype.DetectReader(io.TeeReader(fp, buf))
+	if err != nil {
+		http.Error(w, http.StatusText(500), 500)
+		return
+	}
 
-	w.Header().Set("Content-Type", ctype)
+	w.Header().Set("Content-Type", mtype.String())
 
 	if r.Method == "HEAD" {
 		return
@@ -152,7 +157,7 @@ func (f HTTPZipFile) serveEntry(w http.ResponseWriter, r *http.Request, fd *os.F
 
 	w.Header().Set("Content-Length", strconv.FormatUint(z.UncompressedSize64, 10))
 	w.WriteHeader(http.StatusOK)
-	_, err = io.Copy(w, io.MultiReader(bytes.NewReader(buf[:n]), fp))
+	_, err = io.Copy(w, io.MultiReader(buf, fp))
 	if err != nil && !errors.Is(err, syscall.EPIPE) {
 		panic(err)
 	}

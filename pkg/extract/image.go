@@ -4,10 +4,12 @@ import (
 	"bytes"
 	"encoding/base64"
 	"fmt"
+	"io"
 
 	"net/http"
 	"net/url"
 
+	"github.com/gabriel-vasile/mimetype"
 	"github.com/readeck/readeck/pkg/img"
 )
 
@@ -31,15 +33,21 @@ func NewRemoteImage(src string, client *http.Client) (img.Image, error) {
 		return nil, fmt.Errorf("Invalid response status (%d)", rsp.StatusCode)
 	}
 
-	return img.New(rsp.Body)
+	buf := new(bytes.Buffer)
+	mtype, err := mimetype.DetectReader(io.TeeReader(rsp.Body, buf))
+	if err != nil {
+		return nil, err
+	}
+	return img.New(mtype.String(), io.MultiReader(buf, rsp.Body))
 }
 
 // Picture is a remote picture
 type Picture struct {
-	Href  string
-	Type  string
-	Size  [2]int
-	bytes []byte
+	Href   string
+	Type   string
+	Size   [2]int
+	format string
+	bytes  []byte
 }
 
 // NewPicture returns a new Picture instance from a given
@@ -64,7 +72,7 @@ func (p *Picture) Load(client *http.Client, size uint, toFormat string) error {
 	}
 	defer ri.Close()
 
-	err = ri.Pipeline(pComp, pQual, pFit(size), pFormat(toFormat))
+	err = img.Pipeline(ri, pClean, pComp, pQual, pFit(size), pFormat(toFormat))
 	if err != nil {
 		return err
 	}
@@ -77,20 +85,21 @@ func (p *Picture) Load(client *http.Client, size uint, toFormat string) error {
 
 	p.bytes = buf.Bytes()
 	p.Size = [2]int{int(ri.Width()), int(ri.Height())}
-	p.Type = fmt.Sprintf("image/%s", ri.Format())
+	p.Type = ri.ContentType()
+	p.format = ri.Format()
 	return nil
 }
 
 // Copy returns a resized copy of the image, as a new Picture instance.
 func (p *Picture) Copy(size uint, toFormat string) (*Picture, error) {
-	ri, err := img.New(bytes.NewReader(p.bytes))
+	ri, err := img.New(p.Type, bytes.NewReader(p.bytes))
 	if err != nil {
 		return nil, err
 	}
 	defer ri.Close()
 
 	res := &Picture{Href: p.Href}
-	err = ri.Pipeline(pComp, pQual, pFit(size), pFormat(toFormat))
+	err = img.Pipeline(ri, pClean, pComp, pQual, pFit(size), pFormat(toFormat))
 	if err != nil {
 		return nil, err
 	}
@@ -103,14 +112,15 @@ func (p *Picture) Copy(size uint, toFormat string) (*Picture, error) {
 
 	res.bytes = buf.Bytes()
 	res.Size = [2]int{int(ri.Width()), int(ri.Height())}
-	res.Type = fmt.Sprintf("image/%s", ri.Format())
+	res.Type = ri.ContentType()
+	res.format = ri.Format()
 	return res, nil
 }
 
 // Name returns the given name of the picture with the correct
 // extension.
 func (p *Picture) Name(name string) string {
-	return fmt.Sprintf("%s.%s", name, p.Type[6:])
+	return fmt.Sprintf("%s.%s", name, p.format)
 }
 
 // Bytes returns the image data.
@@ -135,11 +145,14 @@ func pFormat(f string) img.ImageFilter {
 
 func pFit(s uint) img.ImageFilter {
 	return func(im img.Image) error {
-		return im.Fit(s, s)
+		return img.Fit(im, s, s)
 	}
 }
 func pComp(im img.Image) error {
 	return im.SetCompression(img.CompressionBest)
+}
+func pClean(im img.Image) error {
+	return im.Clean()
 }
 func pQual(im img.Image) error {
 	return im.SetQuality(75)

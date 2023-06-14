@@ -23,7 +23,6 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/gorilla/csrf v1.7.1
 	github.com/gorilla/securecookie v1.1.1
-	github.com/h2non/filetype v1.1.3
 	github.com/hlandau/passlib v1.0.11
 	github.com/jackc/pgx/v4 v4.18.1
 	github.com/jarcoal/httpmock v1.3.0
@@ -49,6 +48,11 @@ require (
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect
 	gopkg.in/hlandau/measurable.v1 v1.0.1 // indirect
 	gopkg.in/hlandau/passlib.v1 v1.0.11 // indirect
+)
+
+require (
+	github.com/antchfx/xmlquery v1.3.15
+	github.com/gabriel-vasile/mimetype v1.4.2
 )
 
 require (

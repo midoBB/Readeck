@@ -1,6 +1,7 @@
 package img
 
 import (
+	"fmt"
 	"image/color"
 	"io"
 )
@@ -36,30 +37,84 @@ const (
 	CompressionBest
 )
 
-// Image describes the interface of an image manipulation object.
+// Image describes the interface of an image manipulation type.
 type Image interface {
 	Close() error
 	Format() string
+	ContentType() string
 	Width() uint
 	Height() uint
 	SetFormat(string) error
+	Resize(uint, uint) error
+	Encode(io.Writer) error
 	SetCompression(ImageCompression) error
 	SetQuality(uint8) error
-	Resize(uint, uint) error
-	Fit(uint, uint) error
 	Grayscale() error
 	Gray16() error
-	Pipeline(...ImageFilter) error
-	Encode(io.Writer) error
+	Clean() error
 }
 
 // ImageFilter is a filter application function used by the
 // Pipeline method of an Image instance.
 type ImageFilter func(Image) error
 
-// New create a new Image instance, using the ImageNative implementation.
-// Since there's no other implementation at the moment,
-// let's keep it this way for now.
-func New(r io.Reader) (Image, error) {
-	return NewNativeImage(r)
+// Handler is a function that returns an Image type instance from an io.Reader.
+type Handler func(io.Reader) (Image, error)
+
+type handlersList map[string]Handler
+
+// handlers holds the available image handlers.
+var handlers = make(handlersList)
+
+// AddImageHandler adds (or replaces) a handler for the given types.
+func AddImageHandler(f Handler, types ...string) {
+	for _, t := range types {
+		handlers[t] = f
+	}
+}
+
+// New creates a new Image instance, using the available handlers.
+func New(contentType string, r io.Reader) (Image, error) {
+	handler, ok := handlers[contentType]
+	if !ok {
+		return nil, fmt.Errorf("no img handler for %s", contentType)
+	}
+
+	return handler(r)
+}
+
+// Pipeline apply all the given ImageFilter functions to the image.
+func Pipeline(im Image, filters ...ImageFilter) error {
+	for _, fn := range filters {
+		err := fn(im)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// Fit resizes the image keeping the aspect ratio and staying within
+// the given width and height.
+func Fit(im Image, w, h uint) error {
+	ow := im.Width()
+	oh := im.Height()
+
+	if w > ow && h > oh {
+		return nil
+	}
+
+	srcAspectRatio := float64(ow) / float64(oh)
+	maxAspectRatio := float64(w) / float64(h)
+
+	var nw, nh uint
+	if srcAspectRatio > maxAspectRatio {
+		nw = w
+		nh = uint(float64(nw) / srcAspectRatio)
+	} else {
+		nh = h
+		nw = uint(float64(nh) * srcAspectRatio)
+	}
+
+	return im.Resize(nw, nh)
 }

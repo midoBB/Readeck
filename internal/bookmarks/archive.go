@@ -152,7 +152,7 @@ func imageProcessor(ctx context.Context, arc *archiver.Archiver, input io.Reader
 		return r, contentType, nil
 	}
 
-	im, err := img.New(input)
+	im, err := img.New(contentType, input)
 	// If for any reason, we can't read the image, just return nothing
 	if err != nil {
 		arc.SendEvent(ctx, &archiver.EventError{Err: err, URI: uri.String()})
@@ -160,10 +160,11 @@ func imageProcessor(ctx context.Context, arc *archiver.Archiver, input io.Reader
 	}
 	defer im.Close()
 
-	err = im.Pipeline(
+	err = img.Pipeline(im,
+		func(im img.Image) error { return im.Clean() },
 		func(im img.Image) error { return im.SetQuality(75) },
 		func(im img.Image) error { return im.SetCompression(img.CompressionBest) },
-		func(im img.Image) error { return im.Fit(1280, 1920) },
+		func(im img.Image) error { return img.Fit(im, 1280, 1920) },
 	)
 	if err != nil {
 		arc.SendEvent(ctx, &archiver.EventError{Err: err, URI: uri.String()})
@@ -185,16 +186,16 @@ func imageProcessor(ctx context.Context, arc *archiver.Archiver, input io.Reader
 	}
 
 	arc.SendEvent(ctx, archiver.EventInfo{"uri": uri.String(), "format": im.Format()})
-	return buf.Bytes(), "image/" + im.Format(), nil
+	return buf.Bytes(), im.ContentType(), nil
 }
 
 // Note: we skip gif files since they're usually optimized already
 // and could be animated, which isn't supported by all backends.
 var imageTypes = map[string]struct{}{
-	"image/bmp":  {},
-	"image/jpg":  {},
-	"image/jpeg": {},
-	"image/png":  {},
-	"image/tiff": {},
-	"image/webp": {},
+	"image/bmp":     {},
+	"image/jpeg":    {},
+	"image/png":     {},
+	"image/svg+xml": {},
+	"image/tiff":    {},
+	"image/webp":    {},
 }

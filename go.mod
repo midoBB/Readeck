@@ -51,6 +51,7 @@ require (
 )
 
 require (
+	github.com/antchfx/xmlquery v1.3.15
 	github.com/gabriel-vasile/mimetype v1.4.2
 )
 

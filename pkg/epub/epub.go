@@ -6,10 +6,11 @@ import (
 	"compress/flate"
 	"encoding/xml"
 	"io"
-	"net/http"
 	"path"
 	"strings"
 	"time"
+
+	"github.com/gabriel-vasile/mimetype"
 )
 
 const containerXML = `<?xml version="1.0" encoding="UTF-8" ?>
@@ -99,19 +100,21 @@ func (c *Writer) AddChapter(id, title, name string, r io.Reader) error {
 
 // AddImage adds an image to the book with automatic media type detection.
 func (c *Writer) AddImage(id, name string, r io.Reader) error {
-	var buf [512]byte
-	n, _ := io.ReadFull(r, buf[:])
-	mediaType := http.DetectContentType(buf[:])
+	buf := new(bytes.Buffer)
+	mtype, err := mimetype.DetectReader(io.TeeReader(r, buf))
+	if err != nil {
+		return err
+	}
 
 	c.pkg.Manifest.Items = append(c.pkg.Manifest.Items, ManifestItem{
 		ID:        id,
 		Href:      name,
-		MediaType: mediaType,
+		MediaType: mtype.String(),
 	})
 	return c.addFile(
 		path.Join("OEBPS", name),
 		zip.Store,
-		io.MultiReader(bytes.NewReader(buf[:n]), r),
+		io.MultiReader(buf, r),
 	)
 }
 

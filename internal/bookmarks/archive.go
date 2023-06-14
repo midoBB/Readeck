@@ -195,6 +195,7 @@ var imageTypes = map[string]struct{}{
 	"image/bmp":     {},
 	"image/jpeg":    {},
 	"image/png":     {},
+	"image/svg+xml": {},
 	"image/tiff":    {},
 	"image/webp":    {},
 }

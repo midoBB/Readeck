@@ -9,10 +9,8 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/gabriel-vasile/mimetype"
 	"github.com/go-shiori/dom"
-	"github.com/h2non/filetype"
-	"github.com/h2non/filetype/matchers"
-	"github.com/h2non/filetype/types"
 )
 
 var errSkippedURL = errors.New("skip processing url")
@@ -146,20 +144,20 @@ func (arc *Archiver) checkContent(ctx context.Context, content []byte) error {
 		return nil
 	}
 
-	t, _ := filetype.Match(content)
-	if _, ok := imageTypes[t]; !ok {
+	mtype := mimetype.Detect(content)
+	if _, ok := imageTypes[mtype.String()]; !ok {
 		return errors.New("not an image")
 	}
 
 	return nil
 }
 
-var imageTypes = map[types.Type]bool{
-	matchers.TypeJpeg: true,
-	matchers.TypePng:  true,
-	matchers.TypeGif:  true,
-	matchers.TypeWebp: true,
-	matchers.TypeIco:  true,
-	matchers.TypeBmp:  true,
-	matchers.TypeTiff: true,
+var imageTypes = map[string]struct{}{
+	"image/bmp":     {},
+	"image/gif":     {},
+	"image/jpeg":    {},
+	"image/png":     {},
+	"image/tiff":    {},
+	"image/webp":    {},
+	"image/x-icon":  {},
 }

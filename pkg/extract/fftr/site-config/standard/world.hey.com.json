@@ -1,0 +1,31 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article"
+  ],
+  "date_selectors": [
+    "//header/following::p[1]"
+  ],
+  "author_selectors": [
+    "//header/a/p"
+  ],
+  "strip_selectors": null,
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://world.hey.com/dhh/even-amazon-can-t-make-sense-of-serverless-or-microservices-59625580",
+      "contains": [
+        "That really sums up so much of the microservices craze that was tearing through the tech industry for a while: IN THEORY."
+      ]
+    }
+  ]
+}

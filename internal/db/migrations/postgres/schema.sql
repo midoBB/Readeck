@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS bookmark (
     files       jsonb       NOT NULL DEFAULT '[]',
     errors      jsonb       NOT NULL DEFAULT '[]',
     labels      jsonb       NOT NULL DEFAULT '[]',
-    annotations jsonb       NOT NULL DEFAULT '{}',
+    annotations jsonb       NOT NULL DEFAULT '[]',
 
     CONSTRAINT fk_bookmark_user FOREIGN KEY (user_id) REFERENCES "user"(id) ON DELETE CASCADE
   );

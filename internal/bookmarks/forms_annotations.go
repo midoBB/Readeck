@@ -26,9 +26,9 @@ func newAnnotationForm() *annotationForm {
 	)}
 }
 
-func (f *annotationForm) addToBookmark(bi *bookmarkItem) (string, *BookmarkAnnotation, error) {
-	id := shortuuid.New()
+func (f *annotationForm) addToBookmark(bi *bookmarkItem) (*BookmarkAnnotation, error) {
 	annotation := &BookmarkAnnotation{
+		ID:            shortuuid.New(),
 		StartSelector: f.Get("start_selector").String(),
 		StartOffset:   f.Get("start_offset").Value().(int),
 		EndSelector:   f.Get("end_selector").String(),
@@ -39,12 +39,12 @@ func (f *annotationForm) addToBookmark(bi *bookmarkItem) (string, *BookmarkAnnot
 	// Try to insert the new annotation
 	reader, err := bi.getArticle()
 	if err != nil {
-		return "", nil, err
+		return nil, err
 	}
 
 	var doc *html.Node
 	if doc, err = html.Parse(reader); err != nil {
-		return "", nil, err
+		return nil, err
 	}
 	root := dom.QuerySelector(doc, "body")
 
@@ -52,9 +52,10 @@ func (f *annotationForm) addToBookmark(bi *bookmarkItem) (string, *BookmarkAnnot
 	contents := &strings.Builder{}
 	err = annotation.addToNode(root, bi.annotationTag, func(n *html.Node, index int) {
 		io.WriteString(contents, n.FirstChild.Data)
+		bi.annotationCallback(annotation.ID, n, index)
 	})
 	if err != nil {
-		return "", nil, err
+		return nil, err
 	}
 
 	annotation.Text = shortText(contents.String(), 60)
@@ -65,15 +66,17 @@ func (f *annotationForm) addToBookmark(bi *bookmarkItem) (string, *BookmarkAnnot
 		b.Annotations = BookmarkAnnotations{}
 	}
 
-	b.Annotations[id] = annotation
+	b.Annotations.add(annotation)
+	b.Annotations.sort(root, bi.annotationTag)
+
 	err = b.Update(map[string]interface{}{
 		"annotations": b.Annotations,
 	})
 	if err != nil {
-		return "", nil, err
+		return nil, err
 	}
 
-	return id, annotation, nil
+	return annotation, nil
 }
 
 // shortText returns a string of maxChars maximum length. It attempts to cut between words

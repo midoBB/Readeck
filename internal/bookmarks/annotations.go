@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"time"
 
+	"github.com/go-shiori/dom"
 	"golang.org/x/net/html"
 
 	"github.com/readeck/readeck/internal/db"
@@ -12,10 +13,11 @@ import (
 )
 
 // BookmarkAnnotations is a mapping of annotations.
-type BookmarkAnnotations map[string]*BookmarkAnnotation
+type BookmarkAnnotations []*BookmarkAnnotation
 
 // BookmarkAnnotation is an annotation that can be serialized in a database JSON column.
 type BookmarkAnnotation struct {
+	ID            string    `json:"id"`
 	StartSelector string    `json:"start_selector"`
 	StartOffset   int       `json:"start_offset"`
 	EndSelector   string    `json:"end_selector"`
@@ -59,10 +61,10 @@ func (a *BookmarkAnnotation) addToNode(root *html.Node, tagName string, options 
 
 // addToNode adds all annotations to a DOM node (the designated root)
 func (a BookmarkAnnotations) addToNode(root *html.Node, tagName string, options ...func(string, *html.Node, int)) error {
-	for id, annotation := range a {
+	for _, annotation := range a {
 		err := annotation.addToNode(root, tagName, func(n *html.Node, index int) {
 			for _, f := range options {
-				f(id, n, index)
+				f(annotation.ID, n, index)
 			}
 		})
 		if err != nil {
@@ -70,4 +72,52 @@ func (a BookmarkAnnotations) addToNode(root *html.Node, tagName string, options 
 		}
 	}
 	return nil
+}
+
+// get retrieves an annotation or returns nil if it does not exist
+func (a *BookmarkAnnotations) get(id string) *BookmarkAnnotation {
+	for _, x := range *a {
+		if x.ID == id {
+			return x
+		}
+	}
+	return nil
+}
+
+// add adds a new annotation to the list
+func (a *BookmarkAnnotations) add(item *BookmarkAnnotation) {
+	set := *a
+	set = append(set, item)
+	*a = set
+}
+
+// sort sorts the annotations based on their position in the root document
+func (a *BookmarkAnnotations) sort(root *html.Node, tagName string) {
+	set := BookmarkAnnotations{}
+	for _, n := range dom.QuerySelectorAll(root, tagName) {
+		if dom.GetAttribute(n, "id") == "" {
+			continue
+		}
+		id := dom.GetAttribute(n, "data-annotation-id-value")
+		if item := a.get(id); item != nil {
+			set = append(set, item)
+		}
+	}
+	*a = set
+}
+
+// delete removes an annotation from the list
+func (a *BookmarkAnnotations) delete(id string) {
+	item := a.get(id)
+	if item == nil {
+		return
+	}
+	set := BookmarkAnnotations{}
+	for _, x := range *a {
+		if x.ID == id {
+			continue
+		}
+		set = append(set, x)
+	}
+	*a = set
 }

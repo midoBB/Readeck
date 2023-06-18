@@ -355,7 +355,7 @@ func (api *apiRouter) annotationCreate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	bi := newBookmarkItem(api.srv, r, b, "")
-	id, annotation, err := f.addToBookmark(&bi)
+	annotation, err := f.addToBookmark(&bi)
 	if err != nil {
 		if errors.As(err, &annotate.ErrAnotate) {
 			api.srv.Message(w, r, &server.Message{
@@ -368,11 +368,8 @@ func (api *apiRouter) annotationCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Add("Location", api.srv.AbsoluteURL(r, ".", id).String())
-	api.srv.Render(w, r, 200, map[string]interface{}{
-		"id":         id,
-		"annotation": annotation,
-	})
+	w.Header().Add("Location", api.srv.AbsoluteURL(r, ".", annotation.ID).String())
+	api.srv.Render(w, r, 200, annotation)
 }
 
 func (api *apiRouter) annotationDelete(w http.ResponseWriter, r *http.Request) {
@@ -382,12 +379,12 @@ func (api *apiRouter) annotationDelete(w http.ResponseWriter, r *http.Request) {
 		api.srv.Status(w, r, http.StatusNotFound)
 		return
 	}
-	if _, ok := b.Annotations[id]; !ok {
+	if b.Annotations.get(id) == nil {
 		api.srv.Status(w, r, http.StatusNotFound)
 		return
 	}
 
-	delete(b.Annotations, id)
+	b.Annotations.delete(id)
 	err := b.Update(map[string]interface{}{
 		"annotations": b.Annotations,
 	})
@@ -672,8 +669,9 @@ type bookmarkItem struct {
 	Embed        string                   `json:"embed,omitempty"`
 	Errors       []string                 `json:"errors,omitempty"`
 
-	mediaURL      *url.URL
-	annotationTag string
+	mediaURL           *url.URL
+	annotationTag      string
+	annotationCallback func(id string, n *html.Node, index int)
 }
 
 // bookmarkFile is a file attached to a bookmark. If the file is
@@ -711,6 +709,12 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *Bookmark, base string
 
 		mediaURL:      s.AbsoluteURL(r, "/bm", b.FilePath),
 		annotationTag: "rd-annotation",
+		annotationCallback: func(id string, n *html.Node, index int) {
+			if index == 0 {
+				dom.SetAttribute(n, "id", fmt.Sprintf("annotation-%s", id))
+			}
+			dom.SetAttribute(n, "data-annotation-id-value", id)
+		},
 	}
 
 	if b.Labels != nil {
@@ -810,12 +814,7 @@ func (bi bookmarkItem) addAnnotations(input *strings.Reader) (*strings.Reader, e
 	}
 	root := dom.QuerySelector(doc, "body")
 
-	err = bi.Annotations.addToNode(root, bi.annotationTag, func(id string, n *html.Node, index int) {
-		if index == 0 {
-			dom.SetAttribute(n, "id", fmt.Sprintf("annotation-%s", id))
-		}
-		dom.SetAttribute(n, "data-annotation-id-value", id)
-	})
+	err = bi.Annotations.addToNode(root, bi.annotationTag, bi.annotationCallback)
 	if err != nil {
 		input.Seek(0, 0)
 		return input, err

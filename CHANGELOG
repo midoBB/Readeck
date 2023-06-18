@@ -1,5 +1,8 @@
 # Changlog
 
+## [0.7.1] - 2023-06-18
+- SVG image support during extraction
+
 ## [0.7.0] - 2023-05-24
 ### Added
 - Highlights in reader content

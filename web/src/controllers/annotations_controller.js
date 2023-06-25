@@ -1,4 +1,5 @@
 import {Controller} from "@hotwired/stimulus"
+import {request} from "../lib/request"
 
 export default class extends Controller {
   static targets = [
@@ -141,24 +142,15 @@ export default class extends Controller {
       return
     }
 
-    const data = {
-      start_selector: this.annotation.startSelector,
-      start_offset: this.annotation.startOffset,
-      end_selector: this.annotation.endSelector,
-      end_offset: this.annotation.endOffset,
-    }
-    const csrfToken = document.querySelector(
-      'html>head>meta[name="x-csrf-token"]',
-    ).content
-    await fetch(this.apiUrlValue, {
+    await request(this.apiUrlValue, {
       method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRF-Token": csrfToken,
+      body: {
+        start_selector: this.annotation.startSelector,
+        start_offset: this.annotation.startOffset,
+        end_selector: this.annotation.endSelector,
+        end_offset: this.annotation.endOffset,
       },
     })
-
     await this.reload()
   }
 
@@ -173,17 +165,9 @@ export default class extends Controller {
     }
 
     const baseURL = new URL(`${this.apiUrlValue}/`, document.URL)
-    const csrfToken = document.querySelector(
-      'html>head>meta[name="x-csrf-token"]',
-    ).content
     for (const id of ids) {
       const url = new URL(id, baseURL)
-      await fetch(url, {
-        method: "DELETE",
-        headers: {
-          "X-CSRF-Token": csrfToken,
-        },
-      })
+      await request(url, {method: "DELETE"})
     }
 
     await this.reload()

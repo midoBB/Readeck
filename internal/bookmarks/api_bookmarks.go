@@ -85,6 +85,12 @@ func (api *apiRouter) bookmarkArticle(w http.ResponseWriter, r *http.Request) {
 				"HTML": buf,
 				"Out":  w,
 			})
+		api.srv.RenderTurboStream(w, r,
+			"/bookmarks/components/sidebar", "replace",
+			"bookmark-sidebar-"+b.UID, map[string]interface{}{
+				"Item": bi,
+			},
+		)
 		return
 	}
 
@@ -665,6 +671,7 @@ type bookmarkItem struct {
 	IsMarked     bool                     `json:"is_marked"`
 	IsArchived   bool                     `json:"is_archived"`
 	Labels       []string                 `json:"labels"`
+	Annotations  BookmarkAnnotations      `json:"-"`
 	Resources    map[string]*bookmarkFile `json:"resources"`
 	Embed        string                   `json:"embed,omitempty"`
 	Errors       []string                 `json:"errors,omitempty"`
@@ -705,6 +712,7 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *Bookmark, base string
 		IsMarked:     b.IsMarked,
 		IsArchived:   b.IsArchived,
 		Labels:       make([]string, 0),
+		Annotations:  b.Annotations,
 		Resources:    make(map[string]*bookmarkFile),
 
 		mediaURL:      s.AbsoluteURL(r, "/bm", b.FilePath),

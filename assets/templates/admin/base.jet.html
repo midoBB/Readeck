@@ -1,12 +1,9 @@
-{{ extends "/app" }}
-{{ import "/_libs/sidebar" }}
+{{ extends "/_layouts/sidemenu" }}
 
-{{- block preContent() -}}
-  {{- yield sidebar() content -}}
-  <h2 class="sidebar:title">Administration</h2>
-  <ul class="mt-2">
-    <li><a class="sidebar:link" href="{{ urlFor(`/admin/users`) }}"
-      data-current="{{ pathIs(`/admin/users`, `/admin/users/*`) }}">{{ yield icon(name="o-user") }} Users</a></li>
-  </ul>
-  {{- end -}}
+{{- block sideMenu() -}}
+<h2 class="h-topnav border-b border-gray-200 uppercase flex items-center justify-center">Settings</h2>
+<menu class="mt-4">
+  <li><a href="{{ urlFor(`/admin/users`) }}"
+    data-current="{{ pathIs(`/admin/users`, `/admin/users/*`) }}">{{ yield icon(name="o-user") }} Users</a></li>
+</menu>
 {{- end -}}

@@ -1,16 +1,21 @@
-{{ extends "/app" }}
+{{ extends "/base" }}
 
 {{ block title() }}Error{{ end }}
 
-{{ block mainContent() }}
-<h1 class="text-h1 title">Error</h1>
+{{ block body() }}
+<div class="flex h-screen +sm:flex-col">
+  {{ include "./menu" }}
 
-{{ if .Status == 403 }}
-<p>Permission denied</p>
-{{ else if .Status == 404 }}
-<p>Page not found</p>
-{{ else }}
-<p>An error occured</p>
-{{ end }}
+  <div class="flex-1 w-full overflow-y-auto p-8">
+    <h1 class="text-h1 title">Error</h1>
 
+    {{ if .Status == 403 }}
+    <p>Permission denied</p>
+    {{ else if .Status == 404 }}
+    <p>Page not found</p>
+    {{ else }}
+    <p>An error occured</p>
+    {{ end }}
+  </div>
+</div>
 {{ end }}

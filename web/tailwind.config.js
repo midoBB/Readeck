@@ -37,15 +37,16 @@ var config = {
     },
     screens: {
       "sm": {min: "640px"},
-      "md": {min: "769px"},
+      "md": {min: "814px"},
       "lg": {min: "1024px"},
-      "+md": {max: "768px"},
+      "+md": {max: "814px"},
       "+sm": {max: "639px"},
       "print": {raw: "print"},
     },
     extend: {
       boxShadow: {
-        "sidebar": "5px 0 10px -5px rgba(0, 0, 0, 0.1)",
+        "sidebar-l": "5px 0 10px -5px rgba(0, 0, 0, 0.1)",
+        "panel-t": "0 4px 6px 6px rgba(0, 0, 0, 0.1)",
       },
       contrast: {
         "105": "1.05",
@@ -60,16 +61,27 @@ var config = {
         "cards": "repeat(auto-fill, minmax(12rem, 1fr))",
       },
       height: {
+        "screen": "100vh",
         "max-content": "max-content",
+        "topnav": "4rem",
       },
       padding: {
         "16/9": "56.25%",
       },
+      spacing: {
+        "topnav": "4rem",
+        ...[...Array(26).keys()].reduce((acc, x) => {
+          acc[`col-${x+1}`] = `${(x+1) * 3.5}rem`
+          return acc
+        }, {}),
+      },
       width: {
-        "md": "28rem",
       },
       maxWidth: {
-        "view": "72rem",
+        ...[...Array(26).keys()].reduce((acc, x) => {
+          acc[`col-${x+1}`] = `${(x+1) * 3.5}rem`
+          return acc
+        }, {}),
       },
     },
   },

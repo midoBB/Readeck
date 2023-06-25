@@ -1,9 +1,5 @@
 import * as Turbo from "@hotwired/turbo"
-const safeMethods = ["GET", "HEAD", "OPTIONS", "TRACE"]
-
-const csrfToken = document.querySelector(
-  'html>head>meta[name="x-csrf-token"]',
-).content
+import {safeMethods, csrfToken} from "./request"
 
 document.addEventListener("turbo:before-fetch-request", (evt) => {
   // Insert the CSRF token when needed

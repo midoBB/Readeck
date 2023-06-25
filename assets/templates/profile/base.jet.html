@@ -1,18 +1,15 @@
-{{ extends "/app" }}
-{{ import "/_libs/sidebar" }}
+{{ extends "/_layouts/sidemenu" }}
 
-{{- block preContent() -}}
-  {{- yield sidebar() content -}}
-  <h2 class="sidebar:title">User Settings</h2>
-  <ul class="mt-2">
-    <li><a class="sidebar:link" href="{{ urlFor(`/profile`) }}"
-    data-current="{{ pathIs(`/profile`) }}">{{ yield icon(name="o-user") }} Profile</a></li>
-    <li><a class="sidebar:link" href="{{ urlFor(`/profile/password`) }}"
-    data-current="{{ pathIs(`/profile/password`) }}">{{ yield icon(name="o-key") }} Password</a></li>
-    {{ if hasPermission("profile:tokens", "read") -}}
-      <li><a class="sidebar:link" href="{{ urlFor(`/profile/tokens`) }}"
-      data-current="{{ pathIs(`/profile/tokens`, `/profile/tokens/*`) }}">{{ yield icon(name="o-terminal") }} API Tokens</a></li>
-    {{- end }}
-  </ul>
-  {{- end -}}
+{{- block sideMenu() -}}
+<h2 class="h-topnav border-b border-gray-200 uppercase flex items-center justify-center">User Settings</h2>
+<menu class="mt-4">
+  <li><a href="{{ urlFor(`/profile`) }}"
+  data-current="{{ pathIs(`/profile`) }}">{{ yield icon(name="o-user") }} Profile</a></li>
+  <li><a href="{{ urlFor(`/profile/password`) }}"
+  data-current="{{ pathIs(`/profile/password`) }}">{{ yield icon(name="o-key") }} Password</a></li>
+  {{ if hasPermission("profile:tokens", "read") -}}
+    <li><a href="{{ urlFor(`/profile/tokens`) }}"
+    data-current="{{ pathIs(`/profile/tokens`, `/profile/tokens/*`) }}">{{ yield icon(name="o-terminal") }} API Tokens</a></li>
+  {{- end }}
+</menu>
 {{- end -}}

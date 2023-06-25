@@ -3,7 +3,7 @@
 {{- textFav := .IsMarked ? "Remove from favorites" : "Add to favorites" -}}
 
 <turbo-frame id="bookmark-actions-{{ .ID }}">
-<div class="flex bg-gray-100 px-4 py-2 items-center gap-2 print:hidden">
+<div class="flex my-4 items-center gap-2 print:hidden">
   {{- if .IsDeleted -}}
     <span class="text-red-700" data-deleted="true">
       This bookmark will be removed in a few seconds.
@@ -34,11 +34,6 @@
         </button>
       </div>
     </form>
-
-    {{ if hasPermission("api:bookmarks", "export") -}}
-    <a href="{{ urlFor(`/api/bookmarks`, .ID, `article.epub`) }}"
-     class="btn-outlined-primary leading-none rounded-full h-9 px-3">{{ yield icon(name="o-download") }}&nbsp;download ebook</a>
-    {{- end }}
 
     <form action="{{ urlFor(`/bookmarks`, .ID, `delete`) }}" method="post"
      class="ml-auto">

@@ -8,6 +8,7 @@
   "o-chevron-d":    "node_modules/boxicons/svg/regular/bx-chevron-down.svg",
   "o-chevron-l":    "node_modules/boxicons/svg/regular/bx-chevron-left.svg",
   "o-chevron-r":    "node_modules/boxicons/svg/regular/bx-chevron-right.svg",
+  "o-chevron-u":    "node_modules/boxicons/svg/regular/bx-chevron-up.svg",
   "o-clock":        "node_modules/boxicons/svg/regular/bx-stopwatch.svg",
   "o-collection":   "node_modules/boxicons/svg/regular/bx-collection.svg",
   "o-copy":         "node_modules/boxicons/svg/solid/bxs-copy.svg",
@@ -41,5 +42,6 @@
   "o-user":         "node_modules/boxicons/svg/regular/bx-user-circle.svg",
   "o-video":        "node_modules/boxicons/svg/regular/bx-film.svg",
 
-  "o-spinner":      "media/img/spinner.svg"
+  "o-spinner":      "media/img/spinner.svg",
+  "o-logo":         "media/logo.svg"
 }

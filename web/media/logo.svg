@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="15.875mm"
+   height="21.166672mm"
+   viewBox="0 0 15.875 21.166672"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04, custom)"
+   sodipodi:docname="logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:object-paths="false"
+     inkscape:zoom="1"
+     inkscape:cx="428"
+     inkscape:cy="344"
+     inkscape:window-width="1920"
+     inkscape:window-height="1023"
+     inkscape:window-x="1920"
+     inkscape:window-y="29"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g23741-9"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid13156" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect14186-0"
+       is_visible="true"
+       lpeversion="1"
+       satellites_param="F,0,0,1,0,1.5875,0,1 @ F,0,0,1,0,1.5875,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,1.5875,0,1 @ F,0,0,1,0,1.5875,0,1"
+       unit="px"
+       method="auto"
+       mode="F"
+       radius="6"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false"
+       nodesatellites_param="F,0,0,1,0,1.5875,0,1 @ F,0,0,1,0,1.5875,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,1.5875,0,1 @ F,0,0,1,0,1.5875,0,1" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-75.239969,-79.585569)">
+    <g
+       id="g23741">
+      <path
+         id="rect12074-2"
+         style="font-variation-settings:'wght' 700;fill:#0284c7;fill-opacity:1;stroke-width:0.229486"
+         d="m 75.239971,81.173069 v 11.377083 a 3.3893768,3.3893768 64.902774 0 0 1.219552,2.603792 l 6.717948,5.598286 6.717948,-5.598286 a 3.3893768,3.3893768 115.09723 0 0 1.219552,-2.603792 V 81.173069 a 1.5875,1.5875 45 0 0 -1.5875,-1.5875 h -12.7 a 1.5875,1.5875 135 0 0 -1.5875,1.5875 z"
+         sodipodi:nodetypes="cccccc"
+         inkscape:path-effect="#path-effect14186-0"
+         inkscape:original-d="m 75.239971,79.585569 v 14.552083 l 7.9375,6.614578 7.9375,-6.614578 V 79.585569 Z" />
+      <path
+         sodipodi:type="star"
+         style="font-variation-settings:'wght' 700;fill:#ffffff;fill-opacity:1;stroke-width:0.755906"
+         id="path18837"
+         inkscape:flatsided="false"
+         sodipodi:sides="5"
+         sodipodi:cx="372.9574"
+         sodipodi:cy="311.29224"
+         sodipodi:r1="40.511997"
+         sodipodi:r2="21.877171"
+         sodipodi:arg1="0.92955883"
+         sodipodi:arg2="1.5601822"
+         inkscape:rounded="0.19395294"
+         inkscape:randomized="0"
+         d="m 397.19117,343.75677 c -4.08435,3.0342 -18.91394,-10.65433 -24.00157,-10.5886 -5.06985,0.0655 -19.48583,14.14038 -23.61916,11.20385 -4.14783,-2.94683 4.28814,-21.2806 2.65346,-26.09891 -1.62897,-4.80147 -19.46975,-14.16251 -17.95421,-19.00098 1.52085,-4.85544 21.56416,-2.4978 25.6415,-5.54141 4.06309,-3.03298 7.45287,-22.89329 12.52285,-22.9471 5.08777,-0.054 9.03924,19.73687 13.19386,22.67413 4.14009,2.92698 24.07587,0.0137 25.69375,4.81889 1.62357,4.82207 -15.9776,14.69586 -17.48724,19.5548 -1.50438,4.84195 7.42683,22.90174 3.35676,25.92533 z"
+         transform="matrix(0.13015291,0,0,0.13588283,34.656092,45.585888)"
+         inkscape:transform-center-x="0.069279653"
+         inkscape:transform-center-y="-0.42671376" />
+    </g>
+  </g>
+</svg>

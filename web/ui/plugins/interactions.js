@@ -8,24 +8,6 @@ module.exports = plugin(function ({addVariant, config, e}) {
     return `${getPrefix(`.${className}`)}${className}`
   }
 
-  const groupPseudoClassVariant = function (pseudoClass) {
-    return ({modifySelectors, separator}) => {
-      return modifySelectors(({selector}) => {
-        return selectorParser((selectors) => {
-          selectors.walkClasses((classNode) => {
-            classNode.value = `group-${pseudoClass}${separator}${classNode.value}`
-            classNode.parent.insertBefore(
-              classNode,
-              selectorParser().astSync(
-                `.${prefixClass("group")}:${pseudoClass} `,
-              ),
-            )
-          })
-        }).processSync(selector)
-      })
-    }
-  }
-
   addVariant("js", ({modifySelectors, separator}) => {
     modifySelectors(({className}) => {
       return `body.js .${e(`js${separator}${className}`)}`
@@ -46,43 +28,13 @@ module.exports = plugin(function ({addVariant, config, e}) {
     })
   })
 
-  addVariant("group-focus-within", groupPseudoClassVariant("focus-within"))
-
-  addVariant("hf", ({modifySelectors, separator}) => {
-    modifySelectors(({selector}) => {
-      return selectorParser((selectors) => {
-        const clonedSelectors = selectors.clone()
-        ;[selectors, clonedSelectors].forEach((sel, i) => {
-          sel.walkClasses((classNode) => {
-            classNode.value = `hf${separator}${classNode.value}`
-            classNode.parent.insertAfter(
-              classNode,
-              selectorParser.pseudo({value: `:${i === 0 ? "hover" : "focus"}`}),
-            )
-          })
-        })
-        selectors.append(clonedSelectors)
-      }).processSync(selector)
-    })
-  })
-
-  addVariant("group-hf", ({modifySelectors, separator}) => {
-    modifySelectors(({selector}) => {
-      return selectorParser((selectors) => {
-        const clonedSelectors = selectors.clone()
-        ;[selectors, clonedSelectors].forEach((sel, i) => {
-          sel.walkClasses((classNode) => {
-            classNode.value = `group-hf${separator}${classNode.value}`
-            classNode.parent.insertBefore(
-              classNode,
-              selectorParser().astSync(
-                `.${prefixClass("group")}:${i === 0 ? "hover" : "focus"} `,
-              ),
-            )
-          })
-        })
-        selectors.append(clonedSelectors)
-      }).processSync(selector)
-    })
-  })
+  addVariant("hf", ["&:hover", "&:focus"])
+  addVariant("hfw", ["&:hover", "&:focus", "&:focus-within"])
+  addVariant("group-hf", [":merge(.group):hover &", ":merge(.group):focus &"])
+  addVariant("group-fw", [":merge(.group):focus-within &"])
+  addVariant("group-hfw", [
+    ":merge(.group):hover &",
+    ":merge(.group):focus &",
+    ":merge(.group):focus-within &",
+  ])
 })

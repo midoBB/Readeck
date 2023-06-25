@@ -1,60 +1,59 @@
-.layout\:nav
-  &>div
-    @apply max-w-view mx-auto px-4 py-2
+@layer utilities
+  .layout-topbar
+    @apply flex-shrink-0
+    @apply h-topnav
 
-.layout\:app
-  @apply min-h-screen max-w-view mx-auto flex px-4
-  @apply +md:block
+.layout-topnav
+  @apply flex flex-col flex-shrink-0 w-col-1
+  @apply bg-gray-200 text-black
+  @apply +sm:flex-row +sm:w-full +sm:h-topnav
+
+  .logo
+    @apply flex items-center justify-center
+    @apply layout-topbar
+    @apply +sm:p-2 +sm:h-auto
+
+  .mainmenu
+    @apply flex-1 overflow-y-auto
+    @apply flex flex-col items-center
+    @apply py-2
+    @apply +sm:flex-row +sm:px-2 +sm:overflow-y-visible
+
+    menu
+      @apply +sm:flex
+
+      li
+        @apply mb-3 +sm:mb-0
+        @apply +sm:mr-3 +sm:last-of-type:mr-0
+
+      a, button
+        @apply block
+        @apply rounded
+        @apply p-3
+        @apply bg-black bg-opacity-10
+        @apply data-current:bg-opacity-30
+        @apply hf:bg-opacity-20
+
+        .svgicon svg
+          @apply w-5 h-5
+
+.sidemenu
+  @apply print:hidden
+
+  menu a
+    @apply hf:text-primary data-current:font-bold data-current:text-primary-dark
+    @apply block leading-none py-1 pl-1 mb-1 border-l-2 border-transparent hf:border-primary data-current:border-primary-dark
+    @apply +md:mb-2 +md:text-lg
+
+    .svgicon svg
+      @apply w-5 h-5
 
 
-.layout\:sidebar
-  @apply sticky top-0
-  @apply overflow-y-auto max-h-screen
-  @apply z-20
-  @apply w-48 flex-shrink-0 mr-4
-  @apply +md:w-full +md:-mx-4 +md:px-4 +md:fixed +md:bottom-0 +md:top-auto
+.layout-panel-wrapper
+  @apply flex
 
-.layout\:main
-  @apply flex-grow
-  @apply pt-4 pb-8
+  .layout-panel-panel
+    @apply flex-shrink-0
 
-
-.sidebar\:toggle
-  @apply hidden +md:inline-flex
-  @apply fixed z-30 w-12 h-12 bottom-2 left-2
-  @apply items-center justify-center py-2
-  @apply cursor-pointer select-none
-
-.sidebar\:ctrl
-  display: none
-
-.sidebar\:ctrl:not(:checked) + .layout\:sidebar
-  @apply +md:hidden
-
-.sidebar\:title
-  @apply uppercase data-current:font-bold
-
-.sidebar\:link
-  @apply hf:text-primary data-current:font-bold data-current:text-primary-dark
-  @apply +md:hf:text-primary data-current:font-bold +md:data-current:text-primary-light
-  @apply block leading-none py-1 pl-1 mb-1 border-l-2 border-transparent hf:border-primary data-current:border-primary-dark
-  @apply +md:mb-2 +md:text-lg
-
-  .svgicon svg
-    @apply w-5 h-5
-
-.sidebar\:subtitle
-  padding-left: calc(.25rem + 2px)
-  @apply font-semibold
-
-
-.nav\:link
-  @apply font-semibold block py-3 px-2.5 rounded-full
-  @apply hf:bg-black hf:bg-opacity-30 hf:ring-1 hf:ring-white
-  @apply data-current:bg-black data-current:bg-opacity-50
-
-.menu\:ctrl
-  display: none
-
-.menu\:ctrl:not(:checked) + ul
-  display: none
+  .layout-panel-content
+    @apply flex-grow

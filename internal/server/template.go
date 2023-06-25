@@ -19,6 +19,7 @@ import (
 	"github.com/readeck/readeck/internal/email"
 	"github.com/readeck/readeck/pkg/glob"
 	"github.com/readeck/readeck/pkg/libjet"
+	"github.com/readeck/readeck/pkg/utils"
 )
 
 // TC is a simple type to carry template context.
@@ -176,6 +177,13 @@ func (s *Server) initTemplates() {
 		}
 
 		return reflect.ValueOf(strings.Join(m, " "))
+	})
+	views.AddGlobalFunc("shortText", func(args jet.Arguments) reflect.Value {
+		args.RequireNumOfArguments("shortText", 2, 2)
+		s := libjet.ToString(args.Get(0))
+		maxChars := libjet.ToInt(args.Get(1))
+
+		return reflect.ValueOf(utils.ShortText(s, maxChars))
 	})
 }
 

@@ -161,6 +161,14 @@ function css_bundle() {
     require("postcss-import"),
     require("./ui/plugins/prose"),
     require("tailwindcss"),
+    require("postcss-unit-processor")({
+      replace: false,
+      processor: (value, unit) => {
+        if (["vh", "vw"].includes(unit)) {
+          return {value: value, unit: `d${unit}`}
+        }
+      },
+    }),
     require("postcss-copy")({
       basePath: [
         "ui",

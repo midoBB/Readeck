@@ -24,17 +24,9 @@ module.exports = plugin(function ({addComponents, theme}) {
       "&:focus": {
         outline: "none",
         outlineOffset: "0px",
-        "--tw-ring-inset": "var(--tw-empty,/*!*/ /*!*/)",
-        "--tw-ring-offset-width": "0px",
-        "--tw-ring-offset-color": "#fff",
         "--tw-ring-color": theme("colors.primary.DEFAULT", colors.blue[600]),
-        "--tw-ring-offset-shadow":
-          "var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color)",
-        "--tw-ring-shadow":
-          "var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color)",
-        boxShadow:
-          "var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)",
-        borderColor: theme("colors.primary.DEFAULT", colors.blue[600]),
+        borderColor: "var(--tw-ring-color)",
+        boxShadow: "0 0 3px 0 var(--tw-ring-color)",
       },
     },
 

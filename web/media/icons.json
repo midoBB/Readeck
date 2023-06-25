@@ -41,5 +41,6 @@
   "o-user":         "node_modules/boxicons/svg/regular/bx-user-circle.svg",
   "o-video":        "node_modules/boxicons/svg/regular/bx-film.svg",
 
-  "o-spinner":      "media/img/spinner.svg"
+  "o-spinner":      "media/img/spinner.svg",
+  "o-logo":         "media/logo.svg"
 }

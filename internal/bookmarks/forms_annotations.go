@@ -1,10 +1,8 @@
 package bookmarks
 
 import (
-	"io"
 	"strings"
 	"time"
-	"unicode"
 
 	"github.com/go-shiori/dom"
 	"github.com/lithammer/shortuuid/v3"
@@ -51,14 +49,14 @@ func (f *annotationForm) addToBookmark(bi *bookmarkItem) (*BookmarkAnnotation, e
 	// Add annotation and store its text content
 	contents := &strings.Builder{}
 	err = annotation.addToNode(root, bi.annotationTag, func(n *html.Node, index int) {
-		io.WriteString(contents, n.FirstChild.Data)
+		contents.WriteString(n.FirstChild.Data)
 		bi.annotationCallback(annotation.ID, n, index)
 	})
 	if err != nil {
 		return nil, err
 	}
 
-	annotation.Text = shortText(contents.String(), 60)
+	annotation.Text = strings.TrimSpace(contents.String())
 
 	// All good? Create the annotation now
 	b := bi.Bookmark
@@ -77,32 +75,4 @@ func (f *annotationForm) addToBookmark(bi *bookmarkItem) (*BookmarkAnnotation, e
 	}
 
 	return annotation, nil
-}
-
-// shortText returns a string of maxChars maximum length. It attempts to cut between words
-// when possible.
-func shortText(s string, maxChars int) string {
-	runes := []rune(strings.TrimSpace(strings.Join(strings.Fields(s), " ")))
-	if len(runes) <= maxChars {
-		return string(runes)
-	}
-
-	res := &strings.Builder{}
-	j := 0
-	for i, word := range strings.FieldsFunc(s, unicode.IsSpace) {
-		j += len(word)
-		if j >= maxChars {
-			if len(word) > maxChars {
-				res.WriteString(word[0:maxChars])
-			}
-			break
-		}
-		if i > 0 {
-			res.WriteString(" ")
-		}
-		res.WriteString(word)
-	}
-	res.WriteString("...")
-
-	return res.String()
 }

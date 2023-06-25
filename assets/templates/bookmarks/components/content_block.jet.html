@@ -5,6 +5,7 @@
  src="{{ urlFor(`/api/bookmarks`, .Item.ID) }}/article"
  disabled
  data-controller="annotations"
+ data-action="request:annotation-removed@document->annotations#reload"
  data-annotations-api-url-value="{{ urlFor(`/api/bookmarks`, .Item.ID) }}/annotations"
  data-annotations-hidden-class="hidden"
  {{- end -}}
@@ -26,6 +27,7 @@
        data-annotations-target="arrow"></div>
     </div>
     <div class="font-serif text-lg leading-normal prose"
+     lang="{{ .Item.Lang }}"
      data-annotations-target="root">
       {{- rawCopy(.Out, .HTML) -}}
     </div>

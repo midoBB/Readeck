@@ -46,14 +46,14 @@
 
     <div class="flex-grow p-2 flex flex-col">
       <h3 class="mb-2 leading-tight font-semibold {{ if .IsDeleted }}opacity-50{{ end }}
-       group-hover:text-primary group-focus-within:text-primary"><a href="{{ _url }}"
+       group-hover:text-primary group-fw:text-primary"><a href="{{ _url }}" class="inline-block"
       data-turbo-frame="_top" class="hf:text-primary-dark">{{ default(.Title, "untitled") }}</a></h3>
 
       <span class="flex items-center mb-2 text-xs text-gray-600 {{ if .IsDeleted }}opacity-50{{ end }}">
         {{- if isset(.Resources.icon) -}}
           <img class="h-4 w-auto filter grayscale opacity-50
            group-hover:filter-none group-hover:opacity-100
-           group-focus-within:filter-none group-focus-within:opacity-100"
+           group-fw:filter-none group-fw:opacity-100"
            loading="lazy" src="{{ .Resources.icon.Src }}" alt=""
            width="{{ .Resources.icon.Width }}" height="{{ .Resources.icon.Height }}">
         {{- end }} <strong class="ml-2 mr-2 leading-none">{{ .SiteName }}</strong>
@@ -90,7 +90,7 @@
           </div>
         {{- else -}}
           <form action="{{ _url }}" method="post"
-          class="flex-grow text-gray-200 group-hover:text-primary group-focus-within:text-primary"
+          class="flex-grow text-gray-200 group-hover:text-primary group-fw:text-primary"
           data-controller="turbo-form turbo-reload"
           data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
           data-turbo-form-method-value="patch"
@@ -111,7 +111,7 @@
           </form>
 
           <form action="{{ urlFor(`/bookmarks`, .ID, `delete`) }}" method="post"
-            class="text-gray-200 group-hover:text-red-600 group-focus-within:text-red-700">
+            class="text-gray-200 group-hover:text-red-600 group-fw:text-red-700">
             {{ yield csrfField() }}
             <input type="hidden" name="_to" value="{{ currentPath }}" />
             <button class="fill-current hf:text-red-800" name="is_deleted" value="1"

@@ -1,4 +1,4 @@
-{{ extends "./base" }}
+{{ extends "/base" }}
 {{ import "./components/common" }}
 {{ import "./components/card_blocks" }}
 
@@ -16,104 +16,87 @@
   {{- end -}}
 {{- end -}}
 
-{{- block mainContent() -}}
-<turbo-frame id="bookmark-{{ .Item.ID }}" data-controller="turbo-refresh"
- data-turbo-refresh-on-value="[data-deleted]"
- data-turbo-refresh-interval-value="3">
-  {{- if !.Item.Loaded -}}
-    <div class="text-center mt-4">
-      <span class="text-3xl">{{ yield spinner() }}</span>
-      <p class="text-lg">Bookmark is loading…</p>
-    </div>
-  {{- else -}}
-    <div class="max-w-3xl mx-auto mt-4 print:mt-2 print:max-w-none">
-      {{ include "./components/title_form" .Item }}
+{{- block body() -}}
+<div class="flex h-screen +sm:flex-col">
+  {{ include "/menu" }}
 
-      {{- if !empty(.Item.Description) -}}
-        <p class="mt-2 text-lg leading-tight text-justify font-serif italic">{{ .Item.Description }}</p>
-      {{- end -}}
-    </div>
-
-    <div class="group max-w-3xl mx-auto rounded shadow mt-8 print:shadow-none print:border print:max-w-none">
-      <div class="flex flex-row mb-2">
-        {{- if isset(.Item.Resources.thumbnail) -}}
-        <div class="order-2 ml-2">
-          <span class="block relative overflow-hidden pt-16/9 w-44 +sm:w-20 +md:w-36">
-            <img src="{{ .Item.Resources.thumbnail.Src }}" alt=""
-              class="absolute top-0 h-full w-full object-cover object-center rounded-bl"
-              width="{{ .Item.Resources.thumbnail.Width }}"
-              height="{{ .Item.Resources.thumbnail.Height }}" />
-          </span>
+  <div class="grow md:overflow-y-auto">
+    <turbo-frame id="bookmark-{{ .Item.ID }}" data-controller="turbo-refresh"
+    data-turbo-refresh-on-value="[data-deleted]"
+    data-turbo-refresh-interval-value="3"
+    class="
+      flex +md:flex-col
+      +md:h-screen
+      +sm:h-[calc(100vh-4rem)]
+    ">
+      {{- if !.Item.Loaded -}}
+        <div class="text-center mt-8">
+          <span class="text-3xl">{{ yield spinner() }}</span>
+          <p class="text-lg">Bookmark is loading…</p>
         </div>
-        {{- end -}}
-
-        <div class="order-1 flex-grow pl-4">
-          <ul class="mt-4">
-            <li class="flex items-center mb-2">
-            {{- if isset(.Item.Resources.icon) -}}
-            <img class="inline mr-1 w-5 h-auto"
-             alt="" src="{{ .Item.Resources.icon.Src }}"
-             width="{{ .Item.Resources.icon.Width }}"
-             height="{{ .Item.Resources.icon.Height }}">
-            {{- end -}}
-            <strong>{{ default(.Item.SiteName, "no site name") }}</strong>
-            </li>
-            {{- if !empty(.Item.Published) -}}
-              {{- yield line_icon(icon="o-calendar") content -}}
-                Published on {{ date(.Item.Published, "02 January 2006") }}
-              {{- end -}}
-            {{- end -}}
-            {{- if !empty(.Item.Authors) -}}
-              {{- yield line_icon(icon="o-pen") content -}}
-                By {{ join(.Item.Authors, ", ") }}
-              {{- end -}}
-            {{- end -}}
-            {{- yield line_icon(icon="o-link") content -}}
-              <a href="{{ .Item.URL }}" class="link" target="top">{{ .Item.Domain }}</a>
-            {{- end -}}
-            {{- if .Item.Type == "article" && .Item.ReadingTime() > 0 -}}
-              {{- yield line_icon(icon="o-clock") content -}}
-                {{ .Item.ReadingTime() }}&nbsp;min
-              {{- end -}}
-            {{- end -}}
-          </ul>
+      {{- else -}}
+        <input type="checkbox" id="--panel-toggle" class="peer hidden">
+        <div class="
+          order-last w-col-6 h-screen sticky top-0 overflow-y-auto
+          flex-shrink-0
+          border-l border-l-gray-200
+          +md:w-full
+          +md:overflow-y-hidden
+          +md:h-topnav +md:flex +md:flex-col
+          +md:shadow-panel-t
+          +md:peer-checked:h-[60vh]
+          +md:transition-all +md:ease-in-out
+          +md:peer-checked:[&>div>label>span>svg]:rotate-180
+         ">
+          <div class="
+            h-topnav border-b border-b-gray-200 flex-shrink-0
+            px-6 +md:px-4
+            flex items-center justify-end
+          ">
+            <label for="--panel-toggle" class="
+              md:hidden
+              cursor-pointer
+              w-12 h-12 bg-gray-600 text-white
+              inline-flex items-center justify-center
+              rounded-2xl
+              select-none
+            ">{{- yield icon(name="o-chevron-u", class="inline-block", svgClass="w-6 h-6") -}}</label>
+          </div>
+          <div class="px-6 pt-4 pb-8 +md:px-4 +md:overflow-y-auto flex-grow">
+            {{ include "./components/sidebar" }}
+          </div>
         </div>
-      </div>
 
-      <p class="ml-4 mb-4 font-semibold hidden print:block">{{ .Item.URL }}</p>
+        <div class="
+          grow max-w-col-22 px-6 pb-8
+          +md:px-4
+          +md:overflow-auto
+        ">
+          <div class="h-topnav border-b border-b-gray-200"></div>
+          <div class="max-w-3xl mx-auto mt-4 print:mt-2 print:max-w-none mb-8">
+            {{ include "./components/title_form" .Item }}
 
+            {{- if !empty(.Item.Description) -}}
+              <p class="mt-2 text-lg leading-tight text-justify font-serif italic">{{ .Item.Description }}</p>
+            {{- end -}}
+            {{- if user.Settings.DebugInfo -}}
+              {{ include "./components/debug" map("log", ._log, "props", ._props) }}
+            {{- end -}}
+          </div>
 
-      {{ include "./components/labels_form" .Item }}
+          {{ include "./components/content_block" map(
+            "Item", .Item,
+            "Out", .Out,
+            "HTML", .HTML
+          ) }}
 
-      {{- if len(.Item.Errors) -}}
-        <details
-         class="my-4 px-4">
-          <summary class="text-sm bg-red-700 text-white inline-block p-0.5 rounded"
-          >{{ yield icon(name="o-error") }} Errors occured during extraction</summary>
-          <ul class="text-red-800">{{ range .Item.Errors }}
-            <li class="mt-0.5">{{ . }}</li>
-          {{ end }}</ul>
-        </details>
+          <div class="mx-auto mt-6 pt-6 border-t print:hidden">
+          {{- include "./components/bottom_actions" .Item -}}
+          </div>
+        </div>
+
       {{- end -}}
-
-      {{ include "./components/actions" .Item }}
-    </div>
-
-    {{- if user.Settings.DebugInfo -}}
-      {{ include "./components/debug" map("log", ._log, "props", ._props) }}
-    {{- end -}}
-
-    <br class="block mt-8">
-
-    {{ include "./components/content_block" map(
-      "Item", .Item,
-      "Out", .Out,
-      "HTML", .HTML
-    ) }}
-
-    <div class="max-w-3xl mx-auto mt-6 pt-6 border-t print:hidden">
-    {{- include "./components/bottom_actions" .Item -}}
-    </div>
-  {{- end -}}
-</turbo-frame>
+    </turbo-frame>
+  </div>
+</div>
 {{- end -}}

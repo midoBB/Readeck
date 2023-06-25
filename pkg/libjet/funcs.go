@@ -146,3 +146,19 @@ func ToDateFmt(d reflect.Value, f reflect.Value) string {
 	layout := ToString(f)
 	return date.Format(layout)
 }
+
+func ToInt(v reflect.Value) int {
+	val, isNil := Indirect(v)
+	if isNil || val == nil {
+		return 0
+	}
+
+	switch v := val.(type) {
+	case float32, float64:
+		return int(v.(float64))
+	case int:
+		return v
+	}
+
+	panic("value is not a number")
+}

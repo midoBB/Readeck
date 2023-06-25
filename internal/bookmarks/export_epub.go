@@ -13,7 +13,7 @@ import (
 	"github.com/readeck/readeck/assets"
 	"github.com/readeck/readeck/internal/server"
 	"github.com/readeck/readeck/pkg/epub"
-	"github.com/readeck/readeck/pkg/slug"
+	"github.com/readeck/readeck/pkg/utils"
 )
 
 var uuidURL = uuid.Must(uuid.Parse("6ba7b811-9dad-11d1-80b4-00c04fd430c8"))
@@ -34,7 +34,7 @@ func (api *apiRouter) exportBookmarksEPUB(w http.ResponseWriter, r *http.Request
 		title = "Readec Bookmarks"
 	}
 
-	filename := fmt.Sprintf("%s-%s", bookmarks[0].Created.Format("2006-01-02"), slug.Slug(title))
+	filename := fmt.Sprintf("%s-%s", bookmarks[0].Created.Format("2006-01-02"), utils.Slug(title))
 
 	id := ""
 	for _, x := range bookmarks {

@@ -1,10 +1,5 @@
-// Source: https://github.com/extemporalgenome/slug
-//
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// Package slug transforms strings into a normalized form well suited for use in URLs.
-package slug
+// Package utils provides simple various utilities
+package utils
 
 import (
 	"unicode"
@@ -16,7 +11,7 @@ var lat = []*unicode.RangeTable{unicode.Letter, unicode.Number}
 var nop = []*unicode.RangeTable{unicode.Mark, unicode.Sk, unicode.Lm}
 
 // Slug replaces each run of characters which are not unicode letters or
-// numbers with a single hyphen, except for leading or trailing runs. Letters
+// numbers with a single hyphen, except for leading or trailing runes. Letters
 // will be stripped of diacritical marks and lowercased. Letter or number
 // codepoints that do not have combining marks or a lower-cased variant will
 // be passed through unaltered.

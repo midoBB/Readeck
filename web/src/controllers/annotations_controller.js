@@ -2,13 +2,7 @@ import {Controller} from "@hotwired/stimulus"
 import {request} from "../lib/request"
 
 export default class extends Controller {
-  static targets = [
-    "root",
-    "controlls",
-    "controllCreate",
-    "controllDelete",
-    "arrow",
-  ]
+  static targets = ["root", "controlls", "controllCreate", "controllDelete"]
   static classes = ["hidden"]
   static values = {
     apiUrl: String,
@@ -19,12 +13,24 @@ export default class extends Controller {
   connect() {
     // Listen for new selections
     this.annotation = null
-    document.addEventListener("mouseup", async () => this.onSelectText())
+    document.addEventListener("selectionchange", async (evt) => {
+      await this.onSelectText(evt)
+    })
+
+    // Prepare controll box
+    this.controllArrow = this.setupControll(
+      "ontouchstart" in document.documentElement ? "bottom" : "top",
+    )
   }
 
   canCreateValueChanged(value) {
     if (value) {
       this.controllCreateTarget.classList.remove(this.hiddenClass)
+      this.setControllArrowColor(
+        getComputedStyle(this.controllCreateTarget).getPropertyValue(
+          "background-color",
+        ),
+      )
     } else {
       this.controllCreateTarget.classList.add(this.hiddenClass)
     }
@@ -33,6 +39,11 @@ export default class extends Controller {
   canDeleteValueChanged(value) {
     if (value) {
       this.controllDeleteTarget.classList.remove(this.hiddenClass)
+      this.setControllArrowColor(
+        getComputedStyle(this.controllDeleteTarget).getPropertyValue(
+          "background-color",
+        ),
+      )
     } else {
       this.controllDeleteTarget.classList.add(this.hiddenClass)
     }
@@ -55,6 +66,44 @@ export default class extends Controller {
 
   /**
    *
+   * @param {string} position
+   * @returns {Element}
+   */
+  setupControll(position) {
+    if (!this.hasControllsTarget) {
+      return
+    }
+
+    const arrow = document.createElement("div")
+    const bt = "8px solid transparent"
+    const bg = "8px solid var(--arrow-color)"
+
+    arrow.dataset.position = position
+    arrow.style.setProperty("--arrow-color", "rgba(0,0,0,0)")
+    arrow.style.height = 0
+    arrow.style.width = 0
+    arrow.style.borderLeft = bt
+    arrow.style.borderRight = bt
+    if (position == "top") {
+      arrow.style.borderTop = bg
+      this.controllsTarget.appendChild(arrow)
+    } else {
+      arrow.style.borderBottom = bg
+      this.controllsTarget.insertBefore(arrow, this.controllsTarget.firstChild)
+    }
+
+    return arrow
+  }
+
+  setControllArrowColor(color) {
+    if (!this.controllArrow) {
+      return
+    }
+    this.controllArrow.style.setProperty("--arrow-color", color)
+  }
+
+  /**
+   *
    * @param {Boolean} canCreate
    * @param {Boolean} canDelete
    */
@@ -62,6 +111,8 @@ export default class extends Controller {
     this.canCreateValue = canCreate
     this.canDeleteValue = canDelete
     await this.nextTick()
+
+    const position = this.controllArrow.dataset.position
 
     // Show controlls
     this.controllsTarget.classList.remove(this.hiddenClass)
@@ -75,12 +126,15 @@ export default class extends Controller {
     const w = this.controllsTarget.clientWidth
 
     // Range position relative to its root element
-    const rangeTop = Math.round(rangeRect.top - rootRect.top)
+    const rangeTop =
+      position == "top"
+        ? Math.round(rangeRect.top - rootRect.top)
+        : Math.round(rangeRect.top + rangeRect.height - rootRect.top)
     const rangeLeft = Math.round(rangeRect.left - rootRect.left)
     const rangeCenter = Math.round(rangeLeft + rangeRect.width / 2)
 
     // Set controlls position
-    const y = Math.round(rangeTop - h)
+    const y = position == "top" ? Math.round(rangeTop - h) : rangeTop
     // prettier-ignore
     const x = Math.floor(
       Math.max(
@@ -92,14 +146,14 @@ export default class extends Controller {
       ),
     )
 
-    this.controllsTarget.style.top = `calc(${y - 4}px)`
+    this.controllsTarget.style.top = `${position == "top" ? y - 4 : y + 4}px`
     this.controllsTarget.style.left = `${x}px`
 
     // Set arrow position
-    if (!this.hasArrowTarget) {
+    if (!this.controllArrow) {
       return
     }
-    const arrowWidth = this.arrowTarget.offsetWidth
+    const arrowWidth = this.controllArrow.offsetWidth
     // prettier-ignore
     const arrowX = Math.max(
       arrowWidth / 2,
@@ -108,7 +162,7 @@ export default class extends Controller {
         w - arrowWidth - arrowWidth / 2,
       ),
     )
-    this.arrowTarget.style.marginLeft = `${arrowX}px`
+    this.controllArrow.style.marginLeft = `${arrowX}px`
   }
 
   async hideControlls() {

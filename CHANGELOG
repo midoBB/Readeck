@@ -1,6 +1,11 @@
 # Changlog
 
+## [0.8.1] - 2023-06-27
+### Changed
+- New layout, with enhanced UX and mobile support
+
 ## [0.7.1] - 2023-06-18
+### Added
 - SVG image support during extraction
 
 ## [0.7.0] - 2023-05-24

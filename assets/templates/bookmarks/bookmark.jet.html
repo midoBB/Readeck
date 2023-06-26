@@ -49,18 +49,15 @@
           +md:peer-checked:[&>div>label>span>svg]:rotate-180
          ">
           <div class="
-            h-topnav border-b border-b-gray-200 flex-shrink-0
-            px-6 +md:px-4
-            flex items-center justify-end
+            h-topnav border-b border-b-gray-200 flex-shrink-0 flex flex-col
           ">
             <label for="--panel-toggle" class="
               md:hidden
+              flex-grow flex items-center justify-end gap-2
+              px-4 bg-gray-100
               cursor-pointer
-              w-12 h-12 bg-gray-600 text-white
-              inline-flex items-center justify-center
-              rounded-2xl
               select-none
-            ">{{- yield icon(name="o-chevron-u", class="inline-block", svgClass="w-6 h-6") -}}</label>
+            "><span>More information</span>{{- yield icon(name="o-chevron-u", class="inline-block link", svgClass="w-6 h-6") -}}</label>
           </div>
           <div class="px-6 pt-4 pb-8 +md:px-4 +md:overflow-y-auto flex-grow">
             {{ include "./components/sidebar" }}

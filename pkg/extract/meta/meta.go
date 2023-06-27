@@ -26,7 +26,7 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 	}
 
 	m.Log.Debug("loading metadata")
-	res := parseMeta(m.Dom)
+	res := ParseMeta(m.Dom)
 
 	// Set raw meta
 	d := m.Extractor.Drop()
@@ -206,7 +206,8 @@ var specList = []rawSpec{
 	]`, extMeta("rel", "href", 0)},
 }
 
-func parseMeta(doc *html.Node) extract.DropMeta {
+// ParseMeta parses page metadata
+func ParseMeta(doc *html.Node) extract.DropMeta {
 	res := extract.DropMeta{}
 
 	for _, x := range specList {

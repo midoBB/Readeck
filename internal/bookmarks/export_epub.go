@@ -107,7 +107,7 @@ func (m *EpubMaker) addStylesheet() error {
 func (m *EpubMaker) addBookmark(b bookmarkItem) (err error) {
 	// Open the original container file
 	var c *bookmarkContainer
-	if c, err = b.openContainer(); err != nil {
+	if c, err = b.OpenContainer(); err != nil {
 		return
 	}
 	defer c.Close()

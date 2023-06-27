@@ -1,8 +1,8 @@
 package db
 
 import (
+	"io"
 	"io/fs"
-	"io/ioutil"
 	"math/rand"
 	"path"
 
@@ -39,7 +39,7 @@ func applyMigrationFile(name string) func(td *goqu.TxDatabase, _ fs.FS) (err err
 		}
 
 		var sql []byte
-		if sql, err = ioutil.ReadAll(fd); err != nil {
+		if sql, err = io.ReadAll(fd); err != nil {
 			return
 		}
 
@@ -79,4 +79,5 @@ var migrationList = []migrationEntry{
 
 	newMigrationEntry(2, "bookmark_collection", applyMigrationFile("02_bookmark_collection.sql")),
 	newMigrationEntry(3, "bookmark_annotations", applyMigrationFile("03_bookmark_annotations.sql")),
+	newMigrationEntry(4, "bookmark_links", applyMigrationFile("04_bookmark_links.sql")),
 }

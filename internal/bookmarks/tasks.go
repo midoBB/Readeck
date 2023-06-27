@@ -218,6 +218,7 @@ func extractPageHandler(data interface{}) {
 		fftr.GoToNextPage,
 		contents.Readability,
 		CleanDomProcessor,
+		ExtractLinksProcessor,
 		contents.Text,
 	)
 
@@ -259,6 +260,8 @@ func extractPageHandler(data interface{}) {
 	if drop.IsMedia() {
 		b.Embed = drop.Meta.LookupGet("oembed.html")
 	}
+
+	b.Links = GetExtractedLinks(ex.Context)
 
 	// Run the archiver
 	var arc *archiver.Archiver

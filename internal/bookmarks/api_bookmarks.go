@@ -675,6 +675,7 @@ type bookmarkItem struct {
 	Resources    map[string]*bookmarkFile `json:"resources"`
 	Embed        string                   `json:"embed,omitempty"`
 	Errors       []string                 `json:"errors,omitempty"`
+	Links        BookmarkLinks            `json:"links"`
 
 	mediaURL           *url.URL
 	annotationTag      string
@@ -714,6 +715,7 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *Bookmark, base string
 		Labels:       make([]string, 0),
 		Annotations:  b.Annotations,
 		Resources:    make(map[string]*bookmarkFile),
+		Links:        b.Links,
 
 		mediaURL:      s.AbsoluteURL(r, "/bm", b.FilePath),
 		annotationTag: "rd-annotation",
@@ -776,7 +778,7 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *Bookmark, base string
 func (bi bookmarkItem) getArticle() (*strings.Reader, error) {
 	var err error
 	var c *bookmarkContainer
-	if c, err = bi.openContainer(); err != nil {
+	if c, err = bi.OpenContainer(); err != nil {
 		return strings.NewReader(""), err
 	}
 	defer c.Close()

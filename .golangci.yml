@@ -7,17 +7,14 @@ linters:
     - revive
     - govet
     - gosimple
-    - deadcode
     - typecheck
     - unused
-    - structcheck
-    - varcheck
     - dupl
     - gocritic
     # - errcheck
     - staticcheck
-    # - gocognit
-    # - gocyclo
+    - gocognit
+    - gocyclo
 
     - misspell
 

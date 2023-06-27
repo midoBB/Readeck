@@ -7,7 +7,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"mime/multipart"
 	"net/http"
 	"net/url"
@@ -52,7 +51,7 @@ func newMultipartResource(r io.Reader) (res multipartResource, err error) {
 	}
 
 	// Read the rest (the content)
-	res.Data, err = ioutil.ReadAll(bio)
+	res.Data, err = io.ReadAll(bio)
 	if err != nil {
 		return
 	}

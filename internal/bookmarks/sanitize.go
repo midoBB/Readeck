@@ -15,7 +15,7 @@ type bleachPolicy struct {
 	blockAttrs []*regexp.Regexp
 }
 
-var selfClosingTags map[string]struct{} = map[string]struct{}{
+var selfClosingTags = map[string]struct{}{
 	"area":     {},
 	"base":     {},
 	"br":       {},

@@ -4,7 +4,6 @@ import (
 	"archive/zip"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path"
 	"regexp"
@@ -114,5 +113,5 @@ func (c *bookmarkContainer) GetFile(name string) ([]byte, error) {
 		return nil, err
 	}
 	defer fd.Close()
-	return ioutil.ReadAll(fd)
+	return io.ReadAll(fd)
 }

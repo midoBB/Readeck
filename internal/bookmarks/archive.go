@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"io"
-	"io/ioutil"
 	"net/url"
 	"path"
 	"strconv"
@@ -145,7 +144,7 @@ func imageProcessor(ctx context.Context, arc *archiver.Archiver, input io.Reader
 	defer imgSem.Release(1)
 
 	if _, ok := imageTypes[contentType]; !ok {
-		r, err := ioutil.ReadAll(input)
+		r, err := io.ReadAll(input)
 		if err != nil {
 			return []byte{}, "", err
 		}

@@ -1,3 +1,5 @@
+// Package bookmarks provides, models, forms and http routes
+// for bookmarks and collections management.
 package bookmarks
 
 import (

@@ -114,6 +114,7 @@ type Bookmark struct {
 	IsArchived   bool                `db:"is_archived"`
 	IsMarked     bool                `db:"is_marked"`
 	Annotations  BookmarkAnnotations `db:"annotations"`
+	Links        BookmarkLinks       `db:"links"`
 }
 
 // BookmarkManager is a query helper for bookmark entries.
@@ -442,6 +443,39 @@ func (s *Strings) Scan(value interface{}) error {
 // Value encodes a Strings instance for storage.
 func (s Strings) Value() (driver.Value, error) {
 	v, err := json.Marshal(s)
+	if err != nil {
+		return "", err
+	}
+	return string(v), nil
+}
+
+type BookmarkLinks []BookmarkLink
+
+type BookmarkLink struct {
+	URL         string `json:"url"`
+	Domain      string `json:"domain"`
+	Title       string `json:"title"`
+	IsPage      bool   `json:"is_page"`
+	ContentType string `json:"content_type"`
+}
+
+// Scan loads a BookmarkLinks instance from a column.
+func (l *BookmarkLinks) Scan(value interface{}) error {
+	if value == nil {
+		return nil
+	}
+
+	v, err := db.JSONBytes(value)
+	if err != nil {
+		return err
+	}
+	json.Unmarshal(v, l)
+	return nil
+}
+
+// Value encodes a BookmarkLinks instance for storage.
+func (l BookmarkLinks) Value() (driver.Value, error) {
+	v, err := json.Marshal(l)
 	if err != nil {
 		return "", err
 	}

@@ -97,7 +97,7 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 
 	// Load bookmark debug information if the user needs them.
 	if user.Settings.DebugInfo {
-		c, err := b.openContainer()
+		c, err := b.OpenContainer()
 		if err != nil && !os.IsNotExist(err) {
 			h.srv.Error(w, r, err)
 			return

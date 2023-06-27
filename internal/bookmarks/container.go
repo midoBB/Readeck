@@ -23,9 +23,9 @@ type bookmarkContainer struct {
 	articleContent  *strings.Builder
 }
 
-// openContainer opens the bookmark's zipfile and returns a new
+// OpenContainer opens the bookmark's zipfile and returns a new
 // bookmarkContainer instance.
-func (b *Bookmark) openContainer() (*bookmarkContainer, error) {
+func (b *Bookmark) OpenContainer() (*bookmarkContainer, error) {
 	p := b.getFilePath()
 	if p == "" {
 		return nil, os.ErrNotExist

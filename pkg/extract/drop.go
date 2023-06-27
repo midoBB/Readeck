@@ -103,10 +103,6 @@ func (d *Drop) Load(client *http.Client) error {
 	// Save headers
 	d.Header = rsp.Header
 
-	if rsp.StatusCode/100 != 2 {
-		return fmt.Errorf("Invalid status code (%d)", rsp.StatusCode)
-	}
-
 	// Set final URL in case it was redirected
 	d.URL = rsp.Request.URL
 
@@ -115,6 +111,10 @@ func (d *Drop) Load(client *http.Client) error {
 
 	// Set site
 	d.Site = d.URL.Hostname()
+
+	if rsp.StatusCode/100 != 2 {
+		return fmt.Errorf("Invalid status code (%d)", rsp.StatusCode)
+	}
 
 	if !d.IsHTML() {
 		return nil

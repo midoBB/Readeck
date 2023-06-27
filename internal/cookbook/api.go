@@ -60,7 +60,7 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ex, err := extract.New(
-		src, nil,
+		src,
 		extract.SetLogFields(&log.Fields{"@id": api.srv.GetReqID(r)}),
 		extract.SetDeniedIPs(configs.ExtractorDeniedIPs()),
 		extract.SetProxyList(proxyList),
@@ -87,6 +87,7 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 		fftr.GoToNextPage,
 		contents.Readability,
 		bookmarks.CleanDomProcessor,
+		bookmarks.ExtractLinksProcessor,
 		contents.Text,
 		archiveProcessor,
 	)
@@ -120,6 +121,7 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 		HTML:         string(ex.HTML),
 		Text:         ex.Text,
 		Images:       map[string]*extractImg{},
+		Links:        []any{},
 	}
 
 	if drop.IsMedia() {
@@ -138,6 +140,10 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 			Encoded: fmt.Sprintf("data:%s;base64,%s", p.Type, p.Encoded()),
 			Size:    p.Size,
 		}
+	}
+
+	for _, link := range bookmarks.GetExtractedLinks(ex.Context) {
+		res.Links = append(res.Links, link)
 	}
 
 	api.srv.Render(w, r, 200, res)
@@ -205,4 +211,5 @@ type extractResult struct {
 	Text         string                 `json:"text"`
 	Embed        string                 `json:"embed"`
 	Images       map[string]*extractImg `json:"images"`
+	Links        []any                  `json:"links"`
 }

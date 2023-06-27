@@ -1,8 +1,19 @@
 package bookmarks
 
 import (
+	"bytes"
+	"context"
+	"net/url"
+
+	"github.com/go-shiori/dom"
+	"golang.org/x/net/html"
+	"golang.org/x/sync/errgroup"
+
 	"github.com/readeck/readeck/pkg/extract"
+	"github.com/readeck/readeck/pkg/extract/meta"
 )
+
+var ctxExtractLinksKey struct{}
 
 // CleanDomProcessor is a last pass of cleaning on the resulting DOM node.
 // It removes unwanted attributes, empty tags and set some defaults.
@@ -22,4 +33,90 @@ func CleanDomProcessor(m *extract.ProcessMessage, next extract.Processor) extrac
 	bleach.setLinkRel(m.Dom)
 
 	return next
+}
+
+func ExtractLinksProcessor(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+	if m.Step() != extract.StepDom {
+		return next
+	}
+
+	if m.Dom == nil {
+		return next
+	}
+
+	m.Log.Debug("extract links from content")
+	links := BookmarkLinks{}
+	seen := map[string]*extract.Drop{}
+
+	for _, node := range dom.QuerySelectorAll(m.Dom, "a[href]") {
+		href := dom.GetAttribute(node, "href")
+		URL, err := url.Parse(href)
+		if err != nil {
+			continue
+		}
+		URL.Fragment = ""
+
+		if _, ok := seen[URL.String()]; ok {
+			continue
+		}
+
+		d := extract.NewDrop(URL)
+		if d.URL.String() == m.Extractor.Drop().URL.String() {
+			continue
+		}
+
+		if URL.Scheme == "http" || URL.Scheme == "https" {
+			seen[URL.String()] = extract.NewDrop(URL)
+			links = append(links, BookmarkLink{URL: URL.String(), Domain: d.Domain})
+		}
+	}
+
+	g, _ := errgroup.WithContext(context.TODO())
+	g.SetLimit(10)
+	for i := range links {
+		i := i
+		g.Go(func() error {
+			m.Log.WithField("url", links[i].URL).Debug("extract link")
+			d := seen[links[i].URL]
+			err := d.Load(m.Extractor.Client())
+
+			if err != nil {
+				m.Log.WithField("url", d.URL).WithError(err).Warn("extract link error")
+			}
+
+			links[i].ContentType = d.ContentType
+			links[i].IsPage = d.IsHTML()
+
+			if !links[i].IsPage {
+				return nil
+			}
+
+			node, err := html.Parse(bytes.NewReader(d.Body))
+			if err != nil {
+				m.Log.WithField("url", d.URL).WithError(err).Warn("extract link error")
+				return nil
+			}
+			meta := meta.ParseMeta(node)
+			title := meta.LookupGet("graph.title", "tiwtter.title", "html.title")
+			m.Log.WithField("url", d.URL.String()).WithField("title", title).Debug("link")
+
+			links[i].Title = title
+			return nil
+		})
+	}
+
+	if err := g.Wait(); err != nil {
+		m.Log.WithError(err).Error("extract links")
+	}
+
+	m.Extractor.Context = context.WithValue(m.Extractor.Context, ctxExtractLinksKey, links)
+
+	return next
+}
+
+func GetExtractedLinks(ctx context.Context) BookmarkLinks {
+	if links, ok := ctx.Value(ctxExtractLinksKey).(BookmarkLinks); ok {
+		return links
+	}
+	return BookmarkLinks{}
 }

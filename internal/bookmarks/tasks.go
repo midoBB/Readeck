@@ -216,7 +216,7 @@ func extractPageHandler(data interface{}) {
 		fftr.ExtractBody,
 		fftr.StripTags,
 		fftr.GoToNextPage,
-		contents.Readability,
+		contents.Readability(),
 		CleanDomProcessor,
 		ExtractLinksProcessor,
 		contents.Text,

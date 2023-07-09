@@ -22,54 +22,61 @@ var (
 )
 
 // Readability is a processor that executes readability on the drop content.
-func Readability(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
-	if m.Step() != extract.StepDom {
+func Readability(options ...func(*readability.Parser)) extract.Processor {
+	return func(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+		if m.Step() != extract.StepDom {
+			return next
+		}
+
+		if m.Extractor.Drop().IsMedia() {
+			m.ResetContent()
+			return next
+		}
+
+		fixNoscriptImages(m.Dom)
+		convertPictureNodes(m.Dom, m)
+
+		parser := readability.NewParser()
+		for _, f := range options {
+			f(&parser)
+		}
+
+		article, err := parser.ParseDocument(m.Dom, m.Extractor.Drop().URL)
+		if err != nil {
+			m.Log.WithError(err).Error("readability error")
+			m.ResetContent()
+			return next
+		}
+
+		if article.Node == nil {
+			m.Log.Error("could not extract content")
+			m.ResetContent()
+			return next
+		}
+
+		m.Log.Debug("readability on contents")
+
+		doc := &html.Node{Type: html.DocumentNode}
+		body := dom.CreateElement("body")
+		doc.AppendChild(body)
+		dom.AppendChild(body, article.Node)
+		// final cleanup
+		removeEmbeds(body)
+		fixImages(body, m)
+
+		// Simplify the top hierarchy
+		node := findFirstContentNode(body)
+		if node != body.FirstChild {
+			dom.ReplaceChild(body, node, body.FirstChild)
+		}
+
+		// Ensure we always start with a <section>
+		encloseArticle(body)
+
+		m.Dom = doc
+
 		return next
 	}
-
-	if m.Extractor.Drop().IsMedia() {
-		m.ResetContent()
-		return next
-	}
-
-	fixNoscriptImages(m.Dom)
-	convertPictureNodes(m.Dom, m)
-
-	article, err := readability.FromDocument(m.Dom, m.Extractor.Drop().URL)
-	if err != nil {
-		m.Log.WithError(err).Error("readability error")
-		m.ResetContent()
-		return next
-	}
-
-	if article.Node == nil {
-		m.Log.Error("could not extract content")
-		m.ResetContent()
-		return next
-	}
-
-	m.Log.Debug("readability on contents")
-
-	doc := &html.Node{Type: html.DocumentNode}
-	body := dom.CreateElement("body")
-	doc.AppendChild(body)
-	dom.AppendChild(body, article.Node)
-	// final cleanup
-	removeEmbeds(body)
-	fixImages(body, m)
-
-	// Simplify the top hierarchy
-	node := findFirstContentNode(body)
-	if node != body.FirstChild {
-		dom.ReplaceChild(body, node, body.FirstChild)
-	}
-
-	// Ensure we always start with a <section>
-	encloseArticle(body)
-
-	m.Dom = doc
-
-	return next
 }
 
 // Text is a processor that sets the pure text content of the final HTML.

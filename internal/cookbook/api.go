@@ -85,7 +85,7 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 		fftr.ExtractBody,
 		fftr.StripTags,
 		fftr.GoToNextPage,
-		contents.Readability,
+		contents.Readability(),
 		bookmarks.CleanDomProcessor,
 		bookmarks.ExtractLinksProcessor,
 		contents.Text,

@@ -100,7 +100,7 @@ type Bookmark struct {
 	Site         string              `db:"site"`
 	SiteName     string              `db:"site_name"`
 	Published    *time.Time          `db:"published"`
-	Authors      Strings             `db:"authors"`
+	Authors      db.Strings          `db:"authors"`
 	Lang         string              `db:"lang"`
 	DocumentType string              `db:"type"`
 	Description  string              `db:"description"`
@@ -109,8 +109,8 @@ type Bookmark struct {
 	Embed        string              `db:"embed"`
 	FilePath     string              `db:"file_path"`
 	Files        BookmarkFiles       `db:"files"`
-	Errors       Strings             `db:"errors"`
-	Labels       Strings             `db:"labels"`
+	Errors       db.Strings          `db:"errors"`
+	Labels       db.Strings          `db:"labels"`
 	IsArchived   bool                `db:"is_archived"`
 	IsMarked     bool                `db:"is_marked"`
 	Annotations  BookmarkAnnotations `db:"annotations"`
@@ -421,32 +421,6 @@ func (b *Bookmark) GetSumStrings() []string {
 // GetLastModified returns the last modified times
 func (b *Bookmark) GetLastModified() []time.Time {
 	return []time.Time{b.Updated}
-}
-
-// Strings is a list of strings stored in a column.
-type Strings []string
-
-// Scan loads a Strings instance from a column.
-func (s *Strings) Scan(value interface{}) error {
-	if value == nil {
-		return nil
-	}
-
-	v, err := db.JSONBytes(value)
-	if err != nil {
-		return err
-	}
-	json.Unmarshal(v, s)
-	return nil
-}
-
-// Value encodes a Strings instance for storage.
-func (s Strings) Value() (driver.Value, error) {
-	v, err := json.Marshal(s)
-	if err != nil {
-		return "", err
-	}
-	return string(v), nil
 }
 
 type BookmarkLinks []BookmarkLink

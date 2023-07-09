@@ -1,6 +1,8 @@
 package db
 
 import (
+	sql_driver "database/sql/driver"
+	"encoding/json"
 	"fmt"
 
 	"github.com/doug-martin/goqu/v9"
@@ -37,4 +39,30 @@ func JSONBytes(value interface{}) ([]byte, error) {
 	}
 
 	return []byte{}, fmt.Errorf("unknown data type for %+v", value)
+}
+
+// Strings is a list of strings stored in a column.
+type Strings []string
+
+// Scan loads a Strings instance from a column.
+func (s *Strings) Scan(value interface{}) error {
+	if value == nil {
+		return nil
+	}
+
+	v, err := JSONBytes(value)
+	if err != nil {
+		return err
+	}
+	json.Unmarshal(v, s)
+	return nil
+}
+
+// Value encodes a Strings instance for storage.
+func (s Strings) Value() (sql_driver.Value, error) {
+	v, err := json.Marshal(s)
+	if err != nil {
+		return "", err
+	}
+	return string(v), nil
 }

@@ -17,6 +17,7 @@ import (
 
 	"github.com/readeck/readeck/configs"
 	"github.com/readeck/readeck/internal/bus"
+	"github.com/readeck/readeck/internal/db"
 	"github.com/readeck/readeck/pkg/archiver"
 	"github.com/readeck/readeck/pkg/extract"
 	"github.com/readeck/readeck/pkg/extract/contents"
@@ -234,7 +235,7 @@ func extractPageHandler(data interface{}) {
 	b.Domain = drop.Domain
 	b.Site = drop.URL.Hostname()
 	b.SiteName = drop.Site
-	b.Authors = Strings{}
+	b.Authors = db.Strings{}
 	b.Lang = drop.Lang
 	b.DocumentType = drop.DocumentType
 	b.Description = drop.Description

@@ -172,7 +172,7 @@ func newUpdateForm() *updateForm {
 		return forms.NewTextField(n, forms.Trim)
 	}
 	strConverter := func(values []forms.Field) interface{} {
-		res := make(Strings, len(values))
+		res := make(db.Strings, len(values))
 		for i, x := range values {
 			res[i] = x.Value().(string)
 		}
@@ -218,13 +218,13 @@ func (f *updateForm) update(b *Bookmark) (updated map[string]interface{}, err er
 		// labels, add_labels and remove_labels are declared and
 		// processed in this order.
 		case "labels":
-			b.Labels = funk.UniqString(field.Value().(Strings))
+			b.Labels = funk.UniqString(field.Value().(db.Strings))
 			labelsChanged = true
 		case "add_labels":
-			b.Labels = funk.UniqString(append(b.Labels, field.Value().(Strings)...))
+			b.Labels = funk.UniqString(append(b.Labels, field.Value().(db.Strings)...))
 			labelsChanged = true
 		case "remove_labels":
-			_, b.Labels = funk.DifferenceString(field.Value().(Strings), b.Labels)
+			_, b.Labels = funk.DifferenceString(field.Value().(db.Strings), b.Labels)
 			labelsChanged = true
 		}
 	}

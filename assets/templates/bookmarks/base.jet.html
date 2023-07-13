@@ -5,50 +5,56 @@
 
 <form class="mt-2 ml-0.5 mr-1 flex" action="{{ urlFor(`/bookmarks`) }}" method="get">
   <input type="hidden" name="bf" value="1" />
-  <input title="search in bookmarks" class="form-input rounded-full pl-4 pr-8 w-full max-w-xs +md:max-w-none" size="14"
-  type="text" name="search" value="{{ isset(.Filters) ? .Filters.Get(`search`).String() : `` }}" placeholder="search" />
-  <button title="search" class="leading-normal -ml-6 mr-2">{{ yield icon(name="o-search") }}</button>
+  <div class="flex p-1 form-input rounded-full w-full">
+    <input title="search in bookmarks" size="14" type="text" name="search"
+     value="{{ isset(.Filters) ? .Filters.Get(`search`).String() : `` }}" placeholder="search"
+     class="leading-tight w-full rounded-full px-4 py-2 bg-white ring-0 ring-offset-0"
+    />
+    <button title="search"
+     class="btn-primary rounded-full w-[2.8rem]"
+    >{{ yield icon(name="o-search") }}</button>
+  </div>
 </form>
 
 <menu class="mt-4">
-  <li><a data-current="{{ pathIs(`/bookmarks`) }}"
-  href="{{ urlFor(`/bookmarks`) }}">{{ yield icon(name="o-library") }} All</a></li>
-  <li><a data-current="{{ pathIs(`/bookmarks/unread`) }}"
-  href="{{ urlFor(`/bookmarks`, `unread`) }}">{{ yield icon(name="o-check-off") }} Unread</a></li>
-  <li><a data-current="{{ pathIs(`/bookmarks/archives`) }}"
-  href="{{ urlFor(`/bookmarks`, `archives`) }}">{{ yield icon(name="o-archive-off") }} Archive</a></li>
-  <li><a data-current="{{ pathIs(`/bookmarks/favorites`) }}"
-  href="{{ urlFor(`/bookmarks`, `favorites`) }}">{{ yield icon(name="o-favorite-off") }} Favorites</a></li>
+  {{ yield sideMenuItem(name="All", path="/bookmarks", icon="o-library",
+                        current=pathIs("/bookmarks")) }}
+  {{ yield sideMenuItem(name="Unread", path="/bookmarks/unread", icon="o-check-off",
+                        current=pathIs("/bookmarks/unread")) }}
+  {{ yield sideMenuItem(name="Archive", path="/bookmarks/archives", icon="o-archive-off",
+                        current=pathIs("/bookmarks/archives")) }}
+  {{ yield sideMenuItem(name="Favourites", path="/bookmarks/favorites", icon="o-favorite-off",
+                        current=pathIs("/bookmarks/favorites")) }}
 </menu>
 
 {{- if isset(.Count) }}
   <menu class="mt-4">
     {{- if isset(.Count.ByType.article) && .Count.ByType.article > 0 }}
-    <li><a data-current="{{ pathIs(`/bookmarks/articles`) }}"
-      href="{{ urlFor(`/bookmarks/articles`) }}">{{ yield icon(name="o-file") }} Articles</a></li>
+      {{ yield sideMenuItem(name="Articles", path="/bookmarks/articles", icon="o-file",
+                            current=pathIs("/bookmarks/articles")) }}
     {{- end -}}
 
     {{- if isset(.Count.ByType.video) && .Count.ByType.video > 0 }}
-    <li><a data-current="{{ pathIs(`/bookmarks/videos`) }}"
-      href="{{ urlFor(`/bookmarks/videos`) }}">{{ yield icon(name="o-video") }} Videos</a></li>
+      {{ yield sideMenuItem(name="Videos", path="/bookmarks/videos", icon="o-video",
+                            current=pathIs("/bookmarks/videos")) }}
     {{- end -}}
 
     {{- if isset(.Count.ByType.photo) && .Count.ByType.photo > 0 }}
-    <li><a data-current="{{ pathIs(`/bookmarks/pictures`) }}"
-      href="{{ urlFor(`/bookmarks/pictures`) }}">{{ yield icon(name="o-photo") }} Pictures</a></li>
+      {{ yield sideMenuItem(name="Pictures", path="/bookmarks/pictures", icon="o-photo",
+                            current=pathIs("/bookmarks/pictures")) }}
     {{- end -}}
   </menu>
 {{ end -}}
 
 <h2 class="mt-4 sidebar:subtitle">Collections</h2>
 <menu class="mt-2">
-  <li><a data-current="{{ pathIs(`/bookmarks/collections`) }}"
-  href="{{ urlFor(`/bookmarks/collections`) }}">{{ yield icon(name="o-collection") }} All Collections</a></li>
+  {{ yield sideMenuItem(name="All Collections", path="/bookmarks/collections", icon="o-collection",
+                        current=pathIs("/bookmarks/collections", "/bookmarks/collections/*")) }}
 </menu>
 
 <h2 class="mt-4 sidebar:subtitle">Labels</h2>
 <menu class="mt-2">
-  <li><a data-current="{{ pathIs(`/bookmarks/labels`) }}"
-  href="{{ urlFor(`/bookmarks/labels`) }}">{{ yield icon(name="o-label") }} All Labels</a></li>
+  {{ yield sideMenuItem(name="All Labels", path="/bookmarks/labels", icon="o-label",
+                        current=pathIs("/bookmarks/labels", "/bookmarks/labels/*")) }}
 </menu>
 {{- end -}}

@@ -1,5 +1,60 @@
 const colors = require("tailwindcss/colors")
 
+const palette = {
+  blue: {
+    50: "#daeff7",
+    100: "#c9e7f3",
+    200: "#a7d8ec",
+    300: "#86cae5",
+    400: "#64bbdd",
+    500: "#43acd6",
+    600: "#288fb9",
+    700: "#1e6c8b",
+    800: "#14485d",
+    900: "#0a242e",
+    950: "#051217",
+  },
+  orange: {
+    50: "#fffbeb",
+    100: "#fef3c7",
+    200: "#fde68a",
+    300: "#fcd34d",
+    400: "#fbbf24",
+    500: "#f59e0b",
+    600: "#d97706",
+    700: "#b45309",
+    800: "#92400e",
+    900: "#78350f",
+    950: "#451a03",
+  },
+  red: {
+    50: "#fef4f6",
+    100: "#fce2e7",
+    200: "#f8bdc8",
+    300: "#f498a9",
+    400: "#f0738a",
+    500: "#ed4e6b",
+    600: "#e9294c",
+    700: "#d31638",
+    800: "#a0112b",
+    900: "#6d0b1d",
+    950: "#540916",
+  },
+  gray: {
+    50: "#fbfafa",
+    100: "#f1efed",
+    200: "#ded7d2",
+    300: "#cac0b8",
+    400: "#b2a398",
+    500: "#9a8778",
+    600: "#7d6b5d",
+    700: "#5d4f45",
+    800: "#3c342d",
+    900: "#1c1815",
+    950: "#0c0b09",
+  },
+}
+
 // prettier-ignore
 var config = {
   content: [
@@ -12,15 +67,15 @@ var config = {
       current: "currentColor",
       black: colors.black,
       white: colors.white,
-      gray: colors.stone,
-      red: colors.red,
+      gray: palette.gray,
+      red: palette.red,
       green: colors.lime,
-      blue: colors.sky,
-      yellow: colors.amber,
+      blue: palette.blue,
+      yellow: palette.orange,
       primary: {
-        light: colors.sky[300],
-        DEFAULT: colors.sky[600],
-        dark: colors.sky[800],
+        light: palette.blue[300],
+        DEFAULT: palette.blue[600],
+        dark: palette.blue[800],
       },
     },
     fontFamily: {

@@ -17,6 +17,11 @@
     input::-ms-clear
       display: none
 
+@layer base
+  input[type="password"]:not(:placeholder-shown)
+    font-family: pass,sans-serif
+    letter-spacing: 1px
+
 @layer utilities
   .outline-std
     @apply outline-1 outline-dotted outline-current

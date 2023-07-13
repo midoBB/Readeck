@@ -21,7 +21,11 @@ module.exports = plugin(function ({addComponents, theme}) {
       fontSize: theme("fontSize.base"),
       lineHeight: theme("lineHeight.tight"),
 
-      "&:focus": {
+      "&:hover": {
+        borderColor: theme("colors.gray.500", colors.stone[500]),
+      },
+
+      [["&:focus", "&:focus-within"]]: {
         outline: "none",
         outlineOffset: "0px",
         "--tw-ring-color": theme("colors.primary.DEFAULT", colors.blue[600]),

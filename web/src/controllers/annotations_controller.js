@@ -52,7 +52,7 @@ export default class extends Controller {
   async onSelectText() {
     // We must wait for next tick so it won't trigger when the event triggers
     // from a click on an existing selection.
-    await await this.nextTick()
+    await this.nextTick()
 
     this.annotation = new Annotation(this.rootTarget, document.getSelection())
     if (this.annotation.isValid()) {
@@ -119,7 +119,7 @@ export default class extends Controller {
 
     // Get root, range and controlls coordinates
     const rangeRect = this.annotation.range.getBoundingClientRect()
-    const rootRect = this.rootTarget.getBoundingClientRect()
+    const rootRect = this.findRelativeRoot().getBoundingClientRect()
 
     // Controlls dimension
     const h = this.controllsTarget.clientHeight
@@ -173,6 +173,17 @@ export default class extends Controller {
 
   async nextTick() {
     return await new Promise((resolve) => setTimeout(resolve, 0))
+  }
+
+  findRelativeRoot() {
+    let p = this.rootTarget
+    while (p.parentElement) {
+      if (getComputedStyle(p).position == "relative") {
+        return p
+      }
+      p = p.parentElement
+    }
+    return p
   }
 
   /**

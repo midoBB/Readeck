@@ -1,0 +1,86 @@
+<details class="no-js:hidden relative"
+  data-controller="details request"
+  data-request-url-value="{{ urlFor(`/api/profile`) }}"
+  data-request-method-value="patch"
+>
+  <summary class="list-none">
+    {{- yield icon(name="o-font-family", class="inline-block", svgClass="h-6 w-6") -}}
+  </summary>
+  <div class="absolute top-6 right-0 w-72 shadow-lg bg-gray-50 border border-gray-300 rounded-md p-4">
+    <div class="flex gap-2"
+      data-controller="reader-option"
+      data-reader-option-reader-outlet="[data-controller='reader']"
+      data-reader-option-current-value="{{ user.Settings.ReaderSettings.Font }}"
+      data-reader-option-choices-value="{{ map(
+      `serif`, `font-serif`, `sans-serif`, `font-sans`
+      )|json() }}"
+    >
+      <button value="serif" data-reader-option-target="control"
+        class="
+          py-1 px-4 rounded-lg border
+          flex-1 flex flex-col items-center whitespace-nowrap
+          data-[current]:bg-gray-200
+        ">
+        {{- yield icon(name="o-serif", class="inline-block", svgClass="h-14 w-14") -}}
+        <span>Serif</span>
+      </button>
+      <button value="sans-serif" data-reader-option-target="control"
+        class="
+          py-1 px-4 rounded-lg border
+          flex-1 flex flex-col items-center whitespace-nowrap
+          data-[current]:bg-gray-200
+        ">
+        {{- yield icon(name="o-sans-serif", class="inline-block", svgClass="h-14 w-14") -}}
+        <span>Sans-Serif</span>
+      </button>
+      <input type="hidden" data-reader-option-target="value"
+        data-action="reader-option:setValue->request#fetch"
+        data-request-name-param="settings_reader_font">
+    </div>
+    <div
+      class="mt-4 flex items-center gap-2"
+      data-controller="reader-option"
+      data-reader-option-reader-outlet="[data-controller='reader']"
+      data-reader-option-current-value="{{ user.Settings.ReaderSettings.FontSize }}"
+      data-reader-option-values-value="{{- slice(
+      `text-sm`, `text-normal`, `text-lg`, `text-xl`, `text-2xl`, `text-3xl`
+      )|json() -}}"
+    >
+      <span class="flex-grow">{{- yield icon(name="o-font-size") -}}&nbsp;Size</span>
+      <button class="py-1.5 px-3 rounded-lg border" data-reader-option-target="decrease">
+        {{- yield icon(name="o-minus") -}}
+      </button>
+      <input class="p-1 text-center text-sm bg-gray-200 rounded-full" type="text" size="1" disabled
+        data-reader-option-target="value"
+        data-action="reader-option:setValue->request#fetch"
+        data-request-name-param="settings_reader_font_size"
+      >
+      <button class="py-1.5 px-3 rounded-lg border" data-reader-option-target="increase">
+        {{- yield icon(name="o-plus") -}}
+      </button>
+    </div>
+    <div
+      class="mt-4 flex items-center gap-2"
+      data-controller="reader-option"
+      data-reader-option-reader-outlet="[data-controller='reader']"
+      data-reader-option-current-value="{{ user.Settings.ReaderSettings.LineHeight }}"
+      data-reader-option-values-value="{{- slice(
+      `leading-[1.1]`, `leading-tight`, `leading-normal`,
+      `leading-relaxed`, `leading-loose`, `leading-[2.25]`
+      )|json() -}}"
+    >
+      <span class="flex-grow">{{- yield icon(name="o-line-height") -}}&nbsp;Line height</span>
+      <button class="py-1.5 px-3 rounded-lg border" data-reader-option-target="decrease">
+        {{- yield icon(name="o-minus") -}}
+      </button>
+      <input class="p-1 text-center text-sm bg-gray-200 rounded-full" type="text" size="1" disabled
+       data-reader-option-target="value"
+       data-action="reader-option:setValue->request#fetch"
+       data-request-name-param="settings_reader_line_height"
+      >
+      <button class="py-1.5 px-3 rounded-lg border" data-reader-option-target="increase">
+        {{- yield icon(name="o-plus") -}}
+      </button>
+    </div>
+  </div>
+</details>

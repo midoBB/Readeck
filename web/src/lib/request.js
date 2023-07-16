@@ -9,7 +9,7 @@ async function request(path, options) {
 
   // Prep options
   const reqOptions = {
-    method,
+    method: method.toUpperCase(),
     headers: new Headers({
       ...(!safeMethods.includes(method) && {"X-CSRF-Token": csrfToken}),
       ...headers,

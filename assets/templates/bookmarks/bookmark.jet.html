@@ -66,10 +66,26 @@
 
         <div class="
           grow max-w-col-22 px-6 pb-8
+          md:h-screen
+          md:overflow-y-auto
           +md:px-4
           +md:overflow-auto
+          scroll-pt-topnav
         ">
-          <div class="h-topnav border-b border-b-gray-200"></div>
+          <div class="h-topnav border-b border-b-gray-200 flex items-center sticky top-0 z-20 bg-gray-50
+           text-gray-400 hfw:text-gray-700">
+            <div>
+              <button data-controller="history" data-action="history#back"
+               class="p-2 rounded-full w-8 h-8 border border-bg-100 inline-flex items-center justify-center
+               hf:bg-gray-700 hf:text-white">
+                {{- yield icon(name="o-chevron-l", class="inline-block", svgClass="w-6 h-6") -}}
+              </button>
+            </div>
+            <div class="flex-grow"></div>
+            {{- if .Item.Type == "article" -}}
+              {{- include "./components/reader_control" -}}
+            {{- end -}}
+          </div>
           <div class="max-w-3xl mx-auto mt-4 print:mt-2 print:max-w-none mb-8">
             {{ include "./components/title_form" .Item }}
 

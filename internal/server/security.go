@@ -112,6 +112,7 @@ func (s *Server) InitRequest(next http.Handler) http.Handler {
 // SetSecurityHeaders adds some headers to improve client side security.
 func (s *Server) SetSecurityHeaders(next http.Handler) http.Handler {
 	cspHeader := []string{
+		"base-uri 'none'",
 		"default-src 'self'",
 		"img-src 'self' data:",
 		"media-src 'self' data:",

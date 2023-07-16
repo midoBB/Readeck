@@ -1,6 +1,13 @@
 # Changlog
 
-## [0.8.1] - 2023-06-27
+## [0.7.3] - 2023-07-16
+### Added
+- Reader typography options
+
+### Changed
+- Stylesheet
+
+## [0.7.2] - 2023-06-27
 ### Changed
 - New layout, with enhanced UX and mobile support
 

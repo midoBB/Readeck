@@ -11,6 +11,22 @@
     @apply cursor-pointer
 
 @layer base
+  *
+    scrollbar-color: #aaa #fafafa
+
+  ::-webkit-scrollbar
+    width: 5px
+
+  ::-webkit-scrollbar-track
+    background: #fafafa
+    border-radius: 4px
+
+  ::-webkit-scrollbar-thumb
+    background-color: #bbb
+    width: 2px
+    border-radius: 4px
+
+@layer base
   // JS enabled CSS rules
   body.js
     input::-ms-reveal,
@@ -18,9 +34,11 @@
       display: none
 
 @layer base
-  input[type="password"]:not(:placeholder-shown)
-    font-family: pass,sans-serif
-    letter-spacing: 1px
+  /* autoprefixer: off */
+  @supports (contain: paint) and (not (-moz-appearance: none))
+    input[type="password"]:not(:placeholder-shown)
+      font-family: pass,sans-serif
+      letter-spacing: 1px
 
 @layer utilities
   .outline-std

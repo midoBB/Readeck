@@ -19,29 +19,12 @@ class readerOption extends Controller {
       default: [],
     },
   }
-  static targets = ["control", "increase", "decrease", "value"]
+  static targets = ["control", "value"]
+  static classes = ["selected"]
 
   readerOutletConnected() {
     this.applyClass()
     this.updateControls()
-  }
-
-  controlTargetConnected(el) {
-    el.addEventListener("click", (evt) => this.setValue(el.value))
-  }
-
-  increaseTargetConnected(el) {
-    if (this.valuesValue.length == 0) {
-      return
-    }
-    el.addEventListener("click", (evt) => this.increaseValue())
-  }
-
-  decreaseTargetConnected(el) {
-    if (this.valuesValue.length == 0) {
-      return
-    }
-    el.addEventListener("click", (evt) => this.decreaseValue())
   }
 
   updateControls() {
@@ -55,24 +38,17 @@ class readerOption extends Controller {
     })
 
     this.valueTargets.forEach((e) => (e.value = this.currentValue))
-
-    // toggle increase and decrease
-    const value = parseInt(this.currentValue)
-    this.decreaseTargets.forEach((e) => (e.disabled = value == 1))
-    this.increaseTargets.forEach((e) => {
-      e.disabled = value >= this.valuesValue.length
-    })
   }
 
   dispatchEvents() {
     this.valueTargets.forEach((e) => this.dispatch("setValue", {target: e}))
   }
 
-  setValue(value) {
-    this.currentValue = value
+  setValue(evt) {
+    this.currentValue = evt.currentTarget.value
   }
 
-  increaseValue() {
+  increaseValue(evt) {
     const value = parseInt(this.currentValue)
     if (value == this.valuesValue.length) {
       return
@@ -80,7 +56,7 @@ class readerOption extends Controller {
     this.currentValue = value + 1
   }
 
-  decreaseValue() {
+  decreaseValue(evt) {
     const value = parseInt(this.currentValue)
     if (value == 1) {
       return

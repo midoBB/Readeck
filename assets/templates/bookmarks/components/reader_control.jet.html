@@ -15,7 +15,7 @@
       `serif`, `font-serif`, `sans-serif`, `font-sans`
       )|json() }}"
     >
-      <button value="serif" data-reader-option-target="control"
+      <button value="serif" data-reader-option-target="control" data-action="reader-option#setValue"
         class="
           py-1 px-4 rounded-lg border
           flex-1 flex flex-col items-center whitespace-nowrap
@@ -24,7 +24,7 @@
         {{- yield icon(name="o-serif", class="inline-block", svgClass="h-14 w-14") -}}
         <span>Serif</span>
       </button>
-      <button value="sans-serif" data-reader-option-target="control"
+      <button value="sans-serif" data-reader-option-target="control" data-action="reader-option#setValue"
         class="
           py-1 px-4 rounded-lg border
           flex-1 flex flex-col items-center whitespace-nowrap
@@ -47,7 +47,8 @@
       )|json() -}}"
     >
       <span class="flex-grow">{{- yield icon(name="o-font-size") -}}&nbsp;Size</span>
-      <button class="py-1.5 px-3 rounded-lg border" data-reader-option-target="decrease">
+      <button class="py-1.5 px-3 rounded-lg border" data-reader-option-target="decrease"
+       data-action="reader-option#decreaseValue">
         {{- yield icon(name="o-minus") -}}
       </button>
       <input class="p-1 text-center text-sm bg-gray-200 rounded-full" type="text" size="1" disabled
@@ -55,7 +56,8 @@
         data-action="reader-option:setValue->request#fetch"
         data-request-name-param="settings_reader_font_size"
       >
-      <button class="py-1.5 px-3 rounded-lg border" data-reader-option-target="increase">
+      <button class="py-1.5 px-3 rounded-lg border" data-reader-option-target="increase"
+       data-action="reader-option#increaseValue">
         {{- yield icon(name="o-plus") -}}
       </button>
     </div>
@@ -70,7 +72,8 @@
       )|json() -}}"
     >
       <span class="flex-grow">{{- yield icon(name="o-line-height") -}}&nbsp;Line height</span>
-      <button class="py-1.5 px-3 rounded-lg border" data-reader-option-target="decrease">
+      <button class="py-1.5 px-3 rounded-lg border" data-reader-option-target="decrease"
+       data-action="reader-option#decreaseValue">
         {{- yield icon(name="o-minus") -}}
       </button>
       <input class="p-1 text-center text-sm bg-gray-200 rounded-full" type="text" size="1" disabled
@@ -78,7 +81,8 @@
        data-action="reader-option:setValue->request#fetch"
        data-request-name-param="settings_reader_line_height"
       >
-      <button class="py-1.5 px-3 rounded-lg border" data-reader-option-target="increase">
+      <button class="py-1.5 px-3 rounded-lg border" data-reader-option-target="increase"
+       data-action="reader-option#increaseValue">
         {{- yield icon(name="o-plus") -}}
       </button>
     </div>

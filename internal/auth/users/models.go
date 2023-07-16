@@ -222,7 +222,27 @@ func (u *User) HasPermission(obj, act string) bool {
 
 // UserSettings contains some user settings.
 type UserSettings struct {
-	DebugInfo bool `json:"debug_info"`
+	DebugInfo      bool           `json:"debug_info"`
+	ReaderSettings ReaderSettings `json:"reader_settings"`
+}
+
+// ReaderSettings contains the reader settings
+type ReaderSettings struct {
+	Font       string `json:"font"`
+	FontSize   int    `json:"font_size"`
+	LineHeight int    `json:"line_height"`
+}
+
+func (rs *ReaderSettings) setDefaults() {
+	if rs.Font == "" {
+		rs.Font = "serif"
+	}
+	if rs.FontSize <= 0 {
+		rs.FontSize = 3
+	}
+	if rs.LineHeight <= 0 {
+		rs.LineHeight = 3
+	}
 }
 
 // Scan loads a UserSettings instance from a column.
@@ -236,6 +256,9 @@ func (s *UserSettings) Scan(value interface{}) error {
 		return err
 	}
 	json.Unmarshal(v, s)
+
+	s.ReaderSettings.setDefaults()
+
 	return nil
 }
 

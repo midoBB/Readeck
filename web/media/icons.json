@@ -19,6 +19,7 @@
   "o-favorite-on":  "node_modules/boxicons/svg/solid/bxs-heart.svg",
   "o-file":         "node_modules/boxicons/svg/regular/bx-file.svg",
   "o-filter":       "node_modules/boxicons/svg/regular/bx-filter-alt.svg",
+  "o-font-family":  "node_modules/boxicons/svg/regular/bx-font-family.svg",
   "o-hide":         "node_modules/boxicons/svg/solid/bxs-show.svg",
   "o-highlight":    "node_modules/boxicons/svg/regular/bx-highlight.svg",
   "o-info":         "node_modules/boxicons/svg/solid/bxs-info-circle.svg",
@@ -28,11 +29,11 @@
   "o-link":         "node_modules/boxicons/svg/regular/bx-link.svg",
   "o-logout":       "node_modules/boxicons/svg/regular/bx-log-out.svg",
   "o-menu":         "node_modules/boxicons/svg/regular/bx-menu.svg",
-  "o-minus":        "node_modules/boxicons/svg/solid/bxs-minus-circle.svg",
+  "o-minus":        "node_modules/boxicons/svg/regular/bx-minus.svg",
   "o-pen":          "node_modules/boxicons/svg/regular/bx-pen.svg",
   "o-pencil":       "node_modules/boxicons/svg/solid/bxs-pencil.svg",
   "o-photo":        "node_modules/boxicons/svg/regular/bx-image.svg",
-  "o-plus":         "node_modules/boxicons/svg/solid/bxs-plus-circle.svg",
+  "o-plus":         "node_modules/boxicons/svg/regular/bx-plus.svg",
   "o-search":       "node_modules/boxicons/svg/regular/bx-search-alt.svg",
   "o-settings":     "node_modules/boxicons/svg/solid/bxs-cog.svg",
   "o-show":         "node_modules/boxicons/svg/solid/bxs-hide.svg",
@@ -43,5 +44,10 @@
   "o-video":        "node_modules/boxicons/svg/regular/bx-film.svg",
 
   "o-spinner":      "media/img/spinner.svg",
+  "o-serif":        "media/icons/reader-serif.svg",
+  "o-sans-serif":   "media/icons/reader-sans-serif.svg",
+  "o-font-size":    "node_modules/boxicons/svg/regular/bx-font-size.svg",
+  "o-line-height":  "node_modules/boxicons/svg/regular/bx-align-left.svg",
+
   "o-logo":         "media/logo.svg"
 }

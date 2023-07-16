@@ -12,6 +12,7 @@
 >
 
 {{- if .Item.Type == "article" -}}
+
   <div class="max-w-3xl mx-auto print:max-w-none relative">
     <div class="hidden absolute z-50"
      data-annotations-target="controlls">
@@ -22,8 +23,10 @@
         class="p-4 bg-red-800 text-red-100 hf:text-white rounded-lg shadow-lg"
         title="remove highlight(s)">{{ yield icon(name="o-trash") }} Remove Highlight(s)</button>
     </div>
-    <div class="font-serif text-lg leading-normal prose"
+
+    <div class="prose font-serif leading-normal text-lg"
      lang="{{ .Item.Lang }}"
+     data-controller="reader"
      data-annotations-target="root">
       {{- rawCopy(.Out, .HTML) -}}
     </div>

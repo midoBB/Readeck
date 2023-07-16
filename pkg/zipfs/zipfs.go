@@ -21,7 +21,9 @@ import (
 // with deflate.
 type HTTPZipFile string
 
-func (f HTTPZipFile) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+type serveOption func(w http.ResponseWriter, status int)
+
+func (f HTTPZipFile) ServeHTTP(w http.ResponseWriter, r *http.Request, options ...serveOption) {
 	if r.Method != "GET" && r.Method != "HEAD" {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
@@ -42,7 +44,7 @@ func (f HTTPZipFile) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	f.serveEntry(w, r, fd, entry)
+	f.serveEntry(w, r, fd, entry, options...)
 }
 
 // OpenZip opens a file ready
@@ -101,10 +103,11 @@ func (f HTTPZipFile) error(w http.ResponseWriter, err error) {
 	http.Error(w, http.StatusText(500), 500)
 }
 
-func (f HTTPZipFile) serveEntry(w http.ResponseWriter, r *http.Request, fd *os.File, z *zip.File) {
+func (f HTTPZipFile) serveEntry(w http.ResponseWriter, r *http.Request, fd *os.File, z *zip.File, options ...serveOption) {
 	modtime := z.Modified.UTC()
 
 	if f.checkIfModifiedSince(r, modtime) {
+		applyOptions(options, w, http.StatusNotModified)
 		w.WriteHeader(http.StatusNotModified)
 		return
 	}
@@ -113,7 +116,8 @@ func (f HTTPZipFile) serveEntry(w http.ResponseWriter, r *http.Request, fd *os.F
 
 	fp, err := z.Open()
 	if err != nil {
-		http.Error(w, http.StatusText(500), 500)
+		applyOptions(options, w, http.StatusInternalServerError)
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 	defer fp.Close()
@@ -122,7 +126,8 @@ func (f HTTPZipFile) serveEntry(w http.ResponseWriter, r *http.Request, fd *os.F
 	buf := new(bytes.Buffer)
 	mtype, err := mimetype.DetectReader(io.TeeReader(fp, buf))
 	if err != nil {
-		http.Error(w, http.StatusText(500), 500)
+		applyOptions(options, w, http.StatusInternalServerError)
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 
@@ -146,6 +151,7 @@ func (f HTTPZipFile) serveEntry(w http.ResponseWriter, r *http.Request, fd *os.F
 
 			w.Header().Set("Content-Encoding", "deflate")
 			w.Header().Set("Content-Length", strconv.FormatUint(z.CompressedSize64, 10))
+			applyOptions(options, w, http.StatusOK)
 
 			w.WriteHeader(http.StatusOK)
 			if _, err := io.CopyN(w, fd, int64(z.CompressedSize64)); err != nil {
@@ -156,6 +162,7 @@ func (f HTTPZipFile) serveEntry(w http.ResponseWriter, r *http.Request, fd *os.F
 	}
 
 	w.Header().Set("Content-Length", strconv.FormatUint(z.UncompressedSize64, 10))
+	applyOptions(options, w, http.StatusOK)
 	w.WriteHeader(http.StatusOK)
 	_, err = io.Copy(w, io.MultiReader(buf, fp))
 	if err != nil && !errors.Is(err, syscall.EPIPE) {
@@ -178,4 +185,10 @@ func (f HTTPZipFile) checkIfModifiedSince(r *http.Request, modtime time.Time) bo
 		return true
 	}
 	return false
+}
+
+func applyOptions(options []serveOption, w http.ResponseWriter, status int) {
+	for _, f := range options {
+		f(w, status)
+	}
 }

@@ -189,7 +189,11 @@ func mediaRoutes(_ *server.Server) http.Handler {
 		)
 
 		fs := zipfs.HTTPZipFile(zipfile)
-		fs.ServeHTTP(w, r2)
+		fs.ServeHTTP(w, r2, func(w http.ResponseWriter, status int) {
+			if status == http.StatusOK {
+				w.Header().Set("Cache-Control", `public, max-age=31536000`)
+			}
+		})
 	})
 
 	return r

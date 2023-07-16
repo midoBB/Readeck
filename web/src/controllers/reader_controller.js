@@ -27,23 +27,21 @@ class readerOption extends Controller {
   }
 
   controlTargetConnected(el) {
-    el.addEventListener("click", (evt) => {
-      this.setValue(el.getAttribute("value"))
-    })
+    el.addEventListener("click", (evt) => this.setValue(el.value))
   }
 
   increaseTargetConnected(el) {
     if (this.valuesValue.length == 0) {
       return
     }
-    el.addEventListener("click", () => this.increaseValue())
+    el.addEventListener("click", (evt) => this.increaseValue())
   }
 
   decreaseTargetConnected(el) {
     if (this.valuesValue.length == 0) {
       return
     }
-    el.addEventListener("click", () => this.decreaseValue())
+    el.addEventListener("click", (evt) => this.decreaseValue())
   }
 
   updateControls() {
@@ -56,17 +54,18 @@ class readerOption extends Controller {
       el.removeAttribute("data-current")
     })
 
-    if (this.valuesValue.length == 0) {
-      return
-    }
-    const value = parseInt(this.currentValue)
+    this.valueTargets.forEach((e) => (e.value = this.currentValue))
 
     // toggle increase and decrease
-    this.valueTargets.forEach((e) => (e.value = value))
+    const value = parseInt(this.currentValue)
     this.decreaseTargets.forEach((e) => (e.disabled = value == 1))
     this.increaseTargets.forEach((e) => {
       e.disabled = value >= this.valuesValue.length
     })
+  }
+
+  dispatchEvents() {
+    this.valueTargets.forEach((e) => this.dispatch("setValue", {target: e}))
   }
 
   setValue(value) {
@@ -95,6 +94,7 @@ class readerOption extends Controller {
     }
     this.applyClass()
     this.updateControls()
+    this.dispatchEvents()
   }
 
   getAllClasses() {

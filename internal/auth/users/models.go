@@ -156,6 +156,17 @@ func (u *User) Delete() error {
 	return err
 }
 
+// GetSumStrings returns the string used to generate the etag
+// of the user
+func (u *User) GetSumStrings() []string {
+	return []string{u.Updated.String()}
+}
+
+// GetLastModified returns the last modified times
+func (u *User) GetLastModified() []time.Time {
+	return []time.Time{u.Updated}
+}
+
 // CheckPassword checks if the given password matches the
 // current user password.
 func (u *User) CheckPassword(password string) bool {

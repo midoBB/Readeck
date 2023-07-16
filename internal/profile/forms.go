@@ -3,6 +3,7 @@ package profile
 import (
 	"context"
 	"errors"
+	"strings"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
@@ -27,6 +28,15 @@ func newProfileForm() *profileForm {
 			forms.Trim, forms.RequiredOrNil, users.IsValidUsername),
 		forms.NewTextField("email",
 			forms.Trim, forms.RequiredOrNil, forms.IsEmail),
+		forms.NewTextField("settings_reader_font",
+			forms.Trim, forms.RequiredOrNil,
+		),
+		forms.NewIntegerField("settings_reader_font_size",
+			forms.RequiredOrNil, forms.Gte(1), forms.Lte(6),
+		),
+		forms.NewIntegerField("settings_reader_line_height",
+			forms.RequiredOrNil, forms.Gte(1), forms.Lte(6),
+		),
 	)
 
 	if err != nil {
@@ -83,18 +93,39 @@ func (f *profileForm) updateUser(u *users.User) (res map[string]interface{}, err
 		return
 	}
 
+	resetSeed := false
 	res = make(map[string]interface{})
 	for _, field := range f.Fields() {
 		if !field.IsBound() || field.IsNil() {
 			continue
 		}
 
-		res[field.Name()] = field.Value()
+		switch n := field.Name(); {
+		case strings.HasPrefix(n, "settings_reader_"):
+			name := strings.TrimPrefix(n, "settings_reader_")
+			switch name {
+			case "font":
+				u.Settings.ReaderSettings.Font = field.String()
+			case "font_size":
+				u.Settings.ReaderSettings.FontSize = field.Value().(int)
+			case "line_height":
+				u.Settings.ReaderSettings.LineHeight = field.Value().(int)
+			}
+			res["settings"] = u.Settings
+		default:
+			if n == "email" || n == "username" {
+				resetSeed = true
+			}
+			res[field.Name()] = field.Value()
+		}
+
 	}
 
 	if len(res) > 0 {
 		res["updated"] = time.Now()
-		res["seed"] = u.SetSeed()
+		if resetSeed {
+			res["seed"] = u.SetSeed()
+		}
 		if err = u.Update(res); err != nil {
 			f.AddErrors("", forms.ErrUnexpected)
 			return

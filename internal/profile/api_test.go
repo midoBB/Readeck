@@ -84,7 +84,10 @@ func TestAPI(t *testing.T) {
 								"field is required",
         						"must contain English letters, digits, \"_\" and \"-\" only"
 							]
-						}
+						},
+						"settings_reader_font": "<<PRESENCE>>",
+						"settings_reader_font_size": "<<PRESENCE>>",
+						"settings_reader_line_height": "<<PRESENCE>>"
 					}
 				}`,
 		},

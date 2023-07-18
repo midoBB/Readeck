@@ -93,8 +93,6 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 		h.srv.Log(r).Error(err)
 	}
 
-	ctx["Out"] = w
-
 	// Load bookmark debug information if the user needs them.
 	if user.Settings.DebugInfo {
 		c, err := b.OpenContainer()

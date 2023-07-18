@@ -108,11 +108,9 @@ func (s *Server) initTemplates() {
 		views.AddGlobalFunc(k, v)
 	}
 
-	views.AddGlobal("rawCopy", func(out io.Writer, in io.Reader) {
-		if _, err := io.Copy(out, in); err != nil {
-			panic(err)
-		}
-	})
+	for k, v := range libjet.VarMap() {
+		views.AddGlobal(k, v)
+	}
 
 	views.AddGlobalFunc("assetURL", func(args jet.Arguments) reflect.Value {
 		args.RequireNumOfArguments("assetURL", 1, 1)

@@ -2,6 +2,7 @@ package libjet
 
 import (
 	"fmt"
+	"io"
 	"reflect"
 	"strings"
 	"time"
@@ -53,6 +54,16 @@ var funcMap = map[string]jet.Func{
 // FuncMap returns the jet function map.
 func FuncMap() map[string]jet.Func {
 	return funcMap
+}
+
+func VarMap() map[string]interface{} {
+	return map[string]interface{}{
+		"unsafeWrite": func(src io.Reader) jet.RendererFunc {
+			return func(r *jet.Runtime) {
+				io.Copy(r.Writer, src)
+			}
+		},
+	}
 }
 
 // AddFuncToSet adds a given function to a jet.Set template set.

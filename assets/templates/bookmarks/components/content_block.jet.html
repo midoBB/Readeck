@@ -28,7 +28,7 @@
      lang="{{ .Item.Lang }}"
      data-controller="reader"
      data-annotations-target="root">
-      {{- rawCopy(.Out, .HTML) -}}
+      {{- unsafeWrite(.HTML) -}}
     </div>
   </div>
 {{- else if .Item.Type == "photo" -}}

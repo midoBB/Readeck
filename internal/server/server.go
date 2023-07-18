@@ -82,6 +82,9 @@ func (s *Server) AuthenticatedRouter() chi.Router {
 		s.WithSession(),
 		auth.Required,
 		s.Csrf(),
+		// It's already in the main router but this one will be called first and have
+		// the current user information
+		s.ErrorPages,
 	)
 
 	return r

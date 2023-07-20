@@ -61,6 +61,9 @@ CREATE TABLE IF NOT EXISTS bookmark (
     CONSTRAINT fk_bookmark_user FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
 
+CREATE INDEX bookmark_created_idx ON "bookmark" (created DESC);
+CREATE INDEX bookmark_updated_idx ON "bookmark" (updated DESC);
+
 CREATE VIRTUAL TABLE IF NOT EXISTS bookmark_idx USING fts5(
     tokenize='unicode61 remove_diacritics 2',
     content='bookmark',

@@ -61,6 +61,8 @@ CREATE TABLE IF NOT EXISTS bookmark (
     CONSTRAINT fk_bookmark_user FOREIGN KEY (user_id) REFERENCES "user"(id) ON DELETE CASCADE
   );
 
+CREATE INDEX bookmark_created_idx ON "bookmark" USING btree (created DESC);
+CREATE INDEX bookmark_updated_idx ON "bookmark" USING btree (updated DESC);
 
 --
 -- Search configuration

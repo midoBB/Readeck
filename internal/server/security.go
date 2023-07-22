@@ -158,7 +158,16 @@ func (s *Server) unauthorizedHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 		io.WriteString(w, "Unauthorized")
 	case unauthorizedRedir:
-		s.Redirect(w, r, "/login")
+		redir := s.AbsoluteURL(r, "/login")
+
+		// Add the current path as a redirect query parameter
+		// to the login route
+		q := redir.Query()
+		q.Add("r", s.CurrentPath(r))
+		redir.RawQuery = q.Encode()
+
+		w.Header().Set("Location", redir.String())
+		w.WriteHeader(http.StatusSeeOther)
 	}
 }
 

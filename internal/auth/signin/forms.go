@@ -30,6 +30,7 @@ func newLoginForm() *loginForm {
 	return &loginForm{forms.Must(
 		forms.NewTextField("username", forms.Trim, forms.Required),
 		forms.NewTextField("password", forms.Required),
+		forms.NewTextField("redirect", forms.Trim),
 	)}
 }
 

@@ -2,6 +2,7 @@ package signin
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/go-chi/chi/v5"
 
@@ -61,6 +62,11 @@ func newAuthHandler(s *server.Server) *authHandler {
 func (h *authHandler) login(w http.ResponseWriter, r *http.Request) {
 	f := newLoginForm()
 
+	if r.Method == http.MethodGet {
+		// Set the redirect value from the query string
+		f.Get("redirect").Set(r.URL.Query().Get("r"))
+	}
+
 	if r.Method == http.MethodPost {
 		forms.Bind(f, r)
 
@@ -73,7 +79,16 @@ func (h *authHandler) login(w http.ResponseWriter, r *http.Request) {
 				sess.Payload.Seed = user.Seed
 				sess.Save(r, w)
 
-				h.srv.Redirect(w, r, "/")
+				// Get redirection from a form "redirect" parameter
+				// Since it goes to Redirect(), it will be sanitized there
+				// and can only stay within the app.
+				redir := f.Get("redirect").String()
+				if redir == "" || strings.HasPrefix(redir, "/login") {
+					redir = "/"
+				}
+
+				h.srv.Redirect(w, r, redir)
+				return
 			}
 			// we must set the content type to avoid the
 			// error middleware interception.
@@ -96,5 +111,5 @@ func (h *authHandler) logout(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	h.srv.Redirect(w, r, "/")
+	h.srv.Redirect(w, r, "/login")
 }

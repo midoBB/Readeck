@@ -4,11 +4,12 @@
 {{ block title() }}Login{{ end }}
 
 {{ block main() }}
-<form action="" method="post" data-controller="login-form"
+<form action="{{ urlFor(`/login`) }}" method="post" data-controller="login-form"
   data-action="login-form#validate">
 
   {{ yield formErrors(form=.Form) }}
   {{ yield csrfField() }}
+  <input type="hidden" name="redirect" value="{{ .Form.Get(`redirect`).String() }}" />
 
   {{ yield textField(field=.Form.Get("username"),
                       label="Username",

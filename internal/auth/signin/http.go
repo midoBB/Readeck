@@ -48,6 +48,7 @@ func newAuthHandler(s *server.Server) *authHandler {
 	ar := chi.NewRouter()
 	ar.Use(
 		s.WithSession(),
+		s.WithRedirectLogin,
 		auth.Required,
 	)
 	s.AddRoute("/logout", ar)

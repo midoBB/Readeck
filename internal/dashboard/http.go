@@ -12,7 +12,7 @@ func SetupRoutes(s *server.Server) {
 }
 
 func routes(s *server.Server) http.Handler {
-	r := s.AuthenticatedRouter()
+	r := s.AuthenticatedRouter(s.WithRedirectLogin)
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		s.Redirect(w, r, "/bookmarks/unread")

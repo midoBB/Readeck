@@ -13,7 +13,7 @@ type cookbookViews struct {
 }
 
 func newCookbookViews(api *cookbookAPI) *cookbookViews {
-	r := api.srv.AuthenticatedRouter()
+	r := api.srv.AuthenticatedRouter(api.srv.WithRedirectLogin)
 	v := &cookbookViews{r, api}
 
 	r.With(api.srv.WithPermission("cookbook", "read")).Group(func(r chi.Router) {

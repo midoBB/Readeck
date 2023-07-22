@@ -104,7 +104,7 @@ func newAPIRouter(s *server.Server) *apiRouter {
 
 // newViewsRouter returns a viewRouter with all the routes set up.
 func newViewsRouter(api *apiRouter) *viewsRouter {
-	r := api.srv.AuthenticatedRouter()
+	r := api.srv.AuthenticatedRouter(api.srv.WithRedirectLogin)
 
 	h := &viewsRouter{r, api}
 

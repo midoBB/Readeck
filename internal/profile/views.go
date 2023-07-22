@@ -19,7 +19,7 @@ type profileViews struct {
 
 // newProfileViews returns an new instance of ProfileViews
 func newProfileViews(api *profileAPI) *profileViews {
-	r := api.srv.AuthenticatedRouter()
+	r := api.srv.AuthenticatedRouter(api.srv.WithRedirectLogin)
 	v := &profileViews{r, api}
 
 	r.With(api.srv.WithPermission("profile", "read")).Group(func(r chi.Router) {

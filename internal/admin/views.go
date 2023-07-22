@@ -19,7 +19,7 @@ type adminViews struct {
 }
 
 func newAdminViews(api *adminAPI) *adminViews {
-	r := api.srv.AuthenticatedRouter()
+	r := api.srv.AuthenticatedRouter(api.srv.WithRedirectLogin)
 	h := &adminViews{r, api}
 
 	r.With(api.srv.WithPermission("admin:users", "read")).Group(func(r chi.Router) {

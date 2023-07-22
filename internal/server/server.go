@@ -47,10 +47,8 @@ func New(basePath string) *Server {
 			&auth.BasicAuthProvider{},
 			&auth.TokenAuthProvider{},
 			&auth.SessionAuthProvider{
-				GetSession: s.GetSession,
-				Redirect: func(w http.ResponseWriter, r *http.Request) {
-					s.Redirect(w, r, "/login")
-				},
+				GetSession:          s.GetSession,
+				UnauthorizedHandler: s.unauthorizedHandler,
 			},
 		),
 		s.ErrorPages,
@@ -76,8 +74,10 @@ func (s *Server) Init() {
 
 // AuthenticatedRouter returns a chi.Router instance
 // with middlewares to force authentication.
-func (s *Server) AuthenticatedRouter() chi.Router {
+func (s *Server) AuthenticatedRouter(middlewares ...func(http.Handler) http.Handler) chi.Router {
 	r := chi.NewRouter()
+
+	r.Use(middlewares...)
 	r.Use(
 		s.WithSession(),
 		auth.Required,

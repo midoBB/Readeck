@@ -470,7 +470,7 @@ func RunRequestSequence(t *testing.T, c *Client, user string, tests ...RequestTe
 					if user != "" {
 						req.Header.Set("Authorization", "Bearer "+c.app.Users[user].JWT())
 					} else {
-						req.Header.Set("Authorization", "Bearer phony")
+						req.Header.Del("Authorization")
 					}
 
 				case test.Form != nil || test.Method == "POST":

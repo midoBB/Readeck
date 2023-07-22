@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 	"fmt"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
@@ -12,7 +13,13 @@ import (
 )
 
 type (
-	ctxCSPNonceKey struct{}
+	ctxCSPNonceKey     struct{}
+	unauthorizedCtxKey struct{}
+)
+
+const (
+	unauthorizedDefault = iota
+	unauthorizedRedir
 )
 
 func setHost(r *http.Request) error {
@@ -134,6 +141,31 @@ func (s *Server) SetSecurityHeaders(next http.Handler) http.Handler {
 		w.Header().Add("X-XSS-Protection", "1; mode=block")
 
 		ctx := context.WithValue(r.Context(), ctxCSPNonceKey{}, nonce)
-		next.ServeHTTP(w, r.Clone(ctx))
+		next.ServeHTTP(w, r.WithContext(ctx))
+	})
+}
+
+// unauthorizedHandler is a handler used by the session authentication provider.
+// It sends different responses based on the context.
+func (s *Server) unauthorizedHandler(w http.ResponseWriter, r *http.Request) {
+	unauthorizedCtx, _ := r.Context().Value(unauthorizedCtxKey{}).(int)
+
+	switch unauthorizedCtx {
+	case unauthorizedDefault:
+		w.Header().Add("WWW-Authenticate", `Basic realm="Readeck Authentication"`)
+		w.Header().Add("WWW-Authenticate", `Bearer realm="Bearer token"`)
+		w.Header().Set("Content-Type", "text/plain")
+		w.WriteHeader(http.StatusUnauthorized)
+		io.WriteString(w, "Unauthorized")
+	case unauthorizedRedir:
+		s.Redirect(w, r, "/login")
+	}
+}
+
+// WithRedirectLogin sets the unauthorized handler to redirect to the login page.
+func (s *Server) WithRedirectLogin(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ctx := context.WithValue(r.Context(), unauthorizedCtxKey{}, unauthorizedRedir)
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

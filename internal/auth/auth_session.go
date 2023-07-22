@@ -17,7 +17,7 @@ type SessionAuthProvider struct {
 
 	// A function that sets a Location header when
 	// authentication fails.
-	Redirect func(http.ResponseWriter, *http.Request)
+	UnauthorizedHandler func(http.ResponseWriter, *http.Request)
 }
 
 // IsActive always returns true. As it's the last provider, when authentication fail it
@@ -70,5 +70,5 @@ func (p *SessionAuthProvider) checkSession(sess *sessions.Session) (u *users.Use
 func (p *SessionAuthProvider) clearSession(sess *sessions.Session, w http.ResponseWriter, r *http.Request) {
 	sess.MaxAge = -1
 	sess.Save(r, w)
-	p.Redirect(w, r)
+	p.UnauthorizedHandler(w, r)
 }

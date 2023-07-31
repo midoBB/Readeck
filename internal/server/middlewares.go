@@ -64,7 +64,7 @@ func (s *Server) WithPermission(obj, act string) func(next http.Handler) http.Ha
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			u := auth.GetRequestUser(r)
-			ok := u.HasPermission(obj, act)
+			ok := auth.HasPermission(r, obj, act)
 
 			logger := s.Log(r).WithFields(log.Fields{
 				"user":    u.Username,
@@ -75,7 +75,7 @@ func (s *Server) WithPermission(obj, act string) func(next http.Handler) http.Ha
 			})
 
 			if s.Log(r).Logger.IsLevelEnabled(log.DebugLevel) {
-				logger.WithField("roles", u.Roles()).Debug("access control")
+				logger.WithField("permissions", auth.GetPermissions(r)).Debug("access control")
 			}
 
 			if !ok {

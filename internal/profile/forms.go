@@ -7,8 +7,11 @@ import (
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
+
+	"github.com/readeck/readeck/internal/acls"
 	"github.com/readeck/readeck/internal/auth/tokens"
 	"github.com/readeck/readeck/internal/auth/users"
+	"github.com/readeck/readeck/internal/db"
 	"github.com/readeck/readeck/pkg/forms"
 )
 
@@ -19,6 +22,13 @@ type (
 // profileForm is the form used by the profile update routes.
 type profileForm struct {
 	*forms.Form
+}
+
+var availableScopes = [][2]string{
+	{"scoped_bookmarks_r", "Bookmarks : Read Only"},
+	{"scoped_bookmarks_w", "Bookmarks : Write Only"},
+	{"scoped_admin_r", "Admin : Read Only"},
+	{"scoped_admin_w", "Admin : Write Only"},
 }
 
 // newProfileForm returns a ProfileForm instance.
@@ -228,17 +238,47 @@ type tokenForm struct {
 }
 
 // tokenForm returns a tokenForm instance.
-func newTokenForm() *tokenForm {
+func newTokenForm(user *users.User) *tokenForm {
 	return &tokenForm{forms.Must(
 		forms.NewBooleanField("is_enabled", forms.RequiredOrNil),
 		forms.NewDatetimeField("expires"),
+		newRolesField(user),
 	)}
+}
+
+func newRolesField(user *users.User) forms.Field {
+	roleConstructor := func(n string) forms.Field {
+		return forms.NewTextField(n, forms.Trim)
+	}
+	roleConverter := func(values []forms.Field) interface{} {
+		res := make(db.Strings, len(values))
+		for i, x := range values {
+			res[i] = x.String()
+		}
+		return res
+	}
+
+	// Only present policies that the current user can access
+	choices := [][2]string{}
+	for _, r := range availableScopes {
+		if acls.InGroup(r[0], user.Group) {
+			choices = append(choices, r)
+		}
+	}
+
+	f := forms.NewListField("roles", roleConstructor, roleConverter)
+	f.(*forms.ListField).SetChoices(choices)
+	return f
 }
 
 // setToken set the token's values from an existing token.
 func (f *tokenForm) setToken(t *tokens.Token) {
 	f.Get("is_enabled").Set(t.IsEnabled)
 	f.Get("expires").Set(t.Expires)
+
+	roles := make([]string, len(t.Roles))
+	copy(roles, t.Roles)
+	f.Get("roles").Set(roles)
 }
 
 // updateToken performs the token update.
@@ -257,7 +297,14 @@ func (f *tokenForm) updateToken(t *tokens.Token) error {
 			}
 			v := field.Value().(time.Time)
 			t.Expires = &v
+		case "roles":
+			if field.Value() != nil {
+				t.Roles = field.Value().(db.Strings)
+			} else {
+				t.Roles = nil
+			}
 		}
+
 	}
 
 	if err := t.Save(); err != nil {

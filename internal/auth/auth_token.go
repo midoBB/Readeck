@@ -5,6 +5,9 @@ import (
 	"net/http"
 	"strings"
 
+	log "github.com/sirupsen/logrus"
+
+	"github.com/readeck/readeck/internal/acls"
 	"github.com/readeck/readeck/internal/auth/tokens"
 )
 
@@ -49,10 +52,40 @@ func (p *TokenAuthProvider) Authenticate(w http.ResponseWriter, r *http.Request)
 		Provider: &ProviderInfo{
 			Name:        "bearer token",
 			Application: res.Token.Application,
+			Roles:       res.Token.Roles,
 			ID:          res.Token.UID,
 		},
 		User: res.User,
 	}), nil
+}
+
+// HasPermission checks the permission on the current authentication provider role
+// list. If the role list is empty, the user permissions apply.
+func (p *TokenAuthProvider) HasPermission(r *http.Request, obj, act string) bool {
+	if len(GetRequestAuthInfo(r).Provider.Roles) == 0 {
+		return true
+	}
+
+	for _, scope := range GetRequestAuthInfo(r).Provider.Roles {
+		if ok, err := acls.Check(scope, obj, act); err != nil {
+			log.WithError(err).Error("ACL check error")
+		} else if ok {
+			return true
+		}
+	}
+
+	return false
+}
+
+// GetPermissions returns all the permissions attached to the current authentication provider
+// role list. If no role is defined, it will fallback to the user permission list.
+func (p *TokenAuthProvider) GetPermissions(r *http.Request) []string {
+	if len(GetRequestAuthInfo(r).Provider.Roles) == 0 {
+		return nil
+	}
+
+	plist, _ := acls.GetPermissions(GetRequestAuthInfo(r).Provider.Roles...)
+	return plist
 }
 
 // CsrfExempt is always true for this provider.

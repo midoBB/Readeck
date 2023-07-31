@@ -211,9 +211,9 @@ func (u *User) IsAnonymous() bool {
 	return u.ID == 0
 }
 
-// Roles returns all the user's implicit roles.
-func (u *User) Roles() []string {
-	r, _ := acls.GetRoles(u.Group)
+// Permissions returns all the user's implicit permissions.
+func (u *User) Permissions() []string {
+	r, _ := acls.GetPermissions(u.Group)
 	return r
 }
 

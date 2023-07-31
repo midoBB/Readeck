@@ -15,7 +15,6 @@ import (
 
 	"github.com/readeck/readeck/assets"
 	"github.com/readeck/readeck/internal/auth"
-	"github.com/readeck/readeck/internal/auth/users"
 	"github.com/readeck/readeck/internal/email"
 	"github.com/readeck/readeck/pkg/glob"
 	"github.com/readeck/readeck/pkg/libjet"
@@ -142,12 +141,11 @@ func (s *Server) initTemplates() {
 		args.RequireNumOfArguments("urlFor", 2, 2)
 		obj := libjet.ToString(args.Get(0))
 		act := libjet.ToString(args.Get(1))
-		user, ok := args.Runtime().Resolve("user").Interface().(*users.User)
-		if !ok || user == nil {
+		r, ok := args.Runtime().Resolve("request").Interface().(*http.Request)
+		if !ok {
 			return reflect.ValueOf(false)
 		}
-
-		return reflect.ValueOf(user.HasPermission(obj, act))
+		return reflect.ValueOf(auth.HasPermission(r, obj, act))
 	})
 	views.AddGlobalFunc("attrList", func(args jet.Arguments) reflect.Value {
 		if args.NumOfArguments()%2 > 0 {

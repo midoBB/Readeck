@@ -508,6 +508,7 @@ type ListField struct {
 	constructor fieldConstructor
 	converter   fieldConverter
 	value       []Field
+	choices     Choices
 }
 
 // DefaultListConverter is a default fieldConverter that
@@ -525,12 +526,49 @@ func DefaultListConverter(values []Field) interface{} {
 // If you need a validator for each received value, it must come with the field returned
 // by a custom constructor.
 func NewListField(name string, constructor fieldConstructor, converter fieldConverter, validators ...FieldValidator) Field {
-	return &ListField{
-		BaseField:   NewBaseField(name, validators...),
+	f := &ListField{
 		constructor: constructor,
 		converter:   converter,
 		value:       []Field{},
 	}
+	f.BaseField = NewBaseField(name, append([]FieldValidator{f.Validate}, validators...)...)
+	return f
+}
+
+func (f *ListField) SetChoices(choices Choices) {
+	f.choices = choices
+}
+
+func (f *ListField) Choices() Choices {
+	return f.choices
+}
+
+func (f *ListField) InChoices(value string) bool {
+	for _, x := range f.value {
+		if value == x.String() {
+			return true
+		}
+	}
+	return false
+}
+
+func (f *ListField) Validate(_ Field) error {
+	if len(f.choices) == 0 {
+		return nil
+	}
+
+	choices := map[string]struct{}{}
+	for _, c := range f.choices {
+		choices[c[0]] = struct{}{}
+	}
+
+	for _, v := range f.value {
+		if _, ok := choices[v.String()]; !ok {
+			return fmt.Errorf("%s is not a valid value", v.String())
+		}
+	}
+
+	return nil
 }
 
 // Set sets the field's value.

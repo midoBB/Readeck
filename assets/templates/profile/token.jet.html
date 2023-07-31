@@ -44,6 +44,20 @@
     class="field-h",
   ) }}
 
+  <h2 class="title text-h3">Roles</h2>
+
+  <p class="my-4 max-w-xl">
+    You can limit the permissions granted to this token by choosing one or more
+    group of permissions bellow.<br>
+    Leave all the choices blank to grant all your permissions to this token.
+  </p>
+
+  {{ yield multiSelectField(
+    field=.Form.Get("roles"),
+    label="Roles",
+    class="field-h",
+  ) }}
+
   <p><button class="btn-primary" type="submit">Save</button></p>
 </form>
 

@@ -78,7 +78,7 @@
       <input type="checkbox" id="{{ name }}" name="{{ name }}"
        class="form-checkbox" value="t"
        {{- if checked }} checked="checked"{{ end -}} />
-      <label class="label-inline" for="{{ name }}">{{ label }}</label>
+      <label class="font-bold" for="{{ name }}">{{ label }}</label>
       {{ if field.Errors }}
         <ul class="mt-1 list-disc list-inside text-red-700">
         {{- range field.Errors }}
@@ -108,4 +108,35 @@
       {{- end -}}
     </select>
   {{- end -}}
+{{- end -}}
+
+{{- block multiSelectField(
+  field, name, label, class, help
+) -}}
+  {{- if !name -}}{{ name = field.Name() }}{{- end -}}
+  {{- if field.Errors -}}{{ class = class + " field-err" }}{{- end -}}
+  <div class="field{{ if class }} {{ class }}{{ end }}">
+    <label>{{ label }}:</label>
+    <div class="flex-grow">
+      <input type="hidden" name="{{ name }}" value="">
+      <ul>
+        {{- range field.Field.Choices() -}}
+         <li class="mb-2">
+          <input type="checkbox" name="{{ name }}" id="{{ name }}_{{ .[0] }}" value="{{ .[0] }}"
+           class="form-checkbox"
+           {{ if field.Field.InChoices(.[0]) }} checked{{ end }}>
+          <label for="{{ name }}_{{ .[0] }}">{{ .[1] }}</label>
+         </li>
+        {{- end -}}
+      </ul>
+      {{ if field.Errors }}
+        <ul class="mt-1 list-disc list-inside text-red-700">
+        {{- range field.Errors }}
+          <li>{{ . }}</li>
+        {{ end -}}
+        </ul>
+      {{ end }}
+      {{ if help }}<span class="block mt-1 text-green-700">{{ help }}{{ end }}
+    </div>
+  </div>
 {{- end -}}

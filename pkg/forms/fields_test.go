@@ -671,3 +671,39 @@ func TestListField(t *testing.T) {
 		}
 	})
 }
+
+func TestChoiceListField(t *testing.T) {
+	var field interface{} = forms.NewListField("test",
+		func(n string) forms.Field {
+			return forms.NewTextField(n)
+		},
+		forms.DefaultListConverter)
+	f, ok := field.(forms.Field)
+
+	assert.True(t, ok)
+
+	f.(*forms.ListField).SetChoices(forms.Choices{
+		{"a", "A"},
+		{"b", "B"},
+		{"c", "C"},
+	})
+
+	assert.Equal(t, f.Name(), "test")
+	assert.False(t, f.IsBound())
+	assert.True(t, f.IsNil())
+	assert.Equal(t, nil, f.Value())
+	assert.Equal(t, "", f.String())
+
+	assert.True(t, f.Set([]string{"a", "b"}))
+	assert.False(t, f.IsBound())
+	assert.False(t, f.IsNil())
+	assert.Equal(t, []any{"a", "b"}, f.Value())
+
+	assert.False(t, f.Set([]int{1, 2}))
+	assert.False(t, f.IsBound())
+	assert.True(t, f.IsNil())
+	assert.Equal(t, nil, f.Value())
+
+	assert.True(t, f.Set([]string{"a", "f"}))
+	assert.EqualError(t, forms.ValidateField(f, f.Validators()...), "f is not a valid value")
+}

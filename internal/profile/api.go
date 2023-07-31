@@ -48,9 +48,11 @@ func newProfileAPI(s *server.Server) *profileAPI {
 
 // userProfile is the mapping returned by the profileInfo route.
 type profileInfoProvider struct {
-	Name        string `json:"name"`
-	Application string `json:"application"`
-	ID          string `json:"id"`
+	Name        string   `json:"name"`
+	ID          string   `json:"id"`
+	Application string   `json:"application"`
+	Roles       []string `json:"roles"`
+	Permissions []string `json:"permissions"`
 }
 type profileInfoUser struct {
 	Username string              `json:"username"`
@@ -73,6 +75,8 @@ func (api *profileAPI) profileInfo(w http.ResponseWriter, r *http.Request) {
 			Name:        info.Provider.Name,
 			Application: info.Provider.Application,
 			ID:          info.Provider.ID,
+			Roles:       info.Provider.Roles,
+			Permissions: auth.GetPermissions(r),
 		},
 		User: profileInfoUser{
 			Username: info.User.Username,
@@ -81,6 +85,10 @@ func (api *profileAPI) profileInfo(w http.ResponseWriter, r *http.Request) {
 			Updated:  info.User.Updated,
 			Settings: info.User.Settings,
 		},
+	}
+
+	if res.Provider.Roles == nil {
+		res.Provider.Roles = []string{info.User.Group}
 	}
 
 	api.srv.Render(w, r, 200, res)
@@ -221,6 +229,7 @@ type tokenItem struct {
 	Expires   *time.Time `json:"expires"`
 	IsEnabled bool       `json:"is_enabled"`
 	IsDeleted bool       `json:"is_deleted"`
+	Roles     []string   `json:"roles"`
 }
 
 func newTokenItem(s *server.Server, r *http.Request, t *tokens.Token, base string) tokenItem {
@@ -232,5 +241,6 @@ func newTokenItem(s *server.Server, r *http.Request, t *tokens.Token, base strin
 		Expires:   t.Expires,
 		IsEnabled: t.IsEnabled,
 		IsDeleted: deleteTokenTask.IsRunning(t.ID),
+		Roles:     t.Roles,
 	}
 }

@@ -24,7 +24,9 @@ func TestAPI(t *testing.T) {
 					"provider":{
 						"name":"bearer token",
 						"application":"tests",
-						"id":"<<PRESENCE>>"
+						"id":"<<PRESENCE>>",
+						"roles":["user"],
+						"permissions":"<<PRESENCE>>"
 					},
 					"user":{
 						"username":"user",

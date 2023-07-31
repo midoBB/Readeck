@@ -34,6 +34,7 @@ type Token struct {
 	Expires     *time.Time `db:"expires"`
 	IsEnabled   bool       `db:"is_enabled"`
 	Application string     `db:"application"`
+	Roles       db.Strings `db:"roles"`
 }
 
 // Manager is a query helper for token entries.

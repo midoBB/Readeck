@@ -23,6 +23,7 @@ type Info struct {
 type ProviderInfo struct {
 	Name        string
 	Application string
+	Roles       []string
 	ID          string
 }
 
@@ -30,7 +31,7 @@ type ProviderInfo struct {
 // provider.
 type Provider interface {
 	// Must return true to enable the provider for the current request.
-	IsActive(r *http.Request) bool
+	IsActive(*http.Request) bool
 
 	// Must return a request with the Info provided when successful.
 	Authenticate(http.ResponseWriter, *http.Request) (*http.Request, error)
@@ -40,7 +41,14 @@ type Provider interface {
 // to bypass all CSRF protection.
 type FeatureCsrfProvider interface {
 	// Must return true to disable CSRF protection for the request.
-	CsrfExempt(r *http.Request) bool
+	CsrfExempt(*http.Request) bool
+}
+
+// FeaturePermissionProvider allows a provider to implement a permission
+// check of its own. Usually providing scoped permissions.
+type FeaturePermissionProvider interface {
+	HasPermission(*http.Request, string, string) bool
+	GetPermissions(*http.Request) []string
 }
 
 // NullProvider is the provider returned when no other provider
@@ -127,6 +135,45 @@ func Required(next http.Handler) http.Handler {
 	}
 
 	return http.HandlerFunc(fn)
+}
+
+// HasPermission returns true if the user that's connected can perform
+// the action "act" on object "obj". It will check the user permissions
+// and any scope given by the authentication provider.
+func HasPermission(r *http.Request, obj, act string) bool {
+	info := GetRequestAuthInfo(r)
+
+	if info.User.IsAnonymous() {
+		return false
+	}
+
+	// Checked the scoped permissions if any
+	// Note that the provider permission must be in the user's scope
+	// to succeed.
+	if p, ok := GetRequestProvider(r).(FeaturePermissionProvider); ok {
+		return info.User.HasPermission(obj, act) && p.HasPermission(r, obj, act)
+	}
+
+	// Fallback to user permissions
+	return info.User.HasPermission(obj, act)
+}
+
+// GetPermissions returns all the permissions available for the request.
+// If the authentication provider implements it, a subset of permissions
+// is sent, otherwise, the user own permissions is returned.
+func GetPermissions(r *http.Request) []string {
+	info := GetRequestAuthInfo(r)
+	if info.User.IsAnonymous() {
+		return []string{}
+	}
+
+	if p, ok := GetRequestProvider(r).(FeaturePermissionProvider); ok {
+		if res := p.GetPermissions(r); res != nil {
+			return res
+		}
+	}
+
+	return info.User.Permissions()
 }
 
 // setRequestProvider stores the current provider for the request.

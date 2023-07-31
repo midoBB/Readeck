@@ -136,7 +136,7 @@ func (v *profileViews) tokenCreate(w http.ResponseWriter, r *http.Request) {
 
 func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 	ti := r.Context().Value(ctxtTokenKey{}).(tokenItem)
-	f := newTokenForm()
+	f := newTokenForm(auth.GetRequestUser(r))
 
 	if r.Method == http.MethodGet {
 		f.setToken(ti.Token)

@@ -176,7 +176,7 @@ func (api *profileAPI) withTokenList(next http.Handler) http.Handler {
 		}
 
 		ctx := context.WithValue(r.Context(), ctxTokenListKey{}, res)
-		next.ServeHTTP(w, r.Clone(ctx))
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
@@ -194,7 +194,7 @@ func (api *profileAPI) withToken(next http.Handler) http.Handler {
 
 		item := newTokenItem(api.srv, r, t, ".")
 		ctx := context.WithValue(r.Context(), ctxtTokenKey{}, item)
-		next.ServeHTTP(w, r.Clone(ctx))
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 

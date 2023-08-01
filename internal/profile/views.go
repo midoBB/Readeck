@@ -117,9 +117,8 @@ func (v *profileViews) tokenList(w http.ResponseWriter, r *http.Request) {
 }
 
 func (v *profileViews) tokenCreate(w http.ResponseWriter, r *http.Request) {
-	user := auth.GetRequestUser(r)
 	t := &tokens.Token{
-		UserID:      &user.ID,
+		UserID:      &auth.GetRequestUser(r).ID,
 		IsEnabled:   true,
 		Application: "internal",
 	}

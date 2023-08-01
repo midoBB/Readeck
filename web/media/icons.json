@@ -27,6 +27,7 @@
   "o-label":        "node_modules/boxicons/svg/regular/bx-purchase-tag-alt.svg",
   "o-library":      "node_modules/boxicons/svg/regular/bx-library.svg",
   "o-link":         "node_modules/boxicons/svg/regular/bx-link.svg",
+  "o-lock":         "node_modules/boxicons/svg/regular/bx-lock.svg",
   "o-logout":       "node_modules/boxicons/svg/regular/bx-log-out.svg",
   "o-menu":         "node_modules/boxicons/svg/regular/bx-menu.svg",
   "o-minus":        "node_modules/boxicons/svg/regular/bx-minus.svg",

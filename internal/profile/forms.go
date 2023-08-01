@@ -9,6 +9,7 @@ import (
 	"github.com/doug-martin/goqu/v9"
 
 	"github.com/readeck/readeck/internal/acls"
+	"github.com/readeck/readeck/internal/auth/credentials"
 	"github.com/readeck/readeck/internal/auth/tokens"
 	"github.com/readeck/readeck/internal/auth/users"
 	"github.com/readeck/readeck/internal/db"
@@ -209,6 +210,79 @@ func (f *passwordForm) updatePassword(u *users.User) (err error) {
 	return
 }
 
+// deleteCredentialForm is the form used for credential deletion.
+type deleteCredentialForm struct {
+	*forms.Form
+}
+
+// newDeleteTokenForm returns a deleteForm instance.
+func newDeleteCredentialForm() *deleteCredentialForm {
+	return &deleteCredentialForm{forms.Must(
+		forms.NewBooleanField("cancel"),
+		forms.NewTextField("_to"),
+	)}
+}
+
+// trigger launch the token deletion or cancel task.
+func (f *deleteCredentialForm) trigger(c *credentials.Credential) {
+	if !f.Get("cancel").IsNil() && f.Get("cancel").Value().(bool) {
+		deleteCredentialTask.Cancel(c.ID)
+		return
+	}
+
+	deleteCredentialTask.Run(c.ID, c.ID)
+}
+
+type credentialForm struct {
+	*forms.Form
+}
+
+// newCredentialForm returns an credentialForm instance
+func newCredentialForm(user *users.User) *credentialForm {
+	return &credentialForm{forms.Must(
+		forms.NewBooleanField("is_enabled", forms.RequiredOrNil),
+		forms.NewTextField("name", forms.Required, forms.Trim),
+		newRolesField(user),
+	)}
+}
+
+// setCredential set the token's values from an existing token
+func (f *credentialForm) setCredential(p *credentials.Credential) {
+	f.Get("is_enabled").Set(p.IsEnabled)
+	f.Get("name").Set(p.Name)
+
+	roles := make([]string, len(p.Roles))
+	copy(roles, p.Roles)
+	f.Get("roles").Set(roles)
+}
+
+// updateCredential performs the credential update
+func (f *credentialForm) updateCredential(p *credentials.Credential) error {
+	for _, field := range f.Fields() {
+		if !field.IsBound() {
+			continue
+		}
+		switch field.Name() {
+		case "is_enabled":
+			p.IsEnabled = field.Value().(bool)
+		case "name":
+			p.Name = field.String()
+		case "roles":
+			if field.Value() != nil {
+				p.Roles = field.Value().(db.Strings)
+			} else {
+				p.Roles = nil
+			}
+		}
+	}
+
+	if err := p.Save(); err != nil {
+		f.AddErrors("", forms.ErrUnexpected)
+		return err
+	}
+	return nil
+}
+
 // deleteTokenForm is the form used for token deletion.
 type deleteTokenForm struct {
 	*forms.Form
@@ -244,31 +318,6 @@ func newTokenForm(user *users.User) *tokenForm {
 		forms.NewDatetimeField("expires"),
 		newRolesField(user),
 	)}
-}
-
-func newRolesField(user *users.User) forms.Field {
-	roleConstructor := func(n string) forms.Field {
-		return forms.NewTextField(n, forms.Trim)
-	}
-	roleConverter := func(values []forms.Field) interface{} {
-		res := make(db.Strings, len(values))
-		for i, x := range values {
-			res[i] = x.String()
-		}
-		return res
-	}
-
-	// Only present policies that the current user can access
-	choices := [][2]string{}
-	for _, r := range availableScopes {
-		if acls.InGroup(r[0], user.Group) {
-			choices = append(choices, r)
-		}
-	}
-
-	f := forms.NewListField("roles", roleConstructor, roleConverter)
-	f.(*forms.ListField).SetChoices(choices)
-	return f
 }
 
 // setToken set the token's values from an existing token.
@@ -312,4 +361,29 @@ func (f *tokenForm) updateToken(t *tokens.Token) error {
 		return err
 	}
 	return nil
+}
+
+func newRolesField(user *users.User) forms.Field {
+	roleConstructor := func(n string) forms.Field {
+		return forms.NewTextField(n, forms.Trim)
+	}
+	roleConverter := func(values []forms.Field) interface{} {
+		res := make(db.Strings, len(values))
+		for i, x := range values {
+			res[i] = x.String()
+		}
+		return res
+	}
+
+	// Only present policies that the current user can access
+	choices := [][2]string{}
+	for _, r := range availableScopes {
+		if acls.InGroup(r[0], user.Group) {
+			choices = append(choices, r)
+		}
+	}
+
+	f := forms.NewListField("roles", roleConstructor, roleConverter)
+	f.(*forms.ListField).SetChoices(choices)
+	return f
 }

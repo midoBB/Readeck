@@ -2,10 +2,14 @@ package credentials
 
 import (
 	"errors"
+	"strings"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/hlandau/passlib"
+	"github.com/lithammer/shortuuid"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 
 	"github.com/readeck/readeck/internal/auth/users"
 	"github.com/readeck/readeck/internal/db"
@@ -94,6 +98,55 @@ func (m *Manager) GetUser(username, password string) (*UserCredential, error) {
 	return nil, ErrNotFound
 }
 
+// Create insert a new credential in the database.
+func (m *Manager) Create(c *Credential) error {
+	if c.UserID == nil {
+		return errors.New("no token user")
+	}
+	if strings.TrimSpace(c.Name) == "" {
+		return errors.New("no application")
+	}
+
+	c.Created = time.Now()
+	c.UID = shortuuid.New()
+
+	ds := db.Q().Insert(TableName).
+		Rows(c).
+		Prepared(true)
+
+	id, err := db.InsertWithID(ds, "id")
+	if err != nil {
+		return err
+	}
+
+	c.ID = id
+	return nil
+}
+
+// GenerateCredential creates a new credential with a random name and passphrase.
+// It returns the Credential instance, the unencrypted passphrase and an error if any.
+func (m *Manager) GenerateCredential(userID int) (c *Credential, passphrase string, err error) {
+	var name string
+	if passphrase, err = MakePassphrase(6); err != nil {
+		return
+	}
+	if name, err = MakePassphrase(2); err != nil {
+		return
+	}
+	c = &Credential{
+		UserID:    &userID,
+		IsEnabled: true,
+		Name:      cases.Title(language.AmericanEnglish).String(name),
+	}
+	if c.Password, err = c.HashPassword(passphrase); err != nil {
+		c = nil
+		return
+	}
+
+	err = m.Create(c)
+	return
+}
+
 // Update updates some user values.
 func (c *Credential) Update(v interface{}) error {
 	if c.ID == 0 {
@@ -113,6 +166,15 @@ func (c *Credential) Save() error {
 	return c.Update(c)
 }
 
+// Delete removes a token from the database
+func (c *Credential) Delete() error {
+	_, err := db.Q().Delete(TableName).Prepared(true).
+		Where(goqu.C("id").Eq(c.ID)).
+		Executor().Exec()
+
+	return err
+}
+
 // CheckPassword checks if the given password matches the
 // current app password.
 func (c *Credential) CheckPassword(password string) bool {
@@ -126,4 +188,9 @@ func (c *Credential) CheckPassword(password string) bool {
 	}
 
 	return true
+}
+
+// HashPassword returns a new hashed password
+func (c *Credential) HashPassword(password string) (string, error) {
+	return passlib.Hash(password)
 }

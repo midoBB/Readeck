@@ -47,7 +47,7 @@ func (api *apiRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 		bl.Items[i] = newBookmarkItem(api.srv, r, item, ".")
 	}
 
-	api.srv.SendPaginationHeaders(w, r, bl.Pagination.TotalCount, bl.Pagination.Limit, bl.Pagination.Offset)
+	api.srv.SendPaginationHeaders(w, r, bl.Pagination)
 	api.srv.Render(w, r, http.StatusOK, bl.Items)
 }
 

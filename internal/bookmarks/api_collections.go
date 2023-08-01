@@ -27,7 +27,7 @@ func (api *apiRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 		cl.Items[i] = newCollectionItem(api.srv, r, item, ".")
 	}
 
-	api.srv.SendPaginationHeaders(w, r, cl.Pagination.TotalCount, cl.Pagination.Limit, cl.Pagination.Offset)
+	api.srv.SendPaginationHeaders(w, r, cl.Pagination)
 	api.srv.Render(w, r, http.StatusOK, cl.Items)
 }
 

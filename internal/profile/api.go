@@ -264,7 +264,7 @@ func (api *profileAPI) withToken(next http.Handler) http.Handler {
 func (api *profileAPI) tokenList(w http.ResponseWriter, r *http.Request) {
 	tl := r.Context().Value(ctxTokenListKey{}).(tokenList)
 
-	api.srv.SendPaginationHeaders(w, r, tl.Pagination.TotalCount, tl.Pagination.Limit, tl.Pagination.Offset)
+	api.srv.SendPaginationHeaders(w, r, tl.Pagination)
 	api.srv.Render(w, r, http.StatusOK, tl.Items)
 }
 

@@ -171,37 +171,48 @@ func (s *Server) NewPagination(r *http.Request, count, limit, offset int) Pagina
 	return p
 }
 
-// SendPaginationHeaders compute and set the pagination headers
-func (s *Server) SendPaginationHeaders(
-	w http.ResponseWriter, r *http.Request,
-	count, limit, offset int,
-) {
+// GetPaginationLinks returns a list of Link instances suitable for pagination
+func (s *Server) GetPaginationLinks(r *http.Request, p Pagination) []Link {
 	uri := s.AbsoluteURL(r)
-	pages := int(math.Ceil(float64(count) / float64(limit)))
-	page := int(math.Floor(float64(offset)/float64(limit))) + 1
-	lastOffset := int(pages-1) * limit
-	prevOffset := offset - limit
-	nextOffset := offset + limit
+	pages := int(math.Ceil(float64(p.TotalCount) / float64(p.Limit)))
+	lastOffset := int(pages-1) * p.Limit
+	prevOffset := p.Offset - p.Limit
+	nextOffset := p.Offset + p.Limit
 
-	setHeader := func(w http.ResponseWriter, rel string, offset int) {
+	links := []Link{}
+	getLink := func(rel string, offset int) Link {
 		u := *uri
 		q := u.Query()
-		q.Set("limit", strconv.Itoa(limit))
+		q.Set("limit", strconv.Itoa(p.Limit))
 		q.Set("offset", strconv.Itoa(offset))
 		u.RawQuery = q.Encode()
-		NewLink(u.String()).WithRel(rel).Write(w)
+		return NewLink(u.String()).WithRel(rel)
 	}
 
 	if prevOffset >= 0 {
-		setHeader(w, "prev", prevOffset)
+		links = append(links, getLink("previous", prevOffset))
 	}
 	if nextOffset <= lastOffset {
-		setHeader(w, "next", nextOffset)
+		links = append(links, getLink("next", nextOffset))
 	}
-	setHeader(w, "first", 0)
-	setHeader(w, "last", lastOffset)
+	links = append(links, getLink("first", 0), getLink("last", lastOffset))
 
-	w.Header().Set("Total-Count", strconv.Itoa(count))
+	return links
+}
+
+// SendPaginationHeaders compute and set the pagination headers
+func (s *Server) SendPaginationHeaders(
+	w http.ResponseWriter, r *http.Request,
+	p Pagination,
+) {
+	pages := int(math.Ceil(float64(p.TotalCount) / float64(p.Limit)))
+	page := int(math.Floor(float64(p.Offset)/float64(p.Limit))) + 1
+
+	for _, link := range s.GetPaginationLinks(r, p) {
+		link.Write(w)
+	}
+
+	w.Header().Set("Total-Count", strconv.Itoa(p.TotalCount))
 	w.Header().Set("Total-Pages", strconv.Itoa(pages))
 	w.Header().Set("Current-Page", strconv.Itoa(page))
 }

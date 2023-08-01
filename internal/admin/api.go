@@ -125,8 +125,7 @@ func (api *adminAPI) userList(w http.ResponseWriter, r *http.Request) {
 		ul.Items[i] = newUserItem(api.srv, r, item, ".")
 	}
 
-	api.srv.SendPaginationHeaders(w, r,
-		ul.Pagination.TotalCount, ul.Pagination.Limit, ul.Pagination.Offset)
+	api.srv.SendPaginationHeaders(w, r, ul.Pagination)
 	api.srv.Render(w, r, http.StatusOK, ul.Items)
 }
 

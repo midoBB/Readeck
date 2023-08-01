@@ -5,8 +5,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/doug-martin/goqu/v9"
 	"github.com/hlandau/passlib"
+	"github.com/hlandau/passlib/hash/argon2"
+	"gopkg.in/hlandau/passlib.v1/abstract"
+
+	"github.com/doug-martin/goqu/v9"
 	"github.com/lithammer/shortuuid"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
@@ -26,6 +29,15 @@ var (
 
 	// ErrNotFound is returned when a user record was not found.
 	ErrNotFound = errors.New("not found")
+
+	// We insert here a less safe password hashing scheme because
+	// the verification happens on all the enabled user passwords.
+	// It's a balance between security and the API response time.
+	passlibContext = passlib.Context{
+		Schemes: append([]abstract.Scheme{
+			argon2.New(4, 1024, 4),
+		}, passlib.DefaultSchemes...),
+	}
 )
 
 // Credential is an credential record
@@ -178,7 +190,7 @@ func (c *Credential) Delete() error {
 // CheckPassword checks if the given password matches the
 // current app password.
 func (c *Credential) CheckPassword(password string) bool {
-	newhash, err := passlib.Verify(password, c.Password)
+	newhash, err := passlibContext.Verify(password, c.Password)
 	if err != nil {
 		return false
 	}
@@ -192,5 +204,5 @@ func (c *Credential) CheckPassword(password string) bool {
 
 // HashPassword returns a new hashed password
 func (c *Credential) HashPassword(password string) (string, error) {
-	return passlib.Hash(password)
+	return passlibContext.Hash(password)
 }

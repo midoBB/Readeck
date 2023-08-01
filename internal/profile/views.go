@@ -18,6 +18,8 @@ type profileViews struct {
 	*profileAPI
 }
 
+const maxCredentials = 20
+
 // newProfileViews returns an new instance of ProfileViews
 func newProfileViews(api *profileAPI) *profileViews {
 	r := api.srv.AuthenticatedRouter(api.srv.WithRedirectLogin)
@@ -33,7 +35,7 @@ func newProfileViews(api *profileAPI) *profileViews {
 	r.With(api.srv.WithPermission("profile", "write")).Group(func(r chi.Router) {
 		r.Post("/", v.userProfile)
 		r.Post("/password", v.userPassword)
-		r.Post("/credentials", v.credentialCreate)
+		r.With(api.withCredentialList).Post("/credentials", v.credentialCreate)
 		r.With(api.withCredential).Post("/credentials/{uid}", v.credentialInfo)
 		r.With(api.withCredential).Post("/credentials/{uid}/delete", v.credentialDelete)
 	})
@@ -115,13 +117,22 @@ func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 func (v *profileViews) credentialList(w http.ResponseWriter, r *http.Request) {
 	cl := r.Context().Value(ctxCredentialListKey{}).(credentialList)
 	ctx := server.TC{
-		"Pagination":  cl.Pagination,
-		"Credentials": cl.Items,
+		"Pagination":     cl.Pagination,
+		"Credentials":    cl.Items,
+		"CanCreate":      cl.Pagination.TotalCount < maxCredentials,
+		"MaxCredentials": maxCredentials,
 	}
 	v.srv.RenderTemplate(w, r, 200, "profile/credential_list", ctx)
 }
 
 func (v *profileViews) credentialCreate(w http.ResponseWriter, r *http.Request) {
+	cl := r.Context().Value(ctxCredentialListKey{}).(credentialList)
+	if cl.Pagination.TotalCount >= maxCredentials {
+		v.srv.AddFlash(w, r, "error", "Error: you can not create more credentials")
+		v.srv.Redirect(w, r)
+		return
+	}
+
 	c, passphrase, err := credentials.Credentials.GenerateCredential(auth.GetRequestUser(r).ID)
 
 	if err != nil {

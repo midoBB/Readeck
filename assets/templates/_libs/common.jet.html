@@ -30,8 +30,10 @@ href="{{ assetURL(`img/icons.svg`) }}#{{ name }}"></use></svg></span>
 
 {{- block flashes() -}}
 {{ range flashes }}
-  {{- yield message(type=.Type) content -}}
-    <strong>{{ .Message }}</strong>
+  {{- if !hasPrefix(.Type, "_") -}}
+    {{- yield message(type=.Type) content -}}
+      <strong>{{ .Message }}</strong>
+    {{- end -}}
   {{- end -}}
 {{ end }}
 {{- end -}}

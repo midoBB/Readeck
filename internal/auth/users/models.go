@@ -42,25 +42,6 @@ var (
 	}
 )
 
-// AvailableGroups returns the available group names.
-// This is a mapping of ID => name.
-func AvailableGroups() map[string]string {
-	res := map[string]string{}
-	for _, v := range availableGroups {
-		res[v[0]] = v[1]
-	}
-	return res
-}
-
-// ValidGroups returns a list of available groups.
-func ValidGroups() []string {
-	r := make([]string, len(availableGroups))
-	for i := 0; i < len(availableGroups); i++ {
-		r[i] = availableGroups[i][0]
-	}
-	return r
-}
-
 // User is a user record in database
 type User struct {
 	ID       int           `db:"id" goqu:"skipinsert,skipupdate"`

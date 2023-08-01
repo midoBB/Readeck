@@ -6,6 +6,7 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	"github.com/readeck/readeck/internal/auth"
+	"github.com/readeck/readeck/internal/auth/credentials"
 	"github.com/readeck/readeck/internal/auth/tokens"
 	"github.com/readeck/readeck/internal/server"
 	"github.com/readeck/readeck/pkg/forms"
@@ -16,6 +17,8 @@ type profileViews struct {
 	chi.Router
 	*profileAPI
 }
+
+const maxCredentials = 20
 
 // newProfileViews returns an new instance of ProfileViews
 func newProfileViews(api *profileAPI) *profileViews {
@@ -30,6 +33,17 @@ func newProfileViews(api *profileAPI) *profileViews {
 	r.With(api.srv.WithPermission("profile", "write")).Group(func(r chi.Router) {
 		r.Post("/", v.userProfile)
 		r.Post("/password", v.userPassword)
+	})
+
+	r.With(api.srv.WithPermission("profile:credentials", "read")).Group(func(r chi.Router) {
+		r.With(api.withCredentialList).Get("/credentials", v.credentialList)
+		r.With(api.withCredential).Get("/credentials/{uid}", v.credentialInfo)
+	})
+
+	r.With(api.srv.WithPermission("profile:credentials", "write")).Group(func(r chi.Router) {
+		r.With(api.withCredentialList).Post("/credentials", v.credentialCreate)
+		r.With(api.withCredential).Post("/credentials/{uid}", v.credentialInfo)
+		r.With(api.withCredential).Post("/credentials/{uid}/delete", v.credentialDelete)
 	})
 
 	r.With(api.srv.WithPermission("profile:tokens", "read")).Group(func(r chi.Router) {
@@ -106,6 +120,87 @@ func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 	v.srv.RenderTemplate(w, r, 200, "profile/password", ctx)
 }
 
+func (v *profileViews) credentialList(w http.ResponseWriter, r *http.Request) {
+	cl := r.Context().Value(ctxCredentialListKey{}).(credentialList)
+	ctx := server.TC{
+		"Pagination":     cl.Pagination,
+		"Credentials":    cl.Items,
+		"CanCreate":      cl.Pagination.TotalCount < maxCredentials,
+		"MaxCredentials": maxCredentials,
+	}
+	v.srv.RenderTemplate(w, r, 200, "profile/credential_list", ctx)
+}
+
+func (v *profileViews) credentialCreate(w http.ResponseWriter, r *http.Request) {
+	cl := r.Context().Value(ctxCredentialListKey{}).(credentialList)
+	if cl.Pagination.TotalCount >= maxCredentials {
+		v.srv.AddFlash(w, r, "error", "Error: you can not create more credentials")
+		v.srv.Redirect(w, r)
+		return
+	}
+
+	c, passphrase, err := credentials.Credentials.GenerateCredential(auth.GetRequestUser(r).ID)
+
+	if err != nil {
+		v.srv.Log(r).WithError(err).Error("server error")
+		v.srv.AddFlash(w, r, "error", "An error append while creating your password.")
+		v.srv.Redirect(w, r, "credentials")
+		return
+	}
+
+	v.srv.AddFlash(w, r, "_passphrase", passphrase)
+	v.srv.Redirect(w, r, ".", c.UID)
+}
+
+func (v *profileViews) credentialInfo(w http.ResponseWriter, r *http.Request) {
+	ci := r.Context().Value(ctxCredentialKey{}).(credentialItem)
+	f := newCredentialForm(auth.GetRequestUser(r))
+
+	flashes := v.srv.Flashes(r)
+	passphrase := ""
+	for _, f := range flashes {
+		if f.Type == "_passphrase" {
+			passphrase = f.Message
+		}
+	}
+
+	if r.Method == http.MethodGet {
+		f.setCredential(ci.Credential)
+	}
+
+	if r.Method == http.MethodPost {
+		forms.Bind(f, r)
+		if f.IsValid() {
+			if err := f.updateCredential(ci.Credential); err != nil {
+				v.srv.Log(r).Error(err)
+			} else {
+				v.srv.AddFlash(w, r, "success", "Password was updated.")
+				v.srv.Redirect(w, r, ci.UID)
+				return
+			}
+		}
+		w.WriteHeader(http.StatusUnprocessableEntity)
+	}
+
+	ctx := server.TC{
+		"Passphrase": passphrase,
+		"Credential": ci,
+		"Form":       f,
+	}
+	v.srv.RenderTemplate(w, r, 200, "profile/credential", ctx)
+}
+
+func (v *profileViews) credentialDelete(w http.ResponseWriter, r *http.Request) {
+	f := newDeleteCredentialForm()
+	f.Get("_to").Set("/profile/credentials")
+	forms.Bind(f, r)
+
+	ti := r.Context().Value(ctxCredentialKey{}).(credentialItem)
+
+	f.trigger(ti.Credential)
+	v.srv.Redirect(w, r, f.Get("_to").String())
+}
+
 func (v *profileViews) tokenList(w http.ResponseWriter, r *http.Request) {
 	tl := r.Context().Value(ctxTokenListKey{}).(tokenList)
 
@@ -117,9 +212,8 @@ func (v *profileViews) tokenList(w http.ResponseWriter, r *http.Request) {
 }
 
 func (v *profileViews) tokenCreate(w http.ResponseWriter, r *http.Request) {
-	user := auth.GetRequestUser(r)
 	t := &tokens.Token{
-		UserID:      &user.ID,
+		UserID:      &auth.GetRequestUser(r).ID,
 		IsEnabled:   true,
 		Application: "internal",
 	}

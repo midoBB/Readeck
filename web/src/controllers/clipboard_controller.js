@@ -6,12 +6,14 @@ export default class extends Controller {
   static targets = ["label", "content"]
 
   connect() {
-    $.E("button")
-      .addClass("text-primary", "hf:text-primary-dark")
-      .attr("type", "button")
-      .attr("data-action", `${this.identifier}#copy`)
-      .append(icon.getIcon("o-copy"))
-      .appendTo(this.labelTarget)
+    if (this.hasLabelTarget) {
+      $.E("button")
+        .addClass("text-primary", "hf:text-primary-dark")
+        .attr("type", "button")
+        .attr("data-action", `${this.identifier}#copy`)
+        .append(icon.getIcon("o-copy"))
+        .appendTo(this.labelTarget)
+    }
   }
 
   async copy() {

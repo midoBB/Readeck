@@ -21,7 +21,7 @@ var (
 	// Tokens is the token manager.
 	Tokens = Manager{}
 
-	// ErrNotFound is returned when a user record was not found.
+	// ErrNotFound is returned when a token record was not found.
 	ErrNotFound = errors.New("not found")
 )
 
@@ -124,7 +124,7 @@ func (t *Token) Update(v interface{}) error {
 	return err
 }
 
-// Save updates all the bookmark values.
+// Save updates all the token values.
 func (t *Token) Save() error {
 	return t.Update(t)
 }

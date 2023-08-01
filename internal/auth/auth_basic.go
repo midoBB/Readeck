@@ -5,9 +5,10 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/doug-martin/goqu/v9"
+	log "github.com/sirupsen/logrus"
 
-	"github.com/readeck/readeck/internal/auth/users"
+	"github.com/readeck/readeck/internal/acls"
+	"github.com/readeck/readeck/internal/auth/credentials"
 )
 
 // BasicAuthProvider handles basic HTTP authentication method
@@ -35,23 +36,53 @@ func (p *BasicAuthProvider) Authenticate(w http.ResponseWriter, r *http.Request)
 		return r, errors.New("no username and/or password provided")
 	}
 
-	u, err := users.Users.GetOne(goqu.C("username").Eq(username))
+	uc, err := credentials.Credentials.GetUser(username, password)
 	if err != nil {
+		if err != credentials.ErrNotFound {
+			log.WithError(err).Error("fetching credentials")
+		}
 		p.denyAccess(w)
 		return r, err
 	}
 
-	if u.CheckPassword(password) {
-		return SetRequestAuthInfo(r, &Info{
-			Provider: &ProviderInfo{
-				Name: "basic auth",
-			},
-			User: u,
-		}), nil
+	return SetRequestAuthInfo(r, &Info{
+		Provider: &ProviderInfo{
+			Name:        "basic auth",
+			Application: uc.Credential.Name,
+			ID:          uc.Credential.UID,
+			Roles:       uc.Credential.Roles,
+		},
+		User: uc.User,
+	}), nil
+}
+
+// HasPermission checks the permission on the current authentication provider role
+// list. If the role list is empty, the user permissions apply.
+func (p *BasicAuthProvider) HasPermission(r *http.Request, obj, act string) bool {
+	if len(GetRequestAuthInfo(r).Provider.Roles) == 0 {
+		return true
 	}
 
-	p.denyAccess(w)
-	return r, nil
+	for _, scope := range GetRequestAuthInfo(r).Provider.Roles {
+		if ok, err := acls.Check(scope, obj, act); err != nil {
+			log.WithError(err).Error("ACL check error")
+		} else if ok {
+			return true
+		}
+	}
+
+	return false
+}
+
+// GetPermissions returns all the permissions attached to the current authentication provider
+// role list. If no role is defined, it will fallback to the user permission list.
+func (p *BasicAuthProvider) GetPermissions(r *http.Request) []string {
+	if len(GetRequestAuthInfo(r).Provider.Roles) == 0 {
+		return nil
+	}
+
+	plist, _ := acls.GetPermissions(GetRequestAuthInfo(r).Provider.Roles...)
+	return plist
 }
 
 // CsrfExempt is always true for this provider.

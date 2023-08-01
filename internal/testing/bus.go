@@ -43,6 +43,11 @@ func (m *EventManager) Stop() {
 	m.recorder = make(map[string][][]byte)
 }
 
+// Clear empties the event queue.
+func (m *EventManager) Clear() {
+	m.recorder = make(map[string][][]byte)
+}
+
 // Push adds an event to the queue.
 func (m *EventManager) Push(name string, value []byte) error {
 	m.recorder[name] = append(m.recorder[name], value)

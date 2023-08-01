@@ -437,6 +437,9 @@ func RunRequestSequence(t *testing.T, c *Client, user string, tests ...RequestTe
 		c.Logout()
 	}
 
+	// Empty the event queue after a sequence
+	defer Events().Clear()
+
 	t.Run(fmt.Sprintf("sequence (%s)", user), func(t *testing.T) {
 		history := []*Response{}
 		templateData := map[string]interface{}{

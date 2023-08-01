@@ -28,13 +28,19 @@ func newProfileViews(api *profileAPI) *profileViews {
 	r.With(api.srv.WithPermission("profile", "read")).Group(func(r chi.Router) {
 		r.Get("/", v.userProfile)
 		r.Get("/password", v.userPassword)
-		r.With(api.withCredentialList).Get("/credentials", v.credentialList)
-		r.With(api.withCredential).Get("/credentials/{uid}", v.credentialInfo)
 	})
 
 	r.With(api.srv.WithPermission("profile", "write")).Group(func(r chi.Router) {
 		r.Post("/", v.userProfile)
 		r.Post("/password", v.userPassword)
+	})
+
+	r.With(api.srv.WithPermission("profile:credentials", "read")).Group(func(r chi.Router) {
+		r.With(api.withCredentialList).Get("/credentials", v.credentialList)
+		r.With(api.withCredential).Get("/credentials/{uid}", v.credentialInfo)
+	})
+
+	r.With(api.srv.WithPermission("profile:credentials", "write")).Group(func(r chi.Router) {
 		r.With(api.withCredentialList).Post("/credentials", v.credentialCreate)
 		r.With(api.withCredential).Post("/credentials/{uid}", v.credentialInfo)
 		r.With(api.withCredential).Post("/credentials/{uid}/delete", v.credentialDelete)

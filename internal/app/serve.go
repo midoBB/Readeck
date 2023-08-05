@@ -20,6 +20,7 @@ import (
 	"github.com/readeck/readeck/internal/bus"
 	"github.com/readeck/readeck/internal/cookbook"
 	"github.com/readeck/readeck/internal/dashboard"
+	"github.com/readeck/readeck/internal/opds"
 	"github.com/readeck/readeck/internal/profile"
 	"github.com/readeck/readeck/internal/server"
 )
@@ -132,6 +133,9 @@ func InitServer(s *server.Server) error {
 	// - /bookmarks/*
 	// - /bm/* (for bookmark media files)
 	bookmarks.SetupRoutes(s)
+
+	// OPDS routes
+	opds.SetupRoutes(s)
 
 	// User routes
 	profile.SetupRoutes(s)

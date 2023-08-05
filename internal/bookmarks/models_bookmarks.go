@@ -186,6 +186,25 @@ func (m *BookmarkManager) DeleteUserBookmakrs(u *users.User) error {
 	return nil
 }
 
+// GetLastUpdate returns the most recent "updated" value from a bookrmark set.
+func (m *BookmarkManager) GetLastUpdate(expressions ...goqu.Expression) (time.Time, error) {
+	var b Bookmark
+	found, err := m.Query().
+		Where(expressions...).
+		Order(goqu.C("updated").Desc()).
+		Limit(1).
+		ScanStruct(&b)
+
+	switch {
+	case err != nil:
+		return time.Time{}, err
+	case !found:
+		return time.Time{}, nil
+	}
+
+	return b.Updated, nil
+}
+
 // GetLabels returns a dataset that returns all the tags
 // defined in the bookmark table.
 func (m *BookmarkManager) GetLabels() *goqu.SelectDataset {

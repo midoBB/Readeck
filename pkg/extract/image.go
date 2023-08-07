@@ -23,7 +23,14 @@ func NewRemoteImage(src string, client *http.Client) (img.Image, error) {
 		return nil, fmt.Errorf("No image URL")
 	}
 
-	rsp, err := client.Get(src)
+	// Send the request with a specific Accept header
+	req, err := http.NewRequest("GET", src, nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Accept", "image/webp,image/svg+xml,image/*,*/*;q=0.8")
+
+	rsp, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}

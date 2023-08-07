@@ -56,8 +56,9 @@ function pinterestImage() {
 function redditPost() {
   // Any reddit post provides a JSON payload when you add
   // a ".json" extension to it. Pretty neat.
-  let url = drop.URL.String() + ".json"
-  let node = $.fetchJSON(url)
+  let url = drop.URL
+  url.Path += ".json"
+  let node = $.fetchJSON(url.String())
   let postID = node.Get("$[0].data.children[0].data.name")
   let postHint = node.Get("$[0].data.children[0].data.post_hint")
 

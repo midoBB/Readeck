@@ -11,6 +11,7 @@
 
 /docs/assets/*
 !/docs/assets/.keep
+/docs/src/.obsidian
 
 /web/dist
 /web/node_modules

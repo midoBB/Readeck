@@ -13,7 +13,7 @@ SITECONFIG_DEST=pkg/extract/fftr/site-config/standard
 
 # Build the app
 .PHONY: all
-all: web-build build build-pg
+all: web-build docs-build build build-pg
 
 # Build the server
 .PHONY: build
@@ -87,6 +87,10 @@ update-site-config:
 .PHONY: dev
 dev:
 	${MAKE} -j2 web-watch serve
+
+.PHONY: help-build
+docs-build:
+	${MAKE} -C docs all
 
 .PHONY: web-build
 web-build:

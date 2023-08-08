@@ -20,6 +20,7 @@
   "o-file":         "node_modules/boxicons/svg/regular/bx-file.svg",
   "o-filter":       "node_modules/boxicons/svg/regular/bx-filter-alt.svg",
   "o-font-family":  "node_modules/boxicons/svg/regular/bx-font-family.svg",
+  "o-help":         "node_modules/boxicons/svg/regular/bx-help-circle.svg",
   "o-hide":         "node_modules/boxicons/svg/solid/bxs-show.svg",
   "o-highlight":    "node_modules/boxicons/svg/regular/bx-highlight.svg",
   "o-info":         "node_modules/boxicons/svg/solid/bxs-info-circle.svg",

@@ -9,6 +9,10 @@
 !/assets/www/.keep
 !/assets/templates/base.gohtml
 
+/docs/assets/*
+!/docs/assets/.keep
+/docs/src/.obsidian
+
 /web/dist
 /web/node_modules
 

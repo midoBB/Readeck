@@ -13,6 +13,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/readeck/readeck/configs"
+	"github.com/readeck/readeck/docs"
 	"github.com/readeck/readeck/internal/admin"
 	"github.com/readeck/readeck/internal/assets"
 	"github.com/readeck/readeck/internal/auth/signin"
@@ -142,6 +143,9 @@ func InitServer(s *server.Server) error {
 
 	// Admin routes
 	admin.SetupRoutes(s)
+
+	// Help routes
+	docs.SetupRoutes(s)
 
 	// Only in dev mode
 	if configs.Config.Main.DevMode {

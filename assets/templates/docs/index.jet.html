@@ -1,0 +1,9 @@
+{{ extends "./base" }}
+
+{{ block title() }}{{ .Title }}{{ end }}
+
+{{ block mainContent() }}
+<div class="text-base leading-normal prose docs max-w-3xl">
+{{- unsafeWrite(.HTML) -}}
+</div>
+{{ end }}

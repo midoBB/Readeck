@@ -14,6 +14,8 @@
 
     {{- if !user.IsAnonymous() -}}
     <menu class="flex-shrink-0">
+      {{ yield mainMenuItem(name="Documentation", path="/docs/", icon="o-help",
+                            current=pathIs(`/docs/*`)) }}
       {{- if  hasPermission("admin:users", "read") -}}
         {{ yield mainMenuItem(name="Admin", path="/admin", icon="o-settings",
                               current=pathIs(`/admin`, `/admin/*`)) }}

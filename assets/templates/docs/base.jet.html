@@ -1,0 +1,14 @@
+{{ extends "/_layouts/sidemenu" }}
+
+{{- block sideMenu() -}}
+<h2 class="h-topnav border-b border-gray-200 uppercase flex items-center justify-center">Readeck Help</h2>
+<menu class="mt-4">
+  {{- if .TOC -}}
+    <menu class="mt-4">
+    {{- range .TOC -}}
+      <li><a href="{{ urlFor(`/docs`, .[0]) }}" data-current="{{ pathIs(`/docs/` + .[0]) }}">{{ .[1] }}</a></li>
+    {{- end -}}
+    </menu>
+  {{- end -}}
+</menu>
+{{- end -}}

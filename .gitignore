@@ -9,6 +9,9 @@
 !/assets/www/.keep
 !/assets/templates/base.gohtml
 
+/docs/assets/*
+!/docs/assets/.keep
+
 /web/dist
 /web/node_modules
 

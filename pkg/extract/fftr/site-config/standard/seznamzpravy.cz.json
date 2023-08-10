@@ -1,0 +1,70 @@
+{
+  "title_selectors": [
+    "//h1"
+  ],
+  "body_selectors": [
+    "//div[@data-dot=\"ogm-article-author\"]/parent::section | //*[@*='ogm-article-perex'] | //*[@*='ogm-article-layout']"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//span[@*='mol-author-names']"
+  ],
+  "strip_selectors": [
+    "//svg",
+    "//aside",
+    "//h1",
+    "//nav",
+    "//div[@data-dot=\"ogm-date-of-publication\"]",
+    "//div[@data-dot=\"ogm-article-author\"]/div",
+    "//div[contains(@class, \"ogm-breadcrumb-navigation-wrapper\")]",
+    "//span[@data-dot=\"atm-media-item-image-caption\"]",
+    "//article/h6[@id=\"accessibility-article\"]",
+    "//div[@data-dot=\"ogm-related-documents\"]",
+    "//div[@data-dot=\"ogm-related-tags\"]",
+    "//*[@*='mol-embed']",
+    "//div[contains(@class, 'mol-post-card')]",
+    "//section/h6[contains(text(), 'Postranní panel')]/parent::section",
+    "//figure/div/div/div/img"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cspan class=\"e_ac\"",
+      "\u003cstrong"
+    ],
+    [
+      "\u003cp class=\"e_bj c_g3",
+      "\u003cstrong class=\"e_bj c_g3"
+    ],
+    [
+      "\u003cnoscript\u003e",
+      "\u003cdiv\u003e"
+    ],
+    [
+      "\u003c/noscript\u003e",
+      "\u003c/div\u003e"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.seznamzpravy.cz/clanek/zahranicni-rusko-se-zasadne-meni-analytik-hodnoti-prigozinovu-rebelii-233151",
+      "contains": []
+    },
+    {
+      "url": "https://www.seznamzpravy.cz/clanek/zahranicni-stredni-evropa-zelena-energie-na-ukor-lesa-v-bavorsku-resi-dilema-s-vetrniky-232669",
+      "contains": []
+    },
+    {
+      "url": "https://www.seznamzpravy.cz/clanek/tech-svet-je-cim-dal-horsi-shodli-se-vsichni-ale-vedci-ukazuji-ze-jde-o-iluzi-232933",
+      "contains": []
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article"
+  ],
+  "date_selectors": [
+    "//span[contains(@class, 'publishedDate')]"
+  ],
+  "author_selectors": [
+    "//span[contains(@class, 'Post__authorName')]"
+  ],
+  "strip_selectors": [
+    "//div[contains(@class, 'Post__kickerTags')]",
+    "//h1[contains(@class, 'Post__headline')]",
+    "//div[contains(@class, 'Post__readerInteraction')]",
+    "//div[contains(@class, 'PublishByline')]",
+    "//div[contains(@class, 'Post__kicker')]",
+    "//div[contains(@class, 'StaticRating')]",
+    "//div[contains(@class, 'Post__recipeActionOptions')]",
+    "//div[contains(@class, 'SitePostActions__actions')]",
+    "//div[contains(@class, 'jumpTo')]",
+    "//div[contains(@class, 'button')]",
+    "//div[contains(@class, 'interactions')]",
+    "//div[contains(@class, 'Raiting')]",
+    "//div[contains(@class, 'button')]",
+    "//button"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": {
+    "User-agent": "Mozilla/5.0 (iPad; CPU OS 12_0_1 like Mac OS X)"
+  },
+  "tests": [
+    {
+      "url": "https://www.thekitchn.com/how-to-make-kombucha-tea-at-home-cooking-lessons-from-the-kitchn-173858#post-recipe-11770",
+      "contains": []
+    }
+  ]
+}

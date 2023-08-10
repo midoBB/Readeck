@@ -14,14 +14,18 @@
   ],
   "strip_selectors": [
     "//button",
-    "//header[contains(@class, 'pw-post-byline-header')]",
+    "//svg",
     "//article//img[contains(@src, '?q=20') or contains(@src, 'max/34/')]",
     "//article//img[not(@src)]",
-    "(//h1)[1]",
-    "//svg",
+    "//header[contains(@class, 'pw-post-byline-header')]",
+    "//h1[contains(@class, 'pw-post-title')]",
+    "//a[@rel='noopener  ugc nofollow']/parent::div",
+    "//footer/self::footer | //footer/following-sibling::*",
     "//article//img[@src]/following-sibling::*[1][self::div and @class='ftr-noscript']"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "speechify-ignore"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -43,6 +47,12 @@
     "user-agent": "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)"
   },
   "tests": [
+    {
+      "url": "https://dougshapiro.medium.com/how-will-the-disruption-of-hollywood-play-out-42f724c921e1",
+      "contains": [
+        "you consider the costs for talent"
+      ]
+    },
     {
       "url": "https://elemental.medium.com/the-dark-side-of-fitness-tracking-9b218989bc47",
       "contains": [

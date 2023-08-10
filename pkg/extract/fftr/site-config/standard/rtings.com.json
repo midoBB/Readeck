@@ -1,0 +1,33 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@class='app-body']"
+  ],
+  "date_selectors": [
+    "//span[@itemprop='datePublished']/@content"
+  ],
+  "author_selectors": [
+    "//span[@itemprop='author']/a"
+  ],
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "table-of-contents-outside",
+    "recommendation_page-block-prices",
+    "recommendation_page-banner"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.rtings.com/tv/reviews/best/by-size/80-83-85-inch",
+      "contains": []
+    }
+  ]
+}

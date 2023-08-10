@@ -1,0 +1,32 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@id='main-wrapper']"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "block-usenix-donate",
+    "login-v2-discussion",
+    "field-type-taxonomy-term-reference",
+    "field-pseudo-field--author-list",
+    "field-type-user-reference",
+    "field-name-field-authors"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.usenix.org/publications/loginonline/transcending-posix-end-era",
+      "contains": []
+    }
+  ]
+}

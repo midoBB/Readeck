@@ -1,0 +1,55 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' item ')]/p | //img[@id='article-image'] | //div[@class='brickgroup restricted-area']"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//a[@itemprop='author']"
+  ],
+  "strip_selectors": [
+    "//div[contains(@data-b-title, 'Sharing Button')]"
+  ],
+  "strip_id_or_class": [
+    "badges",
+    "read-more",
+    "paywall",
+    "mod-paywall",
+    "rsCaption",
+    "gallery-count",
+    "articleTeaser",
+    "article-header"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "data-src=",
+      "src="
+    ],
+    [
+      "srcset=",
+      "notneeded="
+    ],
+    [
+      " - Frankenpost",
+      ""
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.frankenpost.de/inhalt.foerderverein-schloss-erkersreuth-joscha-geyer-neu-im-vorstand.4f8d62cb-3f78-4ff8-9881-ef4d639a2353.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.frankenpost.de/inhalt.vor-gericht-landwirt-scheitert-mit-hunde-klage.4b82a266-f72e-40e6-a1a8-87f8f0c91aba.html",
+      "contains": []
+    }
+  ]
+}

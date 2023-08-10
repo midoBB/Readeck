@@ -12,7 +12,8 @@
     "//li[contains(concat(' ',normalize-space(@class),' '),' author-name ')]/a[contains(concat(' ',normalize-space(@class),' '),' name-link ')]"
   ],
   "strip_selectors": [
-    "//aside"
+    "//aside",
+    "//svg[@tooltip=\"\"]"
   ],
   "strip_id_or_class": [
     "mobile-only",
@@ -27,7 +28,9 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": null,
+  "http_headers": {
+    "User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+  },
   "tests": [
     {
       "url": "http://www.arretsurimages.net/chroniques/2017-03-04/Mathilde-Larrere-aux-vraies-origines-du-8-mars-id9619",

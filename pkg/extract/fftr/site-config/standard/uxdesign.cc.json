@@ -1,0 +1,56 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//h1[contains(@class, 'pw-post-title')]",
+    "//a[@rel='noopener  ugc nofollow']/parent::div",
+    "//p[contains(text(), 'You may also be interested in')]/self::p | //p[contains(text(), 'You may also be interested in')]/following-sibling::*",
+    "//footer/self::footer | //footer/following-sibling::*",
+    "//img[contains(concat(' ',normalize-space(@class),' '),' bg ')]"
+  ],
+  "strip_id_or_class": [
+    "speechify-ignore"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "source srcSet=\"http",
+      "img src=\"http"
+    ],
+    [
+      ".png 640w,",
+      ".png\"\u003e\u003cfoo bar=\""
+    ],
+    [
+      ".jpg 640w,",
+      ".jpg\"\u003e\u003cfoo bar=\""
+    ],
+    [
+      ".jpeg 640w,",
+      ".jpeg\"\u003e\u003cfoo bar=\""
+    ],
+    [
+      ".gif 640w,",
+      ".gif\"\u003e\u003cfoo bar=\""
+    ]
+  ],
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)"
+  },
+  "tests": [
+    {
+      "url": "https://uxdesign.cc/do-your-icons-mean-what-you-think-they-mean-fa6f255d56ab",
+      "contains": []
+    }
+  ]
+}

@@ -1,13 +1,18 @@
 {
-  "title_selectors": null,
-  "body_selectors": null,
+  "title_selectors": [
+    "//h1[@class=\"entry-title\"]"
+  ],
+  "body_selectors": [
+    "//main[@id='main']"
+  ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
     "//p/span[@style='font-size: small;']",
     "//h6",
     "//div[contains(@class, 'vlp-link-container')]",
-    "//hr"
+    "//hr",
+    "//header"
   ],
   "strip_id_or_class": [
     "post-navigation",
@@ -22,7 +27,7 @@
   "next_page_link_selectors": null,
   "replace_strings": null,
   "http_headers": {
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; rv:103.0) Gecko/20100101 Firefox/103.0"
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; rv:103.0) Gecko/20100101 Firefox/115.0"
   },
   "tests": [
     {

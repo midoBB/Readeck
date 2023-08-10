@@ -3,7 +3,9 @@
   "body_selectors": null,
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//div[starts-with(@style, 'display: flex; align-items: center; justify-content: center;')]"
+  ],
   "strip_id_or_class": [
     "mee-readmore"
   ],

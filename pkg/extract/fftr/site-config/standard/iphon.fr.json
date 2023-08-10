@@ -14,7 +14,8 @@
     "mvp-content-bot",
     "comp-vgrid",
     "comp-box",
-    "mvp-post-soc-list"
+    "mvp-post-soc-list",
+    "mvp-post-bot-ad"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

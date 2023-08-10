@@ -1,0 +1,87 @@
+{
+  "title_selectors": [
+    "//meta[@property=\"og:title\"]/@content",
+    "//h1"
+  ],
+  "body_selectors": [
+    "//article"
+  ],
+  "date_selectors": [
+    "//meta[@property=\"article:published_time\"]/@content"
+  ],
+  "author_selectors": [
+    "//meta[@name=\"author\"]/@content"
+  ],
+  "strip_selectors": [
+    "//button",
+    "//svg",
+    "//article//img[contains(@src, '?q=20') or contains(@src, 'max/34/')]",
+    "//article//img[not(@src)]",
+    "//header[contains(@class, 'pw-post-byline-header')]",
+    "//h1[contains(@class, 'pw-post-title')]",
+    "//a[@rel='noopener  ugc nofollow']/parent::div",
+    "//footer/self::footer | //footer/following-sibling::*",
+    "//article//img[@src]/following-sibling::*[1][self::div and @class='ftr-noscript']"
+  ],
+  "strip_id_or_class": [
+    "speechify-ignore"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cnoscript\u003e",
+      "\u003cdiv class=\"ftr-noscript\"\u003e"
+    ],
+    [
+      "\u003c/noscript\u003e",
+      "\u003c/div\u003e"
+    ],
+    [
+      "source srcSet=\"http",
+      "img src=\"http"
+    ],
+    [
+      "source srcset=\"http",
+      "img src=\"http"
+    ],
+    [
+      ".png 640w",
+      ".png\"\u003e\u003cfoo bar=\""
+    ],
+    [
+      ".jpg 1400w",
+      ".jpg\"\u003e\u003cfoo bar=\""
+    ],
+    [
+      ".jpg 640w",
+      ".jpg\"\u003e\u003cfoo bar=\""
+    ],
+    [
+      ".jpeg 1400w",
+      ".jpeg\"\u003e\u003cfoo bar=\""
+    ],
+    [
+      ".jpeg 640w",
+      ".jpeg\"\u003e\u003cfoo bar=\""
+    ],
+    [
+      ".gif 640w",
+      ".gif\"\u003e\u003cfoo bar=\""
+    ]
+  ],
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)"
+  },
+  "tests": [
+    {
+      "url": "https://entrepreneurshandbook.co/the-bang-with-friends-story-under-the-covers-77f757bdb822",
+      "contains": []
+    }
+  ]
+}

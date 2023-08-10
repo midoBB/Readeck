@@ -1,0 +1,36 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article[contains(concat(' ',normalize-space(@class),' '),' single-news ')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//div[@class=\"news__author\"]/a"
+  ],
+  "strip_selectors": [
+    "//h3[contains(text(), 'Leggi anche')]/following-sibling::* | //h3[contains(text(), 'Leggi anche')]/self::*",
+    "//button"
+  ],
+  "strip_id_or_class": [
+    "continualeggereopen"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.open.online/2022/11/10/usa-aiuti-militari-ucraina-difesa-antiaerea/",
+      "contains": []
+    },
+    {
+      "url": "https://www.open.online/2023/06/30/ministero-cultura-colosseo-scontro-musk-zuckerberg/",
+      "contains": []
+    }
+  ]
+}

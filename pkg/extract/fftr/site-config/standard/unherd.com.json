@@ -1,11 +1,20 @@
 {
   "title_selectors": null,
-  "body_selectors": null,
+  "body_selectors": [
+    "//article"
+  ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//div[@class='code-block code-block-4']",
+    "//div[@class=\"metabox\"]/parent::div",
+    "//div[contains(@class, 'author-side')]",
+    "//div[@class=\"comment-break\"]/parent::div",
+    "//div[@class=\"featured_caption\"]/a"
+  ],
   "strip_id_or_class": [
-    "ref-ar"
+    "ref-ar",
+    "article-image mobile"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -14,7 +23,24 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "style=\"background-image: url('",
+      "\u003e\u003cimg src=\""
+    ],
+    [
+      ".jpg');\"\u003e",
+      ".jpg\"\u003e"
+    ],
+    [
+      ".png');\"\u003e",
+      ".png\"\u003e"
+    ],
+    [
+      ".gif');\"\u003e",
+      ".gif\"\u003e"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {

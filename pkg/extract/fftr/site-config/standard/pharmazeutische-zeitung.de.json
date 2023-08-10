@@ -14,13 +14,15 @@
   "tidy": false,
   "prune": false,
   "autodetect_on_failure": true,
-  "single_page_link_selectors": null,
+  "single_page_link_selectors": [
+    "//div[@class='paginierung_inhaltsverzeichnis_seite']/a[contains(text(), 'uf einer Seite lesen')]"
+  ],
   "next_page_link_selectors": null,
   "replace_strings": null,
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.pharmazeutische-zeitung.de/54-apotheken-weniger-in-2019/",
+      "url": "https://www.pharmazeutische-zeitung.de/bfarm-will-fehlalarmen-nachgehen-119232/",
       "contains": []
     }
   ]

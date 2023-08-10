@@ -1,0 +1,38 @@
+{
+  "title_selectors": [
+    "//h1"
+  ],
+  "body_selectors": [
+    "//article | //div[@id='mvp-content-main']"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//span[@class='author-name']"
+  ],
+  "strip_selectors": [
+    "//header/h3",
+    "//div[contains(@class, 'mvp-author-info')]"
+  ],
+  "strip_id_or_class": [
+    "mvp-post-cat",
+    "mvp-post-add-box",
+    "mvp-related-posts",
+    "mvp-content-bot",
+    "mvp-post-more-wrap"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://elements.visualcapitalist.com/the-solar-power-duck-curve-explained/",
+      "contains": []
+    }
+  ]
+}

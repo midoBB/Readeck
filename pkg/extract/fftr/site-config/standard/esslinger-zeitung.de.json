@@ -1,0 +1,48 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' item ')]/p | //img[@id='article-image'] | //article"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//div[@itemprop='author']"
+  ],
+  "strip_selectors": [
+    "//div[contains(@data-b-title, 'Sharing Button')]"
+  ],
+  "strip_id_or_class": [
+    "badges",
+    "read-more",
+    "paywall",
+    "mod-paywall",
+    "rsCaption",
+    "gallery-count",
+    "articleTeaser",
+    "article-header",
+    "details"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "data-src=",
+      "src="
+    ],
+    [
+      "srcset=",
+      "notneeded="
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.esslinger-zeitung.de/inhalt.esslinger-innenstadt-ein-stadtteil-mit-vielen-gesichtern.f9c5bd95-43a1-4edd-84c9-a43540c5dc5d.html",
+      "contains": []
+    }
+  ]
+}

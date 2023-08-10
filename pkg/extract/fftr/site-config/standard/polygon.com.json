@@ -1,25 +1,18 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[@id='article-content']",
-    "//article[@id='entry-top']/div[@class='float_wrapper']"
+    "//div[contains(@class='c-entry-content')]",
+    "//article[@id='entry-top']/div/section[1]"
   ],
-  "date_selectors": [
-    "//header/p[@class='byline']/span[@class='timestamp']"
-  ],
+  "date_selectors": null,
   "author_selectors": [
-    "//header/p[@class='byline']/em/a"
+    "//div[contains(@class, 'c-entry-hero')]//a[contains(@href, 'https://www.polygon.com/authors/')]"
   ],
   "strip_selectors": [
-    "//div[@id='article-content']//header",
-    "//label",
-    "//div[@class='big_photo']",
-    "//div[@class='float_wrapper']/header"
+    "//label"
   ],
   "strip_id_or_class": [
-    "vox-lazy-load",
-    "social_buttons",
-    "feature_toc"
+    "toc"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

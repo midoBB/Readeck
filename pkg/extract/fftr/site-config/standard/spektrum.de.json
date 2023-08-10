@@ -1,26 +1,23 @@
 {
-  "title_selectors": [
-    "//h2[contains(@class, 'content__title')]"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//article[contains(@class, 'content')]"
+    "//article"
   ],
   "date_selectors": [
-    "//li[contains(@class, 'content__meta__date')]"
+    "//li[@class=\"item content__meta__date\"]"
   ],
   "author_selectors": [
-    "//div[contains(@class, 'content__author__info__name')]//strong"
+    "//div[@class='content__author']"
   ],
   "strip_selectors": [
-    "//div[contains(@class, 'content__kicker')]",
-    "//figure[contains(@class, 'image__article__top')]",
-    "//div/div/ul[contains(@class, 'breadcrumbs')]",
-    "//aside/ul[contains(@class, 'content__meta')]",
-    "//aside[contains(@class, 'hide-for-print')]",
-    "//div[contains(@class, 'hide-for-print')]",
-    "//div[contains(@class, 'content__author')]"
+    "//header/h2"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "hide-for-print",
+    "breadcrumbs",
+    "content__meta",
+    "content__author"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -28,7 +25,16 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "\u003c/noscript\u003e",
+      "\u003c/div\u003e"
+    ],
+    [
+      "\u003cnoscript",
+      "\u003cdiv"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {

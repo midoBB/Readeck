@@ -3,15 +3,19 @@
     "//h1[@class='entry-title']"
   ],
   "body_selectors": [
-    "//div[@class='entry-content']"
+    "//article"
   ],
   "date_selectors": [
     "//span[@class='entry-date']"
   ],
   "author_selectors": [
-    "//a[@ref='author']"
+    "//a[@rel='author']"
   ],
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//footer",
+    "//article[contains(@class, 'teaser')]",
+    "//article[contains(@class, 'comment')]"
+  ],
   "strip_id_or_class": [
     "netzpolitik-cta"
   ],
@@ -26,7 +30,15 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://netzpolitik.org/2011/buch-generation-facebook/",
+      "url": "https://netzpolitik.org/2011/buch-generation-facebook/",
+      "contains": []
+    },
+    {
+      "url": "https://netzpolitik.org/2023/staatstrojaner-keine-normalisierung-von-schadsoftware-mehr/",
+      "contains": []
+    },
+    {
+      "url": "https://netzpolitik.org/2021/schadsoftware-pegasus-die-branche-der-staatshacker-aechten/",
       "contains": []
     }
   ]

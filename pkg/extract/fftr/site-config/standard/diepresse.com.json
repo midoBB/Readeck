@@ -3,20 +3,25 @@
     "//div[@class='article']/h1"
   ],
   "body_selectors": [
-    "//div[@id='articletext']",
-    "//div[@id='article-body']"
+    "//article | //div[@id='articletext'] | //div[@id='article-body']"
   ],
   "date_selectors": [
     "substring-before(//p[@class='articletime'],'|')"
   ],
-  "author_selectors": null,
+  "author_selectors": [
+    "//div[@class='author']/descendant::a"
+  ],
   "strip_selectors": [
-    "//div[@class='inlineDiashow']",
     "//div[@class='meta__date']",
     "//div[@class='meta__authors']",
-    "//div[@class='article__actions']"
+    "//h1[@class='article__title']",
+    "//div[contains(@class, 'fm-relation')]"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "skyline",
+    "article__actions",
+    "article__byline"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -26,10 +31,6 @@
   "next_page_link_selectors": null,
   "replace_strings": [
     [
-      "?from=rss",
-      ""
-    ],
-    [
       "https://www.diepresse.com/assets_v2/images/",
       ""
     ],
@@ -38,34 +39,38 @@
       "class=\"figure__image lazyload\" src="
     ],
     [
-      "/social_diepresse_nachrichten_paid/images/",
-      "/images/"
+      "\u003cgallery-inline",
+      "\u003cdiv"
     ],
     [
-      "/social_diepresse_nachrichten/images/",
-      "/images/"
+      "/alternates/DPR_SOCIAL_NACHRICHTEN_PAID/",
+      "/alternates/ORIGINAL/"
     ],
     [
-      "/social_diepresse_magazin_paid/images/",
-      "/images/"
+      "/alternates/DPR_SOCIAL_NACHRICHTEN/",
+      "/alternates/ORIGINAL/"
     ],
     [
-      "/social_diepresse_magazin/images/",
-      "/images/"
+      "/alternates/DPR_SOCIAL_MAGAZIN_PAID/",
+      "/alternates/ORIGINAL/"
     ],
     [
-      "/social_diepresse_meinung_paid/images/",
-      "/images/"
+      "/alternates/DPR_SOCIAL_MAGAZIN/",
+      "/alternates/ORIGINAL/"
     ],
     [
-      "/social_diepresse_meinung/images/",
-      "/images/"
+      "/alternates/DPR_SOCIAL_MEINUNG_PAID/",
+      "/alternates/ORIGINAL/"
+    ],
+    [
+      "/alternates/DPR_SOCIAL_MEINUNG/",
+      "/alternates/ORIGINAL/"
     ]
   ],
   "http_headers": null,
   "tests": [
     {
-      "url": "http://diepresse.com/home/politik/aussenpolitik/701905/TibeterProteste_Nonne-verbrennt-sich-selbst?_vl_backlink=/home/politik/index.do",
+      "url": "https://www.diepresse.com/701905/tibeter-proteste-nonne-verbrennt-sich-selbst",
       "contains": []
     },
     {
@@ -73,7 +78,7 @@
       "contains": []
     },
     {
-      "url": "https://www.diepresse.com/rss/Wien",
+      "url": "https://www.diepresse.com/rss/panorama/wien",
       "contains": []
     }
   ]

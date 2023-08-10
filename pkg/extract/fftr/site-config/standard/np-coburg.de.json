@@ -1,0 +1,55 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' item ')]/p | //img[@id='article-image'] | //div[@class='brickgroup restricted-area']"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//a[@itemprop='author']"
+  ],
+  "strip_selectors": [
+    "//div[contains(@data-b-title, 'Sharing Button')]"
+  ],
+  "strip_id_or_class": [
+    "badges",
+    "read-more",
+    "paywall",
+    "mod-paywall",
+    "rsCaption",
+    "gallery-count",
+    "articleTeaser",
+    "article-header"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "data-src=",
+      "src="
+    ],
+    [
+      "srcset=",
+      "notneeded="
+    ],
+    [
+      " - Neue Presse Coburg",
+      ""
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.np-coburg.de/inhalt.messerstiche-tat-vor-den-augen-der-hofer-polizei.921b9bce-9656-48f4-a2c8-ece56d6a6747.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.np-coburg.de/inhalt.teuschnitz-ein-buergermeister-auf-augenhoehe.2d4aef10-9f69-456b-a39e-8f3562245e3b.html",
+      "contains": []
+    }
+  ]
+}

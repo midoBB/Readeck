@@ -14,13 +14,18 @@
   ],
   "strip_selectors": [
     "//button",
+    "//svg",
     "//article//img[contains(@src, '?q=20') or contains(@src, 'max/34/')]",
     "//article//img[not(@src)]",
-    "(//h1)[1]",
-    "//svg",
+    "//header[contains(@class, 'pw-post-byline-header')]",
+    "//h1[contains(@class, 'pw-post-title')]",
+    "//a[@rel='noopener  ugc nofollow']/parent::div",
+    "//footer/self::footer | //footer/following-sibling::*",
     "//article//img[@src]/following-sibling::*[1][self::div and @class='ftr-noscript']"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "speechify-ignore"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

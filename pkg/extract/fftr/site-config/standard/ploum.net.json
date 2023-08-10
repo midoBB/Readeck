@@ -1,17 +1,16 @@
 {
   "title_selectors": null,
-  "body_selectors": [
-    "//article[contains(concat(' ',normalize-space(@class),' '),' post ')]"
+  "body_selectors": null,
+  "date_selectors": [
+    "//meta[@property='og:article:published_time']/@content"
   ],
-  "date_selectors": null,
-  "author_selectors": null,
-  "strip_selectors": null,
-  "strip_id_or_class": [
-    "readoffline-embed",
-    "fasteasysocialsharing",
-    "entry-tags",
-    "entry-author-bottom"
+  "author_selectors": [
+    "//p[@class=\"subtitle\"]//a"
   ],
+  "strip_selectors": [
+    "//p[@class=\"subtitle\"]"
+  ],
+  "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

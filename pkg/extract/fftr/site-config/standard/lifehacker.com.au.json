@@ -1,14 +1,18 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' main__content ')]"
+    "//article | //div[contains(concat(' ',normalize-space(@class),' '),' main__content ')]"
   ],
   "date_selectors": null,
   "author_selectors": [
     "//div[@class='meta__author']/a"
   ],
   "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "entry-post-header",
+    "posts-list",
+    "author-footer"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

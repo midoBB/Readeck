@@ -1,7 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[@class='post-text' or @class='user-action-time' or @class='user-details' or @class='vote'] | //div[@id='answers-header']//h2"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' inner-content ')]"
   ],
   "date_selectors": null,
   "author_selectors": null,

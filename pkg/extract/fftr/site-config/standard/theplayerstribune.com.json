@@ -1,0 +1,41 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//main/div/article[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//svg",
+    "//canvas"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cnoscript",
+      "\u003cdiv"
+    ],
+    [
+      "\u003c/noscript\u003e",
+      "\u003c/div\u003e"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.theplayerstribune.com/posts/kolten-wong-milwaukee-brewers-mlb-baseball-playoffs",
+      "contains": []
+    },
+    {
+      "url": "https://www.theplayerstribune.com/posts/jordan-whittington-ncaa-football-texas-longhorns",
+      "contains": []
+    }
+  ]
+}

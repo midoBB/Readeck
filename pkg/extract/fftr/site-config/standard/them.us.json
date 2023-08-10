@@ -1,0 +1,41 @@
+{
+  "title_selectors": [
+    "//h1"
+  ],
+  "body_selectors": [
+    "//article[contains(concat(' ',normalize-space(@class),' '),' article ')]",
+    "//div[@class='body__inner-container']"
+  ],
+  "date_selectors": [
+    "//time"
+  ],
+  "author_selectors": [
+    "//a[contains(concat(' ',normalize-space(@class),' '),' byline__name-link ')]"
+  ],
+  "strip_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' callout--has-top-border ')]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' content-header__accreditation ')]",
+    "//aside[contains(concat(' ',normalize-space(@class),' '),' persistent-aside ')]",
+    "//a[contains(concat(' ',normalize-space(@class),' '),' rubric__link ')]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' grid-layout__aside ')]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' ad__slot ')]"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.them.us/story/gigi-gorgeous-gottmik-the-t-guide-interview",
+      "contains": [
+        "Before, it was just about not knowing who I was. Now I’m actually dealing with me as a person, my soul."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[contains(@class, 'news-normal')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//svg",
+    "//nav",
+    "//br",
+    "//h1[1]",
+    "//div[contains(@class, 'entry-breadcrumb')]",
+    "(//div[contains(@class, 'body-adv')])[last()]/self::* | (//div[contains(@class, 'body-adv')])[last()]/following-sibling::text() | (//div[contains(@class, 'body-adv')])[last()]/following-sibling::*",
+    "//article/following-sibling::*",
+    "//foobar/following-sibling::*"
+  ],
+  "strip_id_or_class": [
+    "entry-share",
+    "title-related"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cimg width=\"100\" height=\"100\"",
+      "\u003cimg"
+    ],
+    [
+      "\u003cimg class=\"img-expand\" width=\"100\" height=\"100\"",
+      "\u003cimg class=\"img-expand\""
+    ],
+    [
+      "\u003carticle",
+      "\u003cfoobar"
+    ],
+    [
+      "\u003c/article",
+      "\u003c/foobar"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.clarin.com/deportes/tokio-2020-santiago-lange-cecilia-carranza-confirmaron-fin-dupla-gano-oro-rio-2016_0_0fmE5_TFc.html",
+      "contains": []
+    }
+  ]
+}

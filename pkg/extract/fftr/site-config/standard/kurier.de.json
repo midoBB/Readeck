@@ -1,0 +1,55 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' item ')]/p | //img[@id='article-image'] | //div[@class='brickgroup restricted-area']"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//a[@itemprop='author']"
+  ],
+  "strip_selectors": [
+    "//div[contains(@data-b-title, 'Sharing Button')]"
+  ],
+  "strip_id_or_class": [
+    "badges",
+    "read-more",
+    "paywall",
+    "mod-paywall",
+    "rsCaption",
+    "gallery-count",
+    "articleTeaser",
+    "article-header"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "data-src=",
+      "src="
+    ],
+    [
+      "srcset=",
+      "notneeded="
+    ],
+    [
+      " - Nordbayerischer Kurier",
+      ""
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.kurier.de/inhalt.verkehr-verfassungsgerichtshof-entscheidet-ueber-rad-volksbegehren.20066552-5dde-437a-a437-1469c14a6e3b.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.kurier.de/inhalt.durch-klimawandel-tigermuecke-im-anmarsch.774653c6-d0d3-4b7c-941d-2428cfd014fc.html",
+      "contains": []
+    }
+  ]
+}

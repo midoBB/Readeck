@@ -29,6 +29,7 @@
     "//footer",
     "//form",
     "//div[starts-with(@id, \"qanda-\")]",
+    "//figure[contains(@data-spacefinder-type, \"NewsletterSignup\")]",
     "//figure[@data-atom-type=\"qanda\" or @data-atom-type=\"profile\"]",
     "//div[@data-print-layout=\"hide\"]",
     "//svg",

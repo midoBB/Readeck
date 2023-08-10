@@ -1,0 +1,38 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//meta[@name=\"author\"]/@content"
+  ],
+  "strip_selectors": [
+    "//shipment",
+    "//button"
+  ],
+  "strip_id_or_class": [
+    "shipment",
+    "articleDetail-category-tag",
+    "articleDetail-heading",
+    "articleDetail-title",
+    "articleDetail-articleAttribution",
+    "assetUserBadge",
+    "ng-hide"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://merkurist.de/mainz/hauptbahnhof-muensterplatz-strassenbahn-entgleist-verspaetungen-im-mainzer-oepnv_NaM",
+      "contains": []
+    }
+  ]
+}

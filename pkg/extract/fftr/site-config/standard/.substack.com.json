@@ -16,6 +16,7 @@
   "strip_id_or_class": [
     "expanded-link-description",
     "expanded-link-domain",
+    "header-anchor-widget",
     "subscribe-widget"
   ],
   "strip_image_src": null,
@@ -32,6 +33,12 @@
       "url": "https://taibbi.substack.com/p/glenn-greenwald-on-his-resignation",
       "contains": [
         "Greenwald, by then furious, noted that neither Maass nor Reed had identified a factual inaccuracy"
+      ]
+    },
+    {
+      "url": "https://jonathancook.substack.com/p/why-the-western-media-is-afraid-of",
+      "contains": [
+        "The goal of the corporate media is not unearthing truth"
       ]
     }
   ]

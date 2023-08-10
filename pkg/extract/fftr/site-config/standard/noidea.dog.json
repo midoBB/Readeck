@@ -1,0 +1,43 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article",
+    "//div[@id='canvas']"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//header",
+    "//footer",
+    "//nav",
+    "//div[contains(@class, 'newsletter-block')]/parent::div"
+  ],
+  "strip_id_or_class": [
+    "mobileNav",
+    "mobileMenuLink"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "data-src=",
+      "src="
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://noidea.dog/blog/how-many-vacation-days-does-it-take-to-change-a-lightbulb",
+      "contains": []
+    },
+    {
+      "url": "https://noidea.dog/glue",
+      "contains": []
+    }
+  ]
+}

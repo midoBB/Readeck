@@ -20,6 +20,7 @@
     "//div[@id='headline']//span[@class='byline-name']"
   ],
   "strip_selectors": [
+    "//div[contains(@class, 'MediaPlayerWrapper') and not(.//iframe)]",
     "//article//header",
     "//div[contains(@class, \"CommentsWrapper\")]",
     "//*[contains(@class, 'VisuallyHidden')]",
@@ -121,6 +122,10 @@
     },
     {
       "url": "http://www.bbc.com/news/world-asia-22056933",
+      "contains": []
+    },
+    {
+      "url": "https://www.bbc.com/news/world-middle-east-66259886",
       "contains": []
     }
   ]

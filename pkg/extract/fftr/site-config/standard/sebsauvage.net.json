@@ -1,0 +1,42 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//main",
+    "//body"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//div[contains(@class, '_toc')]",
+    "//img[@class='icon smiley']",
+    "//img[contains(@src, 'comprendre.gif')]/ancestor::table",
+    "//td/child::*[contains(text(), 'Le contenu de cette page est')]/ancestor::table"
+  ],
+  "strip_id_or_class": [
+    "footer",
+    "pageId",
+    "noprint",
+    "sidebar",
+    "sidebar_bottom",
+    "depuis1999"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://sebsauvage.net/wiki/doku.php?id=microsoft",
+      "contains": []
+    },
+    {
+      "url": "https://sebsauvage.net/comprendre/firewall/index.html",
+      "contains": []
+    }
+  ]
+}

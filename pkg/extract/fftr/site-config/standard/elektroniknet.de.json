@@ -1,16 +1,20 @@
 {
   "title_selectors": null,
-  "body_selectors": null,
-  "date_selectors": [
-    "//time"
+  "body_selectors": [
+    "//main"
   ],
+  "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
     "//aside",
     "//div[@class='provider-multi-box']",
-    "//div[@class='list list--mb']"
+    "//div[@class='list list--mb']",
+    "//nav[@class='pagination']/following-sibling::* | //nav[@class='pagination']/self::nav",
+    "//em[contains(text(), 'Fortsetzung des Artikels')]/preceding-sibling::hr | //em[contains(text(), 'Fortsetzung des Artikels')]/following-sibling::hr[1] | //em[contains(text(), 'Fortsetzung des Artikels')]/self::em"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "article__header"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -18,9 +22,18 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": [
-    "//li[@class='next']//a"
+    "//a[@title='Eine Seite vor']"
   ],
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "\u003csource media=\"",
+      "\u003cimg media=\""
+    ],
+    [
+      "srcset=\"http",
+      "src=\"http"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {
@@ -30,9 +43,9 @@
       ]
     },
     {
-      "url": "http://www.elektroniknet.de/elektronik-automotive/sonstiges/machine-learning-wird-demnaechst-massiv-an-bedeutung-gewinnen-136362.html",
+      "url": "https://www.elektroniknet.de/messen-testen/sensorik/immenses-marktwachstum-fuer-halbleitersensoren-erwartet.207129.html",
       "contains": [
-        "Ende 2014 übernahm er seine heutige Position als CEO von MBRDNA"
+        "Sensorik und Automobiltechnik bilden eine Symbiose"
       ]
     }
   ]

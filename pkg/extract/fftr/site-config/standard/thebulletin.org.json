@@ -1,6 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
+    "//div[@id=\"body-copy\"]",
     "//div[@role=\"document\"]"
   ],
   "date_selectors": null,
@@ -22,6 +23,10 @@
   "tests": [
     {
       "url": "https://thebulletin.org/2021/11/the-untold-story-of-the-worlds-biggest-nuclear-bomb/",
+      "contains": []
+    },
+    {
+      "url": "https://thebulletin.org/premium/2023-07/an-extended-interview-with-christopher-nolan-director-of-oppenheimer/",
       "contains": []
     }
   ]

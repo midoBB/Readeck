@@ -3,18 +3,18 @@
 {{- block title() -}}Test{{- end -}}
 
 {{- block head() -}}
-  {* <link rel="stylesheet" href="{{ urlFor(`/assets/elements.css`) }}">
-  <script type="module" src="{{ urlFor(`/assets/elements.min.js`) }}"></script> *}
+  <link rel="stylesheet" href="{{ urlFor(`/assets/elements.css`) }}">
+  <script type="module" src="{{ urlFor(`/assets/elements.min.js`) }}"></script>
 {{- end -}}
 
 {{- block body() -}}
 <div class="flex h-screen +sm:flex-col">
   {{ include "/menu" }}
   <div class="grow md:overflow-y-auto">
-    {* <elements-api id="api-doc" router="hash" layout="sidebar"
-     tryItCredentialsPolicy="include"
+    <elements-api id="api-doc" router="hash" layout="sidebar"
+     tryItCredentialsPolicy="omit"
      apiDescriptionUrl="{{ .Schema }}"
-    ></elements-api> *}
+    ></elements-api>
   </div>
 </div>
 {{ end }}

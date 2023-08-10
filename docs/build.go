@@ -276,6 +276,9 @@ func main() {
 
 	err = filepath.Walk(srcDir, func(src string, info fs.FileInfo, err error) error {
 		if info.IsDir() {
+			if strings.HasPrefix(info.Name(), ".") {
+				return filepath.SkipDir
+			}
 			return nil
 		}
 

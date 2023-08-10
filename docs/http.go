@@ -55,24 +55,15 @@ func SetupRoutes(s *server.Server) {
 	// Main redirection (TODO: do something with user language when we have translations)
 	handler.Get("/", handler.serverRedirect(routePrefix+"/en/"))
 
-	s.AddRoute(routePrefix, handler)
-
 	// API documentation
-	// TODO: this will become available once we have an api-schema.yaml file
-	apiSchema := manifest.Files["api-schema.yaml"]
-	if apiSchema == nil {
-		return
-	}
+	apiSchema := manifest.Files["api.json"]
 
-	apiHandler := &helpHandlers{
-		s.AuthenticatedRouter(),
-		s,
-	}
-	apiHandler.With(apiHandler.withFile(apiSchema)).Group(func(r chi.Router) {
-		r.Get("/", apiHandler.serverAPIDocs)
-		r.Get("/schema.yaml", apiHandler.serverAPISchema)
+	docHandler.With(handler.withFile(apiSchema)).Group(func(r chi.Router) {
+		r.Get("/api/", handler.serverAPIDocs)
+		r.Get("/api.json", handler.serverAPISchema)
 	})
-	s.AddRoute("/api/docs", apiHandler)
+
+	s.AddRoute(routePrefix, handler)
 }
 
 func (h *helpHandlers) withFile(f *File) func(next http.Handler) http.Handler {
@@ -148,7 +139,7 @@ func (h *helpHandlers) serverAPISchema(w http.ResponseWriter, r *http.Request) {
 	var contents strings.Builder
 	io.Copy(&contents, fd)
 	repl := strings.NewReplacer(
-		"__API_URL__", h.srv.AbsoluteURL(r, "/api/").String(),
+		"__BASE_URI__", h.srv.AbsoluteURL(r, "/api/").String(),
 	)
 
 	w.Header().Set("Content-Type", "text/plain")
@@ -158,6 +149,6 @@ func (h *helpHandlers) serverAPISchema(w http.ResponseWriter, r *http.Request) {
 
 func (h *helpHandlers) serverAPIDocs(w http.ResponseWriter, r *http.Request) {
 	h.srv.RenderTemplate(w, r, http.StatusOK, "docs/api-docs", server.TC{
-		"Schema": h.srv.AbsoluteURL(r, "/api/docs/schema.yaml"),
+		"Schema": h.srv.AbsoluteURL(r, "/docs/api.json"),
 	})
 }

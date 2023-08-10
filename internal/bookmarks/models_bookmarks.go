@@ -474,9 +474,15 @@ func (l BookmarkLinks) Value() (driver.Value, error) {
 	return string(v), nil
 }
 
+func (l BookmarkLinks) HasPages() bool {
+	return len(l) > 0 && slices.ContainsFunc(l, func(bl BookmarkLink) bool {
+		return bl.IsPage
+	})
+}
+
 // Pages returns a list of pages only
 func (l BookmarkLinks) Pages() BookmarkLinks {
-	return slices.DeleteFunc(l, func(bl BookmarkLink) bool {
+	return slices.DeleteFunc(slices.Clone(l), func(bl BookmarkLink) bool {
 		return !bl.IsPage
 	})
 }

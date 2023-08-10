@@ -88,7 +88,7 @@
     {{- end -}}
   </div>
 
-  {{- if .Item.Type == "article" && .Item.Links && len(.Item.Links.Pages()) > 0 -}}
+  {{- if .Item.Type == "article" && .Item.Links && .Item.Links.HasPages() -}}
     <details class="group mb-4" open>
       <summary class="block mb-2 title text-lg">
         {{- yield icon(name="o-link") }} Links

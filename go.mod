@@ -10,9 +10,9 @@ require (
 	github.com/anthonynsimon/bild v0.13.0
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
 	github.com/biessek/golang-ico v0.0.0-20180326222316-d348d9ea4670
-	github.com/casbin/casbin/v2 v2.72.1
+	github.com/casbin/casbin/v2 v2.73.1
 	github.com/cristalhq/jwt/v3 v3.1.0
-	github.com/dop251/goja v0.0.0-20230707174833-636fdf960de1
+	github.com/dop251/goja v0.0.0-20230806174421-c933cf95e127
 	github.com/doug-martin/goqu/v9 v9.18.0
 	github.com/fatih/color v1.15.0
 	github.com/go-chi/chi/v5 v5.0.10
@@ -35,15 +35,15 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.17
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.7.0
-	github.com/spyzhov/ajson v0.8.0
+	github.com/spyzhov/ajson v0.9.0
 	github.com/stretchr/testify v1.8.4
-	github.com/tdewolff/parse/v2 v2.6.6
+	github.com/tdewolff/parse/v2 v2.6.7
 	github.com/xhit/go-simple-mail/v2 v2.15.0
-	golang.org/x/image v0.9.0
-	golang.org/x/net v0.12.0
+	golang.org/x/image v0.11.0
+	golang.org/x/net v0.14.0
 	golang.org/x/sync v0.3.0
-	golang.org/x/sys v0.10.0 // indirect
-	golang.org/x/text v0.11.0
+	golang.org/x/sys v0.11.0 // indirect
+	golang.org/x/text v0.12.0
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect
 	gopkg.in/hlandau/measurable.v1 v1.0.1 // indirect
 	gopkg.in/hlandau/passlib.v1 v1.0.11
@@ -68,10 +68,10 @@ require (
 	github.com/go-sourcemap/sourcemap v2.1.3+incompatible // indirect
 	github.com/go-test/deep v1.1.0 // indirect
 	github.com/gogs/chardet v0.0.0-20211120154057-b7413eaefb8f // indirect
-	github.com/google/pprof v0.0.0-20230705174524-200ffdc848b8 // indirect
+	github.com/google/pprof v0.0.0-20230808223545-4887780b67fb // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
-	github.com/jackc/pgconn v1.14.0 // indirect
+	github.com/jackc/pgconn v1.14.1 // indirect
 	github.com/jackc/pgio v1.0.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgproto3/v2 v2.3.2 // indirect
@@ -81,11 +81,11 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/tidwall/gjson v1.14.4 // indirect
+	github.com/tidwall/gjson v1.16.0 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/toorop/go-dkim v0.0.0-20201103131630-e1cd1a0a5208 // indirect
-	golang.org/x/crypto v0.11.0 // indirect
+	golang.org/x/crypto v0.12.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

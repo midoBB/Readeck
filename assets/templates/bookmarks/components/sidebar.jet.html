@@ -57,11 +57,11 @@
 
   <p class="mb-4 font-semibold hidden print:block">{{ .Item.URL }}</p>
 
-  <h3 class="mb-2 title text-lg">Labels</h3>
+  <h3 class="mb-2 title text-lg">{{- yield icon(name="o-label") }} Labels</h3>
   {{ include "./labels_form" .Item }}
 
   {{- if .Item.Type == "article" -}}
-  <h3 class="mb-2 title text-lg">Highlights</h3>
+  <h3 class="mb-2 title text-lg">{{- yield icon(name="o-highlight") }} Highlights</h3>
   <div class="group">
     {{- if len(.Item.Annotations) == 0 -}}
       <p class="mb-4">Start selecting text in the article to create a new highlight.</p>
@@ -87,6 +87,24 @@
       </ul>
     {{- end -}}
   </div>
+
+  {{- if .Item.Type == "article" && .Item.Links && len(.Item.Links.Pages()) > 0 -}}
+    <details class="group mb-4" open>
+      <summary class="block mb-2 title text-lg">
+        {{- yield icon(name="o-link") }} Links
+      </summary>
+      <ul class="mb-4 list-disc list-outside pl-4">
+      {{- range _, x := .Item.Links.Pages() -}}
+        <li class="list-item mb-1 leading-none">
+          <a class="link text-sm" href="{{ x.URL }}" rel="nofollow noopener noreferrer" target="_blank"
+           title="{{ default(x.Title, x.URL) }}">
+            {{ default(shortText(x.Title, 80), shortURL(x.URL, 40)) }}
+          </a>
+        </li>
+      {{- end -}}
+      </ul>
+    </details>
+  {{- end -}}
 
   <h3 class="mb-2 title text-lg">Export</h3>
     {{ if hasPermission("api:bookmarks", "export") -}}

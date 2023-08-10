@@ -474,6 +474,13 @@ func (l BookmarkLinks) Value() (driver.Value, error) {
 	return string(v), nil
 }
 
+// Pages returns a list of pages only
+func (l BookmarkLinks) Pages() BookmarkLinks {
+	return slices.DeleteFunc(l, func(bl BookmarkLink) bool {
+		return !bl.IsPage
+	})
+}
+
 // BookmarkFiles is a map of BookmarkFile instances.
 type BookmarkFiles map[string]*BookmarkFile
 

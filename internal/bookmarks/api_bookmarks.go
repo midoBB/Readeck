@@ -55,6 +55,8 @@ func (api *apiRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 func (api *apiRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
 	item := newBookmarkItem(api.srv, r, b, "./..")
+	item.Errors = b.Errors
+	item.Embed = b.Embed
 
 	if api.srv.IsTurboRequest(r) {
 		api.srv.RenderTurboStream(w, r,
@@ -675,7 +677,7 @@ type bookmarkItem struct {
 	Resources    map[string]*bookmarkFile `json:"resources"`
 	Embed        string                   `json:"embed,omitempty"`
 	Errors       []string                 `json:"errors,omitempty"`
-	Links        BookmarkLinks            `json:"links"`
+	Links        BookmarkLinks            `json:"links,omitempty"`
 
 	mediaURL           *url.URL
 	annotationTag      string

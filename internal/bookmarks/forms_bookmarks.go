@@ -10,12 +10,11 @@ import (
 	"mime/multipart"
 	"net/http"
 	"net/url"
-	"sort"
+	"slices"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/doug-martin/goqu/v9/exp"
-	"github.com/thoas/go-funk"
 
 	"github.com/readeck/readeck/internal/db"
 	"github.com/readeck/readeck/pkg/forms"
@@ -218,19 +217,22 @@ func (f *updateForm) update(b *Bookmark) (updated map[string]interface{}, err er
 		// labels, add_labels and remove_labels are declared and
 		// processed in this order.
 		case "labels":
-			b.Labels = funk.UniqString(field.Value().(db.Strings))
+			b.Labels = field.Value().(db.Strings)
 			labelsChanged = true
 		case "add_labels":
-			b.Labels = funk.UniqString(append(b.Labels, field.Value().(db.Strings)...))
+			b.Labels = append(b.Labels, field.Value().(db.Strings)...)
 			labelsChanged = true
 		case "remove_labels":
-			_, b.Labels = funk.DifferenceString(field.Value().(db.Strings), b.Labels)
+			b.Labels = slices.DeleteFunc(b.Labels, func(s string) bool {
+				return slices.Contains(field.Value().(db.Strings), s)
+			})
 			labelsChanged = true
 		}
 	}
 
 	if labelsChanged {
-		sort.Strings(b.Labels)
+		slices.Sort(b.Labels)
+		b.Labels = slices.Compact(b.Labels)
 		updated["labels"] = b.Labels
 	}
 

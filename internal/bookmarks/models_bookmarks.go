@@ -7,13 +7,12 @@ import (
 	"os"
 	"path"
 	"path/filepath"
-	"sort"
+	"slices"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/lithammer/shortuuid/v3"
 	log "github.com/sirupsen/logrus"
-	"github.com/thoas/go-funk"
 
 	"github.com/readeck/readeck/configs"
 	"github.com/readeck/readeck/internal/auth/users"
@@ -427,8 +426,8 @@ func (b *Bookmark) replaceLabel(old, new string) {
 			b.Labels[i] = new
 		}
 	}
-	b.Labels = funk.UniqString(b.Labels)
-	sort.Strings(b.Labels)
+	slices.Sort(b.Labels)
+	b.Labels = slices.Compact(b.Labels)
 }
 
 // GetSumStrings returns the string used to generate the etag

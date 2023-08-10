@@ -1,6 +1,6 @@
 module github.com/readeck/readeck
 
-go 1.20
+go 1.21
 
 require (
 	github.com/CloudyKit/jet/v6 v6.2.0
@@ -38,7 +38,6 @@ require (
 	github.com/spyzhov/ajson v0.8.0
 	github.com/stretchr/testify v1.8.4
 	github.com/tdewolff/parse/v2 v2.6.6
-	github.com/thoas/go-funk v0.9.3
 	github.com/xhit/go-simple-mail/v2 v2.15.0
 	golang.org/x/image v0.9.0
 	golang.org/x/net v0.12.0

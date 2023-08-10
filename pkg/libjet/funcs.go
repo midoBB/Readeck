@@ -9,6 +9,7 @@ import (
 
 	"github.com/CloudyKit/jet/v6"
 	"github.com/OneOfOne/xxhash"
+	"github.com/readeck/readeck/pkg/utils"
 )
 
 var funcMap = map[string]jet.Func{
@@ -48,6 +49,20 @@ var funcMap = map[string]jet.Func{
 	"checksum": func(a jet.Arguments) reflect.Value {
 		a.RequireNumOfArguments("checksum", 1, 1)
 		return reflect.ValueOf(xxhash.ChecksumString32(ToString(a.Get(0))))
+	},
+	"shortText": func(args jet.Arguments) reflect.Value {
+		args.RequireNumOfArguments("shortText", 2, 2)
+		s := ToString(args.Get(0))
+		maxChars := ToInt(args.Get(1))
+
+		return reflect.ValueOf(utils.ShortText(s, maxChars))
+	},
+	"shortURL": func(args jet.Arguments) reflect.Value {
+		args.RequireNumOfArguments("shortText", 2, 2)
+		s := ToString(args.Get(0))
+		maxChars := ToInt(args.Get(1))
+
+		return reflect.ValueOf(utils.ShortURL(s, maxChars))
 	},
 }
 

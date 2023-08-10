@@ -1,6 +1,8 @@
 package utils
 
 import (
+	"net/url"
+	"path"
 	"strings"
 	"unicode"
 )
@@ -30,5 +32,27 @@ func ShortText(s string, maxChars int) string {
 	}
 	res.WriteString("...")
 
+	return res.String()
+}
+
+// ShortURL returns a string of maxChars maximum length where src is a URL. It attempts
+// to nicely cut the path parts.
+func ShortURL(s string, maxChars int) string {
+	src, err := url.Parse(s)
+	if err != nil {
+		return ShortText(s, maxChars)
+	}
+
+	res := &strings.Builder{}
+	maxChars = max(5, maxChars-len(src.Hostname()))
+	res.WriteString(src.Hostname())
+	res.WriteString("/")
+	dir, file := path.Split(strings.Trim(src.Path, "/"))
+	println(">>", dir, file)
+	if len(dir+file) <= maxChars {
+		res.WriteString(dir + file)
+	} else {
+		res.WriteString(".../" + ShortText(file, maxChars))
+	}
 	return res.String()
 }

@@ -20,7 +20,7 @@
       <div class="text-4xl lg:flex-grow text-center order-2 lg:order-1 lg:py-6" data-loading="true">
         {{- yield spinner() -}}
       </div>
-      <p class="flex-grow +sm:hidden lg:flex-grow-0 lg:order-2 pb-2 text-sm font-semibold">Loading {{ .Site }}…</p>
+      <p class="flex-grow max-sm:hidden lg:flex-grow-0 lg:order-2 pb-2 text-sm font-semibold">Loading {{ .Site }}…</p>
     </div>
   {{- end -}}
   </turbo-frame>

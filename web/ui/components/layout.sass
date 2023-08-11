@@ -6,25 +6,25 @@
 .layout-topnav
   @apply flex flex-col flex-shrink-0 w-col-1
   @apply bg-gray-200 text-black
-  @apply +sm:flex-row +sm:w-full +sm:h-topnav
+  @apply max-sm:flex-row max-sm:w-full max-sm:h-topnav
 
   .logo
     @apply flex items-center justify-center
     @apply layout-topbar
-    @apply +sm:p-2 +sm:h-auto
+    @apply max-sm:p-2 max-sm:h-auto
 
   .mainmenu
     @apply flex-1 overflow-y-auto
     @apply flex flex-col items-center
     @apply py-2
-    @apply +sm:flex-row +sm:px-2 +sm:overflow-y-visible
+    @apply max-sm:flex-row max-sm:px-2 max-sm:overflow-y-visible
 
     menu
-      @apply +sm:flex
+      @apply max-sm:flex
 
       li
-        @apply mb-3 +sm:mb-0
-        @apply +sm:mr-3 +sm:last-of-type:mr-0
+        @apply mb-3 max-sm:mb-0
+        @apply max-sm:mr-3 max-sm:last-of-type:mr-0
 
       a, button
         @apply block
@@ -43,7 +43,7 @@
   menu a
     @apply hf:text-primary data-current:font-bold data-current:text-primary-dark
     @apply block leading-none py-1 pl-1 mb-1 border-l-2 border-transparent hf:border-primary data-current:border-primary-dark
-    @apply +md:mb-2 +md:text-lg
+    @apply max-md:mb-2 max-md:text-lg
 
     .svgicon svg
       @apply w-5 h-5

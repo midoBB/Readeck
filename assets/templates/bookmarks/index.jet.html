@@ -42,11 +42,11 @@
     <details {{- if .Filters.IsActive() }} open{{- end -}}>
       <summary class="block font-semibold hf:text-primary">{{ yield icon(name="o-filter") }} Filters</summary>
       <div class="text-sm">
-        <div class="grid grid-cols-3 gap-2 +md:grid-cols-2">
+        <div class="grid grid-cols-3 gap-2 max-md:grid-cols-2">
           {{ yield textField(
             field=.Filters.Get("search"),
             label="Search",
-            class="mb-0 col-span-3 +md:col-span-2",
+            class="mb-0 col-span-3 max-md:col-span-2",
           ) }}
           {{ yield textField(
             field=.Filters.Get("title"),
@@ -87,7 +87,7 @@
               class="mb-0",
             ) }}
           </div>
-          <div class="mt-2 col-span-3 +md:col-span-2">
+          <div class="mt-2 col-span-3 max-md:col-span-2">
             <button class="btn btn-primary">Search</button>
           </div>
         </div>

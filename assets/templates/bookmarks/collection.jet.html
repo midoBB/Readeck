@@ -31,16 +31,16 @@
         <summary class="block link font-semibold"
         >{{- yield icon(name="o-pencil") -}} Edit</summary>
         <div class="text-sm mt-2">
-          <div class="grid grid-cols-3 gap-2 +md:grid-cols-2">
+          <div class="grid grid-cols-3 gap-2 max-md:grid-cols-2">
             {{ yield textField(
               field=.Form.Get("name"),
               label="Name",
-              class="mb-0 col-span-3 +md:col-span-2",
+              class="mb-0 col-span-3 max-md:col-span-2",
             ) }}
             {{ yield textField(
               field=.Form.Get("search"),
               label="Search",
-              class="mb-0 col-span-3 +md:col-span-2",
+              class="mb-0 col-span-3 max-md:col-span-2",
             ) }}
             {{ yield textField(
               field=.Form.Get("title"),

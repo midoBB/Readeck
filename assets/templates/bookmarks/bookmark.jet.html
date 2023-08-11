@@ -17,7 +17,7 @@
 {{- end -}}
 
 {{- block body() -}}
-<div class="flex h-screen +sm:flex-col">
+<div class="flex h-screen max-sm:flex-col">
   {{ include "/menu" }}
 
   <div class="grow md:overflow-y-auto">
@@ -25,9 +25,9 @@
     data-turbo-refresh-on-value="[data-deleted]"
     data-turbo-refresh-interval-value="3"
     class="
-      flex +md:flex-col
-      +md:h-screen
-      +sm:h-[calc(100vh-4rem)]
+      flex max-md:flex-col
+      max-md:h-screen
+      max-sm:h-[calc(100vh-4rem)]
     ">
       {{- if !.Item.Loaded -}}
         <div class="text-center mt-8">
@@ -40,13 +40,13 @@
           order-last w-col-6 h-screen sticky top-0 overflow-y-auto
           flex-shrink-0
           border-l border-l-gray-200
-          +md:w-full
-          +md:overflow-y-hidden
-          +md:h-topnav +md:flex +md:flex-col
-          +md:shadow-panel-t
-          +md:peer-checked:h-[60vh]
-          +md:transition-all +md:ease-in-out
-          +md:peer-checked:[&>div>label>span>svg]:rotate-180
+          max-md:w-full
+          max-md:overflow-y-hidden
+          max-md:h-topnav max-md:flex max-md:flex-col
+          max-md:shadow-panel-t
+          max-md:peer-checked:h-[60vh]
+          max-md:transition-all max-md:ease-in-out
+          max-md:peer-checked:[&>div>label>span>svg]:rotate-180
          ">
           <div class="
             h-topnav border-b border-b-gray-200 flex-shrink-0 flex flex-col
@@ -59,7 +59,7 @@
               select-none
             "><span>More information</span>{{- yield icon(name="o-chevron-u", class="inline-block link", svgClass="w-6 h-6") -}}</label>
           </div>
-          <div class="px-6 pt-4 pb-8 +md:px-4 +md:overflow-y-auto flex-grow">
+          <div class="px-6 pt-4 pb-8 max-md:px-4 max-md:overflow-y-auto flex-grow">
             {{ include "./components/sidebar" }}
           </div>
         </div>
@@ -68,8 +68,8 @@
           grow max-w-col-22 px-6 pb-8
           md:h-screen
           md:overflow-y-auto
-          +md:px-4
-          +md:overflow-auto
+          max-md:px-4
+          max-md:overflow-auto
           scroll-pt-topnav
         ">
           <div class="h-topnav border-b border-b-gray-200 flex items-center sticky top-0 z-20 bg-gray-50

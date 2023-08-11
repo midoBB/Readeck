@@ -91,12 +91,10 @@ var config = {
       ],
     },
     screens: {
-      "sm": {min: "640px"},
-      "md": {min: "814px"},
-      "lg": {min: "1024px"},
-      "+md": {max: "814px"},
-      "+sm": {max: "639px"},
-      "print": {raw: "print"},
+      "sm": "640px",
+      "md": "814px",
+      "lg": "1024px",
+      "xl": "1280px",
     },
     extend: {
       boxShadow: {

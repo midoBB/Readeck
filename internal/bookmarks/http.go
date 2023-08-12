@@ -83,6 +83,7 @@ func newAPIRouter(s *server.Server) *apiRouter {
 			r.Delete("/{uid:[a-zA-Z0-9]{18,22}}/annotations/{id:[a-zA-Z0-9]{18,22}}", api.annotationDelete)
 		})
 		r.With(api.withLabel).Patch("/labels/{label}", api.labelUpdate)
+		r.With(api.withLabel).Delete("/labels/{label}", api.labelDelete)
 	})
 
 	// Collection API

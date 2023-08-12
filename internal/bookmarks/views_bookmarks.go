@@ -187,11 +187,11 @@ func (h *viewsRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 
 	// POST, update label name
 	if r.Method == http.MethodPost {
-		f := newLabelForm(auth.GetRequestUser(r).ID)
+		f := newLabelForm()
 		forms.Bind(f, r)
 
 		if f.IsValid() {
-			_, err := f.rename(label)
+			_, err := Bookmarks.RenameLabel(auth.GetRequestUser(r), label, f.Get("name").String())
 			if err != nil {
 				h.srv.Error(w, r, err)
 				return

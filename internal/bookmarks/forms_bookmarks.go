@@ -283,57 +283,14 @@ func (f *deleteForm) trigger(b *Bookmark) error {
 
 type labelForm struct {
 	*forms.Form
-	userID int
 }
 
-func newLabelForm(userID int) *labelForm {
+func newLabelForm() *labelForm {
 	return &labelForm{
 		Form: forms.Must(
 			forms.NewTextField("name", forms.Trim, forms.Required),
 		),
-		userID: userID,
 	}
-}
-
-func (f *labelForm) rename(old string) (ids []int, err error) {
-	ids = []int{}
-
-	ds := Bookmarks.Query().
-		Select("b.id", "b.labels").
-		Where(goqu.C("user_id").Eq(f.userID))
-	ds = Bookmarks.AddLabelFilter(ds, []string{old})
-
-	list := []*Bookmark{}
-	if err = ds.ScanStructs(&list); err != nil {
-		return
-	}
-
-	if len(list) == 0 {
-		return
-	}
-
-	ids = make([]int, len(list))
-	cases := goqu.Case()
-	casePlaceholder := "?"
-	if db.Driver().Dialect() == "postgres" {
-		casePlaceholder = "?::jsonb"
-	}
-
-	for i, x := range list {
-		ids[i] = x.ID
-		x.replaceLabel(old, f.Get("name").String())
-		cases = cases.When(goqu.C("id").Eq(x.ID), goqu.L(casePlaceholder, x.Labels))
-	}
-
-	_, err = db.Q().Update(TableName).Prepared(true).
-		Set(goqu.Record{"labels": cases}).
-		Where(goqu.C("id").In(ids)).
-		Executor().Exec()
-	if err != nil {
-		return nil, err
-	}
-
-	return
 }
 
 type labelSearchForm struct {

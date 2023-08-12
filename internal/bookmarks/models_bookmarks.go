@@ -8,6 +8,7 @@ import (
 	"path"
 	"path/filepath"
 	"slices"
+	"strings"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
@@ -323,6 +324,49 @@ func (m *BookmarkManager) AddLabelFilter(ds *goqu.SelectDataset, labels []string
 	return ds.Where(exp)
 }
 
+// RenameLabel renames or deletes a label in all bookmarks for a given user.
+// If "new" is empty, the label is deleted.
+func (m *BookmarkManager) RenameLabel(u *users.User, old, new string) (ids []int, err error) {
+	ids = make([]int, 0)
+
+	ds := Bookmarks.Query().
+		Select("b.id", "b.labels").
+		Where(goqu.C("user_id").Eq(u.ID))
+	ds = Bookmarks.AddLabelFilter(ds, []string{old})
+
+	list := []*Bookmark{}
+	if err = ds.ScanStructs(&list); err != nil {
+		return
+	}
+
+	if len(list) == 0 {
+		return
+	}
+
+	ids = make([]int, len(list))
+	cases := goqu.Case()
+	casePlaceholder := "?"
+	if db.Driver().Dialect() == "postgres" {
+		casePlaceholder = "?::jsonb"
+	}
+
+	for i, x := range list {
+		ids[i] = x.ID
+		x.replaceLabel(old, new)
+		cases = cases.When(goqu.C("id").Eq(x.ID), goqu.L(casePlaceholder, x.Labels))
+	}
+
+	_, err = db.Q().Update(TableName).Prepared(true).
+		Set(goqu.Record{"labels": cases}).
+		Where(goqu.C("id").In(ids)).
+		Executor().Exec()
+	if err != nil {
+		return nil, err
+	}
+
+	return
+}
+
 // Update updates some bookmark values.
 func (b *Bookmark) Update(v interface{}) error {
 	if b.ID == 0 {
@@ -417,15 +461,24 @@ func (b *Bookmark) getFilePath() string {
 // replaceLabel replaces "old" label with "new" in the
 // bookmark's Labels. It does not save the bookmark into
 // the database.
+// If new is empty, the label is removed from the list.
 func (b *Bookmark) replaceLabel(old, new string) {
 	if b.Labels == nil {
 		return
 	}
-	for i, v := range b.Labels {
-		if v == old {
-			b.Labels[i] = new
+
+	if strings.TrimSpace(new) == "" {
+		b.Labels = slices.DeleteFunc(slices.Clone(b.Labels), func(s string) bool {
+			return s == old
+		})
+	} else {
+		for i, v := range b.Labels {
+			if v == old {
+				b.Labels[i] = new
+			}
 		}
 	}
+
 	slices.Sort(b.Labels)
 	b.Labels = slices.Compact(b.Labels)
 }

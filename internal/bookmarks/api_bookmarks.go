@@ -324,7 +324,7 @@ func (api *apiRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 
 func (api *apiRouter) labelUpdate(w http.ResponseWriter, r *http.Request) {
 	label := r.Context().Value(ctxLabelKey{}).(string)
-	f := newLabelForm(auth.GetRequestUser(r).ID)
+	f := newLabelForm()
 	forms.Bind(f, r)
 
 	if !f.IsValid() {
@@ -332,7 +332,8 @@ func (api *apiRouter) labelUpdate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ids, err := f.rename(label)
+	ids, err := Bookmarks.RenameLabel(auth.GetRequestUser(r), label, f.Get("name").String())
+
 	if err != nil {
 		api.srv.Error(w, r, err)
 		return
@@ -341,6 +342,23 @@ func (api *apiRouter) labelUpdate(w http.ResponseWriter, r *http.Request) {
 		api.srv.Status(w, r, http.StatusNotFound)
 		return
 	}
+}
+
+func (api *apiRouter) labelDelete(w http.ResponseWriter, r *http.Request) {
+	label := r.Context().Value(ctxLabelKey{}).(string)
+
+	ids, err := Bookmarks.RenameLabel(auth.GetRequestUser(r), label, "")
+
+	if err != nil {
+		api.srv.Error(w, r, err)
+		return
+	}
+	if len(ids) == 0 {
+		api.srv.Status(w, r, http.StatusNotFound)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
 }
 
 func (api *apiRouter) annotationList(w http.ResponseWriter, r *http.Request) {

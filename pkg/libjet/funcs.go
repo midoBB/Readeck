@@ -2,13 +2,13 @@ package libjet
 
 import (
 	"fmt"
+	"hash/adler32"
 	"io"
 	"reflect"
 	"strings"
 	"time"
 
 	"github.com/CloudyKit/jet/v6"
-	"github.com/OneOfOne/xxhash"
 	"github.com/readeck/readeck/pkg/utils"
 )
 
@@ -48,7 +48,10 @@ var funcMap = map[string]jet.Func{
 	},
 	"checksum": func(a jet.Arguments) reflect.Value {
 		a.RequireNumOfArguments("checksum", 1, 1)
-		return reflect.ValueOf(xxhash.ChecksumString32(ToString(a.Get(0))))
+		h := adler32.New()
+		h.Write([]byte(ToString(a.Get(0))))
+
+		return reflect.ValueOf(fmt.Sprintf("%x", h.Sum32()))
 	},
 	"shortText": func(args jet.Arguments) reflect.Value {
 		args.RequireNumOfArguments("shortText", 2, 2)

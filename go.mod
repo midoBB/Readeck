@@ -4,7 +4,6 @@ go 1.21
 
 require (
 	github.com/CloudyKit/jet/v6 v6.2.0
-	github.com/OneOfOne/xxhash v1.2.8
 	github.com/antchfx/htmlquery v1.3.0
 	github.com/antchfx/xpath v1.2.4 // indirect
 	github.com/anthonynsimon/bild v0.13.0

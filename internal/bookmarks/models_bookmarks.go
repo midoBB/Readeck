@@ -357,7 +357,10 @@ func (m *BookmarkManager) RenameLabel(u *users.User, old, new string) (ids []int
 	}
 
 	_, err = db.Q().Update(TableName).Prepared(true).
-		Set(goqu.Record{"labels": cases}).
+		Set(goqu.Record{
+			"updated": time.Now(),
+			"labels":  cases,
+		}).
 		Where(goqu.C("id").In(ids)).
 		Executor().Exec()
 	if err != nil {

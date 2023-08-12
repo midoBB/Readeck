@@ -16,6 +16,7 @@ import (
 	log "github.com/sirupsen/logrus"
 
 	"github.com/readeck/readeck/configs"
+	"github.com/readeck/readeck/internal/auth/users"
 	"github.com/readeck/readeck/internal/bus"
 	"github.com/readeck/readeck/internal/db"
 	"github.com/readeck/readeck/pkg/archiver"
@@ -31,6 +32,7 @@ var (
 	extractPageTask      superbus.Task
 	deleteBookmarkTask   superbus.Task
 	deleteCollectionTask superbus.Task
+	deleteLabelTask      superbus.Task
 )
 
 type (
@@ -38,6 +40,11 @@ type (
 		BookmarkID int
 		RequestID  string
 		Resources  []multipartResource
+	}
+
+	labelDeleteParams struct {
+		UserID int
+		Name   string
 	}
 )
 
@@ -81,7 +88,21 @@ func init() {
 				}
 				return res
 			}),
-			superbus.WithTaskHandler(collectionDeleteHandler),
+			superbus.WithTaskHandler(deleteCollectionHandler),
+		)
+
+		deleteLabelTask = bus.Tasks().NewTask(
+			"label.delete",
+			superbus.WithTaskDelay(20),
+			superbus.WithUnmarshall(func(data []byte) interface{} {
+				var res labelDeleteParams
+				err := json.Unmarshal(data, &res)
+				if err != nil {
+					panic(err)
+				}
+				return res
+			}),
+			superbus.WithTaskHandler(deleteLabelHandler),
 		)
 	})
 }
@@ -105,7 +126,7 @@ func deleteBookmarkHandler(data interface{}) {
 	logger.Info("bookmark removed")
 }
 
-func collectionDeleteHandler(data interface{}) {
+func deleteCollectionHandler(data interface{}) {
 	id := data.(int)
 	logger := log.WithField("id", id)
 
@@ -123,6 +144,28 @@ func collectionDeleteHandler(data interface{}) {
 	}
 
 	logger.Info("collection removed")
+}
+
+func deleteLabelHandler(data interface{}) {
+	params := data.(labelDeleteParams)
+	logger := log.WithFields(log.Fields{
+		"user":  params.UserID,
+		"label": params.Name,
+	})
+	logger.Debug("deleting label")
+
+	u, err := users.Users.GetOne(goqu.C("id").Eq(params.UserID))
+	if err != nil {
+		logger.WithError(err).Error("user retrieve")
+		return
+	}
+
+	if _, err = Bookmarks.RenameLabel(u, params.Name, ""); err != nil {
+		logger.WithError(err).Error("label remove")
+		return
+	}
+
+	logger.Info("label removed")
 }
 
 func extractPageHandler(data interface{}) {

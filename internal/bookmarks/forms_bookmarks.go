@@ -16,6 +16,7 @@ import (
 	"github.com/doug-martin/goqu/v9"
 	"github.com/doug-martin/goqu/v9/exp"
 
+	"github.com/readeck/readeck/internal/auth/users"
 	"github.com/readeck/readeck/internal/db"
 	"github.com/readeck/readeck/pkg/forms"
 )
@@ -301,6 +302,31 @@ func newLabelSearchForm() *labelSearchForm {
 	return &labelSearchForm{forms.Must(
 		forms.NewTextField("q", forms.Trim, forms.RequiredOrNil),
 	)}
+}
+
+type labelDeleteForm struct {
+	*forms.Form
+}
+
+func newLabelDeleteForm() *labelDeleteForm {
+	return &labelDeleteForm{
+		forms.Must(
+			forms.NewBooleanField("cancel"),
+		),
+	}
+}
+
+func (f *labelDeleteForm) trigger(user *users.User, name string) {
+	id := fmt.Sprintf("%d@%s", user.ID, name)
+
+	if !f.Get("cancel").IsNil() && f.Get("cancel").Value().(bool) {
+		deleteLabelTask.Cancel(id)
+		return
+	}
+
+	deleteLabelTask.Run(id, labelDeleteParams{
+		UserID: user.ID, Name: name,
+	})
 }
 
 type filterForm struct {

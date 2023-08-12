@@ -4,9 +4,9 @@
 {{ block title() }}Label - {{ .Label }}{{ end }}
 
 {{ block mainContent() -}}
-<form action="" method="post">
+<form action="" method="post" class="md:flex md:mb-4 items-center">
   {{ yield csrfField() }}
-  <h1 class="flex items-baseline gap-2 group title" data-controller="inplace-input">
+  <h1 class="flex flex-grow items-baseline gap-2 group title md:mb-0" data-controller="inplace-input">
     {{ yield icon(name="o-label", class="text-h2 h-6 w-6 mr-2", svgClass="h-6 w-6") }}
     {* JS context *}
     <span class="no-js:hidden text-h2 mr-2 cursor-pointer hover:outline-std"
@@ -21,7 +21,25 @@
       >{{ yield icon(name="o-pencil", svgClass="h-6 w-6") }}
     </button>
   </h1>
+
+  {{- if !.IsDeleted -}}
+    <div>
+      <button class="btn-danger"
+      formaction="{{ url(.Label) }}/delete" formmethod="post"
+      >{{ yield icon(name="o-trash") }} Delete label</button>
+    </div>
+  {{- end -}}
 </form>
+
+{{- if .IsDeleted -}}
+  <form action="{{ url(.Label) }}/delete" method="post" class="mb-4">
+  {{ yield csrfField() }}
+  {{- yield message(type="info") content -}}
+    Label will be removed in a few seconds&nbsp;
+    <button class="btn-primary" name="cancel" value="1">Cancel</button>
+  {{- end -}}
+  </form>
+{{- end -}}
 
 <turbo-frame id="bookmark-list"
  data-controller="turbo-refresh"

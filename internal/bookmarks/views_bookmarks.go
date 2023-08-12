@@ -2,6 +2,7 @@ package bookmarks
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"net/url"
 	"os"
@@ -216,6 +217,27 @@ func (h *viewsRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 	ctx["Label"] = label
 	ctx["Pagination"] = bl.Pagination
 	ctx["Bookmarks"] = bl.Items
+	ctx["IsDeleted"] = deleteLabelTask.IsRunning(fmt.Sprintf("%d@%s", auth.GetRequestUser(r).ID, label))
 
 	h.srv.RenderTemplate(w, r, 200, "/bookmarks/label", ctx)
+}
+
+func (h *viewsRouter) labelDelete(w http.ResponseWriter, r *http.Request) {
+	bl := r.Context().Value(ctxBookmarkListKey{}).(bookmarkList)
+	label := r.Context().Value(ctxLabelKey{}).(string)
+
+	if bl.Pagination.TotalCount == 0 {
+		h.srv.Status(w, r, http.StatusNotFound)
+		return
+	}
+
+	f := newLabelDeleteForm()
+	forms.Bind(f, r)
+	f.trigger(auth.GetRequestUser(r), label)
+
+	// We can't use redirect here, since we must escape the label
+	redir := h.srv.AbsoluteURL(r, "/bookmarks/labels/")
+	redir.Path += url.QueryEscape(label)
+	w.Header().Set("Location", redir.String())
+	w.WriteHeader(http.StatusSeeOther)
 }

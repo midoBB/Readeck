@@ -1,5 +1,6 @@
 {{- block formErrors(form) -}}
   {{- if !form.IsValid() -}}
+    <div class="max-w-xl">
     {{- yield message(type="error") content -}}
       <strong class="text-red-700">Errors</strong>
       {{- if form.Errors() -}}
@@ -10,6 +11,7 @@
         <p>Please check your form for errors.</p>
       {{ end }}
     {{- end -}}
+    </div>
   {{- end -}}
 {{- end -}}
 

@@ -8,34 +8,55 @@ href="{{ assetURL(`img/icons.svg`) }}#{{ name }}"></use></svg></span>
 <span style="display:none;"><input type="hidden" name="{{ csrfName }}" value="{{ csrfToken }}"></span>
 {{- end -}}
 
-{{- block message(type="info") -}}
+{{- block message(type="info", removable=false, delay=0) -}}
 {{- icon := "o-info" -}}
-{{- color := "bg-blue-700" -}}
+{{- color := "text-blue-800" -}}
+{{- bg := "bg-blue-700" -}}
+{{- border := "border-blue-800" -}}
 {{- if type == "success" -}}
   {{- icon = "o-check-on" -}}
-  {{- color = "bg-green-700" -}}
+  {{- color = "text-green-800" -}}
+  {{- bg = "bg-green-700" -}}
+  {{- border = "border-green-800" -}}
 {{- else if type == "error" -}}
   {{- icon = "o-error" -}}
-  {{- color = "bg-red-800" -}}
+  {{- color = "text-red-800" -}}
+  {{- bg = "bg-red-800" -}}
+  {{- border = "border-red-900" -}}
 {{- end -}}
-<div class="flex overflow-hidden bg-white rounded-lg shadow-md my-6 w-full max-w-xl">
-  <div class="flex items-center justify-center w-12 text-white {{ color }}">
-    {{- yield icon(name=icon) -}}
+<div class="flex overflow-hidden bg-white rounded-lg my-6 w-full border {{ border }} transition-all duration-300 ease-in-out"
+ {{- if removable || delay > 0 -}}data-controller="remover"{{- end -}} data-remover-delay-value="{{ delay }}"
+>
+  <div class="flex items-center justify-center w-12 text-white {{ bg }} bg-opacity-25">
+    {{- yield icon(name=icon, class="svgicon " + color) -}}
   </div>
-  <div class="p-4 flex-grow {{ color }} bg-opacity-5">
+  <div class="p-4 flex-grow {{ bg }} bg-opacity-5">
     {{- yield content -}}
   </div>
+  {{- if removable -}}
+    <div class="{{ bg }} bg-opacity-5 pt-1 pr-1">
+      <button data-action="remover#remove">
+        {{ yield icon(name="o-cross", class="", svgClass="h-5 w-5") }}
+      </button>
+    </div>
+  {{- end -}}
 </div>
 {{- end -}}
 
 {{- block flashes() -}}
-{{ range flashes }}
-  {{- if !hasPrefix(.Type, "_") -}}
-    {{- yield message(type=.Type) content -}}
-      <strong>{{ .Message }}</strong>
-    {{- end -}}
+{{- if len(flashes) > 0 -}}
+  <div class="js:absolute js:top-2 js:z-50 w-full max-w-xl">
+  {{- range flashes -}}
+      {{- if !hasPrefix(.Type, "_") -}}
+        <div class="drop-shadow-sm mb-1">
+          {{- yield message(type=.Type, delay=3) content -}}
+            <strong>{{ .Message }}</strong>
+          {{- end -}}
+        </div>
+      {{- end -}}
   {{- end -}}
-{{ end }}
+  </div>
+{{- end -}}
 {{- end -}}
 
 {{- block spinner() -}}

@@ -104,3 +104,10 @@ web-build:
 .PHONY: web-watch
 web-watch:
 	@$(MAKE) -C web watch
+
+
+# Setup the development env
+.PHONY: setup
+setup:
+	${MAKE} -C web setup
+	go install github.com/cortesi/modd/cmd/modd@latest

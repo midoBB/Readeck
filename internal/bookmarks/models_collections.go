@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
-	"github.com/lithammer/shortuuid"
+	"github.com/lithammer/shortuuid/v4"
 
 	"github.com/readeck/readeck/internal/db"
 )

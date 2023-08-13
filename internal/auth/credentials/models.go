@@ -10,7 +10,7 @@ import (
 	"gopkg.in/hlandau/passlib.v1/abstract"
 
 	"github.com/doug-martin/goqu/v9"
-	"github.com/lithammer/shortuuid"
+	"github.com/lithammer/shortuuid/v4"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 

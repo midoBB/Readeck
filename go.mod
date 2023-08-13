@@ -28,8 +28,6 @@ require (
 	github.com/jsummers/gobmp v0.0.0-20230614200233-a9de23ed2e25 // indirect
 	github.com/kinbiko/jsonassert v1.1.1
 	github.com/komkom/toml v0.1.2
-	github.com/lithammer/shortuuid v3.0.0+incompatible
-	github.com/lithammer/shortuuid/v3 v3.0.7
 	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/mattn/go-sqlite3 v1.14.17
 	github.com/sirupsen/logrus v1.9.3
@@ -51,6 +49,7 @@ require (
 require (
 	github.com/antchfx/xmlquery v1.3.17
 	github.com/gabriel-vasile/mimetype v1.4.2
+	github.com/lithammer/shortuuid/v4 v4.0.0
 	github.com/mangoumbrella/goldmark-figure v1.0.0
 	github.com/yuin/goldmark v1.5.5
 	github.com/yuin/goldmark-meta v1.1.0

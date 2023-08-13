@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/go-shiori/dom"
-	"github.com/lithammer/shortuuid/v3"
+	"github.com/lithammer/shortuuid/v4"
 	"golang.org/x/net/html"
 
 	"github.com/readeck/readeck/pkg/forms"

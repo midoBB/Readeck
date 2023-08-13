@@ -9,7 +9,7 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/go-chi/chi/v5"
-	"github.com/lithammer/shortuuid"
+	"github.com/lithammer/shortuuid/v4"
 
 	"github.com/readeck/readeck/configs"
 	"github.com/readeck/readeck/internal/auth/users"

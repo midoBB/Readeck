@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/go-shiori/dom"
-	"github.com/lithammer/shortuuid"
+	"github.com/lithammer/shortuuid/v4"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/sync/semaphore"
 

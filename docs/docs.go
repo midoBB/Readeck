@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-//go:embed assets assets/**/*
+//go:embed assets assets/**/* licenses/*
 var assets embed.FS
 
 // Files contains all the generated help files as an http.FS instance

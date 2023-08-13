@@ -1,0 +1,373 @@
+# -------------------------------------------------------------------
+# Go Modules
+# -------------------------------------------------------------------
+[[licenses]]
+name = "jet"
+license = "Apache-2.0"
+author = "José Santos <henrique_1609@me.com>"
+url = "https://github.com/CloudyKit/jet"
+copyright = """
+Copyright 2016 José Santos <henrique_1609@me.com>
+"""
+
+[[licenses]]
+name = "htmlquery"
+license = "MIT"
+author = "zhengchun <https://github.com/zhengchun>"
+url = "https://github.com/antchfx/htmlquery"
+
+[[licenses]]
+name = "bild"
+license = "MIT"
+author = "Anthony Najjar Simon"
+url = "https://github.com/anthonynsimon/bild"
+copyright = """
+Copyright (c) 2021 Anthony Najjar Simon
+"""
+
+[[licenses]]
+name = "dateparse"
+license = "MIT"
+author = "Aaron Raddon"
+url = "https://github.com/araddon/dateparse"
+copyright = """
+Copyright (c) 2015-2017 Aaron Raddon
+"""
+
+[[licenses]]
+name = "golang-ico"
+license = "UNLICENSE"
+url = "https://github.com/biessek/golang-ico"
+
+[[licenses]]
+name = "casbin"
+license = "Apache-2.0"
+author = "The casbin Authors"
+url = "https://github.com/casbin/casbin"
+copyright = """
+Copyright 2017 The casbin Authors. All Rights Reserved.
+"""
+
+[[licenses]]
+name = "jwt"
+license = "MIT"
+author = "Oleg Kovalov"
+url = "https://github.com/cristalhq/jwt"
+copyright = """
+Copyright (c) 2019 Oleg Kovalov
+"""
+
+[[licenses]]
+name = "goja"
+license = "MIT"
+author = "Dmitry Panov"
+url = "https://github.com/dop251/goja"
+copyright = """
+Copyright (c) 2016 Dmitry Panov
+Copyright (c) 2012 Robert Krimen
+"""
+
+[[licenses]]
+name = "goqu"
+license = "MIT"
+author = "Doug Martin"
+url = "https://github.com/doug-martin/goqu"
+copyright = """
+Copyright (c) 2017 Doug Martin
+"""
+
+[[licenses]]
+name = "color"
+license = "MIT"
+author = "Fatih Arslan"
+url = "https://github.com/fatih/color"
+copyright = """
+Copyright (c) 2013 Fatih Arslan
+"""
+
+[[licenses]]
+name = "chi"
+license = "MIT"
+author = "Peter Kieltyka"
+url = "https://github.com/go-chi/chi"
+copyright = """
+Copyright (c) 2015-present Peter Kieltyka
+(https://github.com/pkieltyka), Google Inc.
+"""
+
+[[licenses]]
+name = "go-redis"
+license = "BSD-2-Clause"
+author = "The github.com/redis/go-redis Authors"
+url = "https://github.com/go-redis/redis"
+copyright = """
+Copyright (c) 2013 The github.com/redis/go-redis Authors.
+"""
+
+[[licenses]]
+name = "dom"
+license = "MIT"
+author = "Radhi Fadlillah"
+url = "https://github.com/go-shiori/dom"
+copyright = """
+Copyright (c) 2019-present Radhi Fadlillah
+"""
+
+[[licenses]]
+name = "go-readability"
+license = "MIT"
+author = "Radhi Fadlillah"
+url = "https://github.com/go-shiori/go-readability"
+copyright = """
+Copyright (c) 2019 Radhi Fadlillah
+"""
+
+[[licenses]]
+name = "uuid"
+license = "BSD-3-Clause"
+author = "Google Inc."
+url = "https://github.com/google/uuid"
+copyright = """
+Copyright (c) 2009,2014 Google Inc.
+All rights reserved.
+"""
+
+[[licenses]]
+name = "gorilla csrf"
+license = "BSD-3-Clause"
+author = "The Gorilla Authors."
+url = "https://github.com/gorilla/csrf"
+copyright = """
+Copyright (c) 2023 The Gorilla Authors.
+All rights reserved.
+"""
+
+[[licenses]]
+name = "gorilla securecookie"
+license = "BSD-3-Clause"
+author = "The Gorilla Authors."
+url = "https://github.com/gorilla/securecookie"
+copyright = """
+Copyright (c) 2023 The Gorilla Authors.
+All rights reserved.
+"""
+
+[[licenses]]
+name = "passlib"
+license = "BSD-2-Clause"
+author = "Assurance Technologies <http://www.assurancetechnologies.com>"
+url = "https://github.com/hlandau/passlib"
+copyright = """
+Copyright (c) 2008-2012 Assurance Technologies, LLC.
+All rights reserved.
+"""
+
+[[licenses]]
+name = "pgx"
+license = "MIT"
+author = "Jack Christensen"
+url = "https://github.com/jackc/pgx"
+copyright = """
+Copyright (c) 2013-2021 Jack Christensen
+"""
+
+[[licenses]]
+name = "gobmp"
+license = "MIT"
+author = "Jason Summers"
+url = "https://github.com/jsummers/gobmp"
+copyright = """
+Copyright (c) 2012-2015 Jason Summers
+"""
+
+[[licenses]]
+name = "toml"
+license = "MIT"
+author = "komika"
+url = "https://github.com/komkom/toml"
+copyright = """
+Copyright (c) 2021 komika
+"""
+
+[[licenses]]
+name = "shortuuid"
+license = "MIT"
+author = "Peter Lithammer"
+url = "https://github.com/lithammer/shortuuid"
+copyright = """
+Copyright (c) 2018 Peter Lithammer
+"""
+
+[[licenses]]
+name = "go-sqlite3"
+license = "MIT"
+author = "Yasuhiro Matsumoto"
+url = "https://github.com/mattn/go-sqlite3"
+copyright = """
+Copyright (c) 2014 Yasuhiro Matsumoto
+"""
+
+[[licenses]]
+name = "logrus"
+license = "MIT"
+author = "Simon Eskildsen"
+url = "https://github.com/sirupsen/logrus"
+copyright = """
+Copyright (c) 2014 Simon Eskildsen
+"""
+
+[[licenses]]
+name = "cobra"
+license = "Apache-2.0"
+author = "The Cobra Authors"
+url = "https://github.com/spf13/cobra"
+copyright = """
+Copyright 2013-2023 The Cobra Authors
+"""
+
+[[licenses]]
+name = "ajson"
+license = "MIT"
+author = "Pyzhov Stepan"
+url = "https://github.com/spyzhov/ajson"
+copyright = """
+Copyright (c) 2019 Pyzhov Stepan
+"""
+
+[[licenses]]
+name = "parse"
+license = "MIT"
+author = "Taco de Wolff"
+url = "https://github.com/tdewolff/parse"
+copyright = """
+Copyright (c) 2015 Taco de Wolff
+"""
+
+[[licenses]]
+name = "go-simple-mail"
+license = "MIT"
+author = "Santiago De la Cruz"
+url = "https://github.com/xhit/go-simple-mail"
+copyright = """
+Copyright (c) 2019 Santiago De la Cruz
+"""
+
+[[licenses]]
+name = "x/image"
+license = "BSD-3-Clause"
+author = "Google Inc."
+url = "https://golang.org/x/image"
+copyright = """
+Copyright (c) 2009 The Go Authors.
+All rights reserved.
+"""
+
+[[licenses]]
+name = "x/net"
+license = "BSD-3-Clause"
+author = "Google Inc."
+url = "https://golang.org/x/net"
+copyright = """
+Copyright (c) 2009 The Go Authors.
+All rights reserved.
+"""
+
+[[licenses]]
+name = "x/sync"
+license = "BSD-3-Clause"
+author = "Google Inc."
+url = "https://golang.org/x/sync"
+copyright = """
+Copyright (c) 2009 The Go Authors.
+All rights reserved.
+"""
+
+[[licenses]]
+name = "x/sys"
+license = "BSD-3-Clause"
+author = "Google Inc."
+url = "https://golang.org/x/sys"
+copyright = """
+Copyright (c) 2009 The Go Authors.
+All rights reserved.
+"""
+
+[[licenses]]
+name = "x/text"
+license = "BSD-3-Clause"
+author = "Google Inc."
+url = "https://golang.org/x/text"
+copyright = """
+Copyright (c) 2009 The Go Authors.
+All rights reserved.
+"""
+
+# -------------------------------------------------------------------
+# Frontend
+# -------------------------------------------------------------------
+
+[[licenses]]
+name = "lora font"
+license = "OFL-1.1"
+author = "The Lora Project Authors"
+url = "https://github.com/cyrealtype/Lora-Cyrillic"
+copyright = """
+Copyright 2011 The Lora Project Authors
+(https://github.com/cyrealtype/Lora-Cyrillic),
+with Reserved Font Name "Lora".
+"""
+
+[[licenses]]
+name = "public-sans font"
+license = "OFL-1.1"
+author = "The Public Sans Project Authors"
+url = "https://github.com/uswds/public-sans"
+copyright = """
+Copyright 2015 The Public Sans Project Authors
+(https://github.com/uswds/public-sans)
+"""
+
+[[licenses]]
+name = "stimulus"
+license = "MIT"
+author = "Basecamp, LLC"
+url = "https://github.com/hotwired/stimulus"
+copyright = """
+Copyright © 2021 Basecamp, LLC.
+"""
+
+[[licenses]]
+name = "turbo"
+license = "MIT"
+author = "37signals LLC"
+url = "https://github.com/hotwired/turbo"
+copyright = """
+Copyright (c) 37signals
+"""
+
+[[licenses]]
+name = "boxicons"
+license = "CC-BY-4.0"
+author = "Atisa atisawd@gmail.com https://github.com/atisawd"
+url = "https://github.com/atisawd/boxicons"
+copyright = """
+Copyright (c) 2015-2021 Aniket Suvarna
+"""
+
+[[licenses]]
+name = "material design icons"
+license = "Apache-2.0"
+author = "Pictogrammers icon collective"
+url = "https://pictogrammers.com/library/mdi/"
+copyright = """
+Icons: Apache 2.0
+"""
+
+[[licenses]]
+name = "tailwindcss"
+license = "MIT"
+author = "Tailwind Labs, Inc."
+url = "https://github.com/tailwindlabs/tailwindcss"
+copyright = """
+Copyright (c) Tailwind Labs, Inc.
+"""

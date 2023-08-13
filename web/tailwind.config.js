@@ -89,6 +89,11 @@ var config = {
         "Apple Color Emoji", "Segoe UI Emoji",
         "Segoe UI Symbol", "Noto Color Emoji",
       ],
+      mono: [
+        "ui-monospace", "Cascadia Code", "Source Code Pro", "Menlo", "Consolas", "DejaVu Sans Mono", "monospace",
+        "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol", "Noto Color Emoji",
+      ],
     },
     screens: {
       "sm": "640px",

@@ -13,8 +13,8 @@ VERSION_FLAGS := \
 	-X 'github.com/readeck/readeck/configs.version=$(VERSION)' \
 	-X 'github.com/readeck/readeck/configs.buildTimeStr=$(DATE)'
 
-SITECONFIG_SRC=../fftr-site-config
-SITECONFIG_DEST=pkg/extract/fftr/site-config/standard
+SITECONFIG_SRC=./ftr-site-config
+SITECONFIG_DEST=src/pkg/extract/fftr/site-config/standard
 
 # Build the app
 .PHONY: all
@@ -77,8 +77,7 @@ serve:
 .PHONY: update-site-config
 update-site-config:
 	rm -rf $(SITECONFIG_DEST)
-	go run tools/fftr_convert.go $(SITECONFIG_SRC) $(SITECONFIG_DEST)
-	rm -rf $(SITECONFIG_CLONE)
+	go run ./tools/ftr $(SITECONFIG_SRC) $(SITECONFIG_DEST)
 
 .PHONY: dev
 dev:

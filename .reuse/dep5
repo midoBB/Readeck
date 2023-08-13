@@ -14,8 +14,8 @@ Files:
     .golangci.yml
     go.work
     go.work.sum
-    src/go.mod
-    src/go.sum
+    */go.mod
+    */go.sum
     src/web/.browserslistrc
     src/web/.prettierrc
     src/web/package.json

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: © 2022 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
 // From https://github.com/afcapel/stimulus-autocomplete
 // By Alberto Fernández-Capel
 // Released under MIT license

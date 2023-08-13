@@ -21,6 +21,14 @@ Copyright: 2020 Olivier Meunier <olivier@neokraft.net>
 License: CC0-1.0
 
 Files:
+    web/media/*.ico
+    web/media/*.json
+    web/media/*.png
+    web/media/*.svg
+Copyright: 2021 Olivier Meunier <olivier@neokraft.net>
+License: AGPL-3.0-only
+
+Files:
     pkg/extract/fftr/site-config/standard/*.json
 Copyright: fiveFilters, Wallabag
 License: CC0-1.0

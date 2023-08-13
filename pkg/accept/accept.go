@@ -1,7 +1,10 @@
-package accept
+// SPDX-FileCopyrightText: © 2013 The Go Authors
+//
+// SPDX-License-Identifier: BSD-3-Clause
 
 // Original code: https://github.com/golang/gddo/tree/master/httputil
-// Released under BSD-3-Clause License
+
+package accept
 
 import (
 	"net/http"

@@ -14,6 +14,7 @@
     "@fontsource/public-sans": "^5.0.8",
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo": "^7.3.0",
+    "@mdi/svg": "^7.2.96",
     "boxicons": "^2.1.4",
     "cssnano": "^6.0.1",
     "del": "^7.0.0",

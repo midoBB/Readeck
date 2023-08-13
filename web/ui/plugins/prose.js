@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
 // This is a postCSS plugin that provides @rules to help with
 // content vertical flow.
 

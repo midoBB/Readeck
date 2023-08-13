@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
 const svgToDataUri = require("mini-svg-data-uri")
 const plugin = require("tailwindcss/plugin")
 const {spacing, borderWidth, borderRadius} = require("tailwindcss/defaultTheme")

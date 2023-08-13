@@ -1,5 +1,10 @@
+// SPDX-FileCopyrightText: © 2017 Mads Jacobsen
+//
+// SPDX-License-Identifier: MIT
+
+// Original code: https://github.com/lukasbob/srcset
+
 // Package srcset is an srcset value parser.
-// Fork of https://github.com/lukasbob/srcset (Mads Jacobsen, MIT License)
 package srcset
 
 import (

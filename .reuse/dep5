@@ -1,0 +1,50 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+
+Files:
+    CHANGELOG
+    modd.conf
+    README.md
+    pkg/archiver/README.md
+Copyright: 2020 Olivier Meunier <olivier@neokraft.net>
+License: AGPL-3.0-only
+
+Files:
+    .gitignore
+    .go-version
+    .golangci.yml
+    go.mod
+    go.sum
+    web/.browserslistrc
+    web/.prettierrc
+    web/package.json
+    web/package-lock.json
+Copyright: 2020 Olivier Meunier <olivier@neokraft.net>
+License: CC0-1.0
+
+Files:
+    internal/auth/credentials/assets/wordlist.txt
+Copyright: EFF
+License: CC0-1.0
+
+Files:
+    pkg/*fixtures/*
+Copyright: 2020 Olivier Meunier <olivier@neokraft.net>
+License: AGPL-3.0-only
+
+Files:
+    docs/src/*
+Copyright: 2023 Olivier Meunier <olivier@neokraft.net>
+License: AGPL-3.0-only
+
+Files:
+    web/media/*.ico
+    web/media/*.json
+    web/media/*.png
+    web/media/*.svg
+Copyright: 2021 Olivier Meunier <olivier@neokraft.net>
+License: AGPL-3.0-only
+
+Files:
+    pkg/extract/fftr/site-config/standard/*.json
+Copyright: fiveFilter, Wallabag
+License: CC0-1.0

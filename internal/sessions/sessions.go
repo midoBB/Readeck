@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
 // Package sessions provides a cookie based session manager.
 // It's heavily based on gorilla session but with a structured session
 // payload that can be serialized to json.

@@ -1,6 +1,10 @@
-package glob
+// SPDX-FileCopyrightText: © 2014 Ryan Uber
+//
+// SPDX-License-Identifier: MIT
 
-// From https://github.com/ryanuber/go-glob (Ryan Uber, MIT License)
+// Original code: https://github.com/ryanuber/go-glob
+
+package glob
 
 import "strings"
 

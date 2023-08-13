@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: CC0-1.0
+
 module.exports = {
   root: true,
   env: {

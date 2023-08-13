@@ -1,14 +1,23 @@
+// SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
 package docs
 
 import (
 	"context"
+	"encoding/json"
 	"io"
 	"net/http"
+	"runtime"
+	"slices"
 	"strings"
 	"time"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/komkom/toml"
 
+	"github.com/readeck/readeck/configs"
 	"github.com/readeck/readeck/internal/server"
 )
 
@@ -18,6 +27,14 @@ type ctxSectionKey struct{}
 type helpHandlers struct {
 	chi.Router
 	srv *server.Server
+}
+
+type licenseInfo struct {
+	Name      string
+	License   string
+	Author    string
+	URL       string
+	Copyright string
 }
 
 const routePrefix = "/docs"
@@ -37,7 +54,7 @@ func SetupRoutes(s *server.Server) {
 	// Document routes
 	// docHandler serves the document and requires authentication
 	docHandler := handler.With(s.AuthenticatedRouter(s.WithRedirectLogin).Middlewares()...)
-	for _, section := range manifest.Sections {
+	for lang, section := range manifest.Sections {
 		for _, f := range section.Files {
 			// Document
 			docHandler.With(
@@ -49,6 +66,14 @@ func SetupRoutes(s *server.Server) {
 			for _, alias := range f.Aliases {
 				handler.Get("/"+alias, handler.serverRedirect(routePrefix+"/"+f.Route))
 			}
+		}
+
+		if lang == "en" {
+			// About page
+			docHandler.With(
+				s.WithPermission("system", "read"),
+				handler.withSection(section),
+			).Get("/about", handler.serverAbout)
 		}
 	}
 
@@ -125,6 +150,35 @@ func (h *helpHandlers) serverRedirect(to string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		h.srv.Redirect(w, r, to)
 	}
+}
+
+func (h *helpHandlers) serverAbout(w http.ResponseWriter, r *http.Request) {
+	fp, err := assets.Open("licenses/licenses.toml")
+	if err != nil {
+		h.srv.Error(w, r, err)
+		return
+	}
+
+	var licenses = map[string][]licenseInfo{}
+	dec := json.NewDecoder(toml.New(fp))
+	if err = dec.Decode(&licenses); err != nil {
+		h.srv.Error(w, r, err)
+		return
+	}
+	slices.SortFunc(licenses["licenses"], func(a, b licenseInfo) int {
+		return strings.Compare(strings.ToLower(a.Name), strings.ToLower(b.Name))
+	})
+
+	section, _ := r.Context().Value(ctxSectionKey{}).(*Section)
+	h.srv.RenderTemplate(w, r, http.StatusOK, "docs/about", server.TC{
+		"TOC":       section.TOC,
+		"Version":   configs.Version(),
+		"BuildTime": configs.BuildTime(),
+		"Licenses":  licenses["licenses"],
+		"OS":        runtime.GOOS,
+		"Arch":      runtime.GOARCH,
+		"GoVersion": runtime.Version(),
+	})
 }
 
 func (h *helpHandlers) serverAPISchema(w http.ResponseWriter, r *http.Request) {

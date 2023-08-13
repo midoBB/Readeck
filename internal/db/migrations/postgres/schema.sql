@@ -1,3 +1,7 @@
+-- SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+--
+-- SPDX-License-Identifier: AGPL-3.0-only
+
 CREATE TABLE migration (
     id      integer      PRIMARY KEY,
     name    varchar(128) NOT NULL,

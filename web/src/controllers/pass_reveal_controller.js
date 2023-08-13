@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
 import {Controller} from "@hotwired/stimulus"
 import $ from "../lib/dq"
 import icon from "../lib/icon"

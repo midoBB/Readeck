@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
 package docs
 
 import (
@@ -7,7 +11,7 @@ import (
 	"net/http"
 )
 
-//go:embed assets assets/**/*
+//go:embed assets assets/**/* licenses/*
 var assets embed.FS
 
 // Files contains all the generated help files as an http.FS instance

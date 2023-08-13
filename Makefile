@@ -73,7 +73,7 @@ sloc:
 
 # Launch tests
 .PHONY: test
-test:
+test: docs-build web-build
 	go test -tags "$(TAGS)" -cover -count=1 ./...
 
 # Start the HTTP server

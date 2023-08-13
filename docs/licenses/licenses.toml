@@ -375,3 +375,16 @@ url = "https://github.com/tailwindlabs/tailwindcss"
 copyright = """
 Copyright (c) Tailwind Labs, Inc.
 """
+
+
+# -------------------------------------------------------------------
+# Misc
+# -------------------------------------------------------------------
+[[licenses]]
+name = "ftr site config"
+license = "CC0-1.0"
+author = "fiveFilter, Wallabag"
+url = "https://github.com/j0k3r/graby-site-config"
+copyright = """
+fiveFilter, Wallabag
+"""

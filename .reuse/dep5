@@ -46,5 +46,5 @@ License: AGPL-3.0-only
 
 Files:
     pkg/extract/fftr/site-config/standard/*.json
-Copyright: fiveFilters, Wallabag
+Copyright: fiveFilter, Wallabag
 License: CC0-1.0

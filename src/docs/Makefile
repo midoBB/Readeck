@@ -5,7 +5,7 @@
 all: clean build
 
 build:
-	go run build.go src assets
+	go run ../../tools/docs src assets
 
 clean:
 	rm -rf assets/*

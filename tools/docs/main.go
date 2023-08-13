@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-//go:build tooling
-
+// tools/docs is a script that builds an HTML documentation based on markdown files
+// in a source directory.
 package main
 
 import (
@@ -34,6 +34,7 @@ import (
 
 var ctxTitleKey = parser.NewContextKey()
 
+// File is a documentation file
 type File struct {
 	Route      string         `json:"route"`
 	Aliases    []string       `json:"aliases"`
@@ -44,11 +45,13 @@ type File struct {
 	Meta       map[string]any `json:"meta"`
 }
 
+// Section is a documentation section (locale)
 type Section struct {
 	Files map[string]*File `json:"files"`
 	TOC   [][2]string      `json:"toc"`
 }
 
+// Manifest contains a list of all files and sections
 type Manifest struct {
 	Files    map[string]*File    `json:"files"`
 	Sections map[string]*Section `json:"sections"`
@@ -56,7 +59,7 @@ type Manifest struct {
 
 type linkTransform struct{}
 
-func (t *linkTransform) Transform(doc *ast.Document, reader text.Reader, _ parser.Context) {
+func (t *linkTransform) Transform(doc *ast.Document, _ text.Reader, _ parser.Context) {
 	ast.Walk(doc, func(node ast.Node, entering bool) (ast.WalkStatus, error) {
 		if entering {
 			if n, ok := node.(*ast.Link); ok {
@@ -277,7 +280,7 @@ func main() {
 
 	fileList := []*File{}
 
-	err = filepath.Walk(srcDir, func(src string, info fs.FileInfo, err error) error {
+	err = filepath.Walk(srcDir, func(src string, info fs.FileInfo, _ error) error {
 		if info.IsDir() {
 			if strings.HasPrefix(info.Name(), ".") {
 				return filepath.SkipDir

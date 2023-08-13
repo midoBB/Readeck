@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
 // Package bookmarks provides, models, forms and http routes
 // for bookmarks and collections management.
 package bookmarks

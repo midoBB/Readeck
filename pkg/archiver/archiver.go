@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: © 2020 Radhi Fadlillah
+//
+// SPDX-License-Identifier: MIT
+
 package archiver
 
 import (

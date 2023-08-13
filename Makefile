@@ -26,7 +26,8 @@ build:
 	go build \
 		-tags "$(BUILD_TAGS)" \
 		-ldflags="$(VERSION_FLAGS) -s -w" \
-		-o dist/readeck
+		-o dist/readeck \
+		./src
 
 # Build the server with only PG support (full static)
 .PHONY: build-pg
@@ -34,37 +35,27 @@ build-pg:
 	go build \
 		-tags "$(BUILD_TAGS) without_sqlite" \
 		-ldflags="$(VERSION_FLAGS) -s -w" \
-		-o dist/readeck_pg
-
-# Build the server in dev mode, without compiling the assets
-.PHONY: build-dev
-build-dev:
-	go build -tags "$(TAGS)" -o dist/readeck
-
+		-o dist/readeck_pg \
+		./src
 
 # Clean the build
 .PHONY: clean
 clean:
 	rm -rf dist
-	rm -rf assets/www/*
-	go clean
+	rm -rf src/assets/www/*
+	make -C src/web clean
 
 list:
 	go list \
 		-tags "$(BUILD_TAGS)" \
 		-ldflags="$(VERSION_FLAGS) -s -w" \
-		-f "{{ .GoFiles }}"
-
-# Launch the documentation
-.PHONY: doc
-doc:
-	@echo "Visit http://localhost:6060/pkg/github.com/readeck/readeck/?m=all"
-	godoc
+		-f "{{ .GoFiles }}" \
+		./src
 
 # Linting
 .PHONY: lint
 lint:
-	golangci-lint run
+	cd src && golangci-lint run
 
 # SLOC
 .PHONY: sloc
@@ -74,7 +65,7 @@ sloc:
 # Launch tests
 .PHONY: test
 test: docs-build web-build
-	go test -tags "$(TAGS)" -cover -count=1 ./...
+	go test -tags "$(TAGS)" -cover -count=1 ./src/...
 
 # Start the HTTP server
 .PHONY: serve
@@ -95,19 +86,20 @@ dev:
 
 .PHONY: help-build
 docs-build:
-	${MAKE} -C docs all
+	${MAKE} -C src/docs all
 
 .PHONY: web-build
 web-build:
-	@$(MAKE) -C web build
+	@$(MAKE) -C src/web build
 
 .PHONY: web-watch
 web-watch:
-	@$(MAKE) -C web watch
+	@$(MAKE) -C src/web watch
 
 
 # Setup the development env
 .PHONY: setup
 setup:
-	${MAKE} -C web setup
+	${MAKE} -C src/web setup
 	go install github.com/cortesi/modd/cmd/modd@latest
+	go install github.com/boyter/scc/v3@latest

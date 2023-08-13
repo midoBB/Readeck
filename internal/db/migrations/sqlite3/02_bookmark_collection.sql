@@ -1,3 +1,7 @@
+-- SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+--
+-- SPDX-License-Identifier: AGPL-3.0-only
+
 CREATE TABLE IF NOT EXISTS bookmark_collection (
     id          integer  PRIMARY KEY AUTOINCREMENT,
     uid         text     UNIQUE NOT NULL,

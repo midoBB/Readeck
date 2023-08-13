@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
 // Infer a correct type for deviantart pages.
 function deviantartPage() {
   // There's a JSON URL in the collected link tags

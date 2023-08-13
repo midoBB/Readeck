@@ -1,4 +1,9 @@
 #!/usr/bin/make
+
+# SPDX-FileCopyrightText: © 2020 Olivier Meunier <olivier@neokraft.net>
+#
+# SPDX-License-Identifier: AGPL-3.0-only
+
 VERSION := $(shell git describe --tags)
 DATE := $(shell git log -1 --format=%cI)
 

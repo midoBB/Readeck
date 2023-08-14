@@ -2,19 +2,17 @@
 /data
 /data-*
 /dist
+/ftr-site-config
 
 /.vscode
 
-/assets/www/*
-!/assets/www/.keep
-!/assets/templates/base.gohtml
+/src/assets/www/*
+!/src/assets/www/.keep
+!/src/assets/templates/base.gohtml
 
-/docs/assets/*
-!/docs/assets/.keep
-/docs/src/.obsidian
+/src/docs/assets/*
+!/src/docs/assets/.keep
+/src/docs/src/.obsidian
 
-/web/dist
-/web/node_modules
-
-/web-spa/
-/web-spa/node_modules
+/src/web/dist
+/src/web/node_modules

@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-//go:build tooling
-
+// tools/ftr provides a command line interface to convert site config text files
+// to JSON files.
 package main
 
 import (
@@ -14,18 +14,16 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"path"
 	"path/filepath"
 	"regexp"
 	"strings"
-
-	log "github.com/sirupsen/logrus"
-
-	"github.com/readeck/readeck/pkg/extract/fftr"
 )
 
 func main() {
+	log.SetFlags(log.Flags() &^ (log.Ldate | log.Ltime))
 	flag.Parse()
 
 	if len(flag.Args()) < 2 {
@@ -60,7 +58,7 @@ func main() {
 	log.Printf("Destination: %s", destDir)
 
 	// Parse fftr files
-	filepath.Walk(srcDir, func(name string, info os.FileInfo, err error) error {
+	filepath.Walk(srcDir, func(name string, info os.FileInfo, _ error) error {
 		if path.Base(name) == "LICENSE.txt" {
 			return nil
 		}
@@ -71,13 +69,41 @@ func main() {
 			return nil
 		}
 
-		if err = converTextConfig(name, destDir); err != nil {
-			log.Errorf("%s\n           %s", name, err)
+		if err := converTextConfig(name, destDir); err != nil {
+			log.Printf("ERR: %s\n           %s", name, err)
 			return nil
 		}
 
 		return nil
 	})
+}
+
+// Config holds the fivefilters configuration.
+type Config struct {
+	Files []string `json:"-"`
+
+	TitleSelectors          []string          `json:"title_selectors"`
+	BodySelectors           []string          `json:"body_selectors"`
+	DateSelectors           []string          `json:"date_selectors"`
+	AuthorSelectors         []string          `json:"author_selectors"`
+	StripSelectors          []string          `json:"strip_selectors"`
+	StripIDOrClass          []string          `json:"strip_id_or_class"`
+	StripImageSrc           []string          `json:"strip_image_src"`
+	NativeAdSelectors       []string          `json:"native_ad_selectors"`
+	Tidy                    bool              `json:"tidy"`
+	Prune                   bool              `json:"prune"`
+	AutoDetectOnFailure     bool              `json:"autodetect_on_failure"`
+	SinglePageLinkSelectors []string          `json:"single_page_link_selectors"`
+	NextPageLinkSelectors   []string          `json:"next_page_link_selectors"`
+	ReplaceStrings          [][2]string       `json:"replace_strings"`
+	HTTPHeaders             map[string]string `json:"http_headers"`
+	Tests                   []FilterTest      `json:"tests"`
+}
+
+// FilterTest holds the values for a filter's test.
+type FilterTest struct {
+	URL      string   `json:"url"`
+	Contains []string `json:"contains"`
 }
 
 func converTextConfig(filename string, dest string) error {
@@ -97,7 +123,7 @@ func converTextConfig(filename string, dest string) error {
 	encoder.SetIndent("", "  ")
 
 	if err := encoder.Encode(cfg); err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	destFile := path.Join(dest, path.Base(filename))
@@ -114,8 +140,8 @@ func converTextConfig(filename string, dest string) error {
 	return nil
 }
 
-func newConfig(file io.Reader) (*fftr.Config, error) {
-	res := &fftr.Config{
+func newConfig(file io.Reader) (*Config, error) {
+	res := &Config{
 		AutoDetectOnFailure: true,
 	}
 
@@ -166,7 +192,7 @@ func newConfig(file io.Reader) (*fftr.Config, error) {
 	return res, nil
 }
 
-var lineRE *regexp.Regexp = regexp.MustCompile(`^(.+?)(?:\((.+)\))?:\s*(.*)$`)
+var lineRE = regexp.MustCompile(`^(.+?)(?:\((.+)\))?:\s*(.*)$`)
 
 func parseLine(line string) ([3]string, error) {
 	if !lineRE.MatchString(line) {
@@ -181,23 +207,23 @@ func parseLine(line string) ([3]string, error) {
 	return [3]string{m[0][1], m[0][2], m[0][3]}, nil
 }
 
-type entryParser func(*fftr.Config, int, [][3]string) error
+type entryParser func(*Config, int, [][3]string) error
 
 func simpleStringValue(v *[]string) entryParser {
-	return func(cfg *fftr.Config, i int, entries [][3]string) error {
+	return func(cfg *Config, i int, entries [][3]string) error {
 		*v = append(*v, entries[i][2])
 		return nil
 	}
 }
 
 func simpleBoolValue(v *bool) entryParser {
-	return func(cfg *fftr.Config, i int, entries [][3]string) error {
+	return func(cfg *Config, i int, entries [][3]string) error {
 		*v = entries[i][2] == "yes"
 		return nil
 	}
 }
 
-func setHeaderValue(cfg *fftr.Config, i int, entries [][3]string) error {
+func setHeaderValue(cfg *Config, i int, entries [][3]string) error {
 	if entries[i][1] == "" {
 		return fmt.Errorf("Header value not set (%s)", entries[i][2])
 	}
@@ -209,7 +235,7 @@ func setHeaderValue(cfg *fftr.Config, i int, entries [][3]string) error {
 	return nil
 }
 
-func setReplaceString(cfg *fftr.Config, i int, entries [][3]string) error {
+func setReplaceString(cfg *Config, i int, entries [][3]string) error {
 	line := entries[i]
 	switch line[0] {
 	case "replace_string":
@@ -240,9 +266,9 @@ func setReplaceString(cfg *fftr.Config, i int, entries [][3]string) error {
 	return nil
 }
 
-func setFilterTest(cfg *fftr.Config, i int, entries [][3]string) error {
+func setFilterTest(cfg *Config, i int, entries [][3]string) error {
 	line := entries[i]
-	res := fftr.FilterTest{URL: line[2], Contains: make([]string, 0)}
+	res := FilterTest{URL: line[2], Contains: make([]string, 0)}
 
 	for {
 		i++

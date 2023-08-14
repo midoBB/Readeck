@@ -50,9 +50,6 @@ require (
 	github.com/antchfx/xmlquery v1.3.17
 	github.com/gabriel-vasile/mimetype v1.4.2
 	github.com/lithammer/shortuuid/v4 v4.0.0
-	github.com/mangoumbrella/goldmark-figure v1.0.0
-	github.com/yuin/goldmark v1.5.5
-	github.com/yuin/goldmark-meta v1.1.0
 )
 
 require (
@@ -84,6 +81,5 @@ require (
 	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/toorop/go-dkim v0.0.0-20201103131630-e1cd1a0a5208 // indirect
 	golang.org/x/crypto v0.12.0 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

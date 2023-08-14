@@ -19,6 +19,10 @@ func init() {
 
 type pgConnector struct{}
 
+func (c *pgConnector) Name() string {
+	return "jackc/pgx"
+}
+
 func (c *pgConnector) Dialect() string {
 	return "postgres"
 }

@@ -2,7 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-//go:build !without_sqlite
+// To compile with CGO_ENABLED=1
+//go:build cgo
 
 package db
 
@@ -20,6 +21,10 @@ func init() {
 }
 
 type sqliteConnector struct{}
+
+func (c *sqliteConnector) Name() string {
+	return "mattn/go-sqlite3"
+}
 
 func (c *sqliteConnector) Dialect() string {
 	return "sqlite3"

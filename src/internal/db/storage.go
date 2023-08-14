@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package db provides the first layer interfaces to database storage.
 package db
 
 import (
@@ -20,6 +21,9 @@ import (
 
 // Connector is an interface for a database connector.
 type Connector interface {
+	// Name returns the connector's name
+	Name() string
+
 	// Dialect returns the connector's dialect
 	Dialect() string
 

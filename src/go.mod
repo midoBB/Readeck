@@ -8,7 +8,6 @@ require (
 	github.com/antchfx/xpath v1.2.4 // indirect
 	github.com/anthonynsimon/bild v0.13.0
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
-	github.com/biessek/golang-ico v0.0.0-20180326222316-d348d9ea4670
 	github.com/casbin/casbin/v2 v2.73.1
 	github.com/cristalhq/jwt/v3 v3.1.0
 	github.com/dop251/goja v0.0.0-20230806174421-c933cf95e127
@@ -25,7 +24,6 @@ require (
 	github.com/hlandau/passlib v1.0.11
 	github.com/jackc/pgx/v4 v4.18.1
 	github.com/jarcoal/httpmock v1.3.0
-	github.com/jsummers/gobmp v0.0.0-20230614200233-a9de23ed2e25 // indirect
 	github.com/kinbiko/jsonassert v1.1.1
 	github.com/komkom/toml v0.1.2
 	github.com/mattn/go-isatty v0.0.19 // indirect

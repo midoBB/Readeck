@@ -16,10 +16,10 @@ import (
 	"image/jpeg" // JPEG decoder and encoder
 	"image/png"  // PNG decoder and encoder
 
-	_ "github.com/biessek/golang-ico" // ICO decoder
-	_ "golang.org/x/image/bmp"        // BMP decoder
-	_ "golang.org/x/image/tiff"       // TIFF decoder
-	_ "golang.org/x/image/webp"       // WEBP decoder
+	_ "github.com/readeck/readeck/pkg/img/ico" // ICO decoder
+	_ "golang.org/x/image/bmp"                 // BMP decoder
+	_ "golang.org/x/image/tiff"                // TIFF decoder
+	_ "golang.org/x/image/webp"                // WEBP decoder
 
 	"github.com/anthonynsimon/bild/effect"
 	"github.com/anthonynsimon/bild/transform"

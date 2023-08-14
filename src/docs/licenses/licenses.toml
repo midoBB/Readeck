@@ -39,11 +39,6 @@ Copyright (c) 2015-2017 Aaron Raddon
 """
 
 [[licenses]]
-name = "golang-ico"
-license = "UNLICENSE"
-url = "https://github.com/biessek/golang-ico"
-
-[[licenses]]
 name = "casbin"
 license = "Apache-2.0"
 author = "The casbin Authors"
@@ -291,6 +286,16 @@ name = "x/sys"
 license = "BSD-3-Clause"
 author = "Google Inc."
 url = "https://golang.org/x/sys"
+copyright = """
+Copyright (c) 2009 The Go Authors.
+All rights reserved.
+"""
+
+[[licenses]]
+name = "x/term"
+license = "BSD-3-Clause"
+author = "Google Inc."
+url = "https://golang.org/x/term"
 copyright = """
 Copyright (c) 2009 The Go Authors.
 All rights reserved.

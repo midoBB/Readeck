@@ -50,6 +50,7 @@ require (
 	github.com/antchfx/xmlquery v1.3.17
 	github.com/gabriel-vasile/mimetype v1.4.2
 	github.com/lithammer/shortuuid/v4 v4.0.0
+	golang.org/x/term v0.11.0
 )
 
 require (

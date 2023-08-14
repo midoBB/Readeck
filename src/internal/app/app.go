@@ -7,17 +7,14 @@ package app
 import (
 	"errors"
 	"fmt"
-	"math/rand"
 	"net/url"
 	"os"
 	"path"
-	"time"
 
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
 	"github.com/readeck/readeck/configs"
-	"github.com/readeck/readeck/internal/auth/users"
 	"github.com/readeck/readeck/internal/db"
 	"github.com/readeck/readeck/internal/email"
 	"github.com/readeck/readeck/pkg/extract/fftr"
@@ -32,8 +29,6 @@ var rootCmd = &cobra.Command{
 var configPath string
 
 func init() {
-	rand.Seed(time.Now().UnixNano())
-
 	rootCmd.PersistentFlags().StringVarP(
 		&configPath, "config", "c",
 		"", "Configuration file",
@@ -92,22 +87,6 @@ func InitApp() {
 	// Init db schema
 	if err := db.Init(); err != nil {
 		log.WithError(err).Fatal()
-	}
-
-	// Create the first user if needed
-	count, err := db.Q().From("user").Count()
-	if err != nil {
-		log.WithError(err).Fatal()
-	}
-	if count == 0 {
-		if err := users.Users.Create(&users.User{
-			Username: "admin",
-			Email:    "admin@localhost",
-			Password: "admin",
-			Group:    "admin",
-		}); err != nil {
-			log.WithError(err).Fatal()
-		}
 	}
 
 	// Init email sending

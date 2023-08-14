@@ -7,6 +7,7 @@ package app
 import (
 	"context"
 	"fmt"
+	"net"
 	"net/http"
 	"os"
 	"os/signal"
@@ -20,6 +21,7 @@ import (
 	"github.com/readeck/readeck/docs"
 	"github.com/readeck/readeck/internal/admin"
 	"github.com/readeck/readeck/internal/assets"
+	"github.com/readeck/readeck/internal/auth/onboarding"
 	"github.com/readeck/readeck/internal/auth/signin"
 	"github.com/readeck/readeck/internal/bookmarks"
 	"github.com/readeck/readeck/internal/bus"
@@ -68,22 +70,13 @@ func runServe(_ *cobra.Command, _ []string) error {
 		return err
 	}
 
+	if err := onboarding.CLI(); err != nil {
+		log.WithError(err).Fatal()
+	}
+
+	ready := make(chan bool)
 	stop := make(chan os.Signal, 2)
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
-
-	// Start the HTTP server
-	go func() {
-		log.WithField("url", fmt.Sprintf("http://%s:%d%s",
-			configs.Config.Server.Host, configs.Config.Server.Port, s.BasePath),
-		).Info("starting server")
-		if err := srv.ListenAndServe(); err != nil {
-			if err == http.ErrServerClosed {
-				log.Info("stopping server...")
-				return
-			}
-			panic(err)
-		}
-	}()
 
 	// Start the embed standalone worker.
 	startBus := configs.Config.Worker.StartWorker || bus.Protocol() == "memory"
@@ -94,9 +87,32 @@ func runServe(_ *cobra.Command, _ []string) error {
 		}()
 	}
 
+	// Start the HTTP server
+	go func() {
+		ln, err := net.Listen("tcp", srv.Addr)
+		if err != nil {
+			log.WithError(err).Error("cannot start the server")
+			os.Exit(1)
+		}
+
+		ready <- true
+		if err = srv.Serve(ln); err != nil {
+			if err == http.ErrServerClosed {
+				log.Info("stopping server...")
+				return
+			}
+			log.WithError(err).Error("server error")
+		}
+	}()
+
+	// Server is ready to accept requests
+	<-ready
+	log.WithField("url", fmt.Sprintf("http://%s:%d%s",
+		configs.Config.Server.Host, configs.Config.Server.Port, s.BasePath),
+	).Info("server started")
+
 	// Server shutdown
 	<-stop
-
 	log.Info("shutting down...")
 	defer cleanup()
 

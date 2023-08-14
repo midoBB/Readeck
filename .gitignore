@@ -1,3 +1,4 @@
+/.makerc
 /config.toml
 /data
 /data-*

@@ -4,38 +4,39 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 
+-include .makerc
+
 VERSION := $(shell git describe --tags)
 DATE := $(shell git log -1 --format=%cI)
 
-TAGS := omit_load_extension foreign_keys json1 fts5 secure_delete
+TAGS := netgo osusergo sqlite_omit_load_extension sqlite_foreign_keys sqlite_json1 sqlite_fts5 sqlite_secure_delete
 BUILD_TAGS := $(TAGS)
 VERSION_FLAGS := \
 	-X 'github.com/readeck/readeck/configs.version=$(VERSION)' \
 	-X 'github.com/readeck/readeck/configs.buildTimeStr=$(DATE)'
+
+LDFLAGS ?= -s -w
+CGO_ENABLED ?= 1
+CGO_CFLAGS ?= -D_LARGEFILE64_SOURCE
 
 SITECONFIG_SRC=./ftr-site-config
 SITECONFIG_DEST=src/pkg/extract/fftr/site-config/standard
 
 # Build the app
 .PHONY: all
-all: web-build docs-build build build-pg
+all: web-build docs-build build
 
 # Build the server
 .PHONY: build
 build:
+	@echo "CC: $(CC)"
+	@echo "CXX: $(CXX)"
+	CGO_ENABLED=$(CGO_ENABLED) CGO_CFLAGS=$(CGO_CFLAGS) \
 	go build \
+		-v \
 		-tags "$(BUILD_TAGS)" \
-		-ldflags="$(VERSION_FLAGS) -s -w" \
+		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" -trimpath \
 		-o dist/readeck \
-		./src
-
-# Build the server with only PG support (full static)
-.PHONY: build-pg
-build-pg:
-	go build \
-		-tags "$(BUILD_TAGS) without_sqlite" \
-		-ldflags="$(VERSION_FLAGS) -s -w" \
-		-o dist/readeck_pg \
 		./src
 
 # Clean the build
@@ -46,9 +47,10 @@ clean:
 	make -C src/web clean
 
 list:
+	CGO_ENABLED=$(CGO_ENABLED) CGO_CFLAGS=$(CGO_CFLAGS) \
 	go list \
 		-tags "$(BUILD_TAGS)" \
-		-ldflags="$(VERSION_FLAGS) -s -w" \
+		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" \
 		-f "{{ .GoFiles }}" \
 		./src
 
@@ -60,12 +62,18 @@ lint:
 # SLOC
 .PHONY: sloc
 sloc:
-	scc -i go,js,sass
+	scc -i go,js,sass,html,md
 
 # Launch tests
 .PHONY: test
 test: docs-build web-build
-	go test -tags "$(TAGS)" -cover -count=1 ./src/...
+	@echo "CC: $(CC)"
+	@echo "CXX: $(CXX)"
+	CGO_ENABLED=$(CGO_ENABLED) CGO_CFLAGS=$(CGO_CFLAGS) \
+	go test \
+		-tags "$(TAGS)" \
+		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" -trimpath \
+		-cover -count=1 ./src/...
 
 # Start the HTTP server
 .PHONY: serve

@@ -167,3 +167,12 @@ release-windows-amd64: export GOOS=windows
 release-windows-amd64: export GOARCH=amd64
 release-windows-amd64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH).exe
 release-windows-amd64: _release
+
+.PHONY: release-container-amd64
+release-container-amd64:
+	docker build \
+		--ulimit=nofile=4000 \
+		-f Containerfile \
+		--build-arg VERSION=$(VERSION) \
+		--build-arg DATE=$(DATE) \
+		-t readeck-bin

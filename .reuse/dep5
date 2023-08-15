@@ -9,6 +9,7 @@ Copyright: 2020 Olivier Meunier <olivier@neokraft.net>
 License: AGPL-3.0-only
 
 Files:
+    .dockerignore
     .gitignore
     .go-version
     .golangci.yml

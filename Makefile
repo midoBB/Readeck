@@ -6,18 +6,23 @@
 
 -include .makerc
 
+ifeq (, $(shell which git))
+VERSION ?= dev
+DATE ?= $(shell date --rfc-3339=seconds)
+else
 VERSION := $(shell git describe --tags)
 DATE := $(shell git log -1 --format=%cI)
+endif
 
-TAGS := netgo osusergo sqlite_omit_load_extension sqlite_foreign_keys sqlite_json1 sqlite_fts5 sqlite_secure_delete
-BUILD_TAGS := $(TAGS)
+BUILD_TAGS := netgo osusergo sqlite_omit_load_extension sqlite_foreign_keys sqlite_json1 sqlite_fts5 sqlite_secure_delete
 VERSION_FLAGS := \
 	-X 'github.com/readeck/readeck/configs.version=$(VERSION)' \
 	-X 'github.com/readeck/readeck/configs.buildTimeStr=$(DATE)'
 
+OUTFILE_NAME ?= readeck
 LDFLAGS ?= -s -w
-CGO_ENABLED ?= 0
-CGO_CFLAGS ?= -D_LARGEFILE64_SOURCE
+export CGO_ENABLED ?= 0
+export CGO_CFLAGS ?= -D_LARGEFILE64_SOURCE
 
 SITECONFIG_SRC=./ftr-site-config
 SITECONFIG_DEST=src/pkg/extract/fftr/site-config/standard
@@ -31,12 +36,15 @@ all: web-build docs-build build
 build:
 	@echo "CC: $(CC)"
 	@echo "CXX: $(CXX)"
-	CGO_ENABLED=$(CGO_ENABLED) CGO_CFLAGS=$(CGO_CFLAGS) \
+	@echo "CGO_ENABLED": $$CGO_ENABLED
+	@echo "CGO_CFLAGS": $$CGO_CFLAGS
+	@echo "GOOS": $$GOOS
+	@echo "GOARCH": $$GOARCH
 	go build \
 		-v \
 		-tags "$(BUILD_TAGS)" \
 		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" -trimpath \
-		-o dist/readeck \
+		-o dist/$(OUTFILE_NAME) \
 		./src
 
 # Clean the build
@@ -110,3 +118,52 @@ setup:
 	${MAKE} -C src/web setup
 	go install github.com/cortesi/modd/cmd/modd@latest
 	go install github.com/boyter/scc/v3@latest
+
+
+#
+# Release targets
+#
+.PHONY: release-all
+release-all:
+	${MAKE} release-linux-amd64
+	${MAKE} release-darwin-amd64
+	${MAKE} release-windows-amd64
+
+.PHONY: _release
+_release: build _finish_release
+
+.PHONY: _finish_release
+_finish_release:
+	upx -v -9 dist/$(OUTFILE_NAME)
+	upx -v -t dist/$(OUTFILE_NAME)
+	sha256sum dist/$(OUTFILE_NAME) > dist/$(OUTFILE_NAME).sha256
+
+.PHONY: release-linux-amd64
+release-linux-amd64: CC:=zig cc -target x86_64-linux-musl
+release-linux-amd64: CXX:=zig cc -target x86_64-linux-musl
+release-linux-amd64: CGO_ENABLED=1
+release-linux-amd64: LDFLAGS:=-s -w -linkmode 'external' -extldflags '-static'
+release-linux-amd64: export GOOS=linux
+release-linux-amd64: export GOARCH=amd64
+release-linux-amd64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH)
+release-linux-amd64: _release
+
+.PHONY: release-darwin-amd64
+release-darwin-amd64: CC:=
+release-darwin-amd64: CXX:=
+release-darwin-amd64: CGO_ENABLED=0
+release-darwin-amd64: LDFLAGS:=-s -w
+release-darwin-amd64: export GOOS=darwin
+release-darwin-amd64: export GOARCH=amd64
+release-darwin-amd64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH)
+release-darwin-amd64: _release
+
+.PHONY: release-windows-amd64
+release-windows-amd64: CC:=
+release-windows-amd64: CXX:=
+release-windows-amd64: CGO_ENABLED=0
+release-windows-amd64: LDFLAGS:=-s -w
+release-windows-amd64: export GOOS=windows
+release-windows-amd64: export GOARCH=amd64
+release-windows-amd64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH).exe
+release-windows-amd64: _release

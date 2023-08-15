@@ -18,6 +18,7 @@ import (
 	"github.com/komkom/toml"
 
 	"github.com/readeck/readeck/configs"
+	"github.com/readeck/readeck/internal/db"
 	"github.com/readeck/readeck/internal/server"
 )
 
@@ -171,13 +172,14 @@ func (h *helpHandlers) serverAbout(w http.ResponseWriter, r *http.Request) {
 
 	section, _ := r.Context().Value(ctxSectionKey{}).(*Section)
 	h.srv.RenderTemplate(w, r, http.StatusOK, "docs/about", server.TC{
-		"TOC":       section.TOC,
-		"Version":   configs.Version(),
-		"BuildTime": configs.BuildTime(),
-		"Licenses":  licenses["licenses"],
-		"OS":        runtime.GOOS,
-		"Arch":      runtime.GOARCH,
-		"GoVersion": runtime.Version(),
+		"TOC":         section.TOC,
+		"Version":     configs.Version(),
+		"BuildTime":   configs.BuildTime(),
+		"Licenses":    licenses["licenses"],
+		"OS":          runtime.GOOS,
+		"Arch":        runtime.GOARCH,
+		"GoVersion":   runtime.Version(),
+		"DBConnecter": db.Driver().Name(),
 	})
 }
 

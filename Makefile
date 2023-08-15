@@ -16,7 +16,7 @@ VERSION_FLAGS := \
 	-X 'github.com/readeck/readeck/configs.buildTimeStr=$(DATE)'
 
 LDFLAGS ?= -s -w
-CGO_ENABLED ?= 1
+CGO_ENABLED ?= 0
 CGO_CFLAGS ?= -D_LARGEFILE64_SOURCE
 
 SITECONFIG_SRC=./ftr-site-config

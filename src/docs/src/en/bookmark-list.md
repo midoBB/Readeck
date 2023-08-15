@@ -4,7 +4,7 @@ Bookmarks are where you save the web content you like.
 
 ## Create a new Bookmark
 
-Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](../../bookmarks).
+Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks).
 
 ![New Bookmark form](img/bookmark-new.png)
 
@@ -29,7 +29,7 @@ A video is a page that was identified as a video container (ie. a link to Youtub
 
 ## Bookmark List
 
-The [bookmark list](../../bookmarks) is where you'll find all your saved bookmarks.
+The [bookmark list](readeck-instance://bookmarks) is where you'll find all your saved bookmarks.
 
 ### Navigation
 

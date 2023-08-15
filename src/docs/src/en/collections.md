@@ -13,7 +13,7 @@ Here are some examples:
 
 ## Create a new collection
 
-To create a new collection, go to the [Collection List](../../bookmarks/collections) and click on **Create a new collection**.
+To create a new collection, go to the [Collection List](readeck-instance://bookmarks/collections) and click on **Create a new collection**.
 
 ![New Collection form](img/collection-new.png)
 The collection form

@@ -6,6 +6,8 @@ TOC:
     - bookmark
     - labels
     - collections
+    - opds
+    - user-profile
 ---
 
 # Readeck Help
@@ -18,3 +20,5 @@ Welcome to Readeck! Here you'll find the answers to most of your questions regar
 - [Bookmark View](./bookmark.md)
 - [Labels](./labels.md)
 - [Collections](./collections.md)
+- [Ebook Catalog](./opds.md)
+- [User Profile](./user-profile.md)

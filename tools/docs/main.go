@@ -115,7 +115,8 @@ func mdToHTML(source, dest string) (*File, error) {
 	buf := new(bytes.Buffer)
 	p := goldmark.New(
 		goldmark.WithExtensions(
-			extension.GFM,
+			extension.Table,
+			extension.Strikethrough,
 			extension.DefinitionList,
 			figure.Figure,
 			meta.Meta,

@@ -5,7 +5,7 @@ There is no limit as to what can be a label. You can even add emojis if you like
 
 ## Label List
 
-The [Label List](../../bookmarks/labels) shows all the labels in your bookmark collection, with a number indicating how many bookmarks carry a given label.
+The [Label List](readeck-instance://bookmarks/labels) shows all the labels in your bookmark collection, with a number indicating how many bookmarks carry a given label.
 
 When you click on a label, you can list all the bookmarks carrying the label.
 

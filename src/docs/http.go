@@ -5,6 +5,7 @@
 package docs
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"io"
@@ -128,10 +129,18 @@ func (h *helpHandlers) serveDocument(w http.ResponseWriter, r *http.Request) {
 	}
 	defer fd.Close()
 
+	var contents strings.Builder
+	io.Copy(&contents, fd)
+	repl := strings.NewReplacer(
+		"readeck-instance://", h.srv.AbsoluteURL(r, "/").String(),
+	)
+	buf := new(bytes.Buffer)
+	repl.WriteString(buf, contents.String())
+
 	h.srv.RenderTemplate(w, r, http.StatusOK, "docs/index", server.TC{
 		"TOC":   section.TOC,
 		"Title": f.Title,
-		"HTML":  fd,
+		"HTML":  buf,
 	})
 }
 

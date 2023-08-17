@@ -54,5 +54,6 @@
   "o-font-size":    "node_modules/boxicons/svg/regular/bx-font-size.svg",
   "o-line-height":  "node_modules/boxicons/svg/regular/bx-align-left.svg",
 
-  "o-logo":         "media/logo.svg"
+  "o-logo":         "media/logo.svg",
+  "o-logo-square":  "media/logo-square.svg"
 }

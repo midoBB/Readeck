@@ -273,6 +273,10 @@ function copy_files() {
       .src("media/favicons/*")
       .pipe(hashName())
       .pipe(gulp.dest(path.join(DEST, "img/fi"))),
+    gulp
+      .src("media/logo-text.svg")
+      .pipe(hashName())
+      .pipe(gulp.dest(path.join(DEST, "img"))),
   )
 }
 

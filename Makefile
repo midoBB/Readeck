@@ -129,12 +129,9 @@ release-all:
 	${MAKE} release-darwin-amd64
 	${MAKE} release-windows-amd64
 
-.PHONY: _release
-_release: build _finish_release
-
-.PHONY: _finish_release
-_finish_release:
-	upx -v -9 dist/$(OUTFILE_NAME)
+.PHONY: compress_release
+compress_release:
+	upx -v --best --lzma dist/$(OUTFILE_NAME)
 	upx -v -t dist/$(OUTFILE_NAME)
 	sha256sum dist/$(OUTFILE_NAME) > dist/$(OUTFILE_NAME).sha256
 
@@ -146,7 +143,7 @@ release-linux-amd64: LDFLAGS:=-s -w -linkmode 'external' -extldflags '-static'
 release-linux-amd64: export GOOS=linux
 release-linux-amd64: export GOARCH=amd64
 release-linux-amd64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH)
-release-linux-amd64: _release
+release-linux-amd64: build compress_release
 
 .PHONY: release-darwin-amd64
 release-darwin-amd64: CC:=
@@ -156,7 +153,7 @@ release-darwin-amd64: LDFLAGS:=-s -w
 release-darwin-amd64: export GOOS=darwin
 release-darwin-amd64: export GOARCH=amd64
 release-darwin-amd64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH)
-release-darwin-amd64: _release
+release-darwin-amd64: build
 
 .PHONY: release-windows-amd64
 release-windows-amd64: CC:=
@@ -166,7 +163,7 @@ release-windows-amd64: LDFLAGS:=-s -w
 release-windows-amd64: export GOOS=windows
 release-windows-amd64: export GOARCH=amd64
 release-windows-amd64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH).exe
-release-windows-amd64: _release
+release-windows-amd64: build compress_release
 
 .PHONY: release-container-amd64
 release-container-amd64:

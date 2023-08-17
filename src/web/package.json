@@ -9,7 +9,6 @@
   "private": true,
   "dependencies": {
     "@babel/eslint-parser": "^7.22.10",
-    "@flexis/favicons": "^1.5.0",
     "@fontsource/lora": "^5.0.8",
     "@fontsource/public-sans": "^5.0.8",
     "@hotwired/stimulus": "^3.2.2",

@@ -11,7 +11,6 @@ const gulp = require("gulp")
 const gulpCheerio = require("gulp-cheerio")
 const gulpHash = require("gulp-hash-filename")
 const gulpEsbuild = require("gulp-esbuild")
-const gulpFavicons = require("@flexis/favicons/lib/stream")
 const gulpPostcss = require("gulp-postcss")
 const gulpRename = require("gulp-rename")
 const gulpSass = require("gulp-sass")
@@ -267,24 +266,6 @@ function icon_sprite() {
     .pipe(gulp.dest(DEST))
 }
 
-function generate_favicons() {
-  return gulp
-    .src("./media/img/favicon.svg")
-    .pipe(
-      gulpFavicons({
-        icons: {
-          android: false,
-          apple: true,
-          appleStartup: false,
-          favicon: true,
-        },
-        verbose: true,
-        headers: false,
-      }),
-    )
-    .pipe(gulp.dest("./media/favicons"))
-}
-
 // copy_files copies some files to the destination.
 function copy_files() {
   return mergeStream(
@@ -392,7 +373,6 @@ exports.js = js_bundle
 exports.css = gulp.series(clean_css, css_bundle, css_epub)
 exports.epub = css_epub
 exports.icons = icon_sprite
-exports.favicons = generate_favicons
 exports.copy = copy_files
 
 exports["watch:css"] = watch_css

@@ -115,6 +115,8 @@ func (api *apiRouter) bookmarkExport(w http.ResponseWriter, r *http.Request) {
 	switch format {
 	case "epub":
 		fn = api.exportBookmarksEPUB
+	case "md":
+		fn = api.exportBookmarksMD
 	default:
 		api.srv.Status(w, r, http.StatusNotFound)
 		return

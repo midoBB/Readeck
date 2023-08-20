@@ -27,6 +27,16 @@ import (
 
 var validSchemes = []string{"http", "https"}
 
+const (
+	filtersTitleUnset = iota
+	filtersTitleUnread
+	filtersTitleArchived
+	filtersTitleFavorites
+	filtersTitleArticles
+	filtersTitleVideos
+	filtersTitlePictures
+)
+
 type multipartResource struct {
 	URL     string            `json:"url"`
 	Headers map[string]string `json:"headers"`
@@ -335,32 +345,36 @@ func (f *labelDeleteForm) trigger(user *users.User, name string) {
 
 type filterForm struct {
 	*forms.Form
+	title        int
 	noPagination bool
 	order        []exp.OrderedExpression
 	st           searchString
 }
 
 func newFilterForm() *filterForm {
-	return &filterForm{Form: forms.Must(
-		forms.NewBooleanField("bf"),
-		forms.NewTextField("search", forms.Trim),
-		forms.NewTextField("title", forms.Trim),
-		forms.NewTextField("author", forms.Trim),
-		forms.NewTextField("site", forms.Trim),
-		forms.NewChoiceField("type", append([][2]string{{"", "All"}}, availableTypes...), forms.Trim),
-		forms.NewTextField("labels", forms.Trim),
-		forms.NewBooleanField("is_marked"),
-		forms.NewBooleanField("is_archived"),
-		forms.NewListField("id", func(n string) forms.Field {
-			return forms.NewTextField(n)
-		}, func(values []forms.Field) interface{} {
-			res := make([]string, len(values))
-			for i, x := range values {
-				res[i] = x.Value().(string)
-			}
-			return res
-		}),
-	)}
+	return &filterForm{
+		Form: forms.Must(
+			forms.NewBooleanField("bf"),
+			forms.NewTextField("search", forms.Trim),
+			forms.NewTextField("title", forms.Trim),
+			forms.NewTextField("author", forms.Trim),
+			forms.NewTextField("site", forms.Trim),
+			forms.NewChoiceField("type", append([][2]string{{"", "All"}}, availableTypes...), forms.Trim),
+			forms.NewTextField("labels", forms.Trim),
+			forms.NewBooleanField("is_marked"),
+			forms.NewBooleanField("is_archived"),
+			forms.NewListField("id", func(n string) forms.Field {
+				return forms.NewTextField(n)
+			}, func(values []forms.Field) interface{} {
+				res := make([]string, len(values))
+				for i, x := range values {
+					res[i] = x.Value().(string)
+				}
+				return res
+			}),
+		),
+		title: filtersTitleUnset,
+	}
 }
 
 // newContextFilterForm returns an instance of filterForm. If one already
@@ -421,15 +435,29 @@ func (f *filterForm) IsActive() bool {
 // setMarked sets the IsMarked property.
 func (f *filterForm) setMarked(v bool) {
 	f.Get("is_marked").Set(v)
+	f.title = filtersTitleFavorites
 }
 
 // setArchived sets the IsArchived property.
 func (f *filterForm) setArchived(v bool) {
 	f.Get("is_archived").Set(v)
+	if v {
+		f.title = filtersTitleArchived
+	} else {
+		f.title = filtersTitleUnread
+	}
 }
 
 func (f *filterForm) setType(v string) {
 	f.Get("type").Set(v)
+	switch v {
+	case "article":
+		f.title = filtersTitleArticles
+	case "photo":
+		f.title = filtersTitlePictures
+	case "video":
+		f.title = filtersTitleVideos
+	}
 }
 
 // toSelectDataSet returns an augmented select dataset including all the filter

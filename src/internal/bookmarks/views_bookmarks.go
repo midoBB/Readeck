@@ -74,10 +74,30 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 	ctx["Form"] = f
 	ctx["Pagination"] = bl.Pagination
 	ctx["Bookmarks"] = bl.Items
+	title := "All your Bookmarks"
 
 	if filters, ok := r.Context().Value(ctxFiltersKey{}).(*filterForm); ok {
 		ctx["Filters"] = filters
+		if filters.IsActive() {
+			title = "Bookmark Search"
+		} else {
+			switch filters.title {
+			case filtersTitleUnread:
+				title = "Unread Bookmarks"
+			case filtersTitleArchived:
+				title = "Archived Bookmarks"
+			case filtersTitleFavorites:
+				title = "Favorite Bookmarks"
+			case filtersTitleArticles:
+				title = "Articles"
+			case filtersTitlePictures:
+				title = "Pictures"
+			case filtersTitleVideos:
+				title = "Videos"
+			}
+		}
 	}
+	ctx["PageTitle"] = title
 
 	h.srv.RenderTemplate(w, r, 200, "/bookmarks/index", ctx)
 }

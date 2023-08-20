@@ -116,9 +116,15 @@ SPDX-License-Identifier: AGPL-3.0-only
                 class="mb-0",
               ) }}
             </div>
-            <div class="mt-2 col-span-3 max-md:col-span-2 flex gap-2">
+            <div class="mt-2 col-span-3 max-md:col-span-2 flex gap-2 items-center">
               <button class="btn btn-primary">Search</button>
-              {{ if .Filters.IsActive() }}<a href="{{ urlFor() }}?bf=1" class="btn rounded">Reset search</a>{{ end }}
+              {{ if .Filters.IsActive() -}}
+                <span class="flex-grow">
+                  <a href="{{ urlFor() }}?bf=1" class="btn rounded">Reset search</a>
+                </span>
+                <a href="{{ urlFor(`/bookmarks/collections/add`)}}?{{ .Filters.GetQueryString() }}"
+                 class="btn btn-primary">Create a collection</a>
+              {{- end }}
             </div>
           </div>
         </div>

@@ -8,6 +8,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"net/url"
 	"time"
 
 	"github.com/readeck/readeck/pkg/forms"
@@ -120,6 +121,18 @@ func (f *collectionForm) Bind() {
 
 	// Some default values
 	f.Get("is_pinned").Set(false)
+}
+
+// BindQueryString bind this form from a request's query string
+// without performing validation.
+func (f *collectionForm) BindQueryString(values url.Values) {
+	for _, field := range f.Fields() {
+		if v, ok := values[field.Name()]; ok {
+			for _, x := range v {
+				field.UnmarshalText([]byte(x))
+			}
+		}
+	}
 }
 
 func (f *collectionForm) setCollection(c *Collection) {

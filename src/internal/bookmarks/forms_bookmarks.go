@@ -432,6 +432,15 @@ func (f *filterForm) IsActive() bool {
 	return false
 }
 
+func (f *filterForm) GetQueryString() string {
+	q := url.Values{}
+	for _, field := range f.Fields() {
+		q.Add(field.Name(), field.String())
+	}
+
+	return q.Encode()
+}
+
 // setMarked sets the IsMarked property.
 func (f *filterForm) setMarked(v bool) {
 	f.Get("is_marked").Set(v)

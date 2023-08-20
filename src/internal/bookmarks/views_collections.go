@@ -28,7 +28,11 @@ func (h *viewsRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 func (h *viewsRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
 	f := newCollectionForm()
 
-	if r.Method == http.MethodPost {
+	switch r.Method {
+	case http.MethodGet:
+		// Add values from query string but don't perform validation
+		f.BindQueryString(r.URL.Query())
+	case http.MethodPost:
 		forms.Bind(f, r)
 		if f.IsValid() {
 			c, err := f.createCollection(auth.GetRequestUser(r).ID)

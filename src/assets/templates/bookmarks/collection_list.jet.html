@@ -11,24 +11,33 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- block mainContent() -}}
 <h1 class="title text-h2">Bookmark Collections</h1>
 
+<p class="my-4"><a href="{{ urlFor(`./add`) }}"
+ class="btn-primary">Create a new collection</a></p>
+
 {{- if len(.Collections) == 0 -}}
-  <div class="prose">
-    <p>Collections let you easily organize and export your bookmarks
-    by saving search requests of your choice.
-    When you create a new bookmark that matches a collection's criteria,
-    it will appear immediately.
-    Here are some examples:</p>
-    <ul>
-      <li>The unread articles (no photos or videos),</li>
-      <li>The archived articles from "wikipedia.org"</li>
-      <li>The pictures with the tag "cat",</li>
-      <li>The articles that contain "breaking" in their title</li>
-    </ul>
+  <div class="flex gap-4">
+    <div class="-mt-2">
+      {{ yield icon(name="o-big-arrow", class="text-yellow-300", svgClass="h-36", viewBox="0 0 50 250") }}
+    </div>
+    <div class="flex-grow-0 max-w-2xl">
+      <div class="prose my-4 px-4 pt-4 text-blue-800 bg-yellow-50 border border-blue-800 rounded">
+        <p>Collections let you easily organize and export your bookmarks
+        by saving search requests of your choice.
+        When you create a new bookmark that matches a collection's criteria,
+        it will appear immediately.
+        Here are some examples:</p>
+        <ul>
+          <li>The unread articles (no photos or videos),</li>
+          <li>The archived articles from "wikipedia.org"</li>
+          <li>The pictures with the tag "cat",</li>
+          <li>The articles that contain "breaking" in their title</li>
+        </ul>
+      </div>
+      <p>Read more about collections in the <a class="link" href="{{ urlFor(`/docs/en/collections`) }}">documentation</a>.</p>
+    </div>
   </div>
 {{- end -}}
 
-<p class="my-4"><a href="{{ urlFor(`./add`) }}"
- class="btn-primary">Create a new collection</a></p>
 
 {{- if len(.Collections) > 0 -}}
 <turbo-frame id="collection-list"

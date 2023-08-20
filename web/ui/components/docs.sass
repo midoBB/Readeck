@@ -30,3 +30,21 @@
       figcaption
         text-align: center
         margin-top: 0.25rem
+
+@layer components
+  rapi-doc
+    --bg: theme("colors.gray.50")
+    --blue: theme("colors.primary.DEFAULT")
+    --primary-color: theme("colors.primary.DEFAULT")
+    --primary-color-invert: theme("colors.white")
+    --nav-accent-color: theme("colors.yellow.400")
+
+    &::part(section-navbar)
+      background: linear-gradient(to right, theme("colors.gray.50"), theme("colors.gray.100"))
+
+    &::part(btn)
+      box-shadow: none
+      border-radius: theme("borderRadius.DEFAULT")
+
+    &::part(textbox)
+      border-radius: theme("borderRadius.DEFAULT")

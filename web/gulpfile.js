@@ -114,6 +114,10 @@ function clean_media() {
   return cleanFiles("img")
 }
 
+function clean_vendor() {
+  return cleanFiles("vendor")
+}
+
 // clean_manifest creates an empty manifest.json file.
 function clean_manifest(done) {
   let dest = path.join(DEST, "manifest.json")
@@ -127,6 +131,7 @@ function clean_all(done) {
     clean_js,
     clean_css,
     clean_media,
+    clean_vendor,
     clean_manifest,
   )(done)
 }
@@ -271,6 +276,13 @@ function copy_files() {
       .pipe(destCompress("gz"))
       .pipe(destCompress("br"))
       .pipe(gulp.dest(path.join(DEST, "img"))),
+
+    gulp
+      .src("vendor/*")
+      .pipe(hashName())
+      .pipe(destCompress("gz"))
+      .pipe(destCompress("br"))
+      .pipe(gulp.dest(path.join(DEST, "vendor"))),
   )
 }
 

@@ -28,3 +28,6 @@ watch:
 .PHONY: setup
 setup:
 	npm ci
+
+update-vendor:
+	curl -L -q -o vendor/rapidoc.js https://unpkg.com/rapidoc@9.3.4/dist/rapidoc-min.js

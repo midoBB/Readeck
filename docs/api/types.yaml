@@ -1,0 +1,10 @@
+---
+schemas:
+  message:
+    properties:
+      status:
+        type: integer
+        description: HTTP Status Code
+      message:
+        type: string
+        description: Information or error message

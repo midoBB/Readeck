@@ -1,0 +1,172 @@
+---
+# SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
+#
+# SPDX-License-Identifier: AGPL-3.0-only
+
+# GET /bookmarks
+list:
+  summary: Bookmark List
+  description: |
+        This route returns a paginated bookmark list.
+
+  parameters:
+    - name: search
+      in: query
+      description: A full text search string
+      schema:
+        type: string
+    - name: title
+      in: query
+      description: Bookmark title
+      schema:
+        type: string
+    - name: author
+      in: query
+      description: Author's name
+      schema:
+        type: string
+    - name: site
+      in: query
+      description: Bookmark site name or domain
+      schema:
+        type: string
+    - name: type
+      in: query
+      description: Bookmark type
+      schema:
+        type: string
+        enum: [article, photo, video]
+    - name: labels
+      in: query
+      description: One or several labels
+      schema:
+        type: string
+    - name: is_marked
+      in: query
+      description: Filter by marked (favorite) status
+      schema:
+        type: boolean
+    - name: is_archived
+      in: query
+      description: Filter by archived status
+      schema:
+        type: boolean
+    - name: range_start
+      in: query
+      schema:
+        type: string
+    - name: range_end
+      in: query
+      schema:
+        type: string
+    - name: id
+      in: query
+      description: One or more bookmark ID
+      schema:
+        type: string
+    - name: collection
+      in: query
+      description: A collection ID
+      schema:
+        type: string
+
+  responses:
+    '200':
+      description: List of bookmark items
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/bookmarkSummary"
+
+# POST /bookmarks
+create:
+  summary: Bookmark Create
+  description: Creates a new bookmark
+
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/bookmarkCreate"
+
+  responses:
+    "202":
+      headers:
+        Bookmark-Id:
+          schema:
+            type: string
+          description: ID of the created bookmark
+
+withBookmark:
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: Bookmark's ID
+      schema:
+        type: string
+        format: short-uid
+
+# GET /bookmarks/{id}
+retrieve:
+  summary: Bookmark Details
+  description: Retrieves a saved bookmark
+
+  responses:
+    "200":
+      description: Bookmark details
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/bookmarkInfo"
+
+# DELETE /bookmarks/{id}
+delete:
+  summary: Bookmark Delete
+  description: Deletes a saved bookmark
+
+  responses:
+    "204":
+      description: The bookmark was successfuly deleted.
+
+# GET /bookmarks/{id}/article
+article:
+  summary: Bookmark Article
+  description: |
+    This route returns the bookmark's article if it exists.
+
+  responses:
+    "200":
+      description: |
+        A `text/html` response, containing the article body.
+        Please note that it's only the fragment and not a full HTML document.
+      content:
+        text/html:
+          schema:
+            type: string
+
+export:
+  summary: Bookmark Export
+  description: This route exports a bookmark to another format.
+
+  parameters:
+    - name: format
+      in: path
+      required: true
+      description: Export format
+      schema:
+        type: string
+        enum: [epub, md]
+
+  responses:
+    "200":
+      content:
+        application/epub+zip:
+          schema:
+            type: string
+            format: binary
+        text/markdown:
+          schema:
+            type: string

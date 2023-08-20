@@ -81,6 +81,7 @@ build:
 # Build the documentation
 .PHONY: help-build
 docs-build:
+	$(GO) run codeberg.org/readeck/file-compose@latest -format json docs/api/api.yaml docs/assets/api.json
 	$(GO) run ./tools/docs docs/src docs/assets
 
 # Build the frontend assets
@@ -181,8 +182,8 @@ docs-watch:
 		--build.cmd "${MAKE} docs-build" \
 		--build.bin "" \
 		--build.exclude_dir "" \
-		--build.include_dir "docs/src" \
-		--build.include_ext "md,png,svg" \
+		--build.include_dir "docs/src,docs/api" \
+		--build.include_ext "md,png,svg,json,yaml" \
 		--build.delay 200
 
 # Starts the watcher on the web folder.

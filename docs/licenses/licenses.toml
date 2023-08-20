@@ -382,6 +382,14 @@ copyright = """
 Copyright (c) Tailwind Labs, Inc.
 """
 
+[[licenses]]
+name = "RapiDoc"
+license = "MIT"
+author = "Mrinmoy Majumdar"
+url = "https://rapidocweb.com/"
+copyright = """
+Copyright (c) 2022 Mrinmoy Majumdar
+"""
 
 # -------------------------------------------------------------------
 # Misc

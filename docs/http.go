@@ -21,6 +21,7 @@ import (
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/pkg/csp"
 )
 
 type ctxFileKey struct{}
@@ -83,10 +84,8 @@ func SetupRoutes(s *server.Server) {
 	handler.Get("/", handler.serverRedirect(routePrefix+"/en/"))
 
 	// API documentation
-	apiSchema := manifest.Files["api.json"]
-
-	docHandler.With(handler.withFile(apiSchema)).Group(func(r chi.Router) {
-		r.Get("/api/", handler.serverAPIDocs)
+	docHandler.Group(func(r chi.Router) {
+		r.Get("/api", handler.serverAPIDocs)
 		r.Get("/api.json", handler.serverAPISchema)
 	})
 
@@ -193,8 +192,7 @@ func (h *helpHandlers) serverAbout(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *helpHandlers) serverAPISchema(w http.ResponseWriter, r *http.Request) {
-	f, _ := r.Context().Value(ctxFileKey{}).(*File)
-	fd, err := Files.Open(f.File)
+	fd, err := Files.Open("api.json")
 	if err != nil {
 		h.srv.Error(w, r, err)
 		return
@@ -204,15 +202,21 @@ func (h *helpHandlers) serverAPISchema(w http.ResponseWriter, r *http.Request) {
 	var contents strings.Builder
 	io.Copy(&contents, fd)
 	repl := strings.NewReplacer(
-		"__BASE_URI__", h.srv.AbsoluteURL(r, "/api/").String(),
+		"__BASE_URI__", h.srv.AbsoluteURL(r, "/api").String(),
 	)
 
-	w.Header().Set("Content-Type", "text/plain")
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	repl.WriteString(w, contents.String())
 }
 
 func (h *helpHandlers) serverAPIDocs(w http.ResponseWriter, r *http.Request) {
+	// By including a web component full of inline styles, we need
+	// to relax the style-src policy.
+	policy := server.GetCSPHeader(r).Clone()
+	policy.Set("style-src", csp.ReportSample, csp.Self, csp.UnsafeInline)
+	policy.Write(w.Header())
+
 	h.srv.RenderTemplate(w, r, http.StatusOK, "docs/api-docs", server.TC{
 		"Schema": h.srv.AbsoluteURL(r, "/docs/api.json"),
 	})

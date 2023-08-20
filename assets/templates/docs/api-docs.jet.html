@@ -8,8 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- block title() -}}Test{{- end -}}
 
 {{- block head() -}}
-  <link rel="stylesheet" href="{{ urlFor(`/assets/elements.css`) }}">
-  <script type="module" src="{{ urlFor(`/assets/elements.min.js`) }}"></script>
+  <script type="module" src="{{ assetURL(`vendor/rapidoc.js`) }}" nonce="{{ cspNonce }}"></script>
 {{- end -}}
 
 {{- block body() -}}
@@ -20,10 +19,22 @@ SPDX-License-Identifier: AGPL-3.0-only
 <div class="flex h-screen max-sm:flex-col">
   {{ include "/menu" }}
   <div class="grow md:overflow-y-auto" id="content">
-    <elements-api id="api-doc" router="hash" layout="sidebar"
-     tryItCredentialsPolicy="omit"
-     apiDescriptionUrl="{{ .Schema }}"
-    ></elements-api>
+    <rapi-doc
+     spec-url="{{ .Schema }}"
+     persist-auth="true"
+     load-fonts="false"
+     regular-font="public sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji"
+     mono-font="ui-monospace,Cascadia Code,Source Code Pro,Menlo,Consolas,DejaVu Sans Mono,monospace,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji"
+     nav-bg-color="#ffffff"
+     show-method-in-nav-bar="as-colored-text"
+     show-header="false"
+     allow-server-selection="false"
+     show-curl-before-try="true"
+     schema-style="table"
+     schema-description-expanded="true"
+     default-schema-tab="schema"
+    >
+    </rapi-doc>
   </div>
 </div>
 {{ end }}

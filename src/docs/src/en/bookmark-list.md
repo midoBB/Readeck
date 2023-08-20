@@ -49,8 +49,8 @@ Unread
 Archive
 : The bookmarks you marked as archived.
 
-Favourites
-: The bookmarks you marked as favourite.
+Favorites
+: The bookmarks you marked as favorite.
 
 
 Once you start saving pages, you'll see the following additional links:
@@ -85,8 +85,8 @@ A card shows:
 
 The action buttons perform the following:
 
-Favourite
-: This toggles the favourite status of the bookmark.
+Favorite
+: This toggles the favorite status of the bookmark.
 
 Archive
 : This moves the bookmark to the archives (or removes it from there).

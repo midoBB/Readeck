@@ -49,9 +49,9 @@ The bookmark's title is automatically grabbed when you create it. If, for some r
 
 On the bookmark sidebar, you can perform actions.
 
-### Favourite
+### Favorite
 
-This toggles the favourite status of the bookmark.
+This toggles the favorite status of the bookmark.
 
 ### Archive
 

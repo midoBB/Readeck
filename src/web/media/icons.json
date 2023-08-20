@@ -14,6 +14,7 @@
   "o-collection":   "node_modules/boxicons/svg/regular/bx-collection.svg",
   "o-copy":         "node_modules/boxicons/svg/solid/bxs-copy.svg",
   "o-copyright":    "node_modules/boxicons/svg/regular/bx-copyright.svg",
+  "o-create":       "node_modules/@mdi/svg/svg/plus-circle.svg",
   "o-cross":        "node_modules/boxicons/svg/solid/bxs-x-circle.svg",
   "o-download":     "node_modules/boxicons/svg/regular/bx-download.svg",
   "o-error":        "node_modules/boxicons/svg/solid/bxs-bolt-circle.svg",
@@ -48,6 +49,7 @@
   "o-user":         "node_modules/boxicons/svg/regular/bx-user-circle.svg",
   "o-video":        "node_modules/boxicons/svg/regular/bx-film.svg",
 
+  "o-big-arrow":    "media/img/big-arrow.svg",
   "o-spinner":      "media/img/spinner.svg",
   "o-serif":        "media/icons/reader-serif.svg",
   "o-sans-serif":   "media/icons/reader-sans-serif.svg",

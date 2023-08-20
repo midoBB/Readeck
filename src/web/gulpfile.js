@@ -276,6 +276,8 @@ function copy_files() {
     gulp
       .src("media/logo-text.svg")
       .pipe(hashName())
+      .pipe(destCompress("gz"))
+      .pipe(destCompress("br"))
       .pipe(gulp.dest(path.join(DEST, "img"))),
   )
 }

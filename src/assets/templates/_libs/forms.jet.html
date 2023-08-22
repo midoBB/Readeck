@@ -21,13 +21,13 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- end -}}
 
 
-{{- block formField(field, name, label, help, class="", controlAttrs="") -}}
+{{- block formField(field, name, label, help, class="", controlAttrs=attrList()) -}}
   {{- if !name -}}{{ name = field.Name() }}{{- end -}}
   {{- if field.Errors -}}{{ class = class + " field-err" }}{{- end -}}
 
   <div class="field{{ if class }} {{ class }}{{ end }}">
     <label for="{{ name }}">{{ label }}:</label>
-    <div class="flex-grow" {{ controlAttrs|raw }}>
+    <div class="flex-grow" {{ controlAttrs }}>
       {{ yield content }}
       {{ if field.Errors }}
         <ul class="mt-1 list-disc list-inside text-red-700">
@@ -44,7 +44,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 {{- block textField(
   field, value=nil, type="text", name, label, class="", help,
-  controlAttrs="", inputAttrs="", inputClass="form-input w-full"
+  controlAttrs=attrList(), inputAttrs=attrList(), inputClass="form-input w-full"
 ) -}}
   {{- if type == "password" -}}
     {{ value = "" }}
@@ -55,14 +55,14 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- yield formField(field=field, name=name, label=label, help=help, class=class,
                       controlAttrs=controlAttrs) content -}}
     <input type="{{ type }}" id="{{ name }}" name="{{ name }}"
-     value="{{ value }}" class="{{ inputClass }}" {{ inputAttrs|raw }} />
+     value="{{ value }}" class="{{ inputClass }}" {{ inputAttrs }} />
   {{- end -}}
 {{- end -}}
 
 
 {{- block dateField(
   field, value=nil, name, label, class, help,
-  controlAttrs="", inputAttrs="", inputClass="form-input",
+  controlAttrs=attrList(), inputAttrs=attrList(), inputClass="form-input",
 ) -}}
   {{ value = field.String() }}
   {{ yield textField(field=field, value=value, type="date", name=name,
@@ -101,7 +101,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 {{- block selectField(
   field, value=nil, name, options, label, class, help,
-  controlAttrs="", inputAttrs="", inputClass="form-select w-full"
+  controlAttrs=attrList(), inputAttrs=attrList(), inputClass="form-select w-full"
 ) -}}
   {{- if !name -}}{{ name = field.Name() }}{{- end -}}
   {{- if value == nil -}}{{ value = field.Value() }}{{- end -}}
@@ -109,7 +109,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- if field.Errors -}}{{ class = class + " with-errors" }}{{ end }}
   {{- yield formField(field=field, name=name, label=label, help=help, class=class,
                       controlAttrs=controlAttrs) content -}}
-    <select name="{{ name }}" id="{{ name }}" class="{{ inputClass }}" {{ inputAttrs|raw }}>
+    <select name="{{ name }}" id="{{ name }}" class="{{ inputClass }}" {{ inputAttrs }}>
       {{- range options -}}
         <option value="{{ .[0] }}" {{ if string(value) == string(.[0]) }}selected="selected"{{ end }}>{{ .[1] }}</option>
       {{- end -}}

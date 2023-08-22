@@ -6,7 +6,6 @@ package server
 
 import (
 	"fmt"
-	"html"
 	"io"
 	"io/fs"
 	"net/http"
@@ -104,8 +103,6 @@ func (s *Server) RenderTurboStream(
 
 // initTemplates add global functions to the views.
 func (s *Server) initTemplates() {
-	strType := reflect.TypeOf("")
-
 	for k, v := range libjet.FuncMap() {
 		views.AddGlobalFunc(k, v)
 	}
@@ -149,33 +146,6 @@ func (s *Server) initTemplates() {
 			return reflect.ValueOf(false)
 		}
 		return reflect.ValueOf(auth.HasPermission(r, obj, act))
-	})
-	views.AddGlobalFunc("attrList", func(args jet.Arguments) reflect.Value {
-		if args.NumOfArguments()%2 > 0 {
-			panic("attrList(): incomplete key-value pair")
-		}
-
-		m := make([]string, args.NumOfArguments()/2)
-
-		for i := 0; i < args.NumOfArguments(); i += 2 {
-			k := args.Get(i)
-			v := args.Get(i + 1)
-			if !k.IsValid() {
-				args.Panicf("attrList(): key argument at position %d is not a valid value!", i)
-			}
-			if !v.IsValid() {
-				args.Panicf("attrList(): key argument at position %d is not a valid value!", i+1)
-			}
-			if !k.Type().ConvertibleTo(strType) {
-				args.Panicf("attrList(): can't use %+v as string key: %s is not convertible to string", k, k.Type())
-			}
-			if !v.Type().ConvertibleTo(strType) {
-				args.Panicf("attrList(): can't use %+v as string key: %s is not convertible to string", v, v.Type())
-			}
-			m[i/2] = fmt.Sprintf(`%s="%s"`, html.EscapeString(k.String()), html.EscapeString(v.String()))
-		}
-
-		return reflect.ValueOf(strings.Join(m, " "))
 	})
 }
 

@@ -16,6 +16,8 @@ import (
 	"github.com/readeck/readeck/pkg/utils"
 )
 
+var strType = reflect.TypeOf("")
+
 var funcMap = map[string]jet.Func{
 	"string": func(a jet.Arguments) reflect.Value {
 		a.RequireNumOfArguments("string", 1, 1)
@@ -70,6 +72,37 @@ var funcMap = map[string]jet.Func{
 		maxChars := ToInt(args.Get(1))
 
 		return reflect.ValueOf(utils.ShortURL(s, maxChars))
+	},
+	"attrList": func(args jet.Arguments) reflect.Value {
+		if args.NumOfArguments()%2 > 0 {
+			panic("attrList(): incomplete key-value pair")
+		}
+
+		res := attrList{}
+
+		for i := 0; i < args.NumOfArguments(); i += 2 {
+			k := args.Get(i)
+			v := args.Get(i + 1)
+			if !k.IsValid() {
+				args.Panicf("attrList(): key argument at position %d is not a valid value!", i)
+			}
+			if !v.IsValid() {
+				args.Panicf("attrList(): key argument at position %d is not a valid value!", i+1)
+			}
+			if !k.Type().ConvertibleTo(strType) {
+				args.Panicf("attrList(): can't use %+v as string key: %s is not convertible to string", k, k.Type())
+			}
+			if !v.Type().ConvertibleTo(strType) {
+				args.Panicf("attrList(): can't use %+v as string key: %s is not convertible to string", v, v.Type())
+			}
+
+			val, isNil := Indirect(v)
+			if !isNil {
+				res[k.String()] = []any{val}
+			}
+		}
+
+		return reflect.ValueOf(res)
 	},
 }
 
@@ -194,4 +227,67 @@ func ToInt(v reflect.Value) int {
 	}
 
 	panic("value is not a number")
+}
+
+type attrList map[string][]any
+
+func (l attrList) Render(r *jet.Runtime) {
+	i := 0
+	for k, values := range l {
+		if len(values) == 1 {
+			if x, ok := values[0].(bool); ok && x {
+				r.Write([]byte(k))
+				continue
+			} else if ok && !x {
+				continue
+			}
+		}
+
+		r.Writer.Write([]byte(k + `="`))
+		for j, x := range values {
+			v, err := getString(x)
+			if err != nil {
+				panic(err)
+			}
+			r.Write([]byte(v))
+			if j+1 < len(values) {
+				r.Write([]byte(" "))
+			}
+		}
+		r.Writer.Write([]byte(`"`))
+		if i+1 < len(l) {
+			r.Write([]byte(" "))
+		}
+		i++
+	}
+}
+
+func (l attrList) Add(key string, value any) {
+	l[key] = append(l[key], value)
+}
+
+func (l attrList) Set(key string, value any) {
+	l[key] = []any{value}
+}
+
+func getString(input any) (string, error) {
+	switch v := input.(type) {
+	case string:
+		return v, nil
+	case int, int8, int16, int32, int64:
+		return fmt.Sprintf("%d", v), nil
+	case float32, float64:
+		return fmt.Sprintf("%f", v), nil
+	case bool:
+		if v {
+			return "true", nil
+		}
+		return "false", nil
+	default:
+		if s, ok := input.(fmt.Stringer); ok {
+			return s.String(), nil
+		}
+	}
+
+	return "", fmt.Errorf(`cannot convert "%v"`, input)
 }

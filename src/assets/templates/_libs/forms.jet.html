@@ -56,6 +56,7 @@ SPDX-License-Identifier: AGPL-3.0-only
                       controlAttrs=controlAttrs) content -}}
     <input type="{{ type }}" id="{{ name }}" name="{{ name }}"
      value="{{ value }}" class="{{ inputClass }}" {{ inputAttrs }} />
+    {{- yield content -}}
   {{- end -}}
 {{- end -}}
 
@@ -146,4 +147,27 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{ if help }}<span class="block mt-1 text-green-700">{{ help }}{{ end }}
     </div>
   </div>
+{{- end -}}
+
+{{- block passwordField(
+  field, value=nil, name, label, class="", help,
+  inputClass="form-input w-full", inputAttrs=attrList(),
+) -}}
+  {{ controlAttrs := attrList("data-controller", "pass-reveal", "data-pass-reveal-hidden-class", "hidden")}}
+  {{ inputAttrs.Set("data-pass-reveal-target", "field") }}
+
+  {{ yield textField(field=field, value=value, type="password", name=name,
+                     label=label, class=class, help=help,
+                     controlAttrs=controlAttrs, inputAttrs=inputAttrs,
+                     inputClass=inputClass) content -}}
+    <button type="button" class="-ml-6 mr-2"
+     data-pass-reveal-target="show" data-action="pass-reveal#showPassword">
+      {{- yield icon(name="o-show", class="svgicon", svgClass="") -}}
+    </button>
+    {{- "" -}}
+    <button type="button" class="-ml-6 mr-2 hidden"
+     data-pass-reveal-target="hide" data-action="pass-reveal#hidePassword">
+      {{- yield icon(name="o-hide", class="svgicon", svgClass="") -}}
+    </button>
+  {{ end }}
 {{- end -}}

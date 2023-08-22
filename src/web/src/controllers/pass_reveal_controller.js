@@ -3,61 +3,22 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 
 import {Controller} from "@hotwired/stimulus"
-import $ from "../lib/dq"
-import icon from "../lib/icon"
 
 export default class extends Controller {
-  static targets = ["field"]
+  static targets = ["field", "template", "show", "hide"]
+  static classes = ["hidden"]
 
-  static values = {
-    iconShow: String,
-    iconHide: String,
-    icon: String,
+  showPassword() {
+    this.fieldTarget.type = "text"
+    this.showTarget.classList.add(this.hiddenClass)
+    this.hideTarget.classList.remove(this.hiddenClass)
+    this.fieldTarget.focus()
   }
 
-  connect() {
-    // Create the button
-    this.icon = icon.getIcon()
-    $(this.icon).addClass("align-middle", "inline-block")
-
-    $(this.fieldTarget)
-      .addClass("pr-8")
-      .after(
-        $.E("button")
-          .addClass("-ml-6", "mr-2")
-          .attr("type", "button")
-          .attr("data-action", `click->${this.identifier}#toggle`)
-          .append(this.icon),
-      )
-
-    // Set the icon
-    this.iconValue = this.iconShowValue
-
-    // If the target is part of a form, we must set its type back
-    // to password on form submit.
-    let f = this.fieldTarget.closest("form")
-    if (f !== null) {
-      f.addEventListener("submit", (evt) => {
-        this.fieldTarget.setAttribute("type", "password")
-      })
-    }
-  }
-
-  iconValueChanged() {
-    if (!this.iconValue) {
-      return
-    }
-    icon.swapIcon(this.icon.firstChild, this.iconValue)
-  }
-
-  toggle() {
-    if (this.fieldTarget.getAttribute("type") == "password") {
-      this.fieldTarget.setAttribute("type", "text")
-      this.iconValue = this.iconHideValue
-    } else {
-      this.fieldTarget.setAttribute("type", "password")
-      this.iconValue = this.iconShowValue
-    }
+  hidePassword() {
+    this.fieldTarget.type = "password"
+    this.showTarget.classList.remove(this.hiddenClass)
+    this.hideTarget.classList.add(this.hiddenClass)
     this.fieldTarget.focus()
   }
 }

@@ -21,16 +21,9 @@ SPDX-License-Identifier: AGPL-3.0-only
                       class="max",
                       inputAttrs=attrList("data-login-form-target", "username"),
   ) }}
-  {{ yield textField(field=.Form.Get("password"),
-                      type="password",
-                      label="Password",
-                      controlAttrs=attrList(
-                        "data-controller", "pass-reveal",
-                        "data-pass-reveal-icon-show-value", "o-show",
-                        "data-pass-reveal-icon-hide-value", "o-hide"),
-                      inputAttrs=attrList(
-                        "data-pass-reveal-target", "field",
-                        "data-login-form-target", "password"),
+  {{ yield passwordField(field=.Form.Get("password"),
+                         label="Password",
+                         inputAttrs=attrList("data-login-form-target", "password"),
   ) }}
 
   <button class="btn block mt-6 w-full rounded-md text-white bg-gray-800 border-gray-800" type="submit">Login</button>

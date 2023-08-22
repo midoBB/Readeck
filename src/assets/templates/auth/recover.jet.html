@@ -46,16 +46,10 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{ yield csrfField() }}
         <input type="hidden" name="step" value="{{ step }}" />
 
-        {{ yield textField(field=.Form.Get("password"),
-                          type="password",
-                          label="New password",
-                          class="max",
-                          help="must be at least 8 characters long",
-                          controlAttrs=attrList("data-controller", "pass-reveal",
-                                                "data-pass-reveal-icon-show-value", "o-show",
-                                                "data-pass-reveal-icon-hide-value", "o-hide"),
-                          inputAttrs=attrList("data-pass-reveal-target", "field"),
-        ) }}
+        {{ yield passwordField(field=.Form.Get("password"),
+                               label="New password",
+                               class="max",
+                               help="must be at least 8 characters long") }}
         <button class="btn block mt-6 w-full rounded-md text-white bg-gray-800 border-gray-800" type="submit">Update your password</button>
         <p class="mt-4 text-center"><a href="{{ urlFor(`/login`) }}" class="link">Cancel and go back to login</a></p>
     {{- end -}}

@@ -66,6 +66,7 @@ func New(basePath string) *Server {
 func (s *Server) Init() {
 	// System routes
 	s.AddRoute("/api/sys", s.sysRoutes())
+	s.AddRoute("/logger", s.loggerRoutes())
 
 	// Add the profiler in dev mode
 	if configs.Config.Main.DevMode {
@@ -234,6 +235,13 @@ func (s *Server) sysRoutes() http.Handler {
 
 		s.Render(w, r, 200, res)
 	})
+
+	return r
+}
+
+func (s *Server) loggerRoutes() http.Handler {
+	r := chi.NewRouter()
+	r.Post("/csp-report", s.cspReport)
 
 	return r
 }

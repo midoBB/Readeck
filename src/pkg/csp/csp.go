@@ -22,10 +22,11 @@ const (
 	None          = "'none'"
 	Self          = "'self'"
 	Data          = "data:"
-	UnsafeInline  = "'unsafe-inline'"
-	UnsafeEval    = "'unsafe-eval'"
+	ReportSample  = "'report-sample'"
 	StrictDynamic = "'strict-dynamic'"
+	UnsafeEval    = "'unsafe-eval'"
 	UnsafeHashes  = "'unsafe-hashes'"
+	UnsafeInline  = "'unsafe-inline'"
 )
 
 // Policy is a map of CSP directives.

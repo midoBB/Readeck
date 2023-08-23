@@ -6,6 +6,7 @@ package server
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -135,8 +136,8 @@ func getDefaultCSP() csp.Policy {
 		"img-src":         {csp.Self, csp.Data},
 		"media-src":       {csp.Self, csp.Data},
 		"object-src":      {csp.None},
-		"script-src":      {},
-		"style-src":       {},
+		"script-src":      {csp.ReportSample},
+		"style-src":       {csp.ReportSample},
 	}
 }
 
@@ -150,12 +151,14 @@ func GetCSPHeader(r *http.Request) csp.Policy {
 
 // SetSecurityHeaders adds some headers to improve client side security.
 func (s *Server) SetSecurityHeaders(next http.Handler) http.Handler {
+
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		nonce := csp.MakeNonce()
 
 		policy := getDefaultCSP()
 		policy.Add("script-src", fmt.Sprintf("'nonce-%s'", nonce), csp.UnsafeInline)
 		policy.Add("style-src", fmt.Sprintf("'nonce-%s'", nonce), csp.UnsafeInline)
+		policy.Add("report-uri", s.AbsoluteURL(r, "/logger/csp-report").String())
 
 		policy.Write(w.Header())
 		w.Header().Set("Permissions-Policy", "interest-cohort=()")
@@ -168,6 +171,19 @@ func (s *Server) SetSecurityHeaders(next http.Handler) http.Handler {
 		ctx = context.WithValue(ctx, ctxCSPKey{}, policy)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
+}
+
+func (s *Server) cspReport(w http.ResponseWriter, r *http.Request) {
+	report := map[string]any{}
+	dec := json.NewDecoder(r.Body)
+	if err := dec.Decode(&report); err != nil {
+		s.Log(r).WithError(err).Error("server error")
+		return
+	} else {
+		s.Log(r).WithField("report", report["csp-report"]).Warn("CSP violation")
+	}
+
+	w.WriteHeader(http.StatusNoContent)
 }
 
 // unauthorizedHandler is a handler used by the session authentication provider.

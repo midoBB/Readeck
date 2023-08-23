@@ -4,24 +4,13 @@
 
 import {Controller} from "@hotwired/stimulus"
 
-import $ from "../lib/dq"
-import icon from "../lib/icon"
-
 export default class extends Controller {
-  static targets = ["editable", "value", "button"]
-
-  static values = {
-    saveIcon: {
-      type: String,
-      default: "o-check-on",
-    },
-  }
+  static targets = ["editable", "value", "button", "iconOff", "iconOn"]
+  static classes = ["hidden"]
 
   connect() {
     this.editableTarget.tabIndex = 0
     this.editableTarget.setAttribute("spellcheck", "false")
-
-    this.icon = $("span.svgicon", this.buttonTarget).get()
 
     this.editableTarget.addEventListener("keydown", this.onKeyDown)
     this.editableTarget.addEventListener("keyup", this.onKeyUp)
@@ -35,16 +24,26 @@ export default class extends Controller {
   startEditable() {
     this.editableTarget.contentEditable = "true"
     this.editableTarget.focus()
+    this.iconOffTarget.classList.add(this.hiddenClass)
+    this.iconOnTarget.classList.remove(this.hiddenClass)
+  }
 
-    if (this.icon !== undefined && this.saveIconValue) {
-      icon.swapIcon(this.icon.firstChild, this.saveIconValue)
-    }
+  stopEditable() {
+    this.editableTarget.contentEditable = "false"
+    this.editableTarget.textContent = this.valueTarget.value
+    this.iconOffTarget.classList.remove(this.hiddenClass)
+    this.iconOnTarget.classList.add(this.hiddenClass)
   }
 
   onKeyUp = (evt) => {
-    if (evt.key == "Enter") {
-      evt.preventDefault()
-      this.buttonTarget.dispatchEvent(new MouseEvent("click"))
+    switch (evt.key) {
+      case "Enter":
+        evt.preventDefault()
+        this.buttonTarget.dispatchEvent(new MouseEvent("click"))
+        break
+      case "Escape":
+        this.stopEditable()
+        break
     }
   }
 

@@ -9,9 +9,11 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ block title() }}Label - {{ .Label }}{{ end }}
 
 {{ block mainContent() -}}
-<form action="" method="post" class="md:flex md:mb-4 items-center">
+<form action="" method="post" class="md:flex md:mb-4 items-center"
+ data-controller="inplace-input"
+ data-inplace-input-hidden-class="hidden">
   {{ yield csrfField() }}
-  <h1 class="flex flex-grow items-baseline gap-2 group title md:mb-0" data-controller="inplace-input">
+  <h1 class="flex flex-grow items-baseline gap-2 group title md:mb-0">
     {{ yield icon(name="o-label", class="text-h2 h-6 w-6 mr-2", svgClass="h-6 w-6") }}
     {* JS context *}
     <span class="no-js:hidden text-h2 mr-2 cursor-pointer hover:outline-std"
@@ -20,10 +22,10 @@ SPDX-License-Identifier: AGPL-3.0-only
     <input type="text" name="name" value="{{ .Label }}"
      class="js:hidden form-input font-semibold w-full max-w-md"
      data-inplace-input-target="value" />
-    <button type="submit" class="text-h2 text-gray-300
-    group-hover:text-primary group-fw:text-primary"
-      data-inplace-input-target="button"
-      >{{ yield icon(name="o-pencil", svgClass="h-6 w-6") }}
+    <button type="submit" class="text-h2 text-gray-300 group-hover:text-primary group-fw:text-primary"
+     data-inplace-input-target="button">
+      {{- yield icon(name="o-pencil", svgClass="h-6 w-6", attrs=attrList("data-inplace-input-target", "iconOff")) -}}
+      {{- yield icon(name="o-check-on", class="hidden", svgClass="h-6 w-6", attrs=attrList("data-inplace-input-target", "iconOn")) -}}
     </button>
   </h1>
 

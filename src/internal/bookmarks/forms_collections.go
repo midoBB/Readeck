@@ -61,6 +61,8 @@ func newCollectionForm() *collectionForm {
 		"labels":      {},
 		"is_marked":   {},
 		"is_archived": {},
+		"range_start": {},
+		"range_end":   {},
 	}
 
 	return f
@@ -169,6 +171,10 @@ func (f *collectionForm) setCollection(c *Collection) {
 				continue
 			}
 			field.Set(*c.Filters.IsArchived)
+		case "range_start":
+			field.Set(c.Filters.RangeStart)
+		case "range_end":
+			field.Set(c.Filters.RangeEnd)
 		}
 	}
 }
@@ -190,6 +196,8 @@ func (f *collectionForm) createCollection(userID int) (*Collection, error) {
 			Type:       f.Get("type").String(),
 			IsMarked:   nil,
 			IsArchived: nil,
+			RangeStart: f.Get("range_start").String(),
+			RangeEnd:   f.Get("range_end").String(),
 		},
 	}
 

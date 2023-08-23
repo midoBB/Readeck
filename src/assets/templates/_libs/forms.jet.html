@@ -26,7 +26,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- if field.Errors -}}{{ class = class + " field-err" }}{{- end -}}
 
   <div class="field{{ if class }} {{ class }}{{ end }}">
-    <label for="{{ name }}">{{ label }}:</label>
+    {{ if label }}<label for="{{ name }}">{{ label }}:</label>{{ end }}
     <div class="flex-grow" {{ controlAttrs }}>
       {{ yield content }}
       {{ if field.Errors }}

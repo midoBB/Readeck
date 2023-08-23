@@ -186,6 +186,8 @@ type collectionItem struct {
 	Labels     string `json:"labels"`
 	IsMarked   *bool  `json:"is_marked"`
 	IsArchived *bool  `json:"is_archived"`
+	RangeStart string `json:"range_start"`
+	RangeEnd   string `json:"range_end"`
 }
 
 func newCollectionItem(s *server.Server, r *http.Request, c *Collection, base string) collectionItem {
@@ -208,5 +210,7 @@ func newCollectionItem(s *server.Server, r *http.Request, c *Collection, base st
 		Labels:     c.Filters.Labels,
 		IsMarked:   c.Filters.IsMarked,
 		IsArchived: c.Filters.IsArchived,
+		RangeStart: c.Filters.RangeStart,
+		RangeEnd:   c.Filters.RangeEnd,
 	}
 }

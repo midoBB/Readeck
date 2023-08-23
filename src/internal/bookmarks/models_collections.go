@@ -122,6 +122,8 @@ func (c *Collection) flatten() map[string]interface{} {
 		"labels":      c.Filters.Labels,
 		"is_archived": nil,
 		"is_marked":   nil,
+		"range_start": c.Filters.RangeStart,
+		"range_end":   c.Filters.RangeEnd,
 	}
 	if c.Filters.IsArchived != nil {
 		res["is_archived"] = *c.Filters.IsArchived
@@ -164,6 +166,8 @@ type CollectionFilters struct {
 	Labels     string `json:"labels"`
 	IsMarked   *bool  `json:"is_marked"`
 	IsArchived *bool  `json:"is_archived"`
+	RangeStart string `json:"range_start"`
+	RangeEnd   string `json:"range_end"`
 }
 
 // Scan loads a CollectionFilters instance from a column.

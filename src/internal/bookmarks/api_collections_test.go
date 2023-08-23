@@ -96,6 +96,18 @@ func TestCollectionAPI(t *testing.T) {
 						"value": null,
 						"errors": null
 					},
+					"range_end": {
+						"is_null": true,
+						"is_bound": false,
+						"value": null,
+						"errors": null
+					},
+					"range_start": {
+						"is_null": true,
+						"is_bound": false,
+						"value": null,
+						"errors": null
+					},
 					"title": {
 						"is_null": true,
 						"is_bound": false,
@@ -143,7 +155,9 @@ func TestCollectionAPI(t *testing.T) {
 				"type": "article",
 				"labels":"test 🥳",
 				"is_marked": true,
-				"is_archived": null
+				"is_archived": null,
+				"range_start": "",
+				"range_end": ""
 			}`,
 		},
 		RequestTest{
@@ -181,7 +195,9 @@ func TestCollectionAPI(t *testing.T) {
 					"type": "article",
 					"labels":"test 🥳",
 					"is_marked": true,
-					"is_archived": null
+					"is_archived": null,
+					"range_start": "",
+					"range_end": ""
 				}
 			]`,
 		},
@@ -219,7 +235,9 @@ func TestCollectionAPI(t *testing.T) {
 				"type": "article",
 				"labels":"test 🥳",
 				"is_marked": false,
-				"is_archived": null
+				"is_archived": null,
+				"range_start": "",
+				"range_end": ""
 			}`,
 		},
 		RequestTest{
@@ -256,7 +274,9 @@ func TestCollectionAPI(t *testing.T) {
 				"type": "article",
 				"labels":"test 🥳",
 				"is_marked": null,
-				"is_archived": null
+				"is_archived": null,
+				"range_start": "",
+				"range_end": ""
 			}`,
 		},
 		RequestTest{
@@ -295,7 +315,9 @@ func TestCollectionAPI(t *testing.T) {
 				"type": "article",
 				"labels":"label1 label2 test 🥳",
 				"is_marked": null,
-				"is_archived": null
+				"is_archived": null,
+				"range_start": "",
+				"range_end": ""
 			}`,
 		},
 		RequestTest{

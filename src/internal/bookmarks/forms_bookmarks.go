@@ -23,6 +23,7 @@ import (
 	"github.com/readeck/readeck/internal/auth/users"
 	"github.com/readeck/readeck/internal/db"
 	"github.com/readeck/readeck/pkg/forms"
+	"github.com/readeck/readeck/pkg/timetoken"
 )
 
 var validSchemes = []string{"http", "https"}
@@ -363,6 +364,8 @@ func newFilterForm() *filterForm {
 			forms.NewTextField("labels", forms.Trim),
 			forms.NewBooleanField("is_marked"),
 			forms.NewBooleanField("is_archived"),
+			forms.NewTextField("range_start", forms.Trim, validateTimeToken),
+			forms.NewTextField("range_end", forms.Trim, validateTimeToken),
 			forms.NewListField("id", func(n string) forms.Field {
 				return forms.NewTextField(n)
 			}, func(values []forms.Field) interface{} {
@@ -498,6 +501,17 @@ func (f *filterForm) toSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset
 		ds = ds.Order(f.order...)
 	}
 
+	// Time range
+	if f.Get("range_start").String() != "" {
+		start, _ := timetoken.New(f.Get("range_start").String())
+		end, _ := timetoken.New(f.Get("range_end").String())
+		ds = ds.Where(goqu.C("created").Between(
+			goqu.Range(start.RelativeTo(nil),
+				end.RelativeTo(nil),
+			),
+		))
+	}
+
 	for _, field := range f.Fields() {
 		switch n := field.Name(); n {
 		case "is_marked", "is_archived":
@@ -526,4 +540,21 @@ func (f *filterForm) toSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset
 	}
 
 	return ds
+}
+
+func validateTimeToken(f forms.Field) error {
+	if f.IsNil() {
+		return nil
+	}
+
+	if f.String() == "" {
+		return nil
+	}
+
+	_, err := timetoken.New(f.String())
+	if err != nil {
+		return fmt.Errorf(`"%s" is not a valid date value`, f.String())
+	}
+
+	return nil
 }

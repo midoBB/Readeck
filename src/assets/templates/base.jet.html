@@ -13,9 +13,10 @@ SPDX-License-Identifier: AGPL-3.0-only
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="x-csrf-token" content="{{ csrfToken }}" />
+  <meta name="csp-nonce" content="{{ cspNonce }}" />
 
-  <link rel="stylesheet" href="{{ assetURL(`bundle.css`) }}">
-  <script type="module" src="{{ assetURL(`bundle.js`) }}"></script>
+  <link rel="stylesheet" href="{{ assetURL(`bundle.css`) }}" nonce="{{ cspNonce }}">
+  <script type="module" src="{{ assetURL(`bundle.js`) }}" nonce="{{ cspNonce }}"></script>
 
   <link rel="apple-touch-icon" sizes="120x120" href="{{ assetURL(`img/fi/apple-touch-icon-120x120.png`) }}">
   <link rel="apple-touch-icon" sizes="152x152" href="{{ assetURL(`img/fi/apple-touch-icon-152x152.png`) }}">
@@ -36,7 +37,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   print:text-black print:bg-white
  ">
 {{- if !isTurbo }}
-<script nonce="{{ scriptNonce }}">
+<script nonce="{{ cspNonce }}">
 if ('noModule' in HTMLScriptElement.prototype) {
   document.body.classList.remove("no-js")
   document.body.classList.add("js")

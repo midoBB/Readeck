@@ -14,6 +14,7 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	"github.com/readeck/readeck/internal/server"
+	"github.com/readeck/readeck/pkg/csp"
 	"github.com/readeck/readeck/pkg/zipfs"
 )
 
@@ -197,6 +198,14 @@ func mediaRoutes(_ *server.Server) http.Handler {
 
 		fs := zipfs.HTTPZipFile(zipfile)
 		fs.ServeHTTP(w, r2, func(w http.ResponseWriter, status int) {
+			// Anything that comes from a bookmark resource needs a strict policy
+			// We allow unsafe-inline for SVG embed styles
+			csp.Policy{
+				"base-uri":    {csp.None},
+				"default-src": {csp.None},
+				"style-src":   {csp.UnsafeInline},
+			}.Write(w.Header())
+
 			if status == http.StatusOK {
 				w.Header().Set("Cache-Control", `public, max-age=31536000`)
 			}

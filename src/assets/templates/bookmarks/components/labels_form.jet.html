@@ -10,7 +10,7 @@ SPDX-License-Identifier: AGPL-3.0-only
  data-turbo-form-method-value="patch">
   {{ yield csrfField() }}
   <input type="hidden" name="_to" value="{{ currentPath }}" />
-  <button type="submit" style="display: none"></button>
+  <button type="submit" class="hidden"></button>
   <div>
     {{- include "./labels" . -}}
     <div class="flex text-sm items-center mt-2 print:hidden">

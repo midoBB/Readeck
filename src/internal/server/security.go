@@ -12,12 +12,13 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/lithammer/shortuuid/v4"
 	"github.com/readeck/readeck/configs"
+	"github.com/readeck/readeck/pkg/csp"
 )
 
 type (
 	ctxCSPNonceKey     struct{}
+	ctxCSPKey          struct{}
 	unauthorizedCtxKey struct{}
 )
 
@@ -120,31 +121,51 @@ func (s *Server) InitRequest(next http.Handler) http.Handler {
 	})
 }
 
+// getDefaultCSP returns the default Content Security Policy
+// There are no definition on script-src and style-src because
+// the SetSecurityHeaders middleware will set a nonce value
+// for each of them.
+func getDefaultCSP() csp.Policy {
+	return csp.Policy{
+		"base-uri":        {csp.None},
+		"default-src":     {csp.Self},
+		"font-src":        {csp.Self},
+		"form-action":     {csp.Self},
+		"frame-ancestors": {csp.None},
+		"img-src":         {csp.Self, csp.Data},
+		"media-src":       {csp.Self, csp.Data},
+		"object-src":      {csp.None},
+		"script-src":      {},
+		"style-src":       {},
+	}
+}
+
+// GetCSPHeader extracts the current CSPHeader from the request's context.
+func GetCSPHeader(r *http.Request) csp.Policy {
+	if c, ok := r.Context().Value(ctxCSPKey{}).(csp.Policy); ok {
+		return c
+	}
+	return getDefaultCSP()
+}
+
 // SetSecurityHeaders adds some headers to improve client side security.
 func (s *Server) SetSecurityHeaders(next http.Handler) http.Handler {
-	cspHeader := []string{
-		"base-uri 'none'",
-		"default-src 'self'",
-		"img-src 'self' data:",
-		"media-src 'self' data:",
-		"style-src 'self' 'unsafe-inline'",
-		"child-src *", // Allow iframes for videos
-	}
-
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		nonce := shortuuid.New()
-		csp := strings.Join(append(
-			cspHeader, fmt.Sprintf("script-src 'self' 'nonce-%s'", nonce),
-		), "; ")
+		nonce := csp.MakeNonce()
 
-		w.Header().Add("Content-Security-Policy", csp)
+		policy := getDefaultCSP()
+		policy.Add("script-src", fmt.Sprintf("'nonce-%s'", nonce), csp.UnsafeInline)
+		policy.Add("style-src", fmt.Sprintf("'nonce-%s'", nonce), csp.UnsafeInline)
+
+		policy.Write(w.Header())
 		w.Header().Set("Permissions-Policy", "interest-cohort=()")
-		w.Header().Set("Referrer-Policy", "same-origin")
+		w.Header().Set("Referrer-Policy", "same-origin, strict-origin")
 		w.Header().Add("X-Frame-Options", "DENY")
 		w.Header().Add("X-Content-Type-Options", "nosniff")
 		w.Header().Add("X-XSS-Protection", "1; mode=block")
 
 		ctx := context.WithValue(r.Context(), ctxCSPNonceKey{}, nonce)
+		ctx = context.WithValue(ctx, ctxCSPKey{}, policy)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

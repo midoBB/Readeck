@@ -142,6 +142,13 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	// Set CSP for video playback
+	if item.Type == "video" {
+		policy := server.GetCSPHeader(r).Clone()
+		policy.Add("frame-src", "*")
+		policy.Write(w.Header())
+	}
+
 	h.srv.RenderTemplate(w, r, 200, "/bookmarks/bookmark", ctx)
 }
 

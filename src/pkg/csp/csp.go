@@ -1,0 +1,81 @@
+// SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
+// Package csp provides simple tools to create and modify a Content Security Policy.
+package csp
+
+import (
+	"encoding/hex"
+	"fmt"
+	"net/http"
+	"slices"
+	"strings"
+
+	"github.com/google/uuid"
+)
+
+// CSP source values
+const (
+	HeaderName = "Content-Security-Policy"
+
+	None          = "'none'"
+	Self          = "'self'"
+	Data          = "data:"
+	UnsafeInline  = "'unsafe-inline'"
+	UnsafeEval    = "'unsafe-eval'"
+	StrictDynamic = "'strict-dynamic'"
+	UnsafeHashes  = "'unsafe-hashes'"
+)
+
+// Policy is a map of CSP directives.
+// It's the same data structure as http.Header, with a
+// different serialization.
+type Policy map[string][]string
+
+// Add adds values to an existing directive, or creates it
+// if it does not exist.
+func (p Policy) Add(name string, values ...string) {
+	p[name] = append(p[name], values...)
+}
+
+// Set creates or replaces a directive.
+func (p Policy) Set(name string, values ...string) {
+	p[name] = values
+}
+
+// Clone returns a copy of the policy
+func (p Policy) Clone() Policy {
+	res := Policy{}
+	for k, v := range p {
+		res[k] = v
+	}
+	return res
+}
+
+// String returns the policy suitable for an http.Header value.
+func (p Policy) String() string {
+	keys := []string{}
+	for k := range p {
+		keys = append(keys, k)
+	}
+	slices.Sort(keys)
+	w := &strings.Builder{}
+	for _, k := range keys {
+		fmt.Fprintf(w, "%s %s; ", k, strings.Join(p[k], " "))
+	}
+
+	return strings.TrimRight(w.String(), "; ")
+}
+
+// Write sets the CSP header to an http.Header.
+func (p Policy) Write(h http.Header) {
+	h.Set(HeaderName, p.String())
+}
+
+// MakeNonce returns a random nonce value.
+// It's a 128bit hex string based on a random UUIDv4.
+func MakeNonce() string {
+	u := uuid.New()
+	return hex.EncodeToString(u[:])
+}

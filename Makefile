@@ -74,12 +74,17 @@ sloc:
 
 # Launch tests
 .PHONY: test
+test: CC:=
+test: CXX:=
+test: CGO_ENABLED=1
+test: LDFLAGS:=-s -w
 test: docs-build web-build
 	@echo "CC: $(CC)"
 	@echo "CXX: $(CXX)"
-	CGO_ENABLED=$(CGO_ENABLED) CGO_CFLAGS=$(CGO_CFLAGS) \
+	@echo "CGO_ENABLED": $$CGO_ENABLED
+	@echo "CGO_CFLAGS": $$CGO_CFLAGS
 	go test \
-		-tags "$(TAGS)" \
+		-tags "$(BUILD_TAGS)" \
 		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" -trimpath \
 		-cover -count=1 ./src/...
 

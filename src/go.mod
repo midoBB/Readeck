@@ -45,6 +45,7 @@ require (
 )
 
 require (
+	github.com/JohannesKaufmann/html-to-markdown v1.4.0
 	github.com/antchfx/xmlquery v1.3.17
 	github.com/gabriel-vasile/mimetype v1.4.2
 	github.com/lithammer/shortuuid/v4 v4.0.0
@@ -54,7 +55,6 @@ require (
 
 require (
 	github.com/CloudyKit/fastprinter v0.0.0-20200109182630-33d98a066a53 // indirect
-	github.com/JohannesKaufmann/html-to-markdown v1.4.0 // indirect
 	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible // indirect
 	github.com/PuerkitoBio/goquery v1.8.1 // indirect
 	github.com/andybalholm/cascadia v1.3.2 // indirect
@@ -88,6 +88,7 @@ require (
 	golang.org/x/crypto v0.12.0 // indirect
 	golang.org/x/mod v0.8.0 // indirect
 	golang.org/x/tools v0.6.0 // indirect
+	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	lukechampine.com/uint128 v1.2.0 // indirect
 	modernc.org/cc/v3 v3.40.0 // indirect

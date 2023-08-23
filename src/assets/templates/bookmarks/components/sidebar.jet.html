@@ -17,46 +17,54 @@ SPDX-License-Identifier: AGPL-3.0-only
     </details>
   {{- end -}}
 
-  {{- if .Item.Type == "article" && isset(.Item.Resources.thumbnail) -}}
-  <div class="mb-4">
-    <span class="block relative overflow-hidden pt-16/9">
-      <img src="{{ .Item.Resources.thumbnail.Src }}" alt=""
-        class="absolute top-0 h-full w-full object-cover object-center rounded"
-        width="{{ .Item.Resources.thumbnail.Width }}"
-        height="{{ .Item.Resources.thumbnail.Height }}" />
-    </span>
-  </div>
-  {{- end -}}
+  <div class="print:flex print:gap-2">
+    {{- if .Item.Type == "article" && isset(.Item.Resources.thumbnail) -}}
+    <div class="mb-4">
+      <span class="
+        block relative overflow-hidden pt-16/9
+        print:overflow-visible
+        print:pt-0 print:static
+      ">
+        <img src="{{ .Item.Resources.thumbnail.Src }}" alt="" class="
+          absolute top-0 h-full w-full object-cover object-center rounded
+          print:w-52 print:h-auto print:static
+          "
+          width="{{ .Item.Resources.thumbnail.Width }}"
+          height="{{ .Item.Resources.thumbnail.Height }}" />
+      </span>
+    </div>
+    {{- end -}}
 
-  <ul class="mb-4">
-    <li class="flex items-center gap-1 mb-2">
-    {{- if isset(.Item.Resources.icon) -}}
-      <img class="inline w-5 h-auto"
-       alt="" src="{{ .Item.Resources.icon.Src }}"
-       width="{{ .Item.Resources.icon.Width }}"
-       height="{{ .Item.Resources.icon.Height }}">
-    {{- end -}}
-    <strong class="overflow-hidden text-ellipsis" title="{{ default(.Item.SiteName, "no site name") }}">{{ default(.Item.SiteName, "no site name") }}</strong>
-    </li>
-    {{- if !empty(.Item.Published) -}}
-      {{- yield line_icon(icon="o-calendar") content -}}
-        Published on {{ date(.Item.Published, "02 January 2006") }}
+    <ul class="mb-4">
+      <li class="flex items-center gap-1 mb-2">
+      {{- if isset(.Item.Resources.icon) -}}
+        <img class="inline w-5 h-auto"
+        alt="" src="{{ .Item.Resources.icon.Src }}"
+        width="{{ .Item.Resources.icon.Width }}"
+        height="{{ .Item.Resources.icon.Height }}">
       {{- end -}}
-    {{- end -}}
-    {{- if !empty(.Item.Authors) -}}
-      {{- yield line_icon(icon="o-pen") content -}}
-        By {{ join(.Item.Authors, ", ") }}
+      <strong class="overflow-hidden text-ellipsis" title="{{ default(.Item.SiteName, "no site name") }}">{{ default(.Item.SiteName, "no site name") }}</strong>
+      </li>
+      {{- if !empty(.Item.Published) -}}
+        {{- yield line_icon(icon="o-calendar") content -}}
+          Published on {{ date(.Item.Published, "02 January 2006") }}
+        {{- end -}}
       {{- end -}}
-    {{- end -}}
-    {{- yield line_icon(icon="o-link") content -}}
-      <a href="{{ .Item.URL }}" class="link" target="top">{{ .Item.Domain }}</a>
-    {{- end -}}
-    {{- if .Item.Type == "article" && .Item.ReadingTime() > 0 -}}
-      {{- yield line_icon(icon="o-clock") content -}}
-        {{ .Item.ReadingTime() }}&nbsp;min
+      {{- if !empty(.Item.Authors) -}}
+        {{- yield line_icon(icon="o-pen") content -}}
+          By {{ join(.Item.Authors, ", ") }}
+        {{- end -}}
       {{- end -}}
-    {{- end -}}
-  </ul>
+      {{- yield line_icon(icon="o-link") content -}}
+        <a href="{{ .Item.URL }}" class="link" target="top">{{ .Item.Domain }}</a>
+      {{- end -}}
+      {{- if .Item.Type == "article" && .Item.ReadingTime() > 0 -}}
+        {{- yield line_icon(icon="o-clock") content -}}
+          {{ .Item.ReadingTime() }}&nbsp;min
+        {{- end -}}
+      {{- end -}}
+    </ul>
+  </div>
 
   {{ include "./actions" .Item }}
 
@@ -66,35 +74,37 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{ include "./labels_form" .Item }}
 
   {{- if .Item.Type == "article" -}}
-  <h3 class="mb-2 title text-lg">{{- yield icon(name="o-highlight") }} Highlights</h3>
-  <div class="group">
-    {{- if len(.Item.Annotations) == 0 -}}
-      <p class="mb-4">Start selecting text in the article to create a new highlight.</p>
-    {{- else -}}
-      <ul class="mb-4" data-controller="request scrollto">
-      {{- range _, x := .Item.Annotations -}}
-        <li class="mb-3 flex p-2 bg-yellow-50 bg-opacity-30 group-hfw:bg-opacity-100 border border-yellow-200 rounded
-         hfw:drop-shadow group/btn">
-          <a class="grow" href="#annotation-{{ x.ID }}" data-action="scrollto#scroll:prevent">{{ shortText(x.Text, 100) }}</a>
-          <span class="no-js:hidden flex-shrink-0">
-            <button class="block -mt-4 -mr-4
-            text-gray-400 opacity-0
-            group-hover/btn:opacity-100 group-focus-within/btn:opacity-100
-            hf:text-red-700"
-            data-action="click->request#fetch"
-            data-request-url-param="{{ urlFor(`/api/bookmarks`, .Item.ID, `annotations`, x.ID) }}"
-            data-request-method-param="delete"
-            data-request-event-name-param="annotation-removed"
-            >{{ yield icon(name="o-cross", class="", svgClass="h-5 w-5") }}</button>
-          </span>
-          </li>
+  <div class="print:hidden">
+    <h3 class="mb-2 title text-lg">{{- yield icon(name="o-highlight") }} Highlights</h3>
+    <div class="group">
+      {{- if len(.Item.Annotations) == 0 -}}
+        <p class="mb-4">Start selecting text in the article to create a new highlight.</p>
+      {{- else -}}
+        <ul class="mb-4" data-controller="request scrollto">
+        {{- range _, x := .Item.Annotations -}}
+          <li class="mb-3 flex p-2 bg-yellow-50 bg-opacity-30 group-hfw:bg-opacity-100 border border-yellow-200 rounded
+          hfw:drop-shadow group/btn">
+            <a class="grow" href="#annotation-{{ x.ID }}" data-action="scrollto#scroll:prevent">{{ shortText(x.Text, 100) }}</a>
+            <span class="no-js:hidden flex-shrink-0">
+              <button class="block -mt-4 -mr-4
+              text-gray-400 opacity-0
+              group-hover/btn:opacity-100 group-focus-within/btn:opacity-100
+              hf:text-red-700"
+              data-action="click->request#fetch"
+              data-request-url-param="{{ urlFor(`/api/bookmarks`, .Item.ID, `annotations`, x.ID) }}"
+              data-request-method-param="delete"
+              data-request-event-name-param="annotation-removed"
+              >{{ yield icon(name="o-cross", class="", svgClass="h-5 w-5") }}</button>
+            </span>
+            </li>
+        {{- end -}}
+        </ul>
       {{- end -}}
-      </ul>
-    {{- end -}}
+    </div>
   </div>
 
   {{- if .Item.Type == "article" && .Item.Links && .Item.Links.HasPages() -}}
-    <details class="group mb-4" open>
+    <details class="group mb-4 print:hidden" open>
       <summary class="block mb-2 title text-lg">
         {{- yield icon(name="o-link") }} Links
       </summary>
@@ -111,10 +121,12 @@ SPDX-License-Identifier: AGPL-3.0-only
     </details>
   {{- end -}}
 
-  <h3 class="mb-2 title text-lg">Export</h3>
-    {{ if hasPermission("api:bookmarks", "export") -}}
-    <a href="{{ urlFor(`/api/bookmarks`, .Item.ID, `article.epub`) }}"
-     class="btn-outlined-primary leading-none rounded-full h-9 px-3">{{ yield icon(name="o-download") }}&nbsp;download ebook</a>
-    {{- end }}
+  {{ if hasPermission("api:bookmarks", "export") -}}
+  <div class="print:hidden">
+    <h3 class="mb-2 title text-lg">Export</h3>
+      <a href="{{ urlFor(`/api/bookmarks`, .Item.ID, `article.epub`) }}"
+      class="btn-outlined-primary leading-none rounded-full h-9 px-3">{{ yield icon(name="o-download") }}&nbsp;download ebook</a>
+      {{- end }}
+  </div>
   {{- end -}}
 </turbo-frame>

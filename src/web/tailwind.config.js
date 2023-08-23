@@ -102,10 +102,14 @@ var config = {
       ],
     },
     screens: {
-      "sm": "640px",
-      "md": "814px",
-      "lg": "1024px",
-      "xl": "1280px",
+      "sm": {raw: "only screen and (min-width: 640px)"},
+      "md": {raw: "only screen and (min-width: 814px)"},
+      "lg": {raw: "only screen and (min-width: 1024px)"},
+      "xl": {raw: "only screen and (min-width: 1280px)"},
+      "max-sm": {raw: "only screen and (max-width: 640px)"},
+      "max-md": {raw: "only screen and (max-width: 814px)"},
+      "max-lg": {raw: "only screen and (max-width: 1024px)"},
+      "max-xl": {raw: "only screen and (max-width: 1280px)"},
     },
     extend: {
       boxShadow: {

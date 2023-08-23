@@ -33,11 +33,16 @@
     border-radius: 4px
 
 @layer base
+  html
+    @media print
+      font-size: 10pt
+
   // JS enabled CSS rules
   body.js
     input::-ms-reveal,
     input::-ms-clear
       display: none
+
 
 @layer base
   /* autoprefixer: off */

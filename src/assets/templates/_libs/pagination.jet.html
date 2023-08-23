@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
 SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{- if .TotalPages > 1 -}}
-  <nav class="my-4 flex items-center justify-center">
+  <nav class="my-4 flex items-center justify-center print:hidden">
     <div class="hidden flex-1 max-sm:flex justify-between">
       {{- if .PreviousPage -}}
         <a href="{{ .PreviousPage }}" class="px-4 py-2 border border-gray-300 rounded-md hf:text-primary">Previous</a>

@@ -3,37 +3,31 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 
 import {Controller} from "@hotwired/stimulus"
-import $ from "../lib/dq"
 
 export default class extends Controller {
-  static values = {
-    embed: String,
-  }
+  static targets = ["embed", "play"]
 
   connect() {
-    if (!this.embedValue) {
+    this.ifr = this.embedTarget.content.querySelector("iframe")
+    if (!this.ifr) {
       return
     }
 
-    this.tpl = $.E("template").html(this.embedValue.trim())
-    this.ifr = $("iframe", this.tpl.get().content)
-    this.ifr.attr("sandbox", "allow-scripts allow-same-origin")
+    this.ifr.setAttribute("sandbox", "allow-scripts allow-same-origin")
 
-    let w = parseInt(this.ifr.getAttr("width")) || 0
-    let h = parseInt(this.ifr.getAttr("height")) || 0
+    const w = parseInt(this.ifr.getAttribute("width")) || 0
+    const h = parseInt(this.ifr.getAttribute("height")) || 0
+
     if (w > 0 && h > 0) {
       this.element.style.paddingTop = `${(100 * h) / w}%`
     }
 
-    this.playBtn = $.E("div")
-      .addClass("play-button")
-      .attr("data-action", `click->${this.identifier}#play`)
-      .appendTo(this.element)
+    this.playBtn = this.playTarget.content.querySelector("div")
+    this.element.appendChild(this.playBtn)
   }
 
   play() {
     this.playBtn.remove()
-    $("img", this.element).remove()
-    this.ifr.appendTo(this.element)
+    this.element.appendChild(this.ifr)
   }
 }

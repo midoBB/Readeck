@@ -52,7 +52,6 @@ func ShortURL(s string, maxChars int) string {
 	res.WriteString(src.Hostname())
 	res.WriteString("/")
 	dir, file := path.Split(strings.Trim(src.Path, "/"))
-	println(">>", dir, file)
 	if len(dir+file) <= maxChars {
 		res.WriteString(dir + file)
 	} else {

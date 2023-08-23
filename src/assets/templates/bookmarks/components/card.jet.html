@@ -55,15 +55,18 @@ SPDX-License-Identifier: AGPL-3.0-only
         class="inline-block hf:text-primary-dark"
         data-turbo-frame="_top">{{ default(.Title, "untitled") }}</a></h3>
 
-      <span class="flex items-center mb-2 text-xs text-gray-600 {{ if .IsDeleted }}opacity-50{{ end }}">
+      <span class="flex items-center gap-2 mb-2 text-xs text-gray-600 {{ if .IsDeleted }}opacity-50{{ end }}">
         {{- if isset(.Resources.icon) -}}
           <img class="h-4 w-auto filter grayscale opacity-50
            group-hover:filter-none group-hover:opacity-100
            group-fw:filter-none group-fw:opacity-100"
            loading="lazy" src="{{ .Resources.icon.Src }}" alt=""
            width="{{ .Resources.icon.Width }}" height="{{ .Resources.icon.Height }}">
-        {{- end }} <strong class="ml-2 mr-2 leading-none">{{ .SiteName }}</strong>
-        {{ if .Type == "article" && .ReadingTime() > 0 }} •&nbsp;{{ .ReadingTime() }}&nbsp;min{{- end -}}
+        {{- end -}}
+        <strong class="leading-none overflow-hidden text-ellipsis" title="{{ .SiteName }}">{{ .SiteName }}</strong>
+        {{- if .Type == "article" && .ReadingTime() > 0 -}}
+          <span> •&nbsp;{{ .ReadingTime() }}&nbsp;min</span>
+        {{- end -}}
       </span>
 
       {{ if len(.Labels) -}}

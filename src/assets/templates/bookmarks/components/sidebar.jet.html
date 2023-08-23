@@ -29,14 +29,14 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- end -}}
 
   <ul class="mb-4">
-    <li class="flex items-center mb-2">
+    <li class="flex items-center gap-1 mb-2">
     {{- if isset(.Item.Resources.icon) -}}
-    <img class="inline mr-1 w-5 h-auto"
-    alt="" src="{{ .Item.Resources.icon.Src }}"
-    width="{{ .Item.Resources.icon.Width }}"
-    height="{{ .Item.Resources.icon.Height }}">
+      <img class="inline w-5 h-auto"
+       alt="" src="{{ .Item.Resources.icon.Src }}"
+       width="{{ .Item.Resources.icon.Width }}"
+       height="{{ .Item.Resources.icon.Height }}">
     {{- end -}}
-    <strong>{{ default(.Item.SiteName, "no site name") }}</strong>
+    <strong class="overflow-hidden text-ellipsis" title="{{ default(.Item.SiteName, "no site name") }}">{{ default(.Item.SiteName, "no site name") }}</strong>
     </li>
     {{- if !empty(.Item.Published) -}}
       {{- yield line_icon(icon="o-calendar") content -}}

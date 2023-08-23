@@ -70,7 +70,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <div class="w-full mb-6" data-controller="clipboard">
   <label class="font-semibold">Your API token</label>
-  <span data-clipboard-target="label"></span>
+  <button class="link" type="button" data-action="clipboard#copy">
+    {{- yield icon(name="o-copy") -}}
+  </button>
   <textarea readonly="1" class="form-textarea w-full h-24"
    data-clipboard-target="content">{{ .JWT }}</textarea>
 </div>
@@ -79,7 +81,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 HTTP header.</p>
 <div class="w-full mb-4" data-controller="clipboard">
   <label class="font-semibold">HTTP Header</label>
-  <span data-clipboard-target="label"></span>
+  <button class="link" type="button" data-action="clipboard#copy">
+    {{- yield icon(name="o-copy") -}}
+  </button>
   <textarea readonly="1" class="form-textarea w-full h-28"
    data-clipboard-target="content">Authorization: Bearer {{ .JWT }}</textarea>
 </div>

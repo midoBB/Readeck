@@ -103,7 +103,7 @@ func (h *helpHandlers) withFile(f *File) func(next http.Handler) http.Handler {
 
 			ctx := context.WithValue(r.Context(), ctxFileKey{}, f)
 
-			h.srv.WriteEtag(w, f)
+			h.srv.WriteEtag(w, r, f)
 			h.srv.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
 		})
 	}

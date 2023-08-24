@@ -47,6 +47,7 @@ func New(basePath string) *Server {
 		middleware.RequestID,
 		Logger(),
 		s.SetSecurityHeaders,
+		s.WithCacheControl,
 		s.InitRequest,
 		auth.Init(
 			&auth.BasicAuthProvider{},

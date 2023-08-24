@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/readeck/readeck/configs"
+	"github.com/readeck/readeck/internal/auth"
 )
 
 // Etager must provides a function that returns a list of
@@ -37,7 +38,7 @@ const (
 // WriteEtag adds an Etag header to the response, based on
 // the values sent by GetSumStrings. The build date is always
 // included.
-func (s *Server) WriteEtag(w http.ResponseWriter, taggers ...Etager) {
+func (s *Server) WriteEtag(w http.ResponseWriter, r *http.Request, taggers ...Etager) {
 	h := crc64.New(crc64.MakeTable(crc64.ISO))
 	for _, tager := range taggers {
 		for _, x := range tager.GetSumStrings() {
@@ -46,21 +47,38 @@ func (s *Server) WriteEtag(w http.ResponseWriter, taggers ...Etager) {
 	}
 	h.Write([]byte(configs.BuildTime().String()))
 
+	if user := auth.GetRequestUser(r); user.ID != 0 {
+		fmt.Fprint(h, user.ID)
+	}
+
 	w.Header().Set("Etag", fmt.Sprintf("%x", h.Sum64()))
 }
 
 // WriteLastModified adds a Last-Modified headers using the most
 // recent date of GetLastModified and the build date.
-func (s *Server) WriteLastModified(w http.ResponseWriter, moders ...LastModer) {
+func (s *Server) WriteLastModified(w http.ResponseWriter, r *http.Request, moders ...LastModer) {
 	mtimes := []time.Time{configs.BuildTime()}
 	for _, m := range moders {
 		mtimes = append(mtimes, m.GetLastModified()...)
 	}
+
+	if user := auth.GetRequestUser(r); user.ID != 0 {
+		mtimes = append(mtimes, user.GetLastModified()...)
+	}
+
 	sort.Slice(mtimes, func(i, j int) bool {
 		return mtimes[i].After(mtimes[j])
 	})
 
 	w.Header().Set("Last-Modified", mtimes[0].Format(http.TimeFormat))
+}
+
+// WithCacheControl sends the global caching headers
+func (s *Server) WithCacheControl(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", "private")
+		next.ServeHTTP(w, r)
+	})
 }
 
 // WithCaching is a middleware that checks if an Etag and/or a

@@ -65,8 +65,8 @@ func randomSvg(s *server.Server) http.Handler {
 			rd := newRandom(data)
 			ctx := context.WithValue(r.Context(), ctxNameKey{}, rd)
 
-			s.WriteEtag(w, rd)
-			s.WriteLastModified(w, rd)
+			s.WriteEtag(w, r, rd)
+			s.WriteLastModified(w, r, rd)
 			csp.Policy{
 				"base-uri":    {csp.None},
 				"default-src": {csp.None},

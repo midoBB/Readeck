@@ -445,8 +445,8 @@ func (api *apiRouter) withBookmark(next http.Handler) http.Handler {
 		ctx := context.WithValue(r.Context(), ctxBookmarkKey{}, b)
 
 		if b.State == StateLoaded {
-			api.srv.WriteLastModified(w, b, auth.GetRequestUser(r))
-			api.srv.WriteEtag(w, b, auth.GetRequestUser(r))
+			api.srv.WriteLastModified(w, r, b, auth.GetRequestUser(r))
+			api.srv.WriteEtag(w, r, b, auth.GetRequestUser(r))
 		}
 
 		w.Header().Add("bookmark-id", b.UID)
@@ -625,7 +625,7 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 		}
 
 		if r.Method == http.MethodGet {
-			api.srv.WriteEtag(w, tagers...)
+			api.srv.WriteEtag(w, r, tagers...)
 		}
 		api.srv.WithCaching(next).ServeHTTP(w, r.Clone(ctx))
 	})

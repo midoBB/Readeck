@@ -71,76 +71,19 @@ SPDX-License-Identifier: AGPL-3.0-only
           hf:bg-yellow-100
         ">{{ yield icon(name="o-filter") }} Filter list</summary>
         <div class="bg-gray-100 border rounded p-2 text-sm max-md:mt-2">
-          <div class="grid grid-cols-3 gap-x-4 gap-y-2 max-md:grid-cols-2">
-            {{ yield textField(
-              field=.Filters.Get("search"),
-              label="Search",
-              class="mb-0 col-span-3 max-md:col-span-2",
-            ) }}
-            {{ yield textField(
-              field=.Filters.Get("title"),
-              label="Title",
-              class="mb-0",
-            ) }}
-            {{ yield textField(
-              field=.Filters.Get("author"),
-              label="Author",
-              class="mb-0",
-            ) }}
-            {{ yield textField(
-              field=.Filters.Get("site"),
-              label="Site",
-              class="mb-0",
-            ) }}
+          {{ include("./components/filters") .Filters }}
 
-            {{ yield textField(
-              field=.Filters.Get("labels"),
-              label="Label",
-              class="mb-0",
-            ) }}
-
-            <div class="flex flex-wrap gap-x-4">
-              {{ yield selectField(field=.Filters.Get("is_marked"),
-                label="Is Favorite",
-                class="mb-0 flex-grow",
-                options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
-              ) }}
-              {{ yield selectField(field=.Filters.Get("is_archived"),
-                label="Is Archived",
-                class="mb-0 flex-grow",
-                options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
-              ) }}
-
-              {{ yield selectField(field=.Filters.Get("type"),
-                label="Type",
-                class="mb-0 flex-grow",
-              ) }}
-            </div>
-
-            <div class="flex flex-wrap gap-x-4">
-              {{ yield timeTokenField(
-                field=.Filters.Get("range_start"),
-                label="From date",
-                class="mb-0 flex-grow",
-              ) }}
-              {{ yield timeTokenField(
-                field=.Filters.Get("range_end"),
-                label="To date",
-                class="mb-0 flex-grow",
-              ) }}
-            </div>
-
-            <div class="mt-2 col-span-3 max-md:col-span-2 flex gap-2 items-center">
-              <button class="btn btn-primary">Search</button>
-              {{ if .Filters.IsActive() -}}
-                <span class="flex-grow">
-                  <a href="{{ urlFor() }}?bf=1" class="btn rounded">Reset search</a>
-                </span>
-                <a href="{{ urlFor(`/bookmarks/collections/add`)}}?{{ .Filters.GetQueryString() }}"
-                 class="link font-semibold">Create a collection</a>
-              {{- end }}
-            </div>
+          <div class="mt-4 flex gap-2 items-center">
+            <button class="btn btn-primary">Search</button>
+            {{ if .Filters.IsActive() -}}
+              <span class="flex-grow">
+                <a href="{{ urlFor() }}?bf=1" class="btn rounded">Reset search</a>
+              </span>
+              <a href="{{ urlFor(`/bookmarks/collections/add`)}}?{{ .Filters.GetQueryString() }}"
+                class="link font-semibold">Create a collection</a>
+            {{- end }}
           </div>
+
         </div>
       </details>
     </div>

@@ -11,79 +11,19 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- block mainContent() -}}
 <h1 class="title text-h2">New Collection</h1>
 
-<form action="{{ urlFor() }}" method="post">
+<form action="{{ urlFor() }}" method="post"
+ class="my-4 p-2 bg-gray-100 border rounded">
   {{ yield formErrors(form=.Form) }}
   {{ yield csrfField() }}
 
   {{ yield csrfField() }}
   <div class="text-sm mt-2">
-    <div class="grid grid-cols-3 gap-x-4 gap-y-2 max-md:grid-cols-2">
-      {{ yield textField(
-        field=.Form.Get("name"),
-        label="Name",
-        class="mb-0 col-span-3 max-md:col-span-2",
-      ) }}
-      {{ yield textField(
-        field=.Form.Get("search"),
-        label="Search",
-        class="mb-0 col-span-3 max-md:col-span-2",
-      ) }}
-      {{ yield textField(
-        field=.Form.Get("title"),
-        label="Title",
-        class="mb-0",
-      ) }}
-      {{ yield textField(
-        field=.Form.Get("author"),
-        label="Author",
-        class="mb-0",
-      ) }}
-      {{ yield textField(
-        field=.Form.Get("site"),
-        label="Site",
-        class="mb-0",
-      ) }}
-
-      {{ yield textField(
-        field=.Form.Get("labels"),
-        label="Label",
-        class="mb-0",
-      ) }}
-
-      <div class="flex flex-wrap gap-x-4">
-        {{ yield selectField(
-          field=.Form.Get("is_marked"),
-          label="Is Favorite",
-          class="mb-0 flex-grow",
-          options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
-        ) }}
-        {{ yield selectField(
-          field=.Form.Get("is_archived"),
-          label="Is Archived",
-          class="mb-0 flex-grow",
-          options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
-        ) }}
-
-        {{ yield selectField(
-          field=.Form.Get("type"),
-          label="Type",
-          class="mb-0 flex-grow",
-        ) }}
-      </div>
-
-      <div class="flex flex-wrap gap-x-4">
-        {{ yield timeTokenField(
-          field=.Form.Get("range_start"),
-          label="From date",
-          class="mb-0 flex-grow",
-        ) }}
-        {{ yield timeTokenField(
-          field=.Form.Get("range_end"),
-          label="To date",
-          class="mb-0 flex-grow",
-        ) }}
-      </div>
-    </div>
+    {{ yield textField(
+      field=.Form.Get("name"),
+      label="Name",
+      class="mb-2",
+    ) }}
+    {{ include("./components/filters") .Form }}
   </div>
 
   <p class="mt-4"><button class="btn-primary" type="submit">Save</button></p>

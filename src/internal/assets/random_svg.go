@@ -16,6 +16,7 @@ import (
 
 	"github.com/readeck/readeck/configs"
 	"github.com/readeck/readeck/internal/server"
+	"github.com/readeck/readeck/pkg/csp"
 )
 
 type ctxNameKey struct{}
@@ -66,6 +67,11 @@ func randomSvg(s *server.Server) http.Handler {
 
 			s.WriteEtag(w, rd)
 			s.WriteLastModified(w, rd)
+			csp.Policy{
+				"base-uri":    {csp.None},
+				"default-src": {csp.None},
+				"style-src":   {csp.UnsafeInline},
+			}.Write(w.Header())
 			s.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
 		})
 	}

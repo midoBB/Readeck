@@ -46,6 +46,7 @@ func New(basePath string) *Server {
 		middleware.RealIP,
 		middleware.RequestID,
 		Logger(),
+		s.SetSecurityHeaders,
 		s.InitRequest,
 		auth.Init(
 			&auth.BasicAuthProvider{},
@@ -56,7 +57,6 @@ func New(basePath string) *Server {
 			},
 		),
 		s.ErrorPages,
-		s.SetSecurityHeaders,
 	)
 
 	return s

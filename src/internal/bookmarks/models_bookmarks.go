@@ -248,6 +248,55 @@ func (m *BookmarkManager) GetLabels() *goqu.SelectDataset {
 	return nil
 }
 
+// GetAnnotations returns a SelectDataset that can be used to select all
+// the annotations.
+func (m *BookmarkManager) GetAnnotations() *goqu.SelectDataset {
+
+	ds := Bookmarks.Query().Select(
+		goqu.I("b.id").As(goqu.C("b.id")),
+		goqu.I("b.uid").As(goqu.C("b.uid")),
+		goqu.I("b.url").As(goqu.C("b.url")),
+		goqu.I("b.title").As(goqu.C("b.title")),
+		goqu.I("b.site_name").As(goqu.C("b.site_name")),
+	)
+	switch db.Driver().Dialect() {
+	case "postgres":
+		ds = ds.SelectAppend(
+			goqu.L(`a->>'id'`).As("annotation_id"),
+			goqu.L(`a->>'text'`).As("annotation_text"),
+			goqu.L(`(a->>'created')::timestamptz`).As("annotation_created"),
+		).
+			From(
+				goqu.T(TableName).As("b"),
+				goqu.L(`jsonb_array_elements(
+					case jsonb_typeof(b.annotations)
+					when 'array' then b.annotations
+					else '[]' end
+					)`).As("a"),
+			)
+	case "sqlite3":
+		ds = ds.SelectAppend(
+			goqu.Func("json_extract", goqu.I("a.value"), "$.id").As("annotation_id"),
+			goqu.Func("json_extract", goqu.I("a.value"), "$.text").As("annotation_text"),
+			goqu.Func("json_extract", goqu.I("a.value"), "$.created").As("annotation_created"),
+		).
+			From(
+				goqu.T(TableName).As("b"),
+				goqu.L(`json_each(
+					case json_type(b.annotations)
+					when 'array' then b.annotations
+					else '[]' end
+				)`).As("a"),
+			).
+			Where(
+				goqu.Func("json_valid", goqu.I("b.annotations")),
+			)
+	}
+
+	ds = ds.Prepared(true)
+	return ds
+}
+
 type countQueryResult struct {
 	Count      int    `db:"count"`
 	IsArchived bool   `db:"is_archived"`
@@ -579,4 +628,11 @@ func (f BookmarkFiles) Value() (driver.Value, error) {
 		return "", err
 	}
 	return string(v), nil
+}
+
+type annotationQueryResult struct {
+	Bookmark Bookmark      `db:"b"`
+	ID       string        `db:"annotation_id"`
+	Text     string        `db:"annotation_text"`
+	Created  db.TimeString `db:"annotation_created"`
 }

@@ -32,6 +32,7 @@ import (
 )
 
 type (
+	ctxAnnotationListKey    struct{}
 	ctxBookmarkKey          struct{}
 	ctxBookmarkListKey      struct{}
 	ctxBookmarkListTagerKey struct{}
@@ -367,7 +368,7 @@ func (api *apiRouter) labelDelete(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
-func (api *apiRouter) annotationList(w http.ResponseWriter, r *http.Request) {
+func (api *apiRouter) bookmarkAnnotations(w http.ResponseWriter, r *http.Request) {
 	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
 	if b.Annotations != nil {
 		api.srv.Render(w, r, http.StatusOK, b.Annotations)
@@ -426,6 +427,13 @@ func (api *apiRouter) annotationDelete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusNoContent)
+}
+
+func (api *apiRouter) annotationList(w http.ResponseWriter, r *http.Request) {
+	al := r.Context().Value(ctxAnnotationListKey{}).(annotationList)
+
+	api.srv.SendPaginationHeaders(w, r, al.Pagination)
+	api.srv.Render(w, r, 200, al.Items)
 }
 
 // withBookmark returns a router that will fetch a bookmark and add it into the
@@ -628,6 +636,57 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 			api.srv.WriteEtag(w, r, tagers...)
 		}
 		api.srv.WithCaching(next).ServeHTTP(w, r.Clone(ctx))
+	})
+}
+
+func (api *apiRouter) withAnnotationList(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		res := annotationList{}
+
+		limit, ok := r.Context().Value(ctxDefaultLimitKey{}).(int)
+		if !ok {
+			limit = 50
+		}
+
+		pf := api.srv.GetPageParams(r, limit)
+		if pf == nil {
+			api.srv.Status(w, r, http.StatusNotFound)
+			return
+		}
+
+		ds := Bookmarks.GetAnnotations().
+			Where(
+				goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
+			)
+
+		ds = ds.
+			Limit(uint(pf.Limit())).
+			Offset(uint(pf.Offset())).
+			Order(goqu.I("annotation_created").Desc())
+
+		var count int64
+		var err error
+
+		if count, err = ds.ClearOrder().ClearLimit().ClearOffset().Count(); err != nil {
+			api.srv.Error(w, r, err)
+			return
+		}
+
+		res.Pagination = api.srv.NewPagination(r, int(count), pf.Limit(), pf.Offset())
+
+		res.items = []*annotationQueryResult{}
+		if err = ds.ScanStructs(&res.items); err != nil {
+			api.srv.Error(w, r, err)
+			return
+		}
+		res.Items = make([]annotationItem, len(res.items))
+		for i, item := range res.items {
+			res.Items[i] = newAnnotationItem(api.srv, r, item)
+		}
+
+		ctx := context.WithValue(r.Context(), ctxAnnotationListKey{}, res)
+
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
@@ -875,4 +934,37 @@ type labelString string
 
 func (s labelString) Path() string {
 	return url.QueryEscape(string(s))
+}
+
+type annotationList struct {
+	items      []*annotationQueryResult
+	Pagination server.Pagination
+	Items      []annotationItem
+}
+
+type annotationItem struct {
+	ID               string    `json:"id"`
+	Href             string    `json:"href"`
+	Text             string    `json:"text"`
+	Created          time.Time `json:"created"`
+	BookmarkID       string    `json:"bookmark_id"`
+	BookmarkHref     string    `json:"bookmark_href"`
+	BookmarkURL      string    `json:"bookmark_url"`
+	BookmarkTitle    string    `json:"bookmark_title"`
+	BookmarkSiteName string    `json:"bookmark_site_name"`
+}
+
+func newAnnotationItem(s *server.Server, r *http.Request, a *annotationQueryResult) annotationItem {
+	res := annotationItem{
+		ID:               a.ID,
+		Href:             s.AbsoluteURL(r, "/api/bookmarks", a.Bookmark.UID, "annotations", a.ID).String(),
+		Text:             a.Text,
+		Created:          time.Time(a.Created),
+		BookmarkID:       a.Bookmark.UID,
+		BookmarkHref:     s.AbsoluteURL(r, "/api/bookmarks", a.Bookmark.UID).String(),
+		BookmarkURL:      a.Bookmark.URL,
+		BookmarkTitle:    a.Bookmark.Title,
+		BookmarkSiteName: a.Bookmark.SiteName,
+	}
+	return res
 }

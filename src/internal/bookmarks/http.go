@@ -58,8 +58,12 @@ func newAPIRouter(s *server.Server) *apiRouter {
 		r.With(api.withBookmark).Route("/{uid:[a-zA-Z0-9]{18,22}}", func(r chi.Router) {
 			r.Get("/", api.bookmarkInfo)
 			r.Get("/article", api.bookmarkArticle)
-			r.Get("/annotations", api.annotationList)
+			r.Get("/annotations", api.bookmarkAnnotations)
 			r.Get("/x/*", api.bookmarkResource)
+		})
+
+		r.With(api.withAnnotationList).Route("/annotations", func(r chi.Router) {
+			r.Get("/", api.annotationList)
 		})
 
 		r.With(api.srv.WithPermission("api:bookmarks", "export")).Group(func(r chi.Router) {

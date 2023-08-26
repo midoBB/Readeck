@@ -8,6 +8,7 @@ import (
 	sql_driver "database/sql/driver"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"github.com/doug-martin/goqu/v9"
 )
@@ -69,4 +70,31 @@ func (s Strings) Value() (sql_driver.Value, error) {
 		return "", err
 	}
 	return string(v), nil
+}
+
+// TimeString is a time.Time with a special scanner.
+// We need this type when we extract time values from a json field.
+// Postgresql recognizes a time.Time it just fine but not sqlite.
+type TimeString time.Time
+
+// Scan loads the TimeString instance from a given column.
+func (t *TimeString) Scan(value interface{}) error {
+	if value == nil {
+		return nil
+	}
+
+	res := time.Time{}
+	var err error
+	switch v := value.(type) {
+	case string:
+		res, err = time.Parse(time.RFC3339Nano, v)
+		if err != nil {
+			return err
+		}
+	case time.Time:
+		res = v
+	}
+
+	*t = TimeString(res)
+	return nil
 }

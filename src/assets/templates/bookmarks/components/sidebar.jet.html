@@ -104,9 +104,10 @@ SPDX-License-Identifier: AGPL-3.0-only
   </div>
 
   {{- if .Item.Type == "article" && .Item.Links && .Item.Links.HasPages() -}}
-    <details class="group mb-4 print:hidden" open>
-      <summary class="block mb-2 title text-lg">
-        {{- yield icon(name="o-link") }} Links
+    <details class="group mb-4 print:hidden">
+      <summary class="block mb-2 title text-lg hf:text-primary-dark">
+        {{- yield icon(name="o-link") }}
+        <span class="underline decoration-dotted decoration-primary">Links</span>
       </summary>
       <ul class="mb-4 list-disc list-outside pl-4">
       {{- range _, x := .Item.Links.Pages() -}}

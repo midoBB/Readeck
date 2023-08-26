@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 {{- block sideMenu() -}}
 <h2 class="h-topnav border-b border-gray-200 uppercase flex items-center justify-center">Readeck Help</h2>
-<menu class="mt-4">
+<menu class="my-4">
   {{- if .TOC -}}
     <menu class="mt-4">
     {{- range .TOC -}}
@@ -18,7 +18,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 </menu>
 
   {{- if hasPermission("system", "read") -}}
-  <menu class="mt-4">
+  <hr class="w-[25%] border-gray-200 mx-auto">
+
+  <menu class="my-4">
     <li><a href="{{ urlFor(`/docs/about`) }}" data-current="{{ pathIs(`/docs/about`) }}">About Readeck</a></li>
   </menu>
   {{- end -}}

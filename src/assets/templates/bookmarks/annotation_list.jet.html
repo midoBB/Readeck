@@ -1,0 +1,46 @@
+{*
+SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+
+SPDX-License-Identifier: AGPL-3.0-only
+*}
+{{ extends "./base" }}
+
+{{- block title() -}}Bookmark Highlights{{- end -}}
+
+{{- block mainContent() -}}
+<h1 class="title text-h2">Bookmark Highlights</h1>
+
+
+{{- if .Pagination.TotalCount == 0 -}}
+  <div class="max-w-2xl">
+    <div class="my-4 p-4 text-blue-800 bg-yellow-50 border border-blue-800 rounded">
+      <p class="font-bold mb-2">You don't have any highlights yet.</p>
+      <p>Once you start highlighting parts of your saved articles, they will appear on this page
+      for you to easily find them.</p>
+    </div>
+    <p>Read more about highlights in the <a class="link" href="{{ urlFor(`/docs/en/bookmark`) }}#highlights">documentation</a>.</p>
+  </div>
+{{- else -}}
+  {{- include "/_libs/pagination" .Pagination -}}
+
+  {{- range i, x := .Annotations -}}
+  <blockquote class="my-2">
+    <a class="block mb-1 pt-2 pb-4 px-4 bg-yellow-50 border border-yellow-200 rounded hf:bg-yellow-100"
+    href="{{ urlFor(`/bookmarks`, x.BookmarkID) }}#annotation-{{ x.ID }}">
+      <p class="block mb-1 text-sm text-yellow-800">{{ date(x.Created, "2 January 2006, 15:04") }}</p>
+      <p>{{ x.Text }}</p>
+    </a>
+
+    {* This groups annotations by bookmarks in the same sequence *}
+    {{- if i+1 == len(.Annotations) || .Annotations[i+1].BookmarkID != x.BookmarkID -}}
+      <cite class="block ml-2 mb-6 not-italic">
+        {{ x.BookmarkSiteName }} ‐
+        <a class="link font-semibold" href="{{ urlFor(`/bookmarks`, x.BookmarkID) }}">{{ x.BookmarkTitle }}</a>
+      </cite>
+    {{- end -}}
+  </blockquote>
+  {{- end -}}
+
+  {{- include "/_libs/pagination" .Pagination -}}
+{{- end -}}
+{{- end -}}

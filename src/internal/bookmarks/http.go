@@ -128,6 +128,9 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 			r.With(api.withLabelList).Get("/labels", h.labelList)
 			r.With(api.withLabel, api.withBookmarkList).
 				Get("/labels/{label}", h.labelInfo)
+			r.With(api.withAnnotationList).Route("/highlights", func(r chi.Router) {
+				r.Get("/", h.annotationList)
+			})
 		})
 	})
 

@@ -21,7 +21,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   </div>
 </form>
 
-<menu class="mt-4">
+<menu class="my-4">
   {{ yield sideMenuItem(name="All", path="/bookmarks", icon="o-library",
                         current=pathIs("/bookmarks")) }}
   {{ yield sideMenuItem(name="Unread", path="/bookmarks/unread", icon="o-check-off",
@@ -33,7 +33,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 </menu>
 
 {{- if isset(.Count) }}
-  <menu class="mt-4">
+  <menu class="my-4">
     {{- if isset(.Count.ByType.article) && .Count.ByType.article > 0 }}
       {{ yield sideMenuItem(name="Articles", path="/bookmarks/articles", icon="o-file",
                             current=pathIs("/bookmarks/articles")) }}
@@ -51,15 +51,14 @@ SPDX-License-Identifier: AGPL-3.0-only
   </menu>
 {{ end -}}
 
-<h2 class="mt-4 sidebar:subtitle">Collections</h2>
-<menu class="mt-2">
-  {{ yield sideMenuItem(name="All Collections", path="/bookmarks/collections", icon="o-collection",
-                        current=pathIs("/bookmarks/collections", "/bookmarks/collections/*")) }}
-</menu>
+<hr class="w-[25%] border-gray-200 mx-auto">
 
-<h2 class="mt-4 sidebar:subtitle">Labels</h2>
-<menu class="mt-2">
-  {{ yield sideMenuItem(name="All Labels", path="/bookmarks/labels", icon="o-label",
+<menu class="mt-4">
+  {{ yield sideMenuItem(name="Labels", path="/bookmarks/labels", icon="o-label",
                         current=pathIs("/bookmarks/labels", "/bookmarks/labels/*")) }}
+  {{ yield sideMenuItem(name="Highligths", path="/bookmarks/highlights", icon="o-highlight",
+                        current=pathIs("/bookmarks/highlights")) }}
+  {{ yield sideMenuItem(name="Collections", path="/bookmarks/collections", icon="o-collection",
+                        current=pathIs("/bookmarks/collections", "/bookmarks/collections/*")) }}
 </menu>
 {{- end -}}

@@ -272,3 +272,15 @@ func (h *viewsRouter) labelDelete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Location", redir.String())
 	w.WriteHeader(http.StatusSeeOther)
 }
+
+func (h *viewsRouter) annotationList(w http.ResponseWriter, r *http.Request) {
+	al := r.Context().Value(ctxAnnotationListKey{}).(annotationList)
+
+	h.srv.SendPaginationHeaders(w, r, al.Pagination)
+
+	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
+	ctx["Pagination"] = al.Pagination
+	ctx["Annotations"] = al.Items
+
+	h.srv.RenderTemplate(w, r, 200, "/bookmarks/annotation_list", ctx)
+}

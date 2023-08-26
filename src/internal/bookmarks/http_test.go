@@ -24,6 +24,20 @@ func TestPermissions(t *testing.T) {
 			// API
 			RequestTest{
 				JSON:   true,
+				Target: "/api/bookmarks/annotations",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					case "":
+						r.AssertStatus(t, 401)
+					}
+				},
+			},
+			RequestTest{
+				JSON:   true,
 				Target: "/api/bookmarks/collections",
 				Assert: func(t *testing.T, r *Response) {
 					switch user {

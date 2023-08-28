@@ -37,37 +37,35 @@ On the sidebar, you'll find a search field and links that will take you to filte
 
 ![Bookmark list sidebar](./img/bookmark-sidebar.png)
 
-Search
-: Enter any search term (title, content, website...)
-
-All
-: All your bookmarks.
-
-Unread
-: The bookmarks that are not in the archive.
-
-Archive
-: The bookmarks you marked as archived.
-
-Favorites
-: The bookmarks you marked as favorite.
+- **Search** \
+  Enter any search term (title, content, website...)
+- **All** \
+  All your bookmarks.
+- **Unread** \
+  The bookmarks that are not in the archive.
+- **Archive** \
+  The bookmarks you marked as archived.
+- **Favorites** \
+  The bookmarks you marked as favorite.
 
 
 Once you start saving pages, you'll see the following additional links:
 
-Articles
-: Your article bookmarks
+- **Articles** \
+  Your article bookmarks
+- **Videos** \
+  Your video bookmarks
+- **Pictures** \
+  Your picture bookmarks
 
-Videos
-: Your video bookmarks
+Finally, you'll see 3 more sections that take you to bookmark related pages:
 
-Pictures
-: Your picture bookmarks
-
-Finally, you'll see 2 more sections that are covered in other help topics:
-
-- [Collections](./collections.md)
-- [Labels](./labels.md)
+- **[Labels](./labels.md)** \
+  All your bookmark labels
+- **Highligts** \
+  All the highlights created on your bookmarks
+- **[Collections](./collections.md)** \
+  The list of all your collections
 
 ### Bookmark Cards
 
@@ -85,11 +83,26 @@ A card shows:
 
 The action buttons perform the following:
 
-Favorite
-: This toggles the favorite status of the bookmark.
+- **Favorite** \
+  This toggles the favorite status of the bookmark.
+- **Archive** \
+  This moves the bookmark to the archives (or removes it from there).
+- **Delete** \
+  This marks the bookmark for deletion (it can be canceled during a few seconds).
 
-Archive
-: This moves the bookmark to the archives (or removes it from there).
 
-Delete
-: This marks the bookmark for deletion (it can be canceled during a few seconds).
+## Filter results
+
+On the bookmark list, you can filter your results based on one or several criteria. Click on the button "Filter list" next to the page title to open the filtering form.
+
+![Bookmark list filters](./img/bookmark-filters.png)
+The filter form
+
+Enter any criteria and click on **Save**.
+
+Please note that if you want to search with an exact text, you must quote the text.\
+For example, if you want to filter by a label **fluffy cat**, enter **"fluffy cat"** in the **Label** field.
+
+The "site" field lets you search by the website name or its domain.
+
+After you performed a search, you can save it into a new [collection](./collections.md) to make it permanent.

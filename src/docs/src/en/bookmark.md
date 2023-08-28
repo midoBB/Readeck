@@ -34,7 +34,7 @@ On top of the bookmark view, a link takes you back to the previous page.
 If the bookmark is an article, a button on the other side lets you change some typography settings.
 
 ![Bookmark typography settings](img/bookmark-typography.png)
-New typography settings.
+Typography settings.
 
 There you can set the font used for the text, the font size and the line height.\
 This settings are automatically saved for you and will apply to any article you read later.

@@ -1,5 +1,27 @@
 # Changlog
 
+## [0.8.0] - 2023-08-29
+### Added
+- Scoped API tokens
+- Application passwords
+- OPDS catalog
+- Embeded documentation
+- Fetch and display links from a page
+- Markdown export (only from API for now)
+- Added a time range in bookmark filters and collections
+- Global highlight list
+- Label deletion
+
+### Changed
+- Hardened CSP headers
+- New random image on bookmark cards
+- Go 1.21 required to build
+- Release process (linux, mac, windows, container)
+
+### Fixed
+- Reddit picture fetch
+
+
 ## [0.7.3] - 2023-07-16
 ### Added
 - Reader typography options

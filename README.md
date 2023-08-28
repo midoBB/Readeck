@@ -102,7 +102,7 @@ Unlike many modern web applications, Readeck is not a single page application bu
 
 Readeck is written in [Go](https://go.dev/) and all its content is rendered server side with some interactivity brought by [Stimulus](https://stimulus.hotwired.dev/) and [Turbo](https://turbo.hotwired.dev/).
 
-This proved to be a great combination when performance really matters.
+This has proven to be a great combination when performance really matters.
 
 
 ## License

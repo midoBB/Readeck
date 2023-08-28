@@ -16,8 +16,8 @@ endif
 
 BUILD_TAGS := netgo osusergo sqlite_omit_load_extension sqlite_foreign_keys sqlite_json1 sqlite_fts5 sqlite_secure_delete
 VERSION_FLAGS := \
-	-X 'github.com/readeck/readeck/configs.version=$(VERSION)' \
-	-X 'github.com/readeck/readeck/configs.buildTimeStr=$(DATE)'
+	-X 'codeberg.org/readeck/readeck/configs.version=$(VERSION)' \
+	-X 'codeberg.org/readeck/readeck/configs.buildTimeStr=$(DATE)'
 
 OUTFILE_NAME ?= readeck
 LDFLAGS ?= -s -w

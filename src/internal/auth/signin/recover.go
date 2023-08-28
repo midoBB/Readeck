@@ -15,12 +15,12 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/lithammer/shortuuid/v4"
 
-	"github.com/readeck/readeck/configs"
-	"github.com/readeck/readeck/internal/auth/users"
-	"github.com/readeck/readeck/internal/bus"
-	"github.com/readeck/readeck/internal/email"
-	"github.com/readeck/readeck/internal/server"
-	"github.com/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/bus"
+	"codeberg.org/readeck/readeck/internal/email"
+	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
 type recoverForm struct {

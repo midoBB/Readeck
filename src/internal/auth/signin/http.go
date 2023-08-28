@@ -10,10 +10,10 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"github.com/readeck/readeck/internal/auth"
-	"github.com/readeck/readeck/internal/email"
-	"github.com/readeck/readeck/internal/server"
-	"github.com/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/internal/email"
+	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
 // SetupRoutes mounts the routes for the auth domain.

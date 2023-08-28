@@ -5,7 +5,7 @@
 package meta
 
 import (
-	"github.com/readeck/readeck/pkg/extract"
+	"codeberg.org/readeck/readeck/pkg/extract"
 )
 
 // ExtractPicture is a processor that extracts the picture from the document

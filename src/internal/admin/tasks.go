@@ -10,9 +10,9 @@ import (
 	"github.com/doug-martin/goqu/v9"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/readeck/readeck/internal/auth/users"
-	"github.com/readeck/readeck/internal/bus"
-	"github.com/readeck/readeck/pkg/superbus"
+	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/bus"
+	"codeberg.org/readeck/readeck/pkg/superbus"
 )
 
 var deleteUserTask superbus.Task

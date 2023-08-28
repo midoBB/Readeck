@@ -14,9 +14,9 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"github.com/readeck/readeck/configs"
-	"github.com/readeck/readeck/internal/server"
-	"github.com/readeck/readeck/pkg/csp"
+	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/pkg/csp"
 )
 
 type ctxNameKey struct{}

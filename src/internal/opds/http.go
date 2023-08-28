@@ -11,11 +11,11 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 
-	"github.com/readeck/readeck/internal/auth"
-	"github.com/readeck/readeck/internal/bookmarks"
-	"github.com/readeck/readeck/internal/opds/catalog"
-	"github.com/readeck/readeck/internal/server"
-	"github.com/readeck/readeck/pkg/opds"
+	"codeberg.org/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/opds/catalog"
+	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/pkg/opds"
 )
 
 type opdsRouter struct {

@@ -13,9 +13,9 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"github.com/readeck/readeck/internal/server"
-	"github.com/readeck/readeck/pkg/csp"
-	"github.com/readeck/readeck/pkg/zipfs"
+	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/pkg/csp"
+	"codeberg.org/readeck/readeck/pkg/zipfs"
 )
 
 // apiRouter is the base bookmark API router.

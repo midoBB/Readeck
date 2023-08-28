@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"testing"
 
-	. "github.com/readeck/readeck/internal/testing"
+	. "codeberg.org/readeck/readeck/internal/testing"
 )
 
 func TestPermissions(t *testing.T) {

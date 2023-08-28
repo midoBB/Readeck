@@ -12,8 +12,8 @@ import (
 	"github.com/doug-martin/goqu/v9"
 	"github.com/lithammer/shortuuid/v4"
 
-	"github.com/readeck/readeck/internal/auth/users"
-	"github.com/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/db"
 )
 
 const (

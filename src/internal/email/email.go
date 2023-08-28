@@ -16,8 +16,8 @@ import (
 
 	mail "github.com/xhit/go-simple-mail/v2"
 
-	"github.com/readeck/readeck/assets"
-	"github.com/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/assets"
+	"codeberg.org/readeck/readeck/configs"
 )
 
 // Sender is the default email sender. It's made public so it can be

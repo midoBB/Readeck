@@ -20,10 +20,10 @@ import (
 	"github.com/doug-martin/goqu/v9"
 	"github.com/doug-martin/goqu/v9/exp"
 
-	"github.com/readeck/readeck/internal/auth/users"
-	"github.com/readeck/readeck/internal/db"
-	"github.com/readeck/readeck/pkg/forms"
-	"github.com/readeck/readeck/pkg/timetoken"
+	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/timetoken"
 )
 
 var validSchemes = []string{"http", "https"}

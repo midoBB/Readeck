@@ -18,8 +18,8 @@ import (
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 
-	"github.com/readeck/readeck/internal/auth/users"
-	"github.com/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/db"
 )
 
 const (

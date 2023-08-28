@@ -13,9 +13,9 @@ import (
 	"github.com/gorilla/csrf"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/readeck/readeck/configs"
-	"github.com/readeck/readeck/internal/auth"
-	"github.com/readeck/readeck/pkg/accept"
+	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/pkg/accept"
 )
 
 const (

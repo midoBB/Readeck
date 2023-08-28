@@ -11,8 +11,8 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/readeck/readeck/pkg/archiver"
-	"github.com/readeck/readeck/pkg/extract"
+	"codeberg.org/readeck/readeck/pkg/archiver"
+	"codeberg.org/readeck/readeck/pkg/extract"
 )
 
 type ctxLogger struct{}

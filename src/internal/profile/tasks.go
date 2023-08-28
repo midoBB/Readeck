@@ -10,10 +10,10 @@ import (
 	"github.com/doug-martin/goqu/v9"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/readeck/readeck/internal/auth/credentials"
-	"github.com/readeck/readeck/internal/auth/tokens"
-	"github.com/readeck/readeck/internal/bus"
-	"github.com/readeck/readeck/pkg/superbus"
+	"codeberg.org/readeck/readeck/internal/auth/credentials"
+	"codeberg.org/readeck/readeck/internal/auth/tokens"
+	"codeberg.org/readeck/readeck/internal/bus"
+	"codeberg.org/readeck/readeck/pkg/superbus"
 )
 
 var (

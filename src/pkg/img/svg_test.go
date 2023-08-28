@@ -13,7 +13,7 @@ import (
 	"github.com/antchfx/xmlquery"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/readeck/readeck/pkg/img"
+	"codeberg.org/readeck/readeck/pkg/img"
 )
 
 func assertXMLEqual(t *testing.T, expected, actual string) bool {

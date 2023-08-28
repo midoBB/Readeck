@@ -5,8 +5,8 @@
 package testing
 
 import (
-	"github.com/readeck/readeck/internal/bus"
-	"github.com/readeck/readeck/pkg/superbus"
+	"codeberg.org/readeck/readeck/internal/bus"
+	"codeberg.org/readeck/readeck/pkg/superbus"
 )
 
 func startEventManager() {

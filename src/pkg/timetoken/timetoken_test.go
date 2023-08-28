@@ -11,7 +11,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/readeck/readeck/pkg/timetoken"
+	"codeberg.org/readeck/readeck/pkg/timetoken"
 )
 
 func TestRelativeTo(t *testing.T) {

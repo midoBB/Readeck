@@ -16,8 +16,8 @@ import (
 	"github.com/hlandau/passlib"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/readeck/readeck/internal/acls"
-	"github.com/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/acls"
+	"codeberg.org/readeck/readeck/internal/db"
 )
 
 func init() {

@@ -14,9 +14,9 @@ import (
 	"github.com/doug-martin/goqu/v9"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/readeck/readeck/internal/auth/credentials"
-	"github.com/readeck/readeck/internal/auth/tokens"
-	. "github.com/readeck/readeck/internal/testing"
+	"codeberg.org/readeck/readeck/internal/auth/credentials"
+	"codeberg.org/readeck/readeck/internal/auth/tokens"
+	. "codeberg.org/readeck/readeck/internal/testing"
 )
 
 func TestViews(t *testing.T) {

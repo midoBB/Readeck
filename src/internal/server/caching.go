@@ -11,8 +11,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/readeck/readeck/configs"
-	"github.com/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/internal/auth"
 )
 
 // Etager must provides a function that returns a list of

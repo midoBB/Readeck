@@ -24,11 +24,11 @@ import (
 	"github.com/go-shiori/dom"
 	"golang.org/x/net/html"
 
-	"github.com/readeck/readeck/internal/auth"
-	"github.com/readeck/readeck/internal/server"
-	"github.com/readeck/readeck/pkg/annotate"
-	"github.com/readeck/readeck/pkg/forms"
-	"github.com/readeck/readeck/pkg/zipfs"
+	"codeberg.org/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/pkg/annotate"
+	"codeberg.org/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/zipfs"
 )
 
 type (

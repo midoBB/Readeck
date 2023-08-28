@@ -10,7 +10,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
 type fieldValidatorTest struct {

@@ -9,8 +9,8 @@ import (
 	"net/http"
 	"path"
 
-	"github.com/readeck/readeck/configs"
-	"github.com/readeck/readeck/internal/sessions"
+	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/internal/sessions"
 )
 
 type (

@@ -11,7 +11,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/readeck/readeck/internal/sessions"
+	"codeberg.org/readeck/readeck/internal/sessions"
 )
 
 func TestSession(t *testing.T) {

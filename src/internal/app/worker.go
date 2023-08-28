@@ -13,7 +13,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
-	"github.com/readeck/readeck/internal/bus"
+	"codeberg.org/readeck/readeck/internal/bus"
 )
 
 func init() {

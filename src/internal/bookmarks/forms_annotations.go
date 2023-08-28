@@ -12,7 +12,7 @@ import (
 	"github.com/lithammer/shortuuid/v4"
 	"golang.org/x/net/html"
 
-	"github.com/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
 type annotationForm struct {

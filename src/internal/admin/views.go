@@ -10,10 +10,10 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"github.com/readeck/readeck/internal/auth"
-	"github.com/readeck/readeck/internal/auth/users"
-	"github.com/readeck/readeck/internal/server"
-	"github.com/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
 // adminViews is an HTTP handler for the user profile web views

@@ -13,8 +13,8 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/readeck/readeck/internal/server"
-	"github.com/readeck/readeck/pkg/opds"
+	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/pkg/opds"
 )
 
 // Catalog is a wraper around opds.Feed

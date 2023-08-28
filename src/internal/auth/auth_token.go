@@ -11,8 +11,8 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/readeck/readeck/internal/acls"
-	"github.com/readeck/readeck/internal/auth/tokens"
+	"codeberg.org/readeck/readeck/internal/acls"
+	"codeberg.org/readeck/readeck/internal/auth/tokens"
 )
 
 // TokenAuthProvider handles authentication using a bearer token

@@ -16,11 +16,11 @@ import (
 	"github.com/CloudyKit/jet/v6"
 	"github.com/gorilla/csrf"
 
-	"github.com/readeck/readeck/assets"
-	"github.com/readeck/readeck/internal/auth"
-	"github.com/readeck/readeck/internal/email"
-	"github.com/readeck/readeck/pkg/glob"
-	"github.com/readeck/readeck/pkg/libjet"
+	"codeberg.org/readeck/readeck/assets"
+	"codeberg.org/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/internal/email"
+	"codeberg.org/readeck/readeck/pkg/glob"
+	"codeberg.org/readeck/readeck/pkg/libjet"
 )
 
 // TC is a simple type to carry template context.

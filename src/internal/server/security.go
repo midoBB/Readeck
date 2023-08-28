@@ -13,8 +13,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/readeck/readeck/configs"
-	"github.com/readeck/readeck/pkg/csp"
+	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/pkg/csp"
 )
 
 type (

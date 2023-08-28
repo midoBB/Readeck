@@ -18,8 +18,8 @@ import (
 
 	"golang.org/x/net/html"
 
+	"codeberg.org/readeck/readeck/pkg/glob"
 	"github.com/go-shiori/dom"
-	"github.com/readeck/readeck/pkg/glob"
 	log "github.com/sirupsen/logrus"
 )
 

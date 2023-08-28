@@ -7,7 +7,7 @@ package signin_test
 import (
 	"testing"
 
-	. "github.com/readeck/readeck/internal/testing"
+	. "codeberg.org/readeck/readeck/internal/testing"
 )
 
 func TestAPI(t *testing.T) {

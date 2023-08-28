@@ -18,9 +18,9 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/komkom/toml"
 
-	"github.com/readeck/readeck/configs"
-	"github.com/readeck/readeck/internal/db"
-	"github.com/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/server"
 )
 
 type ctxFileKey struct{}

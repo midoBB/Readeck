@@ -14,10 +14,10 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
-	"github.com/readeck/readeck/configs"
-	"github.com/readeck/readeck/internal/db"
-	"github.com/readeck/readeck/internal/email"
-	"github.com/readeck/readeck/pkg/extract/fftr"
+	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/email"
+	"codeberg.org/readeck/readeck/pkg/extract/fftr"
 )
 
 var rootCmd = &cobra.Command{

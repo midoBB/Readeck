@@ -19,17 +19,17 @@ import (
 	"github.com/doug-martin/goqu/v9"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/readeck/readeck/configs"
-	"github.com/readeck/readeck/internal/auth/users"
-	"github.com/readeck/readeck/internal/bus"
-	"github.com/readeck/readeck/internal/db"
-	"github.com/readeck/readeck/pkg/archiver"
-	"github.com/readeck/readeck/pkg/extract"
-	"github.com/readeck/readeck/pkg/extract/contents"
-	"github.com/readeck/readeck/pkg/extract/fftr"
-	"github.com/readeck/readeck/pkg/extract/meta"
-	"github.com/readeck/readeck/pkg/extract/rules"
-	"github.com/readeck/readeck/pkg/superbus"
+	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/bus"
+	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/pkg/archiver"
+	"codeberg.org/readeck/readeck/pkg/extract"
+	"codeberg.org/readeck/readeck/pkg/extract/contents"
+	"codeberg.org/readeck/readeck/pkg/extract/fftr"
+	"codeberg.org/readeck/readeck/pkg/extract/meta"
+	"codeberg.org/readeck/readeck/pkg/extract/rules"
+	"codeberg.org/readeck/readeck/pkg/superbus"
 )
 
 var (

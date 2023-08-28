@@ -14,10 +14,10 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/readeck/readeck/assets"
-	"github.com/readeck/readeck/internal/server"
-	"github.com/readeck/readeck/pkg/epub"
-	"github.com/readeck/readeck/pkg/utils"
+	"codeberg.org/readeck/readeck/assets"
+	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/pkg/epub"
+	"codeberg.org/readeck/readeck/pkg/utils"
 )
 
 var uuidURL = uuid.Must(uuid.Parse("6ba7b811-9dad-11d1-80b4-00c04fd430c8"))

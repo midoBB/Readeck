@@ -7,9 +7,9 @@ package signin
 import (
 	"errors"
 
+	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/pkg/forms"
 	"github.com/doug-martin/goqu/v9"
-	"github.com/readeck/readeck/internal/auth/users"
-	"github.com/readeck/readeck/pkg/forms"
 )
 
 var errInvalidLogin = errors.New("Invalid user and/or password")

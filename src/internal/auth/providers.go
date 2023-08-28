@@ -8,7 +8,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/auth/users"
 )
 
 type (

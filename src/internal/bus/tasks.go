@@ -13,8 +13,8 @@ import (
 
 	"github.com/go-redis/redis/v8"
 
-	"github.com/readeck/readeck/configs"
-	"github.com/readeck/readeck/pkg/superbus"
+	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/pkg/superbus"
 )
 
 var (

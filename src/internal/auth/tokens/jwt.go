@@ -9,7 +9,7 @@ import (
 
 	"github.com/cristalhq/jwt/v3"
 
-	"github.com/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/configs"
 )
 
 // NewJwtToken returns a new JWT token instance using

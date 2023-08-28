@@ -11,8 +11,8 @@ import (
 	"net/url"
 	"testing"
 
+	"codeberg.org/readeck/readeck/pkg/img"
 	"github.com/jarcoal/httpmock"
-	"github.com/readeck/readeck/pkg/img"
 	"github.com/stretchr/testify/assert"
 )
 

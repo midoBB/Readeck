@@ -12,8 +12,8 @@ import (
 	"github.com/go-shiori/dom"
 	"golang.org/x/net/html"
 
-	"github.com/readeck/readeck/internal/db"
-	"github.com/readeck/readeck/pkg/annotate"
+	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/pkg/annotate"
 )
 
 // BookmarkAnnotations is a mapping of annotations.

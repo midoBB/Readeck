@@ -10,7 +10,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	. "github.com/readeck/readeck/internal/testing"
+	. "codeberg.org/readeck/readeck/internal/testing"
 )
 
 func TestSignin(t *testing.T) {

@@ -12,7 +12,7 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 
-	"github.com/readeck/readeck/internal/db/migrations"
+	"codeberg.org/readeck/readeck/internal/db/migrations"
 )
 
 type migrationFunc func(*goqu.TxDatabase, fs.FS) error

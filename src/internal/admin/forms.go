@@ -5,8 +5,8 @@
 package admin
 
 import (
-	"github.com/readeck/readeck/internal/auth/users"
-	"github.com/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
 type deleteForm struct {

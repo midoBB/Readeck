@@ -13,8 +13,8 @@ import (
 	"golang.org/x/net/html"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/readeck/readeck/pkg/extract"
-	"github.com/readeck/readeck/pkg/extract/meta"
+	"codeberg.org/readeck/readeck/pkg/extract"
+	"codeberg.org/readeck/readeck/pkg/extract/meta"
 )
 
 var ctxExtractLinksKey struct{}

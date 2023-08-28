@@ -11,7 +11,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
 type (

@@ -14,7 +14,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/readeck/readeck/pkg/img"
+	"codeberg.org/readeck/readeck/pkg/img"
 )
 
 func newImage(w, h int) []byte {

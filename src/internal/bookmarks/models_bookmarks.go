@@ -19,9 +19,9 @@ import (
 	"github.com/lithammer/shortuuid/v4"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/readeck/readeck/configs"
-	"github.com/readeck/readeck/internal/auth/users"
-	"github.com/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/db"
 )
 
 // BookmarkState is the current bookmark state

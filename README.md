@@ -1,5 +1,7 @@
 # Readeck
 
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+
 Readeck is a simple web application that lets you save the
 precious readable content of web pages you like and want to keep
 forever. \
@@ -11,7 +13,7 @@ See it as a bookmark manager and a read later tool.
 
 ### 🔖 Bookmarks
 
-Like a page you're reading? Paste the link in readeck and you're done!
+Like a page you're reading? Paste the link in Readeck and you're done!
 
 
 ### 📸 Articles, pictures and videos
@@ -36,9 +38,9 @@ If you need a dedicated section with all your bookmarks from the past 2 weeks la
 
 ### 📖 Ebook export
 
-What's best than reading your collected articles on your e-reader? You can export any article to an ebook file (EPUB). You can even export a collection to a single book!
+What's best than reading your collected articles on your e-reader? You can export any article to an e-book file (EPUB). You can even export a collection to a single book!
 
-On top of that, you can directly access Readeck's catalog from your e-reader if it supports OPDS.
+On top of that, you can directly access Readeck's catalog and collections from your e-reader if it supports OPDS.
 
 
 ### 🔎 Full text search
@@ -48,27 +50,29 @@ Whether you need to find a vague piece of text from an article, or all the artic
 
 ### 🚀 Fast!
 
-Readeck is a modern take on so called boring, but proven, technology pieces. It garanties very quick response time and a smooth user experience.
+Readeck is a modern take on so called boring, but proven, technology pieces. It guaranties very quick response times and a smooth user experience.
 
 
 ### 🔒 Built for your privacy and long term archival
 
-Will this article you like be online next year? In 10 year? Maybe not; maybe it's all gone, text and images. For this reason, and for your privacy, text and images are all stored in your readeck instance the moment you save a link.
+Will this article you like be online next year? In 10 year? Maybe not; maybe it's all gone, text and images. For this reason, and for your privacy, text and images are all stored in your Readeck instance the moment you save a link.
 
 With the exception of videos, not a single request is made from your browser to an external website.
 
 ## How to install
 
-Done reading my marketing stuff? Good! Want to try Readeck on your laptop or a server? Even better!
+Done reading this promotional content? Good! Want to try Readeck on your laptop or a server? Even better!
 
-- Go to the [packages](https://codeberg.org/readeck/readeck/packages) page and grab the binary release matching your system,
+- Go to the [releases](https://codeberg.org/readeck/readeck/releases) page and grab the binary release matching your system,
 - Rename the file to `readeck` (or anything you fancy),
+- Make the `readeck` file executable if not already the case,
 - Move this file to the directory you just created,
 - Go to the directory and launch the `readeck serve` command.
 
 
 ```bash
 cd readeck
+chmod a+x readeck
 ./readeck serve
 ```
 
@@ -81,12 +85,54 @@ At the end of this short process, Readeck start and is accessible on:
 
 ## Under the hood
 
-Readeck was born out of frustration (and covid lockdown) from the tools that don't let you have a full archive of the content you save. This key principle guided every step of Readeck development.
+Readeck was born out of frustration (and COVID lock-downs) from the tools that don't save everything related to the saved content, primarily images.
+This key principle guided every step of Readeck development.
 
 ### The ZIP file
 
-Every bookmark is stored in a single, immutable, ZIP file. Parts of this file (HTML content, images, etc.) are served directly by the application or converted to a web page or an ebook when needed.
+Every bookmark is stored in a single, immutable, ZIP file. Parts of this file (HTML content, images, etc.) are served directly by the application or converted to a web page or an e-book when needed.
 
 ### A simple database
 
-Readeck has a very simple database schema with a few tables and uses a lot of JSON fields when appropriate. The recommended database engine is SQLite for an installation of a few users. It's very likely you'll hit other botllenecks before you encounter database related performance.
+Readeck has a very simple database schema with a few tables and uses a lot of JSON fields when appropriate. The recommended database engine is SQLite for an installation with a few users.
+
+### A simple stack
+
+Unlike many modern web applications, Readeck is not a single page application built on top of an API. There's not even a separate worker process.
+
+Readeck is written in [Go](https://go.dev/) and all its content is rendered server side with some interactivity brought by [Stimulus](https://stimulus.hotwired.dev/) and [Turbo](https://turbo.hotwired.dev/).
+
+This proved to be a great combination when performance really matters.
+
+
+## License
+
+Readeck is distributed under the terms of the [GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0.html). Here's a short summary of the license conditions:
+
+- Permissions
+  - **Commercial use** \
+      The licensed material and derivatives may be used for commercial purposes.
+  - **Distribution** \
+      The licensed material may be distributed.
+  - **Modification** \
+      The licensed material may be modified.
+  - **Patent use** \
+      This license provides an express grant of patent rights from contributors.
+  - **Private use** \
+      The licensed material may be used and modified in private.
+- Conditions
+  - **Disclose source** \
+    Source code must be made available when the licensed material is distributed.
+  - **License and copyright notice** \
+    A copy of the license and copyright notice must be included with the licensed material.
+  - **Network use is distribution** \
+    Users who interact with the licensed material via network are given the right to receive a copy of the source code.
+  - **Same license** \
+    Modifications must be released under the same license when distributing the licensed material. In some cases a similar or related license may be used.
+  - **State changes** \
+    Changes made to the licensed material must be documented.
+- Limitations
+  - **Liability** \
+    This license includes a limitation of liability.
+  - **Warranty** \
+    This license explicitly states that it does NOT provide any warranty.

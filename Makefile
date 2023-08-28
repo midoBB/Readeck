@@ -131,6 +131,7 @@ setup:
 .PHONY: release-all
 release-all:
 	${MAKE} release-linux-amd64
+	${MAKE} release-linux-arm
 	${MAKE} release-darwin-amd64
 	${MAKE} release-windows-amd64
 

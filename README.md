@@ -63,6 +63,8 @@ With the exception of videos, not a single request is made from your browser to 
 
 Done reading this promotional content? Good! Want to try Readeck on your laptop or a server? Even better!
 
+### Binary file installation
+
 - Go to the [releases](https://codeberg.org/readeck/readeck/releases) page and grab the binary release matching your system,
 - Rename the file to `readeck` (or anything you fancy),
 - Make the `readeck` file executable if not already the case,
@@ -80,8 +82,20 @@ The first time you launch Readeck, you'll have to create a user (you!) and then 
 
 At the end of this short process, Readeck start and is accessible on:
 
-**[http://127.0.0.1:5000/](http://127.0.0.1:5000/)**
+**[http://localhost:5000/](http://localhost:5000/)**
 
+### Container
+
+If you prefer to install or test Readeck with Docker or Podman, create a `readeck` folder somewhere and run the image:
+
+```bash
+mkdir readeck
+cd readeck
+docker run --rm -ti -p 5000:5000 -v $(pwd):/readeck codeberg.org/readeck/readeck:latest
+```
+
+You'll find all the container images there: \
+[https://codeberg.org/readeck/-/packages/container/readeck/latest](https://codeberg.org/readeck/-/packages/container/readeck/latest)
 
 ## Under the hood
 

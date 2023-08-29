@@ -202,4 +202,4 @@ release-container-amd64:
 		-f Containerfile \
 		--build-arg VERSION=$(VERSION) \
 		--build-arg DATE=$(DATE) \
-		-t readeck-release:latest
+		-t readeck-release:$(VERSION)

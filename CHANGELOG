@@ -1,5 +1,11 @@
 # Changlog
 
+## [0.8.1] - 2023-08-29
+### Fixed
+- Initial secret key must not create an unreadable configuration file
+- server.allowed_host is not mandatory anymore in configuration
+- Set host and port through environment variables
+
 ## [0.8.0] - 2023-08-29
 ### Added
 - Scoped API tokens

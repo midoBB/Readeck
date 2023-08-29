@@ -148,7 +148,7 @@ func initConfig() error {
 	// If secret key is empty, we're facing a new configuration file and
 	// must write it to a file.
 	if configs.Config.Main.SecretKey == "" {
-		configs.Config.Main.SecretKey = configs.GenerateKey(48, 64)
+		configs.Config.Main.SecretKey = configs.GenerateKey(64, 96)
 		configs.Config.Server.AllowedHosts = []string{configs.Config.Server.Host}
 		return configs.WriteConfig(configPath)
 	}

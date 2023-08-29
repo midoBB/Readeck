@@ -26,9 +26,8 @@ source = "{{ .Database.Source }}"
 `
 
 var keyChars = [][2]rune{
-	{33, 124},                                      // latin set (symbols, numbers, alphabet)
-	{161, 187}, {191, 214}, {216, 246}, {248, 255}, // latin supplement
-	{128512, 128584}, // emojis
+	{0x30, 0x39}, {0x41, 0x54}, {0x61, 0x7a}, // latin alphabet
+	{0x21, 0x21}, {0x23, 0x26}, {0x2a, 0x2b}, // symbols
 }
 
 // WriteConfig writes configuration to a file.
@@ -60,9 +59,6 @@ func GenerateKey(minLen, maxLen int) string {
 	runes := []rune{}
 	for _, table := range keyChars {
 		for i := table[0]; i <= table[1]; i++ {
-			if i == 34 || i == 92 { // exclude " and \
-				continue
-			}
 			runes = append(runes, i)
 		}
 	}

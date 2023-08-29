@@ -52,6 +52,11 @@ func setHost(r *http.Request) error {
 }
 
 func checkHost(r *http.Request) error {
+	// If allowed_hosts is not set, do not check the hostname.
+	if len(configs.Config.Server.AllowedHosts) == 0 {
+		return nil
+	}
+
 	host := r.Host
 	port := r.URL.Port()
 	if port != "" {

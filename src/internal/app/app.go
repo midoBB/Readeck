@@ -149,7 +149,6 @@ func initConfig() error {
 	// must write it to a file.
 	if configs.Config.Main.SecretKey == "" {
 		configs.Config.Main.SecretKey = configs.GenerateKey(64, 96)
-		configs.Config.Server.AllowedHosts = []string{configs.Config.Server.Host}
 		return configs.WriteConfig(configPath)
 	}
 

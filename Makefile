@@ -133,6 +133,7 @@ release-all:
 	${MAKE} release-linux-amd64
 	${MAKE} release-linux-arm
 	${MAKE} release-darwin-amd64
+	${MAKE} release-darwin-arm64
 	${MAKE} release-windows-amd64
 
 .PHONY: compress_release
@@ -174,6 +175,16 @@ release-darwin-amd64: export GOARCH=amd64
 release-darwin-amd64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH)
 release-darwin-amd64: build checksum_release
 
+.PHONY: release-darwin-arm64
+release-darwin-arm64: CC:=
+release-darwin-arm64: CXX:=
+release-darwin-arm64: CGO_ENABLED=0
+release-darwin-arm64: LDFLAGS:=-s -w
+release-darwin-arm64: export GOOS=darwin
+release-darwin-arm64: export GOARCH=arm64
+release-darwin-arm64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH)
+release-darwin-arm64: build checksum_release
+
 .PHONY: release-windows-amd64
 release-windows-amd64: CC:=
 release-windows-amd64: CXX:=
@@ -191,4 +202,4 @@ release-container-amd64:
 		-f Containerfile \
 		--build-arg VERSION=$(VERSION) \
 		--build-arg DATE=$(DATE) \
-		-t readeck-bin
+		-t readeck-release:latest

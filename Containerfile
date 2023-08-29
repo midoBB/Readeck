@@ -61,8 +61,8 @@ RUN make docs-build web-build
 ARG VERSION=container-unknown
 ARG DATE=
 ENV CGO_ENABLED=1
-ENV CC="zig cc -target native-native-musl"
-ENV CXX="zig cc -target native-native-musl"
+ENV CC="zig cc -target x86_64-linux-musl"
+ENV CXX="zig cc -target x86_64-linux-musl"
 ENV LDFLAGS="-s -w -linkmode 'external' -extldflags '-static'"
 RUN make VERSION=${VERSION} DATE=${DATE} build
 
@@ -82,6 +82,9 @@ ARG VERSION
 LABEL org.opencontainers.image.authors="olivier@readeck.com" \
       version="${VERSION}"
 
+ENV READECK_SERVER_HOST=0.0.0.0
+ENV READECK_SERVER_PORT=5000
+EXPOSE 5000/tcp
 VOLUME /readeck
 WORKDIR /readeck
 CMD ["/bin/readeck", "-c", "config.toml", "serve"]

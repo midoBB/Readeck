@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"net"
 	"net/http"
+	"net/url"
 	"os"
 	"os/signal"
 	"syscall"
@@ -103,9 +104,15 @@ func runServe(_ *cobra.Command, _ []string) error {
 
 	// Server is ready to accept requests
 	<-ready
-	log.WithField("url", fmt.Sprintf("http://%s:%d%s",
-		configs.Config.Server.Host, configs.Config.Server.Port, s.BasePath),
-	).Info("server started")
+	listenURL := url.URL{
+		Scheme: "http",
+		Host:   fmt.Sprintf("%s:%d", configs.Config.Server.Host, configs.Config.Server.Port),
+		Path:   s.BasePath,
+	}
+	if listenURL.Hostname() == "0.0.0.0" || listenURL.Hostname() == "127.0.0.1" {
+		listenURL.Host = fmt.Sprintf("localhost:%d", configs.Config.Server.Port)
+	}
+	log.WithField("url", listenURL.String()).Info("server started")
 
 	// Server shutdown
 	<-stop
@@ -117,7 +124,7 @@ func runServe(_ *cobra.Command, _ []string) error {
 	defer cancel()
 
 	if err := srv.Shutdown(ctx); err != nil {
-		panic(err)
+		log.WithError(err).Error("shutdown error")
 	}
 	log.Info("server stopped")
 

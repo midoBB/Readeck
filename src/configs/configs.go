@@ -15,6 +15,8 @@ import (
 	"net/url"
 	"os"
 	"runtime"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/araddon/dateparse"
@@ -254,7 +256,23 @@ func InitConfiguration() {
 		Config.Email.FromNoReply = Config.Email.From
 	}
 
+	overrideFromEnv()
+
 	loadKeys(Config.Main.SecretKey)
+}
+
+func overrideFromEnv() {
+	for _, e := range os.Environ() {
+		parts := strings.SplitN(e, "=", 2)
+		switch parts[0] {
+		case "READECK_SERVER_HOST":
+			Config.Server.Host = parts[1]
+		case "READECK_SERVER_PORT":
+			if p, err := strconv.Atoi(parts[1]); err != nil && p > 0 {
+				Config.Server.Port = p
+			}
+		}
+	}
 }
 
 // loadKeys prepares all the keys derivated from the configuration's

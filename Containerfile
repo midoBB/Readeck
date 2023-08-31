@@ -87,4 +87,4 @@ ENV READECK_SERVER_PORT=5000
 EXPOSE 5000/tcp
 VOLUME /readeck
 WORKDIR /readeck
-CMD ["/bin/readeck", "-c", "config.toml", "serve"]
+CMD ["/bin/readeck", "serve", "-config", "config.toml"]

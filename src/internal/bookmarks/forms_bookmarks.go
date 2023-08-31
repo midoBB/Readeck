@@ -90,8 +90,10 @@ func newCreateForm(userID int, requestID string) *createForm {
 		Form: forms.Must(
 			forms.NewTextField("url",
 				forms.Trim,
-				forms.Required,
-				forms.IsValidURL(validSchemes...),
+				forms.Chain(
+					forms.Required,
+					forms.IsValidURL(validSchemes...),
+				),
 			),
 			forms.NewTextField("title", forms.Trim),
 		),

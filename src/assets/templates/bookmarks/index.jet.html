@@ -38,7 +38,19 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{- if .Form.Errors() -}}
           {{ range .Form.Errors() }}<p class="ml-4 text-red-700"><strong>{{ .Error() }}</strong></p>{{- end -}}
         {{- end -}}
-        {{ range .Form.Get("url").Errors }}<p class="ml-4 text-red-700"><strong>{{ . }}</strong></p>{{ end }}
+        {{- if .MaybeSearch -}}
+          {{- yield message() content -}}
+          "{{ .Form.Get(`url`).String() }}" is not a valid address. Did you mean to search your bookmarks for
+          <a data-turbo-frame="_top" href="{{ urlFor(`/bookmarks`) }}?bf=1&search={{ .Form.Get(`url`).String() }}"
+           class="link font-bold">"{{ .Form.Get(`url`).String() }}"</a>?
+          {{- end -}}
+        {{- else if .Form.Get("url").Errors -}}
+          {{- yield message(type="error") content -}}
+            <ul>
+              {{ range .Form.Get("url").Errors }}<li>{{ . }}</li>{{ end }}
+            </ul>
+          {{- end -}}
+        {{- end -}}
       </form>
   </div>
 

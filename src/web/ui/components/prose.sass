@@ -208,3 +208,37 @@ $line-height: 1.5
     tfoot
       td, th
         font-style: italic
+
+    @media print
+      img
+        max-height: 50vh
+        width: auto
+        display: inline
+
+      figure
+        display: block
+        text-align: center
+
+        img, svg
+          display: inline
+
+      figcaption
+        text-align: left
+
+      blockquote
+        text-align: left
+        background: none
+        padding-block: 0
+
+      & > section
+        columns: 2
+        column-gap: 2rem
+        orphans: 5
+        widows: 5
+        height: 100%
+        column-fill: auto
+
+      img, blockquote, figure, p:has(img)
+        break-inside: avoid
+        break-before: auto
+        break-after: auto

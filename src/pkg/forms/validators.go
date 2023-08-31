@@ -8,7 +8,14 @@ import (
 	"errors"
 	"fmt"
 	"net/url"
+	"slices"
 	"strings"
+)
+
+var (
+	ErrRequired     = errors.New("field is required")         // ErrRequired is a required field
+	ErrInvalidEmail = errors.New("not a valid email address") // ErrInvalidEmail is an invalid e-mail address
+	ErrInvalidURL   = errors.New("invalid URL")               // ErrInvalidURL is an invalid URL
 )
 
 // FieldValidator is a function that validates and/or alters a field.
@@ -27,6 +34,18 @@ func ValidateField(f Field, validators ...FieldValidator) Errors {
 	return res
 }
 
+// Chain applies multiple validators but stops at the first error
+func Chain(validators ...FieldValidator) FieldValidator {
+	return func(f Field) error {
+		for _, v := range validators {
+			if err := v(f); err != nil {
+				return err
+			}
+		}
+		return nil
+	}
+}
+
 // Trim return a validator that trims spaces from the value when it's a string.
 func Trim(f Field) error {
 	if f.IsNil() {
@@ -43,7 +62,7 @@ func Trim(f Field) error {
 // Required check that the field is not null or empty.
 func Required(f Field) error {
 	if !f.IsBound() || f.IsNil() || f.String() == "" {
-		return errors.New("field is required")
+		return ErrRequired
 	}
 	return nil
 }
@@ -51,14 +70,14 @@ func Required(f Field) error {
 // RequiredOrNil checks that the field is not empty if it's not null.
 func RequiredOrNil(f Field) error {
 	if !f.IsNil() && f.String() == "" {
-		return errors.New("field is required")
+		return ErrRequired
 	}
 	return nil
 }
 
 // StringValidator is a helper function that returns a validator from a
 // simple function and an error message.
-func StringValidator(validator func(v string) bool, message string) FieldValidator {
+func StringValidator(validator func(v string) bool, err error) FieldValidator {
 	return func(f Field) error {
 		if f.IsNil() {
 			return nil
@@ -70,7 +89,7 @@ func StringValidator(validator func(v string) bool, message string) FieldValidat
 		}
 
 		if !validator(v) {
-			return errors.New(message)
+			return err
 		}
 
 		return nil
@@ -81,23 +100,22 @@ func StringValidator(validator func(v string) bool, message string) FieldValidat
 // only checks for the presence of "@", only once and in the string.
 var IsEmail = StringValidator(func(v string) bool {
 	return strings.Count(v, "@") == 1 && !(strings.HasPrefix(v, "@") || strings.HasSuffix(v, "@"))
-}, "not a valid email address")
+}, ErrInvalidEmail)
 
 // IsValidURL checks that the input value is a valid URL and matches the given
 // schemes.
 func IsValidURL(schemes ...string) FieldValidator {
-	validSchemes := map[string]bool{}
-	for _, k := range schemes {
-		validSchemes[k] = true
-	}
 	return StringValidator(func(v string) bool {
 		u, err := url.Parse(v)
 		if err != nil {
 			return false
 		}
 
-		return validSchemes[u.Scheme]
-	}, "invalid URL")
+		if !slices.Contains(schemes, u.Scheme) {
+			return false
+		}
+		return u.Hostname() != ""
+	}, ErrInvalidURL)
 }
 
 // Gte returns a integer validator that checks if a value is greater or equal than a parameter.

@@ -5,7 +5,7 @@
 // Infer a correct type for deviantart pages.
 function deviantartPage() {
   // There's a JSON URL in the collected link tags
-  let link = (drop.Meta["link.alternate"] || []).find(function(x) {
+  let link = (drop.Meta["link.alternate"] || []).find(function (x) {
     return x.match(/format=json$/)
   })
   if (!link) {
@@ -37,8 +37,23 @@ function deviantartPage() {
     let img = node.Get("$.url")
     if (img) {
       drop.SetMeta("x.picture_url", $.unescape(img))
-      console.debug({"url": img}, "set picture")
+      console.debug({ url: img }, "set picture")
     }
+  }
+}
+
+// Instagram. The graph.title can be very long for some reason.
+// The twitter.title is kept much shorter so we'll use this one.
+function instagramImage() {
+  if (!drop.URL.Path.match(/^\/p\//)) {
+    return
+  }
+
+  if (drop.Meta["twitter.title"].length > 0) {
+    drop.SetTitle(drop.Meta["twitter.title"][0].replace(/ • instagram.*$/i, ""))
+  }
+  if (drop.Meta["html.title"].length > 0) {
+    drop.SetDescription(drop.Meta["html.title"][0])
   }
 }
 
@@ -67,21 +82,25 @@ function redditPost() {
   let postHint = node.Get("$[0].data.children[0].data.post_hint")
 
   // Fetch post information
-  let post = $.fetchJSON("https://gateway.reddit.com/desktopapi/v1/postcomments/" + postID)
+  let post = $.fetchJSON(
+    "https://gateway.reddit.com/desktopapi/v1/postcomments/" + postID,
+  )
 
   if (postHint == "image") {
     // We have a picture!
     drop.SetDocumentType("photo")
-    let img = post.Get("$.posts["+postID+"].media.resolutions[(@.length-1)].url")
+    let img = post.Get(
+      "$.posts[" + postID + "].media.resolutions[(@.length-1)].url",
+    )
     drop.SetMeta("x.picture_url", $.unescape(img))
-    console.debug({"url": img}, "set picture")
+    console.debug({ url: img }, "set picture")
 
-    let title = post.Get("$.posts["+postID+"].title")
+    let title = post.Get("$.posts[" + postID + "].title")
     if (title) {
       drop.SetTitle(title)
     }
 
-    let author = post.Get("$.posts["+postID+"].author")
+    let author = post.Get("$.posts[" + postID + "].author")
     if (author) {
       drop.SetAuthors(author)
     }
@@ -136,14 +155,18 @@ function vimeoThumbnail() {
   let img = url.Query().Get("src0")
   if (img != "") {
     drop.SetMeta("x.picture_url", img)
-    console.debug({"url": img}, "set picture")
+    console.debug({ url: img }, "set picture")
   }
 }
 
-!(function() {
+!(function () {
   switch (drop.Domain) {
     case "deviantart.com":
       deviantartPage()
+      break
+
+    case "instagram.com":
+      instagramImage()
       break
 
     case "pinterest.com":

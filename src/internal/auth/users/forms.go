@@ -31,12 +31,12 @@ var IsValidPassword = forms.StringValidator(func(v string) bool {
 		return false
 	}
 	return len(v) >= 8
-}, "password must be at least 8 character long")
+}, errors.New("password must be at least 8 character long"))
 
 // IsValidUsername is the username validation rule.
 var IsValidUsername = forms.StringValidator(func(v string) bool {
 	return rxUsername.MatchString(v)
-}, `must contain English letters, digits, "_" and "-" only`)
+}, errors.New(`must contain English letters, digits, "_" and "-" only`))
 
 // UserForm is the form used for user creation and update.
 type UserForm struct {

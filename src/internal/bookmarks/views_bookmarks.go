@@ -40,6 +40,8 @@ func (h *viewsRouter) withBaseContext(next http.Handler) http.Handler {
 
 func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 	f := newCreateForm(auth.GetRequestUser(r).ID, h.srv.GetReqID(r))
+	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
+	ctx["MaybeSearch"] = false
 
 	// POST => create a new bookmark
 	if r.Method == http.MethodPost {
@@ -59,6 +61,13 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 
 			}
 		}
+
+		// If the URL is not valid, set MaybeSearch so we can suggest it later
+		if len(f.Get("url").Errors) > 0 && f.Get("url").Errors[0] == forms.ErrInvalidURL {
+			// User entered a wrong URL, we can mark it.
+			ctx["MaybeSearch"] = true
+		}
+
 		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
 
@@ -70,7 +79,6 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 		bl.Items[i] = newBookmarkItem(h.srv, r, item, ".")
 	}
 
-	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
 	ctx["Form"] = f
 	ctx["Pagination"] = bl.Pagination
 	ctx["Bookmarks"] = bl.Items

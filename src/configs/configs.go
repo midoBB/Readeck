@@ -7,7 +7,6 @@ package configs
 import (
 	"crypto/ed25519"
 	"crypto/hmac"
-	"crypto/sha256"
 	"crypto/sha512"
 	"encoding/json"
 	"fmt"
@@ -48,6 +47,7 @@ type config struct {
 	Email     configEmail     `json:"email" env:"-"`
 	Extractor configExtractor `json:"extractor" env:"-"`
 	Worker    configWorker    `json:"worker" env:"-"`
+	secretKey []byte
 }
 
 type configMain struct {
@@ -260,29 +260,31 @@ func InitConfiguration() {
 		Config.Email.FromNoReply = Config.Email.From
 	}
 
-	loadKeys(Config.Main.SecretKey)
+	// Pad the secret key with its own checksum to have a
+	// long enough byte list.
+	h := sha512.Sum512([]byte(Config.Main.SecretKey))
+	Config.secretKey = append([]byte(Config.Main.SecretKey), h[:]...)
+
+	loadKeys()
 }
 
 // loadKeys prepares all the keys derivated from the configuration's
 // secret key.
-func loadKeys(sk string) {
-	// Pad the secret key with its own checksum to have a
-	// long enough byte list.
-	h := sha512.Sum512([]byte(sk))
-	seed := append([]byte(sk), h[:]...)
+func loadKeys() {
+	cookieHk = HashValue([]byte("cookie-hash-key"))[32:64]
+	cookieBk = HashValue([]byte("cookie-block-key"))[32:64]
+	csrfKey = HashValue([]byte("csrf-key"))[32:64]
 
-	hashMsg := func(k []byte, m string) []byte {
-		mac := hmac.New(sha256.New, k)
-		mac.Write([]byte(m))
-		return mac.Sum(nil)
-	}
-
-	cookieHk = hashMsg(seed, "cookie-hash-key")
-	cookieBk = hashMsg(seed, "cookie-block-key")
-	csrfKey = hashMsg(seed, "csrf-key")
-
-	jwtSk = ed25519.NewKeyFromSeed(seed[32:64])
+	jwtSk = ed25519.NewKeyFromSeed(Config.secretKey[32:64])
 	jwtPk = jwtSk.Public().(ed25519.PublicKey)
+}
+
+// HashValue returns the hash of the given value, encoded using the
+// main secret key.
+func HashValue(s []byte) []byte {
+	mac := hmac.New(sha512.New, Config.secretKey)
+	mac.Write(s)
+	return mac.Sum(nil)
 }
 
 // CookieHashKey returns the key used by session cookies

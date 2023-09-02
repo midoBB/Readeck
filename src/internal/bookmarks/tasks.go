@@ -9,15 +9,19 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/url"
 	"path"
 	"path/filepath"
 	"runtime"
 	"runtime/debug"
+	"slices"
 	"strings"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
 	log "github.com/sirupsen/logrus"
+	"golang.org/x/net/html"
+	"golang.org/x/sync/errgroup"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth/users"
@@ -266,77 +270,168 @@ func extractPageHandler(data interface{}) {
 		fftr.GoToNextPage,
 		contents.Readability(),
 		CleanDomProcessor,
-		ExtractLinksProcessor,
+		extractLinksProcessor,
 		contents.Text,
+		saveBookmark(b, &saved),
+		fetchLinksProcessor(b),
 	)
 
 	ex.Run()
-	drop := ex.Drop()
-	if drop == nil {
-		return
-	}
+}
 
-	b.Updated = time.Now()
-	b.URL = drop.UnescapedURL()
-	b.State = StateLoaded
-	b.Domain = drop.Domain
-	b.Site = drop.URL.Hostname()
-	b.SiteName = drop.Site
-	b.Authors = db.Strings{}
-	b.Lang = drop.Lang
-	b.DocumentType = drop.DocumentType
-	b.Description = drop.Description
-	b.Text = ex.Text
-	b.WordCount = len(strings.Fields(b.Text))
-
-	if b.Title == "" {
-		b.Title = drop.Title
-	}
-
-	for _, x := range drop.Authors {
-		b.Authors = append(b.Authors, x)
-	}
-
-	for _, x := range ex.Errors() {
-		b.Errors = append(b.Errors, x.Error())
-	}
-
-	if !drop.Date.IsZero() {
-		b.Published = &drop.Date
-	}
-
-	if drop.IsMedia() {
-		b.Embed = drop.Meta.LookupGet("oembed.html")
-	}
-
-	b.Links = GetExtractedLinks(ex.Context)
-
-	// Run the archiver
-	var arc *archiver.Archiver
-	logEntry := log.NewEntry(ex.GetLogger()).WithFields(*ex.LogFields)
-	if len(ex.HTML) > 0 && ex.Drop().IsHTML() {
-		arc, err = newArchive(context.TODO(), ex)
-		if err != nil {
-			logEntry.WithError(err).Error("archiver error")
+// saveBookmark is one last step of the extraction process, it saves the bookmark
+// and marks it ready for reading.
+// Other steps can still perform tasks later.
+func saveBookmark(b *Bookmark, saved *bool) extract.Processor {
+	return func(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+		if m.Step() != extract.StepDone {
+			return next
 		}
-	}
 
-	// Create the zip file
-	err = createZipFile(b, ex, arc)
-	if err != nil {
-		// If something goes really wrong, cleanup after ourselves
-		b.Errors = append(b.Errors, err.Error())
-		b.removeFiles()
-		b.FilePath = ""
-		b.Files = BookmarkFiles{}
-	}
+		ex := m.Extractor
+		var err error
+		drop := ex.Drop()
+		if drop == nil {
+			return next
+		}
 
-	// All good? Save now
-	if err := b.Save(); err != nil {
-		log.WithError(err).Error()
-		return
+		b.Updated = time.Now()
+		b.URL = drop.UnescapedURL()
+		b.State = StateLoaded
+		b.Domain = drop.Domain
+		b.Site = drop.URL.Hostname()
+		b.SiteName = drop.Site
+		b.Authors = db.Strings{}
+		b.Lang = drop.Lang
+		b.DocumentType = drop.DocumentType
+		b.Description = drop.Description
+		b.Text = ex.Text
+		b.WordCount = len(strings.Fields(b.Text))
+
+		if b.Title == "" {
+			b.Title = drop.Title
+		}
+
+		for _, x := range drop.Authors {
+			b.Authors = append(b.Authors, x)
+		}
+
+		for _, x := range ex.Errors() {
+			b.Errors = append(b.Errors, x.Error())
+		}
+
+		if !drop.Date.IsZero() {
+			b.Published = &drop.Date
+		}
+
+		if drop.IsMedia() {
+			b.Embed = drop.Meta.LookupGet("oembed.html")
+		}
+
+		b.Links = GetExtractedLinks(ex.Context)
+
+		// Run the archiver
+		var arc *archiver.Archiver
+		logEntry := log.NewEntry(ex.GetLogger()).WithFields(*ex.LogFields)
+		if len(ex.HTML) > 0 && ex.Drop().IsHTML() {
+			arc, err = newArchive(context.TODO(), ex)
+			if err != nil {
+				logEntry.WithError(err).Error("archiver error")
+			}
+		}
+
+		// Create the zip file
+		err = createZipFile(b, ex, arc)
+		if err != nil {
+			// If something goes really wrong, cleanup after ourselves
+			b.Errors = append(b.Errors, err.Error())
+			b.removeFiles()
+			b.FilePath = ""
+			b.Files = BookmarkFiles{}
+		}
+
+		// All good? Save now
+		if err := b.Save(); err != nil {
+			log.WithError(err).Error()
+			return next
+		}
+		*saved = true
+		return next
 	}
-	saved = true
+}
+
+// fetchLinksProcessor retrieves the link list (from extractLinksProcessor) and
+// process all of them to get some information (content type, title when possible...)
+// The link list is then saved into the bookmark.
+// This processor MUST run after saveBookmark.
+func fetchLinksProcessor(b *Bookmark) extract.Processor {
+	return func(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+		if m.Step() != extract.StepDone {
+			return next
+		}
+
+		links, ok := m.Extractor.Context.Value(ctxExtractLinksKey).(BookmarkLinks)
+		if !ok {
+			return next
+		}
+
+		g, _ := errgroup.WithContext(context.TODO())
+		g.SetLimit(10)
+		for i := range links {
+			i := i
+			g.Go(func() error {
+				log.WithField("url", links[i].URL).Debug("extract link")
+				URL, err := url.Parse(links[i].URL)
+				if err != nil {
+					return err
+				}
+				// d := seen[links[i].URL]
+				d := extract.NewDrop(URL)
+				err = d.Load(m.Extractor.Client())
+
+				if err != nil {
+					log.WithField("url", d.URL).WithError(err).Warn("extract link error")
+				}
+
+				links[i].ContentType = d.ContentType
+				links[i].IsPage = d.IsHTML()
+
+				if !links[i].IsPage {
+					return nil
+				}
+
+				node, err := html.Parse(bytes.NewReader(d.Body))
+				if err != nil {
+					log.WithField("url", d.URL).WithError(err).Warn("extract link error")
+					return nil
+				}
+				meta := meta.ParseMeta(node)
+				title := meta.LookupGet("graph.title", "tiwtter.title", "html.title")
+				log.WithField("url", d.URL.String()).WithField("title", title).Debug("link")
+
+				links[i].Title = title
+				return nil
+			})
+		}
+
+		if err := g.Wait(); err != nil {
+			log.WithError(err).Error("extract links")
+		}
+
+		links = slices.CompactFunc(links, func(a, b BookmarkLink) bool {
+			return a.URL == b.URL
+		})
+
+		if len(links) == 0 {
+			return next
+		}
+
+		if err := b.Update(map[string]any{"links": links}); err != nil {
+			log.WithError(err).Error()
+		}
+
+		return next
+	}
 }
 
 func createZipFile(b *Bookmark, ex *extract.Extractor, arc *archiver.Archiver) error {

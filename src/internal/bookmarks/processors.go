@@ -5,16 +5,13 @@
 package bookmarks
 
 import (
-	"bytes"
 	"context"
 	"net/url"
+	"slices"
 
 	"github.com/go-shiori/dom"
-	"golang.org/x/net/html"
-	"golang.org/x/sync/errgroup"
 
 	"codeberg.org/readeck/readeck/pkg/extract"
-	"codeberg.org/readeck/readeck/pkg/extract/meta"
 )
 
 var ctxExtractLinksKey struct{}
@@ -39,7 +36,9 @@ func CleanDomProcessor(m *extract.ProcessMessage, next extract.Processor) extrac
 	return next
 }
 
-func ExtractLinksProcessor(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+// extractLinksProcessor extracts all the web links (http and https) in the page
+// and store the list in the extractor context.
+func extractLinksProcessor(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
 	if m.Step() != extract.StepDom {
 		return next
 	}
@@ -75,46 +74,11 @@ func ExtractLinksProcessor(m *extract.ProcessMessage, next extract.Processor) ex
 		}
 	}
 
-	g, _ := errgroup.WithContext(context.TODO())
-	g.SetLimit(10)
-	for i := range links {
-		i := i
-		g.Go(func() error {
-			m.Log.WithField("url", links[i].URL).Debug("extract link")
-			d := seen[links[i].URL]
-			err := d.Load(m.Extractor.Client())
-
-			if err != nil {
-				m.Log.WithField("url", d.URL).WithError(err).Warn("extract link error")
-			}
-
-			links[i].ContentType = d.ContentType
-			links[i].IsPage = d.IsHTML()
-
-			if !links[i].IsPage {
-				return nil
-			}
-
-			node, err := html.Parse(bytes.NewReader(d.Body))
-			if err != nil {
-				m.Log.WithField("url", d.URL).WithError(err).Warn("extract link error")
-				return nil
-			}
-			meta := meta.ParseMeta(node)
-			title := meta.LookupGet("graph.title", "tiwtter.title", "html.title")
-			m.Log.WithField("url", d.URL.String()).WithField("title", title).Debug("link")
-
-			links[i].Title = title
-			return nil
-		})
-	}
-
-	if err := g.Wait(); err != nil {
-		m.Log.WithError(err).Error("extract links")
-	}
+	links = slices.CompactFunc(links, func(a, b BookmarkLink) bool {
+		return a.URL == b.URL
+	})
 
 	m.Extractor.Context = context.WithValue(m.Extractor.Context, ctxExtractLinksKey, links)
-
 	return next
 }
 

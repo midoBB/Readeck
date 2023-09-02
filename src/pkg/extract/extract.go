@@ -74,6 +74,9 @@ const (
 
 	// StepPostProcess happens after looping over each Drop.
 	StepPostProcess
+
+	// StepDone is always called at the very end of the extraction
+	StepDone
 )
 
 // Step returns the current process step
@@ -325,6 +328,11 @@ func (e *Extractor) GetLogger() *log.Logger {
 func (e *Extractor) Run() {
 	i := 0
 	m := e.NewProcessMessage(0)
+
+	defer func() {
+		m.step = StepDone
+		e.runProcessors(m)
+	}()
 
 	for i < len(e.drops) {
 		d := e.drops[i]

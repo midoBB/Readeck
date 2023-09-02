@@ -137,6 +137,7 @@ var config = {
         "16/9": "56.25%",
       },
       spacing: {
+        "0.5": "0.125rem",
         "topnav": "4rem",
         ...[...Array(26).keys()].reduce((acc, x) => {
           acc[`col-${x+1}`] = `${(x+1) * 3.5}rem`

@@ -2,7 +2,7 @@
 name: Extraction error
 about: When a saved page is not well rendered in Readeck 😵
 labels:
-  - 'extraction error'
+  - 'Extraction/Error'
 ---
 
 **URL**: https://…

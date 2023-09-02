@@ -5,19 +5,18 @@
 package credentials
 
 import (
+	"encoding/binary"
 	"errors"
 	"strings"
 	"time"
 
-	"github.com/hlandau/passlib"
-	"github.com/hlandau/passlib/hash/argon2"
-	"gopkg.in/hlandau/passlib.v1/abstract"
-
 	"github.com/doug-martin/goqu/v9"
+	argon2 "github.com/hlandau/passlib/hash/argon2/raw"
 	"github.com/lithammer/shortuuid/v4"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 
+	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/db"
 )
@@ -31,17 +30,13 @@ var (
 	// Credentials is the app password manager
 	Credentials = Manager{}
 
-	// ErrNotFound is returned when a user record was not found.
+	// ErrNotFound is returned when a credential record was not found.
 	ErrNotFound = errors.New("not found")
 
-	// We insert here a less safe password hashing scheme because
-	// the verification happens on all the enabled user passwords.
-	// It's a balance between security and the API response time.
-	passlibContext = passlib.Context{
-		Schemes: append([]abstract.Scheme{
-			argon2.New(4, 1024, 4),
-		}, passlib.DefaultSchemes...),
-	}
+	// Fixed values for password hashing
+	argonTime    = uint32(4)
+	argonMemory  = uint32(32 * 1024)
+	argonThreads = uint8(4)
 )
 
 // Credential is an credential record
@@ -89,26 +84,34 @@ func (m *Manager) GetOne(expressions ...goqu.Expression) (*Credential, error) {
 // GetUser attempts to find a user with a matching credential.
 // It returns nil with ErrNotFound if no user and/or password match the query.
 func (m *Manager) GetUser(username, password string) (*UserCredential, error) {
-	q := m.Query().
-		Select().
-		Join(
-			goqu.T(users.TableName).As("u"),
-			goqu.On(goqu.I("u.id").Eq(goqu.I("c.user_id"))),
-		).
-		Where(goqu.I("c.is_enabled").Eq(true)).
-		Where(goqu.I("u.username").Eq(username)).
-		Order(goqu.I("c.created").Desc())
-
-	items := []*UserCredential{}
-
-	if err := q.ScanStructs(&items); err != nil {
+	// First get the user from its username
+	u, err := users.Users.GetOne(goqu.C("username").Eq(username))
+	if err != nil {
+		if errors.Is(err, users.ErrNotFound) {
+			return nil, ErrNotFound
+		}
 		return nil, err
 	}
 
-	for _, item := range items {
-		if item.Credential.CheckPassword(password) {
-			return item, nil
-		}
+	// Prepare the credential and hash the given password for
+	// the query against the credential table
+	c := &Credential{UserID: &u.ID}
+	hash, err := c.HashPassword(password)
+	if err != nil {
+		return nil, err
+	}
+
+	// Look for the credential with the given hash
+	q := m.Query().
+		Select().
+		Where(goqu.I("c.is_enabled").Eq(true)).
+		Where(goqu.I("c.user_id").Eq(u.ID)).
+		Where(goqu.I("c.password").Eq(hash))
+
+	if found, err := q.ScanStruct(c); err != nil {
+		return nil, err
+	} else if found {
+		return &UserCredential{Credential: c, User: u}, nil
 	}
 
 	return nil, ErrNotFound
@@ -191,22 +194,15 @@ func (c *Credential) Delete() error {
 	return err
 }
 
-// CheckPassword checks if the given password matches the
-// current app password.
-func (c *Credential) CheckPassword(password string) bool {
-	newhash, err := passlibContext.Verify(password, c.Password)
-	if err != nil {
-		return false
-	}
-
-	if newhash != "" {
-		_ = c.Update(goqu.Record{"password": newhash})
-	}
-
-	return true
-}
-
 // HashPassword returns a new hashed password
 func (c *Credential) HashPassword(password string) (string, error) {
-	return passlibContext.Hash(password)
+	if c.UserID == nil {
+		return "", errors.New("no user id")
+	}
+
+	// We create a salt based on the user ID, using the main secret key to get a strong hash.
+	salt := configs.HashValue(binary.AppendVarint([]byte{}, int64(*c.UserID)))[16:48]
+
+	// Direct call to argon2 hashing, using the salt and strong defaults
+	return argon2.Argon2(password, salt, argonTime, argonMemory, argonThreads), nil
 }

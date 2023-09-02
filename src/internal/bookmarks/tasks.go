@@ -258,7 +258,7 @@ func extractPageHandler(data interface{}) {
 	)
 
 	// Check if main page is in cached resources
-	if ex.IsInCache(b.URL) {
+	if !ex.IsInCache(b.URL) {
 		ex.AddProcessors(fftr.FindContentPage, fftr.FindNextPage)
 	}
 

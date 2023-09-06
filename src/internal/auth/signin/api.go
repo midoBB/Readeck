@@ -12,6 +12,7 @@ import (
 
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -56,6 +57,11 @@ func (api *authAPI) auth(w http.ResponseWriter, r *http.Request) {
 		IsEnabled:   true,
 		Application: f.Get("application").String(),
 	}
+
+	if roles, ok := f.Get("roles").Value().(db.Strings); ok {
+		t.Roles = roles
+	}
+
 	if err := tokens.Tokens.Create(t); err != nil {
 		api.srv.Error(w, r, err)
 		return

@@ -12,7 +12,6 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 
-	"codeberg.org/readeck/readeck/internal/acls"
 	"codeberg.org/readeck/readeck/internal/auth/credentials"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
@@ -27,13 +26,6 @@ type (
 // profileForm is the form used by the profile update routes.
 type profileForm struct {
 	*forms.Form
-}
-
-var availableScopes = [][2]string{
-	{"scoped_bookmarks_r", "Bookmarks : Read Only"},
-	{"scoped_bookmarks_w", "Bookmarks : Write Only"},
-	{"scoped_admin_r", "Admin : Read Only"},
-	{"scoped_admin_w", "Admin : Write Only"},
 }
 
 // newProfileForm returns a ProfileForm instance.
@@ -246,7 +238,7 @@ func newCredentialForm(user *users.User) *credentialForm {
 	return &credentialForm{forms.Must(
 		forms.NewBooleanField("is_enabled", forms.RequiredOrNil),
 		forms.NewTextField("name", forms.Required, forms.Trim),
-		newRolesField(user),
+		users.NewRolesField(user),
 	)}
 }
 
@@ -320,7 +312,7 @@ func newTokenForm(user *users.User) *tokenForm {
 	return &tokenForm{forms.Must(
 		forms.NewBooleanField("is_enabled", forms.RequiredOrNil),
 		forms.NewDatetimeField("expires"),
-		newRolesField(user),
+		users.NewRolesField(user),
 	)}
 }
 
@@ -365,29 +357,4 @@ func (f *tokenForm) updateToken(t *tokens.Token) error {
 		return err
 	}
 	return nil
-}
-
-func newRolesField(user *users.User) forms.Field {
-	roleConstructor := func(n string) forms.Field {
-		return forms.NewTextField(n, forms.Trim)
-	}
-	roleConverter := func(values []forms.Field) interface{} {
-		res := make(db.Strings, len(values))
-		for i, x := range values {
-			res[i] = x.String()
-		}
-		return res
-	}
-
-	// Only present policies that the current user can access
-	choices := [][2]string{}
-	for _, r := range availableScopes {
-		if acls.InGroup(r[0], user.Group) {
-			choices = append(choices, r)
-		}
-	}
-
-	f := forms.NewListField("roles", roleConstructor, roleConverter)
-	f.(*forms.ListField).SetChoices(choices)
-	return f
 }

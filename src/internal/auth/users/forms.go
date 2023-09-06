@@ -13,6 +13,8 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 
+	"codeberg.org/readeck/readeck/internal/acls"
+	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -24,6 +26,13 @@ var (
 	// rxUsername is the regexp used to validate a username.
 	rxUsername = regexp.MustCompile(`^[a-zA-Z0-9_-]+$`)
 )
+
+var availableScopes = [][2]string{
+	{"scoped_bookmarks_r", "Bookmarks : Read Only"},
+	{"scoped_bookmarks_w", "Bookmarks : Write Only"},
+	{"scoped_admin_r", "Admin : Read Only"},
+	{"scoped_admin_w", "Admin : Write Only"},
+}
 
 // IsValidPassword is the password validation rule.
 var IsValidPassword = forms.StringValidator(func(v string) bool {
@@ -177,4 +186,29 @@ func (f *UserForm) UpdateUser(u *User) (res map[string]interface{}, err error) {
 	res["id"] = u.ID
 	delete(res, "seed")
 	return
+}
+
+func NewRolesField(user *User) forms.Field {
+	roleConstructor := func(n string) forms.Field {
+		return forms.NewTextField(n, forms.Trim)
+	}
+	roleConverter := func(values []forms.Field) interface{} {
+		res := make(db.Strings, len(values))
+		for i, x := range values {
+			res[i] = x.String()
+		}
+		return res
+	}
+
+	// Only present policies that the current user can access
+	choices := [][2]string{}
+	for _, r := range availableScopes {
+		if user == nil || acls.InGroup(r[0], user.Group) {
+			choices = append(choices, r)
+		}
+	}
+
+	f := forms.NewListField("roles", roleConstructor, roleConverter)
+	f.(*forms.ListField).SetChoices(choices)
+	return f
 }

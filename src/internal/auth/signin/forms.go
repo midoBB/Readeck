@@ -23,6 +23,7 @@ func newTokenLoginForm() *tokenLoginForm {
 		forms.NewTextField("username", forms.Trim, forms.Required),
 		forms.NewTextField("password", forms.Required),
 		forms.NewTextField("application", forms.Required),
+		users.NewRolesField(nil),
 	)}
 }
 

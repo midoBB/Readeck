@@ -47,6 +47,9 @@ func newProfileAPI(s *server.Server) *profileAPI {
 	r.With(api.srv.WithPermission("api:profile", "write")).Group(func(r chi.Router) {
 		r.Patch("/", api.profileUpdate)
 		r.Put("/password", api.passwordUpdate)
+	})
+
+	r.With(api.srv.WithPermission("api:profile:tokens", "delete")).Group(func(r chi.Router) {
 		r.With(api.withToken).Delete("/tokens/{uid}", api.tokenDelete)
 	})
 

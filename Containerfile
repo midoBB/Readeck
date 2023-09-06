@@ -62,7 +62,6 @@ ARG VERSION=container-unknown
 ARG DATE=
 ENV CGO_ENABLED=1
 ENV CC="zig cc -target x86_64-linux-musl"
-ENV CXX="zig cc -target x86_64-linux-musl"
 ENV LDFLAGS="-s -w -linkmode 'external' -extldflags '-static'"
 RUN make VERSION=${VERSION} DATE=${DATE} build
 

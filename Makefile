@@ -22,7 +22,10 @@ VERSION_FLAGS := \
 OUTFILE_NAME ?= readeck
 LDFLAGS ?= -s -w
 export CGO_ENABLED ?= 0
+export GOOS?=
+export GOARCH?=
 export CGO_CFLAGS ?= -D_LARGEFILE64_SOURCE
+export CC?=
 
 SITECONFIG_SRC=./ftr-site-config
 SITECONFIG_DEST=src/pkg/extract/fftr/site-config/standard
@@ -35,7 +38,6 @@ all: web-build docs-build build
 .PHONY: build
 build:
 	@echo "CC: $(CC)"
-	@echo "CXX: $(CXX)"
 	@echo "CGO_ENABLED": $$CGO_ENABLED
 	@echo "CGO_CFLAGS": $$CGO_CFLAGS
 	@echo "GOOS": $$GOOS
@@ -74,13 +76,8 @@ sloc:
 
 # Launch tests
 .PHONY: test
-test: CC:=
-test: CXX:=
-test: CGO_ENABLED=1
-test: LDFLAGS:=-s -w
 test: docs-build web-build
 	@echo "CC: $(CC)"
-	@echo "CXX: $(CXX)"
 	@echo "CGO_ENABLED": $$CGO_ENABLED
 	@echo "CGO_CFLAGS": $$CGO_CFLAGS
 	go test \
@@ -148,69 +145,64 @@ checksum_release:
 
 .PHONY: release-linux-amd64
 release-linux-amd64: CC:=zig cc -target x86_64-linux-musl
-release-linux-amd64: CXX:=zig cc -target x86_64-linux-musl
 release-linux-amd64: CGO_ENABLED=1
 release-linux-amd64: LDFLAGS:=-s -w -linkmode 'external' -extldflags '-static'
-release-linux-amd64: export GOOS=linux
-release-linux-amd64: export GOARCH=amd64
+release-linux-amd64: GOOS=linux
+release-linux-amd64: GOARCH=amd64
 release-linux-amd64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH)
 release-linux-amd64: build compress_release checksum_release
 
 .PHONY: release-linux-arm64
-release-linux-arm64: CC:=
-release-linux-arm64: CXX:=
-release-linux-arm64: CGO_ENABLED=0
-release-linux-arm64: LDFLAGS:=-s -w
-release-linux-arm64: export GOOS=linux
-release-linux-arm64: export GOARCH=arm64
+release-linux-arm64: CC:=zig cc -target aarch64-linux-musl
+release-linux-arm64: CGO_ENABLED=1
+release-linux-arm64: LDFLAGS:=-s -w -linkmode 'external' -extldflags '-static'
+release-linux-arm64: GOOS=linux
+release-linux-arm64: GOARCH=arm64
 release-linux-arm64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH)
 release-linux-arm64: build compress_release checksum_release
 
 .PHONY: release-linux-arm
 release-linux-arm: CC:=
-release-linux-arm: CXX:=
 release-linux-arm: CGO_ENABLED=0
 release-linux-arm: LDFLAGS:=-s -w
-release-linux-arm: export GOOS=linux
-release-linux-arm: export GOARCH=arm
+release-linux-arm: GOOS=linux
+release-linux-arm: GOARCH=arm
 release-linux-arm: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH)
 release-linux-arm: build compress_release checksum_release
 
 .PHONY: release-darwin-amd64
 release-darwin-amd64: CC:=
-release-darwin-amd64: CXX:=
 release-darwin-amd64: CGO_ENABLED=0
 release-darwin-amd64: LDFLAGS:=-s -w
-release-darwin-amd64: export GOOS=darwin
-release-darwin-amd64: export GOARCH=amd64
+release-darwin-amd64: GOOS=darwin
+release-darwin-amd64: GOARCH=amd64
 release-darwin-amd64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH)
 release-darwin-amd64: build checksum_release
 
 .PHONY: release-darwin-arm64
 release-darwin-arm64: CC:=
-release-darwin-arm64: CXX:=
 release-darwin-arm64: CGO_ENABLED=0
 release-darwin-arm64: LDFLAGS:=-s -w
-release-darwin-arm64: export GOOS=darwin
-release-darwin-arm64: export GOARCH=arm64
+release-darwin-arm64: GOOS=darwin
+release-darwin-arm64: GOARCH=arm64
 release-darwin-arm64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH)
 release-darwin-arm64: build checksum_release
 
 .PHONY: release-windows-amd64
 release-windows-amd64: CC:=
-release-windows-amd64: CXX:=
 release-windows-amd64: CGO_ENABLED=0
 release-windows-amd64: LDFLAGS:=-s -w
-release-windows-amd64: export GOOS=windows
-release-windows-amd64: export GOARCH=amd64
+release-windows-amd64: GOOS=windows
+release-windows-amd64: GOARCH=amd64
 release-windows-amd64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH).exe
 release-windows-amd64: build compress_release checksum_release
 
 .PHONY: release-container-amd64
+release-container-amd64: TAG?=readeck-release:$(VERSION)
 release-container-amd64:
 	docker build \
 		--ulimit=nofile=4000 \
 		-f Containerfile \
 		--build-arg VERSION=$(VERSION) \
 		--build-arg DATE=$(DATE) \
-		-t readeck-release:$(VERSION)
+		-t $(TAG)

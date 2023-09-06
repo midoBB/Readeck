@@ -49,6 +49,7 @@ func New(basePath string) *Server {
 		s.SetSecurityHeaders,
 		s.WithCacheControl,
 		s.InitRequest,
+		s.CannonicalPaths,
 		auth.Init(
 			&auth.BasicAuthProvider{},
 			&auth.TokenAuthProvider{},

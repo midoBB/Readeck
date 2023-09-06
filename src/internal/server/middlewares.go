@@ -6,10 +6,12 @@ package server
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"path"
 	"strings"
 
+	"github.com/go-chi/chi/v5"
 	"github.com/gorilla/csrf"
 	log "github.com/sirupsen/logrus"
 
@@ -88,6 +90,34 @@ func (s *Server) WithPermission(obj, act string) func(next http.Handler) http.Ha
 			next.ServeHTTP(w, r)
 		})
 	}
+}
+
+// CannonicalPaths cleans the URL path and removes trailing slashes.
+// It returns a 308 redirection so any form will pass through.
+func (s *Server) CannonicalPaths(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var p string
+		rctx := chi.RouteContext(r.Context())
+		if rctx != nil && rctx.RoutePath != "" {
+			p = rctx.RoutePath
+		} else {
+			p = r.URL.Path
+		}
+
+		if len(p) > 1 {
+			p2 := path.Clean(p)
+			p2 = strings.TrimSuffix(p2, "/")
+			if p != p2 {
+				if r.URL.RawQuery != "" {
+					p2 = fmt.Sprintf("%s?%s", p2, r.URL.RawQuery)
+				}
+				http.Redirect(w, r, fmt.Sprintf("//%s%s", r.Host, p2), http.StatusPermanentRedirect)
+				return
+			}
+		}
+
+		next.ServeHTTP(w, r)
+	})
 }
 
 // ErrorPages is a middleware that overrides the response writer so

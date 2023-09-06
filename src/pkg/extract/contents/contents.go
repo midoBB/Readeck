@@ -41,6 +41,8 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 		convertPictureNodes(m.Dom, m)
 
 		parser := readability.NewParser()
+		parser.TagsToScore = []string{"section", "h2", "h3", "h4", "h5", "h6", "p", "td", "div", "pre"}
+
 		for _, f := range options {
 			f(&parser)
 		}

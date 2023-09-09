@@ -136,9 +136,15 @@ func (f *createForm) loadMultipart(r *http.Request) (err error) {
 				return err
 			}
 			if resource, err = newMultipartResource(file); err != nil {
+				if f.Get("url").String() != resource.URL {
+					// As long as the content is not from the requested URL
+					// we can ignore an empty value.
+					continue
+				}
 				return err
+			} else {
+				f.resources = append(f.resources, resource)
 			}
-			f.resources = append(f.resources, resource)
 		}
 	}
 

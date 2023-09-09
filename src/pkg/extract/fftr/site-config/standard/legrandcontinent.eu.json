@@ -1,0 +1,49 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "(//article[contains(concat(' ',normalize-space(@class),' '),' post ')])[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//meta[@name='author']/@content"
+  ],
+  "strip_selectors": [
+    "//header/h1 | //header/div[1]",
+    "//article/div[contains(@class, '-mt-3 text-center')]",
+    "//dt[contains(text(), 'Auteur')]/ancestor::div[1]",
+    "//a[contains(@class, 'share')]/parent::div",
+    "//section[contains(concat(' ',normalize-space(@class),' '),' dive ')]",
+    "//iframe/@width",
+    "//iframe/@height"
+  ],
+  "strip_id_or_class": [
+    "comment-block hidden",
+    "modal_notes",
+    "wider-side",
+    "special-side"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "class=\"has-text-align-right\"",
+      "dir=\"rtl\""
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://legrandcontinent.eu/fr/2023/08/03/jai-eu-des-doutes-deux-conversations-avec-robert-oppenheimer/",
+      "contains": []
+    },
+    {
+      "url": "https://legrandcontinent.eu/fr/2023/08/17/la-force-de-la-poesie-contre-la-guerre-une-conversation-et-trois-poemes-inedits-de-mostafa-hazara/",
+      "contains": []
+    }
+  ]
+}

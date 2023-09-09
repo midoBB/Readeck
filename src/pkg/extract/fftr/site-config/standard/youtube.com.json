@@ -32,10 +32,7 @@
       "'"
     ]
   ],
-  "http_headers": {
-    "cookie": "CONSENT=YES+srp.gws-20220606;",
-    "user-agent": "PHP/7.4"
-  },
+  "http_headers": null,
   "tests": [
     {
       "url": "https://www.youtube.com/watch?v=GjENnyQupow",

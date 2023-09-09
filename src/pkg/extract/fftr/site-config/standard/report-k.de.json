@@ -1,0 +1,40 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//div[@class='td-post-author-name']/a"
+  ],
+  "strip_selectors": [
+    "//footer/self::* | //footer/following-sibling::*"
+  ],
+  "strip_id_or_class": [
+    "td-post-header",
+    "td-post-sharing-top"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.report-k.de/deutzer-drehbruecke-wird-fuer-kfz-verkehr-freigegeben/",
+      "contains": []
+    },
+    {
+      "url": "https://www.report-k.de/feed/",
+      "contains": []
+    },
+    {
+      "url": "https://www.report-k.de/nordrhein-westfalen/nrw-politiknachrichten/feed/",
+      "contains": []
+    }
+  ]
+}

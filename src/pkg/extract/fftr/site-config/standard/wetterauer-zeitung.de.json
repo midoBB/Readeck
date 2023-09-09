@@ -1,10 +1,28 @@
 {
   "title_selectors": null,
-  "body_selectors": null,
-  "date_selectors": null,
-  "author_selectors": null,
-  "strip_selectors": null,
+  "body_selectors": [
+    "//article"
+  ],
+  "date_selectors": [
+    "//p[contains(@class, 'id-Story-timestamp')]/descendant::time/@datetime"
+  ],
+  "author_selectors": [
+    "substring-after(//p[contains(@class, 'id-Story-authors')] , 'on:')",
+    "//div[contains(@class, 'id-AuthorList')]/descendant::*[contains(@class, 'id-Link')]"
+  ],
+  "strip_selectors": [
+    "//a[@title='Bilderzoom']"
+  ],
   "strip_id_or_class": [
+    "id-Article-dateActionboxCombo",
+    "id-Article-kicker",
+    "id-Article-headline",
+    "id-AuthorList",
+    "id-StoryElement-inArticleReco",
+    "id-Comments",
+    "id-Story-timestamp",
+    "id-Story-authors",
+    "id-Story-interactionBar",
     "idjs-simpletab-nav-item",
     "idjs-simpletab-content-close",
     "id-AuthorList",
@@ -25,8 +43,8 @@
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
-  "tidy": true,
-  "prune": true,
+  "tidy": false,
+  "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,

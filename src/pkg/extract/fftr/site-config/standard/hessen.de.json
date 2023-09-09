@@ -3,19 +3,24 @@
   "body_selectors": [
     "//div[@class='outer']"
   ],
-  "date_selectors": null,
-  "author_selectors": null,
+  "date_selectors": [
+    "//div[@class='sidebar']/div/div/span"
+  ],
+  "author_selectors": [
+    "Hessische Landesregierung"
+  ],
   "strip_selectors": [
-    "//td/h2[contains(@style, 'color: #16191f')]",
-    "//td/h2[contains(text(), 'Der nächste Newsletter')]",
-    "//td/h2[contains(text(), 'erscheint am')]",
-    "//table[contains(@style, 'background-color:#eef2ee;')]",
-    "//div[@class='sidebar']"
+    "(//div[@class='sidebar'])[1]",
+    "//h2[contains(text(), 'Newsletter')]/ancestor::table[1]",
+    "//img[contains(@src, '/mail/icon_link')]",
+    "//table[@class=\"link-tile\"]/@height",
+    "//table[@class=\"link-tile\"]/@style"
   ],
   "strip_id_or_class": [
-    "paragraph--type--cp-box-tile",
-    "spacer",
-    "footer"
+    "topic-module",
+    "contact-module",
+    "footer",
+    "spacer"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

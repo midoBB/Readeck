@@ -1,7 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//article"
+    "//article | //div[@class='thepostinner']"
   ],
   "date_selectors": null,
   "author_selectors": null,
@@ -9,8 +9,10 @@
     "//div[@class='code-block code-block-4']",
     "//div[@class=\"metabox\"]/parent::div",
     "//div[contains(@class, 'author-side')]",
-    "//div[@class=\"comment-break\"]/parent::div",
-    "//div[@class=\"featured_caption\"]/a"
+    "//div[@class=\"comment-break\"]",
+    "//div[@class=\"uhcomments\"]",
+    "//div[@class=\"featured_caption\"]/a",
+    "//div[@class='time']/self::div | //div[@class='time']/preceding-sibling::* | //div[@class='time']/following-sibling::h2[1]"
   ],
   "strip_id_or_class": [
     "ref-ar",
@@ -33,6 +35,10 @@
       ".jpg\"\u003e"
     ],
     [
+      ".jpeg');\"\u003e",
+      ".jpeg\"\u003e"
+    ],
+    [
       ".png');\"\u003e",
       ".png\"\u003e"
     ],
@@ -45,6 +51,10 @@
   "tests": [
     {
       "url": "https://unherd.com/2019/09/labours-brexit-shambles/",
+      "contains": []
+    },
+    {
+      "url": "https://unherd.com/thepost/could-britains-green-debate-become-the-new-brexit/",
       "contains": []
     }
   ]

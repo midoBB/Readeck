@@ -3,6 +3,8 @@
     "//meta[@property=\"og:title\"]/@content"
   ],
   "body_selectors": [
+    "//article",
+    "//main",
     "//main[@id=\"main\"]//div[@itemprop=\"articleLead\" or @itemprop=\"articleBody\" or contains(concat(' ',normalize-space(@class),' '),' articleBody ')]",
     "//div[@id='wsj-article-wrap']",
     "//div[@id='article_story_body']",
@@ -12,9 +14,18 @@
     "//meta[@itemprop=\"dateCreated\"]/@content"
   ],
   "author_selectors": [
+    "//a[contains(@class, 'AuthorLink')]",
     "//meta[@name=\"author\"]/@content"
   ],
   "strip_selectors": [
+    "//div[contains(@class, 'ribbon-container')]/parent::div",
+    "//div[contains(@class, 'AuthoringContainer')]",
+    "//div[@data-inset_type='newsletterinset']",
+    "//div[@class='audioplayer' and @id='articlereader']",
+    "//picture/@source",
+    "//button",
+    "//nav",
+    "//main/div/article//section[last()]/following-sibling::*",
     "//amp-iframe",
     "//*[@amp-access-hide]",
     "//div[contains(@class, 'insetContent')]//cite",
@@ -26,6 +37,10 @@
     "//div[contains(@class, 'media-object-video')]"
   ],
   "strip_id_or_class": [
+    "article-body-tools",
+    "print-header",
+    "controls-container",
+    "category",
     "insetFullBracket",
     "newsletter-inset",
     "insettipBox",
@@ -41,11 +56,16 @@
   "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": [
-    "concat('https://www.wsj.com/amp/', substring-after(//link[@rel=\"canonical\"]/@href, 'https://www.wsj.com/'))"
+    "concat('https://www.wsj.com/amp/articles/', substring-after(substring-after(//link[@rel=\"canonical\"]/@href, 'https://www.wsj.com/'), '/'))",
+    "concat('https://www.wsj.com/amp/articles/', substring-after(substring-after(substring-after(//link[@rel=\"canonical\"]/@href, 'https://www.wsj.com/'), '/'), '/'))",
+    "concat('https://www.wsj.com/amp/articles/', substring-after(substring-after(substring-after(substring-after(//link[@rel=\"canonical\"]/@href, 'https://www.wsj.com/'), '/'), '/'), '/'))"
   ],
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": null,
+  "http_headers": {
+    "User-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0",
+    "referer": "https://www.wsj.com"
+  },
   "tests": [
     {
       "url": "http://www.wsj.com/articles/airasia-flight-8501-tail-recovered-1420878809",

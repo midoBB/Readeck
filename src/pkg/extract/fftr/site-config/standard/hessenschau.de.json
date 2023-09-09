@@ -1,9 +1,18 @@
 {
   "title_selectors": null,
-  "body_selectors": null,
+  "body_selectors": [
+    "//main"
+  ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//header",
+    "//footer",
+    "//button",
+    "//form",
+    "//aside[contains(@class, 'dontPrint')]",
+    "//blockquote[contains(@class, 'dontPrint')]"
+  ],
   "strip_id_or_class": [
     "c-contentHeader__author",
     "id-Article-content-item.id-Article-advert.id-Article-advert--ad3",
@@ -12,10 +21,11 @@
     "contentFooter",
     "region--appendix",
     "unbreakable",
+    "o-box",
+    "u-content-spacer",
     "hideCompletely",
     "c-form__button",
-    "img.image.imageSimple.ar__content",
-    "audioElement"
+    "img.image.imageSimple.ar__content"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -32,6 +42,22 @@
     [
       "\u003cspan aria-label=\"Audioseite\"\u003e\u003c",
       "\u003cspan aria-label=\"Audioseite\"\u003ezur Audioseite: \u003c"
+    ],
+    [
+      "\u003caside",
+      "\u003cblockquote"
+    ],
+    [
+      "\u003c/aside",
+      "\u003c/blockquote"
+    ],
+    [
+      "\u003eFormular \u003c",
+      "\u003e\u003c"
+    ],
+    [
+      "\u003eEnde des Formulars \u003c",
+      "\u003e\u003c"
     ]
   ],
   "http_headers": null,
@@ -42,6 +68,10 @@
     },
     {
       "url": "https://www.hessenschau.de/panorama/weltkriegsbombe-im-frankfurter-osthafen-entschaerft,bombenfund-frankfurt-ostend-100.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.hessenschau.de/panorama/beschaedigte-bahn-bruecke-in-frankfurt-bleibt-noch-weitere-zwei-monate-dicht-v1,bahn-bruecke-reparatur-100.html",
       "contains": []
     }
   ]

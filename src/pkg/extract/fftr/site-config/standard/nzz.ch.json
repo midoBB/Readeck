@@ -12,7 +12,8 @@
     "//div[@id='social-media-floater']",
     "//div[@class='advertisement']",
     "//div[@class='infobox']",
-    "//div[@id='articleComments']"
+    "//div[@id='articleComments']",
+    "//section[@componenttype='moreToSubject']"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -23,7 +24,9 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": null,
+  "http_headers": {
+    "User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+  },
   "tests": [
     {
       "url": "https://www.nzz.ch/zuerich/gender-sprache-an-hochschulen-in-zuerich-drohen-punkteabzuege-ld.1679640",

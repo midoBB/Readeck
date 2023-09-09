@@ -5,17 +5,8 @@
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": [
-    "//div[contains(@class, 'InlineAdWrapper')]",
-    "//div[contains(@class, 'inlineRelatedArticles')]",
-    "//div[contains(@class, 'hidden')]",
-    "//div[contains(@class, 'HeaderTopContainer')]",
-    "//div[contains(@class, 'keylines')]"
-  ],
-  "strip_id_or_class": [
-    "related-articles",
-    "paywall-portal-article-footer"
-  ],
+  "strip_selectors": null,
+  "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -29,7 +20,11 @@
   },
   "tests": [
     {
-      "url": "https://www.thetimes.co.uk/article/c1ee434c-86c8-11ec-9c9e-c5f8451b2970",
+      "url": "https://geschichtedergegenwart.ch/natuerlicher-oder-kuenstlicher-staat-nation-und-imperium-im-russischen-staatsdenken/",
+      "contains": []
+    },
+    {
+      "url": "https://geschichtedergegenwart.ch/die-schweizerische-neutralitaet-ein-anachronismus/",
       "contains": []
     }
   ]

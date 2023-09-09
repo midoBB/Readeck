@@ -52,7 +52,11 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.costanachrichten.com/spanien/politik-wirtschaft/spanien-westsahara-pedro-sanchez-unabhaengigkeit-uno-marokko-fluechtlinge-ukraine-91422126.html",
+      "url": "https://www.fr.de/frankfurt/die-nfl-kommt-nach-frankfurt-91329620.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.merkur.de/politik/ukraine-krieg-russland-putin-hyperschall-raketen-kinschal-video-twitter-fake-experten-91427019.html",
       "contains": []
     }
   ]

@@ -1,18 +1,20 @@
 {
-  "title_selectors": [
-    "//div[@class='ts-title']"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//article[@class='ts-article']"
+    "//article"
   ],
-  "date_selectors": [
-    "//time[@class='ts-time']"
-  ],
-  "author_selectors": [
-    "//a[@rel='author']"
-  ],
+  "date_selectors": null,
+  "author_selectors": null,
   "strip_selectors": [
-    "//iframe"
+    "//nav",
+    "//button",
+    "//iframe",
+    "//div[@element-type='embedWrapper']",
+    "//aside",
+    "//time/parent::p",
+    "//a[@data-gtm-class='article-home-link']/parent::p/self::* | //a[@data-gtm-class='article-home-link']/parent::p/following-sibling::*",
+    "//picture/source",
+    "//img/@srcset"
   ],
   "strip_id_or_class": [
     "hcf-hidden",

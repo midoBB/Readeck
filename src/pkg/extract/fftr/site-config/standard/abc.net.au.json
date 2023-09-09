@@ -1,28 +1,19 @@
 {
-  "title_selectors": [
-    "//div[@class='article section']//h1"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[@class=\"page section\"]"
+    "//article/div[@data-component=\"ArticleWeb\"]"
   ],
-  "date_selectors": [
-    "//span[@class=\"timestamp\"]"
-  ],
-  "author_selectors": [
-    "//div[@class=\"byline\"]/a"
-  ],
+  "date_selectors": null,
+  "author_selectors": null,
   "strip_selectors": [
-    "//a[@class=\"inline-caption\"]",
-    "//p[@class=\"ticker section noprint\"]",
-    "//p[@class=\"topics\"]",
-    "//h1",
-    "//div[@class=\"byline\"]",
-    "//p[@class=\"published\"]",
-    "//div[contains(@class,\"featured-scroller\")]"
+    "//aside",
+    "//button",
+    "//header/div[contains(@class, 'Headline_meta')]",
+    "//div[contains(@class, 'ArticleWeb_publishedDate')]",
+    "//div[contains(@class, 'ArticleWeb_shareBottom')]/self::div | //div[contains(@class, 'ArticleWeb_shareBottom')]/following-sibling::*",
+    "//div[contains(@aria-label, 'media') and contains(@aria-label, 'embed')]"
   ],
-  "strip_id_or_class": [
-    "footer"
-  ],
+  "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -34,12 +25,18 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.abc.net.au/news/2013-03-27/open-speed-highways-change-clp-giles/4597892",
+      "url": "https://www.abc.net.au/news/2013-04-30/credit-growth-remains-subdued/4660054",
       "contains": []
     },
     {
-      "url": "http://www.abc.net.au/news/2013-04-30/credit-growth-remains-subdued/4660054?section=business",
+      "url": "https://www.abc.net.au/news/2013-03-27/open-speed-highways-change-clp-giles/4597892",
       "contains": []
+    },
+    {
+      "url": "https://www.abc.net.au/news/2023-06-16/fact-check-jacinta-nampijinpa-price-secret-documents-niaa/102485040",
+      "contains": [
+        "widespread but bogus claim about a list of secret \"demands\" linked to the Voice referendum"
+      ]
     }
   ]
 }

@@ -46,7 +46,7 @@
   ],
   "replace_strings": null,
   "http_headers": {
-    "Cookie": "golem_consent20=cmp|220101",
+    "Cookie": "golem_multipage=single",
     "user-agent": "Googlebot"
   },
   "tests": [
@@ -56,6 +56,10 @@
     },
     {
       "url": "http://www.golem.de/news/test-infamous-first-light-neonbunter-actionspass-1408-108914.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.golem.de/news/ressourcenschonend-programmieren-so-wurden-spiele-fuer-den-commodore-64-und-atari-entwickelt-2307-175508.html",
       "contains": []
     }
   ]

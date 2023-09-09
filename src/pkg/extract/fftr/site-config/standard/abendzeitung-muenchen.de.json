@@ -1,0 +1,40 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//footer",
+    "//picture/source",
+    "//figure/figcaption/following-sibling::text() | //figure/figcaption/following-sibling::p"
+  ],
+  "strip_id_or_class": [
+    "teaserbox",
+    "aufmacherbox",
+    "mehrzumthema",
+    "artdetail_time",
+    "artdetail_social",
+    "artdetail_desc"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.abendzeitung-muenchen.de/muenchen/mvg-fast-alle-fahrschein-automaten-in-muenchen-kommen-weg-art-921634",
+      "contains": []
+    },
+    {
+      "url": "https://www.abendzeitung-muenchen.de/muenchen/wahlkampf-in-bayern-soeder-und-aiwanger-ringen-um-die-bierzelt-herrschaft-art-921576",
+      "contains": []
+    }
+  ]
+}

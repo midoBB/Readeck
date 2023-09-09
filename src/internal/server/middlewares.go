@@ -106,7 +106,9 @@ func (s *Server) CannonicalPaths(next http.Handler) http.Handler {
 
 		if len(p) > 1 {
 			p2 := path.Clean(p)
-			p2 = strings.TrimSuffix(p2, "/")
+			if strings.HasSuffix(p, "/") {
+				p2 += "/"
+			}
 			if p != p2 {
 				if r.URL.RawQuery != "" {
 					p2 = fmt.Sprintf("%s?%s", p2, r.URL.RawQuery)

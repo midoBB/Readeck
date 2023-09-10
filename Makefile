@@ -6,7 +6,7 @@
 
 -include .makerc
 
-ifeq (, $(shell which git))
+ifeq (, $(shell which git && git status))
 VERSION ?= dev
 DATE ?= $(shell date --rfc-3339=seconds)
 else
@@ -21,18 +21,28 @@ VERSION_FLAGS := \
 
 OUTFILE_NAME ?= readeck
 LDFLAGS ?= -s -w
+DIST ?= dist
 export CGO_ENABLED ?= 0
 export GOOS?=
 export GOARCH?=
 export CGO_CFLAGS ?= -D_LARGEFILE64_SOURCE
 export CC?=
+export XGO_VERSION ?= go-1.21.x
+export XGO_PACKAGE ?= src.techknowlogick.com/xgo@latest
+export XGO_FLAGS ?= ""
 
 SITECONFIG_SRC=./ftr-site-config
 SITECONFIG_DEST=src/pkg/extract/fftr/site-config/standard
 
 # Build the app
 .PHONY: all
-all: web-build docs-build build
+all: generate build
+	touch $(DIST)/.all
+
+.PHONY: generate
+generate: web-build docs-build
+	mkdir -p $(DIST)
+	touch $(DIST)/.generate
 
 # Build the server
 .PHONY: build
@@ -46,14 +56,15 @@ build:
 		-v \
 		-tags "$(BUILD_TAGS)" \
 		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" -trimpath \
-		-o dist/$(OUTFILE_NAME) \
+		-o $(DIST)/$(OUTFILE_NAME) \
 		./src
 
 # Clean the build
 .PHONY: clean
 clean:
-	rm -rf dist
+	rm -rf $(DIST)
 	rm -rf src/assets/www/*
+	rm -rf src/docs/assets/*
 	make -C src/web clean
 
 list:
@@ -90,13 +101,6 @@ test: docs-build web-build
 serve:
 	modd -f modd.conf
 
-# Update site-config folder with definitions from
-# graby git repository
-.PHONY: update-site-config
-update-site-config:
-	rm -rf $(SITECONFIG_DEST)
-	go run ./tools/ftr $(SITECONFIG_SRC) $(SITECONFIG_DEST)
-
 .PHONY: dev
 dev:
 	${MAKE} -j2 web-watch serve
@@ -122,87 +126,73 @@ setup:
 	go install github.com/boyter/scc/v3@latest
 
 
+# Update site-config folder with definitions from
+# graby git repository
+.PHONY: update-site-config
+update-site-config:
+	rm -rf $(SITECONFIG_DEST)
+	go run ./tools/ftr $(SITECONFIG_SRC) $(SITECONFIG_DEST)
+
+
 #
 # Release targets
 #
 .PHONY: release-all
-release-all: all
-	${MAKE} release-linux-amd64
-	${MAKE} release-linux-arm
-	${MAKE} release-linux-arm64
-	${MAKE} release-darwin-amd64
-	${MAKE} release-darwin-arm64
-	${MAKE} release-windows-amd64
+release-all:
+	${MAKE} release-linux
+	${MAKE} release-darwin
+	${MAKE} release-windows
+	${MAKE} release-checksums
 
-.PHONY: compress_release
-compress_release:
-	upx -v --best --lzma dist/$(OUTFILE_NAME)
-	upx -v -t dist/$(OUTFILE_NAME)
 
-.PHONY: checksum_release
-checksum_release:
-	sha256sum dist/$(OUTFILE_NAME) > dist/$(OUTFILE_NAME).sha256
+.PHONY: xgo-build
+xgo-build: | $(DIST)/.generate
+	@echo "CC: $(CC)"
+	@echo "CGO_ENABLED": $$CGO_ENABLED
+	@echo "CGO_CFLAGS": $$CGO_CFLAGS
+	@echo "XGO_VERSION": $(XGO_VERSION)
+	@echo "XGO_PACKAGE": $(XGO_PACKAGE)
+	@echo "XGO_FLAGS": $(XGO_FLAGS)
+	@echo "LDFLAGS": $(LDFLAGS)
 
-.PHONY: release-linux-amd64
-release-linux-amd64: CC:=zig cc -target x86_64-linux-musl
-release-linux-amd64: CGO_ENABLED=1
-release-linux-amd64: LDFLAGS:=-s -w -linkmode 'external' -extldflags '-static'
-release-linux-amd64: GOOS=linux
-release-linux-amd64: GOARCH=amd64
-release-linux-amd64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH)
-release-linux-amd64: build compress_release checksum_release
+	test -d $(DIST) || mkdir $(DIST)
+	go run $(XGO_PACKAGE) \
+		-v \
+		-go $(XGO_VERSION) \
+		-dest $(DIST) \
+		-tags "$(BUILD_TAGS)" \
+		-targets "$(XGO_TARGET)" \
+		-ldflags "$(VERSION_FLAGS) $(LDFLAGS)" \
+		$(XGO_FLAGS) \
+		-out readeck-$(VERSION) \
+		./src
 
-.PHONY: release-linux-arm64
-release-linux-arm64: CC:=zig cc -target aarch64-linux-musl
-release-linux-arm64: CGO_ENABLED=1
-release-linux-arm64: LDFLAGS:=-s -w -linkmode 'external' -extldflags '-static'
-release-linux-arm64: GOOS=linux
-release-linux-arm64: GOARCH=arm64
-release-linux-arm64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH)
-release-linux-arm64: build compress_release checksum_release
 
-.PHONY: release-linux-arm
-release-linux-arm: CC:=
-release-linux-arm: CGO_ENABLED=0
-release-linux-arm: LDFLAGS:=-s -w
-release-linux-arm: GOOS=linux
-release-linux-arm: GOARCH=arm
-release-linux-arm: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH)
-release-linux-arm: build compress_release checksum_release
+.PHONY: release-linux
+release-linux: CC=
+release-linux: CGO_ENABLED=1
+release-linux: LDFLAGS=-linkmode external -extldflags "-static" -s -w
+release-linux: XGO_FLAGS=
+release-linux: XGO_TARGET="linux/amd64,linux/386,linux/arm-5,linux/arm-6,linux/arm64"
+release-linux: xgo-build
 
-.PHONY: release-darwin-amd64
-release-darwin-amd64: CC:=
-release-darwin-amd64: CGO_ENABLED=0
-release-darwin-amd64: LDFLAGS:=-s -w
-release-darwin-amd64: GOOS=darwin
-release-darwin-amd64: GOARCH=amd64
-release-darwin-amd64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH)
-release-darwin-amd64: build checksum_release
+.PHONY: release-windows
+release-windows: CC=
+release-windows: CGO_ENABLED=1
+release-windows: LDFLAGS=-linkmode external -extldflags "-static" -s -w
+release-windows: XGO_FLAGS=-buildmode exe
+release-windows: XGO_TARGET="windows/amd64,windows/386"
+release-windows: xgo-build
 
-.PHONY: release-darwin-arm64
-release-darwin-arm64: CC:=
-release-darwin-arm64: CGO_ENABLED=0
-release-darwin-arm64: LDFLAGS:=-s -w
-release-darwin-arm64: GOOS=darwin
-release-darwin-arm64: GOARCH=arm64
-release-darwin-arm64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH)
-release-darwin-arm64: build checksum_release
+.PHONY: release-darwin
+release-darwin: CC=
+release-darwin: CGO_ENABLED=1
+release-darwin: LDFLAGS=-s -w
+release-darwin: XGO_FLAGS=
+release-darwin: XGO_TARGET="darwin-10.12/amd64,darwin-10.12/arm64"
+release-darwin: xgo-build
 
-.PHONY: release-windows-amd64
-release-windows-amd64: CC:=
-release-windows-amd64: CGO_ENABLED=0
-release-windows-amd64: LDFLAGS:=-s -w
-release-windows-amd64: GOOS=windows
-release-windows-amd64: GOARCH=amd64
-release-windows-amd64: OUTFILE_NAME:=readeck-$(VERSION)-$(GOOS)-$(GOARCH).exe
-release-windows-amd64: build compress_release checksum_release
-
-.PHONY: release-container-amd64
-release-container-amd64: TAG?=readeck-release:$(VERSION)
-release-container-amd64:
-	docker build \
-		--ulimit=nofile=4000 \
-		-f Containerfile \
-		--build-arg VERSION=$(VERSION) \
-		--build-arg DATE=$(DATE) \
-		-t $(TAG)
+.PHONY: release-checksums
+release-checksums:
+	rm -rf $(DIST)/*.sha256
+	cd $(DIST)/; for file in `find . -type f -name "*"`; do echo "checksumming $${file}" && sha256sum -b `echo $${file} | sed 's/^..//'` > $${file}.sha256; done;

@@ -1,5 +1,20 @@
 # Changlog
 
+## [0.9.0] - 2023-09-10
+### Changed
+- Improved bookmark creation form
+- Links are extracted in the background so a bookmark is visible earlier
+- Bookmark creation from the API can now receive a label list
+- Improved performances of log-in with an application password
+- Configuration/env/flags priority for command line
+- Bookmark order in collection's ebook
+
+### Fixed
+- Send a CSRF secure cookie only if scheme is https
+- Search string must keep invalid fields and treat them as quoted values
+- Major improvements in Print Stylesheet (by @joachimesque)
+- Instagram picture title and description
+
 ## [0.8.1] - 2023-08-29
 ### Fixed
 - Initial secret key must not create an unreadable configuration file
@@ -26,7 +41,6 @@
 
 ### Fixed
 - Reddit picture fetch
-
 
 ## [0.7.3] - 2023-07-16
 ### Added

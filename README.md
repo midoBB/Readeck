@@ -36,6 +36,14 @@ Highlight the important content of your bookmarks to easily find it later.
 If you need a dedicated section with all your bookmarks from the past 2 weeks labeled with "cat", Readeck lets you save this search query into a collection so you can access it later.
 
 
+### 🧩 Browser Extension
+
+Want to keep something for later while browsing? No need to copy and paste a link. Install the broswer extension and save bookmarks in one click!
+
+[For Mozilla Firefox](https://addons.mozilla.org/en-US/firefox/addon/readeck/) \
+[More Information and Source Code](https://codeberg.org/readeck/browser-extension)
+
+
 ### 📖 E-Book export
 
 What's best than reading your collected articles on your e-reader? You can export any article to an e-book file (EPUB). You can even export a collection to a single book!
@@ -65,20 +73,19 @@ Done reading this promotional content? Good! Want to try Readeck on your laptop 
 
 ### Binary file installation
 
-- Go to the [releases](https://codeberg.org/readeck/readeck/releases) page and grab the binary release matching your system,
+- Create a new directory wherever you like,
+- Go to the [releases](https://codeberg.org/readeck/readeck/releases) page and download the binary release matching your system, into the created directory,
 - Rename the file to `readeck` (or anything you fancy),
 - Make the `readeck` file executable if not already the case,
-- Move this file to the directory you just created,
 - Go to the directory and launch the `readeck serve` command.
 
 
 ```bash
-cd readeck
 chmod a+x readeck
 ./readeck serve
 ```
 
-The first time you launch Readeck, you'll have to create a user (you!) and then be on your way.
+The first time you launch Readeck, you'll have to create a user (you!) and... that's it!
 
 At the end of this short process, Readeck start and is accessible on:
 

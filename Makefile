@@ -143,6 +143,7 @@ release-all:
 	${MAKE} release-darwin
 	${MAKE} release-windows
 	${MAKE} release-checksums
+	touch $(DIST)/.release
 
 
 .PHONY: xgo-build
@@ -175,6 +176,7 @@ release-linux: LDFLAGS=-linkmode external -extldflags "-static" -s -w
 release-linux: XGO_FLAGS=
 release-linux: XGO_TARGET="linux/amd64,linux/386,linux/arm-5,linux/arm-6,linux/arm64"
 release-linux: xgo-build
+	touch $(DIST)/.release-linux
 
 .PHONY: release-windows
 release-windows: CC=
@@ -183,6 +185,7 @@ release-windows: LDFLAGS=-linkmode external -extldflags "-static" -s -w
 release-windows: XGO_FLAGS=-buildmode exe
 release-windows: XGO_TARGET="windows/amd64,windows/386"
 release-windows: xgo-build
+	touch $(DIST)/.release-windows
 
 .PHONY: release-darwin
 release-darwin: CC=
@@ -191,8 +194,20 @@ release-darwin: LDFLAGS=-s -w
 release-darwin: XGO_FLAGS=
 release-darwin: XGO_TARGET="darwin-10.12/amd64,darwin-10.12/arm64"
 release-darwin: xgo-build
+	touch $(DIST)/.release-windows
+
 
 .PHONY: release-checksums
 release-checksums:
 	rm -rf $(DIST)/*.sha256
 	cd $(DIST)/; for file in `find . -type f -name "*"`; do echo "checksumming $${file}" && sha256sum -b `echo $${file} | sed 's/^..//'` > $${file}.sha256; done;
+
+
+.PHONY: release-container
+release-container: TAG?=readeck-release:$(VERSION)
+release-container: | $(DIST)/.release-linux
+	docker build \
+		-f Containerfile \
+		--build-arg VERSION=$(VERSION) \
+		--build-arg DIST=$(DIST) \
+		-t $(TAG)

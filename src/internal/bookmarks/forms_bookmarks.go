@@ -86,6 +86,17 @@ type createForm struct {
 }
 
 func newCreateForm(userID int, requestID string) *createForm {
+	strConstructor := func(n string) forms.Field {
+		return forms.NewTextField(n, forms.Trim)
+	}
+	strConverter := func(values []forms.Field) interface{} {
+		res := make(db.Strings, len(values))
+		for i, x := range values {
+			res[i] = x.Value().(string)
+		}
+		return res
+	}
+
 	return &createForm{
 		Form: forms.Must(
 			forms.NewTextField("url",
@@ -96,6 +107,8 @@ func newCreateForm(userID int, requestID string) *createForm {
 				),
 			),
 			forms.NewTextField("title", forms.Trim),
+			forms.NewListField("labels", strConstructor, strConverter),
+			forms.NewBooleanField("feature_find_main"),
 		),
 		userID:    userID,
 		requestID: requestID,
@@ -110,11 +123,13 @@ func (f *createForm) loadMultipart(r *http.Request) (err error) {
 		return
 	}
 
-	if err := f.Get("url").UnmarshalText([]byte(r.FormValue("url"))); err != nil {
-		f.AddErrors("url", err)
-	}
-	if err := f.Get("title").UnmarshalText([]byte(r.FormValue("title"))); err != nil {
-		f.AddErrors("title", err)
+	// Parse all fields
+	for _, field := range f.Fields() {
+		for _, v := range r.Form[field.Name()] {
+			if err := field.UnmarshalText([]byte(v)); err != nil {
+				f.AddErrors(field.Name(), err)
+			}
+		}
 	}
 
 	forms.Validate(f)
@@ -167,6 +182,12 @@ func (f *createForm) createBookmark() (b *Bookmark, err error) {
 		SiteName: uri.Hostname(),
 	}
 
+	if !f.Get("labels").IsNil() {
+		b.Labels = f.Get("labels").Value().(db.Strings)
+		slices.Sort(b.Labels)
+		b.Labels = slices.Compact(b.Labels)
+	}
+
 	defer func() {
 		if err != nil {
 			f.AddErrors("", forms.ErrUnexpected)
@@ -182,6 +203,7 @@ func (f *createForm) createBookmark() (b *Bookmark, err error) {
 		BookmarkID: b.ID,
 		RequestID:  f.requestID,
 		Resources:  f.resources,
+		FindMain:   f.Get("feature_find_main").IsNil() || f.Get("feature_find_main").Value().(bool),
 	})
 	return
 }

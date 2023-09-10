@@ -48,6 +48,7 @@ type (
 		BookmarkID int
 		RequestID  string
 		Resources  []multipartResource
+		FindMain   bool
 	}
 
 	labelDeleteParams struct {
@@ -186,6 +187,7 @@ func extractPageHandler(data interface{}) {
 	logger := log.WithFields(log.Fields{
 		"@id":         params.RequestID,
 		"bookmark_id": params.BookmarkID,
+		"find_main":   params.FindMain,
 	})
 	logger.Debug("starting extraction")
 
@@ -255,17 +257,13 @@ func extractPageHandler(data interface{}) {
 		meta.ExtractPicture,
 		fftr.LoadConfiguration,
 		fftr.ReplaceStrings,
-	)
-
-	// Check if main page is in cached resources
-	if !ex.IsInCache(b.URL) {
-		ex.AddProcessors(fftr.FindContentPage, fftr.FindNextPage)
-	}
-
-	ex.AddProcessors(
+		// Only when the page is not in cache
+		conditionnalProcessor(!ex.IsInCache(b.URL), fftr.FindContentPage),
+		conditionnalProcessor(!ex.IsInCache(b.URL), fftr.FindNextPage),
 		fftr.ExtractAuthor,
 		fftr.ExtractDate,
-		fftr.ExtractBody,
+		// Default is true but the request can override this
+		conditionnalProcessor(params.FindMain, fftr.ExtractBody),
 		fftr.StripTags,
 		fftr.GoToNextPage,
 		contents.Readability(),
@@ -277,6 +275,17 @@ func extractPageHandler(data interface{}) {
 	)
 
 	ex.Run()
+}
+
+func conditionnalProcessor(test bool, p extract.Processor) extract.Processor {
+	if test {
+		return p
+	}
+	return nilProcessor
+}
+
+var nilProcessor = func(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+	return next
 }
 
 // saveBookmark is one last step of the extraction process, it saves the bookmark

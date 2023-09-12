@@ -204,6 +204,7 @@ web-watch:
 release-all:
 	${MAKE} release-linux
 	${MAKE} release-darwin
+	${MAKE} release-freebsd
 	${MAKE} release-windows
 	${MAKE} release-checksums
 	touch $(DIST)/.release

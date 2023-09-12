@@ -1,5 +1,9 @@
 # Changlog
 
+## [0.9.1] - 2023-09-12
+### Changed
+- Internals
+
 ## [0.9.0] - 2023-09-10
 ### Changed
 - Improved bookmark creation form

@@ -4,7 +4,7 @@ Files:
     CHANGELOG
     modd.conf
     README.md
-    src/pkg/archiver/README.md
+    pkg/archiver/README.md
 Copyright: 2020 Olivier Meunier <olivier@neokraft.net>
 License: AGPL-3.0-only
 
@@ -13,42 +13,43 @@ Files:
     .gitignore
     .go-version
     .golangci.yml
+    .gitea
     go.work
     go.work.sum
-    */go.mod
-    */go.sum
-    src/web/.browserslistrc
-    src/web/.prettierrc
-    src/web/package.json
-    src/web/package-lock.json
+    go.mod
+    go.sum
+    web/.browserslistrc
+    web/.prettierrc
+    web/package.json
+    web/package-lock.json
 Copyright: 2020 Olivier Meunier <olivier@neokraft.net>
 License: CC0-1.0
 
 Files:
-    src/internal/auth/credentials/assets/wordlist.txt
+    internal/auth/credentials/assets/wordlist.txt
 Copyright: EFF
 License: CC0-1.0
 
 Files:
-    src/pkg/*fixtures/*
+    pkg/*fixtures/*
 Copyright: 2020 Olivier Meunier <olivier@neokraft.net>
 License: AGPL-3.0-only
 
 Files:
     screenshots
-    src/docs/src/*
+    docs/src/*
 Copyright: 2023 Olivier Meunier <olivier@neokraft.net>
 License: AGPL-3.0-only
 
 Files:
-    src/web/media/*.ico
-    src/web/media/*.json
-    src/web/media/*.png
-    src/web/media/*.svg
+    web/media/*.ico
+    web/media/*.json
+    web/media/*.png
+    web/media/*.svg
 Copyright: 2021 Olivier Meunier <olivier@neokraft.net>
 License: AGPL-3.0-only
 
 Files:
-    src/pkg/extract/fftr/site-config/standard/*.json
+    pkg/extract/fftr/site-config/standard/*.json
 Copyright: fiveFilter, Wallabag
 License: CC0-1.0

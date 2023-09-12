@@ -1,5 +1,0 @@
-go 1.21
-
-use	./src
-use	./tools/ftr
-use ./tools/docs

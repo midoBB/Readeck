@@ -32,7 +32,7 @@ export XGO_PACKAGE ?= src.techknowlogick.com/xgo@latest
 export XGO_FLAGS ?= ""
 
 SITECONFIG_SRC=./ftr-site-config
-SITECONFIG_DEST=src/pkg/extract/fftr/site-config/standard
+SITECONFIG_DEST=pkg/extract/fftr/site-config/standard
 
 # Build the app
 .PHONY: all
@@ -56,29 +56,27 @@ build:
 		-v \
 		-tags "$(BUILD_TAGS)" \
 		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" -trimpath \
-		-o $(DIST)/$(OUTFILE_NAME) \
-		./src
+		-o $(DIST)/$(OUTFILE_NAME)
 
 # Clean the build
 .PHONY: clean
 clean:
 	rm -rf $(DIST)
-	rm -rf src/assets/www/*
-	rm -rf src/docs/assets/*
-	make -C src/web clean
+	rm -rf assets/www/*
+	rm -rf docs/assets/*
+	make -C web clean
 
 list:
 	CGO_ENABLED=$(CGO_ENABLED) CGO_CFLAGS=$(CGO_CFLAGS) \
 	go list \
 		-tags "$(BUILD_TAGS)" \
 		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" \
-		-f "{{ .GoFiles }}" \
-		./src
+		-f "{{ .GoFiles }}"
 
 # Linting
 .PHONY: lint
 lint:
-	cd src && golangci-lint run
+	golangci-lint run
 
 # SLOC
 .PHONY: sloc
@@ -94,7 +92,7 @@ test: docs-build web-build
 	go test \
 		-tags "$(BUILD_TAGS)" \
 		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" -trimpath \
-		-cover -count=1 ./src/...
+		-cover -count=1 ./...
 
 # Start the HTTP server
 .PHONY: serve
@@ -107,21 +105,21 @@ dev:
 
 .PHONY: help-build
 docs-build:
-	${MAKE} -C src/docs all
+	${MAKE} -C docs all
 
 .PHONY: web-build
 web-build:
-	@$(MAKE) -C src/web build
+	@$(MAKE) -C web build
 
 .PHONY: web-watch
 web-watch:
-	@$(MAKE) -C src/web watch
+	@$(MAKE) -C web watch
 
 
 # Setup the development env
 .PHONY: setup
 setup:
-	${MAKE} -C src/web setup
+	${MAKE} -C web setup
 	go install github.com/cortesi/modd/cmd/modd@latest
 	go install github.com/boyter/scc/v3@latest
 
@@ -166,8 +164,7 @@ xgo-build: | $(DIST)/.generate
 		-ldflags "$(VERSION_FLAGS) $(LDFLAGS)" \
 		$(XGO_FLAGS) \
 		-out readeck-$(VERSION) \
-		./src
-
+		./
 
 .PHONY: release-linux
 release-linux: CC=

@@ -7,13 +7,12 @@
 
 /.vscode
 
-/src/assets/www/*
-!/src/assets/www/.keep
-!/src/assets/templates/base.gohtml
+/assets/www/*
+!/assets/www/.keep
 
-/src/docs/assets/*
-!/src/docs/assets/.keep
-/src/docs/src/.obsidian
+/docs/assets/*
+!/docs/assets/.keep
+/docs/src/.obsidian
 
-/src/web/dist
-/src/web/node_modules
+/web/dist
+/web/node_modules

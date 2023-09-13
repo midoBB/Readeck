@@ -1,0 +1,51 @@
+name: Extraction error
+about: When a saved page is not well rendered in Readeck 😵
+labels:
+  - Extraction/Error
+title: "Link not working: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a broken extraction!
+
+  - type: input
+    id: url
+    attributes:
+      label: Page URL
+      description: The broken page URL
+      placeholder: https://
+    validations:
+      required: true
+      regex: "^http(s)?:\\/\\/.+"
+
+  - type: checkboxes
+    id: extension
+    attributes:
+      label: Browser add-on
+      description: |
+        Did you try to save the page using the [browser add-on](https://codeberg.org/readeck/browser-extension)?
+      options:
+        - label: I tried with the browser add-on
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: |
+        Describe what is wrong or missing in the extracted page.
+
+        You can upload screenshots when necessary.
+      placeholder: Tell us what you see!
+      value: ""
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://codeberg.org/readeck/readeck/src/branch/main/CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

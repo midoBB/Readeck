@@ -9,6 +9,11 @@ Copyright: 2020 Olivier Meunier <olivier@neokraft.net>
 License: AGPL-3.0-only
 
 Files:
+    CODE_OF_CONDUCT.md
+Copyright: Contributor Covenant
+License: CC-BY-4.0
+
+Files:
     .dockerignore
     .gitignore
     .go-version

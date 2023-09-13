@@ -1,6 +1,7 @@
 # Readeck
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+<a rel="me" href="https://mastodon.online/@readeck"><img src="https://img.shields.io/badge/%40readeck-blue?logo=mastodon&logoColor=%23fff&color=%236364ff" alt="Follow on Mastodon" /></a>
 
 Readeck is a simple web application that lets you save the
 precious readable content of web pages you like and want to keep

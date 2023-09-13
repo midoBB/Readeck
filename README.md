@@ -10,40 +10,44 @@ See it as a bookmark manager and a read later tool.
 
 ![Readeck Bookmark List](./screenshots/bookmark-list.png)
 
+
+## Contents
+
+- [Features](#features)
+- [Installation](#how-to-install)
+- [FAQ](#faq)
+- [Under the hood](#under-the-hood)
+- [License](#license)
+
+
 ## Features
 
 ### 🔖 Bookmarks
 
 Like a page you're reading? Paste the link in Readeck and you're done!
 
-
 ### 📸 Articles, pictures and videos
 
 Readeck saves the readable content of web pages for you to read later. It also detects when a page is an image or a video and adapts its process accordingly.
-
 
 ### ⭐ Labels, favorites, archives
 
 Move bookmarks to archives or favorites and add as many labels as you want.
 
-
 ### 🖍️ Highlights
 
 Highlight the important content of your bookmarks to easily find it later.
-
 
 ### 🗃️ Collections
 
 If you need a dedicated section with all your bookmarks from the past 2 weeks labeled with "cat", Readeck lets you save this search query into a collection so you can access it later.
 
-
 ### 🧩 Browser Extension
 
-Want to keep something for later while browsing? No need to copy and paste a link. Install the broswer extension and save bookmarks in one click!
+Want to keep something for later while browsing? No need to copy and paste a link. Install the browser extension and save bookmarks in one click!
 
 [For Mozilla Firefox](https://addons.mozilla.org/en-US/firefox/addon/readeck/) \
 [More Information and Source Code](https://codeberg.org/readeck/browser-extension)
-
 
 ### 📖 E-Book export
 
@@ -51,16 +55,13 @@ What's best than reading your collected articles on your e-reader? You can expor
 
 On top of that, you can directly access Readeck's catalog and collections from your e-reader if it supports OPDS.
 
-
 ### 🔎 Full text search
 
 Whether you need to find a vague piece of text from an article, or all the articles with a specific label or from a specific website, we've got you covered!
 
-
 ### 🚀 Fast!
 
 Readeck is a modern take on so called boring, but proven, technology pieces. It guaranties very quick response times and a smooth user experience.
-
 
 ### 🔒 Built for your privacy and long term archival
 
@@ -68,23 +69,40 @@ Will this article you like be online next year? In 10 year? Maybe not; maybe it'
 
 With the exception of videos, not a single request is made from your browser to an external website.
 
-## How to install
+
+## How to test or install
 
 Done reading this promotional content? Good! Want to try Readeck on your laptop or a server? Even better!
 
+### Container
+
+To install or test Readeck with Docker or Podman, simply run the image:
+
+```shell
+docker run --rm -ti -p 5000:5000 -v readeck-data:/readeck codeberg.org/readeck/readeck:latest
+```
+
+You'll find all the container images there: \
+[https://codeberg.org/readeck/-/packages/container/readeck/latest](https://codeberg.org/readeck/-/packages/container/readeck/latest)
+
 ### Binary file installation
 
-- Create a new directory wherever you like,
-- Go to the [releases](https://codeberg.org/readeck/readeck/releases) page and download the binary release matching your system, into the created directory,
-- Rename the file to `readeck` (or anything you fancy),
-- Make the `readeck` file executable if not already the case,
-- Go to the directory and launch the `readeck serve` command.
+Readeck is distributed as a single binary file. Using it is almost as easy as a container.
 
+- Create a new directory
+  ```shell
+  mkdir -p readeck-install
+  cd readeck-install
+  ```
+- Download the file matching your system from the [last release](https://codeberg.org/readeck/readeck/releases)
 
-```bash
-chmod a+x readeck
-./readeck serve
-```
+- Make this file executable
+- Launch Readeck with the `serve` argument, for example:
+  ```shell
+  ./readeck-0.9.1-linux-amd64 serve
+  ```
+
+### First time launch
 
 The first time you launch Readeck, you'll have to create a user (you!) and... that's it!
 
@@ -92,18 +110,57 @@ At the end of this short process, Readeck start and is accessible on:
 
 **[http://localhost:5000/](http://localhost:5000/)**
 
-### Container
+### Installation for production
 
-If you prefer to install or test Readeck with Docker or Podman, create a `readeck` folder somewhere and run the image:
+More documentation is coming but if you already know how deploy containers or new services on a server (ie. with systemd), it should be quite straightforward.
 
-```bash
-mkdir readeck
-cd readeck
-docker run --rm -ti -p 5000:5000 -v $(pwd):/readeck codeberg.org/readeck/readeck:latest
-```
 
-You'll find all the container images there: \
-[https://codeberg.org/readeck/-/packages/container/readeck/latest](https://codeberg.org/readeck/-/packages/container/readeck/latest)
+## FAQ
+
+### I can't save a link or it's incomplete
+
+Readeck usually can save the vast majority of news or blog articles but it sometimes fails to do so. The most common reasons are:
+
+- The page is behind a paywall,
+- The page needs JavaScript to render its content,
+- Your server is blocked,
+- The content extractor fails.
+
+The most common solution to these problems is to install and use the [Browser Extension](https://codeberg.org/readeck/browser-extension). The extension sends the page's full content to Readeck, so anything can be saved. Moreover, it lets you select the exact content you want to save.
+
+If a page really doesn't work at all, please [open an issue](https://codeberg.org/readeck/readeck/issues/new?template=.gitea%2fissue_template%2fextraction_error.yaml).
+
+### Can I share a saved bookmark with a public link?
+
+Not at the moment and it will likely never happen. With the extension, you can save content that's behind a paywall and sharing it publicly would be copyright infringement. \
+You can export or print an article to a PDF file though. What you'll do with it is up to you.
+
+### Is there a system to store my (paywall) website credentials?
+
+There isn't, for several reasons:
+
+- It's borderline illegal,
+- To safely store credentials without giving access to anyone but the user is next to impossible,
+- Such a system relies on web scrapping and is prone to break too often.
+
+Again, the [Browser Extension](https://codeberg.org/readeck/browser-extension) will let you save any content you can access from your web browser.
+
+### Is there a roadmap?
+
+There are [milestones](https://codeberg.org/readeck/readeck/milestones), where you can see what's planned for the future releases.
+
+For longer term goals, there are [projects](https://codeberg.org/readeck/readeck/projects)
+
+### Is there a Readeck twitter account?
+
+There isn't but you can follow [@readeck@mastodon.online](https://mastodon.online/@readeck) on Mastodon.
+
+### How can I report a security issue?
+
+If you think you found a security issue in Readeck, **please DO NOT create an issue**; they're public and it could potentially put all users at risk.
+
+Send an email to security@readeck.com and you'll receive a follow-up as soon as possible.
+
 
 ## Under the hood
 

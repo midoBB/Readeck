@@ -14,7 +14,7 @@ See it as a bookmark manager and a read later tool.
 ## Contents
 
 - [Features](#features)
-- [Installation](#how-to-install)
+- [Installation](#how-to-test-or-install)
 - [FAQ](#faq)
 - [Under the hood](#under-the-hood)
 - [License](#license)
@@ -169,15 +169,15 @@ This key principle guided every step of Readeck development.
 
 ### The ZIP file
 
-Every bookmark is stored in a single, immutable, ZIP file. Parts of this file (HTML content, images, etc.) are served directly by the application or converted to a web page or an e-book when needed.
+Every bookmark is stored in a single, immutable, ZIP file. Parts of this file (HTML content, images, etc.) are directly served by the application or converted to a web page or an e-book when needed.
 
 ### A simple database
 
-Readeck has a very simple database schema with a few tables and uses a lot of JSON fields when appropriate. The recommended database engine is SQLite for an installation with a few users.
+Readeck has a very simple database schema with a few tables (and a bit of clever JSON fields here and there). The recommended database engine is SQLite for most installations.
 
 ### A simple stack
 
-Unlike many modern web applications, Readeck is not a single page application built on top of an API. There's not even a separate worker process.
+Unlike many modern web applications, Readeck is not a single page application built on top of an API with impossible to install dependencies and a mess of background processes.
 
 Readeck is written in [Go](https://go.dev/) and all its content is rendered server side with some interactivity brought by [Stimulus](https://stimulus.hotwired.dev/) and [Turbo](https://turbo.hotwired.dev/).
 

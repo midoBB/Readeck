@@ -26,8 +26,8 @@ LABEL org.opencontainers.image.authors="olivier@readeck.com" \
       version="${VERSION}"
 
 ENV READECK_SERVER_HOST=0.0.0.0
-ENV READECK_SERVER_PORT=5000
-EXPOSE 5000/tcp
+ENV READECK_SERVER_PORT=8000
+EXPOSE 8000/tcp
 VOLUME /readeck
 WORKDIR /readeck
 CMD ["/bin/readeck", "serve", "-config", "config.toml"]

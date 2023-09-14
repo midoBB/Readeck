@@ -195,7 +195,7 @@ var Config = config{
 	},
 	Server: configServer{
 		Host: "127.0.0.1",
-		Port: 5000,
+		Port: 8000,
 		Session: configSession{
 			CookieName: "sxid",
 			MaxAge:     86400 * 30, // 60 days

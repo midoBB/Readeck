@@ -104,11 +104,9 @@ Readeck is distributed as a single binary file. Using it is almost as easy as a 
 
 ### First time launch
 
-The first time you launch Readeck, you'll have to create a user (you!) and... that's it!
-
-At the end of this short process, Readeck start and is accessible on:
-
+Once Readeck has started, it is accessible on: \
 **[http://localhost:8000/](http://localhost:8000/)**
+
 
 ### Installation for production
 

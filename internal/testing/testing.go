@@ -116,6 +116,7 @@ func NewTestApp(t *testing.T) *TestApp {
 	configs.InitConfiguration()
 
 	app.InitApp()
+	configs.Config.Commissioned = true
 
 	// Init test app
 	ta := &TestApp{

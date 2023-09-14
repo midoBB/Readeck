@@ -1,0 +1,40 @@
+{*
+SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
+
+SPDX-License-Identifier: AGPL-3.0-only
+*}
+{{ extends "./base" }}
+{{ import "/_libs/forms" }}
+
+{{ block title() }}Welcome to Readeck!{{ end }}
+
+{{ block main() }}
+
+<h1 class="title text-h3">Welcome to Readeck!</h1>
+<p class="my-4">We're delighted to have you on board; one more step and you're good to go.</p>
+
+<form action="{{ urlFor() }}" method="post">
+  {{ yield formErrors(form=.Form) }}
+  {{ yield csrfField() }}
+
+  {{ yield textField(field=.Form.Get("username"),
+                     label="Username",
+                     class="max") }}
+
+  {{ yield textField(field=.Form.Get("email"),
+                     type="email",
+                     label="Email address",
+                     class="max") }}
+
+  {{ yield passwordField(field=.Form.Get("password"),
+                         label="Password",
+                         class="max",
+                         help="must be at least 8 characters long") }}
+
+  <p class="text-sm my-4"><strong>Please note</strong>:
+  Your email address is not collected in any way.
+  It is stored only on your installation as a password recovery mean.</p>
+
+  <p><button class="btn-primary block w-full" type="submit">Create your account</button></p>
+</form>
+{{ end }}

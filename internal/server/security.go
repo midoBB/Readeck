@@ -184,10 +184,9 @@ func (s *Server) cspReport(w http.ResponseWriter, r *http.Request) {
 	if err := dec.Decode(&report); err != nil {
 		s.Log(r).WithError(err).Error("server error")
 		return
-	} else {
-		s.Log(r).WithField("report", report["csp-report"]).Warn("CSP violation")
 	}
 
+	s.Log(r).WithField("report", report["csp-report"]).Warn("CSP violation")
 	w.WriteHeader(http.StatusNoContent)
 }
 
@@ -204,6 +203,11 @@ func (s *Server) unauthorizedHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 		io.WriteString(w, "Unauthorized")
 	case unauthorizedRedir:
+		if !configs.Config.Commissioned {
+			s.Redirect(w, r, "/onboarding")
+			return
+		}
+
 		redir := s.AbsoluteURL(r, "/login")
 
 		// Add the current path as a redirect query parameter

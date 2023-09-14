@@ -41,13 +41,14 @@ func init() {
 // Because we don't need viper's mess for just storing configuration from
 // a source.
 type config struct {
-	Main      configMain      `json:"main" env:"-"`
-	Server    configServer    `json:"server" env:"-"`
-	Database  configDB        `json:"database" env:"-"`
-	Email     configEmail     `json:"email" env:"-"`
-	Extractor configExtractor `json:"extractor" env:"-"`
-	Worker    configWorker    `json:"worker" env:"-"`
-	secretKey []byte
+	Main         configMain      `json:"main" env:"-"`
+	Server       configServer    `json:"server" env:"-"`
+	Database     configDB        `json:"database" env:"-"`
+	Email        configEmail     `json:"email" env:"-"`
+	Extractor    configExtractor `json:"extractor" env:"-"`
+	Worker       configWorker    `json:"worker" env:"-"`
+	Commissioned bool            `json:"-" env:"-"`
+	secretKey    []byte
 }
 
 type configMain struct {

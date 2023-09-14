@@ -96,10 +96,6 @@ func runServer(_ context.Context, args []string) error {
 		return err
 	}
 
-	if err := onboarding.CLI(); err != nil {
-		log.WithError(err).Fatal()
-	}
-
 	ready := make(chan bool)
 	stop := make(chan os.Signal, 2)
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
@@ -177,6 +173,9 @@ func InitServer(s *server.Server) error {
 
 	// Auth routes
 	signin.SetupRoutes(s)
+
+	// Onboarding routes
+	onboarding.SetupRoutes(s)
 
 	// Dashboard routes
 	dashboard.SetupRoutes(s)

@@ -83,6 +83,11 @@ func (m *Manager) GetOne(expressions ...goqu.Expression) (*User, error) {
 	return &u, nil
 }
 
+// Count returns the number of user in the database
+func (m *Manager) Count() (int64, error) {
+	return db.Q().From(TableName).Count()
+}
+
 // Create insert a new user in the database. The password
 // must be present. It will be hashed and updated before insertion.
 func (m *Manager) Create(user *User) error {

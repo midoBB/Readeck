@@ -16,6 +16,7 @@ import (
 	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/pkg/extract/fftr"
@@ -95,6 +96,13 @@ func InitApp() {
 
 	// Init email sending
 	email.InitSender()
+
+	// Set the commissioned flag
+	if nbUser, err := users.Users.Count(); err != nil {
+		panic(err)
+	} else {
+		configs.Config.Commissioned = nbUser > 0
+	}
 }
 
 func appPreRun(flags *appFlags) error {

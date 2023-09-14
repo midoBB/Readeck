@@ -1,4 +1,13 @@
-# Changlog
+# Changelog
+
+## [0.9.2] - 2023-09-15
+### Added
+- New, web based, onboarding process
+- Code of Conduct
+
+### Fixed
+- Default listening port is now 8000
+- EPUB filenames length limit
 
 ## [0.9.1] - 2023-09-12
 ### Changed

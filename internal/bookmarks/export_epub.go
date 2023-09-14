@@ -29,20 +29,17 @@ func (api *apiRouter) exportBookmarksEPUB(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	// Define a title
-	var title string
-	if len(bookmarks) == 1 {
-		title = bookmarks[0].Title
-	} else if collection, ok := r.Context().Value(ctxCollectionKey{}).(*Collection); ok {
+	// Define a title, date and filename
+	title := "Readec Bookmarks"
+	date := bookmarks[0].Created
+	if collection, ok := r.Context().Value(ctxCollectionKey{}).(*Collection); ok {
 		// In case of a collection, we give the book a title and reverse
 		// the items order.
 		title = collection.Name
 		slices.Reverse(bookmarks)
-	} else {
-		title = "Readec Bookmarks"
+	} else if len(bookmarks) == 1 {
+		title = bookmarks[0].Title
 	}
-
-	filename := fmt.Sprintf("%s-%s", bookmarks[0].Created.Format("2006-01-02"), utils.Slug(title))
 
 	id := ""
 	for _, x := range bookmarks {
@@ -50,7 +47,13 @@ func (api *apiRouter) exportBookmarksEPUB(w http.ResponseWriter, r *http.Request
 	}
 
 	w.Header().Set("Content-Type", "application/epub+zip")
-	w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=%s.epub", filename))
+	w.Header().Set("Content-Disposition",
+		fmt.Sprintf(
+			"attachment; filename=%s-%s.epub",
+			date.Format("2006-01-02"),
+			utils.Slug(strings.TrimSuffix(utils.ShortText(title, 40), "...")),
+		),
+	)
 
 	err := func() (err error) {
 		var m *EpubMaker

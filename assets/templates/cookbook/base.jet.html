@@ -6,7 +6,12 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "/_layouts/sidemenu" }}
 
 {{- block sideMenu() -}}
-<h2 class="h-topnav border-b border-gray-200 uppercase flex items-center justify-center">Cookbook</h2>
+<h2
+  class="h-topnav border-b border-gray-200 uppercase flex items-center justify-center"
+  id="sidemenu-title"
+>
+  Cookbook
+</h2>
 <menu class="mt-4">
   <li><a data-current="{{ pathIs(`/cookbook`) }}" href="{{ urlFor(`/cookbook`) }}">Typography</a></li>
 </menu>

@@ -21,7 +21,10 @@ SPDX-License-Identifier: AGPL-3.0-only
       <span class="sr-only">Open menu</span>
     </button>
 
-    <nav class="sidemenu">
+    <nav
+      id="sidemenu"
+      class="sidemenu sidemenu--hidden"
+    >
       {{ try }}{{- yield sideMenu() -}}{{ end }}
     </nav>
 

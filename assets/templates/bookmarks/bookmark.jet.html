@@ -39,21 +39,30 @@ SPDX-License-Identifier: AGPL-3.0-only
         <h1 class="px-6 py-4 text-3xl font-serif print:px-0">{{ .Item.Title }}</h1>
       </div>
 
-      <input type="checkbox" id="--panel-toggle" class="peer hidden">
       <div class="bookmark-sidebar">
         <div class="
           h-topnav border-b border-b-gray-200 flex-shrink-0 flex flex-col
           print:hidden
         ">
-          <label for="--panel-toggle" class="
-            md:hidden
-            flex-grow flex items-center justify-end gap-2
-            px-4 bg-gray-100
-            cursor-pointer
-            select-none
-          "><span>More information</span>{{- yield icon(name="o-chevron-u", class="inline-block link", svgClass="w-6 h-6") -}}</label>
+          <button
+            aria-controls="bookmark-panel"
+            class="
+              md:hidden
+              flex-grow flex items-center justify-end gap-2
+              px-4 bg-gray-100
+              cursor-pointer
+              select-none"
+          >
+            <span>More information</span>
+            {{- yield icon(name="o-chevron-u", class="inline-block link", svgClass="w-6 h-6") -}}
+          </button>
         </div>
-        <div class="px-6 pt-4 pb-8 max-md:px-4 max-md:overflow-y-auto flex-grow print:pb-0 print:px-0">
+        <div
+          id="bookmark-panel"
+          tabindex="-1"
+          aria-label="More information"
+          class="panel--hidden px-6 pt-4 pb-8 max-md:px-4 max-md:overflow-y-auto flex-grow print:pb-0 print:px-0"
+        >
           {{ include "./components/sidebar" }}
         </div>
       </div>

@@ -127,14 +127,23 @@ body.no-js button[aria-controls="sidemenu"]
 
   @apply max-md:order-last
   @apply max-md:bottom-0 max-md:bg-white
-  @apply max-md:w-full max-md:max-h-topnav
+  @apply max-md:w-full max-md:h-auto
   @apply max-md:overflow-y-hidden
   @apply max-md:flex max-md:flex-col
   @apply max-md:shadow-panel-t
   @apply max-md:transition-all max-md:ease-in-out
 
-  @apply max-md:peer-checked:max-h-[60vh]
-  @apply max-md:peer-checked:[&>div>label>span>svg]:rotate-180
-
   @apply print:static print:max-w-none print:w-full print:h-auto print:overflow-visible
   @apply print:mb-8 print:border-b print:border-l-0
+
+body.js .bookmark-sidebar
+  @apply max-md:max-h-[60vh]
+
+body.js .bookmark-sidebar .panel--hidden
+  @apply max-md:hidden
+
+body.js .bookmark-sidebar [aria-expanded="true"][aria-controls="bookmark-panel"] svg
+  @apply rotate-180
+
+body.no-js .bookmark-sidebar
+  @apply max-md:relative

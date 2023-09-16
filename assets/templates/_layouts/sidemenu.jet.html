@@ -6,10 +6,12 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "/base" }}
 
 {{ block body() -}}
-  <div class="layout">
+  <div class="layout" data-controller="sidemenu">
     {{ include "/menu" }}
 
     <button
+      data-action="click->sidemenu#toggleMenu"
+      data-sidemenu-target="button"
       aria-expanded="false"
       aria-controls="sidemenu"
       class="hidden max-sm:flex
@@ -24,7 +26,9 @@ SPDX-License-Identifier: AGPL-3.0-only
     <nav
       id="sidemenu"
       tabindex="-1"
+      data-sidemenu-target="sidemenu"
       aria-labelledby="sidemenu-title"
+      data-action="keydown.esc->sidemenu#toggleMenu"
       class="sidemenu sidemenu--hidden"
     >
       {{ try }}{{- yield sideMenu() -}}{{ end }}

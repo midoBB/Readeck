@@ -34,6 +34,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 <body data-turbo="false"
  class="
   no-js bg-gray-50 text-gray-900 font-sans leading-tight tracking-normal
+  relative
   print:text-black print:bg-white
   overscroll-none
  ">
@@ -45,6 +46,16 @@ if ('noModule' in HTMLScriptElement.prototype) {
 }
 </script>
 {{ end -}}
+<nav
+  label="Quick access menu"
+  class="absolute -top-full focus-within:top-0 transition-[top] z-50 p-5 bg-white w-col-6"
+>
+  <menu class="list-none">
+    <li><a href="#menu">Menu</a></li>
+    {{ try }}{{- yield additionalMenuLink() -}}{{ end }}
+    <li><a href="#content">Main content</a></li>
+  </menu>
+</nav>
 {{ yield body() }}
 </body>
 </html>

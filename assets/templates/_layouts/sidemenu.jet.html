@@ -6,6 +6,11 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "/base" }}
 
 {{ block body() -}}
+  {{- yield quickAccessMenu(items=slice(
+    slice("menu", "Menu"),
+    slice("sidemenu", "Secondary Menu"),
+    slice("content", "Main content"),
+  )) -}}
   <div class="layout" data-controller="panel"
     data-panel-hidden-class="sidemenu--hidden"
     data-panel-body-class="max-sm:overflow-hidden"
@@ -37,7 +42,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{ try }}{{- yield sideMenu() -}}{{ end }}
     </nav>
 
-    <main class="layout-content">
+    <main class="layout-content" id="content">
       {{ yield flashes() }}
       {{ yield mainContent() }}
     </main>

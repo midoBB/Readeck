@@ -46,16 +46,6 @@ if ('noModule' in HTMLScriptElement.prototype) {
 }
 </script>
 {{ end -}}
-<nav
-  label="Quick access menu"
-  class="absolute -top-full focus-within:top-0 transition-[top] z-50 p-5 bg-white w-col-6"
->
-  <menu class="list-none">
-    <li><a href="#menu">Menu</a></li>
-    {{ try }}{{- yield additionalMenuLink() -}}{{ end }}
-    <li><a href="#content">Main content</a></li>
-  </menu>
-</nav>
 {{ yield body() }}
 </body>
 </html>

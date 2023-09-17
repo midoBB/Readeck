@@ -71,6 +71,17 @@ href="{{ assetURL(`img/icons.svg`) }}#{{ name }}"></use></svg></span>
 {{ yield icon(name="o-spinner", svgClass="animate-spin stroke-current")}}
 {{- end -}}
 
+{{- block quickAccessMenu(items=slice()) -}}
+{{- if items -}}
+<nav label="Quick access menu"
+ class="fixed -top-full focus-within:top-0 z-50 w-col-6 p-5 transition-[top] list-inside bg-white shadow-lg">
+  {{- range items -}}
+    <li><a href="#{{ .[0] }}" class="link">{{ .[1] }}</a></li>
+  {{- end -}}
+</nav>
+{{- end -}}
+{{- end -}}
+
 {{- block mainMenuItem(name, path, icon, current=false) -}}
 <li><a href="{{ urlFor(path) }}" data-current="{{ current }}">{{ yield icon(name=icon) }}
 <span class="sr-only">{{ name }}</span></a></li>

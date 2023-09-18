@@ -37,12 +37,19 @@ func (c *sqliteConnector) Open(dsn *url.URL) (*sql.DB, error) {
 	uri.Scheme = ""
 
 	// Set default options
-	q := uri.Query()
-	q.Set("_foreign_keys", "on")
-	q.Set("_journal", "WAL")
-	uri.RawQuery = q.Encode()
-
+	uri.RawQuery = ""
 	db, err := sql.Open("sqlite3", uri.String())
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = db.Exec(`
+		PRAGMA foreign_keys = 1;
+		PRAGMA journal_mode = WAL;
+		PRAGMA mmap_size = 30000000000;
+		PRAGMA secure_delete = 1;
+		PRAGMA synchronous = normal;
+	`)
 	if err != nil {
 		return nil, err
 	}

@@ -164,6 +164,7 @@ func applyMigrations() error {
 			}
 
 			if last.ID >= 0 { // Only apply migrations when there is a schema already
+				log.WithFields(log.Fields{"id": m.id, "name": m.name}).Info("applying migration")
 				for _, fn := range m.funcList {
 					if err := fn(tx, sfs); err != nil {
 						return err

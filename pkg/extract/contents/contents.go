@@ -6,6 +6,8 @@ package contents
 
 import (
 	"bytes"
+	"fmt"
+	"math/rand"
 	"regexp"
 	"sort"
 	"strings"
@@ -79,6 +81,9 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 		// Ensure we always start with a <section>
 		encloseArticle(body)
 
+		// Replaces id attributes in content
+		setIDs(body)
+
 		m.Dom = doc
 
 		return next
@@ -128,6 +133,36 @@ func findFirstContentNode(node *html.Node) *html.Node {
 	}
 
 	return findFirstContentNode(dom.FirstElementChild(node))
+}
+
+func setIDs(top *html.Node) {
+	// Set a random prefix for the whole document
+	chars := []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
+	rand.Shuffle(len(chars), func(i, j int) {
+		chars[i], chars[j] = chars[j], chars[i]
+	})
+	prefix := fmt.Sprintf("%s.%s", chars[0:2], chars[3:7])
+
+	// Update all nodes with an id attribute
+	for _, node := range dom.QuerySelectorAll(top, "[id]") {
+		if value := dom.GetAttribute(node, "id"); value != "" {
+			dom.SetAttribute(node, "id", fmt.Sprintf("%s.%s", prefix, value))
+		}
+	}
+
+	// Update all a[name], because we'll update the href="#..." later
+	for _, node := range dom.QuerySelectorAll(top, "a[name]") {
+		if value := dom.GetAttribute(node, "name"); value != "" {
+			dom.SetAttribute(node, "name", fmt.Sprintf("%s.%s", prefix, value))
+		}
+	}
+
+	// Update all nodes with an href attribute starting with "#"
+	for _, node := range dom.QuerySelectorAll(top, "[href^='#']") {
+		if value := strings.TrimPrefix(dom.GetAttribute(node, "href"), "#"); value != "" {
+			dom.SetAttribute(node, "href", fmt.Sprintf("#%s.%s", prefix, value))
+		}
+	}
 }
 
 func encloseArticle(top *html.Node) {

@@ -1,0 +1,222 @@
+// SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
+package zipfs
+
+import (
+	"archive/zip"
+	"compress/flate"
+	"errors"
+	"fmt"
+	"io"
+	"os"
+	"path"
+	"slices"
+	"strings"
+	"time"
+)
+
+// ZipRW is a very simple wrapper around zip.Reader and zip.Writer.
+// It can be used as a simple zip file creator or as a tool to copy
+// files from one zip file to another.
+type ZipRW struct {
+	dst     io.Writer
+	src     io.ReaderAt
+	srcSize int64
+
+	zr *zip.Reader
+	zw *zip.Writer
+
+	entries []string
+}
+
+// NewZipRW returns a new ZipRW using a destination writer and a source reader.
+// Both can be null but, obviously, it won't work very well with at least a writer.
+func NewZipRW(dst io.Writer, src io.ReaderAt, srcSize int64) *ZipRW {
+	return &ZipRW{
+		dst:     dst,
+		src:     src,
+		srcSize: srcSize,
+	}
+}
+
+func (z *ZipRW) init() (err error) {
+	if z.zw == nil && z.dst != nil {
+		z.zw = zip.NewWriter(z.dst)
+		z.zw.RegisterCompressor(zip.Deflate, func(out io.Writer) (io.WriteCloser, error) {
+			return flate.NewWriter(out, flate.BestSpeed)
+		})
+	}
+
+	if z.zr == nil && z.src != nil {
+		z.zr, err = zip.NewReader(z.src, z.srcSize)
+	}
+
+	return
+}
+
+func (z *ZipRW) get(name string) (*zip.File, error) {
+	for _, x := range z.zr.File {
+		if x.Name == name && !x.FileInfo().IsDir() {
+			return x, nil
+		}
+	}
+	return nil, os.ErrNotExist
+}
+
+func (z *ZipRW) makeDirs(filename string) (err error) {
+	parts := []string{}
+
+	for d, _ := path.Split(filename); d != ""; d, _ = path.Split(d) {
+		d = strings.TrimSuffix(d, "/")
+		parts = append(parts, d)
+	}
+	slices.Reverse(parts)
+	for _, x := range parts {
+		_, err = z.zw.CreateHeader(&zip.FileHeader{
+			Method:   zip.Store,
+			Name:     x + "/",
+			Modified: time.Now(),
+		})
+		if err != nil {
+			return
+		}
+		z.entries = append(z.entries, x)
+	}
+	return
+}
+
+// Close closes all writer resources, including the underlying io.Writer and io.Reader
+// when they implement their respective closer interfaces.
+func (z *ZipRW) Close() error {
+	var err error
+	if z.zw != nil {
+		z.zw.Close()
+	}
+	if c, ok := z.dst.(io.WriteCloser); ok {
+		err = c.Close()
+	}
+	if c, ok := z.src.(io.ReadCloser); ok {
+		err = c.Close()
+	}
+
+	return err
+}
+
+// AddDestFile adds a destination file to ZipRW.
+func (z *ZipRW) AddDestFile(name string) (err error) {
+	if z.dst != nil {
+		return errors.New("destination already set")
+	}
+	if z.dst, err = os.Create(name); err != nil {
+		return
+	}
+	return z.init()
+}
+
+// AddSourceFile adds a source file to ZipRW.
+func (z *ZipRW) AddSourceFile(name string) (err error) {
+	if z.src != nil {
+		return errors.New("source already set")
+	}
+
+	var r *os.File
+	if r, err = os.Open(name); err != nil {
+		return
+	}
+	var fi os.FileInfo
+	if fi, err = r.Stat(); err != nil {
+		return
+	}
+	z.src = r
+	z.srcSize = fi.Size()
+	return z.init()
+}
+
+// Source returns the underlying source zip.Reader
+func (z *ZipRW) Source() *zip.Reader {
+	return z.zr
+}
+
+// SrcFiles returns a list of zip.File from the source
+func (z *ZipRW) SrcFiles() []*zip.File {
+	if z.zr == nil {
+		return nil
+	}
+	return slices.DeleteFunc(z.zr.File, func(f *zip.File) bool {
+		return f.FileInfo().IsDir()
+	})
+}
+
+// Add adds a new file to the zip file.
+// It creates the necessary directories if needed.
+func (z *ZipRW) Add(h *zip.FileHeader, r io.Reader) error {
+	if h.FileInfo().IsDir() {
+		return errors.New("cannot add a directory directly")
+	}
+
+	h.Name = path.Clean(h.Name)
+	if slices.Contains(z.entries, h.Name) {
+		return fmt.Errorf(`file "%s" already exists`, h.Name)
+	}
+
+	if err := z.init(); err != nil {
+		return err
+	}
+
+	if z.zw == nil {
+		return errors.New("needs a zip writer to add content")
+	}
+
+	if err := z.makeDirs(h.Name); err != nil {
+		return err
+	}
+
+	w, err := z.zw.CreateHeader(h)
+	if err != nil {
+		return err
+	}
+	_, err = io.Copy(w, r)
+	if err == nil {
+		z.entries = append(z.entries, h.Name)
+	}
+
+	return err
+}
+
+// Copy copies the content of the file in the source to the destination.
+func (z *ZipRW) Copy(name string) error {
+	if err := z.init(); err != nil {
+		return err
+	}
+	if z.zr == nil || z.zw == nil {
+		return errors.New("needs a zip reader and zip writer to copy")
+	}
+
+	name = path.Clean(name)
+	if slices.Contains(z.entries, name) {
+		return fmt.Errorf(`file "%s" already exists`, name)
+	}
+
+	src, err := z.get(name)
+	if err != nil {
+		return err
+	}
+
+	if err := z.makeDirs(name); err != nil {
+		return err
+	}
+
+	r, err := src.OpenRaw()
+	if err != nil {
+		return err
+	}
+
+	w, err := z.zw.CreateRaw(&src.FileHeader)
+	if err != nil {
+		return err
+	}
+	_, err = io.Copy(w, r)
+	return err
+}

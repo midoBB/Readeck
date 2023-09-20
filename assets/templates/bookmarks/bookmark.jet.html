@@ -39,9 +39,9 @@ SPDX-License-Identifier: AGPL-3.0-only
         <h1 class="px-6 py-4 text-3xl font-serif print:px-0">{{ .Item.Title }}</h1>
       </div>
 
-      <div
-        class="bookmark-sidebar"
+      <div class="bookmark-sidebar"
         data-controller="panel"
+        data-panel-hidden-class="panel--hidden"
       >
         <div class="
           h-topnav border-b border-b-gray-200 flex-shrink-0 flex flex-col
@@ -78,7 +78,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       <div class="bookmark-content">
         <div class="
           sticky top-0 z-20 h-topnav
-          flex items-center 
+          flex items-center
           border-b border-b-gray-200
           bg-gray-50 text-gray-400 hfw:text-gray-700
           max-sm:top-topnav

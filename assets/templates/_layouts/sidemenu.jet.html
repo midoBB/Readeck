@@ -6,12 +6,15 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "/base" }}
 
 {{ block body() -}}
-  <div class="layout" data-controller="sidemenu">
+  <div class="layout" data-controller="panel"
+    data-panel-hidden-class="sidemenu--hidden"
+    data-panel-body-class="max-sm:overflow-hidden"
+  >
     {{ include "/menu" }}
 
     <button
-      data-action="click->sidemenu#toggleMenu"
-      data-sidemenu-target="button"
+      data-action="click->panel#toggleMenu"
+      data-panel-target="button"
       aria-expanded="false"
       aria-controls="sidemenu"
       class="hidden max-sm:flex
@@ -26,9 +29,9 @@ SPDX-License-Identifier: AGPL-3.0-only
     <nav
       id="sidemenu"
       tabindex="-1"
-      data-sidemenu-target="sidemenu"
+      data-panel-target="panel"
       aria-labelledby="sidemenu-title"
-      data-action="keydown.esc->sidemenu#toggleMenu"
+      data-action="keydown.esc->panel#toggleMenu"
       class="sidemenu sidemenu--hidden"
     >
       {{ try }}{{- yield sideMenu() -}}{{ end }}

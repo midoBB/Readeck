@@ -22,6 +22,10 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- end -}}
 
 {{- block body() -}}
+  {{- yield quickAccessMenu(items=slice(
+    slice("menu", "Menu"),
+    slice("content", "Main content"),
+  )) -}}
 <div class="layout layout--bookmark">
   {{ include "/menu" }}
 
@@ -30,7 +34,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   data-turbo-refresh-interval-value="3"
   class="bookmark-grid">
     {{- if !.Item.Loaded -}}
-      <div class="text-center mt-8">
+      <div class="text-center mt-8" id="content">
         <span class="text-3xl">{{ yield spinner() }}</span>
         <p class="text-lg">Bookmark is loading…</p>
       </div>
@@ -75,7 +79,7 @@ SPDX-License-Identifier: AGPL-3.0-only
         </div>
       </div>
 
-      <div class="bookmark-content">
+      <div class="bookmark-content" id="content">
         <div class="
           sticky top-0 z-20 h-topnav
           flex items-center

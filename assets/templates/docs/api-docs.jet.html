@@ -13,9 +13,13 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- end -}}
 
 {{- block body() -}}
+{{- yield quickAccessMenu(items=slice(
+  slice("menu", "Menu"),
+  slice("content", "Main content"),
+)) -}}
 <div class="flex h-screen max-sm:flex-col">
   {{ include "/menu" }}
-  <div class="grow md:overflow-y-auto">
+  <div class="grow md:overflow-y-auto" id="content">
     <elements-api id="api-doc" router="hash" layout="sidebar"
      tryItCredentialsPolicy="omit"
      apiDescriptionUrl="{{ .Schema }}"

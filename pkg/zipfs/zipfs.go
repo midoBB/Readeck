@@ -74,15 +74,22 @@ func (z *ZipRW) makeDirs(filename string) (err error) {
 	}
 	slices.Reverse(parts)
 	for _, x := range parts {
+		if slices.Contains(z.entries, x) {
+			return fmt.Errorf(`file "%s" already exists`, x)
+		}
+		if slices.Contains(z.entries, x+"/") {
+			continue
+		}
+
 		_, err = z.zw.CreateHeader(&zip.FileHeader{
 			Method:   zip.Store,
 			Name:     x + "/",
-			Modified: time.Now(),
+			Modified: time.Now().UTC(),
 		})
 		if err != nil {
 			return
 		}
-		z.entries = append(z.entries, x)
+		z.entries = append(z.entries, x+"/")
 	}
 	return
 }
@@ -173,6 +180,10 @@ func (z *ZipRW) Add(h *zip.FileHeader, r io.Reader) error {
 		return err
 	}
 
+	if h.Modified.IsZero() {
+		h.Modified = time.Now().UTC()
+	}
+
 	w, err := z.zw.CreateHeader(h)
 	if err != nil {
 		return err
@@ -218,5 +229,6 @@ func (z *ZipRW) Copy(name string) error {
 		return err
 	}
 	_, err = io.Copy(w, r)
+	z.entries = append(z.entries, name)
 	return err
 }

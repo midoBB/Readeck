@@ -6,12 +6,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "/_layouts/sidemenu" }}
 
 {{- block sideMenu() -}}
-<h2
-  class="h-topnav border-b border-gray-200 uppercase flex items-center justify-center"
-  id="sidemenu-title"
->
-  Settings
-</h2>
+{{- yield sideMenuTitle() content -}}Settings{{- end }}
+
 <menu class="mt-4">
   <li><a href="{{ urlFor(`/admin/users`) }}"
     data-current="{{ pathIs(`/admin/users`, `/admin/users/*`) }}">{{ yield icon(name="o-user") }} Users</a></li>

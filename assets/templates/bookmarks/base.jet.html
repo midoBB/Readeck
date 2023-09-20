@@ -6,12 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "/_layouts/sidemenu" }}
 
 {{- block sideMenu() -}}
-<h2
-  class="h-topnav border-b border-gray-200 uppercase flex items-center justify-center"
-  id="sidemenu-title"
->
-  Bookmarks
-</h2>
+{{- yield sideMenuTitle() content -}}Bookmarks{{- end }}
 
 <form class="mt-2 ml-0.5 mr-1 flex" action="{{ urlFor(`/bookmarks`) }}" method="get">
   <input type="hidden" name="bf" value="1" />

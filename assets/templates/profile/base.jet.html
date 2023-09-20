@@ -6,11 +6,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "/_layouts/sidemenu" }}
 
 {{- block sideMenu() -}}
-<h2
-  class="h-topnav border-b border-gray-200 uppercase flex items-center justify-center"
-  id="sidemenu-title"
->
-  User Settings
+{{- yield sideMenuTitle() content -}}User Settings{{- end }}
+
 </h2>
 <menu class="mt-4">
   <li><a href="{{ urlFor(`/profile`) }}"

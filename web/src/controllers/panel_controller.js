@@ -19,7 +19,7 @@ export default class extends Controller {
       this.panelTarget.focus()
     }
 
-    this.buttonTarget.setAttribute("aria-expanded", this.isSidemenuOn)
+    this.buttonTarget.setAttribute("aria-expanded", this.isVisible())
   }
 
   /**

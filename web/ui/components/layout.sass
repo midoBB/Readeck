@@ -11,14 +11,14 @@
 
 .layout
   @apply min-h-screen grid
-  @apply grid-cols-[theme(spacing.col-1)_theme(spacing.col-5)_auto]
+  grid-template-columns: theme("spacing.col-1") theme("spacing.col-5") auto
 
   @apply max-sm:flex max-sm:flex-col
 
   @apply print:block
 
 .layout--bookmark
-  @apply grid-cols-[theme(spacing.col-1)_auto]
+  grid-template-columns: theme("spacing.col-1") auto
 
 .layout-topnav
   @apply flex flex-col flex-shrink-0 gap-2
@@ -89,12 +89,12 @@ body.no-js button[aria-controls="sidemenu"]
 
 .bookmark-grid
   @apply grid
-  @apply grid-cols-[minmax(auto,_theme(spacing.col-22))_theme(spacing.col-6)]
+  grid-template-columns: minmax(auto, theme("spacing.col-22")) theme("spacing.col-6")
 
   @apply max-md:flex max-md:flex-col
   @apply max-md:min-h-screen
 
-  @apply max-sm:min-h-[calc(100vh-4rem)]
+  @apply max-sm:min-h-[calc(100vh-theme("spacing.topnav"))]
 
   @apply print:block
 

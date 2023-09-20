@@ -5,11 +5,13 @@
 package bookmarks
 
 import (
+	"archive/zip"
 	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
+	"os"
 	"path"
 	"path/filepath"
 	"runtime"
@@ -34,6 +36,7 @@ import (
 	"codeberg.org/readeck/readeck/pkg/extract/meta"
 	"codeberg.org/readeck/readeck/pkg/extract/rules"
 	"codeberg.org/readeck/readeck/pkg/superbus"
+	"codeberg.org/readeck/readeck/pkg/zipfs"
 )
 
 var (
@@ -455,25 +458,27 @@ func createZipFile(b *Bookmark, ex *extract.Extractor, arc *archiver.Archiver) e
 	b.Files = BookmarkFiles{}
 
 	// Create the zip file
-	z, err := newZipper(zipFile)
-	if err != nil {
-		return err
-	}
+	z := zipfs.NewZipRW(nil, nil, 0)
 	defer func() {
-		err := z.close()
-		if err != nil {
+		if err := z.Close(); err != nil {
 			panic(err)
 		}
 	}()
 
-	// Add images to the zipfile
-	if err = z.addDirectory("img"); err != nil {
+	if err = os.MkdirAll(filepath.Dir(zipFile), 0750); err != nil {
+		return err
+	}
+	if err = z.AddDestFile(zipFile); err != nil {
 		return err
 	}
 
+	// Add images
 	for k, p := range ex.Drop().Pictures {
 		name := path.Join("img", p.Name(k))
-		if err = z.addFile(name, p.Bytes()); err != nil {
+		if err = z.Add(
+			&zip.FileHeader{Name: name},
+			bytes.NewReader(p.Bytes()),
+		); err != nil {
 			return err
 		}
 		b.Files[k] = &BookmarkFile{name, p.Type, p.Size}
@@ -481,7 +486,10 @@ func createZipFile(b *Bookmark, ex *extract.Extractor, arc *archiver.Archiver) e
 
 	// Add HTML content
 	if arc != nil && len(arc.Result) > 0 {
-		if err = z.addCompressedFile("index.html", arc.Result); err != nil {
+		if err = z.Add(
+			&zip.FileHeader{Name: "index.html", Method: zip.Deflate},
+			bytes.NewReader(arc.Result),
+		); err != nil {
 			return err
 		}
 		b.Files["article"] = &BookmarkFile{Name: "index.html"}
@@ -489,20 +497,22 @@ func createZipFile(b *Bookmark, ex *extract.Extractor, arc *archiver.Archiver) e
 
 	// Add assets
 	if arc != nil && len(arc.Cache) > 0 {
-		if err = z.addDirectory(resourceDirName); err != nil {
-			return err
-		}
-
 		for uri, asset := range arc.Cache {
 			fname := path.Join(resourceDirName, getURLfilename(uri, asset.ContentType))
-			if err = z.addFile(fname, asset.Data); err != nil {
+			if err = z.Add(
+				&zip.FileHeader{Name: fname},
+				bytes.NewReader(asset.Data),
+			); err != nil {
 				return err
 			}
 		}
 	}
 
 	// Add the log
-	if err = z.addCompressedFile("log", []byte(strings.Join(ex.Logs, "\n"))); err != nil {
+	if err = z.Add(
+		&zip.FileHeader{Name: "log", Method: zip.Deflate},
+		strings.NewReader(strings.Join(ex.Logs, "\n")),
+	); err != nil {
 		return err
 	}
 	b.Files["log"] = &BookmarkFile{Name: "log"}
@@ -514,7 +524,10 @@ func createZipFile(b *Bookmark, ex *extract.Extractor, arc *archiver.Archiver) e
 	if err = enc.Encode(ex.Drop()); err != nil {
 		return err
 	}
-	if err = z.addCompressedFile("props.json", buf.Bytes()); err != nil {
+	if err = z.Add(
+		&zip.FileHeader{Name: "props.json", Method: zip.Deflate},
+		buf,
+	); err != nil {
 		return err
 	}
 	b.Files["props"] = &BookmarkFile{Name: "props.json"}

@@ -76,6 +76,12 @@ href="{{ assetURL(`img/icons.svg`) }}#{{ name }}"></use></svg></span>
 <span class="sr-only">{{ name }}</span></a></li>
 {{- end -}}
 
+{{- block sideMenuTitle() -}}
+<h2 id="sidemenu-title"
+  class="h-topnav border-b border-gray-200 uppercase flex items-center justify-center"
+>{{- yield content -}}</h2>
+{{- end -}}
+
 {{- block sideMenuItem(name, path, icon, current=false) -}}
 <li><a href="{{ urlFor(path) }}" data-current="{{ current }}">{{ yield icon(name=icon) }}
 {{ name }}</a></li>

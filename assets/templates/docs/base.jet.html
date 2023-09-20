@@ -6,7 +6,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "/_layouts/sidemenu" }}
 
 {{- block sideMenu() -}}
-<h2 class="h-topnav border-b border-gray-200 uppercase flex items-center justify-center">Readeck Help</h2>
+{{- yield sideMenuTitle() content -}}Readeck Help{{- end }}
+
+</h2>
 <menu class="my-4">
   {{- if .TOC -}}
     <menu class="mt-4">

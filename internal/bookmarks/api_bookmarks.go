@@ -554,6 +554,7 @@ func (api *apiRouter) withCollectionFilters(next http.Handler) http.Handler {
 
 		// Apply filters
 		f := newCollectionForm()
+		f.Filters = newContextFilterForm(r.Context())
 		f.setCollection(c)
 		f.Filters.order = []exp.OrderedExpression{goqu.I("created").Desc()}
 		ctx = f.Filters.saveContext(ctx)

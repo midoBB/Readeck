@@ -192,7 +192,11 @@ func (c *Writer) WritePackage() error {
 	enc.Indent("", "  ")
 	f.Write([]byte(xml.Header))
 	f.Write([]byte(ncxDoctype))
-	return enc.Encode(toc)
+	if err = enc.Encode(toc); err != nil {
+		return err
+	}
+
+	return c.Flush()
 }
 
 // addDirectory adds a new directory to the zip container.
@@ -201,12 +205,15 @@ func (c *Writer) addDirectory(name string) error {
 		name += "/"
 	}
 
-	_, err := c.CreateHeader(&zip.FileHeader{
+	if _, err := c.CreateHeader(&zip.FileHeader{
 		Method:   zip.Deflate,
 		Name:     name,
 		Modified: time.Now(),
-	})
-	return err
+	}); err != nil {
+		return err
+	}
+
+	return c.Flush()
 }
 
 // addFile adds a new file to the container.
@@ -219,6 +226,9 @@ func (c *Writer) addFile(name string, method uint16, r io.Reader) error {
 	if err != nil {
 		return err
 	}
-	_, err = io.Copy(f, r)
-	return err
+	if _, err = io.Copy(f, r); err != nil {
+		return err
+	}
+
+	return c.Flush()
 }

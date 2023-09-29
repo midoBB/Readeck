@@ -33,7 +33,7 @@ export XGO_PACKAGE ?= src.techknowlogick.com/xgo@latest
 export XGO_FLAGS ?= ""
 
 SITECONFIG_SRC=./ftr-site-config
-SITECONFIG_DEST=pkg/extract/fftr/site-config/standard
+SITECONFIG_DEST=pkg/extract/contentscripts/assets/site-config
 
 
 # -------------------------------------------------------------------
@@ -166,8 +166,8 @@ serve:
 		--build.bin "dist/readeck" \
 		--build.args_bin "serve" \
 		--build.exclude_dir "" \
-		--build.include_dir "assets,docs,internal,pkg" \
-		--build.include_ext "go,html,json,tmpl,toml" \
+		--build.include_dir "assets,configs,docs,internal,pkg" \
+		--build.include_ext "go,html,json,js,tmpl,toml" \
 		--build.delay 1000
 
 # Watch the docs/src folder and rebuild the documentation

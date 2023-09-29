@@ -235,15 +235,6 @@ Copyright (c) 2021 cristaltech
 """
 
 [[licenses]]
-name = "ajson"
-license = "MIT"
-author = "Pyzhov Stepan"
-url = "https://github.com/spyzhov/ajson"
-copyright = """
-Copyright (c) 2019 Pyzhov Stepan
-"""
-
-[[licenses]]
 name = "parse"
 license = "MIT"
 author = "Taco de Wolff"

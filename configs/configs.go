@@ -96,15 +96,10 @@ type configWorker struct {
 }
 
 type configExtractor struct {
-	NumWorkers int                `json:"workers" env:"-"`
-	SiteConfig []configSiteConfig `json:"site_config" env:"-"`
-	DeniedIPs  []configIPNet      `json:"denied_ips" env:"-"`
-	ProxyMatch []configProxyMatch `json:"proxy_match" env:"-"`
-}
-
-type configSiteConfig struct {
-	Name string `json:"name" env:"-"`
-	Src  string `json:"src" env:"-"`
+	NumWorkers     int                `json:"workers" env:"-"`
+	ContentScripts []string           `json:"content_scripts" env:"-"`
+	DeniedIPs      []configIPNet      `json:"denied_ips" env:"-"`
+	ProxyMatch     []configProxyMatch `json:"proxy_match" env:"-"`
 }
 
 type configIPNet struct {
@@ -212,8 +207,8 @@ var Config = config{
 		StartWorker: true,
 	},
 	Extractor: configExtractor{
-		NumWorkers: runtime.NumCPU(),
-		SiteConfig: []configSiteConfig{},
+		NumWorkers:     runtime.NumCPU(),
+		ContentScripts: []string{"data/content-scripts"},
 		DeniedIPs: []configIPNet{
 			newConfigIPNet("127.0.0.0/8"),
 			newConfigIPNet("::1/128"),

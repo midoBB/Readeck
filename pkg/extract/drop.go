@@ -8,11 +8,11 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"mime"
 	"net/http"
 	"net/url"
 	"regexp"
+	"slices"
 	"sort"
 	"strings"
 	"time"
@@ -28,6 +28,8 @@ import (
 var (
 	rxAuthor = regexp.MustCompile(`^(?i)by(\s*:)?\s+`)
 	rxSpaces = regexp.MustCompile(`\s+`)
+
+	mediaTypes = []string{"photo", "video", "audio", "music"}
 )
 
 // Drop is the result of a content extraction of one resource.
@@ -134,8 +136,7 @@ func (d *Drop) IsHTML() bool {
 
 // IsMedia returns true when the document type is a media type
 func (d *Drop) IsMedia() bool {
-	t := d.DocumentType
-	return t == "photo" || t == "video" || t == "audio" || t == "music"
+	return slices.Contains(mediaTypes, d.DocumentType)
 }
 
 // UnescapedURL returns the Drop's URL unescaped, for storage.
@@ -183,7 +184,7 @@ func (d *Drop) loadHTMLBody(rsp *http.Response) error {
 	var err error
 	var body []byte
 
-	if body, err = ioutil.ReadAll(rsp.Body); err != nil {
+	if body, err = io.ReadAll(rsp.Body); err != nil {
 		return err
 	}
 
@@ -204,7 +205,7 @@ func (d *Drop) loadHTMLBody(rsp *http.Response) error {
 
 	if enc != encoding.Nop {
 		r := transform.NewReader(bytes.NewReader(body), enc.NewDecoder())
-		body, _ = ioutil.ReadAll(r)
+		body, _ = io.ReadAll(r)
 	}
 
 	// Eventually set the original charset and UTF8 body

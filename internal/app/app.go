@@ -11,15 +11,16 @@ import (
 	"net/url"
 	"os"
 	"path"
+	"path/filepath"
 
 	"github.com/cristalhq/acmd"
 	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/email"
-	"codeberg.org/readeck/readeck/pkg/extract/fftr"
 )
 
 var commands = []acmd.Command{}
@@ -61,15 +62,16 @@ func InitApp() {
 		log.SetLevel(log.TraceLevel)
 	}
 
-	// Load site-config user folders
-	for _, x := range configs.Config.Extractor.SiteConfig {
-		addSiteConfig(x.Name, x.Src)
-	}
-
 	// Create required folders
 	if err := createFolder(configs.Config.Main.DataDirectory); err != nil {
 		log.WithError(err).Fatal("Can't create data directory")
 	}
+
+	// Create content-scripts folder
+	if err := createFolder(filepath.Join(configs.Config.Main.DataDirectory, "content-scripts")); err != nil {
+		log.WithError(err).Fatal("Can't create content-scripts directory")
+	}
+	bookmarks.LoadContentScripts()
 
 	// Database URL
 	dsn, err := url.Parse(configs.Config.Database.Source)
@@ -182,24 +184,4 @@ func createFolder(name string) error {
 	}
 
 	return nil
-}
-
-func addSiteConfig(name, src string) {
-	stat, err := os.Stat(src)
-	l := log.WithField("path", src)
-	if err != nil {
-		l.WithError(err).Warn("can't open site-config folder")
-		return
-	}
-	if !stat.IsDir() {
-		l.Warn("site-config is not a folder")
-		return
-	}
-
-	f := &fftr.ConfigFolder{
-		FS:   os.DirFS(src),
-		Name: name,
-	}
-
-	fftr.DefaultConfigurationFolders = append(fftr.ConfigFolderList{f}, fftr.DefaultConfigurationFolders...)
 }

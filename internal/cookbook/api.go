@@ -20,9 +20,8 @@ import (
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"codeberg.org/readeck/readeck/pkg/extract/contents"
-	"codeberg.org/readeck/readeck/pkg/extract/fftr"
+	"codeberg.org/readeck/readeck/pkg/extract/contentscripts"
 	"codeberg.org/readeck/readeck/pkg/extract/meta"
-	"codeberg.org/readeck/readeck/pkg/extract/rules"
 )
 
 // cookbookAPI is the base cookbook api router.
@@ -74,21 +73,24 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ex.AddProcessors(
+		contentscripts.LoadScripts(
+			bookmarks.GetContentScripts(api.srv.Log(r).Logger)...,
+		),
 		meta.ExtractMeta,
 		meta.ExtractOembed,
-		rules.ApplyRules,
+		contentscripts.ProcessMeta,
 		meta.SetDropProperties,
 		meta.ExtractFavicon,
 		meta.ExtractPicture,
-		fftr.LoadConfiguration,
-		fftr.ReplaceStrings,
-		fftr.FindContentPage,
-		fftr.ExtractAuthor,
-		fftr.ExtractDate,
-		fftr.FindNextPage,
-		fftr.ExtractBody,
-		fftr.StripTags,
-		fftr.GoToNextPage,
+		contentscripts.LoadSiteConfig,
+		contentscripts.ReplaceStrings,
+		contentscripts.FindContentPage,
+		contentscripts.ExtractAuthor,
+		contentscripts.ExtractDate,
+		contentscripts.FindNextPage,
+		contentscripts.ExtractBody,
+		contentscripts.StripTags,
+		contentscripts.GoToNextPage,
 		contents.Readability(),
 		bookmarks.CleanDomProcessor,
 		contents.Text,
@@ -154,41 +156,42 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 
 func (api *cookbookAPI) loadURLs() {
 	api.urls = map[string][]string{}
+	i := 0
 
-	for i, configFS := range fftr.DefaultConfigurationFolders {
-		files, err := fs.ReadDir(configFS, ".")
+	fs.WalkDir(contentscripts.SiteConfigFiles, ".", func(p string, d fs.DirEntry, err error) error {
+		defer func() {
+			i++
+		}()
+
 		if err != nil {
-			panic(err)
+			return err
+		}
+		if d.IsDir() || path.Ext(d.Name()) != ".json" {
+			return nil
 		}
 
-		// Parse config files
-		for _, x := range files {
-			if x.IsDir() || (path.Ext(x.Name()) != ".toml" && path.Ext(x.Name()) != ".json") {
-				continue
-			}
+		f, err := contentscripts.SiteConfigFiles.Open(p)
+		if err != nil {
+			return nil
+		}
+		defer f.Close()
 
-			f, err := configFS.Open(x.Name())
-			if err != nil {
-				panic(err)
-			}
-			cfg, err := fftr.NewConfig(f, path.Ext(x.Name())[1:])
-			if err != nil {
-				log.WithField(
-					"cf", fmt.Sprintf("%s/%s", configFS.Name, x.Name()),
-				).WithError(err).Error("error parsing file")
-			}
-			f.Close()
+		cfg, err := contentscripts.NewSiteConfig(f)
+		if err != nil {
+			log.WithField("cf", d.Name()).WithError(err).Error("error parsing file")
+			return nil
+		}
 
-			if cfg != nil && len(cfg.Tests) > 0 {
-				name := fmt.Sprintf("%d - %s - %s", i, configFS.Name,
-					path.Base(x.Name()))
-				api.urls[name] = make([]string, len(cfg.Tests))
-				for i := range cfg.Tests {
-					api.urls[name][i] = cfg.Tests[i].URL
-				}
+		if cfg != nil && len(cfg.Tests) > 0 {
+			name := fmt.Sprintf("%d - %s", i, path.Base(d.Name()))
+			api.urls[name] = make([]string, len(cfg.Tests))
+			for i := range cfg.Tests {
+				api.urls[name][i] = cfg.Tests[i].URL
 			}
 		}
-	}
+
+		return nil
+	})
 }
 
 type extractImg struct {

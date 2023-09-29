@@ -1,6 +1,0 @@
-# SPDX-FileCopyrightText: © 2020 Olivier Meunier <olivier@neokraft.net>
-#
-# SPDX-License-Identifier: CC0-1.0
-
-[http_headers]
-  User-Agent="curl/7.0"

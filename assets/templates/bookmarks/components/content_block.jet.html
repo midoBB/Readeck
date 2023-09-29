@@ -17,7 +17,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 >
 
 {{- if .Item.Type == "article" -}}
-
   <div class="max-w-3xl mx-auto print:max-w-none relative">
     <div class="hidden absolute z-50"
      data-annotations-target="controlls">
@@ -36,13 +35,13 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{- unsafeWrite(.HTML) -}}
     </div>
   </div>
-{{- else if .Item.Type == "photo" -}}
+{{- else if .Item.Type == "photo" && isset(.Item.Resources.image) -}}
   <figure>
     <img alt="" src="{{ .Item.Resources.image.Src }}"
     class="mx-auto"
     width="{{ .Item.Resources.image.Width }}" height="{{ .Item.Resources.image.Height }}">
   </figure>
-{{- else if .Item.Type == "video" -}}
+{{- else if .Item.Type == "video" && isset(.Item.Resources.image) && .Item.Embed -}}
   <div class="video-wrapper">
     <div class="video-player" data-controller="video">
       <img alt="" src="{{ .Item.Resources.image.Src }}"

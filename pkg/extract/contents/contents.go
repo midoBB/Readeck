@@ -6,6 +6,7 @@ package contents
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"math/rand"
 	"regexp"
@@ -27,10 +28,33 @@ var (
 	rxNewLine = regexp.MustCompile(`\r?\n\s*(\r?\n)+`)
 )
 
+type ctxKeyReadabilityEnabled struct{}
+
+// IsReadabilityEnabled returns true when readability is enabled
+// in the extractor context.
+func IsReadabilityEnabled(e *extract.Extractor) bool {
+	if v, ok := e.Context.Value(ctxKeyReadabilityEnabled{}).(bool); ok {
+		return v
+	}
+	// Default to true when the context value doest not exist
+	return true
+}
+
+// EnableReadability enables or disable readability in the extractor
+// context.
+func EnableReadability(e *extract.Extractor, v bool) {
+	e.Context = context.WithValue(e.Context, ctxKeyReadabilityEnabled{}, v)
+}
+
 // Readability is a processor that executes readability on the drop content.
 func Readability(options ...func(*readability.Parser)) extract.Processor {
 	return func(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
 		if m.Step() != extract.StepDom {
+			return next
+		}
+
+		if !IsReadabilityEnabled(m.Extractor) {
+			m.Log.Warn("readability is disabled by flag")
 			return next
 		}
 

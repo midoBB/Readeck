@@ -103,6 +103,15 @@ A string with the document title.
 
 The document type. When settings this value, it must be one of "article", "photo" or "video".
 
+#### `$.html` (write only)
+
+When settings a string to this variable, the whole extracted content is replaced. This is an advanced option and should only be used for content that are not articles (photos or videos).
+
+#### `$.readability`
+
+Whether readability is enabled for this content. It can be useful to set it to false when setting an HTML content with `$.html`.
+
+Please note that even though readability can be disabled, it won't disable the last cleaning pass that removes unwanted tags and attributes.
 
 ### unescapeURL
 

@@ -52,7 +52,7 @@ var elementMap = map[string]string{
 	"fieldset":   "div",
 	"figcaption": "",
 	"figure":     "",
-	"font":       "",
+	"font":       "span",
 	"footer":     "",
 	"form":       "div",
 	"frame":      "-", // remove

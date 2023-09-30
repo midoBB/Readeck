@@ -167,7 +167,8 @@ func (p *processMessageProxy) setHTML(val string) error {
 }
 
 func (p *processMessageProxy) getReadability() bool {
-	return contents.IsReadabilityEnabled(p.getProcessMessage().Extractor)
+	enabled, _ := contents.IsReadabilityEnabled(p.getProcessMessage().Extractor)
+	return enabled
 }
 
 func (p *processMessageProxy) setReadability(val bool) {

@@ -32,12 +32,12 @@ type ctxKeyReadabilityEnabled struct{}
 
 // IsReadabilityEnabled returns true when readability is enabled
 // in the extractor context.
-func IsReadabilityEnabled(e *extract.Extractor) bool {
+func IsReadabilityEnabled(e *extract.Extractor) (enabled bool, forced bool) {
 	if v, ok := e.Context.Value(ctxKeyReadabilityEnabled{}).(bool); ok {
-		return v
+		return v, true
 	}
 	// Default to true when the context value doest not exist
-	return true
+	return true, false
 }
 
 // EnableReadability enables or disable readability in the extractor
@@ -53,12 +53,13 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 			return next
 		}
 
-		if !IsReadabilityEnabled(m.Extractor) {
+		readabilityEnabled, readabilityForced := IsReadabilityEnabled(m.Extractor)
+		if !readabilityEnabled {
 			m.Log.Warn("readability is disabled by flag")
 			return next
 		}
 
-		if m.Extractor.Drop().IsMedia() {
+		if m.Extractor.Drop().IsMedia() && !readabilityForced {
 			m.ResetContent()
 			return next
 		}

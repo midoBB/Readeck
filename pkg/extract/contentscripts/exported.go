@@ -7,6 +7,7 @@ package contentscripts
 import (
 	"bytes"
 	"context"
+	"fmt"
 	"net/url"
 	"slices"
 
@@ -125,9 +126,13 @@ func (p *processMessageProxy) getType() string {
 	return p.getDrop().DocumentType
 }
 
-func (p *processMessageProxy) setType(val string) {
+func (p *processMessageProxy) setType(val string) error {
+	if !slices.Contains([]string{"article", "photo", "video"}, val) {
+		return fmt.Errorf(`"%s" is not a valid type`, val)
+	}
 	p.getDrop().DocumentType = val
 	p.vm.GetLogger().WithField("document_type", val).Debug("set property")
+	return nil
 }
 
 type dropMetaProxy struct {

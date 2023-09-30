@@ -101,7 +101,7 @@ A string with the document title.
 
 #### `$.type`
 
-The document type.
+The document type. When settings this value, it must be one of "article", "photo" or "video".
 
 
 ### unescapeURL

@@ -5,6 +5,7 @@
 package contentscripts_test
 
 import (
+	"errors"
 	"strconv"
 	"testing"
 
@@ -194,6 +195,39 @@ func TestExported(t *testing.T) {
 				if assert.NoError(t, err) {
 					assert.Equal(t, test.expected, test.value(v, extractor.Drop()))
 				}
+			})
+		}
+	})
+
+	t.Run("processMessageProxy errors", func(t *testing.T) {
+		tests := []struct {
+			src      string
+			value    func(value goja.Value, drop *extract.Drop) any
+			expected error
+		}{
+			{
+				`$.type = "not valid"`,
+				func(value goja.Value, d *extract.Drop) any {
+					return d.DocumentType
+				},
+				errors.New("is not a valid type"),
+			},
+		}
+
+		for i, test := range tests {
+			t.Run(strconv.Itoa(i+1), func(t *testing.T) {
+				extractor, _ := extract.New("https://host.example.net/")
+
+				pm := &extract.ProcessMessage{
+					Extractor: extractor,
+				}
+
+				vm := contentscripts.New()
+				vm.SetProcessMessage(pm)
+
+				_, err := vm.RunProgram(testProgram("test", test.src))
+				assert.Error(t, err)
+				assert.ErrorContains(t, err, test.expected.Error())
 			})
 		}
 	})

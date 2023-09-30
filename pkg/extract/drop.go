@@ -17,6 +17,7 @@ import (
 	"strings"
 	"time"
 
+	"codeberg.org/readeck/readeck/pkg/bleach"
 	"golang.org/x/net/html"
 	"golang.org/x/net/html/charset"
 	"golang.org/x/net/idna"
@@ -210,7 +211,7 @@ func (d *Drop) loadHTMLBody(rsp *http.Response) error {
 
 	// Eventually set the original charset and UTF8 body
 	d.Charset = encName
-	d.Body = body
+	d.Body = []byte(bleach.SanitizeString(string(body)))
 
 	return nil
 }

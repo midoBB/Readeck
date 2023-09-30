@@ -9,6 +9,7 @@ import (
 	"io"
 	"time"
 
+	"codeberg.org/readeck/readeck/pkg/bleach"
 	"github.com/google/uuid"
 )
 
@@ -103,9 +104,9 @@ type Serie struct {
 // NewLinkEntry creates a navigation link
 func NewLinkEntry(title string, updated time.Time, href string) Entry {
 	return Entry{
-		Title:      SanitizeString(title),
+		Title:      bleach.SanitizeString(title),
 		Updated:    *AtomDate(updated),
-		Content:    &Content{ContentType: "text", Content: SanitizeString(title)},
+		Content:    &Content{ContentType: "text", Content: bleach.SanitizeString(title)},
 		ID:         URLID(href),
 		Identifier: URLID(href),
 		Links: []Link{
@@ -116,18 +117,6 @@ func NewLinkEntry(title string, updated time.Time, href string) Entry {
 			},
 		},
 	}
-}
-
-// SanitizeString replaces any control character in a string by a space
-func SanitizeString(s string) string {
-	res := []rune(s)
-	for i, x := range res {
-		if x <= 25 {
-			res[i] = rune(' ')
-		}
-	}
-
-	return string(res)
 }
 
 // UUID is a wrapper around uuid.UUID that can be marshaled into

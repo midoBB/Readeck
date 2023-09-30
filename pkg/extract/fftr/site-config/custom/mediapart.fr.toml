@@ -1,6 +1,0 @@
-# SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
-#
-# SPDX-License-Identifier: CC0-1.0
-
-body_selectors = ["//div[contains(concat(' ',normalize-space(@class),' '),' content-article ')]"]
-strip_id_or_class = ["cookie-consent-banner-content"]

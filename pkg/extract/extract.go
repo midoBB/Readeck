@@ -10,7 +10,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net"
 	"net/http"
 	"net/url"
@@ -36,7 +35,6 @@ type (
 	// ProcessMessage holds the process message that is passed (and changed)
 	// by the subsequent processes.
 	ProcessMessage struct {
-		Context   context.Context
 		Extractor *Extractor
 		Log       *log.Entry
 		Dom       *html.Node
@@ -47,7 +45,6 @@ type (
 		maxDrops     int
 		step         ProcessStep
 		canceled     bool
-		values       map[string]interface{}
 	}
 
 	// ProxyMatcher describes a mapping of host/url for proxy dispatch.
@@ -97,16 +94,6 @@ func (m *ProcessMessage) ResetPosition() {
 	}
 	m.resetCounter++
 	m.position = -1
-}
-
-// Value returns a stored message value.
-func (m *ProcessMessage) Value(name string) interface{} {
-	return m.values[name]
-}
-
-// SetValue sets a new message value.
-func (m *ProcessMessage) SetValue(name string, value interface{}) {
-	m.values[name] = value
 }
 
 // ResetContent empty the message Dom and all the drops body
@@ -307,7 +294,6 @@ func (e *Extractor) NewProcessMessage(step ProcessStep) *ProcessMessage {
 		resetCounter: 0,
 		maxReset:     10,
 		maxDrops:     100,
-		values:       make(map[string]interface{}),
 	}
 }
 
@@ -318,7 +304,7 @@ func (e *Extractor) GetLogger() *log.Logger {
 	logger := log.New()
 	logger.Formatter = log.StandardLogger().Formatter
 	logger.Level = log.DebugLevel
-	logger.SetOutput(ioutil.Discard)
+	logger.SetOutput(io.Discard)
 	logger.AddHook(&messageLogHook{e})
 
 	return logger

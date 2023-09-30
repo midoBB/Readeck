@@ -32,9 +32,8 @@ import (
 	"codeberg.org/readeck/readeck/pkg/archiver"
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"codeberg.org/readeck/readeck/pkg/extract/contents"
-	"codeberg.org/readeck/readeck/pkg/extract/fftr"
+	"codeberg.org/readeck/readeck/pkg/extract/contentscripts"
 	"codeberg.org/readeck/readeck/pkg/extract/meta"
-	"codeberg.org/readeck/readeck/pkg/extract/rules"
 	"codeberg.org/readeck/readeck/pkg/superbus"
 	"codeberg.org/readeck/readeck/pkg/zipfs"
 )
@@ -252,23 +251,26 @@ func extractPageHandler(data interface{}) {
 	}
 
 	ex.AddProcessors(
+		contentscripts.LoadScripts(
+			GetContentScripts(ex.GetLogger())...,
+		),
 		meta.ExtractMeta,
 		meta.ExtractOembed,
-		rules.ApplyRules,
+		contentscripts.ProcessMeta,
 		meta.SetDropProperties,
 		meta.ExtractFavicon,
 		meta.ExtractPicture,
-		fftr.LoadConfiguration,
-		fftr.ReplaceStrings,
+		contentscripts.LoadSiteConfig,
+		contentscripts.ReplaceStrings,
 		// Only when the page is not in cache
-		conditionnalProcessor(!ex.IsInCache(b.URL), fftr.FindContentPage),
-		conditionnalProcessor(!ex.IsInCache(b.URL), fftr.FindNextPage),
-		fftr.ExtractAuthor,
-		fftr.ExtractDate,
+		conditionnalProcessor(!ex.IsInCache(b.URL), contentscripts.FindContentPage),
+		conditionnalProcessor(!ex.IsInCache(b.URL), contentscripts.FindNextPage),
+		contentscripts.ExtractAuthor,
+		contentscripts.ExtractDate,
 		// Default is true but the request can override this
-		conditionnalProcessor(params.FindMain, fftr.ExtractBody),
-		fftr.StripTags,
-		fftr.GoToNextPage,
+		conditionnalProcessor(params.FindMain, contentscripts.ExtractBody),
+		contentscripts.StripTags,
+		contentscripts.GoToNextPage,
 		contents.Readability(),
 		CleanDomProcessor,
 		extractLinksProcessor,

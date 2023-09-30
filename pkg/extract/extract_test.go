@@ -5,6 +5,7 @@
 package extract
 
 import (
+	"context"
 	"errors"
 	"strconv"
 	"testing"
@@ -78,6 +79,8 @@ func TestExtractorRun(t *testing.T) {
 	httpmock.RegisterResponder("GET", "/page1", newHTMLResponder(200, "html/ex1.html"))
 	httpmock.RegisterResponder("GET", `=~^/loop/\d+`, newHTMLResponder(200, "html/ex1.html"))
 
+	var ctxBodyKey = &struct{}{}
+
 	p1 := func(m *ProcessMessage, next Processor) Processor {
 		if m.Step() != StepBody {
 			return next
@@ -92,7 +95,7 @@ func TestExtractorRun(t *testing.T) {
 			return next
 		}
 
-		m.SetValue("newbody", []byte("@@body@@"))
+		m.Extractor.Context = context.WithValue(m.Extractor.Context, ctxBodyKey, []byte("@@body@@"))
 
 		return next
 	}
@@ -102,7 +105,7 @@ func TestExtractorRun(t *testing.T) {
 			return next
 		}
 
-		m.Extractor.Drops()[m.Position()].Body = m.Value("newbody").([]byte)
+		m.Extractor.Drops()[m.Position()].Body = m.Extractor.Context.Value(ctxBodyKey).([]byte)
 
 		return next
 	}

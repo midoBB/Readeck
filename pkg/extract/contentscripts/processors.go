@@ -1,56 +1,86 @@
-// SPDX-FileCopyrightText: © 2020 Olivier Meunier <olivier@neokraft.net>
+// SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package fftr
+package contentscripts
 
 import (
+	"context"
 	"fmt"
 	"net/url"
 	"strings"
 
+	"codeberg.org/readeck/readeck/pkg/extract"
 	"github.com/antchfx/htmlquery"
 	"github.com/araddon/dateparse"
 	"github.com/go-shiori/dom"
-
-	"codeberg.org/readeck/readeck/pkg/extract"
 )
 
-// LoadConfiguration will try to find a matching fftr configuration
+var (
+	runtimeCtxKey  = &contextKey{"runtime"}
+	configCtxKey   = &contextKey{"config"}
+	nextPageCtxKey = &contextKey{"next_page"}
+)
+
+func getRuntime(ctx context.Context) *Runtime {
+	return ctx.Value(runtimeCtxKey).(*Runtime)
+}
+
+func getConfig(ctx context.Context) *SiteConfig {
+	if cfg, ok := ctx.Value(configCtxKey).(*SiteConfig); ok {
+		return cfg
+	}
+	return nil
+}
+
+// LoadScripts starts the content script runtime and adds it
+// to the extractor context.
+func LoadScripts(programs ...*Program) extract.Processor {
+	return func(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+		if m.Step() != extract.StepStart || m.Position() > 0 {
+			return next
+		}
+
+		vm := New(append(preloadedScripts, programs...)...)
+		vm.SetLogger(m.Log)
+		vm.SetProcessMessage(m)
+
+		m.Extractor.Context = context.WithValue(m.Extractor.Context, runtimeCtxKey, vm)
+		m.Log.WithField("step", m.Step()).Debug("content script runtime ready")
+		return next
+	}
+}
+
+// LoadSiteConfig will try to find a matching site config
 // for the first Drop (the extraction starting point).
 //
 // If a configuration is found, it will be added to the context.
 //
 // If the configuration indicates custom HTTP headers, they'll be added to
 // the client.
-func LoadConfiguration(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
-	if m.Step() == extract.StepDom {
-		// remove configuration if document type is a media
-		if m.Extractor.Drop().IsMedia() {
-			m.Log.Debug("fftr removing configuration (document is a media)")
-			m.SetValue("config", nil)
-		}
-	}
-
-	if m.Position() > 0 || m.Step() != extract.StepStart {
+func LoadSiteConfig(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+	if m.Step() != extract.StepStart || m.Position() > 0 {
 		return next
 	}
 
-	// Find fftr configuration for this site
-	cfg, err := NewConfigForURL(m.Extractor.Drop().URL, DefaultConfigurationFolders)
+	cfg, err := NewConfigForURL(SiteConfigFiles, m.Extractor.Drop().URL)
 	if err != nil {
-		m.Log.WithError(err).Warn("fftr configuration")
+		m.Log.WithError(err).Warn("site configuration")
 		return next
 	}
 
 	if cfg != nil {
-		m.Log.WithField("files", cfg.Files).Debug("fftr configuration loaded")
+		m.Log.WithField("files", cfg.files).Debug("site configuration loaded")
 	} else {
-		m.Log.Debug("no fftr configuration found")
-		cfg = &Config{}
+		m.Log.Debug("no site configuration found")
+		cfg = &SiteConfig{}
 	}
 
-	m.SetValue("config", cfg)
+	// Apply scripts "setConfig" function
+	getRuntime(m.Extractor.Context).SetConfig(cfg)
+
+	// Add config to context
+	m.Extractor.Context = context.WithValue(m.Extractor.Context, configCtxKey, cfg)
 
 	// Set custom headers from configuration file
 	prepareHeaders(m, cfg)
@@ -58,7 +88,17 @@ func LoadConfiguration(m *extract.ProcessMessage, next extract.Processor) extrac
 	return next
 }
 
-func prepareHeaders(m *extract.ProcessMessage, cfg *Config) {
+// ProcessMeta runs the content scripts processMeta exported functions.
+func ProcessMeta(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+	if m.Step() != extract.StepDom || m.Position() > 0 {
+		return next
+	}
+
+	getRuntime(m.Extractor.Context).ProcessMeta()
+	return next
+}
+
+func prepareHeaders(m *extract.ProcessMessage, cfg *SiteConfig) {
 	if len(cfg.HTTPHeaders) == 0 {
 		return
 	}
@@ -69,27 +109,27 @@ func prepareHeaders(m *extract.ProcessMessage, cfg *Config) {
 	}
 
 	for k, v := range cfg.HTTPHeaders {
-		m.Log.WithField("header", []string{k, v}).Debug("fftr custom headers")
+		m.Log.WithField("header", []string{k, v}).Debug("site config custom headers")
 		tr.SetHeader(k, v)
 	}
 }
 
-// ReplaceStrings applies all the replace_string directive in fftr
-// configuration file on the received body.
+// ReplaceStrings applies all the replace_string directive in site config
+// file on the received body.
 func ReplaceStrings(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
 	if m.Step() != extract.StepBody {
 		return next
 	}
 
-	cfg, ok := m.Value("config").(*Config)
-	if !ok {
+	cfg := getConfig(m.Extractor.Context)
+	if cfg == nil {
 		return next
 	}
 
 	d := m.Extractor.Drop()
 	for _, r := range cfg.ReplaceStrings {
 		d.Body = []byte(strings.ReplaceAll(string(d.Body), r[0], r[1]))
-		m.Log.WithField("replace", r[:]).Debug("fftr replace_string")
+		m.Log.WithField("replace", r[:]).Debug("site config replace_string")
 	}
 
 	return next
@@ -102,8 +142,8 @@ func ExtractBody(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 		return next
 	}
 
-	cfg, ok := m.Value("config").(*Config)
-	if !ok {
+	cfg := getConfig(m.Extractor.Context)
+	if cfg == nil {
 		return next
 	}
 
@@ -123,7 +163,7 @@ func ExtractBody(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 		}
 
 		// First match, replace the root node and stop
-		m.Log.WithField("nodes", len(dom.Children(node))).Debug("fftr body found")
+		m.Log.WithField("nodes", len(dom.Children(node))).Debug("site config body found")
 
 		newBody := dom.CreateElement("body")
 		section := dom.CreateElement("section")
@@ -146,8 +186,8 @@ func ExtractAuthor(m *extract.ProcessMessage, next extract.Processor) extract.Pr
 		return next
 	}
 
-	cfg, ok := m.Value("config").(*Config)
-	if !ok {
+	cfg := getConfig(m.Extractor.Context)
+	if cfg == nil {
 		return next
 	}
 
@@ -159,7 +199,7 @@ func ExtractAuthor(m *extract.ProcessMessage, next extract.Processor) extract.Pr
 			if value == "" {
 				continue
 			}
-			m.Log.WithField("author", value).Debug("fftr author")
+			m.Log.WithField("author", value).Debug("site config author")
 			m.Extractor.Drop().AddAuthors(value)
 		}
 	}
@@ -178,8 +218,8 @@ func ExtractDate(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 		return next
 	}
 
-	cfg, ok := m.Value("config").(*Config)
-	if !ok {
+	cfg := getConfig(m.Extractor.Context)
+	if cfg == nil {
 		return next
 	}
 
@@ -188,7 +228,7 @@ func ExtractDate(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 		for _, n := range nodes {
 			date, err := dateparse.ParseLocal(dom.TextContent(n))
 			if err == nil && !date.IsZero() {
-				m.Log.WithField("date", date).Debug("fftr date")
+				m.Log.WithField("date", date).Debug("site config date")
 				m.Extractor.Drop().Date = date
 				return next
 			}
@@ -205,8 +245,8 @@ func StripTags(m *extract.ProcessMessage, next extract.Processor) extract.Proces
 		return next
 	}
 
-	cfg, ok := m.Value("config").(*Config)
-	if !ok {
+	cfg := getConfig(m.Extractor.Context)
+	if cfg == nil {
 		return next
 	}
 
@@ -217,7 +257,7 @@ func StripTags(m *extract.ProcessMessage, next extract.Processor) extract.Proces
 		dom.RemoveNodes(nodes, nil)
 		m.Log.WithField("value", value).
 			WithField("nodes", len(nodes)).
-			Debug("fftr strip_tags")
+			Debug("site config strip_tags")
 	}
 
 	for _, value = range cfg.StripIDOrClass {
@@ -230,7 +270,7 @@ func StripTags(m *extract.ProcessMessage, next extract.Processor) extract.Proces
 		dom.RemoveNodes(nodes, nil)
 		m.Log.WithField("value", value).
 			WithField("nodes", len(nodes)).
-			Debug("fftr strip_id_or_class")
+			Debug("site config strip_id_or_class")
 	}
 
 	for _, value = range cfg.StripImageSrc {
@@ -240,7 +280,7 @@ func StripTags(m *extract.ProcessMessage, next extract.Processor) extract.Proces
 		dom.RemoveNodes(nodes, nil)
 		m.Log.WithField("value", value).
 			WithField("nodes", len(nodes)).
-			Debug("fftr strip_image_src")
+			Debug("site config strip_image_src")
 	}
 
 	return next
@@ -254,8 +294,14 @@ func FindContentPage(m *extract.ProcessMessage, next extract.Processor) extract.
 		return next
 	}
 
-	cfg, ok := m.Value("config").(*Config)
-	if !ok {
+	// Don't look for any single page link for something that was recognized
+	// as a media type.
+	if m.Extractor.Drop().IsMedia() {
+		return next
+	}
+
+	cfg := getConfig(m.Extractor.Context)
+	if cfg == nil {
 		return next
 	}
 
@@ -283,7 +329,7 @@ func FindContentPage(m *extract.ProcessMessage, next extract.Processor) extract.
 			continue
 		}
 
-		m.Log.WithField("url", u.String()).Info("fftr found single page link")
+		m.Log.WithField("url", u.String()).Info("site config found single page link")
 		if err = m.Extractor.ReplaceDrop(u); err != nil {
 			m.Log.WithError(err).Error("cannot replace page")
 			return nil
@@ -304,8 +350,8 @@ func FindNextPage(m *extract.ProcessMessage, next extract.Processor) extract.Pro
 		return next
 	}
 
-	cfg, ok := m.Value("config").(*Config)
-	if !ok {
+	cfg := getConfig(m.Extractor.Context)
+	if cfg == nil {
 		return next
 	}
 
@@ -328,8 +374,8 @@ func FindNextPage(m *extract.ProcessMessage, next extract.Processor) extract.Pro
 		}
 		u.Fragment = ""
 
-		m.Log.WithField("url", u.String()).Debug("fftr found next page")
-		m.SetValue("next_page", u)
+		m.Log.WithField("url", u.String()).Debug("site config found next page")
+		m.Extractor.Context = context.WithValue(m.Extractor.Context, nextPageCtxKey, u)
 	}
 
 	return next
@@ -342,8 +388,8 @@ func GoToNextPage(m *extract.ProcessMessage, next extract.Processor) extract.Pro
 		return next
 	}
 
-	u, ok := m.Value("next_page").(*url.URL)
-	if !ok {
+	u, ok := m.Extractor.Context.Value(nextPageCtxKey).(*url.URL)
+	if !ok || u == nil {
 		return next
 	}
 
@@ -355,7 +401,7 @@ func GoToNextPage(m *extract.ProcessMessage, next extract.Processor) extract.Pro
 
 	m.Log.WithField("url", u.String()).Info("go to next page")
 	m.Extractor.AddDrop(u)
-	m.SetValue("next_page", nil)
+	m.Extractor.Context = context.WithValue(m.Extractor.Context, nextPageCtxKey, nil)
 
 	return next
 }

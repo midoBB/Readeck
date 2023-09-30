@@ -1,0 +1,209 @@
+// SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
+package contentscripts
+
+import (
+	"bytes"
+	"context"
+	"fmt"
+	"net/url"
+	"slices"
+
+	"github.com/dop251/goja"
+
+	"codeberg.org/readeck/readeck/pkg/extract"
+	"codeberg.org/readeck/readeck/pkg/xml2map"
+)
+
+var messageCtxKey = &contextKey{"processmessage"}
+
+type processMessageProxy struct {
+	vm *Runtime
+}
+
+func registerExported(vm *Runtime) {
+	vm.Set("$", newProcessMessageProxy(vm))
+	vm.Set("unescapeURL", unescapeURL)
+	vm.Set("decodeXML", decodeXML)
+}
+
+// SetProcessMessage adds an extract.ProcessMessage to the content script context.
+func (vm *Runtime) SetProcessMessage(m *extract.ProcessMessage) {
+	vm.ctx = context.WithValue(vm.ctx, messageCtxKey, m)
+}
+
+func (vm *Runtime) getProcessMessage() *extract.ProcessMessage {
+	if v, ok := vm.ctx.Value(messageCtxKey).(*extract.ProcessMessage); ok {
+		return v
+	}
+	return nil
+}
+
+func newProcessMessageProxy(vm *Runtime) *goja.Object {
+	p := &processMessageProxy{vm: vm}
+
+	obj := vm.NewObject()
+	obj.Set("meta", newDropMetaProxyObj(vm))
+	obj.DefineAccessorProperty(
+		"domain", vm.ToValue(p.getDomain), nil,
+		goja.FLAG_FALSE, goja.FLAG_FALSE,
+	)
+	obj.DefineAccessorProperty(
+		"host", vm.ToValue(p.getHost), nil,
+		goja.FLAG_FALSE, goja.FLAG_FALSE,
+	)
+	obj.DefineAccessorProperty(
+		"url", vm.ToValue(p.getURL), nil,
+		goja.FLAG_FALSE, goja.FLAG_FALSE,
+	)
+	obj.DefineAccessorProperty(
+		"authors", vm.ToValue(p.getAuthors), vm.ToValue(p.setAuthors),
+		goja.FLAG_FALSE, goja.FLAG_FALSE,
+	)
+	obj.DefineAccessorProperty(
+		"description", vm.ToValue(p.getDescription), vm.ToValue(p.setDescription),
+		goja.FLAG_FALSE, goja.FLAG_FALSE,
+	)
+	obj.DefineAccessorProperty(
+		"title", vm.ToValue(p.getTitle), vm.ToValue(p.setTitle),
+		goja.FLAG_FALSE, goja.FLAG_FALSE,
+	)
+	obj.DefineAccessorProperty(
+		"type", vm.ToValue(p.getType), vm.ToValue(p.setType),
+		goja.FLAG_FALSE, goja.FLAG_FALSE,
+	)
+	return obj
+}
+func (p *processMessageProxy) getDrop() *extract.Drop {
+	if pm := p.vm.getProcessMessage(); pm != nil {
+		return pm.Extractor.Drop()
+	}
+	panic(p.vm.ToValue("no extractor"))
+}
+
+func (p *processMessageProxy) getDomain() string {
+	return p.getDrop().Domain
+}
+
+func (p *processMessageProxy) getHost() string {
+	return p.getDrop().URL.Hostname()
+}
+
+func (p *processMessageProxy) getURL() string {
+	return p.getDrop().URL.String()
+}
+
+func (p *processMessageProxy) getAuthors() []string {
+	return p.getDrop().Authors
+}
+
+func (p *processMessageProxy) setAuthors(names ...string) {
+	p.getDrop().Authors = names
+	p.vm.GetLogger().WithField("authors", names).Debug("set property")
+}
+
+func (p *processMessageProxy) getDescription() string {
+	return p.getDrop().Description
+}
+
+func (p *processMessageProxy) setDescription(val string) {
+	p.getDrop().Description = val
+	p.vm.GetLogger().WithField("description", val).Debug("set property")
+}
+
+func (p *processMessageProxy) getTitle() string {
+	return p.getDrop().Title
+}
+
+func (p *processMessageProxy) setTitle(val string) {
+	p.getDrop().Title = val
+	p.vm.GetLogger().WithField("title", val).Debug("set property")
+}
+
+func (p *processMessageProxy) getType() string {
+	return p.getDrop().DocumentType
+}
+
+func (p *processMessageProxy) setType(val string) error {
+	if !slices.Contains([]string{"article", "photo", "video"}, val) {
+		return fmt.Errorf(`"%s" is not a valid type`, val)
+	}
+	p.getDrop().DocumentType = val
+	p.vm.GetLogger().WithField("document_type", val).Debug("set property")
+	return nil
+}
+
+type dropMetaProxy struct {
+	vm *Runtime
+}
+
+func newDropMetaProxyObj(vm *Runtime) *goja.Object {
+	return vm.NewDynamicObject(&dropMetaProxy{vm})
+}
+
+func (m *dropMetaProxy) meta() extract.DropMeta {
+	if pm := m.vm.getProcessMessage(); pm != nil {
+		return pm.Extractor.Drop().Meta
+	}
+	panic(m.vm.ToValue("no extractor"))
+}
+
+func (m *dropMetaProxy) Get(key string) goja.Value {
+	return m.vm.ToValue(m.meta()[key])
+}
+
+func (m *dropMetaProxy) Set(key string, val goja.Value) bool {
+	var v []string
+	switch sv := val.Export().(type) {
+	case string:
+		v = []string{sv}
+	default:
+		if err := m.vm.ExportTo(val, &v); err != nil {
+			return false
+		}
+	}
+	m.meta()[key] = v
+	m.vm.GetLogger().WithField(key, v).Debug("set meta")
+	return true
+}
+
+func (m *dropMetaProxy) Has(key string) bool {
+	_, ok := m.meta()[key]
+	return ok
+}
+
+func (m *dropMetaProxy) Delete(key string) bool {
+	delete(m.meta(), key)
+	return true
+}
+
+func (m *dropMetaProxy) Keys() []string {
+	keys := []string{}
+	for k := range m.meta() {
+		keys = append(keys, k)
+	}
+	slices.Sort(keys)
+	return keys
+}
+
+func unescapeURL(src string) (string, error) {
+	v, err := url.Parse(src)
+	if err != nil {
+		return "", err
+	}
+
+	if v.RawQuery, err = url.QueryUnescape(v.RawQuery); err != nil {
+		return "", err
+	}
+	if v.Path, err = url.PathUnescape(v.Path); err != nil {
+		return "", err
+	}
+
+	return v.String(), nil
+}
+
+func decodeXML(src []byte) (map[string]any, error) {
+	return xml2map.NewDecoder(bytes.NewBuffer(src)).Decode()
+}

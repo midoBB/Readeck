@@ -10,7 +10,7 @@ require (
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
 	github.com/casbin/casbin/v2 v2.73.1
 	github.com/cristalhq/jwt/v3 v3.1.0
-	github.com/dop251/goja v0.0.0-20230806174421-c933cf95e127
+	github.com/dop251/goja v0.0.0-20230919151941-fc55792775de
 	github.com/doug-martin/goqu/v9 v9.18.0
 	github.com/fatih/color v1.15.0
 	github.com/go-chi/chi/v5 v5.0.10
@@ -29,7 +29,6 @@ require (
 	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/mattn/go-sqlite3 v1.14.17
 	github.com/sirupsen/logrus v1.9.3
-	github.com/spyzhov/ajson v0.9.0
 	github.com/stretchr/testify v1.8.4
 	github.com/tdewolff/parse/v2 v2.6.7
 	github.com/xhit/go-simple-mail/v2 v2.15.0
@@ -47,6 +46,7 @@ require (
 	github.com/JohannesKaufmann/html-to-markdown v1.4.0
 	github.com/antchfx/xmlquery v1.3.17
 	github.com/cristalhq/acmd v0.11.1
+	github.com/dop251/goja_nodejs v0.0.0-20230914102007-198ba9a8b098
 	github.com/gabriel-vasile/mimetype v1.4.2
 	github.com/halorium/env v1.0.0
 	github.com/lithammer/shortuuid/v4 v4.0.0

@@ -75,6 +75,10 @@ func newProcessMessageProxy(vm *Runtime) *goja.Object {
 		goja.FLAG_FALSE, goja.FLAG_FALSE,
 	)
 	obj.DefineAccessorProperty(
+		"site", vm.ToValue(p.getSiteName), vm.ToValue(p.setSiteName),
+		goja.FLAG_FALSE, goja.FLAG_FALSE,
+	)
+	obj.DefineAccessorProperty(
 		"title", vm.ToValue(p.getTitle), vm.ToValue(p.setTitle),
 		goja.FLAG_FALSE, goja.FLAG_FALSE,
 	)
@@ -139,6 +143,15 @@ func (p *processMessageProxy) getDescription() string {
 func (p *processMessageProxy) setDescription(val string) {
 	p.getDrop().Description = val
 	p.vm.GetLogger().WithField("description", val).Debug("set property")
+}
+
+func (p *processMessageProxy) getSiteName() string {
+	return p.getDrop().Site
+}
+
+func (p *processMessageProxy) setSiteName(val string) {
+	p.getDrop().Site = val
+	p.vm.GetLogger().WithField("site", val).Debug("set property")
 }
 
 func (p *processMessageProxy) getTitle() string {

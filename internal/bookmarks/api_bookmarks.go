@@ -752,6 +752,7 @@ type bookmarkItem struct {
 	Lang         string                   `json:"lang"`
 	DocumentType string                   `json:"document_type"`
 	Type         string                   `json:"type"`
+	HasArticle   bool                     `json:"has_article"`
 	Description  string                   `json:"description"`
 	IsDeleted    bool                     `json:"is_deleted"`
 	IsMarked     bool                     `json:"is_marked"`
@@ -849,6 +850,7 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *Bookmark, base string
 		res.Resources["log"] = &bookmarkFile{Src: s.AbsoluteURL(r, base, b.UID, "x", v.Name).String()}
 	}
 	if _, ok := b.Files["article"]; ok {
+		res.HasArticle = true
 		res.Resources["article"] = &bookmarkFile{Src: s.AbsoluteURL(r, base, b.UID, "article").String()}
 	}
 

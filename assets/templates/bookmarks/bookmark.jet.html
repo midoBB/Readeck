@@ -96,7 +96,7 @@ SPDX-License-Identifier: AGPL-3.0-only
             </button>
           </div>
           <div class="flex-grow"></div>
-          {{- if .Item.Type == "article" -}}
+          {{- if .Item.HasArticle -}}
             {{- include "./components/reader_control" -}}
           {{- end -}}
         </div>

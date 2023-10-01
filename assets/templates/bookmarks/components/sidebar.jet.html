@@ -58,7 +58,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{- yield line_icon(icon="o-link") content -}}
         <a href="{{ .Item.URL }}" class="link" target="top">{{ .Item.Domain }}</a>
       {{- end -}}
-      {{- if .Item.Type == "article" && .Item.ReadingTime() > 0 -}}
+      {{- if .Item.ReadingTime() > 0 -}}
         {{- yield line_icon(icon="o-clock") content -}}
           {{ .Item.ReadingTime() }}&nbsp;min
         {{- end -}}
@@ -73,7 +73,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   <h3 class="mb-2 title text-lg">{{- yield icon(name="o-label") }} Labels</h3>
   {{ include "./labels_form" .Item }}
 
-  {{- if .Item.Type == "article" -}}
+  {{- if .Item.HasArticle -}}
   <div class="print:hidden">
     <h3 class="mb-2 title text-lg">{{- yield icon(name="o-highlight") }} Highlights</h3>
     <div class="group">
@@ -103,7 +103,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     </div>
   </div>
 
-  {{- if .Item.Type == "article" && .Item.Links && .Item.Links.HasPages() -}}
+  {{- if .Item.HasArticle && .Item.Links && .Item.Links.HasPages() -}}
     <details class="group mb-4 print:hidden">
       <summary class="block mb-2 title text-lg hf:text-primary-dark">
         {{- yield icon(name="o-link") }}

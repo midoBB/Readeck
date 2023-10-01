@@ -14,6 +14,7 @@ import (
 	"github.com/google/uuid"
 
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/pkg/bleach"
 	"codeberg.org/readeck/readeck/pkg/opds"
 )
 
@@ -93,9 +94,9 @@ func WithUpdated(t time.Time) func(*opds.Feed) {
 func WithNavEntry(title string, updated time.Time, href string, options ...func(*opds.Entry)) func(*opds.Feed) {
 	return func(feed *opds.Feed) {
 		e := opds.Entry{
-			Title:      opds.SanitizeString(title),
+			Title:      bleach.SanitizeString(title),
 			Updated:    *opds.AtomDate(updated),
-			Content:    &opds.Content{ContentType: "text", Content: opds.SanitizeString(title)},
+			Content:    &opds.Content{ContentType: "text", Content: bleach.SanitizeString(title)},
 			ID:         opds.URLID(href),
 			Identifier: opds.URLID(href),
 			Links: []opds.Link{
@@ -126,8 +127,8 @@ func WithBookEntry(
 			Issued:     opds.AtomDate(issued),
 			Published:  opds.AtomDate(published),
 			Updated:    *opds.AtomDate(updated),
-			Title:      opds.SanitizeString(title),
-			Publisher:  opds.SanitizeString(publisher),
+			Title:      bleach.SanitizeString(title),
+			Publisher:  bleach.SanitizeString(publisher),
 			Language:   language,
 			Links: []opds.Link{
 				{
@@ -141,7 +142,7 @@ func WithBookEntry(
 		if description != "" {
 			e.Content = &opds.Content{
 				ContentType: "html",
-				Content:     opds.SanitizeString(description),
+				Content:     bleach.SanitizeString(description),
 			}
 		}
 

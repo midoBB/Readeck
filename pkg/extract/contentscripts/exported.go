@@ -10,10 +10,14 @@ import (
 	"fmt"
 	"net/url"
 	"slices"
+	"strings"
 
 	"github.com/dop251/goja"
+	"golang.org/x/net/html"
 
+	"codeberg.org/readeck/readeck/pkg/bleach"
 	"codeberg.org/readeck/readeck/pkg/extract"
+	"codeberg.org/readeck/readeck/pkg/extract/contents"
 	"codeberg.org/readeck/readeck/pkg/xml2map"
 )
 
@@ -47,6 +51,10 @@ func newProcessMessageProxy(vm *Runtime) *goja.Object {
 	obj := vm.NewObject()
 	obj.Set("meta", newDropMetaProxyObj(vm))
 	obj.DefineAccessorProperty(
+		"properties", vm.ToValue(p.getProperties), nil,
+		goja.FLAG_FALSE, goja.FLAG_FALSE,
+	)
+	obj.DefineAccessorProperty(
 		"domain", vm.ToValue(p.getDomain), nil,
 		goja.FLAG_FALSE, goja.FLAG_FALSE,
 	)
@@ -74,13 +82,33 @@ func newProcessMessageProxy(vm *Runtime) *goja.Object {
 		"type", vm.ToValue(p.getType), vm.ToValue(p.setType),
 		goja.FLAG_FALSE, goja.FLAG_FALSE,
 	)
+	obj.DefineAccessorProperty(
+		"readability", vm.ToValue(p.getReadability), vm.ToValue(p.setReadability),
+		goja.FLAG_FALSE, goja.FLAG_FALSE,
+	)
+	obj.DefineAccessorProperty(
+		"html", nil, vm.ToValue(p.setHTML),
+		goja.FLAG_FALSE, goja.FLAG_FALSE,
+	)
 	return obj
 }
+
 func (p *processMessageProxy) getDrop() *extract.Drop {
 	if pm := p.vm.getProcessMessage(); pm != nil {
 		return pm.Extractor.Drop()
 	}
 	panic(p.vm.ToValue("no extractor"))
+}
+
+func (p *processMessageProxy) getProcessMessage() *extract.ProcessMessage {
+	if pm := p.vm.getProcessMessage(); pm != nil {
+		return pm
+	}
+	panic(p.vm.ToValue("no extractor"))
+}
+
+func (p *processMessageProxy) getProperties() map[string]any {
+	return p.getDrop().Properties
 }
 
 func (p *processMessageProxy) getDomain() string {
@@ -133,6 +161,26 @@ func (p *processMessageProxy) setType(val string) error {
 	p.getDrop().DocumentType = val
 	p.vm.GetLogger().WithField("document_type", val).Debug("set property")
 	return nil
+}
+
+func (p *processMessageProxy) setHTML(val string) error {
+	node, err := html.Parse(strings.NewReader(bleach.SanitizeString(val)))
+	if err != nil {
+		return err
+	}
+	p.getProcessMessage().Dom = node
+	p.getDrop().ContentType = "text/html"
+	p.vm.GetLogger().WithField("html", fmt.Sprintf("%s...", val[0:min(50, len(val))])).Debug("set property")
+	return nil
+}
+
+func (p *processMessageProxy) getReadability() bool {
+	enabled, _ := contents.IsReadabilityEnabled(p.getProcessMessage().Extractor)
+	return enabled
+}
+
+func (p *processMessageProxy) setReadability(val bool) {
+	contents.EnableReadability(p.getProcessMessage().Extractor, val)
 }
 
 type dropMetaProxy struct {

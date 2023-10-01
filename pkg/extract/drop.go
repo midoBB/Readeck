@@ -17,6 +17,7 @@ import (
 	"strings"
 	"time"
 
+	"codeberg.org/readeck/readeck/pkg/bleach"
 	"golang.org/x/net/html"
 	"golang.org/x/net/html/charset"
 	"golang.org/x/net/idna"
@@ -47,9 +48,10 @@ type Drop struct {
 	Lang        string
 	Date        time.Time
 
-	Header http.Header
-	Meta   DropMeta
-	Body   []byte `json:"-"`
+	Header     http.Header
+	Meta       DropMeta
+	Properties DropProperties
+	Body       []byte `json:"-"`
 
 	Pictures map[string]*Picture
 }
@@ -210,7 +212,7 @@ func (d *Drop) loadHTMLBody(rsp *http.Response) error {
 
 	// Eventually set the original charset and UTF8 body
 	d.Charset = encName
-	d.Body = body
+	d.Body = []byte(bleach.SanitizeString(string(body)))
 
 	return nil
 }
@@ -246,6 +248,8 @@ func scanForCharset(r io.Reader) string {
 		}
 	}
 }
+
+type DropProperties map[string]any
 
 // DropMeta is a map of list of strings that contains the
 // collected metadata.

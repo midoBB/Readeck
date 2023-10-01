@@ -11,6 +11,7 @@ import (
 
 	"github.com/go-shiori/dom"
 
+	"codeberg.org/readeck/readeck/pkg/bleach"
 	"codeberg.org/readeck/readeck/pkg/extract"
 )
 
@@ -29,9 +30,9 @@ func CleanDomProcessor(m *extract.ProcessMessage, next extract.Processor) extrac
 
 	m.Log.Debug("cleaning resulting DOM")
 
-	bleach.clean(m.Dom)
-	bleach.removeEmptyNodes(m.Dom)
-	bleach.setLinkRel(m.Dom)
+	bleach.DefaultPolicy.Clean(m.Dom)
+	bleach.DefaultPolicy.RemoveEmptyNodes(m.Dom)
+	bleach.DefaultPolicy.SetLinkRel(m.Dom)
 
 	return next
 }

@@ -64,7 +64,7 @@ SPDX-License-Identifier: AGPL-3.0-only
            width="{{ .Resources.icon.Width }}" height="{{ .Resources.icon.Height }}">
         {{- end -}}
         <strong class="leading-none overflow-hidden text-ellipsis" title="{{ .SiteName }}">{{ shortText(.SiteName, 50) }}</strong>
-        {{- if .Type == "article" && .ReadingTime() > 0 -}}
+        {{- if .ReadingTime() > 0 -}}
           <span> •&nbsp;{{ .ReadingTime() }}&nbsp;min</span>
         {{- end -}}
       </span>

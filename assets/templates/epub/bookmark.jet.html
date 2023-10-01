@@ -40,16 +40,12 @@ SPDX-License-Identifier: AGPL-3.0-only
     <li>By {{ join(.Item.Authors, ", ") }}</li>
   {{- end -}}
     <li><a href="{{ .Item.URL }}">{{ .Item.Domain }}</a></li>
-  {{- if .Item.Type == "article" && .Item.ReadingTime() > 0 -}}
+  {{- if .Item.ReadingTime() > 0 -}}
     <li>About {{ .Item.ReadingTime() }}&nbsp;min read</li>
   {{- end -}}
 </ul>
 
-{{- if .Item.Type == "article" -}}
-  <main class="content">
-  {{ raw(.Content) }}
-  </main>
-{{- else if .Item.Type == "photo" -}}
+{{- if .Item.Type == "photo" -}}
   <main class="photo">
     <img src="{{ .Item.Resources.image.Src }}" alt="" />
   </main>
@@ -58,5 +54,12 @@ SPDX-License-Identifier: AGPL-3.0-only
     <img src="{{ .Item.Resources.image.Src }}" alt="" />
   </main>
 {{- end -}}
+
+{{- if .Item.HasArticle -}}
+  <main class="content">
+  {{ raw(.Content) }}
+  </main>
+{{- end -}}
+
 </body>
 </html>

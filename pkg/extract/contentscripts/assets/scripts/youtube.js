@@ -66,7 +66,7 @@ function getTranscript(info) {
     return 0
   })
 
-  const track = (captions || []).find((x) => true)
+  const track = (captions || []).find(() => true)
   if (!track) {
     return
   }

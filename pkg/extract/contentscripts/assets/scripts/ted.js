@@ -7,10 +7,9 @@ exports.isActive = function () {
 }
 
 exports.processMeta = function () {
-  const videoId = getVideoId()
-  const transcript = getTranscript(videoId)
+  const transcript = getTranscript()
   if (transcript) {
-    console.debug("found transcript", { videoId })
+    console.debug("found transcript", { paragraphs: transcript.length })
     $.html = `<section id="main">${transcript
       .map((p) => {
         return `<p>${p}</p>`
@@ -20,104 +19,24 @@ exports.processMeta = function () {
   }
 }
 
-function getVideoId() {
-  return new URL($.url).pathname.replace(/\/talks\/(.+?)(\/.*)?$/, "$1")
-}
+function getTranscript() {
+  const data = ($.properties.json || [])
+    .map((x) => {
+      return x.props?.pageProps?.transcriptData?.translation?.paragraphs
+    })
+    .find((x) => {
+      return x != undefined
+    })
 
-function getTranscript(videoId) {
-  const rsp = requests.post(
-    "https://www.ted.com/graphql",
-    JSON.stringify({
-      operationName: "Transcript",
-      variables: {
-        id: videoId,
-        language: "en",
-      },
-      query: graphqlQuery,
-    }),
-    {
-      "Content-Type": "application/json",
-    },
-  )
-  rsp.raiseForStatus()
-
-  // TED transcript is a simple format with a very good structured result.
-  return (rsp.json().data?.translation?.paragraphs || []).map((p) => {
-    return (p.cues || [])
-      .map((cue) => {
-        return cue.text
-      })
-      .join(" ")
-  })
-}
-
-const graphqlQuery = `query Transcript($id: ID!, $language: String!) {
-  translation(videoId: $id, language: $language) {
-    id
-    language {
-      id
-      endonym
-      englishName
-      internalLanguageCode
-      rtl
-      __typename
-    }
-    reviewer {
-      id
-      uri
-      avatar {
-        url
-        generatedUrl(type: SVG)
-        __typename
-      }
-      name {
-        full
-        __typename
-      }
-      __typename
-    }
-    translator {
-      id
-      uri
-      avatar {
-        url
-        generatedUrl(type: SVG)
-        __typename
-      }
-      name {
-        full
-        __typename
-      }
-      __typename
-    }
-    paragraphs {
-      cues {
-        text
-        time
-        __typename
-      }
-      __typename
-    }
-    __typename
+  if (data) {
+    return data.map((p) => {
+      return (p.cues || [])
+        .map((cue) => {
+          return cue.text
+        })
+        .join(" ")
+    })
   }
-  video(id: $id, language: $language) {
-    id
-    talkExtras {
-      footnotes {
-        author
-        annotation
-        date
-        linkUrl
-        source
-        text
-        timecode
-        title
-        category
-        __typename
-      }
-      __typename
-    }
-    __typename
-  }
+
+  return []
 }
-`

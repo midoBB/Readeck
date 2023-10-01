@@ -30,11 +30,11 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 	}
 
 	m.Log.Debug("loading metadata")
-	res := ParseMeta(m.Dom)
 
 	// Set raw meta
 	d := m.Extractor.Drop()
-	d.Meta = res
+	d.Meta = ParseMeta(m.Dom)
+	d.Properties = ParseProps(m.Dom)
 
 	// Set some values
 	d.Title = d.Meta.LookupGet(

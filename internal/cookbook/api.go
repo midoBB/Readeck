@@ -114,6 +114,7 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 		Logs:         ex.Logs,
 		Errors:       []string{},
 		Meta:         drop.Meta,
+		Properties:   drop.Properties,
 		Domain:       drop.Domain,
 		Title:        drop.Title,
 		Authors:      drop.Authors,
@@ -204,6 +205,7 @@ type extractResult struct {
 	Logs         []string               `json:"logs"`
 	Errors       []string               `json:"errors"`
 	Meta         extract.DropMeta       `json:"meta"`
+	Properties   extract.DropProperties `json:"properties"`
 	Domain       string                 `json:"domain"`
 	Title        string                 `json:"title"`
 	Authors      []string               `json:"authors"`

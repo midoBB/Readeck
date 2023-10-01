@@ -40,7 +40,6 @@ func ExtractOembed(m *extract.ProcessMessage, next extract.Processor) extract.Pr
 		return next
 	}
 
-	// m.Log.Debug().Str("url", o._url.String()).Msg("found oembed")
 	m.Log.WithField("url", o._url.String()).Debug("found oembed")
 
 	setOembedMeta(d, "type", o.Type)

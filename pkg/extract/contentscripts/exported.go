@@ -51,6 +51,10 @@ func newProcessMessageProxy(vm *Runtime) *goja.Object {
 	obj := vm.NewObject()
 	obj.Set("meta", newDropMetaProxyObj(vm))
 	obj.DefineAccessorProperty(
+		"properties", vm.ToValue(p.getProperties), nil,
+		goja.FLAG_FALSE, goja.FLAG_FALSE,
+	)
+	obj.DefineAccessorProperty(
 		"domain", vm.ToValue(p.getDomain), nil,
 		goja.FLAG_FALSE, goja.FLAG_FALSE,
 	)
@@ -101,6 +105,10 @@ func (p *processMessageProxy) getProcessMessage() *extract.ProcessMessage {
 		return pm
 	}
 	panic(p.vm.ToValue("no extractor"))
+}
+
+func (p *processMessageProxy) getProperties() map[string]any {
+	return p.getDrop().Properties
 }
 
 func (p *processMessageProxy) getDomain() string {

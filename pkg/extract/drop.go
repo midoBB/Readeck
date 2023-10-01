@@ -48,9 +48,10 @@ type Drop struct {
 	Lang        string
 	Date        time.Time
 
-	Header http.Header
-	Meta   DropMeta
-	Body   []byte `json:"-"`
+	Header     http.Header
+	Meta       DropMeta
+	Properties DropProperties
+	Body       []byte `json:"-"`
 
 	Pictures map[string]*Picture
 }
@@ -247,6 +248,8 @@ func scanForCharset(r io.Reader) string {
 		}
 	}
 }
+
+type DropProperties map[string]any
 
 // DropMeta is a map of list of strings that contains the
 // collected metadata.

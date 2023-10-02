@@ -14,6 +14,7 @@ import (
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/db/types"
 )
 
 const (
@@ -31,14 +32,14 @@ var (
 
 // Token is a token record in database
 type Token struct {
-	ID          int        `db:"id" goqu:"skipinsert,skipupdate"`
-	UID         string     `db:"uid"`
-	UserID      *int       `db:"user_id"`
-	Created     time.Time  `db:"created" goqu:"skipupdate"`
-	Expires     *time.Time `db:"expires"`
-	IsEnabled   bool       `db:"is_enabled"`
-	Application string     `db:"application"`
-	Roles       db.Strings `db:"roles"`
+	ID          int           `db:"id" goqu:"skipinsert,skipupdate"`
+	UID         string        `db:"uid"`
+	UserID      *int          `db:"user_id"`
+	Created     time.Time     `db:"created" goqu:"skipupdate"`
+	Expires     *time.Time    `db:"expires"`
+	IsEnabled   bool          `db:"is_enabled"`
+	Application string        `db:"application"`
+	Roles       types.Strings `db:"roles"`
 }
 
 // Manager is a query helper for token entries.

@@ -14,7 +14,7 @@ import (
 	"github.com/doug-martin/goqu/v9"
 
 	"codeberg.org/readeck/readeck/internal/acls"
-	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -193,7 +193,7 @@ func NewRolesField(user *User) forms.Field {
 		return forms.NewTextField(n, forms.Trim)
 	}
 	roleConverter := func(values []forms.Field) interface{} {
-		res := make(db.Strings, len(values))
+		res := make(types.Strings, len(values))
 		for i, x := range values {
 			res[i] = x.String()
 		}

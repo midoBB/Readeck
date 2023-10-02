@@ -18,6 +18,7 @@ import (
 
 	"codeberg.org/readeck/readeck/internal/acls"
 	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/db/types"
 )
 
 func init() {
@@ -252,7 +253,7 @@ func (s *UserSettings) Scan(value interface{}) error {
 		return nil
 	}
 
-	v, err := db.JSONBytes(value)
+	v, err := types.JSONBytes(value)
 	if err != nil {
 		return err
 	}

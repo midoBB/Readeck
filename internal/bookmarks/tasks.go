@@ -29,7 +29,7 @@ import (
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/bus"
-	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/pkg/archiver"
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"codeberg.org/readeck/readeck/pkg/extract/contents"
@@ -316,7 +316,7 @@ func saveBookmark(b *Bookmark, saved *bool) extract.Processor {
 		b.Domain = drop.Domain
 		b.Site = drop.URL.Hostname()
 		b.SiteName = drop.Site
-		b.Authors = db.Strings{}
+		b.Authors = types.Strings{}
 		b.Lang = drop.Lang
 		b.DocumentType = drop.DocumentType
 		b.Description = drop.Description

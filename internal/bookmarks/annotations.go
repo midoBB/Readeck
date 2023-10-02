@@ -12,7 +12,7 @@ import (
 	"github.com/go-shiori/dom"
 	"golang.org/x/net/html"
 
-	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/pkg/annotate"
 )
 
@@ -36,7 +36,7 @@ func (a *BookmarkAnnotations) Scan(value interface{}) error {
 		return nil
 	}
 
-	v, err := db.JSONBytes(value)
+	v, err := types.JSONBytes(value)
 	if err != nil {
 		return err
 	}

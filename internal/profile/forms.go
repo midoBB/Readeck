@@ -15,7 +15,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth/credentials"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
-	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -265,7 +265,7 @@ func (f *credentialForm) updateCredential(p *credentials.Credential) error {
 			p.Name = field.String()
 		case "roles":
 			if field.Value() != nil {
-				p.Roles = field.Value().(db.Strings)
+				p.Roles = field.Value().(types.Strings)
 			} else {
 				p.Roles = nil
 			}
@@ -344,7 +344,7 @@ func (f *tokenForm) updateToken(t *tokens.Token) error {
 			t.Expires = &v
 		case "roles":
 			if field.Value() != nil {
-				t.Roles = field.Value().(db.Strings)
+				t.Roles = field.Value().(types.Strings)
 			} else {
 				t.Roles = nil
 			}

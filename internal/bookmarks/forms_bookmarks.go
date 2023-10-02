@@ -21,7 +21,7 @@ import (
 	"github.com/doug-martin/goqu/v9/exp"
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
-	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/pkg/forms"
 	"codeberg.org/readeck/readeck/pkg/timetoken"
 )
@@ -90,7 +90,7 @@ func newCreateForm(userID int, requestID string) *createForm {
 		return forms.NewTextField(n, forms.Trim)
 	}
 	strConverter := func(values []forms.Field) interface{} {
-		res := make(db.Strings, len(values))
+		res := make(types.Strings, len(values))
 		for i, x := range values {
 			res[i] = x.Value().(string)
 		}
@@ -183,7 +183,7 @@ func (f *createForm) createBookmark() (b *Bookmark, err error) {
 	}
 
 	if !f.Get("labels").IsNil() {
-		b.Labels = f.Get("labels").Value().(db.Strings)
+		b.Labels = f.Get("labels").Value().(types.Strings)
 		slices.Sort(b.Labels)
 		b.Labels = slices.Compact(b.Labels)
 	}
@@ -217,7 +217,7 @@ func newUpdateForm() *updateForm {
 		return forms.NewTextField(n, forms.Trim)
 	}
 	strConverter := func(values []forms.Field) interface{} {
-		res := make(db.Strings, len(values))
+		res := make(types.Strings, len(values))
 		for i, x := range values {
 			res[i] = x.Value().(string)
 		}
@@ -263,14 +263,14 @@ func (f *updateForm) update(b *Bookmark) (updated map[string]interface{}, err er
 		// labels, add_labels and remove_labels are declared and
 		// processed in this order.
 		case "labels":
-			b.Labels = field.Value().(db.Strings)
+			b.Labels = field.Value().(types.Strings)
 			labelsChanged = true
 		case "add_labels":
-			b.Labels = append(b.Labels, field.Value().(db.Strings)...)
+			b.Labels = append(b.Labels, field.Value().(types.Strings)...)
 			labelsChanged = true
 		case "remove_labels":
 			b.Labels = slices.DeleteFunc(b.Labels, func(s string) bool {
-				return slices.Contains(field.Value().(db.Strings), s)
+				return slices.Contains(field.Value().(types.Strings), s)
 			})
 			labelsChanged = true
 		}

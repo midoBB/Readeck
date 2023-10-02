@@ -22,6 +22,7 @@ import (
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/db/types"
 )
 
 // BookmarkState is the current bookmark state
@@ -104,7 +105,7 @@ type Bookmark struct {
 	Site         string              `db:"site"`
 	SiteName     string              `db:"site_name"`
 	Published    *time.Time          `db:"published"`
-	Authors      db.Strings          `db:"authors"`
+	Authors      types.Strings       `db:"authors"`
 	Lang         string              `db:"lang"`
 	DocumentType string              `db:"type"`
 	Description  string              `db:"description"`
@@ -114,8 +115,8 @@ type Bookmark struct {
 	Embed        string              `db:"embed"`
 	FilePath     string              `db:"file_path"`
 	Files        BookmarkFiles       `db:"files"`
-	Errors       db.Strings          `db:"errors"`
-	Labels       db.Strings          `db:"labels"`
+	Errors       types.Strings       `db:"errors"`
+	Labels       types.Strings       `db:"labels"`
 	IsArchived   bool                `db:"is_archived"`
 	IsMarked     bool                `db:"is_marked"`
 	Annotations  BookmarkAnnotations `db:"annotations"`
@@ -570,7 +571,7 @@ func (l *BookmarkLinks) Scan(value interface{}) error {
 		return nil
 	}
 
-	v, err := db.JSONBytes(value)
+	v, err := types.JSONBytes(value)
 	if err != nil {
 		return err
 	}
@@ -617,7 +618,7 @@ func (f *BookmarkFiles) Scan(value interface{}) error {
 		return nil
 	}
 
-	v, err := db.JSONBytes(value)
+	v, err := types.JSONBytes(value)
 	if err != nil {
 		return err
 	}
@@ -635,8 +636,8 @@ func (f BookmarkFiles) Value() (driver.Value, error) {
 }
 
 type annotationQueryResult struct {
-	Bookmark Bookmark      `db:"b"`
-	ID       string        `db:"annotation_id"`
-	Text     string        `db:"annotation_text"`
-	Created  db.TimeString `db:"annotation_created"`
+	Bookmark Bookmark         `db:"b"`
+	ID       string           `db:"annotation_id"`
+	Text     string           `db:"annotation_text"`
+	Created  types.TimeString `db:"annotation_created"`
 }

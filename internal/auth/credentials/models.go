@@ -19,6 +19,7 @@ import (
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/db/types"
 )
 
 const (
@@ -41,14 +42,14 @@ var (
 
 // Credential is an credential record
 type Credential struct {
-	ID        int        `db:"id" goqu:"skipinsert,skipupdate"`
-	UID       string     `db:"uid"`
-	UserID    *int       `db:"user_id"`
-	Created   time.Time  `db:"created" goqu:"skipupdate"`
-	IsEnabled bool       `db:"is_enabled"`
-	Name      string     `db:"name"`
-	Password  string     `db:"password"`
-	Roles     db.Strings `db:"roles"`
+	ID        int           `db:"id" goqu:"skipinsert,skipupdate"`
+	UID       string        `db:"uid"`
+	UserID    *int          `db:"user_id"`
+	Created   time.Time     `db:"created" goqu:"skipupdate"`
+	IsEnabled bool          `db:"is_enabled"`
+	Name      string        `db:"name"`
+	Password  string        `db:"password"`
+	Roles     types.Strings `db:"roles"`
 }
 
 // UserCredential is the combination of an credential and its user

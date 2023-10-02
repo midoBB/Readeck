@@ -14,6 +14,7 @@ import (
 	"github.com/lithammer/shortuuid/v4"
 
 	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/db/types"
 )
 
 const (
@@ -176,7 +177,7 @@ func (s *CollectionFilters) Scan(value interface{}) error {
 		return nil
 	}
 
-	v, err := db.JSONBytes(value)
+	v, err := types.JSONBytes(value)
 	if err != nil {
 		return err
 	}

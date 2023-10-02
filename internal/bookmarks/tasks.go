@@ -17,6 +17,7 @@ import (
 	"runtime"
 	"runtime/debug"
 	"slices"
+	"strconv"
 	"strings"
 	"time"
 
@@ -340,6 +341,10 @@ func saveBookmark(b *Bookmark, saved *bool) extract.Processor {
 
 		if drop.IsMedia() {
 			b.Embed = drop.Meta.LookupGet("oembed.html")
+		}
+
+		if duration, err := strconv.Atoi(drop.Meta.LookupGet("x.duration")); err == nil {
+			b.Duration = duration
 		}
 
 		b.Links = GetExtractedLinks(ex.Context)

@@ -110,6 +110,7 @@ type Bookmark struct {
 	Description  string              `db:"description"`
 	Text         string              `db:"text"`
 	WordCount    int                 `db:"word_count"`
+	Duration     int                 `db:"duration"`
 	Embed        string              `db:"embed"`
 	FilePath     string              `db:"file_path"`
 	Files        BookmarkFiles       `db:"files"`
@@ -469,8 +470,11 @@ func (b *Bookmark) StateName() string {
 	return StateNames[b.State]
 }
 
-// ReadingTime returns the aproximated reading time
+// ReadingTime returns the duration or the aproximated reading time
 func (b *Bookmark) ReadingTime() int {
+	if b.Duration > 0 {
+		return b.Duration / 60
+	}
 	return b.WordCount / 200
 }
 

@@ -142,15 +142,46 @@ var elementMap = map[string]string{
 	"xmp":        "",
 }
 
-// ctrlReplacer is a string replacer for all control characters
+var excludedChars = [][2]int{
+	// CO block, except 0x09 (tab), 0x0A (LF), 0x0D (CR)
+	{0x00, 0x08},
+	{0x0B, 0x0C},
+	{0x0E, 0x1F},
+
+	// C1 block, except 0x85 (next line)
+	{0x7F, 0x84},
+	{0x86, 0x9F},
+
+	// Surrogates
+	{0xFDD0, 0xFDDF},
+	{0xFFFE, 0xFFFF},
+
+	{0x1FFFE, 0x1FFFF},
+	{0x2FFFE, 0x2FFFF},
+	{0x3FFFE, 0x3FFFF},
+	{0x4FFFE, 0x4FFFF},
+	{0x5FFFE, 0x5FFFF},
+	{0x6FFFE, 0x6FFFF},
+	{0x7FFFE, 0x7FFFF},
+	{0x8FFFE, 0x8FFFF},
+	{0x9FFFE, 0x9FFFF},
+	{0xAFFFE, 0xAFFFF},
+	{0xBFFFE, 0xBFFFF},
+	{0xCFFFE, 0xCFFFF},
+	{0xDFFFE, 0xDFFFF},
+	{0xEFFFE, 0xEFFFF},
+	{0xFFFFE, 0xFFFFF},
+	{0x10FFFE, 0x10FFFF},
+}
+
+// ctrlReplacer is a string replacer for all invalid XML characters
 var ctrlReplacer = func() *strings.Replacer {
-	oldnew := []string{}
-	for i := 0; i <= 31; i++ {
-		oldnew = append(oldnew, string(rune(i)), "")
-	}
-	for i := 127; i <= 159; i++ {
-		oldnew = append(oldnew, string(rune(i)), "")
+	repl := []string{}
+	for _, t := range excludedChars {
+		for i := t[0]; i <= t[1]; i++ {
+			repl = append(repl, string(rune(i)), "")
+		}
 	}
 
-	return strings.NewReplacer(oldnew...)
+	return strings.NewReplacer(repl...)
 }()

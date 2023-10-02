@@ -155,6 +155,8 @@ func TestSanitizeString(t *testing.T) {
 		{string([]rune{0, 1, 31, 32, 33, 65}), " !A"},
 		{string([]rune{147, 65, 12616}), "Aㅈ"},
 		{string([]rune{145, 128571, 155}), "😻"},
+		{"test\n\tabc", "test\n\tabc"},
+		{"test\r\n\tabc", "test\r\n\tabc"},
 	}
 
 	for i, test := range tests {

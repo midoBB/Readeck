@@ -4,6 +4,7 @@
 
 const vttTimeStamp = /^\d+:\d+:\d+\.\d+\s+-->\s+\d+:\d+:\d+\.\d+/
 const rxAutogen = /-x-autogen/
+const rxDuration = /^PT(\d+)H(\d+)M(\d+)S$/
 
 exports.isActive = function () {
   return $.domain == "vimeo.com"
@@ -23,6 +24,12 @@ exports.processMeta = function () {
     $.meta["x.picture_url"] = info.video.thumbs[size]
   }
 
+  // Get duration
+  const duration = getDuration()
+  if (duration) {
+    $.meta["x.duration"] = String(duration)
+  }
+
   // Fetch transcript
   const track = getTextTrack(info)
   if (track.length > 0) {
@@ -37,8 +44,17 @@ function getPlayerInfo(videoId) {
   return rsp.json()
 }
 
-function getTextTrack(data) {
-  let tracks = data.request?.text_tracks
+function getDuration() {
+  const duration = $.properties["json-ld"]?.[0]?.[0]?.duration
+  const m = duration.match(rxDuration)
+  if (m) {
+    return parseInt(m[1]) * 3600 + parseInt(m[2]) * 60 + parseInt(m[3])
+  }
+  return null
+}
+
+function getTextTrack(info) {
+  let tracks = info.request?.text_tracks
   if (!tracks || tracks.length == 0) {
     return []
   }

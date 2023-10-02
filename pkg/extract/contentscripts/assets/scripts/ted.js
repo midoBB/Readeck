@@ -7,6 +7,10 @@ exports.isActive = function () {
 }
 
 exports.processMeta = function () {
+  // set duration
+  $.meta["x.duration"] = $.meta["graph.video:duration"]
+
+  // get transcript
   const transcript = getTranscript()
   if (transcript) {
     console.debug("found transcript", { paragraphs: transcript.length })

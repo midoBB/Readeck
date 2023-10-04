@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS bookmark (
     published   timestamptz,
     authors     jsonb       NOT NULL DEFAULT '[]',
     lang        varchar(16) NOT NULL DEFAULT '',
+    dir         varchar(3)  NOT NULL DEFAULT '',
     type        varchar(64) NOT NULL DEFAULT '',
     description text        NOT NULL DEFAULT '',
     "text"      text        NOT NULL DEFAULT '',

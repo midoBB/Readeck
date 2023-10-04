@@ -318,6 +318,7 @@ func saveBookmark(b *Bookmark, saved *bool) extract.Processor {
 		b.SiteName = drop.Site
 		b.Authors = types.Strings{}
 		b.Lang = drop.Lang
+		b.TextDirection = drop.TextDirection
 		b.DocumentType = drop.DocumentType
 		b.Description = drop.Description
 		b.Text = ex.Text

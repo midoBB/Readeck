@@ -48,6 +48,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   <div class="prose font-serif leading-normal text-lg overflow-x-auto"
     lang="{{ .Item.Lang }}"
+    dir="{{ default(.Item.TextDirection, "ltr") }}"
     data-controller="reader"
     data-annotations-target="root">
     {{- unsafeWrite(.HTML) -}}

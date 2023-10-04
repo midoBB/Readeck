@@ -581,7 +581,7 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 		ds := Bookmarks.Query().
 			Select(
 				"b.id", "b.uid", "b.created", "b.updated", "b.state", "b.url", "b.title",
-				"b.domain", "b.site", "b.site_name", "b.authors", "b.lang", "b.type",
+				"b.domain", "b.site", "b.site_name", "b.authors", "b.lang", "b.dir", "b.type",
 				"b.is_marked", "b.is_archived",
 				"b.labels", "b.description", "b.word_count", "b.duration", "b.file_path", "b.files").
 			Where(

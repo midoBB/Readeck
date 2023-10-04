@@ -43,7 +43,8 @@ SPDX-License-Identifier: AGPL-3.0-only
         width="{{ .Item.Resources.icon.Width }}"
         height="{{ .Item.Resources.icon.Height }}">
       {{- end -}}
-      <strong class="overflow-hidden text-ellipsis" title="{{ default(.Item.SiteName, "no site name") }}">{{ default(.Item.SiteName, "no site name") }}</strong>
+      <strong class="overflow-hidden text-ellipsis" title="{{ default(.Item.SiteName, "no site name") }}"
+       dir="{{ default(.Item.TextDirection, "ltr") }}">{{ default(.Item.SiteName, "no site name") }}</strong>
       </li>
       {{- if !empty(.Item.Published) -}}
         {{- yield line_icon(icon="o-calendar") content -}}

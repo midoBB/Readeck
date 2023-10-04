@@ -39,7 +39,7 @@ SPDX-License-Identifier: AGPL-3.0-only
         <p class="text-lg">Bookmark is loading…</p>
       </div>
     {{- else -}}
-      <div class="hidden print:block">
+      <div class="hidden print:block" dir="{{ default(.Item.TextDirection, "ltr") }}">
         <h1 class="px-6 py-4 text-3xl font-serif print:px-0">{{ .Item.Title }}</h1>
       </div>
 
@@ -104,7 +104,8 @@ SPDX-License-Identifier: AGPL-3.0-only
           {{ include "./components/title_form" .Item }}
 
           {{- if !empty(.Item.Description) -}}
-            <p class="mt-2 text-lg leading-tight text-justify font-serif italic">{{ .Item.Description }}</p>
+            <p class="mt-2 text-lg leading-tight text-justify font-serif italic"
+               dir="{{ default(.Item.TextDirection, "ltr") }}">{{ .Item.Description }}</p>
           {{- end -}}
           {{- if user.Settings.DebugInfo -}}
             {{ include "./components/debug" map("log", ._log, "props", ._props) }}

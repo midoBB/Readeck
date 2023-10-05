@@ -581,7 +581,7 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 		ds := Bookmarks.Query().
 			Select(
 				"b.id", "b.uid", "b.created", "b.updated", "b.state", "b.url", "b.title",
-				"b.domain", "b.site", "b.site_name", "b.authors", "b.lang", "b.type",
+				"b.domain", "b.site", "b.site_name", "b.authors", "b.lang", "b.dir", "b.type",
 				"b.is_marked", "b.is_archived",
 				"b.labels", "b.description", "b.word_count", "b.duration", "b.file_path", "b.files").
 			Where(
@@ -737,32 +737,33 @@ func (bl bookmarkList) GetSumStrings() []string {
 type bookmarkItem struct {
 	*Bookmark `json:"-"`
 
-	ID           string                   `json:"id"`
-	Href         string                   `json:"href"`
-	Created      time.Time                `json:"created"`
-	Updated      time.Time                `json:"updated"`
-	State        BookmarkState            `json:"state"`
-	Loaded       bool                     `json:"loaded"`
-	URL          string                   `json:"url"`
-	Title        string                   `json:"title"`
-	SiteName     string                   `json:"site_name"`
-	Site         string                   `json:"site"`
-	Published    *time.Time               `json:"published,omitempty"`
-	Authors      []string                 `json:"authors"`
-	Lang         string                   `json:"lang"`
-	DocumentType string                   `json:"document_type"`
-	Type         string                   `json:"type"`
-	HasArticle   bool                     `json:"has_article"`
-	Description  string                   `json:"description"`
-	IsDeleted    bool                     `json:"is_deleted"`
-	IsMarked     bool                     `json:"is_marked"`
-	IsArchived   bool                     `json:"is_archived"`
-	Labels       []string                 `json:"labels"`
-	Annotations  BookmarkAnnotations      `json:"-"`
-	Resources    map[string]*bookmarkFile `json:"resources"`
-	Embed        string                   `json:"embed,omitempty"`
-	Errors       []string                 `json:"errors,omitempty"`
-	Links        BookmarkLinks            `json:"links,omitempty"`
+	ID            string                   `json:"id"`
+	Href          string                   `json:"href"`
+	Created       time.Time                `json:"created"`
+	Updated       time.Time                `json:"updated"`
+	State         BookmarkState            `json:"state"`
+	Loaded        bool                     `json:"loaded"`
+	URL           string                   `json:"url"`
+	Title         string                   `json:"title"`
+	SiteName      string                   `json:"site_name"`
+	Site          string                   `json:"site"`
+	Published     *time.Time               `json:"published,omitempty"`
+	Authors       []string                 `json:"authors"`
+	Lang          string                   `json:"lang"`
+	TextDirection string                   `json:"text_direction"`
+	DocumentType  string                   `json:"document_type"`
+	Type          string                   `json:"type"`
+	HasArticle    bool                     `json:"has_article"`
+	Description   string                   `json:"description"`
+	IsDeleted     bool                     `json:"is_deleted"`
+	IsMarked      bool                     `json:"is_marked"`
+	IsArchived    bool                     `json:"is_archived"`
+	Labels        []string                 `json:"labels"`
+	Annotations   BookmarkAnnotations      `json:"-"`
+	Resources     map[string]*bookmarkFile `json:"resources"`
+	Embed         string                   `json:"embed,omitempty"`
+	Errors        []string                 `json:"errors,omitempty"`
+	Links         BookmarkLinks            `json:"links,omitempty"`
 
 	mediaURL           *url.URL
 	annotationTag      string
@@ -780,29 +781,30 @@ type bookmarkFile struct {
 // newBookmarkItem builds a BookmarkItem from a Bookmark instance.
 func newBookmarkItem(s *server.Server, r *http.Request, b *Bookmark, base string) bookmarkItem {
 	res := bookmarkItem{
-		Bookmark:     b,
-		ID:           b.UID,
-		Href:         s.AbsoluteURL(r, base, b.UID).String(),
-		Created:      b.Created,
-		Updated:      b.Updated,
-		State:        b.State,
-		Loaded:       b.State != StateLoading,
-		URL:          b.URL,
-		Title:        b.Title,
-		SiteName:     b.SiteName,
-		Site:         b.Site,
-		Published:    b.Published,
-		Authors:      b.Authors,
-		Lang:         b.Lang,
-		DocumentType: b.DocumentType,
-		Description:  b.Description,
-		IsDeleted:    deleteBookmarkTask.IsRunning(b.ID),
-		IsMarked:     b.IsMarked,
-		IsArchived:   b.IsArchived,
-		Labels:       make([]string, 0),
-		Annotations:  b.Annotations,
-		Resources:    make(map[string]*bookmarkFile),
-		Links:        b.Links,
+		Bookmark:      b,
+		ID:            b.UID,
+		Href:          s.AbsoluteURL(r, base, b.UID).String(),
+		Created:       b.Created,
+		Updated:       b.Updated,
+		State:         b.State,
+		Loaded:        b.State != StateLoading,
+		URL:           b.URL,
+		Title:         b.Title,
+		SiteName:      b.SiteName,
+		Site:          b.Site,
+		Published:     b.Published,
+		Authors:       b.Authors,
+		Lang:          b.Lang,
+		TextDirection: b.TextDirection,
+		DocumentType:  b.DocumentType,
+		Description:   b.Description,
+		IsDeleted:     deleteBookmarkTask.IsRunning(b.ID),
+		IsMarked:      b.IsMarked,
+		IsArchived:    b.IsArchived,
+		Labels:        make([]string, 0),
+		Annotations:   b.Annotations,
+		Resources:     make(map[string]*bookmarkFile),
+		Links:         b.Links,
 
 		mediaURL:      s.AbsoluteURL(r, "/bm", b.FilePath),
 		annotationTag: "rd-annotation",

@@ -7,10 +7,12 @@ package meta
 import (
 	"bytes"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/url"
 	"os"
 	"path"
+	"strconv"
+	"strings"
 	"testing"
 	"time"
 
@@ -31,7 +33,7 @@ func getFileContents(name string) []byte {
 	}
 	defer fd.Close()
 
-	data, err := ioutil.ReadAll(fd)
+	data, err := io.ReadAll(fd)
 	if err != nil {
 		panic(err)
 	}
@@ -85,6 +87,29 @@ func TestMeta(t *testing.T) {
 				"twitter.title":       {"My Document Title"},
 				"twitter.url":         {"http://localhost:8000/"},
 			}, ex.Drop().Meta)
+		})
+
+		t.Run("text direction", func(t *testing.T) {
+			tests := []struct {
+				dir      string
+				expected string
+			}{
+				{"", ""},
+				{"rtl", "rtl"},
+				{"ltr", "ltr"},
+				{"invalid", ""},
+			}
+
+			for i, test := range tests {
+				t.Run(strconv.Itoa(i), func(t *testing.T) {
+					ex, _ := extract.New("http://example.net/", nil)
+					pm := ex.NewProcessMessage(extract.StepDom)
+					pm.Dom, _ = html.Parse(strings.NewReader(`<html dir="` + test.dir + `"><html>`))
+
+					ExtractMeta(pm, nil)
+					assert.Equal(t, test.expected, ex.Drop().TextDirection)
+				})
+			}
 		})
 	})
 
@@ -233,6 +258,7 @@ func TestMeta(t *testing.T) {
 				"graph.video:url":             {"https://www.youtube.com/embed/zR3Igc3Rhfg"},
 				"graph.video:width":           {"1280"},
 				"html.description":            {"Enjoy the videos and music you love, upload original content and share it all with friends, family and the world on YouTube."},
+				"html.dir":                    {"ltr"},
 				"html.keywords":               {"video, sharing, camera phone, video phone, free, upload"},
 				"html.lang":                   {"en-GB"},
 				"html.title":                  {"YouTube"},

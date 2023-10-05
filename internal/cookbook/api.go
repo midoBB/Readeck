@@ -110,24 +110,25 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 	drop := ex.Drop()
 
 	res := &extractResult{
-		URL:          drop.UnescapedURL(),
-		Logs:         ex.Logs,
-		Errors:       []string{},
-		Meta:         drop.Meta,
-		Properties:   drop.Properties,
-		Domain:       drop.Domain,
-		Title:        drop.Title,
-		Authors:      drop.Authors,
-		Site:         drop.URL.Hostname(),
-		SiteName:     drop.Site,
-		Lang:         drop.Lang,
-		Date:         &drop.Date,
-		DocumentType: drop.DocumentType,
-		Description:  drop.Description,
-		HTML:         string(ex.HTML),
-		Text:         ex.Text,
-		Images:       map[string]*extractImg{},
-		Links:        []any{},
+		URL:           drop.UnescapedURL(),
+		Logs:          ex.Logs,
+		Errors:        []string{},
+		Meta:          drop.Meta,
+		Properties:    drop.Properties,
+		Domain:        drop.Domain,
+		Title:         drop.Title,
+		Authors:       drop.Authors,
+		Site:          drop.URL.Hostname(),
+		SiteName:      drop.Site,
+		Lang:          drop.Lang,
+		TextDirection: drop.TextDirection,
+		Date:          &drop.Date,
+		DocumentType:  drop.DocumentType,
+		Description:   drop.Description,
+		HTML:          string(ex.HTML),
+		Text:          ex.Text,
+		Images:        map[string]*extractImg{},
+		Links:         []any{},
 	}
 
 	if drop.IsMedia() {
@@ -201,23 +202,24 @@ type extractImg struct {
 }
 
 type extractResult struct {
-	URL          string                 `json:"url"`
-	Logs         []string               `json:"logs"`
-	Errors       []string               `json:"errors"`
-	Meta         extract.DropMeta       `json:"meta"`
-	Properties   extract.DropProperties `json:"properties"`
-	Domain       string                 `json:"domain"`
-	Title        string                 `json:"title"`
-	Authors      []string               `json:"authors"`
-	Site         string                 `json:"site"`
-	SiteName     string                 `json:"site_name"`
-	Lang         string                 `json:"lang"`
-	Date         *time.Time             `json:"date"`
-	DocumentType string                 `json:"document_type"`
-	Description  string                 `json:"description"`
-	HTML         string                 `json:"html"`
-	Text         string                 `json:"text"`
-	Embed        string                 `json:"embed"`
-	Images       map[string]*extractImg `json:"images"`
-	Links        []any                  `json:"links"`
+	URL           string                 `json:"url"`
+	Logs          []string               `json:"logs"`
+	Errors        []string               `json:"errors"`
+	Meta          extract.DropMeta       `json:"meta"`
+	Properties    extract.DropProperties `json:"properties"`
+	Domain        string                 `json:"domain"`
+	Title         string                 `json:"title"`
+	Authors       []string               `json:"authors"`
+	Site          string                 `json:"site"`
+	SiteName      string                 `json:"site_name"`
+	Lang          string                 `json:"lang"`
+	TextDirection string                 `json:"text_direction"`
+	Date          *time.Time             `json:"date"`
+	DocumentType  string                 `json:"document_type"`
+	Description   string                 `json:"description"`
+	HTML          string                 `json:"html"`
+	Text          string                 `json:"text"`
+	Embed         string                 `json:"embed"`
+	Images        map[string]*extractImg `json:"images"`
+	Links         []any                  `json:"links"`
 }

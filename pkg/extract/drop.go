@@ -41,12 +41,13 @@ type Drop struct {
 	Charset      string
 	DocumentType string
 
-	Title       string
-	Description string
-	Authors     []string
-	Site        string
-	Lang        string
-	Date        time.Time
+	Title         string
+	Description   string
+	Authors       []string
+	Site          string
+	Lang          string
+	TextDirection string
+	Date          time.Time
 
 	Header     http.Header
 	Meta       DropMeta

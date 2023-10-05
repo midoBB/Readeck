@@ -61,23 +61,21 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 		"html.byl",
 	)...)
 
-	site := d.Meta.LookupGet(
+	if site := d.Meta.LookupGet(
 		"graph.site_name",
 		"schema.name",
-	)
-	if site != "" {
+	); site != "" {
 		d.Site = site
 	}
 
-	d.Lang = d.Meta.LookupGet(
+	if lang := d.Meta.LookupGet(
 		"html.lang",
 		"html.language",
-	)
-	if len(d.Lang) < 2 {
-		d.Lang = ""
-	} else {
-		d.Lang = d.Lang[0:2]
+	); len(lang) >= 2 {
+		d.Lang = lang[0:2]
 	}
+
+	d.TextDirection = d.Meta.LookupGet("html.dir")
 
 	m.Log.WithField("count", len(d.Meta)).Debug("metadata loaded")
 	return next
@@ -166,6 +164,12 @@ var specList = []rawSpec{
 	{"html", "/html[@lang]/@lang", func(n *html.Node) (string, string) {
 		return "lang", dom.TextContent(n)
 	}},
+	{"html", "/*[self::html or self::body][@dir]/@dir", func(n *html.Node) (string, string) {
+		if c := strings.ToLower(strings.TrimSpace(dom.TextContent(n))); c == "rtl" || c == "ltr" {
+			return "dir", c
+		}
+		return "dir", ""
+	}},
 
 	// Common HTML meta tags
 	{"html", `//meta[@content][
@@ -219,12 +223,14 @@ func ParseMeta(doc *html.Node) extract.DropMeta {
 
 		for _, node := range nodes {
 			name, value := x.fn(node)
+			name = strings.TrimSpace(name)
+			value = strings.TrimSpace(value)
 			if name == "" || value == "" {
 				continue
 			}
 
-			name = fmt.Sprintf("%s.%s", x.name, strings.TrimSpace(name))
-			res.Add(name, strings.TrimSpace(value))
+			name = fmt.Sprintf("%s.%s", x.name, name)
+			res.Add(name, value)
 		}
 	}
 

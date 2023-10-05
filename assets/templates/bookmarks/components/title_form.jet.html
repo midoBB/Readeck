@@ -15,6 +15,7 @@ SPDX-License-Identifier: AGPL-3.0-only
  {{ yield csrfField() }}
 
   <h1 class="no-js:hidden text-3xl max-sm:text-2xl font-serif flex-grow mr-2 cursor-pointer hover:outline-std"
+   dir="{{ default(.TextDirection, "ltr") }}"
    data-inplace-input-target="editable">{{ .Title }}</h1>
   {* Classic input field shown in no-JS *}
   <input type="text" name="title" value="{{ .Title }}"

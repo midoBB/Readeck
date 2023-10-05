@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS bookmark (
     published   datetime,
     authors     json     NOT NULL DEFAULT "",
     lang        text     NOT NULL DEFAULT "",
+    dir         text     NOT NULL DEFAULT "",
     type        text     NOT NULL DEFAULT "",
     description text     NOT NULL DEFAULT "",
     text        text     NOT NULL DEFAULT "",

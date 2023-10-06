@@ -1,0 +1,36 @@
+{
+  "title_selectors": [
+    "substring-before( //title , ' - PHLY' )"
+  ],
+  "body_selectors": [
+    "//article[contains(concat(' ',normalize-space(@id),' '),' post ')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//div[not(contains(@class, 'avatar'))]/a[contains(@href, 'allphly.com/author/')]"
+  ],
+  "strip_selectors": [
+    "//svg",
+    "//div[contains(@class, 'wp-block-avatar')]/parent::div",
+    "//div[contains(@class, 'gspb_svgBox-id-gsbp')] | //div[contains(@class, 'gspb_svgBox-id-gsbp')]/following-sibling::*"
+  ],
+  "strip_id_or_class": [
+    "gspb-dynamic-post-title",
+    "gspb_meta"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://allphly.com/sixers-news-analysis-joel-embiid-needs-to-score-less/",
+      "contains": []
+    }
+  ]
+}

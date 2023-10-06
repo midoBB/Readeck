@@ -1,12 +1,15 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' lead-asset__content__media ')] | //div[contains(concat(' ',normalize-space(@class),' '),' article__chunks ')]"
+    "//article[contains(@class,'article')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
-    "//aside"
+    "//aside",
+    "//div[contains(@class, 'ContentHeaderHedAccreditationWrapper')]",
+    "//div[contains(@class, 'TwitterEmbedContainer')]",
+    "//div[contains(@class, 'AdWrapper-')]"
   ],
   "strip_id_or_class": [
     "grid-layout__aside"
@@ -18,7 +21,12 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "data-src=\"https://www.youtube-nocookie.com/embed/",
+      "src=\"https://www.youtube-nocookie.com/embed/"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {
@@ -26,6 +34,10 @@
       "contains": [
         "adult animation was already undergoing something"
       ]
+    },
+    {
+      "url": "https://www.gq-magazine.co.uk/article/ai-films-and-tv-shows",
+      "contains": []
     }
   ]
 }

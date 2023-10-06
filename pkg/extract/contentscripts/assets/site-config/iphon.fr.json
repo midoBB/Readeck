@@ -15,7 +15,9 @@
     "comp-vgrid",
     "comp-box",
     "mvp-post-soc-list",
-    "mvp-post-bot-ad"
+    "mvp-post-bot-ad",
+    "mvp-related-posts",
+    "mvp-cont-read-wrap"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

@@ -1,12 +1,35 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' article_post ')]"
+    "//div[contains(@class, 'main')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_selectors": [
+    "//i",
+    "//div[@class='popular_widget']"
+  ],
+  "strip_id_or_class": [
+    "hide-tablet-and-desktop",
+    "hidden",
+    "main-menu-wrapper",
+    "menu-overlay",
+    "topbar",
+    "huge-menu",
+    "gated-popup",
+    "lightbox-popup",
+    "widget__shares",
+    "all-related-sections",
+    "widget__headline",
+    "time-to-read",
+    "social-author",
+    "social-date",
+    "article__comments",
+    "read_also_posts",
+    "tags__item",
+    "cta-membership",
+    "custom-field-lightbox-img-shortcode-ids"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -18,12 +41,28 @@
     [
       "data-runner-src=\"",
       "data-src=\""
+    ],
+    [
+      "data-runner-src=\"https://www.youtube.com/embed/",
+      "src=\"https://www.youtube.com/embed/"
+    ],
+    [
+      "data-src=\"https://www.youtube.com/embed/",
+      "src=\"https://www.youtube.com/embed/"
+    ],
+    [
+      " width=\"100%\"\u003e",
+      ""
     ]
   ],
   "http_headers": null,
   "tests": [
     {
       "url": "https://spectrum.ieee.org/raspberry-pi-cluster-computer",
+      "contains": []
+    },
+    {
+      "url": "https://spectrum.ieee.org/egypts-massive-18gw-benban-solar-park-nears-completion",
       "contains": []
     }
   ]

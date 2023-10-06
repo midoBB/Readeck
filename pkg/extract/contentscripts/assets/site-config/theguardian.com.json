@@ -32,6 +32,7 @@
     "//figure[contains(@data-spacefinder-type, \"NewsletterSignup\")]",
     "//figure[@data-atom-type=\"qanda\" or @data-atom-type=\"profile\"]",
     "//div[@data-print-layout=\"hide\"]",
+    "//figcaption",
     "//svg",
     "//gu-island",
     "//article//div[contains(@class, 'content__meta-container')]",

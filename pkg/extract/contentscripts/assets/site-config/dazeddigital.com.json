@@ -1,0 +1,50 @@
+{
+  "title_selectors": [
+    "normalize-space( //meta[@property='og:title']/@content )"
+  ],
+  "body_selectors": [
+    "(//article[@class='main-article'])[1]"
+  ],
+  "date_selectors": [
+    "//time[@class='timestamp']/@datetime"
+  ],
+  "author_selectors": [
+    "//a[@class='contributor-name']"
+  ],
+  "strip_selectors": [
+    "//aside",
+    "//h1[@class='title']"
+  ],
+  "strip_id_or_class": [
+    "pin-btn",
+    "pin-hover",
+    "show-when-aside-content-hides",
+    "read-more",
+    "advert-container",
+    "hidden-desktop"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "data-src=\"https://www.youtube.com/embed/",
+      "src=\"https://www.youtube.com/embed/"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.dazeddigital.com/beauty/article/60860/1/we-were-never-supposed-to-see-our-faces-this-much-social-media-zoom",
+      "contains": []
+    },
+    {
+      "url": "https://www.dazeddigital.com/beauty/article/60926/1/why-the-70s-cool-girl-beauty-of-dazed-and-confused-still-resonates-today",
+      "contains": []
+    }
+  ]
+}

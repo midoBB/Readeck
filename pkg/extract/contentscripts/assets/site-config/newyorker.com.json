@@ -11,7 +11,9 @@
   "author_selectors": [
     "//meta[@property=\"article:author\"]/@content"
   ],
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//button[@id=\"bookmark\"]"
+  ],
   "strip_id_or_class": [
     "content-header__title-block",
     "content-header__accreditation",

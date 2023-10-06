@@ -3,10 +3,19 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 
 exports.isActive = function () {
-  return $.domain == "youtube.com" && $.meta["schema.identifier"].length > 0
+  return $.domain == "youtube.com"
+}
+
+exports.setConfig = function (config) {
+  // there's no need for custom headers, on the contrary
+  config.httpHeaders = {}
 }
 
 exports.processMeta = function () {
+  if ($.meta["schema.identifier"].length == 0) {
+    return
+  }
+
   const videoID = $.meta["schema.identifier"][0]
 
   const info = getVideoInfo(videoID)

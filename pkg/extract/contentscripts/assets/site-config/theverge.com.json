@@ -15,7 +15,10 @@
   ],
   "strip_selectors": [
     "//aside",
-    "//nav"
+    "//nav",
+    "//*[@id=\"content\"]/div[1]/ul",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' grow ')]",
+    "//div[contains(@class, 'duet--media--content-warning')]/img"
   ],
   "strip_id_or_class": [
     "gallery",
@@ -37,7 +40,10 @@
     "chorus-ad-placement",
     "c-related-list",
     "sr-only",
-    "e-image__meta"
+    "e-image__meta",
+    "duet--article--date-and-comments",
+    "duet--article--disclaimer",
+    "duet--article--article-byline"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

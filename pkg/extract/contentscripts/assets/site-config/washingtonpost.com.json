@@ -48,7 +48,8 @@
     "module",
     "tooltip",
     "powa-wrapper",
-    "powa-blurb-wrapper"
+    "powa-blurb-wrapper",
+    "hide-for-print"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

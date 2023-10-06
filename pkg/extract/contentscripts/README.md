@@ -4,6 +4,12 @@
 
 The main content script API consists in exporting some functions that can perform operations on the current extracted information.
 
+### priority
+
+`exports.priority = 0`
+
+This is a integer value, defaulting to `0` when unset. The higher the number, the later the script will run. For a script overriding the site configuration with `setConfig`, you'll need to set it to a value higher than `10` to ensure the script runs last.
+
 ### isActive
 
 `exports.isActive()`

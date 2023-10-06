@@ -7,13 +7,16 @@
 package contentscripts
 
 import (
+	"cmp"
 	"context"
 	"errors"
 	"io"
+	"slices"
 	"strings"
 	"time"
 
 	"github.com/dop251/goja"
+	"github.com/dop251/goja/ast"
 	"github.com/dop251/goja_nodejs/require"
 	"github.com/dop251/goja_nodejs/url"
 )
@@ -29,7 +32,8 @@ func (k *contextKey) String() string {
 // Program is a wrapper around goja.Program, with a script name
 type Program struct {
 	*goja.Program
-	Name string
+	Name     string
+	Priority int
 }
 
 // Runtime contains a collection of content scripts
@@ -53,15 +57,76 @@ func NewProgram(name string, r io.Reader) (*Program, error) {
 	}
 	b.WriteString("\n})(exports)")
 
-	p, err := goja.Compile(name, b.String(), true)
+	prg, err := goja.Parse(name, b.String())
 	if err != nil {
 		return nil, err
 	}
-	return &Program{Name: name, Program: p}, nil
+
+	p, err := goja.CompileAST(prg, true)
+	if err != nil {
+		return nil, err
+	}
+	return &Program{
+		Name:     name,
+		Program:  p,
+		Priority: getPriority(prg),
+	}, nil
+}
+
+// getPriority look into a (wrapped) program for the integer value
+// of exports.priority
+func getPriority(prg *ast.Program) (res int) {
+	// The first element is the wrapping function call
+	body := prg.Body[0].(*ast.ExpressionStatement).Expression.(*ast.CallExpression).Callee.(*ast.FunctionLiteral)
+
+	// We loop in reversed order because we want the last
+	// defined "exports.priority" and return fast
+	for i := len(body.Body.List) - 1; i >= 0; i-- {
+		item := body.Body.List[i]
+
+		xps, ok := item.(*ast.ExpressionStatement)
+		if !ok {
+			continue
+		}
+		assign, ok := xps.Expression.(*ast.AssignExpression)
+		if !ok {
+			continue
+		}
+		if assign.Operator.String() != "=" {
+			continue
+		}
+		right, ok := assign.Right.(*ast.NumberLiteral)
+		if !ok {
+			continue
+		}
+		left, ok := assign.Left.(*ast.DotExpression)
+		if !ok || left.Identifier.Name != "priority" {
+			continue
+		}
+		idt, ok := left.Left.(*ast.Identifier)
+		if !ok || idt.Name != "exports" {
+			continue
+		}
+
+		value, ok := right.Value.(int64)
+		if ok {
+			return int(value)
+		}
+	}
+
+	return 0
 }
 
 // New creates a new ContentScript instance
 func New(programs ...*Program) *Runtime {
+	slices.SortStableFunc(programs, func(a, b *Program) int {
+		if a.Priority != b.Priority {
+			return cmp.Compare(a.Priority, b.Priority)
+		}
+
+		return cmp.Compare(strings.ToLower(a.Name), strings.ToLower(b.Name))
+	})
+
 	r := &Runtime{
 		Runtime:  goja.New(),
 		programs: programs,

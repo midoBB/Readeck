@@ -1,0 +1,54 @@
+// SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
+// This file contains modification of site configs only.
+
+exports.priority = 10
+
+exports.isActive = function () {
+  return true
+}
+
+exports.setConfig = function (config) {
+  switch (true) {
+    case $.domain == "arstechnica.com":
+      config.replaceStrings = [
+        ['" data-src="', '"><img src="'],
+        ['" data-responsive="', '" /><span data-responsive="'],
+        ['<figure style="', '</span><figure data-style="'],
+      ]
+      break
+
+    case $.domain == "bostonglobe.com":
+      config.bodySelectors = ["//article"]
+      config.stripIdOrClass = ["tagline", "tagline_hr"]
+      break
+
+    case $.domain == "longform.org":
+      config.singlePageLinkSelectors.push(
+        "//a[@href][@class='post__link']/@href",
+      )
+      break
+
+    case $.domain == "mediapart.fr":
+      config.bodySelectors.push(
+        "//div[contains(concat(' ',normalize-space(@class),' '),' content-article ')]",
+      )
+      config.stripIdOrClass.push("cookie-consent-banner-content")
+      break
+
+    case $.domain == "slate.com":
+      // The original replaceStrings replaces noscript by divs,
+      // not the best idea.
+      config.replaceStrings = []
+      break
+
+    case $.domain == "theguardian.com":
+      // Do not remove figcaption tags
+      config.stripSelectors = config.stripSelectors.filter(
+        (x) => x != "//figcaption",
+      )
+      break
+  }
+}

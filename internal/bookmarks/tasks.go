@@ -186,6 +186,7 @@ func extractPageHandler(data interface{}) {
 
 	params := data.(extractParams)
 
+	var resourceCount int
 	saved := false
 	logger := log.WithFields(log.Fields{
 		"@id":         params.RequestID,
@@ -193,6 +194,7 @@ func extractPageHandler(data interface{}) {
 		"find_main":   params.FindMain,
 	})
 	logger.Debug("starting extraction")
+	start := time.Now()
 
 	defer func() {
 		if b == nil {
@@ -218,6 +220,10 @@ func extractPageHandler(data interface{}) {
 		if !saved {
 			b.Save()
 		}
+
+		metricCreation.WithLabelValues(b.StateName()).Inc()
+		metricTiming.WithLabelValues(b.StateName()).Observe(time.Since(start).Seconds())
+		metricResources.Observe(float64(resourceCount))
 		runtime.GC()
 	}()
 
@@ -276,7 +282,7 @@ func extractPageHandler(data interface{}) {
 		CleanDomProcessor,
 		extractLinksProcessor,
 		contents.Text,
-		saveBookmark(b, &saved),
+		saveBookmark(b, &saved, &resourceCount),
 		fetchLinksProcessor(b),
 	)
 
@@ -297,7 +303,7 @@ var nilProcessor = func(m *extract.ProcessMessage, next extract.Processor) extra
 // saveBookmark is one last step of the extraction process, it saves the bookmark
 // and marks it ready for reading.
 // Other steps can still perform tasks later.
-func saveBookmark(b *Bookmark, saved *bool) extract.Processor {
+func saveBookmark(b *Bookmark, saved *bool, resourceCount *int) extract.Processor {
 	return func(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
 		if m.Step() != extract.StepDone {
 			return next
@@ -358,6 +364,10 @@ func saveBookmark(b *Bookmark, saved *bool) extract.Processor {
 			if err != nil {
 				logEntry.WithError(err).Error("archiver error")
 			}
+		}
+
+		if arc != nil {
+			*resourceCount = len(arc.Cache)
 		}
 
 		// Create the zip file

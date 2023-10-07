@@ -11,6 +11,9 @@ $gray-default: #666
 $gray-light: #eee
 $radius: 2px
 
+@prose
+  line-height: $line-height
+
 /* ------------------------------------------------------------------
    Reset
    --------------------------------------------------------------- */
@@ -124,31 +127,31 @@ main.content
   line-height: $line-height
 
   h1
+    @flow-block
     font-size: 1.8em
-    flow-block: $line-height 1.8
 
   h2
+    @flow-block
     font-size: 1.6em
-    flow-block: $line-height 1.6
 
   h3
+    @flow-block
     font-size: 1.4em
-    flow-block: $line-height 1.4
 
   h4
+    @flow-block
     font-size: 1.2em
-    flow-block: $line-height 1.2
 
   h5
+    @flow-block
     font-size: 1em
-    flow-block: $line-height 1
 
   h6
+    @flow-block
     font-size: 0.9em
-    flow-block: $line-height 0.9
 
   p, blockquote, address, figure, hr
-    flow-block: $line-height 1
+    @flow-block
     padding: 0
 
   p, li, dd
@@ -176,9 +179,10 @@ main.content
     font-size: 80%
 
   blockquote
+    padding: $line-height * 1em
+    padding: calc(var(--prose-lh) * 1em)
     background: $gray-light
     border-left: 5px solid $gray-default
-    padded-box: $line-height 0.5 0
 
     *:last-child
       margin-bottom: 0
@@ -192,9 +196,10 @@ main.content
     content: close-quote
 
   pre
+    @flow-block
+    padding: math.div($line-height, 0.9) * 1em
+    padding: calc(var(--prose-lh) * 1em - 1px) calc(var(--prose-lh) * 1em)
     font-size: 0.9em
-    flow-block: $line-height 0.9
-    padded-box: math.div($line-height, 0.9) 0.5 1
     border: 1px solid $gray-default
     background: $gray-light
     white-space: pre-wrap
@@ -222,12 +227,13 @@ main.content
   //   max-width: 100%
 
   figure
+    padding: $line-height * 1em
+    padding: calc(var(--prose-lh) * 1em - 1px)
     display: inline-block
     width: auto
     margin-left: auto
     margin-right: auto
     border: 1px solid $gray-default
-    padded-box: $line-height 0.5 1
 
     p
       text-indent: 0 !important
@@ -236,14 +242,14 @@ main.content
       margin: 0 auto
 
     figcaption
+      @vertical-flow
       font-size: 0.9em
-      vertical-flow: $line-height 0.9
 
     *:last-child
       margin-bottom: 0
 
   ul, ol, dl
-    flow-block: $line-height 1
+    @flow-block
     padding: 0
 
   ul, ol
@@ -274,7 +280,7 @@ main.content
 
 
   table
-    flow-block: $line-height 1
+    @flow-block
     table-layout: fixed
     border-collapse: collapse
     border-spacing: 0
@@ -285,7 +291,9 @@ main.content
     margin-bottom: 0
 
   td, th
-    padded-box: $line-height 0.25 0.5
+    @vertical-flow
+    padding: $line-height *.25em
+    padding: calc((var(--prose-line-height) / 4) * 1em - 0.5px)
     vertical-align: top
     min-width: 2em
     text-align: left

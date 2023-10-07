@@ -7,6 +7,8 @@
 @use "sass:math"
 
 $line-height: 1.5
+@prose
+  line-height: $line-height
 
 @layer components
   .prose-grid
@@ -15,35 +17,34 @@ $line-height: 1.5
 
   .prose
     h1
+      @flow-block
       font-size: 2.4em
-      flow-block: $line-height 2.4
 
     h2
+      @flow-block
       font-size: 2.2em
-      flow-block: $line-height 2.2
 
     h3
+      @flow-block
       font-size: 1.6em
-      flow-block: $line-height 1.6
 
     h4
+      @flow-block
       font-size: 1.2em
-      flow-block: $line-height 1.2
 
     h5
+      @flow-block
       font-size: 1em
-      flow-block: $line-height 1
 
     h6
+      @flow-block
       font-size: 0.9em
-      flow-block: $line-height 0.9
 
     p, blockquote, address, figure, hr
-      flow-block: $line-height 1
+      @flow-block
       padding: 0
 
     p, li, dd
-      // text-align: left
       hyphens: auto
 
     strong, time, b
@@ -83,9 +84,10 @@ $line-height: 1.5
       font-size: 80%
 
     blockquote
+      padding: $line-height * 1em
+      padding: calc(var(--prose-lh) * 1em)
       background: rgba(0,0,0,.03)
       border-left: 5px solid theme('colors.gray.300')
-      padded-box: $line-height 0.5 0
 
       *:last-child
         margin-bottom: 0
@@ -99,9 +101,10 @@ $line-height: 1.5
       content: close-quote
 
     pre
+      @flow-block
+      padding: math.div($line-height, 0.9) * 1em
+      padding: calc(var(--prose-lh) * 1em - 1px) calc(var(--prose-lh) * 1em)
       font-size: 0.9em
-      flow-block: $line-height 0.9
-      padded-box: math.div($line-height, 0.9) 0.5 1
       border: 1px solid theme('colors.gray.300')
       background: rgba(0,0,0,.03)
       white-space: pre-wrap
@@ -142,14 +145,14 @@ $line-height: 1.5
         margin: 0 auto
 
       figcaption
+        @vertical-flow
         font-size: 0.9em
-        vertical-flow: $line-height 0.9
 
       *:last-child
         margin-bottom: 0
 
     ul, ol, dl
-      flow-block: $line-height 1
+      @flow-block
       padding: 0
 
     ul, ol
@@ -180,7 +183,7 @@ $line-height: 1.5
 
 
     table
-      flow-block: $line-height 1
+      @flow-block
       table-layout: fixed
       border-collapse: collapse
       border-spacing: 0
@@ -192,7 +195,9 @@ $line-height: 1.5
       margin-bottom: 0
 
     td, th
-      padded-box: $line-height 0.25 0.5
+      @vertical-flow
+      padding: $line-height *.25em
+      padding: calc((var(--prose-line-height) / 4) * 1em - 0.5px)
       vertical-align: top
       min-width: 2em
       text-align: left

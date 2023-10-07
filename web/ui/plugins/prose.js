@@ -5,130 +5,164 @@
 // This is a postCSS plugin that provides @rules to help with
 // content vertical flow.
 
-function parseParams(params) {
-  parts = params.trim().split(/[ ]+/)
-  let res = []
-  for (let x of parts) {
-    let v = parseFloat(x)
-    if (isNaN(v)) {
-      throw new Error(`"${x}" is not a number`)
+const {Declaration, Rule} = require("postcss")
+
+const rxUnitValue = /^([0-9.]+)([a-z%]+)$/
+const varLineHeight = "--prose-line-height"
+
+class Prose {
+  constructor() {
+    this.lineHeight = 1.5
+  }
+
+  /**
+   *
+   * @param {Declaration} node
+   */
+  setParams(node) {
+    for (let n of node.nodes) {
+      if (n.type !== "decl") {
+        continue
+      }
+      switch (n.prop) {
+        case "line-height":
+          this.lineHeight = parseFloat(n.value).toFixed(4)
+          break
+      }
     }
-    res.push(v)
+
+    const rule = new Rule({selector: ":root"})
+    rule.append(new Declaration({prop: varLineHeight, value: this.lineHeight}))
+    node.replaceWith(rule)
   }
 
-  return res
-}
+  /**
+   *
+   * @param {Declaration[]} nodes
+   */
+  getParams(nodes) {
+    const res = {}
+    for (let n of nodes) {
+      if (n.type !== "decl") {
+        continue
+      }
 
-function roundP(n) {
-  return n.toPrecision(4)
-}
+      let value = n.value
+      let unit = null
+      const m = rxUnitValue.exec(n.value)
+      if (m) {
+        value = parseFloat(m[1]).toFixed(4)
+        unit = m[2]
+      }
+      res[n.prop] = {value, unit, node: n}
+    }
 
-function verticalFlow(lineHeight, fontSize) {
-  const minLH = 0.85
-  const res = []
-
-  // Lines covered
-  let covers = Math.ceil(fontSize / lineHeight)
-
-  // We could use one line less
-  if (covers > 1 && ((covers - 1) * lineHeight) / fontSize >= minLH) {
-    covers = covers - 1
+    return res
   }
 
-  // Set line height
-  let lh = (covers * lineHeight) / fontSize
-  if (lh != lineHeight) {
-    // res.lineHeight = roundP(lh)
-    res.push({prop: "line-height", value: roundP(lh)})
-  }
+  /**
+   *
+   * @param {Declaration} decl
+   * @returns {Declaration[]}
+   */
+  verticalFlow(decl) {
+    const params = this.getParams(decl.parent.nodes)
 
-  // Changing the line height moves the block out of the baseline, let's
-  // restore it.
-  if (fontSize > lineHeight && lineHeight * covers != fontSize) {
+    if (params["font-size"] && params["font-size"].unit != "em") {
+      throw params["font-size"].node.error(
+        "only em unit is valid for font-size",
+      )
+    }
+
+    const lineHeight = params["line-height"]?.value || this.lineHeight
+    const fontSize = params["font-size"]?.value || 1
+    const minLH = 0.85
+    const res = [new Declaration({prop: varLineHeight, value: lineHeight})]
+
+    // Remove params
+    for (let x of ["line-height"]) {
+      if (x in params) {
+        params[x].node.remove()
+      }
+    }
+
+    // Lines covered
+    let covers = Math.ceil(fontSize / lineHeight)
+
+    // We could use one line less
+    if (covers > 1 && ((covers - 1) * lineHeight) / fontSize >= minLH) {
+      covers = covers - 1
+    }
+
+    // Set line height
+    let lh = (covers * lineHeight) / fontSize
     res.push(
-      {prop: "position", value: "relative"},
-      {prop: "top", value: `${roundP(0.9 - lineHeight / fontSize)}em`},
+      new Declaration({
+        prop: "--prose-lh",
+        value: parseFloat(lh).toFixed(4),
+      }),
     )
+    if (lh != lineHeight) {
+      res.push(
+        new Declaration({
+          prop: "line-height",
+          value: parseFloat(lh).toFixed(4),
+        }),
+      )
+    }
+
+    // Changing the line height moves the block out of the baseline, let's
+    // restore it.
+    if (fontSize > lineHeight && lineHeight * covers != fontSize) {
+      res.push(
+        new Declaration({prop: "position", value: "relative"}),
+        new Declaration({
+          prop: "top",
+          value: `${parseFloat(0.9 - lineHeight / fontSize).toFixed(4)}em`,
+        }),
+      )
+    }
+
+    return res
   }
 
-  return res
-}
+  /**
+   *
+   * @param {Declaration} decl
+   * @returns {Declaration[]}
+   */
+  flowBlock(decl) {
+    const res = this.verticalFlow(decl)
+    const params = this.getParams(decl.parent.nodes)
+    const lineHeight = params["line-height"]?.value || this.lineHeight
+    const fontSize = params["font-size"]?.value || 1
 
-function flowBlock(lineHeight, fontSize) {
-  let res = verticalFlow(lineHeight, fontSize)
-  res.push({prop: "margin", value: `0 0 ${roundP(lineHeight / fontSize)}em 0`})
-  return res
-}
-
-function paddedBox(lineHeight, factor, border) {
-  factor = factor || 0.5
-  border = border || 0
-  let p = factor * lineHeight
-
-  let res = [{prop: "padding", value: `${p}em`}]
-  if (border > 0) {
-    res.push({prop: "padding", value: `calc(${p}em - ${border}px) ${p}em`})
+    res.push(
+      new Declaration({
+        prop: "margin",
+        value: `0 0 ${(lineHeight / fontSize).toFixed(4)}em 0`,
+      }),
+    )
+    return res
   }
-
-  return res
 }
+
+const prose = new Prose()
 
 const plugin = () => {
   return {
     postcssPlugin: "prose",
-    Declaration: {
-      // vertical-flow: {line-height} {font-size}
-      // This adds CSS rules to ensure a correct positionning of each line
-      // of a block on the vertical grid.
+    AtRule: {
+      prose: (decl) => {
+        prose.setParams(decl)
+      },
+
       "vertical-flow": (decl) => {
-        let params = []
-        try {
-          params = parseParams(decl.value)
-          if (params.length < 2) {
-            throw new Error(`only ${params.length} parameter(s)`)
-          }
-        } catch (e) {
-          throw decl.error(`@prose-block takes 2 number parameters. (${e})`)
-        }
-
-        let res = verticalFlow(params[0], params[1])
-        decl.replaceWith(...res)
+        decl.replaceWith(...prose.verticalFlow(decl))
       },
 
-      // flow-block: {line-height} {font-size}
-      // This adds CSS rules from @vertical-flow and adds a bottom margin
-      // on the block.
       "flow-block": (decl) => {
-        let params = []
-        try {
-          params = parseParams(decl.value)
-          if (params.length < 2) {
-            throw new Error(`only ${params.length} parameter(s)`)
-          }
-        } catch (e) {
-          throw decl.error(`@prose-block takes 2 number parameters. (${e})`)
-        }
-
-        let res = flowBlock(params[0], params[1])
-        decl.replaceWith(...res)
-      },
-
-      // padded-box: {line-height} {factor} {border}
-      // This adds CSS rules to add a padding to a box and take into account
-      // the border width.
-      "padded-box": (decl) => {
-        let params = []
-        try {
-          params = parseParams(decl.value)
-          if (params.length < 3) {
-            throw new Error(`only ${params.length} parameter(s)`)
-          }
-        } catch (e) {
-          throw decl.error(`@prose-block takes 3 number parameters. (${e})`)
-        }
-
-        let res = paddedBox(params[0], params[1], params[2])
-        decl.replaceWith(...res)
+        decl.replaceWith(...prose.flowBlock(decl))
       },
     },
   }

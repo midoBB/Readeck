@@ -43,12 +43,11 @@ func New(basePath string) *Server {
 
 	s.Router.Use(
 		middleware.Recoverer,
-		middleware.RealIP,
+		s.InitRequest,
 		middleware.RequestID,
 		Logger(),
 		s.SetSecurityHeaders,
 		s.WithCacheControl,
-		s.InitRequest,
 		s.CannonicalPaths,
 		auth.Init(
 			&auth.BasicAuthProvider{},

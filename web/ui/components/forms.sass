@@ -17,10 +17,16 @@
 
   // Horizontal field
   .field-h
-    @apply flex max-sm:block items-baseline max-w-xl
+    @apply flex items-baseline max-w-xl
+
+    @screen max-sm
+      @apply block
 
     & > label:first-child, & > .field-spacer:first-child
-      @apply w-44 mr-2 max-sm:mr-0
+      @apply w-44 mr-2
+
+      @screen max-sm
+        @apply mr-0
 
   // Field with an error
   .field-err

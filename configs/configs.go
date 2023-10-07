@@ -67,6 +67,7 @@ type configServer struct {
 	UseXForwardedHost  bool          `json:"use_x_forwarded_host" env:"-"`
 	UseXForwardedProto bool          `json:"use_x_forwarded_proto" env:"-"`
 	Session            configSession `json:"session" env:"-"`
+	InternalIPs        []configIPNet `json:"internal_ips"`
 }
 
 type configDB struct {
@@ -197,6 +198,10 @@ var Config = config{
 			CookieName: "sxid",
 			MaxAge:     86400 * 30, // 60 days
 		},
+		InternalIPs: []configIPNet{
+			newConfigIPNet("127.0.0.0/8"),
+			newConfigIPNet("::1/128"),
+		},
 	},
 	Database: configDB{},
 	Email: configEmail{
@@ -307,6 +312,14 @@ func JwtSk() ed25519.PrivateKey {
 // JwtPk returns the public key for JWT handlers
 func JwtPk() ed25519.PublicKey {
 	return jwtPk
+}
+
+func InternalIPs() []*net.IPNet {
+	res := make([]*net.IPNet, len(Config.Server.InternalIPs))
+	for i, x := range Config.Server.InternalIPs {
+		res[i] = x.IPNet
+	}
+	return res
 }
 
 // ExtractorDeniedIPs returns the value of Config.Extractor.DeniedIPs

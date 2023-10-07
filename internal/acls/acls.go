@@ -100,7 +100,7 @@ func newEnforcer() (*casbin.Enforcer, error) {
 	}
 
 	rm := e.GetRoleManager()
-	rm.(*defaultrolemanager.RoleManager).AddMatchingFunc("g", globMatch)
+	rm.(*defaultrolemanager.RoleManagerImpl).AddMatchingFunc("g", globMatch)
 
 	return e, err
 }

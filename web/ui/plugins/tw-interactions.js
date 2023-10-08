@@ -3,7 +3,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 
 const plugin = require("tailwindcss/plugin")
-const selectorParser = require("postcss-selector-parser")
 
 module.exports = plugin(function ({addVariant, config, e}) {
   const prefixClass = function (className) {

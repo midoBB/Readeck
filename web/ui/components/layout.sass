@@ -9,140 +9,172 @@
     @apply flex-shrink-0
     @apply h-topnav
 
-.layout
-  @apply min-h-screen grid
-  grid-template-columns: theme("spacing.col-1") theme("spacing.col-5") minmax(auto, theme("spacing.col-23"))
+  .layout
+    @apply min-h-screen grid
+    grid-template-columns: theme("spacing.col-1") theme("spacing.col-5") minmax(auto, theme("spacing.col-23"))
 
-  @apply max-sm:flex max-sm:flex-col
+    @screen max-sm
+      @apply flex flex-col
 
-  @apply print:block
+    @media print
+      @apply block
 
-.layout--bookmark
-  grid-template-columns: theme("spacing.col-1") auto
+  .layout--bookmark
+    grid-template-columns: theme("spacing.col-1") auto
 
-.layout-topnav
-  @apply flex flex-col flex-shrink-0 gap-2
-  @apply box-border py-2 w-col-1 h-screen
-  @apply sticky top-0 z-20
-  @apply bg-gray-200 text-black
+  .layout-topnav
+    @apply flex flex-col flex-shrink-0 gap-2
+    @apply box-border py-2 w-col-1 h-screen
+    @apply sticky top-0 z-20
+    @apply bg-gray-200 text-black
 
-  @apply max-sm:flex-row max-sm:w-full max-sm:h-topnav max-sm:px-2
+    @screen max-sm
+      @apply flex-row w-full h-topnav px-2
 
-  @apply print:hidden
+    @media print
+      @apply hidden
 
-  .logo
-    @apply flex items-center justify-center
-    @apply layout-topbar
+    .logo
+      @apply flex items-center justify-center
+      @apply layout-topbar
 
-    @apply max-sm:h-auto
+      @screen max-sm
+        @apply h-auto
 
-  .mainmenu
-    @apply flex-1 overflow-y-auto
-    @apply flex flex-col items-center gap-2
+    .mainmenu
+      @apply flex-1 overflow-y-auto
+      @apply flex flex-col items-center gap-2
 
-    @apply max-sm:flex-row
+      @screen max-sm
+        @apply flex-row
 
-    menu
-      @apply flex flex-col gap-3
+      menu
+        @apply flex flex-col gap-3
 
-      @apply max-sm:flex-row max-sm:gap-2
+        @screen max-sm
+          @apply flex-row gap-2
 
-      a, button
-        @apply block
-        @apply rounded
-        @apply p-3 max-xs:px-2
-        @apply text-gray-900 bg-black bg-opacity-5
-        @apply hf:bg-opacity-10
-        @apply data-current:bg-yellow-400 data-current:text-yellow-800 data-current:bg-opacity-50
+        a, button
+          @apply block
+          @apply rounded
+          @apply p-3
+          @apply text-gray-900 bg-black bg-opacity-5
+          @apply hf:bg-opacity-10
+          @apply data-current:bg-yellow-400 data-current:text-yellow-800 data-current:bg-opacity-50
 
-        .svgicon svg
-          @apply w-5 h-5
+          @screen max-xs
+            @apply px-2
 
-.sidemenu
-  @apply flex-shrink-0 sticky top-0 z-30 h-screen overflow-y-auto shadow-sidebar-l bg-gradient-to-r from-gray-50 to-gray-100 px-4
-  @apply max-sm:w-full
+          .svgicon svg
+            @apply w-5 h-5
 
-  @apply print:hidden
+  .sidemenu
+    @apply flex-shrink-0 sticky top-0 z-30 h-screen overflow-y-auto shadow-sidebar-l bg-gradient-to-r from-gray-50 to-gray-100 px-4
 
-  menu a
-    @apply hf:text-primary data-current:font-bold data-current:text-primary-dark
-    @apply block leading-none py-1 pl-1 mb-1 border-l-2 border-transparent hf:border-primary data-current:border-primary-dark
-    @apply max-md:mb-2 max-md:text-lg
+    @screen max-sm
+      @apply w-full
 
-    .svgicon svg
-      @apply w-5 h-5
+    @media print
+      @apply hidden
 
-body.js .sidemenu
-  @apply max-sm:fixed max-sm:bottom-0 max-sm:left-0 max-sm:top-auto
+    menu a
+      @apply hf:text-primary data-current:font-bold data-current:text-primary-dark
+      @apply block leading-none py-1 pl-1 mb-1 border-l-2 border-transparent hf:border-primary data-current:border-primary-dark
 
-body.js .sidemenu--hidden
-  @apply max-sm:hidden
+      @screen max-md
+        @apply mb-2 text-lg
 
-body.no-js .sidemenu
-  @apply max-sm:relative max-sm:h-auto max-sm:order-last
+      .svgicon svg
+        @apply w-5 h-5
 
-body.no-js button[aria-controls="sidemenu"]
-  @apply hidden
+  body.js .sidemenu
+    @screen max-sm
+      @apply fixed bottom-0 left-0 top-auto
 
-.layout-content
-  @apply bg-transparent px-6 py-8 max-sm:pb-16
+  body.js .sidemenu--hidden
+    @screen max-sm
+      @apply hidden
 
-.bookmark-grid
-  @apply grid
-  grid-template-columns: minmax(auto, theme("spacing.col-22")) theme("spacing.col-6")
+  body.no-js .sidemenu
+    @screen max-sm
+      @apply relative h-auto order-last
 
-  @apply max-md:flex max-md:flex-col
-  @apply max-md:min-h-screen
+  body.no-js button[aria-controls="sidemenu"]
+    @apply hidden
 
-  @apply max-sm:min-h-[calc(100vh-theme("spacing.topnav"))]
+  .layout-content
+    @apply bg-transparent px-6 py-8
 
-  @apply print:block
+    @screen max-sm
+      @apply pb-16
+
+  .bookmark-grid
+    @apply grid
+    grid-template-columns: minmax(auto, theme("spacing.col-22")) theme("spacing.col-6")
+
+    @screen max-md
+      @apply flex flex-col
+      @apply min-h-screen
+
+    @screen max-sm
+      min-height: calc(100vh - theme('spacing.topnav'))
+
+    @media print
+      @apply block
 
 
-.bookmark-content
-  @apply col-start-1
-  @apply row-start-1
+  .bookmark-content
+    @apply col-start-1
+    @apply row-start-1
 
-  @apply bg-transparent
-  @apply max-w-col-22 px-6 pb-8
+    @apply bg-transparent
+    @apply max-w-col-22 px-6 pb-8
 
-  @apply md:min-h-screen
+    @screen md
+      @apply min-h-screen
 
-  @apply max-md:px-4 max-md:grow
+    @screen max-md
+      @apply px-4 grow
 
-  @apply print:overflow-visible
-  @apply print:max-w-none
-  @apply print:px-0
+    @media print
+      @apply overflow-visible
+      @apply max-w-none
+      @apply px-0
 
 
-.bookmark-sidebar
-  @apply col-start-2
-  @apply row-start-1
+  .bookmark-sidebar
+    @apply col-start-2
+    @apply row-start-1
 
-  @apply w-col-6 h-screen sticky overflow-y-auto z-30
-  @apply border-l border-l-gray-200
+    @apply w-col-6 h-screen sticky overflow-y-auto z-30
+    @apply border-l border-l-gray-200
 
-  @apply md:top-0
+    @screen md
+      @apply top-0
 
-  @apply max-md:order-last
-  @apply max-md:bottom-0 max-md:bg-white
-  @apply max-md:w-full max-md:h-auto
-  @apply max-md:overflow-y-hidden
-  @apply max-md:flex max-md:flex-col
-  @apply max-md:shadow-panel-t
-  @apply max-md:transition-all max-md:ease-in-out
+    @screen max-md
+      @apply order-last
+      @apply bottom-0 bg-white
+      @apply w-full h-auto
+      @apply overflow-y-hidden
+      @apply flex flex-col
+      @apply shadow-panel-t
+      @apply transition-all ease-in-out
 
-  @apply print:static print:max-w-none print:w-full print:h-auto print:overflow-visible
-  @apply print:mb-8 print:border-b print:border-l-0
+    @media print
+      @apply static max-w-none w-full h-auto overflow-visible
+      @apply mb-8 border-b border-l-0
 
-body.js .bookmark-sidebar
-  @apply max-md:max-h-[60vh]
+  body.js .bookmark-sidebar
+    @screen max-md
+      max-height: 60vh
 
-body.js .bookmark-sidebar .panel--hidden
-  @apply max-md:hidden
+      .panel--hidden
+        @apply hidden
 
-body.js .bookmark-sidebar [aria-expanded="true"][aria-controls="bookmark-panel"] svg
-  @apply rotate-180
+    [aria-expanded="true"][aria-controls="bookmark-panel"] svg
+      @apply rotate-180
 
-body.no-js .bookmark-sidebar
-  @apply max-md:relative
+  body.no-js .bookmark-sidebar
+    @screen max-md
+      @apply relative

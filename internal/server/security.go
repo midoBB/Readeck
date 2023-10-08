@@ -156,21 +156,6 @@ func (s *Server) InitRequest(next http.Handler) http.Handler {
 	})
 }
 
-// InternalOnly enforce a client IP address check on a given route.
-func (s *Server) InternalOnly(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		clientIP := net.ParseIP(r.RemoteAddr)
-		for _, ip := range configs.InternalIPs() {
-			if ip.Contains(clientIP) {
-				next.ServeHTTP(w, r)
-				return
-			}
-		}
-
-		s.Status(w, r, http.StatusForbidden)
-	})
-}
-
 // getDefaultCSP returns the default Content Security Policy
 // There are no definition on script-src and style-src because
 // the SetSecurityHeaders middleware will set a nonce value

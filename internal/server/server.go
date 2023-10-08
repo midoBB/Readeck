@@ -15,7 +15,6 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/assets"
@@ -71,7 +70,6 @@ func (s *Server) Init() {
 	// System routes
 	s.AddRoute("/api/sys", s.sysRoutes())
 	s.AddRoute("/logger", s.loggerRoutes())
-	s.AddRoute("/metrics", s.metricsRoutes())
 
 	// Add the profiler in dev mode
 	if configs.Config.Main.DevMode {
@@ -241,14 +239,6 @@ func (s *Server) sysRoutes() http.Handler {
 		s.Render(w, r, 200, res)
 	})
 
-	return r
-}
-
-func (s *Server) metricsRoutes() http.Handler {
-	r := chi.NewRouter()
-	r.Use(s.InternalOnly)
-
-	r.Handle("/", promhttp.Handler())
 	return r
 }
 

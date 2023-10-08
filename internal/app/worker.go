@@ -12,9 +12,12 @@ import (
 	"os/signal"
 	"syscall"
 
-	"codeberg.org/readeck/readeck/internal/bus"
 	"github.com/cristalhq/acmd"
 	log "github.com/sirupsen/logrus"
+
+	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/internal/bus"
+	"codeberg.org/readeck/readeck/internal/metrics"
 )
 
 func init() {
@@ -39,6 +42,23 @@ func runWorker(_ context.Context, args []string) error {
 		return err
 	}
 	defer appPostRun()
+
+	// Start the metrics HTTP server
+	startMetrics := configs.Config.Worker.Metrics.Port > 0
+	if startMetrics {
+		log.WithField("host", configs.Config.Worker.Metrics.Host).
+			WithField("port", configs.Config.Worker.Metrics.Port).
+			Info("metrics endpoint")
+		go func() {
+			if err := metrics.ListenAndServe(
+				configs.Config.Worker.Metrics.Host,
+				configs.Config.Worker.Metrics.Port,
+			); err != nil {
+				log.WithError(err).Error("cannot start the metrics server")
+				os.Exit(1)
+			}
+		}()
+	}
 
 	// Start jobs worker
 	if err := bus.Load(); err != nil {

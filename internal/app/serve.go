@@ -30,6 +30,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bus"
 	"codeberg.org/readeck/readeck/internal/cookbook"
 	"codeberg.org/readeck/readeck/internal/dashboard"
+	"codeberg.org/readeck/readeck/internal/metrics"
 	"codeberg.org/readeck/readeck/internal/opds"
 	"codeberg.org/readeck/readeck/internal/profile"
 	"codeberg.org/readeck/readeck/internal/server"
@@ -99,6 +100,23 @@ func runServer(_ context.Context, args []string) error {
 	ready := make(chan bool)
 	stop := make(chan os.Signal, 2)
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
+
+	// Start the metrics HTTP server
+	startMetrics := configs.Config.Server.Metrics.Port > 0
+	if startMetrics {
+		log.WithField("host", configs.Config.Server.Metrics.Host).
+			WithField("port", configs.Config.Server.Metrics.Port).
+			Info("metrics endpoint")
+		go func() {
+			if err := metrics.ListenAndServe(
+				configs.Config.Server.Metrics.Host,
+				configs.Config.Server.Metrics.Port,
+			); err != nil {
+				log.WithError(err).Error("cannot start the metrics server")
+				os.Exit(1)
+			}
+		}()
+	}
 
 	// Start the embed standalone worker.
 	startBus := configs.Config.Worker.StartWorker || bus.Protocol() == "memory"

@@ -67,7 +67,7 @@ type configServer struct {
 	UseXForwardedHost  bool          `json:"use_x_forwarded_host" env:"-"`
 	UseXForwardedProto bool          `json:"use_x_forwarded_proto" env:"-"`
 	Session            configSession `json:"session" env:"-"`
-	InternalIPs        []configIPNet `json:"internal_ips"`
+	Metrics            configMetrics `json:"metrics" env:"-"`
 }
 
 type configDB struct {
@@ -92,9 +92,10 @@ type configEmail struct {
 }
 
 type configWorker struct {
-	DSN         string `json:"dsn" env:"-"`
-	NumWorkers  int    `json:"num_workers" env:"-"`
-	StartWorker bool   `json:"start_worker" env:"-"`
+	DSN         string        `json:"dsn" env:"-"`
+	NumWorkers  int           `json:"num_workers" env:"-"`
+	StartWorker bool          `json:"start_worker" env:"-"`
+	Metrics     configMetrics `json:"metrics" env:"-"`
 }
 
 type configExtractor struct {
@@ -102,6 +103,11 @@ type configExtractor struct {
 	ContentScripts []string           `json:"content_scripts" env:"-"`
 	DeniedIPs      []configIPNet      `json:"denied_ips" env:"-"`
 	ProxyMatch     []configProxyMatch `json:"proxy_match" env:"-"`
+}
+
+type configMetrics struct {
+	Host string `json:"host" env:"-"`
+	Port int    `json:"port" env:"-"`
 }
 
 type configIPNet struct {
@@ -198,9 +204,9 @@ var Config = config{
 			CookieName: "sxid",
 			MaxAge:     86400 * 30, // 60 days
 		},
-		InternalIPs: []configIPNet{
-			newConfigIPNet("127.0.0.0/8"),
-			newConfigIPNet("::1/128"),
+		Metrics: configMetrics{
+			Host: "127.0.0.1",
+			Port: 0,
 		},
 	},
 	Database: configDB{},
@@ -211,6 +217,10 @@ var Config = config{
 		DSN:         "memory://",
 		NumWorkers:  runtime.NumCPU(),
 		StartWorker: true,
+		Metrics: configMetrics{
+			Host: "127.0.0.1",
+			Port: 0,
+		},
 	},
 	Extractor: configExtractor{
 		NumWorkers:     runtime.NumCPU(),
@@ -312,14 +322,6 @@ func JwtSk() ed25519.PrivateKey {
 // JwtPk returns the public key for JWT handlers
 func JwtPk() ed25519.PublicKey {
 	return jwtPk
-}
-
-func InternalIPs() []*net.IPNet {
-	res := make([]*net.IPNet, len(Config.Server.InternalIPs))
-	for i, x := range Config.Server.InternalIPs {
-		res[i] = x.IPNet
-	}
-	return res
 }
 
 // ExtractorDeniedIPs returns the value of Config.Extractor.DeniedIPs

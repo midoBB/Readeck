@@ -89,11 +89,11 @@ SPDX-License-Identifier: AGPL-3.0-only
           print:hidden
         ">
           <div>
-            <button data-controller="history" data-action="history#back"
+            <a href="{{ urlFor(`/bookmarks/unread`) }}" data-controller="history" data-action="history#back"
              class="p-2 rounded-full w-8 h-8 border border-bg-100 inline-flex items-center justify-center
              hf:bg-gray-700 hf:text-white">
               {{- yield icon(name="o-chevron-l", class="inline-block", svgClass="w-6 h-6") -}}
-            </button>
+            </a>
           </div>
           <div class="flex-grow"></div>
           {{- if .Item.HasArticle -}}

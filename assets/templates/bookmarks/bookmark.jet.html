@@ -21,6 +21,8 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- end -}}
 {{- end -}}
 
+{{- block body_class() -}}template-bookmark{{- end -}}
+
 {{- block body() -}}
   {{- yield quickAccessMenu(items=slice(
     slice("menu", "Menu"),

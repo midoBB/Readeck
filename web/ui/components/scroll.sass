@@ -1,0 +1,35 @@
+body
+	background: linear-gradient(to right top, theme('colors.blue.600') 50%, theme('colors.gray.200') 50%)
+	background-repeat: no-repeat
+
+	&::before,
+	&::after
+		content:''
+		position: fixed
+		width: 100%
+		z-index: -1
+		background: theme('colors.gray.50')
+
+	@screen max-sm
+		background-size: calc(100% - 2 * theme('spacing.4')) calc(100% - 100vh + 3px)
+		background-position: theme('spacing.4') calc(theme('spacing.topnav') * 2)
+
+		&::before
+			top: 0
+			height: calc(theme('spacing.topnav') * 2)
+
+		&::after
+			top: calc((theme('spacing.topnav') * 2) + 3px)
+			bottom: 0
+
+	@screen md
+		background-size: calc(min(theme('spacing.col-22'), calc(100% - theme('spacing.col-6') - theme('spacing.col-1'))) - 2 * theme('spacing.6')) calc(100% - 100vh + 3px)
+		background-position: calc(theme('spacing.6') + theme('spacing.col-1')) theme('spacing.topnav')
+
+		&::before
+			top: 0
+			height: theme('spacing.topnav')
+
+		&::after
+			top: calc(theme('spacing.topnav') + 3px)
+			bottom: 0

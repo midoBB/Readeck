@@ -45,7 +45,7 @@ info:
     On this documentation, you can test every route.
 
     If you don't provide an API token in [Authentication](#auth), you can still test all the routes
-    but note that the given curl example only work with an API token.
+    but note that the given curl examples only work with an API token.
 
 
 servers:
@@ -69,8 +69,11 @@ tags:
   - name: bookmarks
     description: Bookmarks
 
-  - name: bookmarks-export
+  - name: bookmark export
     description: Bookmark Export
+
+  - name: dev tools
+    description: Routes used for testing or development
 
 paths:
   /bookmarks:
@@ -110,7 +113,7 @@ paths:
       - "bookmarks/routes.yaml#.withBookmark"
 
     get:
-      tags: [bookmarks-export]
+      tags: [bookmark export]
       $merge:
         - "traits.yaml#.authenticated"
         - "bookmarks/routes.yaml#.article"
@@ -120,7 +123,14 @@ paths:
       - "bookmarks/routes.yaml#.withBookmark"
 
     get:
-      tags: [bookmarks-export]
+      tags: [bookmark export]
       $merge:
         - "traits.yaml#.authenticated"
         - "bookmarks/routes.yaml#.export"
+
+  /cookbook/extract:
+    get:
+      tags: [dev tools]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "cookbook/routes.yaml#.extract"

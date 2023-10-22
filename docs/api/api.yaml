@@ -13,9 +13,11 @@ info:
     The Readeck API provides REST endpoints that can be used for any purpose, should it be a
     mobile application, a script, you name it.
 
-    ## Categories
+    ## API Endpoint
 
-    The API is organized in several categories that usualy represent a domain of work.
+    You can access this API on `__BASE_URI__`.
+
+    Most of your requests and responses are using JSON as the exchange format.
 
     ## Authentication
 
@@ -37,6 +39,14 @@ info:
       },
     })
     ```
+
+    ## Test the API
+
+    On this documentation, you can test every route.
+
+    If you don't provide an API token in [Authentication](#auth), you can still test all the routes
+    but note that the given curl example only work with an API token.
+
 
 servers:
   - url: __BASE_URI__

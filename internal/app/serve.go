@@ -215,11 +215,8 @@ func InitServer(s *server.Server) error {
 	// Help routes
 	docs.SetupRoutes(s)
 
-	// Only in dev mode
-	if configs.Config.Main.DevMode {
-		// Cookbook routes
-		cookbook.SetupRoutes(s)
-	}
+	// Cookbook routes
+	cookbook.SetupRoutes(s)
 
 	s.Init()
 	return nil

@@ -6,7 +6,7 @@ Bookmarks are where you save the web content you like.
 
 Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks).
 
-![New Bookmark form](img/bookmark-new.png)
+![New Bookmark form](img/bookmark-new.webp)
 
 After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook (for more information, please read the [Bookmark View](./bookmark.md) section).
 
@@ -35,7 +35,7 @@ The [bookmark list](readeck-instance://bookmarks) is where you'll find all your 
 
 On the sidebar, you'll find a search field and links that will take you to filtered bookmark lists.
 
-![Bookmark list sidebar](./img/bookmark-sidebar.png)
+![Bookmark list sidebar](./img/bookmark-sidebar.webp)
 
 - **Search** \
   Enter any search term (title, content, website...)
@@ -71,7 +71,7 @@ Finally, you'll see 3 more sections that take you to bookmark related pages:
 
 Each item on a list is called a Bookmark Card.
 
-![Bookmark Card Interface](./img/bookmark-card.png)
+![Bookmark Card Interface](./img/bookmark-card.webp)
 
 A card shows:
 
@@ -95,7 +95,7 @@ The action buttons perform the following:
 
 On the bookmark list, you can filter your results based on one or several criteria. Click on the button "Filter list" next to the page title to open the filtering form.
 
-![Bookmark list filters](./img/bookmark-filters.png)
+![Bookmark list filters](./img/bookmark-filters.webp)
 The filter form
 
 Enter any criteria and click on **Save**.

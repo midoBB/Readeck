@@ -115,10 +115,9 @@ function clean_media() {
 }
 
 // clean_manifest creates an empty manifest.json file.
-function clean_manifest() {
-  let s = vinylSourceStream("manifest.json")
-  s.end("{}")
-  return s.pipe(gulp.dest(DEST))
+function clean_manifest(done) {
+  let dest = path.join(DEST, "manifest.json")
+  fs.writeFile(dest, "{}", done)
 }
 
 // clean delete files in the destination folder
@@ -278,7 +277,7 @@ function copy_files() {
 // write_manifest generates a manifest.json file in the destination folder.
 // It's a very naive process that lists all the files in the destination
 // folder and creates a mapping for all the files having a hash suffix.
-async function write_manifest(done) {
+function write_manifest(done) {
   const rxFilename = new RegExp(/^(.+)(\.[a-f0-9]{8}\.)(.+)$/)
   const excluded = [".br", ".gz", ".map"]
 

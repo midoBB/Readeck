@@ -21,8 +21,6 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- end -}}
 {{- end -}}
 
-{{- block body_class() -}}template-bookmark{{- end -}}
-
 {{- block body() -}}
   {{- yield quickAccessMenu(items=slice(
     slice("menu", "Menu"),
@@ -84,22 +82,29 @@ SPDX-License-Identifier: AGPL-3.0-only
       <div class="bookmark-content" id="content">
         <div class="
           sticky top-0 z-20 h-topnav
-          flex items-center
+          flex flex-col
+          border-b border-b-gray-200
           bg-gray-50 text-gray-400 hfw:text-gray-700
           max-sm:top-topnav
           print:hidden
         ">
-          <div>
-            <a href="{{ urlFor(`/bookmarks/unread`) }}" data-controller="history" data-action="history#back"
-             class="p-2 rounded-full w-8 h-8 border border-bg-100 inline-flex items-center justify-center
-             hf:bg-gray-700 hf:text-white">
-              {{- yield icon(name="o-chevron-l", class="inline-block", svgClass="w-6 h-6") -}}
-            </a>
+          <div class="flex-grow flex items-center">
+            <div>
+              <a href="{{ urlFor(`/bookmarks/unread`) }}" data-controller="history" data-action="history#back"
+              class="p-2 rounded-full w-8 h-8 border border-bg-100 inline-flex items-center justify-center
+              hf:bg-gray-700 hf:text-white">
+                {{- yield icon(name="o-chevron-l", class="inline-block", svgClass="w-6 h-6") -}}
+              </a>
+            </div>
+            <div class="flex-grow"></div>
+            {{- if .Item.HasArticle -}}
+              {{- include "./components/reader_control" -}}
+            {{- end -}}
           </div>
-          <div class="flex-grow"></div>
-          {{- if .Item.HasArticle -}}
-            {{- include "./components/reader_control" -}}
-          {{- end -}}
+          <div class="h-0.5 w-0 bg-gradient-to-r from-blue-700 to-blue-500"
+           data-controller="scroll-indicator"
+           data-scroll-indicator-target="progress"
+          ></div>
         </div>
         <div class="max-w-3xl mx-auto mt-4 print:mt-2 print:max-w-none mb-8">
           {{ include "./components/title_form" .Item }}

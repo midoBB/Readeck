@@ -76,6 +76,19 @@ SPDX-License-Identifier: AGPL-3.0-only
 
     <div class="relative">
       <h1 class="title text-h2">{{ .PageTitle }}</h1>
+
+      {{- if .Filters.IsActive() -}}
+        <p class="mb-2">
+        {{- if .Pagination.TotalCount == 0 -}}
+          Your search query yielded <strong>no results</strong>.
+        {{- else if .Pagination.TotalCount == 1 -}}
+          Your search query yielded <strong>1 result</strong>.
+        {{- else -}}
+          Your search query yielded <strong>{{ .Pagination.TotalCount }} results</strong>.
+        {{- end -}}
+        </p>
+      {{- end -}}
+
       <details class="print:hidden" {{- if .Filters.IsActive() }} open{{- end -}}>
         <summary class="
           inline-block md:absolute md:right-0 md:top-3

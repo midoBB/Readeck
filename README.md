@@ -8,7 +8,7 @@ precious readable content of web pages you like and want to keep
 forever. \
 See it as a bookmark manager and a read later tool.
 
-![Readeck Bookmark List](./screenshots/bookmark-list.png)
+![Readeck Bookmark List](./screenshots/bookmark-list.webp)
 
 
 ## Contents

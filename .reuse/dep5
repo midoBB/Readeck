@@ -56,6 +56,11 @@ Copyright: 2021 Olivier Meunier <olivier@neokraft.net>
 License: AGPL-3.0-only
 
 Files:
+    web/vendor/rapidoc.js
+Copyright: Copyright (c) 2022 Mrinmoy Majumdar
+License: MIT
+
+Files:
     pkg/extract/contentscripts/assets/site-config/*.json
 Copyright: fiveFilter, Wallabag
 License: CC0-1.0

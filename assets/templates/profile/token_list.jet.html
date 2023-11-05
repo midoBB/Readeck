@@ -12,6 +12,13 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ block mainContent() }}
 <h1 class="title text-h2">Your API Tokens</h1>
 
+<div class="prose mb-4">
+<p>An API Token is a key that grants you (or another tool like a browser extension)
+access to the Readeck API.</p>
+<p>Please read the <a href="{{ urlFor(`/docs/api`) }}">API Documentation</a> if you plan to use it.</p>
+</div>
+
+
 <form class="mb-4" action="{{ urlFor() }}" method="post">
   {{ yield csrfField() }}
   <p><button class="btn-primary" type="submit">Create a new API token</button></p>

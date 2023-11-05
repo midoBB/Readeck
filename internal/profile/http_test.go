@@ -169,9 +169,9 @@ func TestPermissions(t *testing.T) {
 				Target: "/profile/tokens",
 				Assert: func(t *testing.T, r *Response) {
 					switch user {
-					case "admin", "staff":
+					case "admin", "staff", "user":
 						r.AssertStatus(t, 200)
-					case "user", "disabled":
+					case "disabled":
 						r.AssertStatus(t, 403)
 					default:
 						r.AssertStatus(t, 303)
@@ -184,9 +184,9 @@ func TestPermissions(t *testing.T) {
 				Target: "/profile/tokens",
 				Assert: func(t *testing.T, r *Response) {
 					switch user {
-					case "admin", "staff":
+					case "admin", "staff", "user":
 						r.AssertStatus(t, 303)
-					case "user", "disabled":
+					case "disabled":
 						r.AssertStatus(t, 403)
 					default:
 						r.AssertStatus(t, 303)
@@ -198,9 +198,9 @@ func TestPermissions(t *testing.T) {
 				Target: "/profile/tokens/" + tokens[user],
 				Assert: func(t *testing.T, r *Response) {
 					switch user {
-					case "admin", "staff":
+					case "admin", "staff", "user":
 						r.AssertStatus(t, 200)
-					case "user", "disabled":
+					case "disabled":
 						r.AssertStatus(t, 403)
 					default:
 						r.AssertStatus(t, 303)
@@ -213,9 +213,9 @@ func TestPermissions(t *testing.T) {
 				Target: "/profile/tokens/" + tokens[user],
 				Assert: func(t *testing.T, r *Response) {
 					switch user {
-					case "admin", "staff":
+					case "admin", "staff", "user":
 						r.AssertStatus(t, 303)
-					case "user", "disabled":
+					case "disabled":
 						r.AssertStatus(t, 403)
 					default:
 						r.AssertStatus(t, 303)
@@ -231,9 +231,9 @@ func TestPermissions(t *testing.T) {
 				Target: "/profile/tokens/" + tokens[user] + "/delete",
 				Assert: func(t *testing.T, r *Response) {
 					switch user {
-					case "admin", "staff":
+					case "admin", "staff", "user":
 						r.AssertStatus(t, 303)
-					case "user", "disabled":
+					case "disabled":
 						r.AssertStatus(t, 403)
 					default:
 						r.AssertStatus(t, 303)

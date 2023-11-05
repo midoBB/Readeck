@@ -27,8 +27,7 @@ import (
 // cookbookAPI is the base cookbook api router.
 type cookbookAPI struct {
 	chi.Router
-	srv  *server.Server
-	urls map[string][]string
+	srv *server.Server
 }
 
 // newCookbookAPI returns a CookbokAPI with all the routes
@@ -37,17 +36,12 @@ func newCookbookAPI(s *server.Server) *cookbookAPI {
 	r := s.AuthenticatedRouter()
 
 	api := &cookbookAPI{Router: r, srv: s}
-	api.loadURLs()
 	r.With(api.srv.WithPermission("api:cookbook", "read")).Group(func(r chi.Router) {
 		r.Get("/urls", api.urlList)
 		r.Get("/extract", api.extract)
 	})
 
 	return api
-}
-
-func (api *cookbookAPI) urlList(w http.ResponseWriter, r *http.Request) {
-	api.srv.Render(w, r, 200, api.urls)
 }
 
 func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
@@ -156,8 +150,8 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 	api.srv.Render(w, r, 200, res)
 }
 
-func (api *cookbookAPI) loadURLs() {
-	api.urls = map[string][]string{}
+func (api *cookbookAPI) urlList(w http.ResponseWriter, r *http.Request) {
+	urls := map[string][]string{}
 	i := 0
 
 	fs.WalkDir(contentscripts.SiteConfigFiles, ".", func(p string, d fs.DirEntry, err error) error {
@@ -186,14 +180,15 @@ func (api *cookbookAPI) loadURLs() {
 
 		if cfg != nil && len(cfg.Tests) > 0 {
 			name := fmt.Sprintf("%d - %s", i, path.Base(d.Name()))
-			api.urls[name] = make([]string, len(cfg.Tests))
+			urls[name] = make([]string, len(cfg.Tests))
 			for i := range cfg.Tests {
-				api.urls[name][i] = cfg.Tests[i].URL
+				urls[name][i] = cfg.Tests[i].URL
 			}
 		}
 
 		return nil
 	})
+	api.srv.Render(w, r, http.StatusOK, urls)
 }
 
 type extractImg struct {

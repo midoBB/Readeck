@@ -6,24 +6,27 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "/_layouts/sidemenu" }}
 
 {{- block sideMenu() -}}
-{{- yield sideMenuTitle() content -}}Readeck Help{{- end }}
-
-</h2>
-<menu class="my-4">
-  {{- if .TOC -}}
-    <menu class="mt-4">
-    {{- range .TOC -}}
-      <li><a href="{{ urlFor(`/docs`, .[0]) }}" data-current="{{ pathIs(`/docs/` + .[0]) }}">{{ .[1] }}</a></li>
+  {{- yield sideMenuTitle() content -}}Readeck Help{{- end }}
+  </h2>
+  <menu class="my-4">
+    {{- if .TOC -}}
+      <menu class="mt-4">
+      {{- range .TOC -}}
+        <li><a href="{{ urlFor(`/docs`, .[0]) }}" data-current="{{ pathIs(`/docs/` + .[0]) }}">{{ .[1] }}</a></li>
+      {{- end -}}
+      </menu>
     {{- end -}}
-    </menu>
-  {{- end -}}
-</menu>
+  </menu>
+
+  <hr class="w-[25%] border-gray-200 mx-auto">
+  <menu class="my-4">
+    <li><a href="{{ urlFor(`/docs/api`) }}" data-current="{{ pathIs(`/docs/api`) }}">API Documentation</a></li>
+  </menu>
 
   {{- if hasPermission("system", "read") -}}
-  <hr class="w-[25%] border-gray-200 mx-auto">
-
-  <menu class="my-4">
-    <li><a href="{{ urlFor(`/docs/about`) }}" data-current="{{ pathIs(`/docs/about`) }}">About Readeck</a></li>
-  </menu>
+    <hr class="w-[25%] border-gray-200 mx-auto">
+    <menu class="my-4">
+      <li><a href="{{ urlFor(`/docs/about`) }}" data-current="{{ pathIs(`/docs/about`) }}">About Readeck</a></li>
+    </menu>
   {{- end -}}
 {{- end -}}

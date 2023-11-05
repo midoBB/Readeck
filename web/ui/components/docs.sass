@@ -30,3 +30,40 @@
       figcaption
         text-align: center
         margin-top: 0.25rem
+
+@layer components
+  rapi-doc
+    --font-regular: theme("fontFamily.sans")
+    --font-mono: theme("fontFamily.mono")
+    --bg: theme("colors.gray.50")
+    --light-fg: theme("colors.gray.700")
+    --blue: theme("colors.primary.DEFAULT")
+    --primary-color: theme("colors.primary.DEFAULT")
+    --primary-color-invert: theme("colors.white")
+    --nav-accent-color: theme("colors.yellow.400")
+
+    &::part(section-navbar)
+      background: linear-gradient(to right, theme("colors.gray.50"), theme("colors.gray.100"))
+      box-shadow: theme("boxShadow.sidebar-l")
+      width: theme("spacing.col-5")
+
+    &::part(section-navbar-operations-top)
+      display: none
+
+    &::part(section-navbar-scroll)
+      padding: 0 theme("padding.4")
+
+    &::part(section-navbar-item)
+      border-left-width: 2px
+      font-weight: theme("fontWeight.medium")
+
+    &::part(section-navbar-active-item)
+      border-left-color: theme("colors.primary.dark")
+      border-radius: 0
+
+    &::part(btn)
+      box-shadow: none
+      border-radius: theme("borderRadius.DEFAULT")
+
+    &::part(textbox)
+      border-radius: theme("borderRadius.DEFAULT")

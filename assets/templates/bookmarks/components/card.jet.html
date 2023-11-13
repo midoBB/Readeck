@@ -21,11 +21,11 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{- yield card_image(src=urlFor(`/assets/rnd`, checksum(.URL)) + ".svg",
                            width=256, height=160) -}}
     </div>
-    <div class="flex-grow flex lg:flex-col px-2 items-center">
-      <div class="text-4xl lg:flex-grow text-center order-2 lg:order-1 lg:py-6" data-loading="true">
+    <div class="card-loading">
+      <div class="card-loading" data-loading="true">
         {{- yield spinner() -}}
       </div>
-      <p class="flex-grow max-sm:hidden lg:flex-grow-0 lg:order-2 pb-2 text-sm font-semibold">Loading {{ .Site }}…</p>
+      <p class="card-loading">Loading {{ .Site }}…</p>
     </div>
   {{- end -}}
   </turbo-frame>
@@ -49,23 +49,20 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{- end }}
     </a>
 
-    <div class="flex-grow p-2 flex flex-col">
-      <h3 class="mb-2 leading-tight font-semibold {{ if .IsDeleted }}opacity-50{{ end }}
-       group-hover:text-primary group-fw:text-primary"><a href="{{ _url }}"
-        class="inline-block hf:text-primary-dark"
+    <div class="card_content {{ if .IsDeleted }}card_content--isDeleted{{ end }}">
+      <h3 class="card_title"><a href="{{ _url }}"
+        class="card_title_link"
         data-turbo-frame="_top"
         dir="{{ default(.TextDirection, "ltr") }}"
         >{{ shortText(default(.Title, "untitled"), 90) }}</a></h3>
 
-      <span class="flex items-center gap-2 mb-2 text-xs text-gray-600 {{ if .IsDeleted }}opacity-50{{ end }}">
+      <span class="card_meta">
         {{- if isset(.Resources.icon) -}}
-          <img class="h-4 w-auto filter grayscale opacity-50
-           group-hover:filter-none group-hover:opacity-100
-           group-fw:filter-none group-fw:opacity-100"
+          <img class="card_meta_icon"
            loading="lazy" src="{{ .Resources.icon.Src }}" alt=""
            width="{{ .Resources.icon.Width }}" height="{{ .Resources.icon.Height }}">
         {{- end -}}
-        <strong class="leading-none overflow-hidden text-ellipsis" title="{{ .SiteName }}"
+        <strong class="card_meta_text" title="{{ .SiteName }}"
          dir="{{ default(.TextDirection, "ltr") }}">{{ shortText(.SiteName, 50) }}</strong>
         {{- if .ReadingTime() > 0 -}}
           <span> •&nbsp;{{ .ReadingTime() }}&nbsp;min</span>
@@ -73,20 +70,19 @@ SPDX-License-Identifier: AGPL-3.0-only
       </span>
 
       {{ if len(.Labels) -}}
-      <ul class="inline-flex flex-wrap justify-start {{ if .IsDeleted }}opacity-50{{ end }}">
+      <ul class="card_labels">
       {{- range .Labels -}}
-        <li class="mr-1 mb-2"><a href="{{ urlFor(`/bookmarks/labels`) }}/{{ url(.) }}"
-         class="text-sm bg-gray-100 leading-none py-1 px-1.5 border rounded-md
-          hf:bg-yellow-100"
+        <li><a href="{{ urlFor(`/bookmarks/labels`) }}/{{ url(.) }}"
+         class="card_label_link"
          >{{ . }}</a></li>
       {{- end -}}
       </ul>
       {{- end }}
 
-      <div class="flex flex-grow items-end mt-2 text-lg">
+      <div class="card_actions">
         {{- if .IsDeleted -}}
-          <div class="flex items-center">
-            <span class="text-red-700 text-xs font-semibold">
+          <div class="card_deleted">
+            <span class="card_deleted_label">
               This bookmark will be removed in a few seconds.
             </span>
             <form action="{{ _url }}" method="post">
@@ -94,7 +90,7 @@ SPDX-License-Identifier: AGPL-3.0-only
               <input type="hidden" name="cancel" value="1" />
               <input type="hidden" name="_to" value="{{ currentPath }}" />
               <button type="submit" name="is_deleted" value="0"
-                class="btn-primary whitespace-nowrap text-sm py-1 ml-2"
+                class="card_deleted_undo"
                 data-controller="turbo-form"
                 data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
                 data-turbo-form-method-value="patch">{{ yield icon(name="o-undo") }} Undo</button>
@@ -102,7 +98,7 @@ SPDX-License-Identifier: AGPL-3.0-only
           </div>
         {{- else -}}
           <form action="{{ _url }}" method="post"
-          class="flex-grow text-gray-200 group-hover:text-primary group-fw:text-primary"
+          class="card_actions_form"
           data-controller="turbo-form turbo-reload"
           data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
           data-turbo-form-method-value="patch"
@@ -110,12 +106,13 @@ SPDX-License-Identifier: AGPL-3.0-only
             {{ yield csrfField() }}
             <input type="hidden" name="_to" value="{{ currentPath }}" />
             <button
-              class="fill-current hf:text-primary-dark {{ if .IsMarked}}text-primary{{ end }}"
+              class="card_action_button {{ if .IsMarked}}card_action_button--active{{ end }}"
               name="is_marked" value="{{ .IsMarked ? 0 : 1 }}"
               title="{{ textFav }}">
               {{ yield icon(name=(.IsMarked ? "o-favorite-on" : "o-favorite-off")) }}
             </button>
-            <button class="fill-current hf:text-primary-dark {{ if .IsArchived}}text-primary{{ end }}"
+            <button
+              class="card_action_button {{ if .IsArchived}}card_action_button--active{{ end }}"
               name="is_archived" value="{{ .IsArchived ? 0 : 1 }}"
               title="{{ textArch }}">
               {{ yield icon(name=(.IsArchived ? "o-archive-on" : "o-archive-off")) }}
@@ -123,10 +120,10 @@ SPDX-License-Identifier: AGPL-3.0-only
           </form>
 
           <form action="{{ urlFor(`/bookmarks`, .ID, `delete`) }}" method="post"
-            class="text-gray-200 group-hover:text-red-600 group-fw:text-red-700">
+            class="card_action_deleteform">
             {{ yield csrfField() }}
             <input type="hidden" name="_to" value="{{ currentPath }}" />
-            <button class="fill-current hf:text-red-800" name="is_deleted" value="1"
+            <button class="card_actions_deletebutton" name="is_deleted" value="1"
               data-controller="turbo-form"
               data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
               data-turbo-form-method-value="patch"

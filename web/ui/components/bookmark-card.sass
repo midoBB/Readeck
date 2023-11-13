@@ -1,0 +1,104 @@
+/*
+ * SPDX-FileCopyrightText: © 2023 Joachim Robert <joachim.robert@protonmail.com>
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+@layer components
+
+  .card
+    @apply h-full overflow-hidden rounded flex flex-row lg:flex-col
+    @apply focus-within:shadow hover:shadow
+
+    .card_image_wrapper
+      @apply block relative overflow-hidden h-full lg:pt-16/9 w-28 md:w-36 lg:h-0 lg:w-auto
+    
+    .card_image
+      @apply absolute top-0 h-full w-full object-cover object-center filter  
+
+    .card_content
+      @apply flex-grow p-2 flex flex-col
+
+    .card_content--isDeleted
+      .card_title, .card_meta, .card_labels
+        @apply opacity-50
+    
+    .card_title
+      @apply mb-2 leading-tight font-semibold 
+
+    .card_title_link
+      @apply inline-block hf:text-primary-dark
+    
+    .card_meta
+      @apply flex items-center gap-2 mb-2 text-xs text-gray-600
+      
+    .card_meta_icon
+      @apply h-4 w-auto filter grayscale opacity-50
+  
+    .card_meta_text
+      @apply leading-none overflow-hidden text-ellipsis
+    
+    .card_labels
+      @apply inline-flex flex-wrap justify-start gap-x-1 gap-y-3
+      
+    .card_label_link
+      @apply text-sm bg-gray-100 leading-none py-1 px-1.5 border rounded-md
+      @apply hf:bg-yellow-100
+
+    .card_actions
+      @apply flex flex-grow items-end mt-2 text-lg
+
+    .card_deleted
+      @apply flex items-center
+
+    .card_deleted_label
+      @apply text-red-700 text-xs font-semibold
+
+    .card_deleted_undo
+      @apply btn-primary whitespace-nowrap text-sm py-1 ml-2
+
+    .card_actions_form
+      @apply flex-grow text-gray-200
+
+    .card_action_button
+      @apply fill-current hf:text-primary-dark
+
+    .card_action_button--active
+      @apply text-primary
+
+    .card_action_deleteform
+      @apply text-gray-200
+
+    .card_actions_deletebutton
+      @apply fill-current hf:text-red-800
+
+    &:hover,
+    &:focus-within
+      .card_image
+        @apply contrast-105 brightness-95
+
+      .card_title
+        @apply text-primary
+
+      .card_meta_icon
+        @apply filter-none opacity-100
+
+      .card_actions_form
+        @apply text-primary
+
+      .card_action_deleteform
+        @apply text-red-600
+
+    &:focus-within
+      .card_action_deleteform
+        @apply text-red-700
+
+  .card-loading
+    @apply flex-grow flex lg:flex-col px-2 items-center
+    
+  .card-loading_spinner
+    @apply text-4xl lg:flex-grow text-center order-2 lg:order-1 lg:py-6
+    
+  .card-loading_text
+    @apply flex-grow max-sm:hidden lg:flex-grow-0 lg:order-2 pb-2 text-sm font-semibold
+  

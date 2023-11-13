@@ -22,10 +22,10 @@ SPDX-License-Identifier: AGPL-3.0-only
                            width=256, height=160) -}}
     </div>
     <div class="card-loading">
-      <div class="card-loading" data-loading="true">
+      <div class="card-loading_spinner" data-loading="true">
         {{- yield spinner() -}}
       </div>
-      <p class="card-loading">Loading {{ .Site }}…</p>
+      <p class="card-loading_text">Loading {{ .Site }}…</p>
     </div>
   {{- end -}}
   </turbo-frame>

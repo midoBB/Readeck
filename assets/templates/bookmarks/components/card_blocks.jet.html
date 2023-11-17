@@ -3,18 +3,14 @@ SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
 
 SPDX-License-Identifier: AGPL-3.0-only
 *}
-{{- block card() -}}
-<div class="h-full overflow-hidden rounded flex flex-row lg:flex-col
-  focus-within:shadow hover:shadow group">
+{{- block card(isDeleted, isLoading) -}}
+<div class="bookmark-card" data-deleted="{{ isDeleted }}" data-loading="{{ isLoading }}">
 {{ yield content }}
 </div>
 {{- end -}}
 
 {{- block card_image(src, width, height) -}}
-<span class="block relative overflow-hidden h-full lg:pt-16/9 w-28 md:w-36 lg:h-0 lg:w-auto">
-  <img loading="lazy" alt="" src="{{ src }}" width="{{ width }}" height="{{ height }}"
-  class="absolute top-0 h-full w-full object-cover object-center
-  filter group-hover:contrast-105 group-hover:brightness-95
-  group-fw:contrast-105 group-fw:brightness-95">
+<span class="bookmark-card-image">
+  <img loading="lazy" alt="" src="{{ src }}" width="{{ width }}" height="{{ height }}">
 </span>
 {{- end -}}

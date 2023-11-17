@@ -16,27 +16,25 @@ SPDX-License-Identifier: AGPL-3.0-only
    data-turbo-refresh-interval-value="2"
    data-turbo-refresh-on-value="[data-loading]"
    data-turbo-refresh-src-value="{{ urlFor(`/api/bookmarks`, .ID) }}">
-  {{- yield card() content -}}
-    <div class="relative">
+  {{- yield card(isDeleted=false, isLoading=true) content -}}
+    <div class="bookmark-card-top">
       {{- yield card_image(src=urlFor(`/assets/rnd`, checksum(.URL)) + ".svg",
                            width=256, height=160) -}}
     </div>
-    <div class="flex-grow flex lg:flex-col px-2 items-center">
-      <div class="text-4xl lg:flex-grow text-center order-2 lg:order-1 lg:py-6" data-loading="true">
-        {{- yield spinner() -}}
-      </div>
-      <p class="flex-grow max-sm:hidden lg:flex-grow-0 lg:order-2 pb-2 text-sm font-semibold">Loading {{ .Site }}…</p>
+    <div class="bookmark-card-content">
+      <div>{{- yield spinner() -}}</div>
+      <p>Loading {{ .Site }}…</p>
     </div>
   {{- end -}}
   </turbo-frame>
 {{- else -}}
   <turbo-frame id="bookmark-card-{{ .ID }}" {{ if .IsDeleted }}data-bookmark-deleted="true"{{ end }}>
-  {{- yield card() content -}}
-    <a href="{{ _url }}" class="{{ if .IsDeleted }}opacity-50{{ end }} relative">
+  {{- yield card(isDeleted=.IsDeleted, isLoading=false) content -}}
+    <a href="{{ _url }}" class="bookmark-card-top" data-turbo-frame="_top">
       {{- if .DocumentType == "photo" -}}
-        {{- yield type_icon(icon="o-photo") -}}
+        {{- yield icon(name="o-photo") -}}
       {{- else if .DocumentType == "video" -}}
-        {{- yield type_icon(icon="o-video") -}}
+        {{- yield icon(name="o-video") -}}
       {{- end -}}
 
       {{ if isset(.Resources.thumbnail) -}}
@@ -49,23 +47,17 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{- end }}
     </a>
 
-    <div class="flex-grow p-2 flex flex-col">
-      <h3 class="mb-2 leading-tight font-semibold {{ if .IsDeleted }}opacity-50{{ end }}
-       group-hover:text-primary group-fw:text-primary"><a href="{{ _url }}"
-        class="inline-block hf:text-primary-dark"
-        data-turbo-frame="_top"
+    <div class="bookmark-card-content">
+      <h3><a href="{{ _url }}" data-turbo-frame="_top"
         dir="{{ default(.TextDirection, "ltr") }}"
-        >{{ shortText(default(.Title, "untitled"), 90) }}</a></h3>
+      >{{ shortText(default(.Title, "untitled"), 90) }}</a></h3>
 
-      <span class="flex items-center gap-2 mb-2 text-xs text-gray-600 {{ if .IsDeleted }}opacity-50{{ end }}">
+      <span class="bookmark-card-meta">
         {{- if isset(.Resources.icon) -}}
-          <img class="h-4 w-auto filter grayscale opacity-50
-           group-hover:filter-none group-hover:opacity-100
-           group-fw:filter-none group-fw:opacity-100"
-           loading="lazy" src="{{ .Resources.icon.Src }}" alt=""
+          <img loading="lazy" src="{{ .Resources.icon.Src }}" alt=""
            width="{{ .Resources.icon.Width }}" height="{{ .Resources.icon.Height }}">
         {{- end -}}
-        <strong class="leading-none overflow-hidden text-ellipsis" title="{{ .SiteName }}"
+        <strong title="{{ .SiteName }}"
          dir="{{ default(.TextDirection, "ltr") }}">{{ shortText(.SiteName, 50) }}</strong>
         {{- if .ReadingTime() > 0 -}}
           <span> •&nbsp;{{ .ReadingTime() }}&nbsp;min</span>
@@ -73,20 +65,17 @@ SPDX-License-Identifier: AGPL-3.0-only
       </span>
 
       {{ if len(.Labels) -}}
-      <ul class="inline-flex flex-wrap justify-start {{ if .IsDeleted }}opacity-50{{ end }}">
+      <ul>
       {{- range .Labels -}}
-        <li class="mr-1 mb-2"><a href="{{ urlFor(`/bookmarks/labels`) }}/{{ url(.) }}"
-         class="text-sm bg-gray-100 leading-none py-1 px-1.5 border rounded-md
-          hf:bg-yellow-100"
-         >{{ . }}</a></li>
+        <li><a href="{{ urlFor(`/bookmarks/labels`) }}/{{ url(.) }}">{{ . }}</a></li>
       {{- end -}}
       </ul>
       {{- end }}
 
-      <div class="flex flex-grow items-end mt-2 text-lg">
+      <div class="bookmark-card-actions">
         {{- if .IsDeleted -}}
-          <div class="flex items-center">
-            <span class="text-red-700 text-xs font-semibold">
+          <div class="bookmark-card-deleted">
+            <span>
               This bookmark will be removed in a few seconds.
             </span>
             <form action="{{ _url }}" method="post">
@@ -94,7 +83,6 @@ SPDX-License-Identifier: AGPL-3.0-only
               <input type="hidden" name="cancel" value="1" />
               <input type="hidden" name="_to" value="{{ currentPath }}" />
               <button type="submit" name="is_deleted" value="0"
-                class="btn-primary whitespace-nowrap text-sm py-1 ml-2"
                 data-controller="turbo-form"
                 data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
                 data-turbo-form-method-value="patch">{{ yield icon(name="o-undo") }} Undo</button>
@@ -102,31 +90,27 @@ SPDX-License-Identifier: AGPL-3.0-only
           </div>
         {{- else -}}
           <form action="{{ _url }}" method="post"
-          class="flex-grow text-gray-200 group-hover:text-primary group-fw:text-primary"
+          class="flex-grow"
           data-controller="turbo-form turbo-reload"
           data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
           data-turbo-form-method-value="patch"
           data-turbo-reload-frame-id-value="bookmark-list">
             {{ yield csrfField() }}
             <input type="hidden" name="_to" value="{{ currentPath }}" />
-            <button
-              class="fill-current hf:text-primary-dark {{ if .IsMarked}}text-primary{{ end }}"
-              name="is_marked" value="{{ .IsMarked ? 0 : 1 }}"
+            <button name="is_marked" value="{{ .IsMarked ? 0 : 1 }}"
               title="{{ textFav }}">
               {{ yield icon(name=(.IsMarked ? "o-favorite-on" : "o-favorite-off")) }}
             </button>
-            <button class="fill-current hf:text-primary-dark {{ if .IsArchived}}text-primary{{ end }}"
-              name="is_archived" value="{{ .IsArchived ? 0 : 1 }}"
+            <button name="is_archived" value="{{ .IsArchived ? 0 : 1 }}"
               title="{{ textArch }}">
               {{ yield icon(name=(.IsArchived ? "o-archive-on" : "o-archive-off")) }}
             </button>
           </form>
 
-          <form action="{{ urlFor(`/bookmarks`, .ID, `delete`) }}" method="post"
-            class="text-gray-200 group-hover:text-red-600 group-fw:text-red-700">
+          <form action="{{ urlFor(`/bookmarks`, .ID, `delete`) }}" method="post">
             {{ yield csrfField() }}
             <input type="hidden" name="_to" value="{{ currentPath }}" />
-            <button class="fill-current hf:text-red-800" name="is_deleted" value="1"
+            <button name="is_deleted" value="1"
               data-controller="turbo-form"
               data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
               data-turbo-form-method-value="patch"

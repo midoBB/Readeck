@@ -3,15 +3,14 @@ SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
 
 SPDX-License-Identifier: AGPL-3.0-only
 *}
-{{- block card() -}}
-<div class="card">
+{{- block card(isDeleted, isLoading) -}}
+<div class="bookmark-card" data-deleted="{{ isDeleted }}" data-loading="{{ isLoading }}">
 {{ yield content }}
 </div>
 {{- end -}}
 
 {{- block card_image(src, width, height) -}}
-<span class="card_image_wrapper">
-  <img loading="lazy" alt="" src="{{ src }}" width="{{ width }}" height="{{ height }}"
-  class="card_image">
+<span class="bookmark-card-image">
+  <img loading="lazy" alt="" src="{{ src }}" width="{{ width }}" height="{{ height }}">
 </span>
 {{- end -}}

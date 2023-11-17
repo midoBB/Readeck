@@ -16,27 +16,25 @@ SPDX-License-Identifier: AGPL-3.0-only
    data-turbo-refresh-interval-value="2"
    data-turbo-refresh-on-value="[data-loading]"
    data-turbo-refresh-src-value="{{ urlFor(`/api/bookmarks`, .ID) }}">
-  {{- yield card() content -}}
-    <div class="relative">
+  {{- yield card(isDeleted=false, isLoading=true) content -}}
+    <div class="bookmark-card-top">
       {{- yield card_image(src=urlFor(`/assets/rnd`, checksum(.URL)) + ".svg",
                            width=256, height=160) -}}
     </div>
-    <div class="card-loading">
-      <div class="card-loading_spinner" data-loading="true">
-        {{- yield spinner() -}}
-      </div>
-      <p class="card-loading_text">Loading {{ .Site }}…</p>
+    <div class="bookmark-card-content">
+      <div>{{- yield spinner() -}}</div>
+      <p>Loading {{ .Site }}…</p>
     </div>
   {{- end -}}
   </turbo-frame>
 {{- else -}}
   <turbo-frame id="bookmark-card-{{ .ID }}" {{ if .IsDeleted }}data-bookmark-deleted="true"{{ end }}>
-  {{- yield card() content -}}
-    <a href="{{ _url }}" class="{{ if .IsDeleted }}opacity-50{{ end }} relative">
+  {{- yield card(isDeleted=.IsDeleted, isLoading=false) content -}}
+    <a href="{{ _url }}" class="bookmark-card-top" data-turbo-frame="_top">
       {{- if .DocumentType == "photo" -}}
-        {{- yield type_icon(icon="o-photo") -}}
+        {{- yield icon(name="o-photo") -}}
       {{- else if .DocumentType == "video" -}}
-        {{- yield type_icon(icon="o-video") -}}
+        {{- yield icon(name="o-video") -}}
       {{- end -}}
 
       {{ if isset(.Resources.thumbnail) -}}
@@ -49,20 +47,17 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{- end }}
     </a>
 
-    <div class="card_content {{ if .IsDeleted }}card_content--isDeleted{{ end }}">
-      <h3 class="card_title"><a href="{{ _url }}"
-        class="card_title_link"
-        data-turbo-frame="_top"
+    <div class="bookmark-card-content">
+      <h3><a href="{{ _url }}" data-turbo-frame="_top"
         dir="{{ default(.TextDirection, "ltr") }}"
-        >{{ shortText(default(.Title, "untitled"), 90) }}</a></h3>
+      >{{ shortText(default(.Title, "untitled"), 90) }}</a></h3>
 
-      <span class="card_meta">
+      <span class="bookmark-card-meta">
         {{- if isset(.Resources.icon) -}}
-          <img class="card_meta_icon"
-           loading="lazy" src="{{ .Resources.icon.Src }}" alt=""
+          <img loading="lazy" src="{{ .Resources.icon.Src }}" alt=""
            width="{{ .Resources.icon.Width }}" height="{{ .Resources.icon.Height }}">
         {{- end -}}
-        <strong class="card_meta_text" title="{{ .SiteName }}"
+        <strong title="{{ .SiteName }}"
          dir="{{ default(.TextDirection, "ltr") }}">{{ shortText(.SiteName, 50) }}</strong>
         {{- if .ReadingTime() > 0 -}}
           <span> •&nbsp;{{ .ReadingTime() }}&nbsp;min</span>
@@ -70,19 +65,17 @@ SPDX-License-Identifier: AGPL-3.0-only
       </span>
 
       {{ if len(.Labels) -}}
-      <ul class="card_labels">
+      <ul>
       {{- range .Labels -}}
-        <li><a href="{{ urlFor(`/bookmarks/labels`) }}/{{ url(.) }}"
-         class="card_label_link"
-         >{{ . }}</a></li>
+        <li><a href="{{ urlFor(`/bookmarks/labels`) }}/{{ url(.) }}">{{ . }}</a></li>
       {{- end -}}
       </ul>
       {{- end }}
 
-      <div class="card_actions">
+      <div class="bookmark-card-actions">
         {{- if .IsDeleted -}}
-          <div class="card_deleted">
-            <span class="card_deleted_label">
+          <div class="bookmark-card-deleted">
+            <span>
               This bookmark will be removed in a few seconds.
             </span>
             <form action="{{ _url }}" method="post">
@@ -90,7 +83,6 @@ SPDX-License-Identifier: AGPL-3.0-only
               <input type="hidden" name="cancel" value="1" />
               <input type="hidden" name="_to" value="{{ currentPath }}" />
               <button type="submit" name="is_deleted" value="0"
-                class="card_deleted_undo"
                 data-controller="turbo-form"
                 data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
                 data-turbo-form-method-value="patch">{{ yield icon(name="o-undo") }} Undo</button>
@@ -98,32 +90,27 @@ SPDX-License-Identifier: AGPL-3.0-only
           </div>
         {{- else -}}
           <form action="{{ _url }}" method="post"
-          class="card_actions_form"
+          class="flex-grow"
           data-controller="turbo-form turbo-reload"
           data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
           data-turbo-form-method-value="patch"
           data-turbo-reload-frame-id-value="bookmark-list">
             {{ yield csrfField() }}
             <input type="hidden" name="_to" value="{{ currentPath }}" />
-            <button
-              class="card_action_button {{ if .IsMarked}}card_action_button--active{{ end }}"
-              name="is_marked" value="{{ .IsMarked ? 0 : 1 }}"
+            <button name="is_marked" value="{{ .IsMarked ? 0 : 1 }}"
               title="{{ textFav }}">
               {{ yield icon(name=(.IsMarked ? "o-favorite-on" : "o-favorite-off")) }}
             </button>
-            <button
-              class="card_action_button {{ if .IsArchived}}card_action_button--active{{ end }}"
-              name="is_archived" value="{{ .IsArchived ? 0 : 1 }}"
+            <button name="is_archived" value="{{ .IsArchived ? 0 : 1 }}"
               title="{{ textArch }}">
               {{ yield icon(name=(.IsArchived ? "o-archive-on" : "o-archive-off")) }}
             </button>
           </form>
 
-          <form action="{{ urlFor(`/bookmarks`, .ID, `delete`) }}" method="post"
-            class="card_action_deleteform">
+          <form action="{{ urlFor(`/bookmarks`, .ID, `delete`) }}" method="post">
             {{ yield csrfField() }}
             <input type="hidden" name="_to" value="{{ currentPath }}" />
-            <button class="card_actions_deletebutton" name="is_deleted" value="1"
+            <button name="is_deleted" value="1"
               data-controller="turbo-form"
               data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
               data-turbo-form-method-value="patch"

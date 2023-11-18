@@ -592,7 +592,11 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 
 		// Filters (search and other filters)
 		filters := newContextFilterForm(r.Context())
-		forms.UnmarshalValues(filters, r.URL.Query())
+
+		// We accept any values coming from a post or get method.
+		_ = r.ParseForm()
+		forms.UnmarshalValues(filters, r.Form)
+
 		if filters.IsValid() {
 			ds = filters.toSelectDataSet(ds)
 		}

@@ -46,7 +46,15 @@ func (h *viewsRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
 
+	bl := r.Context().Value(ctxBookmarkListKey{}).(bookmarkList)
+	bl.Items = make([]bookmarkItem, len(bl.items))
+	for i, item := range bl.items {
+		bl.Items[i] = newBookmarkItem(h.srv, r, item, ".")
+	}
+
 	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
+	ctx["Pagination"] = bl.Pagination
+	ctx["Bookmarks"] = bl.Items
 	ctx["Form"] = f
 
 	h.srv.RenderTemplate(w, r, 200, "/bookmarks/collection_create", ctx)

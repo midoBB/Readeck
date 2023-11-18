@@ -92,6 +92,10 @@ var funcMap = map[string]jet.Func{
 			if !k.Type().ConvertibleTo(strType) {
 				args.Panicf("attrList(): can't use %+v as string key: %s is not convertible to string", k, k.Type())
 			}
+			if v.Kind() == reflect.Bool {
+				res[k.String()] = []any{v.Bool()}
+				continue
+			}
 			if !v.Type().ConvertibleTo(strType) {
 				args.Panicf("attrList(): can't use %+v as string key: %s is not convertible to string", v, v.Type())
 			}

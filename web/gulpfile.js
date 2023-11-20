@@ -16,7 +16,6 @@ const gulpRename = require("gulp-rename")
 const gulpSass = require("gulp-sass")
 const gulpSourcemaps = require("gulp-sourcemaps")
 const gulpSvgStore = require("gulp-svgstore")
-const vinylSourceStream = require("vinyl-source-stream")
 
 const del = async (...args) => {
   const {deleteSync} = await import("del")

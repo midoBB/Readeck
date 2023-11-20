@@ -1,7 +1,8 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//article"
+    "//article",
+    "//div[@class='container']"
   ],
   "date_selectors": null,
   "author_selectors": [
@@ -9,6 +10,9 @@
   ],
   "strip_selectors": [
     "//shipment",
+    "//h1[@itemprop='headline']",
+    "//h4[@itemprop='author']",
+    "//img[contains(@src, 'logo/merkurist-de.png')]",
     "//button"
   ],
   "strip_id_or_class": [
@@ -28,10 +32,20 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": null,
+  "http_headers": {
+    "User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+  },
   "tests": [
     {
       "url": "https://merkurist.de/mainz/hauptbahnhof-muensterplatz-strassenbahn-entgleist-verspaetungen-im-mainzer-oepnv_NaM",
+      "contains": []
+    },
+    {
+      "url": "https://merkurist.de/mainz/rheinhessen-ausgezeichnet-diese-praemierten-weinfeste-stehen-jetzt-in-rheinhessen-bevor_alM",
+      "contains": []
+    },
+    {
+      "url": "https://merkurist.de/mainz/serie-diese-feste-gab-es-mal-in-mainz_m6G",
       "contains": []
     }
   ]

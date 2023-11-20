@@ -1,15 +1,22 @@
 {
   "title_selectors": null,
-  "body_selectors": null,
+  "body_selectors": [
+    "//article[contains(concat(' ',normalize-space(@class),' '),' post ')]/div[contains(@class, 'td-post-content')]"
+  ],
   "date_selectors": null,
-  "author_selectors": null,
+  "author_selectors": [
+    "//meta[@name='author']/@content"
+  ],
   "strip_selectors": [
-    "//button"
+    "//button",
+    "//footer"
   ],
   "strip_id_or_class": [
     "wp-caption-text",
     "isc_image_list_box",
-    "td-adspot-title"
+    "td-adspot-title",
+    "wp-block-buttons",
+    "embed-privacy-overlay"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -19,10 +26,16 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": null,
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/120.0"
+  },
   "tests": [
     {
       "url": "https://www.digitalfernsehen.de/news/inhalte/fernsehen/der-bachelor-hat-seine-letzte-rose-verteilt-592095/",
+      "contains": []
+    },
+    {
+      "url": "https://www.digitalfernsehen.de/kommentar/killers-of-the-flower-moon-kritik-martin-scorsese-apple-tv-1104619/",
       "contains": []
     },
     {

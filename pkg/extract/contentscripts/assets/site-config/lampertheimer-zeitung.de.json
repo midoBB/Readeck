@@ -56,7 +56,7 @@
   },
   "tests": [
     {
-      "url": "https://www.echo-online.de/rss/lokales/darmstadt/",
+      "url": "https://www.lampertheimer-zeitung.de/rss/lokales/hessen/",
       "contains": []
     }
   ]

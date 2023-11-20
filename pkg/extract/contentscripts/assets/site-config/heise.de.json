@@ -2,7 +2,8 @@
   "title_selectors": null,
   "body_selectors": [
     "//article[contains(@class, 'printversion')]",
-    "//article[@id=\"meldung\"] | //div[@class='meldung_wrapper'] | //section[@id='artikel_text'] | //article[contains(@class, 'xp__article')]"
+    "//article[@id=\"meldung\"] | //div[@class='meldung_wrapper'] | //section[@id='artikel_text'] | //article[contains(@class, 'xp__article')]",
+    "//article[contains(concat(' ',normalize-space(@class),' '),' article ')]"
   ],
   "date_selectors": [
     "//article//time[@itemprop=\"datePublished\"]/@datetime",
@@ -25,7 +26,7 @@
     "//p[@class='artikel_datum']",
     "//p[@class='news_navi']",
     "//p[@class='printversion']",
-    "//a[contains(@href, 'mailto')]",
+    "//a[contains(@href, 'mailto')]/@href",
     "//div[@class='gallery compact']/h2",
     "//p[@class='themen_foren']",
     "//style",
@@ -34,7 +35,8 @@
     "//figure[@class='branding']",
     "//a-ad",
     "//footer",
-    "//div/section[@data-component='TeaserList']/ancestor::div",
+    "//div/section[@data-component='TeaserList']/ancestor::div[1]",
+    "//a-opt-in",
     "//a-collapse",
     "//div[@class=\"ff-a-img\"]//img[not(@data-ff-replacement)]"
   ],
@@ -86,14 +88,6 @@
       "\u003c/img\u003e\u003c/div\u003e"
     ],
     [
-      "\u003ch5\u003e",
-      "\u003ch2\u003e"
-    ],
-    [
-      "\u003c/h5\u003e",
-      "\u003c/h2\u003e"
-    ],
-    [
       "\u003ctitle\u003eDruckversion - ",
       "\u003ctitle\u003e"
     ],
@@ -129,31 +123,23 @@
       "contains": []
     },
     {
-      "url": "http://www.heise.de/open/artikel/Die-Neuerungen-von-Linux-3-15-2196231.html",
+      "url": "https://www.heise.de/news/Ueberwachungstechnik-Die-globale-Handy-Standortueberwachung-2301494.html",
       "contains": []
     },
     {
-      "url": "http://m.heise.de/open/artikel/Die-Neuerungen-von-Linux-3-15-2196231.html",
+      "url": "https://www.heise.de/news/Bodenradar-fuer-selbstfahrende-Autos-horcht-unter-die-Strasse-3273941.html",
       "contains": []
     },
     {
-      "url": "http://www.heise.de/newsticker/meldung/Ueberwachungstechnik-Die-globale-Handy-Standortueberwachung-2301494.html",
+      "url": "https://www.heise.de/tp/artikel/49/49473/1.html",
       "contains": []
     },
     {
-      "url": "http://www.heise.de/newsticker/meldung/Bodenradar-fuer-selbstfahrende-Autos-horcht-unter-die-Strasse-3273941.html",
+      "url": "https://www.heise.de/ct/artikel/Die-Neuerungen-von-Linux-3-15-2196231.html",
       "contains": []
     },
     {
-      "url": "http://www.heise.de/tp/artikel/49/49473/1.html",
-      "contains": []
-    },
-    {
-      "url": "http://www.heise.de/ct/artikel/Die-Neuerungen-von-Linux-3-15-2196231.html",
-      "contains": []
-    },
-    {
-      "url": "http://heise.de/-3527918",
+      "url": "https://heise.de/-3527918",
       "contains": []
     }
   ]

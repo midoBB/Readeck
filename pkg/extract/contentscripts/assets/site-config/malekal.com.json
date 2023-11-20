@@ -1,11 +1,14 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[@itemprop=\"articleBody\"]"
+    "//article"
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//ins",
+    "//nav"
+  ],
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -14,20 +17,11 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": [
-    [
-      "\u003cnoscript\u003e",
-      "\u003cdiv\u003e"
-    ],
-    [
-      "\u003c/noscript\u003e",
-      "\u003c/div\u003e"
-    ]
-  ],
+  "replace_strings": null,
   "http_headers": null,
   "tests": [
     {
-      "url": "https://android-developers.googleblog.com/2017/08/introducing-android-8-oreo.html",
+      "url": "https://www.malekal.com/16-exemples-utilisation-de-la-commande-curl/",
       "contains": []
     }
   ]

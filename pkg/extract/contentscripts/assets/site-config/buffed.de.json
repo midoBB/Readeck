@@ -1,23 +1,45 @@
 {
   "title_selectors": null,
-  "body_selectors": null,
+  "body_selectors": [
+    "//article[1]"
+  ],
   "date_selectors": null,
-  "author_selectors": null,
-  "strip_selectors": null,
+  "author_selectors": [
+    "//a[contains(@class, 'editorNameLink')]"
+  ],
+  "strip_selectors": [
+    "//aside",
+    "//a[@href='/']"
+  ],
   "strip_id_or_class": [
     "innerArticleModule",
     "tagAndSocialFrame",
     "video-container",
-    "vidOverlayFrame"
+    "vidOverlayFrame",
+    "linkToHomePage",
+    "articleTitle",
+    "ame-hide",
+    "ame-text",
+    "editorPortrait",
+    "articleTitle"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
-  "tidy": false,
+  "tidy": true,
   "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "\u003cdiv class=\"ame-container \" data-url=\"https://www.youtube.com/watch?v=",
+      "\u003cdiv class=\"ame-container \"\u003e\u003ciframe width=\"480\" height=\"360\" src=\"https://www.youtube.com/embed/"
+    ],
+    [
+      "\u003cdiv class=\"ame-container \" data-url=\"https://youtu.be/",
+      "\u003cdiv class=\"ame-container \"\u003e\u003ciframe width=\"480\" height=\"360\" src=\"https://www.youtube.com/embed/"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {
@@ -25,7 +47,7 @@
       "contains": []
     },
     {
-      "url": "https://www.buffed.de/Der-Herr-der-Ringe-Online-Die-Schatten-von-Angmar-Spiel-21221/News/Brawler-Neue-Klasse-1379286/",
+      "url": "https://www.buffed.de/Der-Herr-der-Ringe-Online-Die-Schatten-von-Angmar-Spiel-21221/News/HdRODie-Korsaren-von-Umbar-alle-wichtigen-Infos-zur-neuen-Erweiterung-1430729/",
       "contains": []
     },
     {

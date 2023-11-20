@@ -1,0 +1,36 @@
+{
+  "title_selectors": [
+    "//header//h2"
+  ],
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' post ')]"
+  ],
+  "date_selectors": [
+    "substring-before(//div[contains(concat(' ',normalize-space(@class),' '),' publish-date-author ')], ' · ')"
+  ],
+  "author_selectors": [
+    "substring-before(substring-after(//div[contains(concat(' ',normalize-space(@class),' '),' publish-date-author ')], ' · '), 'on behalf of' )",
+    "substring-after(//div[contains(concat(' ',normalize-space(@class),' '),' publish-date-author ')], ' · ')"
+  ],
+  "strip_selectors": null,
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://blog.rust-lang.org/inside-rust/2023/10/06/polonius-update.html",
+      "contains": []
+    },
+    {
+      "url": "https://blog.rust-lang.org/2023/09/25/Increasing-Apple-Version-Requirements.html",
+      "contains": []
+    }
+  ]
+}

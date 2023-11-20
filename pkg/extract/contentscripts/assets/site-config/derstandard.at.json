@@ -29,7 +29,8 @@
     "//aside[@data-type='supplemental']",
     "//div[@class='article-byline']",
     "//div[@class='article-meta']",
-    "//footer[starts-with(text(), 'Foto:')]"
+    "//footer[starts-with(text(), 'Foto:')]",
+    "//div[@data-section-type='newsletter']"
   ],
   "strip_id_or_class": [
     "article-kicker",

@@ -1,9 +1,9 @@
 {
   "title_selectors": [
-    "//meta[@property=\"og:title\"]/@content"
+    "//h2[@class='headline']"
   ],
   "body_selectors": [
-    "//div[@itemprop=\"articleBody\"]"
+    "//article[1]"
   ],
   "date_selectors": [
     "//span[@itemprop=\"datePublished\"]/@content"
@@ -11,8 +11,17 @@
   "author_selectors": [
     "//meta[@name=\"vr:author\"]/@content"
   ],
-  "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_selectors": [
+    "//app-toolbar",
+    "//button",
+    "//app-storyline-related-topics"
+  ],
+  "strip_id_or_class": [
+    "authors",
+    "source",
+    "kicker",
+    "headline"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -26,10 +35,12 @@
       "src=\""
     ]
   ],
-  "http_headers": null,
+  "http_headers": {
+    "User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+  },
   "tests": [
     {
-      "url": "http://www.handelsblatt.com/meinung/gastbeitraege/gastkommentar-zum-emissionshandel-kurskorrekturen-fuehren-zum-kentern/8044326.html",
+      "url": "https://www.handelsblatt.com/dpa/eu-kommission-macht-sich-fuer-bessere-radwege-stark/29427222.html",
       "contains": []
     },
     {

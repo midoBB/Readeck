@@ -1,0 +1,42 @@
+{
+  "title_selectors": null,
+  "body_selectors": null,
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//nav",
+    "//a-img"
+  ],
+  "strip_id_or_class": [
+    "printversion__back-to-article",
+    "printversion__logo"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": [
+    "//a[contains(@href, '?view=print')]",
+    "//a[contains(@title, 'Druck')]",
+    "//a[contains(@href, '?seite=all')]/@href"
+  ],
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cnoscript",
+      "\u003cdiv"
+    ],
+    [
+      "\u003c/noscript\u003e",
+      "\u003c/div\u003e"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.telepolis.de/features/Der-unprovozierte-Krieg-Wenn-Stoltenberg-und-Co-die-Wahrheit-ueber-die-Nato-Erweiterung-sagen-9314024.html",
+      "contains": []
+    }
+  ]
+}

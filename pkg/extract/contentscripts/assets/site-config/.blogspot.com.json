@@ -21,12 +21,8 @@
   "next_page_link_selectors": null,
   "replace_strings": [
     [
-      "\u003cnoscript\u003e",
-      "\u003cdiv\u003e"
-    ],
-    [
-      "\u003c/noscript\u003e",
-      "\u003c/div\u003e"
+      "noscript\u003e",
+      "div\u003e"
     ]
   ],
   "http_headers": null,
@@ -37,6 +33,10 @@
     },
     {
       "url": "http://strobist.blogspot.com/2012/01/qa-down-phase-one-rabbit-hole.html",
+      "contains": []
+    },
+    {
+      "url": "https://security.googleblog.com/2023/09/scaling-rust-adoption-through-training.html",
       "contains": []
     }
   ]

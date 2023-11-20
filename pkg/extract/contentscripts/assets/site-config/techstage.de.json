@@ -1,7 +1,8 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//section[@id=\"article_content\"]"
+    "//section[@id=\"article_content\"]",
+    "//div[@class='article-gallery'] | //div[@id='lead'] | //div[@id='article-content-body']"
   ],
   "date_selectors": [
     "//article//time[@datetime]/@datetime"
@@ -23,7 +24,9 @@
     "a-pvg-deal__price",
     "a-pvg__logo",
     "a-grid",
-    "comments_container"
+    "comments_container",
+    "ring-mini-gallery-title",
+    "ring-mini-gallery-desc"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -41,6 +44,10 @@
     },
     {
       "url": "https://www.techstage.de/ratgeber/Kaufberatung-Mit-Koepfchen-zum-passenden-Fahrradhelm-4872243.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.techstage.de/test/e-scooter-egret-one-im-test-viel-reichweite-starker-motor-hohe-qualitaet/17p6zpz",
       "contains": []
     }
   ]

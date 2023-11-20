@@ -56,7 +56,7 @@
   },
   "tests": [
     {
-      "url": "https://www.echo-online.de/rss/lokales/darmstadt/",
+      "url": "https://www.buerstaedter-zeitung.de/rss/lokales/hessen/",
       "contains": []
     }
   ]

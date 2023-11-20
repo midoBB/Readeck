@@ -1,0 +1,38 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' content_left ')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "subcategories-wrapper",
+    "w-script",
+    "article_next-up-block",
+    "newsletter_wrapper",
+    "embed_newsletter",
+    "img_author-headshot-bottom-wrapper",
+    "img_author-headshot-bottom"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cdiv class=\"text-author-name-big\"\u003eBy\u003c/div\u003e",
+      "\u003cspan class=\"text-author-name-big\"\u003eBy \u003c/span\u003e"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.certaintynews.com/article/influence-with-uru-navigating-business-relationships-and-challenges",
+      "contains": []
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "title_selectors": [
+    "//h1[contains(@class, 'document-title')]/span"
+  ],
+  "body_selectors": [
+    "//div[contains(@class, 'abstract-text')] | //div[contains(@class, 'ArticlePage')] | //div[contains(@class, 'document-full-text-content')]"
+  ],
+  "date_selectors": [
+    "//div[contains(@class, 'doc-abstract-pubdate')]/strong[text()='Date of Publication:']/following-sibling::text()[1]"
+  ],
+  "author_selectors": [
+    "//*[@class='authors-info']"
+  ],
+  "strip_selectors": [
+    "//xpl-accordian-section"
+  ],
+  "strip_id_or_class": [
+    "document-main-leaderboard-ad",
+    "document-main-header",
+    "doc-actions-mobile-expand-button",
+    "document-main-subheader",
+    "document-main-left-trail",
+    "hide-desktop",
+    "read-more-link-container"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "src=\"\"",
+      "invalid=\"\""
+    ],
+    [
+      "data-src-img=",
+      "src="
+    ],
+    [
+      "id=\"article\"",
+      ""
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://ieeexplore.ieee.org/document/9924563",
+      "contains": []
+    },
+    {
+      "url": "https://ieeexplore.ieee.org/document/9508471",
+      "contains": []
+    }
+  ]
+}

@@ -17,8 +17,11 @@
     "//aside",
     "//nav",
     "//*[@id=\"content\"]/div[1]/ul",
+    "//li[contains(concat(' ',normalize-space(@class),' '),' inline ')]",
     "//div[contains(concat(' ',normalize-space(@class),' '),' grow ')]",
-    "//div[contains(@class, 'duet--media--content-warning')]/img"
+    "//div[contains(@class, 'duet--media--content-warning')]/img",
+    "//div[@aria-label=\"Zoom\"]/img",
+    "//a[contains(@href, '/pages/how-we-rate')]"
   ],
   "strip_id_or_class": [
     "gallery",
@@ -43,7 +46,9 @@
     "e-image__meta",
     "duet--article--date-and-comments",
     "duet--article--disclaimer",
-    "duet--article--article-byline"
+    "duet--article--article-byline",
+    "duet--recirculation--related-list",
+    "duet--article--article-pullquote"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -56,6 +61,14 @@
     [
       "\u003cstrong\u003e \u003c/strong\u003e",
       "\u003c!-- nothing --\u003e"
+    ],
+    [
+      "\u003cdiv role=\"button\"",
+      "\u003cdiv"
+    ],
+    [
+      "\u003cdiv id=\"content\" class=\"clearfix\"\u003e",
+      "\u003cdiv\u003e"
     ],
     [
       "\u003cnoscript\u003e",

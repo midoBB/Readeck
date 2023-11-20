@@ -46,8 +46,9 @@ If you need a dedicated section with all your bookmarks from the past 2 weeks la
 
 Want to keep something for later while browsing? No need to copy and paste a link. Install the browser extension and save bookmarks in one click!
 
-[For Mozilla Firefox](https://addons.mozilla.org/en-US/firefox/addon/readeck/) \
-[More Information and Source Code](https://codeberg.org/readeck/browser-extension)
+- [For Mozilla Firefox](https://addons.mozilla.org/en-US/firefox/addon/readeck/)
+- [For Google Chrome](https://chromewebstore.google.com/detail/readeck/jnmcpmfimecibicbojhopfkcbmkafhee)
+- [More Information and Source Code](https://codeberg.org/readeck/browser-extension)
 
 ### 📖 E-Book export
 

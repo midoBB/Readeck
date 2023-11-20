@@ -1,0 +1,16 @@
+{*
+SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+
+SPDX-License-Identifier: AGPL-3.0-only
+*}
+{{ import "/_libs/common" }}
+
+{{- include "/_libs/pagination" .Pagination -}}
+
+<div class="my-4 grid lg:grid-cols-cards gap-4">
+{{- range .Bookmarks -}}
+  {{- include "./card" . -}}
+{{- end -}}
+</div>
+
+{{- include "/_libs/pagination" .Pagination -}}

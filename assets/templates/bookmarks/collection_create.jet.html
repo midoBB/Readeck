@@ -22,10 +22,13 @@ SPDX-License-Identifier: AGPL-3.0-only
       field=.Form.Get("name"),
       label="Name",
       class="mb-2",
+      inputAttrs=attrList("autofocus", true),
     ) }}
     {{ include("./components/filters") .Form }}
   </div>
 
   <p class="mt-4"><button class="btn-primary" type="submit">Save</button></p>
 </form>
+
+{{- include "./components/bookmark_list" -}}
 {{- end -}}

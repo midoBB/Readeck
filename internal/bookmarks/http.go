@@ -163,8 +163,8 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 
 		r.With(h.srv.WithPermission("bookmarks:collections", "write")).Group(func(r chi.Router) {
 			r.With(h.withBaseContext, api.withDefaultLimit(24)).Group(func(r chi.Router) {
-				r.Get("/add", h.collectionCreate)
-				r.Post("/add", h.collectionCreate)
+				r.With(api.withBookmarkList).Get("/add", h.collectionCreate)
+				r.With(api.withBookmarkList).Post("/add", h.collectionCreate)
 				r.With(
 					api.withCollection,
 					api.withCollectionFilters,

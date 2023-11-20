@@ -115,14 +115,6 @@ SPDX-License-Identifier: AGPL-3.0-only
   </form>
   {{ end -}}
 
-  {{- include "/_libs/pagination" .Pagination -}}
-
-  <div class="my-6 grid lg:grid-cols-cards gap-4">
-  {{- range .Bookmarks -}}
-    {{- include "./components/card" . -}}
-  {{- end -}}
-  </div>
-
-  {{- include "/_libs/pagination" .Pagination -}}
+  {{- include "./components/bookmark_list" -}}
 </turbo-frame>
 {{- end }}

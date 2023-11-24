@@ -91,7 +91,7 @@ web-build:
 
 # Launch tests
 .PHONY: test
-test: docs-build web-build
+test: docs-build
 	@echo "CC: $(CC)"
 	@echo "CGO_ENABLED": $$CGO_ENABLED
 	@echo "CGO_CFLAGS": $$CGO_CFLAGS

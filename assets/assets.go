@@ -13,8 +13,8 @@ import (
 
 // Assets contains all the static files needed by the app
 //
-//go:embed templates templates/**/*
-//go:embed www www/**/*
+//go:embed templates templates/*
+//go:embed www www/*
 var Assets embed.FS
 
 // StaticFilesFS returns the assets "www" subfolder as an HTTP

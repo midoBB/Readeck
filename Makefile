@@ -95,6 +95,7 @@ test: docs-build
 	@echo "CC: $(CC)"
 	@echo "CGO_ENABLED": $$CGO_ENABLED
 	@echo "CGO_CFLAGS": $$CGO_CFLAGS
+	test -f assets/www/manifest.json || echo "{}" > assets/www/manifest.json
 	$(GO) test \
 		-tags "$(BUILD_TAGS)" \
 		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" -trimpath \

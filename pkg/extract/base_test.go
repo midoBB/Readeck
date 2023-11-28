@@ -28,7 +28,7 @@ func newFileResponder(name string) httpmock.Responder {
 	if err != nil {
 		panic(err)
 	}
-	defer fd.Close()
+	defer fd.Close() //nolint:errcheck
 
 	data, err := io.ReadAll(fd)
 	if err != nil {
@@ -44,7 +44,7 @@ func newContentResponder(status int, headers map[string]string, name string) htt
 		if err != nil {
 			panic(err)
 		}
-		defer fd.Close()
+		defer fd.Close() //nolint:errcheck
 
 		data, err := io.ReadAll(fd)
 		if err != nil {

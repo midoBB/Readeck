@@ -11,23 +11,24 @@ import (
 	"time"
 
 	"github.com/jarcoal/httpmock"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestClient(t *testing.T) {
 	t.Run("Client", func(t *testing.T) {
+		assert := require.New(t)
 		client := NewClient()
-		assert.Equal(t, 10*time.Second, client.Timeout)
+		assert.Equal(10*time.Second, client.Timeout)
 
 		tr := client.Transport.(*Transport)
-		assert.Equal(t, "en-US,en;q=0.8", tr.header.Get("Accept-Language"))
-		assert.Equal(t, "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", tr.header.Get("Accept"))
+		assert.Equal("en-US,en;q=0.8", tr.header.Get("Accept-Language"))
+		assert.Equal("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", tr.header.Get("Accept"))
 
 		htr := tr.tr.(*http.Transport)
-		assert.Equal(t, true, htr.DisableKeepAlives)
-		assert.Equal(t, true, htr.DisableCompression)
-		assert.Equal(t, 1, htr.MaxIdleConns)
-		assert.Equal(t, false, htr.ForceAttemptHTTP2)
+		assert.True(htr.DisableKeepAlives)
+		assert.True(htr.DisableCompression)
+		assert.Equal(1, htr.MaxIdleConns)
+		assert.False(htr.ForceAttemptHTTP2)
 	})
 
 	t.Run("SetHeader", func(t *testing.T) {
@@ -35,7 +36,7 @@ func TestClient(t *testing.T) {
 		SetHeader(client, "x-test", "abc")
 
 		tr := client.Transport.(*Transport)
-		assert.Equal(t, "abc", tr.header.Get("x-test"))
+		require.Equal(t, "abc", tr.header.Get("x-test"))
 	})
 
 	t.Run("RoundTrip", func(t *testing.T) {
@@ -56,20 +57,19 @@ func TestClient(t *testing.T) {
 				})
 			})
 
+		assert := require.New(t)
 		client := NewClient()
 		clientHeaders := client.Transport.(*Transport).header
 
 		rsp, err := client.Get("https://example.net/")
-		if err != nil {
-			t.Fatal(err)
-		}
-		defer rsp.Body.Close()
+		assert.NoError(err)
+		defer rsp.Body.Close() //nolint:errcheck
 
 		dec := json.NewDecoder(rsp.Body)
 		var data echoResponse
-		dec.Decode(&data)
+		assert.NoError(dec.Decode(&data))
 
-		assert.Equal(t, "https://example.net/", data.URL)
-		assert.Equal(t, clientHeaders, data.Header)
+		assert.Equal("https://example.net/", data.URL)
+		assert.Equal(clientHeaders, data.Header)
 	})
 }

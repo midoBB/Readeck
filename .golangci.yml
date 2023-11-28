@@ -17,6 +17,7 @@ linters:
     - misspell
     - revive
     - staticcheck
+    - testifylint
     - typecheck
     - unused
 
@@ -99,3 +100,6 @@ linters-settings:
       - name: unused-parameter
       - name: unreachable-code
       - name: redefines-builtin-id
+
+  testifylint:
+    enable-all: true

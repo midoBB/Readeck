@@ -12,7 +12,7 @@ import (
 	"testing"
 
 	"github.com/doug-martin/goqu/v9"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/internal/auth/credentials"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
@@ -119,6 +119,8 @@ func TestViews(t *testing.T) {
 				ExpectStatus:   200,
 				ExpectContains: "Token will be removed in a few seconds",
 				Assert: func(t *testing.T, r *Response) {
+					assert := require.New(t)
+
 					_, tokenID := path.Split(r.URL.Path)
 					token, err := tokens.Tokens.GetOne(goqu.C("uid").Eq(tokenID))
 					if err != nil {
@@ -126,20 +128,20 @@ func TestViews(t *testing.T) {
 					}
 
 					// An event was sent
-					assert.Len(t, Events().Records("task"), 1)
+					assert.Len(Events().Records("task"), 1)
 					evt := map[string]interface{}{}
-					json.Unmarshal(Events().Records("task")[0], &evt)
-					assert.Equal(t, evt["name"], "token.delete")
-					assert.Equal(t, evt["id"], float64(token.ID))
+					assert.NoError(json.Unmarshal(Events().Records("task")[0], &evt))
+					assert.Equal("token.delete", evt["name"])
+					assert.Equal(float64(token.ID), evt["id"])
 
 					// There's a task in the store
 					task := fmt.Sprintf("tasks:token.delete:%d", token.ID)
 					m := Store().Get(task)
-					assert.NotEmpty(t, m)
+					assert.NotEmpty(m)
 
 					payload := map[string]interface{}{}
-					json.Unmarshal([]byte(m), &payload)
-					assert.Equal(t, payload["delay"], float64(20))
+					assert.NoError(json.Unmarshal([]byte(m), &payload))
+					assert.Equal(float64(20), payload["delay"])
 				},
 			},
 
@@ -166,7 +168,7 @@ func TestViews(t *testing.T) {
 					// The task is not in the store anymore
 					task := fmt.Sprintf("tasks:token.delete:%d", token.ID)
 					m := Store().Get(task)
-					assert.Empty(t, m)
+					require.Empty(t, m)
 				},
 			},
 		)
@@ -207,6 +209,8 @@ func TestViews(t *testing.T) {
 				ExpectStatus:   200,
 				ExpectContains: "Password will be removed in a few seconds",
 				Assert: func(t *testing.T, r *Response) {
+					assert := require.New(t)
+
 					_, credentialID := path.Split(r.URL.Path)
 					credential, err := credentials.Credentials.GetOne(goqu.C("uid").Eq(credentialID))
 					if err != nil {
@@ -214,20 +218,20 @@ func TestViews(t *testing.T) {
 					}
 
 					// An event was sent
-					assert.Len(t, Events().Records("task"), 1)
+					assert.Len(Events().Records("task"), 1)
 					evt := map[string]interface{}{}
-					json.Unmarshal(Events().Records("task")[0], &evt)
-					assert.Equal(t, evt["name"], "credential.delete")
-					assert.Equal(t, evt["id"], float64(credential.ID))
+					assert.NoError(json.Unmarshal(Events().Records("task")[0], &evt))
+					assert.Equal("credential.delete", evt["name"])
+					assert.Equal(float64(credential.ID), evt["id"])
 
 					// There's a task in the store
 					task := fmt.Sprintf("tasks:credential.delete:%d", credential.ID)
 					m := Store().Get(task)
-					assert.NotEmpty(t, m)
+					assert.NotEmpty(m)
 
 					payload := map[string]interface{}{}
-					json.Unmarshal([]byte(m), &payload)
-					assert.Equal(t, payload["delay"], float64(20))
+					assert.NoError(json.Unmarshal([]byte(m), &payload))
+					assert.Equal(float64(20), payload["delay"])
 				},
 			},
 
@@ -245,16 +249,16 @@ func TestViews(t *testing.T) {
 			RequestTest{
 				Target: "{{ (index .History 1).Path }}",
 				Assert: func(t *testing.T, r *Response) {
+					assert := require.New(t)
+
 					_, credentialID := path.Split(r.URL.Path)
 					credential, err := credentials.Credentials.GetOne(goqu.C("uid").Eq(credentialID))
-					if err != nil {
-						t.Error(err)
-					}
+					assert.NoError(err)
 
 					// The task is not in the store anymore
 					task := fmt.Sprintf("tasks:credential.delete:%d", credential.ID)
 					m := Store().Get(task)
-					assert.Empty(t, m)
+					assert.Empty(m)
 				},
 			},
 		)

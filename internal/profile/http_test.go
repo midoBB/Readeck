@@ -7,7 +7,7 @@ package profile_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
 )
@@ -98,7 +98,7 @@ func TestPermissions(t *testing.T) {
 				Assert: func(t *testing.T, r *Response) {
 					switch user {
 					case "admin", "staff", "user":
-						assert.Equal(t, r.StatusCode, 422)
+						require.Equal(t, 422, r.StatusCode)
 					case "disabled":
 						r.AssertStatus(t, 403)
 					default:

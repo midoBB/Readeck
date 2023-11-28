@@ -11,26 +11,26 @@ import (
 	"testing"
 
 	"github.com/antchfx/xmlquery"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/pkg/img"
 )
 
-func assertXMLEqual(t *testing.T, expected, actual string) bool {
+func assertXMLEqual(t *testing.T, expected, actual string) {
 	eNode, err := xmlquery.Parse(strings.NewReader(expected))
 	if err != nil {
 		t.Error(err)
-		t.Fail()
-		return false
+		t.FailNow()
+		return
 	}
 	aNode, err := xmlquery.Parse(strings.NewReader(actual))
 	if err != nil {
 		t.Error(err)
-		t.Fail()
-		return false
+		t.FailNow()
+		return
 	}
 
-	return assert.Equal(t, eNode.OutputXML(true), aNode.OutputXML(true))
+	require.Equal(t, eNode.OutputXML(true), aNode.OutputXML(true))
 }
 
 func TestSvgImage(t *testing.T) {
@@ -62,18 +62,19 @@ func TestSvgImage(t *testing.T) {
 
 		for i, test := range tests {
 			t.Run(strconv.Itoa(i), func(t *testing.T) {
+				assert := require.New(t)
 				im, err := img.NewSvgImage(strings.NewReader(test.svg))
 				if test.err != "" {
-					assert.EqualError(t, err, test.err)
+					assert.EqualError(err, test.err)
 					return
 				}
 
-				assert.Nil(t, err)
-				assert.Equal(t, im.Format(), "svg")
-				assert.Equal(t, im.ContentType(), "image/svg+xml")
-				assert.Nil(t, im.Close())
-				assert.Nil(t, im.SetFormat("jpeg"))
-				assert.Nil(t, im.SetCompression(img.CompressionBest))
+				assert.NoError(err)
+				assert.Equal("svg", im.Format())
+				assert.Equal("image/svg+xml", im.ContentType())
+				assert.NoError(im.Close())
+				assert.NoError(im.SetFormat("jpeg"))
+				assert.NoError(im.SetCompression(img.CompressionBest))
 			})
 		}
 	})
@@ -143,10 +144,11 @@ func TestSvgImage(t *testing.T) {
 
 		for i, test := range tests {
 			t.Run(strconv.Itoa(i), func(t *testing.T) {
+				assert := require.New(t)
 				im, err := img.NewSvgImage(strings.NewReader(test.svg))
-				assert.Nil(t, err)
-				assert.Equal(t, test.w, int(im.Width()))
-				assert.Equal(t, test.h, int(im.Height()))
+				assert.NoError(err)
+				assert.Equal(test.w, int(im.Width()))
+				assert.Equal(test.h, int(im.Height()))
 			})
 		}
 	})
@@ -194,13 +196,14 @@ func TestSvgImage(t *testing.T) {
 
 		for i, test := range tests {
 			t.Run(strconv.Itoa(i), func(t *testing.T) {
+				assert := require.New(t)
 				im, err := img.NewSvgImage(strings.NewReader(test.svg))
-				assert.Nil(t, err)
+				assert.NoError(err)
 
-				assert.NoError(t, im.Resize(uint(test.w), uint(test.h)))
+				assert.NoError(im.Resize(uint(test.w), uint(test.h)))
 				b := &bytes.Buffer{}
 
-				assert.NoError(t, im.Encode(b))
+				assert.NoError(im.Encode(b))
 				assertXMLEqual(t, test.expected, b.String())
 			})
 		}
@@ -318,12 +321,13 @@ func TestClean(t *testing.T) {
 
 	for i, test := range tests {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
+			assert := require.New(t)
 			im, err := img.NewSvgImage(strings.NewReader(test.svg))
-			assert.Nil(t, err)
-			assert.NoError(t, im.Clean())
+			assert.NoError(err)
+			assert.NoError(im.Clean())
 
 			b := &bytes.Buffer{}
-			assert.NoError(t, im.Encode(b))
+			assert.NoError(im.Encode(b))
 			assertXMLEqual(t, test.expected, b.String())
 		})
 	}

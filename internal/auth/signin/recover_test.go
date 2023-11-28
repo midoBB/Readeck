@@ -10,7 +10,7 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
 )
@@ -37,7 +37,7 @@ func TestRecover(t *testing.T) {
 				},
 				ExpectStatus: 200,
 				Assert: func(t *testing.T, _ *Response) {
-					assert.Contains(t, app.LastEmail, "login/recover/")
+					require.Contains(t, app.LastEmail, "login/recover/")
 					rx := regexp.MustCompile(fmt.Sprintf(
 						"%s/login/recover/(.+)\r\n",
 						regexp.QuoteMeta("http://"+client.URL.Host),
@@ -93,7 +93,7 @@ func TestRecover(t *testing.T) {
 				},
 				ExpectStatus: 200,
 				Assert: func(t *testing.T, _ *Response) {
-					assert.Contains(
+					require.Contains(
 						t, app.LastEmail,
 						"However, this email address is not associated with any account",
 					)

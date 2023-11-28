@@ -23,7 +23,7 @@ import (
 
 	"github.com/go-shiori/dom"
 	"github.com/kinbiko/jsonassert"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	mail "github.com/xhit/go-simple-mail/v2"
 
 	"codeberg.org/readeck/readeck/configs"
@@ -407,12 +407,12 @@ func (r *Response) Path() string {
 
 // AssertStatus checks the response's expected status.
 func (r *Response) AssertStatus(t *testing.T, expected int) {
-	assert.Equal(t, expected, r.StatusCode)
+	require.Equal(t, expected, r.StatusCode)
 }
 
 // AssertRedirect checks that the expected target is present in a Location header.
 func (r *Response) AssertRedirect(t *testing.T, expected string) {
-	assert.Regexp(t, expected, r.Redirect)
+	require.Regexp(t, expected, r.Redirect)
 }
 
 // AssertJSON checks that the response's JSON matches what we expect.
@@ -420,6 +420,7 @@ func (r *Response) AssertJSON(t *testing.T, expected string) {
 	jsonassert.New(t).Assertf(string(r.Body), expected)
 	if t.Failed() {
 		t.Errorf("Received JSON: %s\n", string(r.Body))
+		t.FailNow()
 	}
 }
 
@@ -518,7 +519,7 @@ func RunRequestSequence(t *testing.T, c *Client, user string, tests ...RequestTe
 				}
 
 				if test.ExpectContains != "" {
-					assert.Contains(t, string(rsp.Body), test.ExpectContains)
+					require.Contains(t, string(rsp.Body), test.ExpectContains)
 				}
 
 				if test.Assert != nil {

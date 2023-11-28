@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/pkg/timetoken"
 )
@@ -38,9 +38,8 @@ func TestRelativeTo(t *testing.T) {
 	for i, test := range tests {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			token, err := timetoken.New(test.s)
-			assert.Nil(t, err)
-
-			assert.Equal(t, test.expected, token.RelativeTo(&now).Format(time.DateTime))
+			require.NoError(t, err)
+			require.Equal(t, test.expected, token.RelativeTo(&now).Format(time.DateTime))
 		})
 	}
 }

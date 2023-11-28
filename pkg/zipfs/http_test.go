@@ -11,7 +11,7 @@ import (
 	"testing"
 
 	"codeberg.org/readeck/readeck/pkg/zipfs"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestHttp(t *testing.T) {
@@ -75,8 +75,10 @@ func TestHttp(t *testing.T) {
 	for i, test := range tests {
 		//nolint:bodyclose
 		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
+			assert := require.New(t)
 			w := httptest.NewRecorder()
-			r, _ := http.NewRequest("GET", test.path, nil)
+			r, err := http.NewRequest("GET", test.path, nil)
+			assert.NoError(err)
 			if test.headers != nil {
 				for k, v := range test.headers {
 					r.Header.Set(k, v)
@@ -84,49 +86,57 @@ func TestHttp(t *testing.T) {
 			}
 
 			srv.ServeHTTP(w, r)
-			assert.Equal(t, test.status, w.Result().StatusCode)
+			assert.Equal(test.status, w.Result().StatusCode)
 			if w.Result().StatusCode != http.StatusOK {
 				return
 			}
 
-			assert.Equal(t, test.content, w.Body.Bytes())
+			assert.Equal(test.content, w.Body.Bytes())
 
 			for k, v := range test.responseHeaders {
-				assert.Equal(t, v, w.Result().Header.Get(k))
+				assert.Equal(v, w.Result().Header.Get(k))
 			}
 		})
 	}
 
 	//nolint:bodyclose
 	t.Run("method", func(t *testing.T) {
+		assert := require.New(t)
 		w := httptest.NewRecorder()
-		r, _ := http.NewRequest("POST", "test-base.txt", nil)
+		r, err := http.NewRequest("POST", "test-base.txt", nil)
+		assert.NoError(err)
 		srv.ServeHTTP(w, r)
-		assert.Equal(t, http.StatusMethodNotAllowed, w.Result().StatusCode)
+		assert.Equal(http.StatusMethodNotAllowed, w.Result().StatusCode)
 	})
 
 	//nolint:bodyclose
 	t.Run("head", func(t *testing.T) {
+		assert := require.New(t)
 		w := httptest.NewRecorder()
-		r, _ := http.NewRequest("HEAD", "test-base.txt", nil)
+		r, err := http.NewRequest("HEAD", "test-base.txt", nil)
+		assert.NoError(err)
 		srv.ServeHTTP(w, r)
-		assert.Equal(t, http.StatusOK, w.Result().StatusCode)
-		assert.Equal(t, "", w.Body.String())
+		assert.Equal(http.StatusOK, w.Result().StatusCode)
+		assert.Equal("", w.Body.String())
 	})
 
 	//nolint:bodyclose
 	t.Run("zip not found", func(t *testing.T) {
+		assert := require.New(t)
 		w := httptest.NewRecorder()
-		r, _ := http.NewRequest("GET", "test-base.txt", nil)
+		r, err := http.NewRequest("GET", "test-base.txt", nil)
+		assert.NoError(err)
 		zipfs.HTTPZipFile("fixtures/noop.zip").ServeHTTP(w, r)
-		assert.Equal(t, http.StatusNotFound, w.Result().StatusCode)
+		assert.Equal(http.StatusNotFound, w.Result().StatusCode)
 	})
 
 	//nolint:bodyclose
 	t.Run("corrupt zip", func(t *testing.T) {
+		assert := require.New(t)
 		w := httptest.NewRecorder()
-		r, _ := http.NewRequest("GET", "test-base.txt", nil)
+		r, err := http.NewRequest("GET", "test-base.txt", nil)
+		assert.NoError(err)
 		zipfs.HTTPZipFile("fixtures/corrupt.zip").ServeHTTP(w, r)
-		assert.Equal(t, http.StatusInternalServerError, w.Result().StatusCode)
+		assert.Equal(http.StatusInternalServerError, w.Result().StatusCode)
 	})
 }

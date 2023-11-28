@@ -256,7 +256,7 @@ func TestExported(t *testing.T) {
 
 		assert := require.New(t)
 		assert.NoError(err)
-		assert.Equal(cf.TitleSelectors, []string{"//title", "//main//h1"})
-		assert.Equal(cf.HTTPHeaders, map[string]string{"user-agent": "curl/7"})
+		assert.Equal([]string{"//title", "//main//h1"}, cf.TitleSelectors)
+		assert.Equal(map[string]string{"user-agent": "curl/7"}, cf.HTTPHeaders)
 	})
 }

@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
 )
@@ -118,17 +118,19 @@ func TestViews(t *testing.T) {
 				ExpectStatus:   200,
 				ExpectContains: "User will be removed in a few seconds",
 				Assert: func(t *testing.T, r *Response) {
-					// An event was sent
-					assert.Len(t, Events().Records("task"), 1)
+					assert := require.New(t)
 					evt := map[string]interface{}{}
-					json.Unmarshal(Events().Records("task")[0], &evt)
-					assert.Equal(t, evt["name"], "user.delete")
-					assert.Equal(t, evt["id"], float64(u1.User.ID))
+
+					// An event was sent
+					assert.Len(Events().Records("task"), 1)
+					assert.NoError(json.Unmarshal(Events().Records("task")[0], &evt))
+					assert.Equal("user.delete", evt["name"])
+					assert.Equal(float64(u1.User.ID), evt["id"])
 
 					// There's a task in the store
 					task := fmt.Sprintf("tasks:user.delete:%d", u1.User.ID)
 					m := Store().Get(task)
-					assert.NotEmpty(t, m)
+					assert.NotEmpty(m)
 				},
 			},
 
@@ -146,7 +148,7 @@ func TestViews(t *testing.T) {
 					// The task is not in the store anymore
 					task := fmt.Sprintf("tasks:user.delete:%d", u1.User.ID)
 					m := Store().Get(task)
-					assert.Empty(t, m)
+					require.Empty(t, m)
 				},
 			},
 		)

@@ -111,11 +111,11 @@ func (im *SvgImage) Resize(w, h uint) error {
 
 // Encode encodes the image to an io.Writer.
 func (im *SvgImage) Encode(w io.Writer) error {
-	w.Write([]byte(im.node.OutputXMLWithOptions(
+	_, err := w.Write([]byte(im.node.OutputXMLWithOptions(
 		xmlquery.WithOutputSelf(),
 		xmlquery.WithEmptyTagSupport(),
 	)))
-	return nil
+	return err
 }
 
 // Clean sanitizes the SVG image by keeping only a specific set of tags and attributes.
@@ -135,9 +135,11 @@ func (im *SvgImage) Clean() error {
 	return nil
 }
 
-const xmlNS = "http://www.w3.org/XML/1998/namespace"
-const svgNS = "http://www.w3.org/2000/svg"
-const xlinkNS = "http://www.w3.org/1999/xlink"
+const (
+	xmlNS   = "http://www.w3.org/XML/1998/namespace"
+	svgNS   = "http://www.w3.org/2000/svg"
+	xlinkNS = "http://www.w3.org/1999/xlink"
+)
 
 type xmlName struct {
 	NS, Local string

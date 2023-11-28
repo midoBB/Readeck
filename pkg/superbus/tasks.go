@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package superbus provides an asynchronous task handler.
 package superbus
 
 import (
@@ -16,23 +17,23 @@ import (
 )
 
 type (
-	// Operation is the event sent when we launch a task
+	// Operation is the event sent when we launch a task.
 	Operation struct {
 		Name string      `json:"name"`
 		ID   interface{} `json:"id"`
 	}
 
-	// Payload is the stored content of a task
+	// Payload is the stored content of a task.
 	Payload struct {
 		ID    uuid.UUID `json:"id"`
 		Delay int       `json:"delay"`
 		Data  []byte    `json:"data"`
 	}
 
-	// TaskHandler is the function called on a task
+	// TaskHandler is the function called on a task.
 	TaskHandler func(*Operation, *Payload)
 
-	// TaskManager is the task manager
+	// TaskManager is the task manager.
 	TaskManager struct {
 		sync.Mutex
 
@@ -52,7 +53,7 @@ type (
 	// TaskOption is a function that sets Task option upon creation.
 	TaskOption func(t *Task)
 
-	// Task is a task shortcut
+	// Task is a task shortcut.
 	Task struct {
 		tm             *TaskManager
 		name           string
@@ -98,7 +99,7 @@ func WithOperationPrefix(p string) TaskManagerOption {
 	}
 }
 
-// onTask is the task's event handler
+// onTask is the task's event handler.
 func (tm *TaskManager) onTask(e Event) {
 	var op Operation
 	if err := json.Unmarshal(e.Value, &op); err != nil {
@@ -118,8 +119,10 @@ func (tm *TaskManager) onTask(e Event) {
 	// If there's no handler, clean everything up
 	f, ok := tm.handlers[op.Name]
 	if !ok {
-		tm.delPayload(&op)
 		l.Error("no handler")
+		if err = tm.delPayload(&op); err != nil {
+			l.WithError(err).Error("removing payload")
+		}
 		return
 	}
 
@@ -145,7 +148,11 @@ func (tm *TaskManager) onTask(e Event) {
 		}
 
 		// The payload can be removed when we're done.
-		defer tm.delPayload(&op)
+		defer func() {
+			if err := tm.delPayload(&op); err != nil {
+				l.WithError(err).Error("removing payload")
+			}
+		}()
 
 		// Push the worker to the queue.
 		tm.queue <- func() {
@@ -176,8 +183,8 @@ func (tm *TaskManager) getPayload(op *Operation) (payload Payload, err error) {
 }
 
 // delPayload removes the operation's payload from the store.
-func (tm *TaskManager) delPayload(t *Operation) {
-	tm.store.Del(tm.getOperationKey(t.Name, t.ID))
+func (tm *TaskManager) delPayload(t *Operation) error {
+	return tm.store.Del(tm.getOperationKey(t.Name, t.ID))
 }
 
 // Start starts the events listener and the process workers.

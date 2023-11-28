@@ -14,20 +14,20 @@ import (
 	"github.com/gorilla/securecookie"
 )
 
-// Payload contains session values
+// Payload contains session values.
 type Payload struct {
 	Seed    int            `json:"s"`
 	User    int            `json:"u"`
 	Flashes []FlashMessage `json:"f"`
 }
 
-// FlashMessage is a message stored in the session
+// FlashMessage is a message stored in the session.
 type FlashMessage struct {
 	Type    string `json:"t"`
 	Message string `json:"m"`
 }
 
-// Session is a unique session
+// Session is a unique session.
 type Session struct {
 	Payload *Payload
 	IsNew   bool

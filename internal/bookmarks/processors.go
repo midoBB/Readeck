@@ -83,6 +83,8 @@ func extractLinksProcessor(m *extract.ProcessMessage, next extract.Processor) ex
 	return next
 }
 
+// GetExtractedLinks returns the extracted link list previously
+// stored in the extractor context.
 func GetExtractedLinks(ctx context.Context) BookmarkLinks {
 	if links, ok := ctx.Value(ctxExtractLinksKey).(BookmarkLinks); ok {
 		return links

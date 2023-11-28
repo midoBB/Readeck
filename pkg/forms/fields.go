@@ -17,7 +17,7 @@ import (
 )
 
 // NilValue is a text null value. In an URL of form value, it would
-// be a field with %00 value. (name=%00)
+// be a field with %00 value. (name=%00).
 var NilValue = []byte{0}
 
 // Field describes a form field.
@@ -41,9 +41,9 @@ type FieldChoices interface {
 }
 
 var (
-	// ErrInvalidType is the error for invalid type
+	// ErrInvalidType is the error for invalid type.
 	ErrInvalidType = errors.New("invalid type")
-	// ErrInvalidValue is the for invalid value
+	// ErrInvalidValue is the for invalid value.
 	ErrInvalidValue = errors.New("invalid value")
 )
 
@@ -111,7 +111,7 @@ func (f *BaseField) SetValidators(validators ...FieldValidator) {
 /* Text field
    --------------------------------------------------------------- */
 
-// TextField is a field with a string value
+// TextField is a field with a string value.
 type TextField struct {
 	*BaseField
 	value string
@@ -179,7 +179,7 @@ func (f *TextField) String() string {
 /* Boolean field
    --------------------------------------------------------------- */
 
-// BooleanField is a boolean field (true/false)
+// BooleanField is a boolean field (true/false).
 type BooleanField struct {
 	*BaseField
 	value bool
@@ -367,7 +367,7 @@ func (f *IntegerField) String() string {
 /* Time field
    --------------------------------------------------------------- */
 
-// DatetimeField is a datetime field
+// DatetimeField is a datetime field.
 type DatetimeField struct {
 	*BaseField
 	value time.Time
@@ -494,7 +494,7 @@ func (f *ChoiceField) Choices() Choices {
 
 // Validate performs the field's validation.
 func (f *ChoiceField) Validate(_ Field) error {
-	var choices = make([]string, len(f.choices))
+	choices := make([]string, len(f.choices))
 	for i, v := range f.choices {
 		choices[i] = v[0]
 		if v[0] == f.String() {
@@ -539,14 +539,17 @@ func NewListField(name string, constructor fieldConstructor, converter fieldConv
 	return f
 }
 
+// SetChoices sets the field choice list.
 func (f *ListField) SetChoices(choices Choices) {
 	f.choices = choices
 }
 
+// Choices returns the field choice list.
 func (f *ListField) Choices() Choices {
 	return f.choices
 }
 
+// InChoices returns true if value is in the field choice list.
 func (f *ListField) InChoices(value string) bool {
 	for _, x := range f.value {
 		if value == x.String() {
@@ -556,6 +559,7 @@ func (f *ListField) InChoices(value string) bool {
 	return false
 }
 
+// Validate performs the field validation.
 func (f *ListField) Validate(_ Field) error {
 	if len(f.choices) == 0 {
 		return nil

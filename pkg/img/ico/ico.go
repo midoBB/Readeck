@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
+// Package ico implements the .ico format decoding
 package ico
 
 import (
@@ -136,7 +137,9 @@ func (d *decoder) decode(r io.Reader) (err error) {
 }
 
 func (d *decoder) decodeHeader(r io.Reader) error {
-	binary.Read(r, binary.LittleEndian, &(d.head))
+	if err := binary.Read(r, binary.LittleEndian, &(d.head)); err != nil {
+		return err
+	}
 	if d.head.Zero != 0 || d.head.Type != 1 {
 		return fmt.Errorf("corrupted head: [%x,%x]", d.head.Zero, d.head.Type)
 	}

@@ -6,7 +6,7 @@ package extract
 
 import (
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
@@ -30,7 +30,7 @@ func newFileResponder(name string) httpmock.Responder {
 	}
 	defer fd.Close()
 
-	data, err := ioutil.ReadAll(fd)
+	data, err := io.ReadAll(fd)
 	if err != nil {
 		panic(err)
 	}
@@ -46,7 +46,7 @@ func newContentResponder(status int, headers map[string]string, name string) htt
 		}
 		defer fd.Close()
 
-		data, err := ioutil.ReadAll(fd)
+		data, err := io.ReadAll(fd)
 		if err != nil {
 			panic(err)
 		}
@@ -72,6 +72,7 @@ type errReader int
 func (errReader) Read([]byte) (n int, err error) {
 	return 0, errors.New("read error")
 }
+
 func (errReader) Close() error {
 	return nil
 }

@@ -10,7 +10,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	. "codeberg.org/readeck/readeck/internal/testing"
+	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
 )
 
 func TestSignin(t *testing.T) {

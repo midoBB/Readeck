@@ -59,5 +59,5 @@ func (c collector) handle(next http.Handler) http.Handler {
 	})
 }
 
-// Middleware is the global metrics middleware
+// Middleware is the global metrics middleware.
 var Middleware = newCollectorMiddlware()

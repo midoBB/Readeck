@@ -9,8 +9,9 @@ import (
 	"testing"
 	"testing/fstest"
 
+	"github.com/stretchr/testify/require"
+
 	"codeberg.org/readeck/readeck/pkg/extract/contentscripts"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestSiteConfig(t *testing.T) {
@@ -53,8 +54,10 @@ func TestSiteConfig(t *testing.T) {
 			t.Run(test.host, func(t *testing.T) {
 				u := &url.URL{Host: test.host}
 				cf, err := contentscripts.NewConfigForURL(d, u)
-				assert.NoError(t, err)
-				assert.Equal(t, test.files, cf.Files())
+
+				assert := require.New(t)
+				assert.NoError(err)
+				assert.Equal(test.files, cf.Files())
 			})
 		}
 	})
@@ -76,7 +79,8 @@ func TestSiteConfig(t *testing.T) {
 			},
 		})
 
-		assert.Equal(t, &contentscripts.SiteConfig{
+		assert := require.New(t)
+		assert.Equal(&contentscripts.SiteConfig{
 			BodySelectors: []string{"//div[@id='content']", "//div[@id='page']"},
 			Prune:         false,
 			HTTPHeaders: map[string]string{
@@ -115,8 +119,10 @@ func TestSiteConfig(t *testing.T) {
 			t.Run(test.host, func(t *testing.T) {
 				u := &url.URL{Host: test.host}
 				cf, err := contentscripts.NewConfigForURL(d, u)
-				assert.NoError(t, err)
-				assert.Equal(t, test.files, cf.Files())
+
+				assert := require.New(t)
+				assert.NoError(err)
+				assert.Equal(test.files, cf.Files())
 			})
 		}
 	})
@@ -131,7 +137,9 @@ func TestSiteConfig(t *testing.T) {
 		u := &url.URL{Host: "example.net"}
 
 		cf, err := contentscripts.NewConfigForURL(d, u)
-		assert.Error(t, err)
-		assert.Nil(t, cf)
+
+		assert := require.New(t)
+		assert.Error(err)
+		assert.Nil(cf)
 	})
 }

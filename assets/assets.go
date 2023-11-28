@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package assets contains Readeck's static files and templates.
 package assets
 
 import (
@@ -27,7 +28,7 @@ func StaticFilesFS() http.FileSystem {
 	return http.FS(sub)
 }
 
-// TemplatesFS returns the assets "templates" subfolder as an fs.FS
+// TemplatesFS returns the assets "templates" subfolder as an fs.FS.
 func TemplatesFS() fs.FS {
 	sub, err := fs.Sub(Assets, "templates")
 	if err != nil {
@@ -43,7 +44,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	defer f.Close()
+	defer f.Close() //nolint:errcheck
 	if err := json.NewDecoder(f).Decode(&assetMap); err != nil {
 		panic(err)
 	}

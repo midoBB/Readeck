@@ -49,7 +49,8 @@ func TestNativeImageResize(t *testing.T) {
 	r := bytes.NewReader(newImage(200, 100))
 	im, err := img.NewNativeImage(r)
 	assert.Nil(t, err)
-	im.Resize(400, 200)
+	err = im.Resize(400, 200)
+	assert.NoError(t, err)
 
 	buf := new(bytes.Buffer)
 	err = im.Encode(buf)
@@ -79,7 +80,8 @@ func TestNativeImageEncode(t *testing.T) {
 			im, err := img.NewNativeImage(bytes.NewReader(data))
 			assert.Nil(t, err)
 
-			im.SetFormat(test.format)
+			err = im.SetFormat(test.format)
+			assert.NoError(t, err)
 
 			buf := new(bytes.Buffer)
 			err = im.Encode(buf)

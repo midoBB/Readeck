@@ -1,24 +1,24 @@
----
 linters:
-  enable-all: false
+  # enable-all: true
   disable-all: true
   fast: true
   enable:
-    - revive
-    - govet
+    - bodyclose
+    - dupl
+    - errcheck
+    - exportloopref
+    - gocognit
+    - gocritic
+    - gocyclo
+    - godot
+    - gofumpt
     - gosimple
+    - govet
+    - misspell
+    - revive
+    - staticcheck
     - typecheck
     - unused
-    - dupl
-    - gocritic
-    # - errcheck
-    - staticcheck
-    - gocognit
-    - gocyclo
-
-    - misspell
-
-
 
 run:
   concurrency: 4
@@ -27,10 +27,40 @@ run:
   tests: true
   build-tags: []
 
+output:
+  format: tab
+  sort-results: true
+
 issues:
   exclude-use-default: false
+  max-issues-per-linter: 0
+  max-same-issues: 0
 
 linters-settings:
+  errcheck:
+    check-type-assertions: false
+    check-blank: false
+    exclude-functions:
+      # We don't care about writing to buffers
+      - io.Copy(*strings.Builder)
+      - (*strings.Replacer).WriteString(*bytes.Buffer)
+      - golang.org/x/net/html.Render(*bytes.Buffer)
+      - (*github.com/fatih/color.Color).Fprint(*bytes.Buffer)
+      - (*github.com/fatih/color.Color).Fprintf(*bytes.Buffer)
+
+      # It's okay not to check http writes
+      - (net/http.ResponseWriter).Write
+      - io.Copy(net/http.ResponseWriter)
+      - io.WriteString(net/http.ResponseWriter)
+      - (*strings.Replacer).WriteString(net/http.ResponseWriter)
+      - (*codeberg.org/readeck/readeck/internal/server.Server).AddFlash
+      - (*codeberg.org/readeck/readeck/internal/sessions.Session).Save
+
+      # For some defer *.Close()
+      - (net/http.File).Close
+      - (*archive/zip.ReadCloser).Close
+
+
   gocognit:
     min-complexity: 60
 

@@ -61,6 +61,8 @@ func isSpace(c rune) bool {
 }
 
 // Parse takes the value of a srcset attribute and parses it.
+//
+//nolint:gocognit,gocyclo
 func Parse(input string) SourceSet {
 	var (
 		url         string

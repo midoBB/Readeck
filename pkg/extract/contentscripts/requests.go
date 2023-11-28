@@ -27,14 +27,18 @@ type httpResponse struct {
 }
 
 // NewHTTPClient returns a new (very) simple HTTP client for the JS runtime.
-func NewHTTPClient(vm *Runtime, client *http.Client) *goja.Object {
+func NewHTTPClient(vm *Runtime, client *http.Client) (*goja.Object, error) {
 	c := &httpClient{vm: vm, Client: client}
 
 	obj := vm.NewObject()
-	obj.Set("get", c.get)
-	obj.Set("post", c.post)
+	if err := obj.Set("get", c.get); err != nil {
+		return nil, err
+	}
+	if err := obj.Set("post", c.post); err != nil {
+		return nil, err
+	}
 
-	return obj
+	return obj, nil
 }
 
 func (c *httpClient) Do(req *http.Request, args ...goja.Value) (*goja.Object, error) {
@@ -84,7 +88,7 @@ func (c *httpClient) post(url string, data []byte, args ...goja.Value) (*goja.Ob
 }
 
 func newHTTPResponse(vm *Runtime, rsp *http.Response) (*goja.Object, error) {
-	defer rsp.Body.Close()
+	defer rsp.Body.Close() //nolint:errcheck
 
 	r := &httpResponse{vm: vm, Response: rsp, body: new(bytes.Buffer)}
 	if _, err := io.Copy(r.body, rsp.Body); err != nil {
@@ -97,11 +101,21 @@ func newHTTPResponse(vm *Runtime, rsp *http.Response) (*goja.Object, error) {
 	}
 
 	obj := vm.NewObject()
-	obj.Set("status", r.StatusCode)
-	obj.Set("headers", headers)
-	obj.Set("raiseForStatus", r.raiseForStatus)
-	obj.Set("json", r.json)
-	obj.Set("text", r.text)
+	if err := obj.Set("status", r.StatusCode); err != nil {
+		return nil, err
+	}
+	if err := obj.Set("headers", headers); err != nil {
+		return nil, err
+	}
+	if err := obj.Set("raiseForStatus", r.raiseForStatus); err != nil {
+		return nil, err
+	}
+	if err := obj.Set("json", r.json); err != nil {
+		return nil, err
+	}
+	if err := obj.Set("text", r.text); err != nil {
+		return nil, err
+	}
 
 	return obj, nil
 }

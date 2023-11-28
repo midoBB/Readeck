@@ -96,7 +96,6 @@ func TestFunctions(t *testing.T) {
 					assert.Equal(t, test.newOffset, offset)
 				}
 			})
-
 		}
 	})
 
@@ -236,7 +235,8 @@ func TestFunctions(t *testing.T) {
 				"<p>Loren ipsum <strong>dolor</strong> sit amet</p>",
 			},
 			{
-				"./p[1]/text()[1]", 6, 12, []func(*html.Node){
+				"./p[1]/text()[1]", 6, 12,
+				[]func(*html.Node){
 					func(n *html.Node) {
 						n.Data = "span"
 					},
@@ -431,7 +431,6 @@ func TestAnnotation(t *testing.T) {
 				}
 			})
 		}
-
 	})
 
 	t.Run("range on null root", func(t *testing.T) {
@@ -554,7 +553,6 @@ func TestAnnotation(t *testing.T) {
 					assert.Equal(t, html.TextNode, n.FirstChild.Type)
 					assert.Equal(t, expected[1], strings.TrimSpace(n.FirstChild.Data))
 				}
-
 			})
 		}
 	})

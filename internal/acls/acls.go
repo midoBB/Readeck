@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package acls defines a simple wrapper on top of casbin functions.
 package acls
 
 import (
@@ -27,7 +28,7 @@ func Check(group, path, act string) (bool, error) {
 	return enforcer.Enforce(group, path, act)
 }
 
-// GetPermissions returns the permissions for a list of groups
+// GetPermissions returns the permissions for a list of groups.
 func GetPermissions(groups ...string) ([]string, error) {
 	perms := map[string]struct{}{}
 
@@ -132,7 +133,9 @@ func (sa *adapter) LoadPolicy(model model.Model) error {
 		if str == "" {
 			continue
 		}
-		persist.LoadPolicyLine(str, model)
+		if err := persist.LoadPolicyLine(str, model); err != nil {
+			return err
+		}
 	}
 
 	return nil

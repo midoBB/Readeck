@@ -43,7 +43,7 @@ func main() {
 	info, err = os.Stat(destDir)
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) {
-			if e := os.MkdirAll(destDir, 0755); e != nil {
+			if e := os.MkdirAll(destDir, 0o755); e != nil {
 				log.Fatal(e)
 			}
 		} else {
@@ -58,7 +58,7 @@ func main() {
 	log.Printf("Destination: %s", destDir)
 
 	// Parse fftr files
-	filepath.Walk(srcDir, func(name string, info os.FileInfo, _ error) error {
+	err = filepath.Walk(srcDir, func(name string, info os.FileInfo, _ error) error {
 		if path.Base(name) == "LICENSE.txt" {
 			return nil
 		}
@@ -76,6 +76,9 @@ func main() {
 
 		return nil
 	})
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 // Config holds the fivefilters configuration.
@@ -111,7 +114,7 @@ func converTextConfig(filename string, dest string) error {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer fp.Close()
+	defer fp.Close() //nolint:errcheck
 
 	cfg, err := newConfig(fp)
 	if err != nil {
@@ -132,7 +135,7 @@ func converTextConfig(filename string, dest string) error {
 	if err != nil {
 		return err
 	}
-	defer fd.Close()
+	defer fd.Close() //nolint:errcheck
 	if _, err = fd.Write(buf.Bytes()); err != nil {
 		return err
 	}

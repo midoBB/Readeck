@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"testing"
 
-	. "codeberg.org/readeck/readeck/internal/testing"
+	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
 )
 
 func TestAPI(t *testing.T) {

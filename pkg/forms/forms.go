@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package forms provides helpers and functions to create and validate forms.
 package forms
 
 import (
@@ -145,7 +146,7 @@ func (f *Form) Bind() {
 	f.isBound = true
 }
 
-// Context returns the form current context
+// Context returns the form current context.
 func (f *Form) Context() context.Context {
 	if f.context != nil {
 		return f.context
@@ -153,7 +154,7 @@ func (f *Form) Context() context.Context {
 	return context.Background()
 }
 
-// SetContext set the new form's context
+// SetContext set the new form's context.
 func (f *Form) SetContext(ctx context.Context) *Form {
 	if ctx == nil {
 		panic("nil context")
@@ -299,10 +300,12 @@ func Bind(f Binder, r *http.Request) {
 
 	switch mediaType {
 	case "application/json", "text/json":
-		defer r.Body.Close()
+		defer r.Body.Close() //nolint:errcheck
 		UnmarshalJSON(f, r.Body)
 	case "application/x-www-form-urlencoded":
-		r.ParseForm()
+		if err := r.ParseForm(); err != nil {
+			f.AddErrors("", errors.New("Invalid input"))
+		}
 		UnmarshalValues(f, r.PostForm)
 	default:
 		f.AddErrors("", errors.New("Unknown content-type"))

@@ -65,50 +65,48 @@ func newArchive(_ context.Context, ex *extract.Extractor) (*archiver.Archiver, e
 	return arc, nil
 }
 
-var (
-	mimeTypes = map[string]string{
-		"application/javascript":        ".js",
-		"application/json":              ".json",
-		"application/ogg":               ".ogx",
-		"application/pdf":               ".pdf",
-		"application/rtf":               ".rtf",
-		"application/vnd.ms-fontobject": ".eot",
-		"application/xhtml+xml":         ".xhtml",
-		"application/xml":               ".xml",
-		"audio/aac":                     ".aac",
-		"audio/midi":                    ".midi",
-		"audio/x-midi":                  ".midi",
-		"audio/mpeg":                    ".mp3",
-		"audio/ogg":                     ".oga",
-		"audio/opus":                    ".opus",
-		"audio/wav":                     ".wav",
-		"audio/webm":                    ".weba",
-		"font/otf":                      ".otf",
-		"font/ttf":                      ".ttf",
-		"font/woff":                     ".woff",
-		"font/woff2":                    ".woff2",
-		"image/bmp":                     ".bmp",
-		"image/gif":                     ".gif",
-		"image/jpeg":                    ".jpg",
-		"image/png":                     ".png",
-		"image/svg+xml":                 ".svg",
-		"image/tiff":                    ".tiff",
-		"image/vnd.microsoft.icon":      ".ico",
-		"image/webp":                    ".webp",
-		"text/calendar":                 ".ics",
-		"text/css":                      ".css",
-		"text/csv":                      ".csv",
-		"text/html":                     ".html",
-		"text/javascript":               ".js",
-		"text/plain":                    ".txt",
-		"video/mp2t":                    ".ts",
-		"video/mp4":                     ".mp4",
-		"video/mpeg":                    ".mpeg",
-		"video/ogg":                     ".ogv",
-		"video/webm":                    ".webm",
-		"video/x-msvideo":               ".avi",
-	}
-)
+var mimeTypes = map[string]string{
+	"application/javascript":        ".js",
+	"application/json":              ".json",
+	"application/ogg":               ".ogx",
+	"application/pdf":               ".pdf",
+	"application/rtf":               ".rtf",
+	"application/vnd.ms-fontobject": ".eot",
+	"application/xhtml+xml":         ".xhtml",
+	"application/xml":               ".xml",
+	"audio/aac":                     ".aac",
+	"audio/midi":                    ".midi",
+	"audio/x-midi":                  ".midi",
+	"audio/mpeg":                    ".mp3",
+	"audio/ogg":                     ".oga",
+	"audio/opus":                    ".opus",
+	"audio/wav":                     ".wav",
+	"audio/webm":                    ".weba",
+	"font/otf":                      ".otf",
+	"font/ttf":                      ".ttf",
+	"font/woff":                     ".woff",
+	"font/woff2":                    ".woff2",
+	"image/bmp":                     ".bmp",
+	"image/gif":                     ".gif",
+	"image/jpeg":                    ".jpg",
+	"image/png":                     ".png",
+	"image/svg+xml":                 ".svg",
+	"image/tiff":                    ".tiff",
+	"image/vnd.microsoft.icon":      ".ico",
+	"image/webp":                    ".webp",
+	"text/calendar":                 ".ics",
+	"text/css":                      ".css",
+	"text/csv":                      ".csv",
+	"text/html":                     ".html",
+	"text/javascript":               ".js",
+	"text/plain":                    ".txt",
+	"video/mp2t":                    ".ts",
+	"video/mp4":                     ".mp4",
+	"video/mpeg":                    ".mpeg",
+	"video/ogg":                     ".ogv",
+	"video/webm":                    ".webm",
+	"video/x-msvideo":               ".avi",
+}
 
 func eventHandler(ex *extract.Extractor) func(ctx context.Context, arc *archiver.Archiver, evt archiver.Event) {
 	entry := log.NewEntry(ex.GetLogger()).WithFields(*ex.LogFields)
@@ -161,7 +159,11 @@ func imageProcessor(ctx context.Context, arc *archiver.Archiver, input io.Reader
 		arc.SendEvent(ctx, &archiver.EventError{Err: err, URI: uri.String()})
 		return []byte{}, "", nil
 	}
-	defer im.Close()
+	defer func() {
+		if err := im.Close(); err != nil {
+			arc.SendEvent(ctx, &archiver.EventError{Err: err, URI: uri.String()})
+		}
+	}()
 
 	err = img.Pipeline(im,
 		func(im img.Image) error { return im.Clean() },

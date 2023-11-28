@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: MIT
 
+// Package archiver provides functions to archive the content
+// of a full HTML page.
 package archiver
 
 import (

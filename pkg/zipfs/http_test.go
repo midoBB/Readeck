@@ -73,6 +73,7 @@ func TestHttp(t *testing.T) {
 	srv := zipfs.HTTPZipFile("fixtures/http.zip")
 
 	for i, test := range tests {
+		//nolint:bodyclose
 		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
 			w := httptest.NewRecorder()
 			r, _ := http.NewRequest("GET", test.path, nil)
@@ -96,6 +97,7 @@ func TestHttp(t *testing.T) {
 		})
 	}
 
+	//nolint:bodyclose
 	t.Run("method", func(t *testing.T) {
 		w := httptest.NewRecorder()
 		r, _ := http.NewRequest("POST", "test-base.txt", nil)
@@ -103,6 +105,7 @@ func TestHttp(t *testing.T) {
 		assert.Equal(t, http.StatusMethodNotAllowed, w.Result().StatusCode)
 	})
 
+	//nolint:bodyclose
 	t.Run("head", func(t *testing.T) {
 		w := httptest.NewRecorder()
 		r, _ := http.NewRequest("HEAD", "test-base.txt", nil)
@@ -111,6 +114,7 @@ func TestHttp(t *testing.T) {
 		assert.Equal(t, "", w.Body.String())
 	})
 
+	//nolint:bodyclose
 	t.Run("zip not found", func(t *testing.T) {
 		w := httptest.NewRecorder()
 		r, _ := http.NewRequest("GET", "test-base.txt", nil)
@@ -118,6 +122,7 @@ func TestHttp(t *testing.T) {
 		assert.Equal(t, http.StatusNotFound, w.Result().StatusCode)
 	})
 
+	//nolint:bodyclose
 	t.Run("corrupt zip", func(t *testing.T) {
 		w := httptest.NewRecorder()
 		r, _ := http.NewRequest("GET", "test-base.txt", nil)

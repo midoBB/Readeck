@@ -10,7 +10,7 @@ import (
 	"testing"
 
 	"github.com/dop251/goja"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"codeberg.org/readeck/readeck/pkg/extract/contentscripts"
@@ -188,13 +188,14 @@ func TestExported(t *testing.T) {
 					Extractor: extractor,
 				}
 
-				vm := contentscripts.New()
+				vm, _ := contentscripts.New()
 				vm.SetProcessMessage(pm)
 
 				v, err := vm.RunProgram(testProgram("test", test.src))
-				if assert.NoError(t, err) {
-					assert.Equal(t, test.expected, test.value(v, extractor.Drop()))
-				}
+
+				assert := require.New(t)
+				assert.NoError(err)
+				assert.Equal(test.expected, test.value(v, extractor.Drop()))
 			})
 		}
 	})
@@ -222,34 +223,40 @@ func TestExported(t *testing.T) {
 					Extractor: extractor,
 				}
 
-				vm := contentscripts.New()
+				vm, _ := contentscripts.New()
 				vm.SetProcessMessage(pm)
 
 				_, err := vm.RunProgram(testProgram("test", test.src))
-				assert.Error(t, err)
-				assert.ErrorContains(t, err, test.expected.Error())
+
+				assert := require.New(t)
+				assert.Error(err)
+				assert.ErrorContains(err, test.expected.Error())
 			})
 		}
 	})
 
 	t.Run("processMessageProxy error", func(t *testing.T) {
-		vm := contentscripts.New()
+		vm, _ := contentscripts.New()
 		_, err := vm.RunProgram(testProgram("test", `$.authors`))
-		assert.ErrorContains(t, err, "no extractor")
+
+		assert := require.New(t)
+		assert.ErrorContains(err, "no extractor")
 	})
 
 	t.Run("siteConfig", func(t *testing.T) {
 		cf := contentscripts.SiteConfig{HTTPHeaders: map[string]string{}}
 
-		vm := contentscripts.New()
-		vm.Set("config", &cf)
+		vm, _ := contentscripts.New()
+		_ = vm.Set("config", &cf)
 
 		_, err := vm.RunProgram(testProgram("test", `
 			config.titleSelectors.push("//title", "//main//h1")
 			config.httpHeaders["user-agent"] = "curl/7"
 		`))
-		assert.NoError(t, err)
-		assert.Equal(t, cf.TitleSelectors, []string{"//title", "//main//h1"})
-		assert.Equal(t, cf.HTTPHeaders, map[string]string{"user-agent": "curl/7"})
+
+		assert := require.New(t)
+		assert.NoError(err)
+		assert.Equal(cf.TitleSelectors, []string{"//title", "//main//h1"})
+		assert.Equal(cf.HTTPHeaders, map[string]string{"user-agent": "curl/7"})
 	})
 }

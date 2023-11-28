@@ -15,6 +15,7 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/go-shiori/dom"
+	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/html"
 
 	"codeberg.org/readeck/readeck/configs"
@@ -33,7 +34,9 @@ func MigrateBookmarkIDs(_ *goqu.TxDatabase, _ fs.FS) error {
 		// Remove all .zip.tmp files
 		files, _ := filepath.Glob(filepath.Join(p, "**/*.zip.tmp"))
 		for _, x := range files {
-			os.Remove(x)
+			if err := os.Remove(x); err != nil {
+				log.WithField("file", x).WithError(err).Error("deleting file")
+			}
 		}
 	}
 
@@ -56,7 +59,7 @@ func bookmarkFileMigrateIDs(path string, info fs.FileInfo, e error) (err error) 
 	if err = z.AddSourceFile(path); err != nil {
 		return err
 	}
-	defer z.Close()
+	defer z.Close() //nolint:errcheck
 
 	fd, err := z.Source().Open("index.html")
 	if err != nil {
@@ -66,7 +69,7 @@ func bookmarkFileMigrateIDs(path string, info fs.FileInfo, e error) (err error) 
 		}
 		return err
 	}
-	defer fd.Close()
+	defer fd.Close() //nolint:errcheck
 
 	top, err := html.Parse(fd)
 	if err != nil {

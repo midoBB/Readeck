@@ -65,7 +65,7 @@ func (api *apiRouter) exportBookmarksEPUB(w http.ResponseWriter, r *http.Request
 				m.SetTitle(title)
 				err = m.WritePackage()
 			}
-			m.Close()
+			m.Close() //nolint:errcheck
 		}()
 
 		for _, b := range bookmarks {
@@ -130,7 +130,7 @@ func (m *EpubMaker) addBookmark(b bookmarkItem) (err error) {
 			if err != nil {
 				return err
 			}
-			defer fp.Close()
+			defer fp.Close() //nolint:errcheck
 			return m.AddImage(
 				fmt.Sprintf("res-%s", strings.TrimSuffix(path.Base(x.Name), path.Ext(x.Name))),
 				path.Join("Images", path.Base(x.Name)),
@@ -161,7 +161,7 @@ func (m *EpubMaker) addBookmark(b bookmarkItem) (err error) {
 			if err != nil {
 				return err
 			}
-			defer fp.Close()
+			defer fp.Close() //nolint:errcheck
 
 			return m.AddImage(
 				fmt.Sprintf("%s-%s", k, b.UID),
@@ -205,12 +205,10 @@ func (m *EpubMaker) addBookmark(b bookmarkItem) (err error) {
 	}
 
 	// Add the chapter to the book
-	m.AddChapter(
+	return m.AddChapter(
 		fmt.Sprintf("page-%s", b.UID),
 		b.Title,
 		fmt.Sprintf("%s.html", b.UID),
 		strings.NewReader(buf.String()),
 	)
-
-	return
 }

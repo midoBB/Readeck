@@ -150,7 +150,7 @@ type responseWriterInterceptor struct {
 	statusCode  int
 }
 
-// needsOverride returns true when a content-type is text/plain and status >= 400
+// needsOverride returns true when a content-type is text/plain and status >= 400.
 func (w *responseWriterInterceptor) needsOverride() bool {
 	return w.contentType == "text/plain" && w.statusCode >= 400
 }

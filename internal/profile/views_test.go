@@ -16,7 +16,7 @@ import (
 
 	"codeberg.org/readeck/readeck/internal/auth/credentials"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
-	. "codeberg.org/readeck/readeck/internal/testing"
+	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
 )
 
 func TestViews(t *testing.T) {
@@ -114,7 +114,7 @@ func TestViews(t *testing.T) {
 				ExpectStatus:   303,
 				ExpectRedirect: "/profile/tokens",
 			},
-			RequestTest{
+			RequestTest{ //nolint:dupl
 				Target:         "{{ (index .History 1).Path }}",
 				ExpectStatus:   200,
 				ExpectContains: "Token will be removed in a few seconds",
@@ -202,7 +202,7 @@ func TestViews(t *testing.T) {
 				ExpectStatus:   303,
 				ExpectRedirect: "/profile/credentials",
 			},
-			RequestTest{
+			RequestTest{ //nolint:dupl
 				Target:         "{{ (index .History 1).Path }}",
 				ExpectStatus:   200,
 				ExpectContains: "Password will be removed in a few seconds",

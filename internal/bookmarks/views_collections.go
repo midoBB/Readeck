@@ -109,6 +109,9 @@ func (h *viewsRouter) collectionDelete(w http.ResponseWriter, r *http.Request) {
 		h.srv.Error(w, r, err)
 		return
 	}
-	f.trigger(c)
+	if err := f.trigger(c); err != nil {
+		h.srv.Error(w, r, err)
+		return
+	}
 	h.srv.Redirect(w, r, f.Get("_to").String())
 }

@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package credentials contains the models and functions to manage
+// user credentials.
 package credentials
 
 import (
@@ -28,19 +30,19 @@ const (
 )
 
 var (
-	// Credentials is the app password manager
+	// Credentials is the app password manager.
 	Credentials = Manager{}
 
 	// ErrNotFound is returned when a credential record was not found.
 	ErrNotFound = errors.New("not found")
 
-	// Fixed values for password hashing
+	// Fixed values for password hashing.
 	argonTime    = uint32(4)
 	argonMemory  = uint32(32 * 1024)
 	argonThreads = uint8(4)
 )
 
-// Credential is an credential record
+// Credential is an credential record.
 type Credential struct {
 	ID        int           `db:"id" goqu:"skipinsert,skipupdate"`
 	UID       string        `db:"uid"`
@@ -52,13 +54,13 @@ type Credential struct {
 	Roles     types.Strings `db:"roles"`
 }
 
-// UserCredential is the combination of an credential and its user
+// UserCredential is the combination of an credential and its user.
 type UserCredential struct {
 	Credential *Credential `db:"c"`
 	User       *users.User `db:"u"`
 }
 
-// Manager is a query helper for credential entries
+// Manager is a query helper for credential entries.
 type Manager struct{}
 
 // Query returns a prepared goqu SelectDataset that can be extended later.
@@ -186,7 +188,7 @@ func (c *Credential) Save() error {
 	return c.Update(c)
 }
 
-// Delete removes a token from the database
+// Delete removes a token from the database.
 func (c *Credential) Delete() error {
 	_, err := db.Q().Delete(TableName).Prepared(true).
 		Where(goqu.C("id").Eq(c.ID)).
@@ -195,7 +197,7 @@ func (c *Credential) Delete() error {
 	return err
 }
 
-// HashPassword returns a new hashed password
+// HashPassword returns a new hashed password.
 func (c *Credential) HashPassword(password string) (string, error) {
 	if c.UserID == nil {
 		return "", errors.New("no user id")

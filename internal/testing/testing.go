@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package testing provides tools to tests the HTTP routes, the message bus, email sending, etc.
 package testing
 
 import (
@@ -9,7 +10,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/http/cookiejar"
 	"net/http/httptest"
@@ -101,7 +101,7 @@ type TestApp struct {
 // some users, and an http muxer ready to accept requests.
 func NewTestApp(t *testing.T) *TestApp {
 	var err error
-	tmpDir, err := ioutil.TempDir(os.TempDir(), "readeck_*")
+	tmpDir, err := os.MkdirTemp(os.TempDir(), "readeck_*")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -257,6 +257,7 @@ func (c *Client) Request(req *http.Request) *Response {
 	c.app.Srv.Router.ServeHTTP(w, req)
 
 	// Update cookies from response
+	//nolint:bodyclose
 	if rc := w.Result().Cookies(); len(rc) > 0 {
 		c.Jar.SetCookies(req.URL, rc)
 	}
@@ -308,7 +309,7 @@ func (c *Client) PostForm(target string, data url.Values) *Response {
 	return c.Request(c.NewFormRequest("POST", target, data))
 }
 
-// RequestJSON performs a JSON HTTP requests (sending and receiving data)
+// RequestJSON performs a JSON HTTP requests (sending and receiving data).
 func (c *Client) RequestJSON(method string, target string, data interface{}) *Response {
 	return c.Request(c.NewJSONRequest(method, target, data))
 }
@@ -329,7 +330,9 @@ func (c *Client) RenderTemplate(src string, extra map[string]interface{}) (strin
 		data[k] = v
 	}
 
-	tpl.Execute(&buf, data)
+	if err = tpl.Execute(&buf, data); err != nil {
+		return "", err
+	}
 	return buf.String(), nil
 }
 
@@ -348,7 +351,7 @@ type Response struct {
 // given in input.
 func NewResponse(rec *httptest.ResponseRecorder, req *http.Request) (*Response, error) {
 	var err error
-	r := &Response{Response: rec.Result()}
+	r := &Response{Response: rec.Result()} //nolint:bodyclose
 
 	u2 := new(url.URL)
 	*u2 = *req.URL
@@ -393,7 +396,7 @@ func NewResponse(rec *httptest.ResponseRecorder, req *http.Request) (*Response, 
 	return r, nil
 }
 
-// Path returns the path and querystring of the response URL
+// Path returns the path and querystring of the response URL.
 func (r *Response) Path() string {
 	u := new(url.URL)
 	*u = *r.URL

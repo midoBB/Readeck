@@ -49,8 +49,7 @@ func TestZipRW(t *testing.T) {
 		strings.NewReader("test file"),
 	)
 	assert.NoError(t, err)
-
-	z.Close()
+	assert.NoError(t, z.Close())
 
 	t.Run("initial content", func(t *testing.T) {
 		assert.EqualValues(t,
@@ -109,7 +108,7 @@ func TestZipRW(t *testing.T) {
 		err = z.Copy("test/foo/new")
 		assert.ErrorContains(t, err, `file "test/foo/new" already exists`)
 
-		z.Close()
+		assert.NoError(t, z.Close())
 
 		assert.EqualValues(t,
 			[]string{

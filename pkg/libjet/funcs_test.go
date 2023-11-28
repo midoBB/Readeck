@@ -47,7 +47,6 @@ func TestIndirect(t *testing.T) {
 		assert.Exactly(t, tt.expect, r, "%#v", tt.v)
 		assert.Equal(t, tt.isNil, isNil, "%#v", tt.v)
 	}
-
 }
 
 func TestToString(t *testing.T) {

@@ -142,7 +142,7 @@ func (c *Collection) Save() error {
 	return c.Update(c)
 }
 
-// Delete removes a collection from the database
+// Delete removes a collection from the database.
 func (c *Collection) Delete() error {
 	_, err := db.Q().Delete(CollectionTable).Prepared(true).
 		Where(goqu.C("id").Eq(c.ID)).
@@ -152,7 +152,7 @@ func (c *Collection) Delete() error {
 }
 
 // GetSumStrings returns the string used to generate the etag
-// of the collection(s)
+// of the collection(s).
 func (c *Collection) GetSumStrings() []string {
 	return []string{c.UID, c.Updated.String()}
 }
@@ -181,7 +181,7 @@ func (s *CollectionFilters) Scan(value interface{}) error {
 	if err != nil {
 		return err
 	}
-	json.Unmarshal(v, s)
+	json.Unmarshal(v, s) //nolint:errcheck
 	return nil
 }
 

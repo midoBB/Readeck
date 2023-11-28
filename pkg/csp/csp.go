@@ -15,7 +15,7 @@ import (
 	"github.com/google/uuid"
 )
 
-// CSP source values
+// CSP source values.
 const (
 	HeaderName = "Content-Security-Policy"
 
@@ -45,7 +45,7 @@ func (p Policy) Set(name string, values ...string) {
 	p[name] = values
 }
 
-// Clone returns a copy of the policy
+// Clone returns a copy of the policy.
 func (p Policy) Clone() Policy {
 	res := Policy{}
 	for k, v := range p {

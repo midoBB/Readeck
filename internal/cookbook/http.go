@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package cookbook provides routes for testing and design previews.
+// The routes are only available to admin users.
 package cookbook
 
 import (

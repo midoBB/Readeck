@@ -40,7 +40,7 @@ func (a *BookmarkAnnotations) Scan(value interface{}) error {
 	if err != nil {
 		return err
 	}
-	json.Unmarshal(v, a)
+	json.Unmarshal(v, a) //nolint:errcheck
 	return nil
 }
 
@@ -53,7 +53,7 @@ func (a BookmarkAnnotations) Value() (driver.Value, error) {
 	return string(v), nil
 }
 
-// addToNode adds one annotation to a DOM node (the designated root)
+// addToNode adds one annotation to a DOM node (the designated root).
 func (a *BookmarkAnnotation) addToNode(root *html.Node, tagName string, options ...annotate.WrapCallback) error {
 	return annotate.AddAnnotation(
 		root, tagName,
@@ -63,7 +63,7 @@ func (a *BookmarkAnnotation) addToNode(root *html.Node, tagName string, options 
 	)
 }
 
-// addToNode adds all annotations to a DOM node (the designated root)
+// addToNode adds all annotations to a DOM node (the designated root).
 func (a BookmarkAnnotations) addToNode(root *html.Node, tagName string, options ...func(string, *html.Node, int)) error {
 	for _, annotation := range a {
 		err := annotation.addToNode(root, tagName, func(n *html.Node, index int) {
@@ -78,7 +78,7 @@ func (a BookmarkAnnotations) addToNode(root *html.Node, tagName string, options 
 	return nil
 }
 
-// get retrieves an annotation or returns nil if it does not exist
+// get retrieves an annotation or returns nil if it does not exist.
 func (a *BookmarkAnnotations) get(id string) *BookmarkAnnotation {
 	for _, x := range *a {
 		if x.ID == id {
@@ -88,14 +88,14 @@ func (a *BookmarkAnnotations) get(id string) *BookmarkAnnotation {
 	return nil
 }
 
-// add adds a new annotation to the list
+// add adds a new annotation to the list.
 func (a *BookmarkAnnotations) add(item *BookmarkAnnotation) {
 	set := *a
 	set = append(set, item)
 	*a = set
 }
 
-// sort sorts the annotations based on their position in the root document
+// sort sorts the annotations based on their position in the root document.
 func (a *BookmarkAnnotations) sort(root *html.Node, tagName string) {
 	set := BookmarkAnnotations{}
 	for _, n := range dom.QuerySelectorAll(root, tagName) {
@@ -110,7 +110,7 @@ func (a *BookmarkAnnotations) sort(root *html.Node, tagName string) {
 	*a = set
 }
 
-// delete removes an annotation from the list
+// delete removes an annotation from the list.
 func (a *BookmarkAnnotations) delete(id string) {
 	item := a.get(id)
 	if item == nil {

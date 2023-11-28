@@ -36,20 +36,20 @@ func WriteConfig(filename string) error {
 		return err
 	}
 
-	fd, err := os.OpenFile(filename, os.O_RDWR|os.O_TRUNC, 0600)
+	fd, err := os.OpenFile(filename, os.O_RDWR|os.O_TRUNC, 0o600)
 	if err != nil {
 		return err
 	}
 
 	if err = tmpl.Execute(fd, Config); err != nil {
-		defer fd.Close()
+		defer fd.Close() //nolint:errcheck
 		return err
 	}
 
 	return fd.Close()
 }
 
-// GenerateKey returns a random key
+// GenerateKey returns a random key.
 func GenerateKey(minLen, maxLen int) string {
 	if minLen >= maxLen {
 		panic("maxLen must be greater then minLen")

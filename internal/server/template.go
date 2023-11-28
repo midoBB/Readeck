@@ -46,7 +46,7 @@ func (l *tplLoader) Open(templatePath string) (io.ReadCloser, error) {
 	return l.FS.Open(templatePath)
 }
 
-// views holds all the views (templates)
+// views holds all the views (templates).
 var views *jet.Set
 
 func init() {
@@ -63,8 +63,9 @@ func GetTemplate(name string) (*jet.Template, error) {
 }
 
 // RenderTemplate yields an HTML response using the given template and context.
-func (s *Server) RenderTemplate(w http.ResponseWriter, r *http.Request, status int,
-	name string, ctx TC) {
+func (s *Server) RenderTemplate(w http.ResponseWriter, r *http.Request,
+	status int, name string, ctx TC,
+) {
 	t, err := views.GetTemplate(name)
 	if err != nil {
 		s.Error(w, r, err)

@@ -45,7 +45,6 @@ func newProfileForm() *profileForm {
 			forms.RequiredOrNil, forms.Gte(1), forms.Lte(6),
 		),
 	)
-
 	if err != nil {
 		panic(err)
 	}
@@ -156,7 +155,6 @@ func newPasswordForm() *passwordForm {
 		forms.NewTextField("password",
 			forms.Required, users.IsValidPassword),
 	)
-
 	if err != nil {
 		panic(err)
 	}
@@ -220,20 +218,19 @@ func newDeleteCredentialForm() *deleteCredentialForm {
 }
 
 // trigger launch the token deletion or cancel task.
-func (f *deleteCredentialForm) trigger(c *credentials.Credential) {
+func (f *deleteCredentialForm) trigger(c *credentials.Credential) error {
 	if !f.Get("cancel").IsNil() && f.Get("cancel").Value().(bool) {
-		deleteCredentialTask.Cancel(c.ID)
-		return
+		return deleteCredentialTask.Cancel(c.ID)
 	}
 
-	deleteCredentialTask.Run(c.ID, c.ID)
+	return deleteCredentialTask.Run(c.ID, c.ID)
 }
 
 type credentialForm struct {
 	*forms.Form
 }
 
-// newCredentialForm returns an credentialForm instance
+// newCredentialForm returns an credentialForm instance.
 func newCredentialForm(user *users.User) *credentialForm {
 	return &credentialForm{forms.Must(
 		forms.NewBooleanField("is_enabled", forms.RequiredOrNil),
@@ -242,7 +239,7 @@ func newCredentialForm(user *users.User) *credentialForm {
 	)}
 }
 
-// setCredential set the token's values from an existing token
+// setCredential set the token's values from an existing token.
 func (f *credentialForm) setCredential(p *credentials.Credential) {
 	f.Get("is_enabled").Set(p.IsEnabled)
 	f.Get("name").Set(p.Name)
@@ -252,7 +249,7 @@ func (f *credentialForm) setCredential(p *credentials.Credential) {
 	f.Get("roles").Set(roles)
 }
 
-// updateCredential performs the credential update
+// updateCredential performs the credential update.
 func (f *credentialForm) updateCredential(p *credentials.Credential) error {
 	for _, field := range f.Fields() {
 		if !field.IsBound() {
@@ -293,13 +290,12 @@ func newDeleteTokenForm() *deleteTokenForm {
 }
 
 // trigger launch the token deletion or cancel task.
-func (f *deleteTokenForm) trigger(t *tokens.Token) {
+func (f *deleteTokenForm) trigger(t *tokens.Token) error {
 	if !f.Get("cancel").IsNil() && f.Get("cancel").Value().(bool) {
-		deleteTokenTask.Cancel(t.ID)
-		return
+		return deleteTokenTask.Cancel(t.ID)
 	}
 
-	deleteTokenTask.Run(t.ID, t.ID)
+	return deleteTokenTask.Run(t.ID, t.ID)
 }
 
 // tokenForm is the form used for token update.

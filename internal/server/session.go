@@ -18,9 +18,7 @@ type (
 	ctxFlashKey   struct{}
 )
 
-var (
-	sessionHandler *sessions.Handler
-)
+var sessionHandler *sessions.Handler
 
 // InitSession creates the session handler.
 func (s *Server) InitSession() error {

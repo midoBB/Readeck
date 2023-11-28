@@ -4,6 +4,7 @@
 
 // Original code: https://github.com/golang/gddo/tree/master/httputil
 
+// Package accept provides a parser for HTTP Accept* headers.
 package accept
 
 import (

@@ -25,7 +25,9 @@ func newImage(w, h int) []byte {
 
 	buf := new(bytes.Buffer)
 	e := &png.Encoder{CompressionLevel: png.BestSpeed}
-	e.Encode(buf, m)
+	if err := e.Encode(buf, m); err != nil {
+		panic(err)
+	}
 
 	return buf.Bytes()
 }

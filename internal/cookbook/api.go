@@ -154,7 +154,7 @@ func (api *cookbookAPI) urlList(w http.ResponseWriter, r *http.Request) {
 	urls := map[string][]string{}
 	i := 0
 
-	fs.WalkDir(contentscripts.SiteConfigFiles, ".", func(p string, d fs.DirEntry, err error) error {
+	err := fs.WalkDir(contentscripts.SiteConfigFiles, ".", func(p string, d fs.DirEntry, err error) error {
 		defer func() {
 			i++
 		}()
@@ -170,7 +170,7 @@ func (api *cookbookAPI) urlList(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return nil
 		}
-		defer f.Close()
+		defer f.Close() //nolint:errcheck
 
 		cfg, err := contentscripts.NewSiteConfig(f)
 		if err != nil {
@@ -188,6 +188,10 @@ func (api *cookbookAPI) urlList(w http.ResponseWriter, r *http.Request) {
 
 		return nil
 	})
+	if err != nil {
+		api.srv.Error(w, r, err)
+		return
+	}
 	api.srv.Render(w, r, http.StatusOK, urls)
 }
 

@@ -34,7 +34,7 @@ import (
 
 var ctxTitleKey = parser.NewContextKey()
 
-// File is a documentation file
+// File is a documentation file.
 type File struct {
 	Route      string         `json:"route"`
 	Aliases    []string       `json:"aliases"`
@@ -45,13 +45,13 @@ type File struct {
 	Meta       map[string]any `json:"meta"`
 }
 
-// Section is a documentation section (locale)
+// Section is a documentation section (locale).
 type Section struct {
 	Files map[string]*File `json:"files"`
 	TOC   [][2]string      `json:"toc"`
 }
 
-// Manifest contains a list of all files and sections
+// Manifest contains a list of all files and sections.
 type Manifest struct {
 	Files    map[string]*File    `json:"files"`
 	Sections map[string]*Section `json:"sections"`
@@ -60,7 +60,7 @@ type Manifest struct {
 type linkTransform struct{}
 
 func (t *linkTransform) Transform(doc *ast.Document, _ text.Reader, _ parser.Context) {
-	ast.Walk(doc, func(node ast.Node, entering bool) (ast.WalkStatus, error) {
+	err := ast.Walk(doc, func(node ast.Node, entering bool) (ast.WalkStatus, error) {
 		if entering {
 			if n, ok := node.(*ast.Link); ok {
 				href, err := url.Parse(string(n.Destination))
@@ -82,12 +82,15 @@ func (t *linkTransform) Transform(doc *ast.Document, _ text.Reader, _ parser.Con
 		}
 		return ast.WalkContinue, nil
 	})
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 type titleExtract struct{}
 
 func (t *titleExtract) Transform(doc *ast.Document, reader text.Reader, ctx parser.Context) {
-	ast.Walk(doc, func(node ast.Node, entering bool) (ast.WalkStatus, error) {
+	err := ast.Walk(doc, func(node ast.Node, entering bool) (ast.WalkStatus, error) {
 		if !entering {
 			return ast.WalkStop, nil
 		}
@@ -99,6 +102,9 @@ func (t *titleExtract) Transform(doc *ast.Document, reader text.Reader, ctx pars
 
 		return ast.WalkStop, nil
 	})
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func mdToHTML(source, dest string) (*File, error) {
@@ -106,7 +112,7 @@ func mdToHTML(source, dest string) (*File, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer src.Close()
+	defer src.Close() //nolint:errcheck
 	md, err := io.ReadAll(src)
 	if err != nil {
 		return nil, err
@@ -138,7 +144,7 @@ func mdToHTML(source, dest string) (*File, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer dst.Close()
+	defer dst.Close() //nolint:errcheck
 
 	if _, err = dst.Write(buf.Bytes()); err != nil {
 		return nil, err
@@ -149,7 +155,7 @@ func mdToHTML(source, dest string) (*File, error) {
 		title = t.(string)
 	}
 
-	src.Seek(0, 0)
+	src.Seek(0, 0) //nolint:errcheck
 
 	return &File{
 		File:       dst.Name(),
@@ -165,20 +171,20 @@ func copyFile(source, dest string) (*File, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer src.Close()
+	defer src.Close() //nolint:errcheck
 
 	dst, err := os.Create(dest)
 	if err != nil {
 		return nil, err
 	}
-	defer dst.Close()
+	defer dst.Close() //nolint:errcheck
 
 	_, err = io.Copy(dst, src)
 	if err != nil {
 		return nil, err
 	}
 
-	src.Seek(0, 0)
+	src.Seek(0, 0) //nolint:errcheck
 
 	return &File{
 		File: dst.Name(),
@@ -265,7 +271,7 @@ func main() {
 	info, err = os.Stat(destDir)
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) {
-			if e := os.MkdirAll(destDir, 0755); e != nil {
+			if e := os.MkdirAll(destDir, 0o755); e != nil {
 				log.Fatal(e)
 			}
 		} else {
@@ -296,7 +302,7 @@ func main() {
 
 		dst := filepath.Join(destDir, rel)
 
-		if err := os.MkdirAll(filepath.Dir(dst), 0750); err != nil {
+		if err := os.MkdirAll(filepath.Dir(dst), 0o750); err != nil {
 			return err
 		}
 

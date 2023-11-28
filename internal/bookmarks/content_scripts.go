@@ -34,7 +34,7 @@ func loadContentScripts(logger *log.Logger) []*contentscripts.Program {
 				logger.WithError(err).Error("content script")
 				return nil
 			}
-			defer fd.Close()
+			defer fd.Close() //nolint:errcheck
 
 			p, err := contentscripts.NewProgram(path.Join(root, name), fd)
 			if err != nil {

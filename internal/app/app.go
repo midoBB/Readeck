@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package app is Readeck main application.
 package app
 
 import (
@@ -36,7 +37,7 @@ func (f *appFlags) Flags() *flag.FlagSet {
 	return fs
 }
 
-// Run starts the application CLI
+// Run starts the application CLI.
 func Run() error {
 	return acmd.RunnerOf(commands, acmd.Config{
 		AppName:        "readeck",
@@ -100,11 +101,11 @@ func InitApp() {
 	email.InitSender()
 
 	// Set the commissioned flag
-	if nbUser, err := users.Users.Count(); err != nil {
+	nbUser, err := users.Users.Count()
+	if err != nil {
 		panic(err)
-	} else {
-		configs.Config.Commissioned = nbUser > 0
 	}
+	configs.Config.Commissioned = nbUser > 0
 }
 
 func appPreRun(flags *appFlags) error {
@@ -147,7 +148,7 @@ func createConfigFile(filename string) error {
 		if !errors.Is(err, os.ErrNotExist) {
 			return err
 		}
-		fd, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0600)
+		fd, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0o600)
 		if err != nil {
 			return err
 		}
@@ -173,7 +174,7 @@ func createFolder(name string) error {
 	stat, err := os.Stat(name)
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) {
-			if err := os.MkdirAll(name, 0750); err != nil {
+			if err := os.MkdirAll(name, 0o750); err != nil {
 				return err
 			}
 		} else {

@@ -5,7 +5,7 @@
 package meta
 
 import (
-	// "fmt"
+	// "fmt".
 
 	"net/url"
 	"path"
@@ -21,9 +21,7 @@ import (
 	"codeberg.org/readeck/readeck/pkg/extract"
 )
 
-var (
-	rxIconSize = regexp.MustCompile(`(\d+)x\d+`)
-)
+var rxIconSize = regexp.MustCompile(`(\d+)x\d+`)
 
 var iconExt = map[string]string{
 	".png":  "image/png",

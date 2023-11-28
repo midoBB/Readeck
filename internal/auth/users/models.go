@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package users contains the models and functions to manage users.
 package users
 
 import (
@@ -47,7 +48,7 @@ var (
 	}
 )
 
-// User is a user record in database
+// User is a user record in database.
 type User struct {
 	ID       int           `db:"id" goqu:"skipinsert,skipupdate"`
 	Created  time.Time     `db:"created" goqu:"skipupdate"`
@@ -84,7 +85,7 @@ func (m *Manager) GetOne(expressions ...goqu.Expression) (*User, error) {
 	return &u, nil
 }
 
-// Count returns the number of user in the database
+// Count returns the number of user in the database.
 func (m *Manager) Count() (int64, error) {
 	return db.Q().From(TableName).Count()
 }
@@ -138,7 +139,7 @@ func (u *User) Save() error {
 	return u.Update(u)
 }
 
-// Delete removes a user from the database
+// Delete removes a user from the database.
 func (u *User) Delete() error {
 	_, err := db.Q().Delete(TableName).Prepared(true).
 		Where(goqu.C("id").Eq(u.ID)).
@@ -148,12 +149,12 @@ func (u *User) Delete() error {
 }
 
 // GetSumStrings returns the string used to generate the etag
-// of the user
+// of the user.
 func (u *User) GetSumStrings() []string {
 	return []string{u.Updated.String()}
 }
 
-// GetLastModified returns the last modified times
+// GetLastModified returns the last modified times.
 func (u *User) GetLastModified() []time.Time {
 	return []time.Time{u.Updated}
 }
@@ -174,12 +175,12 @@ func (u *User) CheckPassword(password string) bool {
 	return true
 }
 
-// HashPassword returns a new hashed password
+// HashPassword returns a new hashed password.
 func (u *User) HashPassword(password string) (string, error) {
 	return passlib.Hash(password)
 }
 
-// SetPassword set a new user password
+// SetPassword set a new user password.
 func (u *User) SetPassword(password string) error {
 	var err error
 	if u.Password, err = u.HashPassword(password); err != nil {
@@ -197,7 +198,7 @@ func (u *User) SetSeed() int {
 }
 
 // IsAnonymous returns true when the instance is not set to any existing user
-// (when ID is 0)
+// (when ID is 0).
 func (u *User) IsAnonymous() bool {
 	return u.ID == 0
 }
@@ -228,7 +229,7 @@ type UserSettings struct {
 	ReaderSettings ReaderSettings `json:"reader_settings"`
 }
 
-// ReaderSettings contains the reader settings
+// ReaderSettings contains the reader settings.
 type ReaderSettings struct {
 	Font       string `json:"font"`
 	FontSize   int    `json:"font_size"`
@@ -257,7 +258,7 @@ func (s *UserSettings) Scan(value interface{}) error {
 	if err != nil {
 		return err
 	}
-	json.Unmarshal(v, s)
+	json.Unmarshal(v, s) //nolint:errcheck
 
 	s.ReaderSettings.setDefaults()
 

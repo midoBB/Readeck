@@ -60,11 +60,12 @@ func TestExtractor(t *testing.T) {
 		ex.AddDrop(mustParse("http://example.net/"))
 		assert.Equal(t, "http://example.net/", ex.Drop().URL.String())
 
-		ex.ReplaceDrop(mustParse("http://example.net/new"))
+		err := ex.ReplaceDrop(mustParse("http://example.net/new"))
+		assert.NoError(t, err)
 		assert.Equal(t, "http://example.net/new", ex.Drop().URL.String())
 
 		ex.AddDrop(mustParse("http://example.net/page2"))
-		err := ex.ReplaceDrop(mustParse("http://example.net/page1"))
+		err = ex.ReplaceDrop(mustParse("http://example.net/page1"))
 		assert.Equal(t,
 			"cannot replace a drop when there are more that one",
 			err.Error())
@@ -79,7 +80,7 @@ func TestExtractorRun(t *testing.T) {
 	httpmock.RegisterResponder("GET", "/page1", newHTMLResponder(200, "html/ex1.html"))
 	httpmock.RegisterResponder("GET", `=~^/loop/\d+`, newHTMLResponder(200, "html/ex1.html"))
 
-	var ctxBodyKey = &struct{}{}
+	ctxBodyKey := &struct{}{}
 
 	p1 := func(m *ProcessMessage, next Processor) Processor {
 		if m.Step() != StepBody {

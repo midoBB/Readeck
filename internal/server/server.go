@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package server is the main Readeck HTTP server.
+// It defines common middlewares, guards, permission handlers, etc.
 package server
 
 import (
@@ -182,7 +184,7 @@ func (s *Server) Redirect(w http.ResponseWriter, r *http.Request, ref ...string)
 	w.WriteHeader(http.StatusSeeOther)
 }
 
-// Log returns a log entry including the request ID
+// Log returns a log entry including the request ID.
 func (s *Server) Log(r *http.Request) *log.Entry {
 	return log.WithField("@id", s.GetReqID(r))
 }

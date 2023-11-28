@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package bleach is a simple HTML sanitizer tool.
 package bleach
 
 import (
@@ -40,7 +41,7 @@ type Policy struct {
 	elementMap map[string]string
 }
 
-// New creates a new cleaning policy
+// New creates a new cleaning policy.
 func New(blockAttrs []*regexp.Regexp, elementMap map[string]string) Policy {
 	return Policy{
 		blockAttrs: blockAttrs,
@@ -48,7 +49,7 @@ func New(blockAttrs []*regexp.Regexp, elementMap map[string]string) Policy {
 	}
 }
 
-// DefaultPolicy is the default bleach policy
+// DefaultPolicy is the default bleach policy.
 var DefaultPolicy = New(
 	[]*regexp.Regexp{
 		// Remove all class and style attributes
@@ -63,12 +64,12 @@ var DefaultPolicy = New(
 	elementMap,
 )
 
-// SanitizeString replaces any control character in a string by a space
+// SanitizeString replaces any control character in a string by a space.
 func SanitizeString(s string) string {
 	return ctrlReplacer.Replace(s)
 }
 
-// Clean cleans removes unwanted tags and attributes from the document
+// Clean cleans removes unwanted tags and attributes from the document.
 func (p Policy) Clean(top *html.Node) {
 	p.cleanTags(top)
 	p.cleanAttributes(top)
@@ -148,7 +149,7 @@ func (p Policy) SetLinkRel(top *html.Node) {
 	})
 }
 
-// isHTMLSpace returns true if a rune is a space as defined by the HTML spec
+// isHTMLSpace returns true if a rune is a space as defined by the HTML spec.
 func isHTMLSpace(r rune) bool {
 	if uint32(r) <= unicode.MaxLatin1 {
 		switch r {

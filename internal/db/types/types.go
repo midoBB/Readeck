@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package types provides some shared database types.
 package types
 
 import (
@@ -38,7 +39,7 @@ func (s *Strings) Scan(value any) error {
 	if err != nil {
 		return err
 	}
-	json.Unmarshal(v, s)
+	json.Unmarshal(v, s) //nolint:errcheck
 	return nil
 }
 
@@ -53,7 +54,7 @@ func (s Strings) Value() (driver.Value, error) {
 
 // TimeString is a time.Time with a special scanner.
 // We need this type when we extract time values from a json field.
-// Postgresql recognizes a time.Time it just fine but not sqlite.
+// Postgresql recognizes a time.Time just fine but not sqlite.
 type TimeString time.Time
 
 // Scan loads the TimeString instance from a given column.

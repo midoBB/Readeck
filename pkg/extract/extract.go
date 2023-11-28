@@ -2,6 +2,11 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+/*
+Package extract is a content extractor for HTML pages.
+It works by using processors that are triggers at different (or several)
+steps of the extraction process.
+*/
 package extract
 
 import (
@@ -23,13 +28,13 @@ import (
 )
 
 type (
-	// ProcessStep defines a type of process applied during extraction
+	// ProcessStep defines a type of process applied during extraction.
 	ProcessStep int
 
-	// Processor is the process function
+	// Processor is the process function.
 	Processor func(*ProcessMessage, Processor) Processor
 
-	// ProcessList holds the processes that will be applied
+	// ProcessList holds the processes that will be applied.
 	ProcessList []Processor
 
 	// ProcessMessage holds the process message that is passed (and changed)
@@ -72,16 +77,16 @@ const (
 	// StepPostProcess happens after looping over each Drop.
 	StepPostProcess
 
-	// StepDone is always called at the very end of the extraction
+	// StepDone is always called at the very end of the extraction.
 	StepDone
 )
 
-// Step returns the current process step
+// Step returns the current process step.
 func (m *ProcessMessage) Step() ProcessStep {
 	return m.step
 }
 
-// Position returns the current process position
+// Position returns the current process position.
 func (m *ProcessMessage) Position() int {
 	return m.position
 }
@@ -96,7 +101,7 @@ func (m *ProcessMessage) ResetPosition() {
 	m.position = -1
 }
 
-// ResetContent empty the message Dom and all the drops body
+// ResetContent empty the message Dom and all the drops body.
 func (m *ProcessMessage) ResetContent() {
 	m.Dom = nil
 	m.Extractor.Drops()[m.position].Body = []byte{}
@@ -120,17 +125,17 @@ func (e Error) Error() string {
 	return strings.Join(s, ", ")
 }
 
-// URLList hold a list of URLs
+// URLList hold a list of URLs.
 type URLList map[string]bool
 
-// Add adds a new URL to the list
+// Add adds a new URL to the list.
 func (l URLList) Add(v *url.URL) {
 	c := *v
 	c.Fragment = ""
 	l[c.String()] = true
 }
 
-// IsPresent returns
+// IsPresent returns.
 func (l URLList) IsPresent(v *url.URL) bool {
 	c := *v
 	c.Fragment = ""
@@ -275,7 +280,7 @@ func (e *Extractor) ReplaceDrop(src *url.URL) error {
 	return nil
 }
 
-// AddProcessors adds extract processor(s) to the list
+// AddProcessors adds extract processor(s) to the list.
 func (e *Extractor) AddProcessors(p ...Processor) {
 	e.processors = append(e.processors, p...)
 }
@@ -493,12 +498,12 @@ type cacheEntry struct {
 func (cr *cacheEntry) Read(p []byte) (n int, err error) {
 	n, err = cr.body.Read(p)
 	if err == io.EOF {
-		cr.body.Seek(0, 0)
+		cr.body.Seek(0, 0) //nolint:errcheck
 	}
 	return n, err
 }
 
 func (cr *cacheEntry) Close() error {
-	cr.body.Seek(0, 0)
+	cr.body.Seek(0, 0) //nolint:errcheck
 	return nil
 }

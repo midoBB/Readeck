@@ -34,15 +34,25 @@ func (vm *Runtime) GetLogger() *logrus.Entry {
 	return entry
 }
 
-func (vm *Runtime) startConsole() {
+func (vm *Runtime) startConsole() error {
 	console := vm.NewObject()
-	console.Set("debug", logFunc("debug", vm.GetLogger))
-	console.Set("error", logFunc("error", vm.GetLogger))
-	console.Set("info", logFunc("info", vm.GetLogger))
-	console.Set("log", logFunc("log", vm.GetLogger))
-	console.Set("warn", logFunc("warn", vm.GetLogger))
+	if err := console.Set("debug", logFunc("debug", vm.GetLogger)); err != nil {
+		return err
+	}
+	if err := console.Set("error", logFunc("error", vm.GetLogger)); err != nil {
+		return err
+	}
+	if err := console.Set("info", logFunc("info", vm.GetLogger)); err != nil {
+		return err
+	}
+	if err := console.Set("log", logFunc("log", vm.GetLogger)); err != nil {
+		return err
+	}
+	if err := console.Set("warn", logFunc("warn", vm.GetLogger)); err != nil {
+		return err
+	}
 
-	vm.Set("console", console)
+	return vm.Set("console", console)
 }
 
 func logFunc(level string, getLogger func() *logrus.Entry) func(...any) {

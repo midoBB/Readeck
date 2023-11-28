@@ -196,9 +196,11 @@ func TestSvgImage(t *testing.T) {
 			t.Run(strconv.Itoa(i), func(t *testing.T) {
 				im, err := img.NewSvgImage(strings.NewReader(test.svg))
 				assert.Nil(t, err)
-				im.Resize(uint(test.w), uint(test.h))
+
+				assert.NoError(t, im.Resize(uint(test.w), uint(test.h)))
 				b := &bytes.Buffer{}
-				im.Encode(b)
+
+				assert.NoError(t, im.Encode(b))
 				assertXMLEqual(t, test.expected, b.String())
 			})
 		}
@@ -318,10 +320,10 @@ func TestClean(t *testing.T) {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			im, err := img.NewSvgImage(strings.NewReader(test.svg))
 			assert.Nil(t, err)
-			im.Clean()
+			assert.NoError(t, im.Clean())
 
 			b := &bytes.Buffer{}
-			im.Encode(b)
+			assert.NoError(t, im.Encode(b))
 			assertXMLEqual(t, test.expected, b.String())
 		})
 	}

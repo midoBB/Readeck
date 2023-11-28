@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package tokens contains the models and functions to manage
+// user API tokens.
 package tokens
 
 import (
@@ -30,7 +32,7 @@ var (
 	ErrNotFound = errors.New("not found")
 )
 
-// Token is a token record in database
+// Token is a token record in database.
 type Token struct {
 	ID          int           `db:"id" goqu:"skipinsert,skipupdate"`
 	UID         string        `db:"uid"`
@@ -134,7 +136,7 @@ func (t *Token) Save() error {
 	return t.Update(t)
 }
 
-// Delete removes a token from the database
+// Delete removes a token from the database.
 func (t *Token) Delete() error {
 	_, err := db.Q().Delete(TableName).Prepared(true).
 		Where(goqu.C("id").Eq(t.ID)).

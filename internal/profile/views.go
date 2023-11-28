@@ -16,7 +16,7 @@ import (
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
-// profileViews is an HTTP handler for the user profile web views
+// profileViews is an HTTP handler for the user profile web views.
 type profileViews struct {
 	chi.Router
 	*profileAPI
@@ -24,7 +24,7 @@ type profileViews struct {
 
 const maxCredentials = 20
 
-// newProfileViews returns an new instance of ProfileViews
+// newProfileViews returns an new instance of ProfileViews.
 func newProfileViews(api *profileAPI) *profileViews {
 	r := api.srv.AuthenticatedRouter(api.srv.WithRedirectLogin)
 	v := &profileViews{r, api}
@@ -94,7 +94,7 @@ func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
 	v.srv.RenderTemplate(w, r, 200, "profile/index", ctx)
 }
 
-// userPassword handles GET and POST requests on /profile/password
+// userPassword handles GET and POST requests on /profile/password.
 func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 	f := newPasswordForm()
 
@@ -144,7 +144,6 @@ func (v *profileViews) credentialCreate(w http.ResponseWriter, r *http.Request) 
 	}
 
 	c, passphrase, err := credentials.Credentials.GenerateCredential(auth.GetRequestUser(r).ID)
-
 	if err != nil {
 		v.srv.Log(r).WithError(err).Error("server error")
 		v.srv.AddFlash(w, r, "error", "An error append while creating your password.")
@@ -201,7 +200,10 @@ func (v *profileViews) credentialDelete(w http.ResponseWriter, r *http.Request) 
 
 	ti := r.Context().Value(ctxCredentialKey{}).(credentialItem)
 
-	f.trigger(ti.Credential)
+	if err := f.trigger(ti.Credential); err != nil {
+		v.srv.Error(w, r, err)
+		return
+	}
 	v.srv.Redirect(w, r, f.Get("_to").String())
 }
 
@@ -276,6 +278,9 @@ func (v *profileViews) tokenDelete(w http.ResponseWriter, r *http.Request) {
 
 	ti := r.Context().Value(ctxtTokenKey{}).(tokenItem)
 
-	f.trigger(ti.Token)
+	if err := f.trigger(ti.Token); err != nil {
+		v.srv.Error(w, r, err)
+		return
+	}
 	v.srv.Redirect(w, r, f.Get("_to").String())
 }

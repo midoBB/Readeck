@@ -108,16 +108,16 @@ func NewConfigForURL(discovery *SiteConfigDiscovery, src *url.URL) (*SiteConfig,
 		}
 		cf, err := NewSiteConfig(fd)
 		if err != nil {
-			fd.Close()
+			fd.Close() //nolint:errcheck
 			return nil, err
 		}
 		if !res.AutoDetectOnFailure {
-			fd.Close()
+			fd.Close() //nolint:errcheck
 			break
 		}
 		cf.files = []string{x}
 		res.Merge(cf)
-		fd.Close()
+		fd.Close() //nolint:errcheck
 	}
 
 	return res, nil
@@ -147,7 +147,7 @@ func (cf *SiteConfig) Merge(new *SiteConfig) {
 	}
 }
 
-// Files returns the files used to create the configuration
+// Files returns the files used to create the configuration.
 func (cf *SiteConfig) Files() []string {
 	return cf.files
 }

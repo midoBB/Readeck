@@ -21,11 +21,10 @@ func newDeleteForm() *deleteForm {
 }
 
 // trigger launch the user deletion or cancel task.
-func (f *deleteForm) trigger(u *users.User) {
+func (f *deleteForm) trigger(u *users.User) error {
 	if !f.Get("cancel").IsNil() && f.Get("cancel").Value().(bool) {
-		deleteUserTask.Cancel(u.ID)
-		return
+		return deleteUserTask.Cancel(u.ID)
 	}
 
-	deleteUserTask.Run(u.ID, u.ID)
+	return deleteUserTask.Run(u.ID, u.ID)
 }

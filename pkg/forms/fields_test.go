@@ -131,7 +131,6 @@ func TestTextField(t *testing.T) {
 			})
 		}
 	})
-
 }
 
 func TestBooleanField(t *testing.T) {
@@ -396,7 +395,6 @@ func TestDatetimeField(t *testing.T) {
 	assert.Equal(t, "2020-01-30", f.String())
 
 	t.Run("bind json", func(t *testing.T) {
-
 		tests := []fieldTypeTest{
 			{
 				data:  `""`,

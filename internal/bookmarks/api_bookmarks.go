@@ -340,7 +340,6 @@ func (api *apiRouter) labelUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ids, err := Bookmarks.RenameLabel(auth.GetRequestUser(r), label, f.Get("name").String())
-
 	if err != nil {
 		api.srv.Error(w, r, err)
 		return
@@ -355,7 +354,6 @@ func (api *apiRouter) labelDelete(w http.ResponseWriter, r *http.Request) {
 	label := r.Context().Value(ctxLabelKey{}).(string)
 
 	ids, err := Bookmarks.RenameLabel(auth.GetRequestUser(r), label, "")
-
 	if err != nil {
 		api.srv.Error(w, r, err)
 		return
@@ -907,26 +905,26 @@ func (bi bookmarkItem) getArticle() (*strings.Reader, error) {
 
 // addAnnotations adds the given annotations to the document's content.
 // annotations is a parameter for we can use this method to add existing annotations or
-// add a new one (and use this method as a validator)
+// add a new one (and use this method as a validator).
 func (bi bookmarkItem) addAnnotations(input *strings.Reader) (*strings.Reader, error) {
 	var err error
 	var doc *html.Node
 
 	if doc, err = html.Parse(input); err != nil {
-		input.Seek(0, 0)
+		input.Seek(0, 0) //nolint:errcheck
 		return input, err
 	}
 	root := dom.QuerySelector(doc, "body")
 
 	err = bi.Annotations.addToNode(root, bi.annotationTag, bi.annotationCallback)
 	if err != nil {
-		input.Seek(0, 0)
+		input.Seek(0, 0) //nolint:errcheck
 		return input, err
 	}
 
 	buf := new(strings.Builder)
 	if err = html.Render(buf, doc); err != nil {
-		input.Seek(0, 0)
+		input.Seek(0, 0) //nolint:errcheck
 		return input, err
 	}
 	reader := strings.NewReader(buf.String())

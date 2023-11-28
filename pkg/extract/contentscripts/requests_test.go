@@ -13,7 +13,7 @@ import (
 
 	"codeberg.org/readeck/readeck/pkg/extract/contentscripts"
 	"github.com/jarcoal/httpmock"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestRequests(t *testing.T) {
@@ -186,16 +186,18 @@ func TestRequests(t *testing.T) {
 
 	for i, test := range tests {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
-			vm := contentscripts.New()
-			vm.Set("requests", contentscripts.NewHTTPClient(vm, http.DefaultClient))
+			vm, _ := contentscripts.New()
+			client, _ := contentscripts.NewHTTPClient(vm, http.DefaultClient)
+			_ = vm.Set("requests", client)
 			v, err := vm.RunString(test.src)
+			assert := require.New(t)
+
 			if test.error == nil {
-				if assert.NoError(t, err) {
-					assert.Equal(t, test.expected, v.Export())
-				}
+				assert.NoError(err)
+				assert.Equal(test.expected, v.Export())
 			} else {
-				assert.Error(t, err)
-				assert.ErrorContains(t, err, test.error.Error())
+				assert.Error(err)
+				assert.ErrorContains(err, test.error.Error())
 			}
 		})
 	}

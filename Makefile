@@ -118,7 +118,8 @@ list:
 
 # Run the linter and print a report
 .PHONY: lint
-lint:
+lint: docs-build
+	test -f assets/www/manifest.json || echo "{}" > assets/www/manifest.json
 	CGO_ENABLED=0 \
 	$(GO) run github.com/golangci/golangci-lint/cmd/golangci-lint@v1.55.2 run
 

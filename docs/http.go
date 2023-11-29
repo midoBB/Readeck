@@ -63,13 +63,16 @@ func SetupRoutes(s *server.Server) {
 		for _, f := range section.Files {
 			// Document
 			docHandler.With(
+				s.WithPermission("docs", "read"),
 				handler.withFile(f),
 				handler.withSection(section),
 			).Get("/"+f.Route, handler.serveDocument)
 
 			// Aliases
 			for _, alias := range f.Aliases {
-				handler.Get("/"+alias, handler.serverRedirect(routePrefix+"/"+f.Route))
+				handler.With(
+					s.WithPermission("docs", "read"),
+				).Get("/"+alias, handler.serverRedirect(routePrefix+"/"+f.Route))
 			}
 		}
 
@@ -86,7 +89,9 @@ func SetupRoutes(s *server.Server) {
 	handler.Get("/", handler.serverRedirect(routePrefix+"/en/"))
 
 	// API documentation
-	docHandler.Group(func(r chi.Router) {
+	docHandler.With(
+		s.WithPermission("docs", "read"),
+	).Group(func(r chi.Router) {
 		r.Get("/api", handler.serverAPIDocs)
 		r.Get("/api.json", handler.serverAPISchema)
 	})

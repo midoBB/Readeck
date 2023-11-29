@@ -50,7 +50,7 @@ func (f HTTPZipFile) ServeHTTP(w http.ResponseWriter, r *http.Request, options .
 	f.serveEntry(w, r, zf, options...)
 }
 
-// getEntry returns a zip file entry. It must be
+// getEntry returns a zip file entry. It must be.
 func (f HTTPZipFile) getEntry(name string, zr *zip.ReadCloser) (*zip.File, error) {
 	for _, x := range zr.File {
 		if x.Name == name && !x.FileInfo().IsDir() {
@@ -74,7 +74,7 @@ func (f HTTPZipFile) serveEntry(w http.ResponseWriter, r *http.Request, zf *zip.
 		f.error(w, err, options...)
 		return
 	}
-	defer fp.Close()
+	defer fp.Close() //nolint:errcheck
 
 	// Sniff the content
 	buf := new(bytes.Buffer)

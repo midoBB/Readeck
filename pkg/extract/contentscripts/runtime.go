@@ -29,14 +29,14 @@ func (k *contextKey) String() string {
 	return "readeck/pkg/contentscript context value " + k.name
 }
 
-// Program is a wrapper around goja.Program, with a script name
+// Program is a wrapper around goja.Program, with a script name.
 type Program struct {
 	*goja.Program
 	Name     string
 	Priority int
 }
 
-// Runtime contains a collection of content scripts
+// Runtime contains a collection of content scripts.
 type Runtime struct {
 	*goja.Runtime
 	programs []*Program
@@ -74,7 +74,7 @@ func NewProgram(name string, r io.Reader) (*Program, error) {
 }
 
 // getPriority look into a (wrapped) program for the integer value
-// of exports.priority
+// of exports.priority.
 func getPriority(prg *ast.Program) (res int) {
 	// The first element is the wrapping function call
 	body := prg.Body[0].(*ast.ExpressionStatement).Expression.(*ast.CallExpression).Callee.(*ast.FunctionLiteral)
@@ -117,8 +117,8 @@ func getPriority(prg *ast.Program) (res int) {
 	return 0
 }
 
-// New creates a new ContentScript instance
-func New(programs ...*Program) *Runtime {
+// New creates a new ContentScript instance.
+func New(programs ...*Program) (*Runtime, error) {
 	slices.SortStableFunc(programs, func(a, b *Program) int {
 		if a.Priority != b.Priority {
 			return cmp.Compare(a.Priority, b.Priority)
@@ -134,16 +134,20 @@ func New(programs ...*Program) *Runtime {
 	}
 
 	r.SetFieldNameMapper(goja.TagFieldNameMapper("js", true))
-	r.startConsole()
+	if err := r.startConsole(); err != nil {
+		return nil, err
+	}
 
 	// Register utils
 	registry.Enable(r.Runtime)
 	url.Enable(r.Runtime)
 
 	// Register global variables and functions
-	registerExported(r)
+	if err := registerExported(r); err != nil {
+		return nil, err
+	}
 
-	return r
+	return r, nil
 }
 
 func (vm *Runtime) getExports(name string) goja.Value {
@@ -170,12 +174,16 @@ func (vm *Runtime) RunProgram(p *Program) (goja.Value, error) {
 }
 
 func (vm *Runtime) exec(p *Program, fn execFunc) error {
-	vm.Set("__name__", p.Name)
-	vm.Set("exports", map[string]any{})
+	if err := vm.Set("__name__", p.Name); err != nil {
+		return err
+	}
+	if err := vm.Set("exports", map[string]any{}); err != nil {
+		return err
+	}
 
 	defer func() {
-		vm.GlobalObject().Delete("__name__")
-		vm.GlobalObject().Delete("exports")
+		vm.GlobalObject().Delete("__name__") //nolint:errcheck
+		vm.GlobalObject().Delete("exports")  //nolint:errcheck
 	}()
 
 	_, err := vm.RunProgram(p)
@@ -188,9 +196,15 @@ func (vm *Runtime) exec(p *Program, fn execFunc) error {
 		return err
 	} else if ok {
 		if vm.getProcessMessage() != nil {
-			vm.Set("requests", NewHTTPClient(vm, vm.getProcessMessage().Extractor.Client()))
+			c, err := NewHTTPClient(vm, vm.getProcessMessage().Extractor.Client())
+			if err != nil {
+				return err
+			}
+			if err = vm.Set("requests", c); err != nil {
+				return err
+			}
 			defer func() {
-				vm.GlobalObject().Delete("requests")
+				vm.GlobalObject().Delete("requests") //nolint:errcheck
 			}()
 		}
 		return fn()

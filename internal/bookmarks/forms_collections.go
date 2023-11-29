@@ -29,13 +29,12 @@ func newCollectionDeleteForm() *collectionDeleteForm {
 	)}
 }
 
-func (f *collectionDeleteForm) trigger(c *Collection) {
+func (f *collectionDeleteForm) trigger(c *Collection) error {
 	if !f.Get("cancel").IsNil() && f.Get("cancel").Value().(bool) {
-		deleteCollectionTask.Cancel(c.ID)
-		return
+		return deleteCollectionTask.Cancel(c.ID)
 	}
 
-	deleteCollectionTask.Run(c.ID, c.ID)
+	return deleteCollectionTask.Run(c.ID, c.ID)
 }
 
 type collectionForm struct {
@@ -131,7 +130,7 @@ func (f *collectionForm) BindQueryString(values url.Values) {
 	for _, field := range f.Fields() {
 		if v, ok := values[field.Name()]; ok {
 			for _, x := range v {
-				field.UnmarshalText([]byte(x))
+				field.UnmarshalText([]byte(x)) //nolint:errcheck
 			}
 		}
 	}

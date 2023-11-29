@@ -272,7 +272,10 @@ func (h *viewsRouter) labelDelete(w http.ResponseWriter, r *http.Request) {
 
 	f := newLabelDeleteForm()
 	forms.Bind(f, r)
-	f.trigger(auth.GetRequestUser(r), label)
+	if err := f.trigger(auth.GetRequestUser(r), label); err != nil {
+		h.srv.Error(w, r, err)
+		return
+	}
 
 	// We can't use redirect here, since we must escape the label
 	redir := h.srv.AbsoluteURL(r, "/bookmarks/labels/")

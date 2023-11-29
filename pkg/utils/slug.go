@@ -11,8 +11,10 @@ import (
 	"golang.org/x/text/unicode/norm"
 )
 
-var lat = []*unicode.RangeTable{unicode.Letter, unicode.Number}
-var nop = []*unicode.RangeTable{unicode.Mark, unicode.Sk, unicode.Lm}
+var (
+	lat = []*unicode.RangeTable{unicode.Letter, unicode.Number}
+	nop = []*unicode.RangeTable{unicode.Mark, unicode.Sk, unicode.Lm}
+)
 
 // Slug replaces each run of characters which are not unicode letters or
 // numbers with a single hyphen, except for leading or trailing runes. Letters

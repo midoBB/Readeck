@@ -13,7 +13,7 @@ import (
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
-// PaginationForm is a default form for pagination
+// PaginationForm is a default form for pagination.
 type PaginationForm struct {
 	*forms.Form
 }
@@ -46,7 +46,7 @@ func (f *PaginationForm) SetLimit(v int) {
 	f.Get("limit").Set(v)
 }
 
-// GetPageParams returns the pagination parameters from the query string
+// GetPageParams returns the pagination parameters from the query string.
 func (s *Server) GetPageParams(r *http.Request, defaultLimit int) *PaginationForm {
 	f := newPaginationForm()
 	f.Get("limit").Set(0)
@@ -64,7 +64,7 @@ func (s *Server) GetPageParams(r *http.Request, defaultLimit int) *PaginationFor
 	return f
 }
 
-// Pagination holds all the information regarding pagination
+// Pagination holds all the information regarding pagination.
 type Pagination struct {
 	URL          *url.URL
 	Limit        int
@@ -83,13 +83,13 @@ type Pagination struct {
 	PageLinks    []PageLink
 }
 
-// PageLink contains a link to a page in a Pagination instance
+// PageLink contains a link to a page in a Pagination instance.
 type PageLink struct {
 	Index int
 	URL   string
 }
 
-// GetLink returns a new url string with limit and offset values
+// GetLink returns a new url string with limit and offset values.
 func (p Pagination) GetLink(offset int) string {
 	u := *p.URL
 	q := u.Query()
@@ -175,7 +175,7 @@ func (s *Server) NewPagination(r *http.Request, count, limit, offset int) Pagina
 	return p
 }
 
-// GetPaginationLinks returns a list of Link instances suitable for pagination
+// GetPaginationLinks returns a list of Link instances suitable for pagination.
 func (s *Server) GetPaginationLinks(r *http.Request, p Pagination) []Link {
 	uri := s.AbsoluteURL(r)
 	pages := int(math.Ceil(float64(p.TotalCount) / float64(p.Limit)))
@@ -204,7 +204,7 @@ func (s *Server) GetPaginationLinks(r *http.Request, p Pagination) []Link {
 	return links
 }
 
-// SendPaginationHeaders compute and set the pagination headers
+// SendPaginationHeaders compute and set the pagination headers.
 func (s *Server) SendPaginationHeaders(
 	w http.ResponseWriter, r *http.Request,
 	p Pagination,

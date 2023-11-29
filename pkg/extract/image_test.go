@@ -13,7 +13,7 @@ import (
 
 	"codeberg.org/readeck/readeck/pkg/img"
 	"github.com/jarcoal/httpmock"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestRemoteImage(t *testing.T) {
@@ -46,11 +46,11 @@ func TestRemoteImage(t *testing.T) {
 			for _, x := range tests {
 				t.Run(x.name, func(t *testing.T) {
 					ri, err := NewRemoteImage(x.path, nil)
-					assert.Nil(t, ri)
+					require.Nil(t, ri)
 					if ri != nil {
-						defer ri.Close()
+						defer ri.Close() //nolint:errcheck
 					}
-					assert.Equal(t, x.err, err.Error())
+					require.Equal(t, x.err, err.Error())
 				})
 			}
 		})
@@ -58,29 +58,28 @@ func TestRemoteImage(t *testing.T) {
 		for _, format := range formats {
 			t.Run(format, func(t *testing.T) {
 				ri, err := NewRemoteImage("/img."+format, nil)
-				if err != nil {
-					t.Fatal(err)
-				}
-				defer ri.Close()
-				assert.Equal(t, format, ri.Format())
+				require.NoError(t, err)
+				defer ri.Close() //nolint:errcheck
+				require.Equal(t, format, ri.Format())
 			})
 		}
 
 		t.Run("fit", func(t *testing.T) {
+			assert := require.New(t)
 			ri, _ := NewRemoteImage("/img.png", nil)
-			defer ri.Close()
+			defer ri.Close() //nolint:errcheck
 
 			w := ri.Width()
 			h := ri.Height()
-			assert.Equal(t, []uint{240, 181}, []uint{w, h})
+			assert.Equal([]uint{240, 181}, []uint{w, h})
 
-			img.Fit(ri, uint(24), uint(24))
-			assert.Equal(t, uint(24), ri.Width())
-			assert.Equal(t, uint(18), ri.Height())
+			assert.NoError(img.Fit(ri, uint(24), uint(24)))
+			assert.Equal(uint(24), ri.Width())
+			assert.Equal(uint(18), ri.Height())
 
-			img.Fit(ri, 240, 240)
-			assert.Equal(t, uint(24), ri.Width())
-			assert.Equal(t, uint(18), ri.Height())
+			assert.NoError(img.Fit(ri, 240, 240))
+			assert.Equal(uint(24), ri.Width())
+			assert.Equal(uint(18), ri.Height())
 		})
 
 		t.Run("encode", func(t *testing.T) {
@@ -99,22 +98,21 @@ func TestRemoteImage(t *testing.T) {
 
 			for _, x := range tests {
 				t.Run(x.format, func(t *testing.T) {
+					assert := require.New(t)
 					ri, err := NewRemoteImage(x.path, nil)
+					assert.NoError(err)
 					defer func() {
 						if err := ri.Close(); err != nil {
 							panic(err)
 						}
 					}()
-					assert.Nil(t, err)
-
-					ri.SetFormat(x.format)
+					assert.NoError(ri.SetFormat(x.format))
 
 					var buf bytes.Buffer
-					err = ri.Encode(&buf)
-					assert.Nil(t, err)
+					assert.NoError(ri.Encode(&buf))
 
 					_, format, _ := image.DecodeConfig(bytes.NewReader(buf.Bytes()))
-					assert.Equal(t, format, ri.Format())
+					assert.Equal(format, ri.Format())
 				})
 			}
 		})
@@ -131,35 +129,36 @@ func TestPicture(t *testing.T) {
 
 	t.Run("URL error", func(t *testing.T) {
 		p, err := NewPicture("/\b0x7f", base)
-		assert.Nil(t, p)
-		assert.NotNil(t, err)
+		require.Nil(t, p)
+		require.Error(t, err)
 	})
 
 	t.Run("HTTP error", func(t *testing.T) {
 		p, _ := NewPicture("/nowhere", base)
 		err := p.Load(nil, 100, "")
-		assert.NotNil(t, err)
+		require.Error(t, err)
 	})
 
 	t.Run("Load error", func(t *testing.T) {
 		p, _ := NewPicture("/img", base)
 		err := p.Load(nil, 0, "")
-		assert.NotNil(t, err)
+		require.Error(t, err)
 	})
 
 	t.Run("Load", func(t *testing.T) {
+		assert := require.New(t)
 		p, _ := NewPicture("/img", base)
 
-		assert.Equal(t, "", p.Encoded())
+		assert.Equal("", p.Encoded())
 
 		err := p.Load(nil, 100, "")
-		assert.Nil(t, err)
+		assert.NoError(err)
 
-		assert.Equal(t, [2]int{100, 75}, p.Size)
-		assert.Equal(t, "image/png", p.Type)
+		assert.Equal([2]int{100, 75}, p.Size)
+		assert.Equal("image/png", p.Type)
 
 		header := []byte{137, 80, 78, 71, 13, 10, 26, 10}
-		assert.Equal(t, header, p.Bytes()[0:8])
-		assert.Equal(t, "iVBORw0K", p.Encoded()[0:8])
+		assert.Equal(header, p.Bytes()[0:8])
+		assert.Equal("iVBORw0K", p.Encoded()[0:8])
 	})
 }

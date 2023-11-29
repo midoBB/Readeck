@@ -53,16 +53,19 @@ type messageLogHook struct {
 func (h *messageLogHook) Levels() []log.Level {
 	return log.AllLevels
 }
-func (h *messageLogHook) Fire(entry *log.Entry) error {
-	if entry.Level <= log.StandardLogger().Level {
-		msg, _ := entry.Logger.Formatter.Format(entry)
-		log.StandardLogger().Out.Write(msg)
-	}
 
+func (h *messageLogHook) Fire(entry *log.Entry) error {
 	b, _ := messageLogFormat.Format(entry)
 	h.e.Logs = append(h.e.Logs, strings.TrimSpace(string(b)))
 	if entry.Level <= log.ErrorLevel {
 		h.e.errors = append(h.e.errors, errors.New(entry.Message))
+	}
+
+	if entry.Level <= log.StandardLogger().Level {
+		msg, _ := entry.Logger.Formatter.Format(entry)
+		if _, err := log.StandardLogger().Out.Write(msg); err != nil {
+			return err
+		}
 	}
 
 	return nil

@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package libjet provides some utility functions for Jet templates.
 package libjet
 
 import (
@@ -115,11 +116,12 @@ func FuncMap() map[string]jet.Func {
 	return funcMap
 }
 
+// VarMap returns the jet global variable map.
 func VarMap() map[string]interface{} {
 	return map[string]interface{}{
 		"unsafeWrite": func(src io.Reader) jet.RendererFunc {
 			return func(r *jet.Runtime) {
-				io.Copy(r.Writer, src)
+				io.Copy(r.Writer, src) //nolint:errcheck
 			}
 		},
 	}
@@ -217,6 +219,7 @@ func ToDateFmt(d reflect.Value, f reflect.Value) string {
 	return date.Format(layout)
 }
 
+// ToInt returns a value as an integer value.
 func ToInt(v reflect.Value) int {
 	val, isNil := Indirect(v)
 	if isNil || val == nil {
@@ -237,6 +240,7 @@ type attrList map[string][]any
 
 func (l attrList) Render(r *jet.Runtime) {
 	i := 0
+	//nolint:errcheck // we're writing with a buffer or http.ResponseWriter
 	for k, values := range l {
 		if len(values) == 1 {
 			if x, ok := values[0].(bool); ok && x {

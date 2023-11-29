@@ -41,7 +41,11 @@ func LoadScripts(programs ...*Program) extract.Processor {
 			return next
 		}
 
-		vm := New(append(preloadedScripts, programs...)...)
+		vm, err := New(append(preloadedScripts, programs...)...)
+		if err != nil {
+			m.Log.WithError(err).Error("loading scripts")
+			return next
+		}
 		vm.SetLogger(m.Log)
 		vm.SetProcessMessage(m)
 
@@ -77,7 +81,9 @@ func LoadSiteConfig(m *extract.ProcessMessage, next extract.Processor) extract.P
 	}
 
 	// Apply scripts "setConfig" function
-	getRuntime(m.Extractor.Context).SetConfig(cfg)
+	if err := getRuntime(m.Extractor.Context).SetConfig(cfg); err != nil {
+		m.Log.WithError(err).Warn("setConfig")
+	}
 
 	// Add config to context
 	m.Extractor.Context = context.WithValue(m.Extractor.Context, configCtxKey, cfg)
@@ -94,7 +100,9 @@ func ProcessMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 		return next
 	}
 
-	getRuntime(m.Extractor.Context).ProcessMeta()
+	if err := getRuntime(m.Extractor.Context).ProcessMeta(); err != nil {
+		m.Log.WithError(err).Warn("processMeta")
+	}
 	return next
 }
 

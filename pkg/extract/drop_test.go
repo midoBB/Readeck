@@ -10,7 +10,7 @@ import (
 	"testing"
 
 	"github.com/jarcoal/httpmock"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestDrop(t *testing.T) {
@@ -72,7 +72,7 @@ func TestDrop(t *testing.T) {
 					t.Fatal("error is nil")
 				}
 
-				assert.Equal(t, x.err, err.Error())
+				require.Equal(t, x.err, err.Error())
 			})
 		}
 	})
@@ -113,8 +113,8 @@ func TestDrop(t *testing.T) {
 		for _, x := range tests {
 			t.Run(x.src, func(t *testing.T) {
 				d := NewDrop(mustParse(x.src))
-				assert.Equal(t, x.res, d.UnescapedURL())
-				assert.Equal(t, x.dom, d.Domain)
+				require.Equal(t, x.res, d.UnescapedURL())
+				require.Equal(t, x.dom, d.Domain)
 			})
 		}
 	})
@@ -140,18 +140,19 @@ func TestDrop(t *testing.T) {
 
 		for _, x := range tests {
 			t.Run(x.path, func(t *testing.T) {
+				assert := require.New(t)
 				d := NewDrop(mustParse("http://x/" + x.path))
 
 				err := d.Load(nil)
-				assert.Nil(t, err)
-				assert.Equal(t, "x", d.Site)
-				assert.Equal(t, x.isHTML, d.IsHTML())
-				assert.Equal(t, x.isMedia, d.IsMedia())
-				assert.Equal(t, x.contentType, d.ContentType)
-				assert.Equal(t, x.charset, d.Charset)
+				assert.NoError(err)
+				assert.Equal("x", d.Site)
+				assert.Equal(x.isHTML, d.IsHTML())
+				assert.Equal(x.isMedia, d.IsMedia())
+				assert.Equal(x.contentType, d.ContentType)
+				assert.Equal(x.charset, d.Charset)
 
 				if x.contains != "" {
-					assert.Contains(t, string(d.Body), x.contains)
+					assert.Contains(string(d.Body), x.contains)
 				}
 			})
 		}
@@ -159,48 +160,50 @@ func TestDrop(t *testing.T) {
 }
 
 func TestDropAuthors(t *testing.T) {
+	assert := require.New(t)
 	uri, _ := url.Parse("/")
 	d := NewDrop(uri)
 
-	assert.Equal(t, []string{}, d.Authors)
+	assert.Equal([]string{}, d.Authors)
 
 	d.AddAuthors("John Doe")
-	assert.Equal(t, []string{"John Doe"}, d.Authors)
+	assert.Equal([]string{"John Doe"}, d.Authors)
 
 	d.AddAuthors("john Doe")
-	assert.Equal(t, []string{"John Doe"}, d.Authors)
+	assert.Equal([]string{"John Doe"}, d.Authors)
 
 	d.AddAuthors("Someone Else")
-	assert.Equal(t, []string{"John Doe", "Someone Else"}, d.Authors)
+	assert.Equal([]string{"John Doe", "Someone Else"}, d.Authors)
 
 	d.Authors = []string{}
 	d.AddAuthors("By   John   Doe")
-	assert.Equal(t, []string{"John Doe"}, d.Authors)
+	assert.Equal([]string{"John Doe"}, d.Authors)
 	d.AddAuthors(" john doe   ")
-	assert.Equal(t, []string{"John Doe"}, d.Authors)
+	assert.Equal([]string{"John Doe"}, d.Authors)
 	d.AddAuthors("By:   John   Doe")
-	assert.Equal(t, []string{"John Doe"}, d.Authors)
+	assert.Equal([]string{"John Doe"}, d.Authors)
 	d.AddAuthors("by :  John   Doe")
-	assert.Equal(t, []string{"John Doe"}, d.Authors)
+	assert.Equal([]string{"John Doe"}, d.Authors)
 }
 
 func TestDropMeta(t *testing.T) {
+	assert := require.New(t)
 	m := DropMeta{}
 	m.Add("meta1", "foo")
 
-	assert.Equal(t, []string{"foo"}, m.Lookup("meta1"))
+	assert.Equal([]string{"foo"}, m.Lookup("meta1"))
 
 	m.Add("meta1", "bar")
-	assert.Equal(t, []string{"foo", "bar"}, m.Lookup("meta1"))
-	assert.Equal(t, "foo", m.LookupGet("meta1"))
+	assert.Equal([]string{"foo", "bar"}, m.Lookup("meta1"))
+	assert.Equal("foo", m.LookupGet("meta1"))
 
-	assert.Equal(t, []string{}, m.Lookup("meta2"))
-	assert.Equal(t, "", m.LookupGet("meta2"))
+	assert.Equal([]string{}, m.Lookup("meta2"))
+	assert.Equal("", m.LookupGet("meta2"))
 
 	m.Add("meta2", "m2a")
 	m.Add("meta2", "m2b")
 	m.Add("meta3", "m3")
 
-	assert.Equal(t, []string{"m2a", "m2b"}, m.Lookup("metaZ", "meta2", "meta1"))
-	assert.Equal(t, "m2a", m.LookupGet("metaZ", "meta2", "meta1"))
+	assert.Equal([]string{"m2a", "m2b"}, m.Lookup("metaZ", "meta2", "meta1"))
+	assert.Equal("m2a", m.LookupGet("metaZ", "meta2", "meta1"))
 }

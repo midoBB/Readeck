@@ -218,7 +218,9 @@ func extractPageHandler(data interface{}) {
 
 		// Then save the whole thing
 		if !saved {
-			b.Save()
+			if err := b.Save(); err != nil {
+				logger.WithError(err).Error("saving bookmark")
+			}
 		}
 
 		metricCreation.WithLabelValues(b.StateName()).Inc()
@@ -483,7 +485,7 @@ func createZipFile(b *Bookmark, ex *extract.Extractor, arc *archiver.Archiver) e
 		}
 	}()
 
-	if err = os.MkdirAll(filepath.Dir(zipFile), 0750); err != nil {
+	if err = os.MkdirAll(filepath.Dir(zipFile), 0o750); err != nil {
 		return err
 	}
 	if err = z.AddDestFile(zipFile); err != nil {

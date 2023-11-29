@@ -9,7 +9,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/url"
 	"strings"
 
@@ -19,14 +18,17 @@ import (
 
 var errSkippedURL = errors.New("skip processing url")
 
-type imageProcessor func(context.Context, *Archiver, io.Reader, string, *url.URL) ([]byte, string, error)
-type urlProcessor func(uri string, content []byte, contentType string) string
+type (
+	imageProcessor func(context.Context, *Archiver, io.Reader, string, *url.URL) ([]byte, string, error)
+	urlProcessor   func(uri string, content []byte, contentType string) string
+)
 
 // DefaultImageProcessor is the default image processor.
 // It simply reads and return the content.
 func DefaultImageProcessor(_ context.Context, _ *Archiver,
-	input io.Reader, contentType string, _ *url.URL) ([]byte, string, error) {
-	res, err := ioutil.ReadAll(input)
+	input io.Reader, contentType string, _ *url.URL,
+) ([]byte, string, error) {
+	res, err := io.ReadAll(input)
 	return res, contentType, err
 }
 
@@ -79,7 +81,7 @@ func (arc *Archiver) processURL(ctx context.Context, uri string, parentURL strin
 		arc.SendEvent(ctx, &EventError{err, uri})
 		return nil, "", fmt.Errorf("download failed: %w", err)
 	}
-	defer resp.Body.Close()
+	defer resp.Body.Close() //nolint:errcheck
 
 	// Get content type
 	contentType := resp.Header.Get("Content-Type")
@@ -118,7 +120,7 @@ func (arc *Archiver) processURL(ctx context.Context, uri string, parentURL strin
 			return nil, "", err
 		}
 	default:
-		bodyContent, err = ioutil.ReadAll(resp.Body)
+		bodyContent, err = io.ReadAll(resp.Body)
 		if err != nil {
 			arc.SendEvent(ctx, &EventError{err, uri})
 			return nil, "", err

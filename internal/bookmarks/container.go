@@ -29,7 +29,7 @@ type bookmarkContainer struct {
 
 // OpenContainer opens the bookmark's zipfile and returns a new
 // bookmarkContainer instance.
-func (b *Bookmark) OpenContainer() (*bookmarkContainer, error) {
+func (b *Bookmark) OpenContainer() (*bookmarkContainer, error) { //revive:disable:unexported-return
 	p := b.getFilePath()
 	if p == "" {
 		return nil, os.ErrNotExist
@@ -116,6 +116,6 @@ func (c *bookmarkContainer) GetFile(name string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer fd.Close()
+	defer fd.Close() //nolint:errcheck
 	return io.ReadAll(fd)
 }

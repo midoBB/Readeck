@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package opds provides the routes for the OPDS catalogs.
 package opds
 
 import (
@@ -23,7 +24,7 @@ type opdsRouter struct {
 	srv *server.Server
 }
 
-// SetupRoutes adds the OPDS catalog HTTP routes
+// SetupRoutes adds the OPDS catalog HTTP routes.
 func SetupRoutes(s *server.Server) {
 	h := &opdsRouter{s.AuthenticatedRouter(), s}
 

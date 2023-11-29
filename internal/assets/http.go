@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package assets provides the HTTP routes that serve static files.
 package assets
 
 import (
@@ -23,11 +24,9 @@ import (
 	"codeberg.org/readeck/readeck/pkg/accept"
 )
 
-var (
-	reAssetHashed = regexp.MustCompile(`\.[a-z0-9]{8}\.[a-z]+$`)
-)
+var reAssetHashed = regexp.MustCompile(`\.[a-z0-9]{8}\.[a-z]+$`)
 
-// SetupRoutes setup the static asset routes on /assets
+// SetupRoutes setup the static asset routes on /assets.
 func SetupRoutes(s *server.Server) {
 	s.AddRoute("/assets", serveAssets())
 	s.AddRoute("/assets/rnd/{name}.svg", randomSvg(s))

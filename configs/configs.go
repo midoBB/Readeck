@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package configs contains Readeck configuration.
 package configs
 
 import (
@@ -243,7 +244,7 @@ func LoadConfiguration(configPath string) error {
 	if err != nil {
 		return err
 	}
-	defer fd.Close()
+	defer fd.Close() //nolint:errcheck
 
 	dec := json.NewDecoder(toml.New(fd))
 	if err := dec.Decode(&Config); err != nil {
@@ -299,33 +300,33 @@ func HashValue(s []byte) []byte {
 	return mac.Sum(nil)
 }
 
-// CookieHashKey returns the key used by session cookies
+// CookieHashKey returns the key used by session cookies.
 func CookieHashKey() []byte {
 	return cookieHk
 }
 
-// CookieBlockKey returns the key used by session cookies
+// CookieBlockKey returns the key used by session cookies.
 func CookieBlockKey() []byte {
 	return cookieBk
 }
 
-// CsrfKey returns the key used by CSRF protection
+// CsrfKey returns the key used by CSRF protection.
 func CsrfKey() []byte {
 	return csrfKey
 }
 
-// JwtSk returns the private key for JWT handlers
+// JwtSk returns the private key for JWT handlers.
 func JwtSk() ed25519.PrivateKey {
 	return jwtSk
 }
 
-// JwtPk returns the public key for JWT handlers
+// JwtPk returns the public key for JWT handlers.
 func JwtPk() ed25519.PublicKey {
 	return jwtPk
 }
 
 // ExtractorDeniedIPs returns the value of Config.Extractor.DeniedIPs
-// as a slice of *net.IPNet
+// as a slice of *net.IPNet.
 func ExtractorDeniedIPs() []*net.IPNet {
 	res := make([]*net.IPNet, len(Config.Extractor.DeniedIPs))
 	for i, x := range Config.Extractor.DeniedIPs {
@@ -334,13 +335,13 @@ func ExtractorDeniedIPs() []*net.IPNet {
 	return res
 }
 
-// Version returns the current readeck version
+// Version returns the current readeck version.
 func Version() string {
 	return version
 }
 
 // BuildTime returns the build time or, if empty, the time
-// when the application started
+// when the application started.
 func BuildTime() time.Time {
 	if buildTime.IsZero() {
 		return startTime

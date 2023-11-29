@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package admin contains routes and tasks for Readeck admin.
 package admin
 
 import (

@@ -13,12 +13,12 @@ func startEventManager() {
 	bus.LoadCustom("memory", NewEventManager(), superbus.NewMemStore())
 }
 
-// Events returns the EventManager
+// Events returns the EventManager.
 func Events() *EventManager {
 	return bus.Events().(*EventManager)
 }
 
-// Store return the MemStore
+// Store return the MemStore.
 func Store() *superbus.MemStore {
 	return bus.Store().(*superbus.MemStore)
 }
@@ -36,7 +36,7 @@ func NewEventManager() *EventManager {
 	}
 }
 
-// Listen does nothing
+// Listen does nothing.
 func (m *EventManager) Listen() {
 }
 

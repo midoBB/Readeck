@@ -56,8 +56,8 @@ func (f *recoverForm) Validate() {
 	}
 }
 
-func (f *recoverForm) saveCode(code string, userID int) {
-	bus.Store().Set(fmt.Sprintf("%s_%s", f.prefix, code), fmt.Sprint(userID), f.ttl)
+func (f *recoverForm) saveCode(code string, userID int) error {
+	return bus.Store().Set(fmt.Sprintf("%s_%s", f.prefix, code), fmt.Sprint(userID), f.ttl)
 }
 
 func (f *recoverForm) getCode(code string) (int, bool) {
@@ -72,8 +72,8 @@ func (f *recoverForm) getCode(code string) (int, bool) {
 	return userID, true
 }
 
-func (f *recoverForm) delCode(code string) {
-	bus.Store().Del(fmt.Sprintf("%s_%s", f.prefix, code))
+func (f *recoverForm) delCode(code string) error {
+	return bus.Store().Del(fmt.Sprintf("%s_%s", f.prefix, code))
 }
 
 func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
@@ -93,8 +93,15 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 		}
 
 		user, err := users.Users.GetOne(goqu.C("email").Eq(f.Get("email").String()))
+
+		defer func() {
+			if err != nil {
+				h.srv.Log(r).WithError(err).Error("recover step 0")
+				f.AddErrors("", forms.ErrUnexpected)
+			}
+		}()
+
 		if err != nil && !errors.Is(err, users.ErrNotFound) {
-			f.AddErrors("", forms.ErrUnexpected)
 			return
 		}
 
@@ -104,7 +111,9 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 		}
 		code := shortuuid.New()
 		if user != nil {
-			f.saveCode(code, user.ID)
+			if err = f.saveCode(code, user.ID); err != nil {
+				return
+			}
 
 			mailTc["RecoverLink"] = h.srv.AbsoluteURL(r, "/login/recover", code)
 		}
@@ -115,8 +124,6 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 			"recover.tmpl", mailTc,
 		)
 		if err != nil {
-			h.srv.Log(r).WithError(err).Error("sending email")
-			f.AddErrors("", forms.ErrUnexpected)
 			return
 		}
 
@@ -163,7 +170,9 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		f.delCode(recoverCode)
+		if err = f.delCode(recoverCode); err != nil {
+			return
+		}
 		f.Get("step").Set(3)
 	}
 

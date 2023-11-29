@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -21,20 +21,20 @@ type fieldValidatorTest struct {
 }
 
 func testValidator(t *testing.T, test fieldValidatorTest) {
-	test.f.UnmarshalJSON([]byte("null"))
+	_ = test.f.UnmarshalJSON([]byte("null"))
 	test.f.Set(test.value)
 	errors := forms.ValidateField(test.f, test.f.Validators()...)
-	assert.Len(t, errors, len(test.errors))
+	require.Len(t, errors, len(test.errors))
 	if len(test.errors) > 0 {
 		for i, e := range errors {
-			assert.EqualError(t, e, test.errors[i])
+			require.EqualError(t, e, test.errors[i])
 		}
 	} else {
-		assert.Equal(t, test.expect, test.f.Value())
+		require.Equal(t, test.expect, test.f.Value())
 	}
 }
 
-func TestTrim(t *testing.T) {
+func TestValidators(t *testing.T) {
 	tests := []fieldValidatorTest{
 		// Trim
 		{

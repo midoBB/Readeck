@@ -118,7 +118,7 @@ func newOembed(doc *html.Node, base *url.URL, client *http.Client) (res *oembed,
 	if err != nil {
 		return
 	}
-	defer rsp.Body.Close()
+	defer rsp.Body.Close() //nolint:errcheck
 
 	if rsp.StatusCode/100 != 2 {
 		err = fmt.Errorf("Oembed invalid status code (%d) for %s", rsp.StatusCode, src)

@@ -107,7 +107,7 @@ func (d *Drop) Load(client *http.Client) error {
 	if rsp, err = client.Get(d.URL.String()); err != nil {
 		return err
 	}
-	defer rsp.Body.Close()
+	defer rsp.Body.Close() //nolint:errcheck
 
 	// Save headers
 	d.Header = rsp.Header
@@ -132,12 +132,12 @@ func (d *Drop) Load(client *http.Client) error {
 	return d.loadHTMLBody(rsp)
 }
 
-// IsHTML returns true when the resource is of type HTML
+// IsHTML returns true when the resource is of type HTML.
 func (d *Drop) IsHTML() bool {
 	return d.ContentType == "text/html" || d.ContentType == "application/xhtml+xml"
 }
 
-// IsMedia returns true when the document type is a media type
+// IsMedia returns true when the document type is a media type.
 func (d *Drop) IsMedia() bool {
 	return slices.Contains(mediaTypes, d.DocumentType)
 }
@@ -250,6 +250,7 @@ func scanForCharset(r io.Reader) string {
 	}
 }
 
+// DropProperties contains the raw properties of an extracted page.
 type DropProperties map[string]any
 
 // DropMeta is a map of list of strings that contains the

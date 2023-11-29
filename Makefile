@@ -120,8 +120,7 @@ list:
 .PHONY: lint
 lint:
 	CGO_ENABLED=0 \
-	$(GO) run github.com/golangci/golangci-lint/cmd/golangci-lint@v1.54.2 \
-	run
+	$(GO) run github.com/golangci/golangci-lint/cmd/golangci-lint@v1.55.2 run
 
 # Single lines of code
 .PHONY: sloc

@@ -16,7 +16,7 @@ import (
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
-// adminViews is an HTTP handler for the user profile web views
+// adminViews is an HTTP handler for the user profile web views.
 type adminViews struct {
 	chi.Router
 	*adminAPI
@@ -133,6 +133,9 @@ func (h *adminViews) userDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	f.trigger(u)
+	if err := f.trigger(u); err != nil {
+		h.srv.Error(w, r, err)
+		return
+	}
 	h.srv.Redirect(w, r, f.Get("_to").String())
 }

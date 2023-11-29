@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestIndirect(t *testing.T) {
@@ -44,10 +44,9 @@ func TestIndirect(t *testing.T) {
 
 	for _, tt := range values {
 		r, isNil := Indirect(reflect.ValueOf(tt.v))
-		assert.Exactly(t, tt.expect, r, "%#v", tt.v)
-		assert.Equal(t, tt.isNil, isNil, "%#v", tt.v)
+		require.Exactly(t, tt.expect, r, "%#v", tt.v)
+		require.Equal(t, tt.isNil, isNil, "%#v", tt.v)
 	}
-
 }
 
 func TestToString(t *testing.T) {
@@ -83,7 +82,7 @@ func TestToString(t *testing.T) {
 
 	for _, tt := range values {
 		v := ToString(reflect.ValueOf(tt.v))
-		assert.Equal(t, tt.expect, v, "%#v", tt.v)
+		require.Equal(t, tt.expect, v, "%#v", tt.v)
 	}
 }
 
@@ -102,16 +101,17 @@ func TestToDateFmt(t *testing.T) {
 		{date3, "2006-01-02", "2012-04-02"},
 	}
 
+	assert := require.New(t)
 	for _, tt := range values {
 		r := ToDateFmt(reflect.ValueOf(tt.v), reflect.ValueOf(tt.format))
 		t.Logf("%#v\n", r)
-		assert.Equal(t, tt.expect, r, "%#v", tt.v)
+		assert.Equal(tt.expect, r, "%#v", tt.v)
 	}
 
-	assert.Panics(t, func() {
+	assert.Panics(func() {
 		ToDateFmt(reflect.ValueOf(123), reflect.ValueOf(""))
 	})
-	assert.Panics(t, func() {
+	assert.Panics(func() {
 		v := &[]byte{}
 		ToDateFmt(reflect.ValueOf(v), reflect.ValueOf(""))
 	})

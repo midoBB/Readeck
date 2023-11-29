@@ -22,10 +22,8 @@ type (
 	ctxUserFormKey struct{}
 )
 
-var (
-	// rxUsername is the regexp used to validate a username.
-	rxUsername = regexp.MustCompile(`^[a-zA-Z0-9_-]+$`)
-)
+// rxUsername is the regexp used to validate a username.
+var rxUsername = regexp.MustCompile(`^[a-zA-Z0-9_-]+$`)
 
 var availableScopes = [][2]string{
 	{"scoped_bookmarks_r", "Bookmarks : Read Only"},
@@ -188,6 +186,7 @@ func (f *UserForm) UpdateUser(u *User) (res map[string]interface{}, err error) {
 	return
 }
 
+// NewRolesField returns a forms.Field with user's role choices.
 func NewRolesField(user *User) forms.Field {
 	roleConstructor := func(n string) forms.Field {
 		return forms.NewTextField(n, forms.Trim)

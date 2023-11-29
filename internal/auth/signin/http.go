@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package signin contains the routes for Readeck sign-in process.
 package signin
 
 import (

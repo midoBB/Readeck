@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package dashboard provides routes for Readeck's dashboard.
 package dashboard
 
 import (

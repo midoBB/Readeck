@@ -10,7 +10,7 @@ import (
 	"testing"
 
 	"github.com/go-shiori/dom"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"golang.org/x/net/html"
 
 	"codeberg.org/readeck/readeck/pkg/bleach"
@@ -137,12 +137,10 @@ func TestClean(t *testing.T) {
 		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
 			r := strings.NewReader(test.fragment)
 			node, err := html.Parse(r)
-			if err != nil {
-				panic(err)
-			}
+			require.NoError(t, err)
 
 			test.fn(node)
-			assert.Equal(t, test.expected, dom.OuterHTML(dom.QuerySelector(node, "body")))
+			require.Equal(t, test.expected, dom.OuterHTML(dom.QuerySelector(node, "body")))
 		})
 	}
 }
@@ -161,7 +159,7 @@ func TestSanitizeString(t *testing.T) {
 
 	for i, test := range tests {
 		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
-			assert.Equal(t, test.expected, bleach.SanitizeString(test.input))
+			require.Equal(t, test.expected, bleach.SanitizeString(test.input))
 		})
 	}
 }

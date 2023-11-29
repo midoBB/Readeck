@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package profile provides the user's profile management routes.
 package profile
 
 import (

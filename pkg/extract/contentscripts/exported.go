@@ -27,10 +27,21 @@ type processMessageProxy struct {
 	vm *Runtime
 }
 
-func registerExported(vm *Runtime) {
-	vm.Set("$", newProcessMessageProxy(vm))
-	vm.Set("unescapeURL", unescapeURL)
-	vm.Set("decodeXML", decodeXML)
+func registerExported(vm *Runtime) (err error) {
+	var p *goja.Object
+	if p, err = newProcessMessageProxy(vm); err != nil {
+		return
+	}
+	if err = vm.Set("$", p); err != nil {
+		return
+	}
+	if err = vm.Set("unescapeURL", unescapeURL); err != nil {
+		return
+	}
+	if err = vm.Set("decodeXML", decodeXML); err != nil {
+		return
+	}
+	return
 }
 
 // SetProcessMessage adds an extract.ProcessMessage to the content script context.
@@ -45,56 +56,80 @@ func (vm *Runtime) getProcessMessage() *extract.ProcessMessage {
 	return nil
 }
 
-func newProcessMessageProxy(vm *Runtime) *goja.Object {
+func newProcessMessageProxy(vm *Runtime) (*goja.Object, error) {
 	p := &processMessageProxy{vm: vm}
 
 	obj := vm.NewObject()
-	obj.Set("meta", newDropMetaProxyObj(vm))
-	obj.DefineAccessorProperty(
+	if err := obj.Set("meta", newDropMetaProxyObj(vm)); err != nil {
+		return nil, err
+	}
+	if err := obj.DefineAccessorProperty(
 		"properties", vm.ToValue(p.getProperties), nil,
 		goja.FLAG_FALSE, goja.FLAG_FALSE,
-	)
-	obj.DefineAccessorProperty(
+	); err != nil {
+		return nil, err
+	}
+	if err := obj.DefineAccessorProperty(
 		"domain", vm.ToValue(p.getDomain), nil,
 		goja.FLAG_FALSE, goja.FLAG_FALSE,
-	)
-	obj.DefineAccessorProperty(
+	); err != nil {
+		return nil, err
+	}
+	if err := obj.DefineAccessorProperty(
 		"host", vm.ToValue(p.getHost), nil,
 		goja.FLAG_FALSE, goja.FLAG_FALSE,
-	)
-	obj.DefineAccessorProperty(
+	); err != nil {
+		return nil, err
+	}
+	if err := obj.DefineAccessorProperty(
 		"url", vm.ToValue(p.getURL), nil,
 		goja.FLAG_FALSE, goja.FLAG_FALSE,
-	)
-	obj.DefineAccessorProperty(
+	); err != nil {
+		return nil, err
+	}
+	if err := obj.DefineAccessorProperty(
 		"authors", vm.ToValue(p.getAuthors), vm.ToValue(p.setAuthors),
 		goja.FLAG_FALSE, goja.FLAG_FALSE,
-	)
-	obj.DefineAccessorProperty(
+	); err != nil {
+		return nil, err
+	}
+	if err := obj.DefineAccessorProperty(
 		"description", vm.ToValue(p.getDescription), vm.ToValue(p.setDescription),
 		goja.FLAG_FALSE, goja.FLAG_FALSE,
-	)
-	obj.DefineAccessorProperty(
+	); err != nil {
+		return nil, err
+	}
+	if err := obj.DefineAccessorProperty(
 		"site", vm.ToValue(p.getSiteName), vm.ToValue(p.setSiteName),
 		goja.FLAG_FALSE, goja.FLAG_FALSE,
-	)
-	obj.DefineAccessorProperty(
+	); err != nil {
+		return nil, err
+	}
+	if err := obj.DefineAccessorProperty(
 		"title", vm.ToValue(p.getTitle), vm.ToValue(p.setTitle),
 		goja.FLAG_FALSE, goja.FLAG_FALSE,
-	)
-	obj.DefineAccessorProperty(
+	); err != nil {
+		return nil, err
+	}
+	if err := obj.DefineAccessorProperty(
 		"type", vm.ToValue(p.getType), vm.ToValue(p.setType),
 		goja.FLAG_FALSE, goja.FLAG_FALSE,
-	)
-	obj.DefineAccessorProperty(
+	); err != nil {
+		return nil, err
+	}
+	if err := obj.DefineAccessorProperty(
 		"readability", vm.ToValue(p.getReadability), vm.ToValue(p.setReadability),
 		goja.FLAG_FALSE, goja.FLAG_FALSE,
-	)
-	obj.DefineAccessorProperty(
+	); err != nil {
+		return nil, err
+	}
+	if err := obj.DefineAccessorProperty(
 		"html", nil, vm.ToValue(p.setHTML),
 		goja.FLAG_FALSE, goja.FLAG_FALSE,
-	)
-	return obj
+	); err != nil {
+		return nil, err
+	}
+	return obj, nil
 }
 
 func (p *processMessageProxy) getDrop() *extract.Drop {

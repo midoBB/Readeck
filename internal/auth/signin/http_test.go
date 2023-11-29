@@ -8,9 +8,9 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
-	. "codeberg.org/readeck/readeck/internal/testing"
+	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
 )
 
 func TestSignin(t *testing.T) {
@@ -83,7 +83,7 @@ func TestSignin(t *testing.T) {
 				Target:       "/profile",
 				ExpectStatus: 200,
 				Assert: func(t *testing.T, _ *Response) {
-					assert.Len(t, client.Cookies(), 2)
+					require.Len(t, client.Cookies(), 2)
 				},
 			},
 			RequestTest{
@@ -93,7 +93,7 @@ func TestSignin(t *testing.T) {
 				ExpectStatus:   303,
 				ExpectRedirect: "/",
 				Assert: func(t *testing.T, _ *Response) {
-					assert.Len(t, client.Cookies(), 1)
+					require.Len(t, client.Cookies(), 1)
 				},
 			},
 			RequestTest{

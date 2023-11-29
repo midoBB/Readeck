@@ -4,6 +4,8 @@
 
 // Original code: https://github.com/sbabiv/xml2map/
 
+// Package xml2map provides an XML decoder returning a map of properties
+// parsed from a given XML input.
 package xml2map
 
 import (
@@ -21,10 +23,10 @@ const (
 )
 
 var (
-	// ErrInvalidDocument invalid document err
+	// ErrInvalidDocument invalid document err.
 	ErrInvalidDocument = errors.New("invalid document")
 
-	// ErrInvalidRoot data at the root level is invalid err
+	// ErrInvalidRoot data at the root level is invalid err.
 	ErrInvalidRoot = errors.New("data at the root level is invalid")
 )
 
@@ -38,24 +40,24 @@ type node struct {
 	HasMany bool
 }
 
-// Decoder instance
+// Decoder instance.
 type Decoder struct {
 	r          io.Reader
 	attrPrefix string
 	textPrefix string
 }
 
-// NewDecoder create new decoder instance
+// NewDecoder create new decoder instance.
 func NewDecoder(reader io.Reader) *Decoder {
 	return NewDecoderWithPrefix(reader, attrPrefix, textPrefix)
 }
 
-// NewDecoderWithPrefix create new decoder instance with custom attribute prefix and text prefix
+// NewDecoderWithPrefix create new decoder instance with custom attribute prefix and text prefix.
 func NewDecoderWithPrefix(reader io.Reader, attrPrefix, textPrefix string) *Decoder {
 	return &Decoder{r: reader, attrPrefix: attrPrefix, textPrefix: textPrefix}
 }
 
-// Decode xml string to map[string]any
+// Decode xml string to map[string]any.
 func (d *Decoder) Decode() (map[string]any, error) {
 	decoder := xml.NewDecoder(d.r)
 	n := &node{}

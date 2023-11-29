@@ -21,7 +21,7 @@ var allowedSearchFields = map[string]bool{
 	"title":  true,
 }
 
-// searchString is a list of search terms
+// searchString is a list of search terms.
 type searchString []searchstring.SearchTerm
 
 // newSearchString parse an in and returns a new searchString.
@@ -50,7 +50,7 @@ func (st *searchString) addField(name, input string) {
 	}
 }
 
-// dedup returns a new searchString instance without duplicates
+// dedup returns a new searchString instance without duplicates.
 func (st searchString) dedup() (res searchString) {
 	res = searchString{}
 	seen := make(map[string]map[string]struct{})
@@ -119,7 +119,7 @@ func (st searchString) toPG(ds *goqu.SelectDataset) *goqu.SelectDataset {
 	// In order to use the GIN indexes, we build a fairly big but very efficient query.
 	// For general search, we add a group of OR clauses to the main clauses list.
 	for _, x := range st {
-		var fields = []string{"bs.title", "bs.description", "bs.text", "bs.site", "bs.author", "bs.label"}
+		fields := []string{"bs.title", "bs.description", "bs.text", "bs.site", "bs.author", "bs.label"}
 
 		value := x.Value
 		if x.Quotes {

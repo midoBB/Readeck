@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package opds provides types and functions to create OPDS content.
 package opds
 
 import (
@@ -14,13 +15,13 @@ import (
 )
 
 const (
-	// OPDSTypeNavigation is the link type for navigation
+	// OPDSTypeNavigation is the link type for navigation.
 	OPDSTypeNavigation = "application/atom+xml; profile=opds-catalog; kind=navigation"
-	// OPDSTypeAcquisistion is the link type for acquisition
+	// OPDSTypeAcquisistion is the link type for acquisition.
 	OPDSTypeAcquisistion = "application/atom+xml; profile=opds-catalog; kind=acquisition"
 )
 
-// Feed root element for acquisition or navigation feed
+// Feed root element for acquisition or navigation feed.
 type Feed struct {
 	XMLName      xml.Name `xml:"feed"`
 	XMLns        string   `xml:"xmlns,attr"`
@@ -37,7 +38,7 @@ type Feed struct {
 	FeedType     string   `xml:"-"`
 }
 
-// Link link to different resources
+// Link link to different resources.
 type Link struct {
 	Rel                 string                `xml:"rel,attr"`
 	Href                string                `xml:"href,attr"`
@@ -48,13 +49,13 @@ type Link struct {
 	IndirectAcquisition []IndirectAcquisition `xml:"indirectAcquisition,omitempty"`
 }
 
-// Author represent the feed author or the entry author
+// Author represent the feed author or the entry author.
 type Author struct {
 	Name string `xml:"name"`
 	URI  string `xml:"uri"`
 }
 
-// Entry an atom entry in the feed
+// Entry an atom entry in the feed.
 type Entry struct {
 	Title      string     `xml:"title"`
 	ID         UUID       `xml:"id"`
@@ -73,14 +74,14 @@ type Entry struct {
 	Series     []Serie    `xml:"Series"`
 }
 
-// Content content tag in an entry, the type will be html or text
+// Content content tag in an entry, the type will be html or text.
 type Content struct {
 	Content     string `xml:",cdata"`
 	ContentType string `xml:"type,attr"`
 }
 
 // Category represent the book category with scheme and term to machine
-// handling
+// handling.
 type Category struct {
 	Scheme string `xml:"scheme,attr"`
 	Term   string `xml:"term,attr"`
@@ -88,20 +89,20 @@ type Category struct {
 }
 
 // IndirectAcquisition represent the link mostly for buying or borrowing
-// a book
+// a book.
 type IndirectAcquisition struct {
 	TypeAcquisition     string                `xml:"type,attr"`
 	IndirectAcquisition []IndirectAcquisition `xml:"indirectAcquisition"`
 }
 
-// Serie store serie information from schema.org
+// Serie store serie information from schema.org.
 type Serie struct {
 	Name     string  `xml:"name,attr"`
 	URL      string  `xml:"url,attr"`
 	Position float32 `xml:"position,attr"`
 }
 
-// NewLinkEntry creates a navigation link
+// NewLinkEntry creates a navigation link.
 func NewLinkEntry(title string, updated time.Time, href string) Entry {
 	return Entry{
 		Title:      bleach.SanitizeString(title),
@@ -125,7 +126,7 @@ type UUID struct {
 	uuid.UUID
 }
 
-// ID returns a new UUID instance
+// ID returns a new UUID instance.
 func ID(src uuid.UUID) UUID {
 	return UUID{src}
 }

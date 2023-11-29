@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package onboarding provides the routes and forms for
+// the initial onboarding process.
 package onboarding
 
 import (

@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package docs handles Readeck's documentation files and HTTP routes.
 package docs
 
 import (
@@ -14,9 +15,10 @@ import (
 //go:embed assets assets/* licenses/*
 var assets embed.FS
 
-// Files contains all the generated help files as an http.FS instance
+// Files contains all the generated help files as an http.FS instance.
 var Files http.FileSystem
 
+// File is a documentation file.
 type File struct {
 	Route      string         `json:"route"`
 	Aliases    []string       `json:"aliases"`
@@ -27,11 +29,13 @@ type File struct {
 	Meta       map[string]any `json:"meta"`
 }
 
+// Section is a documentation language section.
 type Section struct {
 	Files map[string]*File `json:"files"`
 	TOC   [][2]string      `json:"toc"`
 }
 
+// Manifest is the documentation files manifest.
 type Manifest struct {
 	Files    map[string]*File    `json:"files"`
 	Sections map[string]*Section `json:"sections"`
@@ -39,6 +43,7 @@ type Manifest struct {
 
 var manifest *Manifest
 
+// GetSumStrings implements the Etager interface.
 func (f *File) GetSumStrings() []string {
 	return []string{f.Etag}
 }

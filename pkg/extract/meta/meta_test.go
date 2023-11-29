@@ -21,7 +21,7 @@ import (
 	"github.com/antchfx/htmlquery"
 	"github.com/go-shiori/dom"
 	"github.com/jarcoal/httpmock"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/pkg/extract"
 )
@@ -31,7 +31,7 @@ func getFileContents(name string) []byte {
 	if err != nil {
 		panic(err)
 	}
-	defer fd.Close()
+	defer fd.Close() //nolint:errcheck
 
 	data, err := io.ReadAll(fd)
 	if err != nil {
@@ -48,26 +48,29 @@ func newFileResponder(name string) httpmock.Responder {
 func TestMeta(t *testing.T) {
 	t.Run("ExtractMeta", func(t *testing.T) {
 		t.Run("bad step", func(t *testing.T) {
-			ex, _ := extract.New("http://example.net/", nil)
+			assert := require.New(t)
+			ex, err := extract.New("http://example.net/", nil)
+			assert.NoError(err)
 			pm := ex.NewProcessMessage(extract.StepBody)
 			ExtractMeta(pm, nil)
-			assert.Equal(t, extract.DropMeta{}, ex.Drop().Meta)
+			assert.Equal(extract.DropMeta{}, ex.Drop().Meta)
 		})
 
 		t.Run("process", func(t *testing.T) {
+			assert := require.New(t)
 			ex, _ := extract.New("http://example.net/", nil)
 			pm := ex.NewProcessMessage(extract.StepDom)
 			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/meta1.html")))
 
 			ExtractMeta(pm, nil)
 
-			assert.Equal(t, "My Document Title", ex.Drop().Title)
-			assert.Equal(t, "Some description here", ex.Drop().Description)
-			assert.Equal(t, []string{"Olivier", "schema author"}, ex.Drop().Authors)
-			assert.Equal(t, "My website", ex.Drop().Site)
-			assert.Equal(t, "en", ex.Drop().Lang)
+			assert.Equal("My Document Title", ex.Drop().Title)
+			assert.Equal("Some description here", ex.Drop().Description)
+			assert.Equal([]string{"Olivier", "schema author"}, ex.Drop().Authors)
+			assert.Equal("My website", ex.Drop().Site)
+			assert.Equal("en", ex.Drop().Lang)
 
-			assert.Equal(t, extract.DropMeta{
+			assert.Equal(extract.DropMeta{
 				"dc.creator":          {"author 3", "author 4"},
 				"graph.image":         {"/squirrel.jpg"},
 				"graph.site_name":     {"My website"},
@@ -102,12 +105,15 @@ func TestMeta(t *testing.T) {
 
 			for i, test := range tests {
 				t.Run(strconv.Itoa(i), func(t *testing.T) {
-					ex, _ := extract.New("http://example.net/", nil)
+					assert := require.New(t)
+					ex, err := extract.New("http://example.net/", nil)
+					assert.NoError(err)
 					pm := ex.NewProcessMessage(extract.StepDom)
-					pm.Dom, _ = html.Parse(strings.NewReader(`<html dir="` + test.dir + `"><html>`))
+					pm.Dom, err = html.Parse(strings.NewReader(`<html dir="` + test.dir + `"><html>`))
+					assert.NoError(err)
 
 					ExtractMeta(pm, nil)
-					assert.Equal(t, test.expected, ex.Drop().TextDirection)
+					assert.Equal(test.expected, ex.Drop().TextDirection)
 				})
 			}
 		})
@@ -128,65 +134,78 @@ func TestMeta(t *testing.T) {
 			httpmock.NewErrorResponder(errors.New("HTTP")))
 
 		t.Run("bad step", func(t *testing.T) {
-			ex, _ := extract.New("http://example.net/", nil)
+			assert := require.New(t)
+			ex, err := extract.New("http://example.net/", nil)
+			assert.NoError(err)
 			pm := ex.NewProcessMessage(extract.StepBody)
 			ExtractOembed(pm, nil)
-			assert.Equal(t, extract.DropMeta{}, ex.Drop().Meta)
+			assert.Equal(extract.DropMeta{}, ex.Drop().Meta)
 		})
 
 		t.Run("nil meta", func(t *testing.T) {
-			ex, _ := extract.New("http://example.net/", nil)
+			assert := require.New(t)
+			ex, err := extract.New("http://example.net/", nil)
+			assert.NoError(err)
 			pm := ex.NewProcessMessage(extract.StepDom)
-			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/meta1.html")))
+			pm.Dom, err = html.Parse(bytes.NewReader(getFileContents("meta/meta1.html")))
+			assert.NoError(err)
 			ex.Drop().Meta = nil
 
 			ExtractOembed(pm, nil)
-			assert.Equal(t, extract.DropMeta(nil), ex.Drop().Meta)
+			assert.Equal(extract.DropMeta(nil), ex.Drop().Meta)
 		})
 
 		t.Run("no meta", func(t *testing.T) {
-			ex, _ := extract.New("http://example.net/", nil)
+			assert := require.New(t)
+			ex, err := extract.New("http://example.net/", nil)
+			assert.NoError(err)
 			pm := ex.NewProcessMessage(extract.StepDom)
-			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/meta1.html")))
+			pm.Dom, err = html.Parse(bytes.NewReader(getFileContents("meta/meta1.html")))
+			assert.NoError(err)
 
 			ExtractOembed(pm, nil)
-			assert.Equal(t, extract.DropMeta{}, ex.Drop().Meta)
+			assert.Equal(extract.DropMeta{}, ex.Drop().Meta)
 		})
 
 		t.Run("meta error", func(t *testing.T) {
-			ex, _ := extract.New("http://example.net/", nil)
+			assert := require.New(t)
+			ex, err := extract.New("http://example.net/", nil)
+			assert.NoError(err)
 			pm := ex.NewProcessMessage(extract.StepDom)
-			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/video.html")))
+			pm.Dom, err = html.Parse(bytes.NewReader(getFileContents("meta/video.html")))
+			assert.NoError(err)
 
-			node, _ := htmlquery.Query(
-				pm.Dom,
-				"//link[@href][@type='application/json+oembed']")
+			node, err := htmlquery.Query(pm.Dom, "//link[@href][@type='application/json+oembed']")
+			assert.NoError(err)
 
 			dom.SetAttribute(node, "href", "")
 			ExtractOembed(pm, nil)
-			assert.Equal(t, extract.DropMeta{}, ex.Drop().Meta)
+			assert.Equal(extract.DropMeta{}, ex.Drop().Meta)
 
 			dom.SetAttribute(node, "href", "/test/\b0x7f")
 			ExtractOembed(pm, nil)
-			assert.Equal(t, extract.DropMeta{}, ex.Drop().Meta)
+			assert.Equal(extract.DropMeta{}, ex.Drop().Meta)
 
 			dom.SetAttribute(node, "href", "/error")
 			ExtractOembed(pm, nil)
-			assert.Equal(t, extract.DropMeta{}, ex.Drop().Meta)
+			assert.Equal(extract.DropMeta{}, ex.Drop().Meta)
 
 			dom.SetAttribute(node, "href", "/404")
 			ExtractOembed(pm, nil)
-			assert.Equal(t, extract.DropMeta{}, ex.Drop().Meta)
+			assert.Equal(extract.DropMeta{}, ex.Drop().Meta)
 		})
 
 		t.Run("process", func(t *testing.T) {
-			ex, _ := extract.New("http://example.net/", nil)
+			assert := require.New(t)
+			ex, err := extract.New("http://example.net/", nil)
+			assert.NoError(err)
 			pm := ex.NewProcessMessage(extract.StepDom)
-			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/video.html")))
+			pm.Dom, err = html.Parse(bytes.NewReader(getFileContents("meta/video.html")))
+			assert.NoError(err)
 
 			ExtractOembed(pm, nil)
 
-			assert.Equal(t, extract.DropMeta{
+			assert.Equal(extract.DropMeta{
 				"oembed.author_name":      {"To Scale:"},
 				"oembed.author_url":       {"https://www.youtube.com/channel/UCPdA3AvoSH-d96mLaEjhZyw"},
 				"oembed.height":           {"270"},
@@ -214,35 +233,43 @@ func TestMeta(t *testing.T) {
 			newFileResponder("meta/oembed-photo.json"))
 
 		t.Run("bad step", func(t *testing.T) {
-			ex, _ := extract.New("http://example.net/", nil)
+			assert := require.New(t)
+			ex, err := extract.New("http://example.net/", nil)
+			assert.NoError(err)
 			pm := ex.NewProcessMessage(extract.StepBody)
 			SetDropProperties(pm, nil)
-			assert.Equal(t, extract.DropMeta{}, ex.Drop().Meta)
+			assert.Equal(extract.DropMeta{}, ex.Drop().Meta)
 		})
 
 		t.Run("process", func(t *testing.T) {
-			ex, _ := extract.New("http://example.net/", nil)
+			assert := require.New(t)
+			ex, err := extract.New("http://example.net/", nil)
+			assert.NoError(err)
 			pm := ex.NewProcessMessage(extract.StepDom)
-			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/meta1.html")))
+			pm.Dom, err = html.Parse(bytes.NewReader(getFileContents("meta/meta1.html")))
+			assert.NoError(err)
 
 			ExtractMeta(pm, nil)
 			ExtractOembed(pm, nil)
 			SetDropProperties(pm, nil)
 
-			assert.Equal(t, "article", ex.Drop().DocumentType)
-			assert.Equal(t, time.Date(2020, 9, 1, 11, 12, 34, 0, time.Local), ex.Drop().Date)
+			assert.Equal("article", ex.Drop().DocumentType)
+			assert.Equal(time.Date(2020, 9, 1, 11, 12, 34, 0, time.Local), ex.Drop().Date)
 		})
 
 		t.Run("process video", func(t *testing.T) {
-			ex, _ := extract.New("http://example.net/", nil)
+			assert := require.New(t)
+			ex, err := extract.New("http://example.net/", nil)
+			assert.NoError(err)
 			pm := ex.NewProcessMessage(extract.StepDom)
-			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/video.html")))
+			pm.Dom, err = html.Parse(bytes.NewReader(getFileContents("meta/video.html")))
+			assert.NoError(err)
 
 			ExtractMeta(pm, nil)
 			ExtractOembed(pm, nil)
 			SetDropProperties(pm, nil)
 
-			assert.Equal(t, extract.DropMeta{
+			assert.Equal(extract.DropMeta{
 				"graph.description":           {"On a dry lakebed in Nevada, a group of friends build the first scale model of the solar system with complete planetary orbits: a true illustration of our pla..."},
 				"graph.image":                 {"https://i.ytimg.com/vi/zR3Igc3Rhfg/maxresdefault.jpg"},
 				"graph.image:height":          {"720"},
@@ -298,21 +325,24 @@ func TestMeta(t *testing.T) {
 				"twitter.url":                 {"https://www.youtube.com/watch?v=zR3Igc3Rhfg"},
 			}, ex.Drop().Meta)
 
-			assert.Equal(t, "video", ex.Drop().DocumentType)
-			assert.Equal(t, []string{"To Scale:"}, ex.Drop().Authors)
-			assert.Equal(t, "YouTube", ex.Drop().Site)
+			assert.Equal("video", ex.Drop().DocumentType)
+			assert.Equal([]string{"To Scale:"}, ex.Drop().Authors)
+			assert.Equal("YouTube", ex.Drop().Site)
 		})
 
 		t.Run("process photo", func(t *testing.T) {
-			ex, _ := extract.New("http://example.net/", nil)
+			assert := require.New(t)
+			ex, err := extract.New("http://example.net/", nil)
+			assert.NoError(err)
 			pm := ex.NewProcessMessage(extract.StepDom)
-			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/photo.html")))
+			pm.Dom, err = html.Parse(bytes.NewReader(getFileContents("meta/photo.html")))
+			assert.NoError(err)
 
 			ExtractMeta(pm, nil)
 			ExtractOembed(pm, nil)
 			SetDropProperties(pm, nil)
 
-			assert.Equal(t, extract.DropMeta{
+			assert.Equal(extract.DropMeta{
 				"html.lang":               {"en"},
 				"html.title":              {"Document"},
 				"link.alternative":        {"https://www.flickr.com/services/oembed?url=https://www.flickr.com/photos/randomwire/9050180936&format=json"},
@@ -334,9 +364,9 @@ func TestMeta(t *testing.T) {
 				"x.picture_url":           {"https://live.staticflickr.com/7302/9050180936_43804d2e1c_b.jpg"},
 			}, ex.Drop().Meta)
 
-			assert.Equal(t, "photo", ex.Drop().DocumentType)
-			assert.Equal(t, []string{"randomwire"}, ex.Drop().Authors)
-			assert.Equal(t, "Flickr", ex.Drop().Site)
+			assert.Equal("photo", ex.Drop().DocumentType)
+			assert.Equal([]string{"randomwire"}, ex.Drop().Authors)
+			assert.Equal("Flickr", ex.Drop().Site)
 		})
 	})
 
@@ -350,38 +380,46 @@ func TestMeta(t *testing.T) {
 			httpmock.NewJsonResponderOrPanic(404, ""))
 
 		t.Run("bad step", func(t *testing.T) {
-			ex, _ := extract.New("http://example.net/", nil)
+			assert := require.New(t)
+			ex, err := extract.New("http://example.net/", nil)
+			assert.NoError(err)
 			pm := ex.NewProcessMessage(extract.StepBody)
 			ExtractPicture(pm, nil)
-			assert.Equal(t, 0, len(ex.Drop().Pictures))
+			assert.Empty(ex.Drop().Pictures)
 		})
 
 		t.Run("errors", func(t *testing.T) {
-			ex, _ := extract.New("http://example.net/", nil)
+			assert := require.New(t)
+			ex, err := extract.New("http://example.net/", nil)
+			assert.NoError(err)
 			pm := ex.NewProcessMessage(extract.StepDom)
-			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/meta1.html")))
+			pm.Dom, err = html.Parse(bytes.NewReader(getFileContents("meta/meta1.html")))
+			assert.NoError(err)
 
 			d := ex.Drop()
 
 			d.Meta = nil
 			ExtractPicture(pm, nil)
-			assert.Equal(t, 0, len(d.Pictures))
+			assert.Empty(d.Pictures)
 
 			d.Meta = extract.DropMeta{
 				"graph.image": {""},
 			}
 			ExtractPicture(pm, nil)
-			assert.Equal(t, 0, len(d.Pictures))
+			assert.Empty(d.Pictures)
 
 			d.Meta["graph.image"] = []string{"http://example.net/404"}
 			ExtractPicture(pm, nil)
-			assert.Equal(t, 0, len(d.Pictures))
+			assert.Empty(d.Pictures)
 		})
 
 		t.Run("process", func(t *testing.T) {
-			ex, _ := extract.New("http://example.net/", nil)
+			assert := require.New(t)
+			ex, err := extract.New("http://example.net/", nil)
+			assert.NoError(err)
 			pm := ex.NewProcessMessage(extract.StepDom)
-			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/meta1.html")))
+			pm.Dom, err = html.Parse(bytes.NewReader(getFileContents("meta/meta1.html")))
+			assert.NoError(err)
 
 			d := ex.Drop()
 			d.Meta = extract.DropMeta{
@@ -389,14 +427,17 @@ func TestMeta(t *testing.T) {
 			}
 
 			ExtractPicture(pm, nil)
-			assert.Equal(t, d.Pictures["image"].Size[0], 800)
-			assert.Equal(t, d.Pictures["thumbnail"].Size[0], 380)
+			assert.Equal(800, d.Pictures["image"].Size[0])
+			assert.Equal(380, d.Pictures["thumbnail"].Size[0])
 		})
 
 		t.Run("process photo", func(t *testing.T) {
-			ex, _ := extract.New("http://example.net/", nil)
+			assert := require.New(t)
+			ex, err := extract.New("http://example.net/", nil)
+			assert.NoError(err)
 			pm := ex.NewProcessMessage(extract.StepDom)
-			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/meta1.html")))
+			pm.Dom, err = html.Parse(bytes.NewReader(getFileContents("meta/meta1.html")))
+			assert.NoError(err)
 
 			d := ex.Drop()
 			d.DocumentType = "photo"
@@ -406,8 +447,8 @@ func TestMeta(t *testing.T) {
 			}
 
 			ExtractPicture(pm, nil)
-			assert.Equal(t, d.Pictures["image"].Size[0], 1280)
-			assert.Equal(t, d.Pictures["thumbnail"].Size[0], 380)
+			assert.Equal(1280, d.Pictures["image"].Size[0])
+			assert.Equal(380, d.Pictures["thumbnail"].Size[0])
 		})
 	})
 
@@ -434,6 +475,7 @@ func TestMeta(t *testing.T) {
 		base, _ := url.Parse("http://example.net/")
 
 		t.Run("favicon", func(t *testing.T) {
+			assert := require.New(t)
 			var fi *extract.Picture
 			var err error
 
@@ -443,31 +485,31 @@ func TestMeta(t *testing.T) {
 			dom.SetAttribute(node, "sizes", "64x64 32x32")
 
 			fi, err = newFavicon(node, base)
-			assert.Nil(t, err)
-			assert.Equal(t, "http://example.net/favicon.png", fi.Href)
-			assert.Equal(t, "image/png", fi.Type)
-			assert.Equal(t, [2]int{64, 64}, fi.Size)
+			assert.NoError(err)
+			assert.Equal("http://example.net/favicon.png", fi.Href)
+			assert.Equal("image/png", fi.Type)
+			assert.Equal([2]int{64, 64}, fi.Size)
 
 			dom.SetAttribute(node, "href", "/\b0x7ficon.png")
 			fi, err = newFavicon(node, base)
-			assert.Nil(t, fi)
-			assert.NotNil(t, err)
+			assert.Nil(fi)
+			assert.Error(err)
 
 			dom.SetAttribute(node, "href", "/favicon.png")
 			dom.RemoveAttribute(node, "sizes")
 			dom.RemoveAttribute(node, "type")
 
 			fi, err = newFavicon(node, base)
-			assert.Nil(t, err)
-			assert.Equal(t, "http://example.net/favicon.png", fi.Href)
-			assert.Equal(t, "image/png", fi.Type)
-			assert.Equal(t, [2]int{32, 32}, fi.Size)
+			assert.NoError(err)
+			assert.Equal("http://example.net/favicon.png", fi.Href)
+			assert.Equal("image/png", fi.Type)
+			assert.Equal([2]int{32, 32}, fi.Size)
 		})
 
 		t.Run("faviconList", func(t *testing.T) {
 			list := newFaviconList(doc, base)
 
-			assert.Equal(t, faviconList{
+			require.Equal(t, faviconList{
 				&extract.Picture{
 					Href: "http://example.net/favicon.png",
 					Type: "image/png",
@@ -487,10 +529,12 @@ func TestMeta(t *testing.T) {
 		})
 
 		t.Run("bad step", func(t *testing.T) {
-			ex, _ := extract.New("http://example.net/", nil)
+			assert := require.New(t)
+			ex, err := extract.New("http://example.net/", nil)
+			assert.NoError(err)
 			pm := ex.NewProcessMessage(extract.StepBody)
 			ExtractFavicon(pm, nil)
-			assert.Equal(t, 0, len(ex.Drop().Pictures))
+			assert.Empty(ex.Drop().Pictures)
 		})
 
 		t.Run("process", func(t *testing.T) {
@@ -502,15 +546,17 @@ func TestMeta(t *testing.T) {
 			httpmock.RegisterResponder("GET", "/favicon.png",
 				httpmock.NewJsonResponderOrPanic(404, ""))
 
-			ex, _ := extract.New("http://example.net/", nil)
+			assert := require.New(t)
+			ex, err := extract.New("http://example.net/", nil)
+			assert.NoError(err)
 			pm := ex.NewProcessMessage(extract.StepDom)
 			pm.Dom = doc
 
 			ExtractFavicon(pm, nil)
 			p := ex.Drop().Pictures["icon"]
-			assert.Equal(t, "http://example.net/icon.ico", p.Href)
-			assert.Equal(t, "image/png", p.Type)
-			assert.Equal(t, []byte{137, 80, 78, 71, 13, 10, 26, 10}, p.Bytes()[0:8])
+			assert.Equal("http://example.net/icon.ico", p.Href)
+			assert.Equal("image/png", p.Type)
+			assert.Equal([]byte{137, 80, 78, 71, 13, 10, 26, 10}, p.Bytes()[0:8])
 		})
 	})
 }

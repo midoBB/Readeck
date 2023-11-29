@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package auth defines Readeck's authentication providers.
 package auth
 
 import (
@@ -17,7 +18,7 @@ type (
 )
 
 // Info is the payload with the currently authenticated user
-// and some information about the provider
+// and some information about the provider.
 type Info struct {
 	Provider *ProviderInfo
 	User     *users.User
@@ -66,12 +67,12 @@ func (p *NullProvider) Info(_ *http.Request) *ProviderInfo {
 	}
 }
 
-// IsActive is always false
+// IsActive is always false.
 func (p *NullProvider) IsActive(_ *http.Request) bool {
 	return false
 }
 
-// Authenticate doesn't do anything
+// Authenticate doesn't do anything.
 func (p *NullProvider) Authenticate(_ http.ResponseWriter, r *http.Request) (*http.Request, error) {
 	return r, nil
 }
@@ -198,7 +199,7 @@ func SetRequestAuthInfo(r *http.Request, info *Info) *http.Request {
 	return r.WithContext(ctx)
 }
 
-// GetRequestAuthInfo returns the current request's auth info
+// GetRequestAuthInfo returns the current request's auth info.
 func GetRequestAuthInfo(r *http.Request) *Info {
 	return r.Context().Value(ctxAuthKey{}).(*Info)
 }

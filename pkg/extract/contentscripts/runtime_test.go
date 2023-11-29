@@ -9,7 +9,7 @@ import (
 	"testing"
 
 	"github.com/dop251/goja"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"codeberg.org/readeck/readeck/pkg/extract/contentscripts"
@@ -27,9 +27,8 @@ func testProgram(name string, src string) *contentscripts.Program {
 }
 
 func TestRuntime(t *testing.T) {
-
 	t.Run("setConfig", func(t *testing.T) {
-		vm := contentscripts.New()
+		vm, _ := contentscripts.New()
 
 		err := vm.AddScript("1", strings.NewReader(`
 		exports.isActive = function() { return true }
@@ -39,7 +38,9 @@ func TestRuntime(t *testing.T) {
 			config.bodySelectors = ["//body"]
 		}
 		`))
-		assert.NoError(t, err)
+
+		assert := require.New(t)
+		assert.NoError(err)
 
 		err = vm.AddScript("2", strings.NewReader(`
 		exports.isActive = function() { return true }
@@ -48,16 +49,16 @@ func TestRuntime(t *testing.T) {
 			config.bodySelectors.push("//body/div")
 		}
 		`))
-		assert.NoError(t, err)
+		assert.NoError(err)
 
 		err = vm.AddScript("3", strings.NewReader(""))
-		assert.NoError(t, err)
+		assert.NoError(err)
 
 		cf := &contentscripts.SiteConfig{}
-		vm.SetConfig(cf)
+		_ = vm.SetConfig(cf)
 
-		assert.Equal(t, []string{"/html/head/title"}, cf.TitleSelectors)
-		assert.Equal(t, []string{"//body", "//body/div"}, cf.BodySelectors)
+		assert.Equal([]string{"/html/head/title"}, cf.TitleSelectors)
+		assert.Equal([]string{"//body", "//body/div"}, cf.BodySelectors)
 	})
 
 	t.Run("processMeta", func(t *testing.T) {
@@ -66,7 +67,7 @@ func TestRuntime(t *testing.T) {
 			Extractor: extractor,
 		}
 
-		vm := contentscripts.New()
+		vm, _ := contentscripts.New()
 		vm.SetProcessMessage(pm)
 
 		err := vm.AddScript("1", strings.NewReader(`
@@ -76,12 +77,14 @@ func TestRuntime(t *testing.T) {
 			$.meta["script.name"] = __name__
 		}
 		`))
-		assert.NoError(t, err)
+
+		assert := require.New(t)
+		assert.NoError(err)
 
 		err = vm.ProcessMeta()
-		assert.NoError(t, err)
+		assert.NoError(err)
 
-		assert.Equal(t, []string{"1"}, pm.Extractor.Drop().Meta["script.name"])
+		assert.Equal([]string{"1"}, pm.Extractor.Drop().Meta["script.name"])
 	})
 
 	t.Run("error list", func(t *testing.T) {
@@ -90,7 +93,7 @@ func TestRuntime(t *testing.T) {
 			Extractor: extractor,
 		}
 
-		vm := contentscripts.New()
+		vm, _ := contentscripts.New()
 		vm.SetProcessMessage(pm)
 
 		err := vm.AddScript("1", strings.NewReader(`
@@ -100,7 +103,9 @@ func TestRuntime(t *testing.T) {
 			throw new Error("script 1")
 		}
 		`))
-		assert.NoError(t, err)
+
+		assert := require.New(t)
+		assert.NoError(err)
 
 		err = vm.AddScript("2", strings.NewReader(`
 		exports.isActive = function() { return true }
@@ -109,11 +114,11 @@ func TestRuntime(t *testing.T) {
 			throw new Error("script 2")
 		}
 		`))
-		assert.NoError(t, err)
+		assert.NoError(err)
 
 		err = vm.ProcessMeta()
-		assert.Error(t, err)
-		assert.ErrorContains(t, err, "script 1")
-		assert.ErrorContains(t, err, "script 2")
+		assert.Error(err)
+		assert.ErrorContains(err, "script 1")
+		assert.ErrorContains(err, "script 2")
 	})
 }

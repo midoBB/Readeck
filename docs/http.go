@@ -24,8 +24,10 @@ import (
 	"codeberg.org/readeck/readeck/pkg/csp"
 )
 
-type ctxFileKey struct{}
-type ctxSectionKey struct{}
+type (
+	ctxFileKey    struct{}
+	ctxSectionKey struct{}
+)
 
 type helpHandlers struct {
 	chi.Router
@@ -168,7 +170,7 @@ func (h *helpHandlers) serverAbout(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var licenses = map[string][]licenseInfo{}
+	licenses := map[string][]licenseInfo{}
 	dec := json.NewDecoder(toml.New(fp))
 	if err = dec.Decode(&licenses); err != nil {
 		h.srv.Error(w, r, err)

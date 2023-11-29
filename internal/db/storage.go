@@ -117,7 +117,7 @@ func Init() error {
 	return applyMigrations()
 }
 
-// migration is a database migration entry
+// migration is a database migration entry.
 type migration struct {
 	ID      int        `goqu:"id"`
 	Name    string     `goqu:"name"`

@@ -4,11 +4,12 @@
 
 // Original code: https://github.com/ryanuber/go-glob
 
+// Package glob provides a function to test glob strings.
 package glob
 
 import "strings"
 
-// GLOB is the character which is treated like a glob
+// GLOB is the character which is treated like a glob.
 const GLOB = "*"
 
 // Glob will test a string pattern, potentially containing globs, against a

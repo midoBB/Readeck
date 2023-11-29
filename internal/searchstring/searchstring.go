@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package searchstring provides a search string parser.
 package searchstring
 
 import (
@@ -19,13 +20,13 @@ const (
 	EOF Token = iota
 	// STR is a string token.
 	STR
-	// STRQ is a quoted string
+	// STRQ is a quoted string.
 	STRQ
 	// FIELD is a field token.
 	FIELD
 )
 
-// eof is the EOF rune
+// eof is the EOF rune.
 var eof = rune(0)
 
 // Scanner is the search string scanner.
@@ -49,7 +50,7 @@ func (s Scanner) next() rune {
 
 // prev rewinds the scanner position to the previous rune.
 func (s Scanner) prev() {
-	s.r.UnreadRune()
+	s.r.UnreadRune() //nolint:errcheck
 }
 
 // Scan scans the next token in the string.
@@ -121,7 +122,6 @@ loop:
 	}
 
 	return b.String()
-
 }
 
 // isSpace returns true if the rune is a space.

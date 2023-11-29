@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package catalog provides type to create an OPDS catalog of entries.
 package catalog
 
 import (
@@ -18,7 +19,7 @@ import (
 	"codeberg.org/readeck/readeck/pkg/opds"
 )
 
-// Catalog is a wraper around opds.Feed
+// Catalog is a wraper around opds.Feed.
 type Catalog struct {
 	*opds.Feed
 }
@@ -154,7 +155,6 @@ func WithBookEntry(
 	// 	Rel:  "http://opds-spec.org/image",
 	// 	Href: imgSrc,
 	// })
-
 }
 
 // Render write the full catalog to a writer.

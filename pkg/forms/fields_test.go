@@ -12,7 +12,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -26,38 +26,40 @@ type fieldTypeTest struct {
 }
 
 func testField(t *testing.T, test fieldTypeTest, f forms.Field, decoder func([]byte) error) {
+	assert := require.New(t)
 	err := decoder([]byte(test.data))
 	if test.err == nil {
-		assert.Nil(t, err)
+		assert.NoError(err)
 	} else {
-		assert.Error(t, err)
-		assert.EqualError(t, err, test.err.Error())
+		assert.Error(err)
+		assert.EqualError(err, test.err.Error())
 	}
-	assert.True(t, f.IsBound(), "field is bound")
-	assert.Equal(t, test.isNil, f.IsNil(), "null field")
-	assert.Equal(t, test.value, f.Value(), "field value")
-	assert.Equal(t, test.str, f.String(), "field string")
+	assert.True(f.IsBound(), "field is bound")
+	assert.Equal(test.isNil, f.IsNil(), "null field")
+	assert.Equal(test.value, f.Value(), "field value")
+	assert.Equal(test.str, f.String(), "field string")
 }
 
 func TestTextField(t *testing.T) {
+	assert := require.New(t)
 	var field interface{} = forms.NewTextField("test")
 	f, ok := field.(forms.Field)
 
-	assert.True(t, ok)
-	assert.Equal(t, f.Name(), "test")
-	assert.False(t, f.IsBound())
-	assert.True(t, f.IsNil())
-	assert.Equal(t, nil, f.Value())
+	assert.True(ok)
+	assert.Equal("test", f.Name())
+	assert.False(f.IsBound())
+	assert.True(f.IsNil())
+	assert.Equal(nil, f.Value())
 
 	f.Set("value")
-	assert.False(t, f.IsBound())
-	assert.False(t, f.IsNil())
-	assert.Equal(t, "value", f.Value())
+	assert.False(f.IsBound())
+	assert.False(f.IsNil())
+	assert.Equal("value", f.Value())
 
 	f.Set(nil)
-	assert.False(t, f.IsBound())
-	assert.True(t, f.IsNil())
-	assert.Equal(t, nil, f.Value())
+	assert.False(f.IsBound())
+	assert.True(f.IsNil())
+	assert.Equal(nil, f.Value())
 
 	t.Run("bind json", func(t *testing.T) {
 		tests := []fieldTypeTest{
@@ -131,31 +133,31 @@ func TestTextField(t *testing.T) {
 			})
 		}
 	})
-
 }
 
 func TestBooleanField(t *testing.T) {
+	assert := require.New(t)
 	var field interface{} = forms.NewBooleanField("test")
 	f, ok := field.(forms.Field)
 
-	assert.True(t, ok)
-	assert.Equal(t, f.Name(), "test")
-	assert.False(t, f.IsBound())
-	assert.True(t, f.IsNil())
-	assert.Equal(t, nil, f.Value())
-	assert.Equal(t, "", f.String())
+	assert.True(ok)
+	assert.Equal("test", f.Name())
+	assert.False(f.IsBound())
+	assert.True(f.IsNil())
+	assert.Equal(nil, f.Value())
+	assert.Equal("", f.String())
 
 	f.Set(true)
-	assert.False(t, f.IsBound())
-	assert.False(t, f.IsNil())
-	assert.Equal(t, true, f.Value())
-	assert.Equal(t, "true", f.String())
+	assert.False(f.IsBound())
+	assert.False(f.IsNil())
+	assert.Exactly(true, f.Value())
+	assert.Equal("true", f.String())
 
 	f.Set(nil)
-	assert.False(t, f.IsBound())
-	assert.True(t, f.IsNil())
-	assert.Equal(t, nil, f.Value())
-	assert.Equal(t, "", f.String())
+	assert.False(f.IsBound())
+	assert.True(f.IsNil())
+	assert.Equal(nil, f.Value())
+	assert.Equal("", f.String())
 
 	t.Run("bind json", func(t *testing.T) {
 		tests := []fieldTypeTest{
@@ -239,29 +241,30 @@ func TestBooleanField(t *testing.T) {
 }
 
 func TestIntegerField(t *testing.T) {
+	assert := require.New(t)
 	var field interface{} = forms.NewIntegerField("test")
 	f, ok := field.(forms.Field)
 
-	assert.True(t, ok)
-	assert.Equal(t, f.Name(), "test")
-	assert.False(t, f.IsBound())
-	assert.True(t, f.IsNil())
-	assert.Equal(t, nil, f.Value())
-	assert.Equal(t, "", f.String())
+	assert.True(ok)
+	assert.Equal("test", f.Name())
+	assert.False(f.IsBound())
+	assert.True(f.IsNil())
+	assert.Equal(nil, f.Value())
+	assert.Equal("", f.String())
 
 	f.Set(10)
-	assert.False(t, f.IsBound())
-	assert.False(t, f.IsNil())
-	assert.Equal(t, 10, f.Value())
-	assert.Equal(t, "10", f.String())
+	assert.False(f.IsBound())
+	assert.False(f.IsNil())
+	assert.Equal(10, f.Value())
+	assert.Equal("10", f.String())
 
 	f.Set(nil)
-	assert.False(t, f.IsBound())
-	assert.True(t, f.IsNil())
-	assert.Equal(t, nil, f.Value())
-	assert.Equal(t, "", f.String())
+	assert.False(f.IsBound())
+	assert.True(f.IsNil())
+	assert.Equal(nil, f.Value())
+	assert.Equal("", f.String())
 
-	assert.False(t, f.Set("abc"))
+	assert.False(f.Set("abc"))
 
 	t.Run("bind json", func(t *testing.T) {
 		tests := []fieldTypeTest{
@@ -360,43 +363,43 @@ func TestIntegerField(t *testing.T) {
 }
 
 func TestDatetimeField(t *testing.T) {
+	assert := require.New(t)
 	var field interface{} = forms.NewDatetimeField("test")
 	f, ok := field.(forms.Field)
 	d, _ := time.Parse("2006-01-02", "2020-01-30")
 
-	assert.True(t, ok)
-	assert.Equal(t, f.Name(), "test")
-	assert.False(t, f.IsBound())
-	assert.True(t, f.IsNil())
-	assert.Equal(t, nil, f.Value())
-	assert.Equal(t, "", f.String())
+	assert.True(ok)
+	assert.Equal("test", f.Name())
+	assert.False(f.IsBound())
+	assert.True(f.IsNil())
+	assert.Equal(nil, f.Value())
+	assert.Equal("", f.String())
 
 	f.Set(nil)
-	assert.False(t, f.IsBound())
-	assert.True(t, f.IsNil())
-	assert.Equal(t, nil, f.Value())
-	assert.Equal(t, "", f.String())
+	assert.False(f.IsBound())
+	assert.True(f.IsNil())
+	assert.Equal(nil, f.Value())
+	assert.Equal("", f.String())
 
 	f.Set(time.Time{})
-	assert.False(t, f.IsBound())
-	assert.True(t, f.IsNil())
-	assert.Equal(t, nil, f.Value())
-	assert.Equal(t, "", f.String())
+	assert.False(f.IsBound())
+	assert.True(f.IsNil())
+	assert.Equal(nil, f.Value())
+	assert.Equal("", f.String())
 
 	f.Set(d)
-	assert.False(t, f.IsBound())
-	assert.False(t, f.IsNil())
-	assert.Equal(t, d, f.Value().(time.Time))
-	assert.Equal(t, "2020-01-30", f.String())
+	assert.False(f.IsBound())
+	assert.False(f.IsNil())
+	assert.Equal(d, f.Value().(time.Time))
+	assert.Equal("2020-01-30", f.String())
 
 	f.Set(&d)
-	assert.False(t, f.IsBound())
-	assert.False(t, f.IsNil())
-	assert.Equal(t, d, f.Value().(time.Time))
-	assert.Equal(t, "2020-01-30", f.String())
+	assert.False(f.IsBound())
+	assert.False(f.IsNil())
+	assert.Equal(d, f.Value().(time.Time))
+	assert.Equal("2020-01-30", f.String())
 
 	t.Run("bind json", func(t *testing.T) {
-
 		tests := []fieldTypeTest{
 			{
 				data:  `""`,
@@ -472,6 +475,7 @@ func TestDatetimeField(t *testing.T) {
 }
 
 func TestListField(t *testing.T) {
+	assert := require.New(t)
 	var field interface{} = forms.NewListField("test",
 		func(n string) forms.Field {
 			return forms.NewIntegerField(n)
@@ -479,43 +483,43 @@ func TestListField(t *testing.T) {
 		forms.DefaultListConverter)
 	f, ok := field.(forms.Field)
 
-	assert.True(t, ok)
-	assert.Equal(t, f.Name(), "test")
-	assert.False(t, f.IsBound())
-	assert.True(t, f.IsNil())
-	assert.Equal(t, nil, f.Value())
-	assert.Equal(t, "", f.String())
+	assert.True(ok)
+	assert.Equal("test", f.Name())
+	assert.False(f.IsBound())
+	assert.True(f.IsNil())
+	assert.Equal(nil, f.Value())
+	assert.Equal("", f.String())
 
 	f.Set(nil)
-	assert.False(t, f.IsBound())
-	assert.True(t, f.IsNil())
-	assert.Equal(t, nil, f.Value())
-	assert.Equal(t, "", f.String())
+	assert.False(f.IsBound())
+	assert.True(f.IsNil())
+	assert.Equal(nil, f.Value())
+	assert.Equal("", f.String())
 
-	assert.True(t, f.Set([]int{1, 2, 3, 4}))
-	assert.False(t, f.IsBound())
-	assert.False(t, f.IsNil())
-	assert.Equal(t, []interface{}{1, 2, 3, 4}, f.Value())
+	assert.True(f.Set([]int{1, 2, 3, 4}))
+	assert.False(f.IsBound())
+	assert.False(f.IsNil())
+	assert.Equal([]interface{}{1, 2, 3, 4}, f.Value())
 
-	assert.False(t, f.Set("value"))
-	assert.False(t, f.IsBound())
-	assert.True(t, f.IsNil())
-	assert.Equal(t, nil, f.Value())
+	assert.False(f.Set("value"))
+	assert.False(f.IsBound())
+	assert.True(f.IsNil())
+	assert.Equal(nil, f.Value())
 
-	assert.False(t, f.Set([]bool{true, false}))
-	assert.False(t, f.IsBound())
-	assert.True(t, f.IsNil())
-	assert.Equal(t, nil, f.Value())
+	assert.False(f.Set([]bool{true, false}))
+	assert.False(f.IsBound())
+	assert.True(f.IsNil())
+	assert.Equal(nil, f.Value())
 
-	assert.True(t, f.Set([]interface{}{1, 2, 3, 4}))
-	assert.False(t, f.IsBound())
-	assert.False(t, f.IsNil())
-	assert.Equal(t, []interface{}{1, 2, 3, 4}, f.Value())
+	assert.True(f.Set([]interface{}{1, 2, 3, 4}))
+	assert.False(f.IsBound())
+	assert.False(f.IsNil())
+	assert.Equal([]interface{}{1, 2, 3, 4}, f.Value())
 
-	assert.False(t, f.Set([]interface{}{"a", "b"}))
-	assert.False(t, f.IsBound())
-	assert.True(t, f.IsNil())
-	assert.Equal(t, nil, f.Value())
+	assert.False(f.Set([]interface{}{"a", "b"}))
+	assert.False(f.IsBound())
+	assert.True(f.IsNil())
+	assert.Equal(nil, f.Value())
 
 	t.Run("bind param", func(t *testing.T) {
 		tests := []fieldTypeTest{
@@ -677,6 +681,7 @@ func TestListField(t *testing.T) {
 }
 
 func TestChoiceListField(t *testing.T) {
+	assert := require.New(t)
 	var field interface{} = forms.NewListField("test",
 		func(n string) forms.Field {
 			return forms.NewTextField(n)
@@ -684,7 +689,7 @@ func TestChoiceListField(t *testing.T) {
 		forms.DefaultListConverter)
 	f, ok := field.(forms.Field)
 
-	assert.True(t, ok)
+	assert.True(ok)
 
 	f.(*forms.ListField).SetChoices(forms.Choices{
 		{"a", "A"},
@@ -692,22 +697,22 @@ func TestChoiceListField(t *testing.T) {
 		{"c", "C"},
 	})
 
-	assert.Equal(t, f.Name(), "test")
-	assert.False(t, f.IsBound())
-	assert.True(t, f.IsNil())
-	assert.Equal(t, nil, f.Value())
-	assert.Equal(t, "", f.String())
+	assert.Equal("test", f.Name())
+	assert.False(f.IsBound())
+	assert.True(f.IsNil())
+	assert.Equal(nil, f.Value())
+	assert.Equal("", f.String())
 
-	assert.True(t, f.Set([]string{"a", "b"}))
-	assert.False(t, f.IsBound())
-	assert.False(t, f.IsNil())
-	assert.Equal(t, []any{"a", "b"}, f.Value())
+	assert.True(f.Set([]string{"a", "b"}))
+	assert.False(f.IsBound())
+	assert.False(f.IsNil())
+	assert.Equal([]any{"a", "b"}, f.Value())
 
-	assert.False(t, f.Set([]int{1, 2}))
-	assert.False(t, f.IsBound())
-	assert.True(t, f.IsNil())
-	assert.Equal(t, nil, f.Value())
+	assert.False(f.Set([]int{1, 2}))
+	assert.False(f.IsBound())
+	assert.True(f.IsNil())
+	assert.Equal(nil, f.Value())
 
-	assert.True(t, f.Set([]string{"a", "f"}))
-	assert.EqualError(t, forms.ValidateField(f, f.Validators()...), "f is not a valid value")
+	assert.True(f.Set([]string{"a", "f"}))
+	assert.EqualError(forms.ValidateField(f, f.Validators()...), "f is not a valid value")
 }

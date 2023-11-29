@@ -127,7 +127,7 @@ func (arc *Archiver) processHTML(ctx context.Context, input io.Reader, baseURL *
 	return dom.OuterHTML(doc), nil
 }
 
-// setCharset adds a meta charset tag to the document
+// setCharset adds a meta charset tag to the document.
 func (arc *Archiver) setCharset(doc *html.Node) {
 	nodes := dom.GetElementsByTagName(doc, "head")
 	var head *html.Node
@@ -458,7 +458,7 @@ func (arc *Archiver) removeLinkIntegrityAttr(doc *html.Node) {
 	}
 }
 
-// removeDataAttributes removes all "data-" attributes from all tags
+// removeDataAttributes removes all "data-" attributes from all tags.
 func (arc *Archiver) removeDataAttributes(doc *html.Node) {
 	nodes, err := htmlquery.QueryAll(doc, "//*[@*[starts-with(name(), 'data-')]]")
 	if err != nil {

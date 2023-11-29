@@ -7,7 +7,7 @@ package searchstring
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 var searchTermsTests = []struct {
@@ -48,13 +48,13 @@ var searchTermsTests = []struct {
 func TestSearchTerms(t *testing.T) {
 	for _, tt := range searchTermsTests {
 		actual, err := Parse(tt.s)
-		assert.Equal(t, nil, err)
-		assert.Equal(t, tt.expect, actual)
+		require.NoError(t, err)
+		require.Equal(t, tt.expect, actual)
 	}
 }
 
 func TestSearchError(t *testing.T) {
 	res, err := Parse("field1:field2:test")
-	assert.Equal(t, []SearchTerm(nil), res)
-	assert.EqualError(t, err, "field followed by a field")
+	require.Equal(t, []SearchTerm(nil), res)
+	require.EqualError(t, err, "field followed by a field")
 }

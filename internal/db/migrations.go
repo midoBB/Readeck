@@ -52,7 +52,7 @@ func applyMigrationFile(name string) func(td *goqu.TxDatabase, _ fs.FS) (err err
 	}
 }
 
-// migrationList is our full migration list
+// migrationList is our full migration list.
 var migrationList = []migrationEntry{
 	newMigrationEntry(1, "user_seed", func(td *goqu.TxDatabase, _ fs.FS) (err error) {
 		// Add a seed column to the user table

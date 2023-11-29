@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package annotate provides an annotation framework for HTML content.
 package annotate
 
 import (
@@ -58,6 +59,7 @@ func (e *annotationError) Error() string {
 	return e.msg
 }
 
+// ErrAnotate represents an error during the annotation creation.
 var ErrAnotate *annotationError
 
 // AddAnnotation is the main function that will add an annotation to a given root node.
@@ -167,7 +169,7 @@ func (a *Annotation) ToRange(validators ...func(*AnnotationRange) error) (r *Ann
 	return
 }
 
-// Wrap insert annotation elements around the range text nodes
+// Wrap insert annotation elements around the range text nodes.
 func (r *AnnotationRange) Wrap(options ...WrapCallback) {
 	for i, node := range r.textNodes {
 		// Start offset
@@ -270,7 +272,7 @@ func getSelector(root *html.Node, node *html.Node, offset int) (string, int, err
 	return strings.Join(names, "/"), newOffset, nil
 }
 
-// getParents returns the parents of a node, from top to bottom
+// getParents returns the parents of a node, from top to bottom.
 func getParents(node *html.Node) nodeList {
 	p := node.Parent
 	res := nodeList{}

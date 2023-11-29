@@ -17,7 +17,7 @@ import (
 
 	"github.com/antchfx/htmlquery"
 	"github.com/go-shiori/dom"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func loadDocument() *html.Node {
@@ -27,7 +27,7 @@ func loadDocument() *html.Node {
 	}
 
 	doc, err := html.Parse(fd)
-	fd.Close()
+	fd.Close() //nolint:errcheck
 	if err != nil {
 		panic(err)
 	}
@@ -86,17 +86,17 @@ func TestFunctions(t *testing.T) {
 
 		for i, test := range tests {
 			t.Run(strconv.Itoa(i), func(t *testing.T) {
+				assert := require.New(t)
 				node, offset, err := getTextNodeBoundary(root, test.selector, test.offset)
 				if test.err != "" {
-					assert.EqualError(t, err, test.err)
+					assert.EqualError(err, test.err)
 				} else {
-					assert.Nil(t, err)
-					assert.Equal(t, html.TextNode, node.Type)
-					assert.Equal(t, test.node, node)
-					assert.Equal(t, test.newOffset, offset)
+					assert.NoError(err)
+					assert.Equal(html.TextNode, node.Type)
+					assert.Equal(test.node, node)
+					assert.Equal(test.newOffset, offset)
 				}
 			})
-
 		}
 	})
 
@@ -154,13 +154,14 @@ func TestFunctions(t *testing.T) {
 
 		for i, test := range tests {
 			t.Run(strconv.Itoa(i), func(t *testing.T) {
+				assert := require.New(t)
 				selector, offset, err := getSelector(root, test.node, test.child)
 				if test.err != "" {
-					assert.EqualError(t, err, test.err)
+					assert.EqualError(err, test.err)
 				} else {
-					assert.Nil(t, err)
-					assert.Equal(t, test.selector, selector)
-					assert.Equal(t, test.offset, offset)
+					assert.NoError(err)
+					assert.Equal(test.selector, selector)
+					assert.Equal(test.offset, offset)
 				}
 			})
 		}
@@ -236,7 +237,8 @@ func TestFunctions(t *testing.T) {
 				"<p>Loren ipsum <strong>dolor</strong> sit amet</p>",
 			},
 			{
-				"./p[1]/text()[1]", 6, 12, []func(*html.Node){
+				"./p[1]/text()[1]", 6, 12,
+				[]func(*html.Node){
 					func(n *html.Node) {
 						n.Data = "span"
 					},
@@ -259,8 +261,8 @@ func TestFunctions(t *testing.T) {
 				wrapTextNode(n, test.start, test.end, test.options...)
 
 				s := bytes.Buffer{}
-				html.Render(&s, htmlquery.FindOne(dom.QuerySelector(root, "body"), test.resultSelector))
-				assert.Equal(t, test.result, s.String())
+				html.Render(&s, htmlquery.FindOne(dom.QuerySelector(root, "body"), test.resultSelector)) //nolint:errcheck
+				require.Equal(t, test.result, s.String())
 			})
 		}
 	})
@@ -354,13 +356,14 @@ func TestAnnotation(t *testing.T) {
 
 		for i, test := range tests {
 			t.Run(strconv.Itoa(i), func(t *testing.T) {
+				assert := require.New(t)
 				a := NewAnnotation(root, test.startSelector, test.startOffset, test.endSelector, test.endOffset)
 				r, err := a.ToRange()
 				if test.err != "" {
-					assert.EqualError(t, err, test.err)
+					assert.EqualError(err, test.err)
 				} else {
-					assert.Nil(t, err)
-					assert.Equal(t, test.expected, r)
+					assert.NoError(err)
+					assert.Equal(test.expected, r)
 				}
 			})
 		}
@@ -421,24 +424,25 @@ func TestAnnotation(t *testing.T) {
 
 		for i, test := range tests {
 			t.Run(strconv.Itoa(i), func(t *testing.T) {
+				assert := require.New(t)
 				a := NewAnnotation(root, test.startSelector, test.startOffset, test.endSelector, test.endOffset)
 				r, err := a.ToRange(test.validators...)
 				if test.err != "" {
-					assert.Nil(t, r)
-					assert.EqualError(t, err, test.err)
+					assert.Nil(r)
+					assert.EqualError(err, test.err)
 				} else {
-					assert.Nil(t, err)
+					assert.NoError(err)
 				}
 			})
 		}
-
 	})
 
 	t.Run("range on null root", func(t *testing.T) {
+		assert := require.New(t)
 		a := NewAnnotation(nil, "", 0, "", 0)
 		r, err := a.ToRange()
-		assert.Nil(t, r)
-		assert.EqualError(t, err, "root node is not defined")
+		assert.Nil(r)
+		assert.EqualError(err, "root node is not defined")
 	})
 
 	t.Run("wrap", func(t *testing.T) {
@@ -529,6 +533,7 @@ func TestAnnotation(t *testing.T) {
 
 		for i, test := range tests {
 			t.Run(strconv.Itoa(i), func(t *testing.T) {
+				assert := require.New(t)
 				doc := loadDocument()
 				root := dom.QuerySelector(doc, "body")
 
@@ -546,15 +551,14 @@ func TestAnnotation(t *testing.T) {
 				// println(s.String())
 
 				nodes := htmlquery.Find(root, "//x-annotation")
-				assert.Equal(t, len(test.expected), len(nodes))
+				assert.Equal(len(test.expected), len(nodes))
 
 				for _, expected := range test.expected {
 					n := htmlquery.FindOne(root, expected[0])
-					assert.NotNil(t, n)
-					assert.Equal(t, html.TextNode, n.FirstChild.Type)
-					assert.Equal(t, expected[1], strings.TrimSpace(n.FirstChild.Data))
+					assert.NotNil(n)
+					assert.Equal(html.TextNode, n.FirstChild.Type)
+					assert.Equal(expected[1], strings.TrimSpace(n.FirstChild.Data))
 				}
-
 			})
 		}
 	})
@@ -616,6 +620,7 @@ func TestAddAnnotation(t *testing.T) {
 
 	for i, test := range tests {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
+			assert := require.New(t)
 			doc := loadDocument()
 			root := dom.QuerySelector(doc, "body")
 
@@ -630,19 +635,19 @@ func TestAddAnnotation(t *testing.T) {
 			}
 
 			if test.err != "" {
-				assert.EqualError(t, err, test.err)
+				assert.EqualError(err, test.err)
 				return
 			}
 
 			nodes := htmlquery.Find(root, "//my-annotation")
-			assert.Equal(t, len(test.expected), len(nodes))
+			assert.Equal(len(test.expected), len(nodes))
 
 			for _, expected := range test.expected {
 				n := htmlquery.FindOne(root, expected[0])
-				assert.NotNil(t, n)
-				assert.Equal(t, html.TextNode, n.FirstChild.Type)
-				assert.Equal(t, expected[1], strings.TrimSpace(n.FirstChild.Data))
-				assert.Equal(t, expected[2], dom.GetAttribute(n, "data-annotation-id"))
+				assert.NotNil(n)
+				assert.Equal(html.TextNode, n.FirstChild.Type)
+				assert.Equal(expected[1], strings.TrimSpace(n.FirstChild.Data))
+				assert.Equal(expected[2], dom.GetAttribute(n, "data-annotation-id"))
 			}
 		})
 	}

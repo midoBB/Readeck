@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/pkg/img"
 )
@@ -25,7 +25,9 @@ func newImage(w, h int) []byte {
 
 	buf := new(bytes.Buffer)
 	e := &png.Encoder{CompressionLevel: png.BestSpeed}
-	e.Encode(buf, m)
+	if err := e.Encode(buf, m); err != nil {
+		panic(err)
+	}
 
 	return buf.Bytes()
 }
@@ -45,11 +47,12 @@ func TestImageFit(t *testing.T) {
 
 	for i, test := range tests {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
+			assert := require.New(t)
 			im, err := img.NewNativeImage(bytes.NewReader(data))
-			assert.Nil(t, err)
+			assert.NoError(err)
 			err = img.Fit(im, uint(test.size[0]), uint(test.size[1]))
-			assert.Nil(t, err)
-			assert.Equal(t, test.expected, [2]int{int(im.Width()), int(im.Height())})
+			assert.NoError(err)
+			assert.Equal(test.expected, [2]int{int(im.Width()), int(im.Height())})
 		})
 	}
 }
@@ -78,13 +81,14 @@ func TestImagePipeline(t *testing.T) {
 
 	for i, test := range tests {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
+			assert := require.New(t)
 			im, err := img.NewNativeImage(bytes.NewReader(data))
-			assert.Nil(t, err)
+			assert.NoError(err)
 			err = img.Pipeline(im, test.pipeline...)
 			if test.err != "" {
-				assert.EqualError(t, err, test.err)
+				assert.EqualError(err, test.err)
 			} else {
-				assert.Nil(t, err)
+				assert.NoError(err)
 			}
 		})
 	}

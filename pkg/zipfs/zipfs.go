@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package zipfs provides tools to serve content directly from a zip file to an HTTP response.
+// It also provides the necessary tooling to perform changes on an existing zip file.
 package zipfs
 
 import (
@@ -99,7 +101,7 @@ func (z *ZipRW) makeDirs(filename string) (err error) {
 func (z *ZipRW) Close() error {
 	var err error
 	if z.zw != nil {
-		z.zw.Close()
+		err = z.zw.Close()
 	}
 	if c, ok := z.dst.(io.WriteCloser); ok {
 		err = c.Close()
@@ -141,12 +143,12 @@ func (z *ZipRW) AddSourceFile(name string) (err error) {
 	return z.init()
 }
 
-// Source returns the underlying source zip.Reader
+// Source returns the underlying source zip.Reader.
 func (z *ZipRW) Source() *zip.Reader {
 	return z.zr
 }
 
-// SrcFiles returns a list of zip.File from the source
+// SrcFiles returns a list of zip.File from the source.
 func (z *ZipRW) SrcFiles() []*zip.File {
 	if z.zr == nil {
 		return nil

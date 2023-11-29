@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package contents provide extraction processes for content processing
+// (readability) and plain text conversion.
 package contents
 
 import (
@@ -149,7 +151,6 @@ func findFirstContentNode(node *html.Node) *html.Node {
 		} else if x.Type == html.ElementNode {
 			count++
 		}
-
 	}
 
 	if count > 1 || dom.FirstElementChild(node) == nil {

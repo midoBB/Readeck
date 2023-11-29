@@ -25,15 +25,15 @@ import (
 	"codeberg.org/readeck/readeck/internal/db/types"
 )
 
-// BookmarkState is the current bookmark state
+// BookmarkState is the current bookmark state.
 type BookmarkState int
 
 const (
-	// StateLoaded when the page is fully loaded
+	// StateLoaded when the page is fully loaded.
 	StateLoaded BookmarkState = iota
 
 	// StateError when there was some unrecoverable
-	// error during extraction
+	// error during extraction.
 	StateError
 
 	// StateLoading when the page is loading.
@@ -53,13 +53,13 @@ var StateNames = map[BookmarkState]string{
 }
 
 var (
-	// Bookmarks is the bookmark query manager
+	// Bookmarks is the bookmark query manager.
 	Bookmarks = BookmarkManager{}
 
 	// ErrBookmarkNotFound is returned when a bookmark record was not found.
 	ErrBookmarkNotFound = errors.New("not found")
 
-	// availableTypes are the allowed bookmark types
+	// availableTypes are the allowed bookmark types.
 	availableTypes = [][2]string{
 		{"article", "Article"},
 		{"photo", "Picture"},
@@ -86,12 +86,12 @@ func ValidTypes() []string {
 	return r
 }
 
-// StoragePath returns the storage base directory for bookmark files
+// StoragePath returns the storage base directory for bookmark files.
 func StoragePath() string {
 	return filepath.Join(configs.Config.Main.DataDirectory, "bookmarks")
 }
 
-// Bookmark is a bookmark record in database
+// Bookmark is a bookmark record in database.
 type Bookmark struct {
 	ID            int                 `db:"id" goqu:"skipinsert,skipupdate"`
 	UID           string              `db:"uid"`
@@ -254,7 +254,6 @@ func (m *BookmarkManager) GetLabels() *goqu.SelectDataset {
 // GetAnnotations returns a SelectDataset that can be used to select all
 // the annotations.
 func (m *BookmarkManager) GetAnnotations() *goqu.SelectDataset {
-
 	ds := Bookmarks.Query().Select(
 		goqu.I("b.id").As(goqu.C("b.id")),
 		goqu.I("b.uid").As(goqu.C("b.uid")),
@@ -353,7 +352,7 @@ func (m *BookmarkManager) CountAll(u *users.User) (CountResult, error) {
 	return res, nil
 }
 
-// AddLabelFilter adds a filter query for the given labels
+// AddLabelFilter adds a filter query for the given labels.
 func (m *BookmarkManager) AddLabelFilter(ds *goqu.SelectDataset, labels []string) *goqu.SelectDataset {
 	exp := goqu.And()
 
@@ -458,7 +457,6 @@ func (b *Bookmark) Delete() error {
 	_, err := db.Q().Delete(TableName).Prepared(true).
 		Where(goqu.C("id").Eq(b.ID)).
 		Executor().Exec()
-
 	if err != nil {
 		return err
 	}
@@ -472,7 +470,7 @@ func (b *Bookmark) StateName() string {
 	return StateNames[b.State]
 }
 
-// ReadingTime returns the duration or the aproximated reading time
+// ReadingTime returns the duration or the aproximated reading time.
 func (b *Bookmark) ReadingTime() int {
 	if b.Duration > 0 {
 		return b.Duration / 60
@@ -546,18 +544,20 @@ func (b *Bookmark) replaceLabel(old, new string) {
 }
 
 // GetSumStrings returns the string used to generate the etag
-// of the bookmark(s)
+// of the bookmark(s).
 func (b *Bookmark) GetSumStrings() []string {
 	return []string{b.UID, b.Updated.String()}
 }
 
-// GetLastModified returns the last modified times
+// GetLastModified returns the last modified times.
 func (b *Bookmark) GetLastModified() []time.Time {
 	return []time.Time{b.Updated}
 }
 
+// BookmarkLinks is a list of BookmarkLink instances.
 type BookmarkLinks []BookmarkLink
 
+// BookmarkLink describes a link.
 type BookmarkLink struct {
 	URL         string `json:"url"`
 	Domain      string `json:"domain"`
@@ -576,7 +576,7 @@ func (l *BookmarkLinks) Scan(value interface{}) error {
 	if err != nil {
 		return err
 	}
-	json.Unmarshal(v, l)
+	json.Unmarshal(v, l) //nolint:errcheck
 	return nil
 }
 
@@ -589,13 +589,15 @@ func (l BookmarkLinks) Value() (driver.Value, error) {
 	return string(v), nil
 }
 
+// HasPages returns true if the link list contains at least one
+// link that refers to an HTML page.
 func (l BookmarkLinks) HasPages() bool {
 	return len(l) > 0 && slices.ContainsFunc(l, func(bl BookmarkLink) bool {
 		return bl.IsPage
 	})
 }
 
-// Pages returns a list of pages only
+// Pages returns a list of pages only.
 func (l BookmarkLinks) Pages() BookmarkLinks {
 	return slices.DeleteFunc(slices.Clone(l), func(bl BookmarkLink) bool {
 		return !bl.IsPage
@@ -623,7 +625,7 @@ func (f *BookmarkFiles) Scan(value interface{}) error {
 	if err != nil {
 		return err
 	}
-	json.Unmarshal(v, f)
+	json.Unmarshal(v, f) //nolint:errcheck
 	return nil
 }
 

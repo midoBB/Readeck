@@ -12,7 +12,7 @@ import (
 	"testing"
 
 	"github.com/kinbiko/jsonassert"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -28,7 +28,7 @@ type formMarshaler interface {
 }
 
 func testForm(t *testing.T, test formTest, f formMarshaler) {
-	assert.True(t, f.IsBound())
+	require.True(t, f.IsBound())
 	data, err := f.MarshalJSON()
 	if err != nil {
 		panic(err)
@@ -36,6 +36,7 @@ func testForm(t *testing.T, test formTest, f formMarshaler) {
 	jsonassert.New(t).Assertf(string(data), test.result)
 	if t.Failed() {
 		t.Errorf("Received JSON: %s\n", string(data))
+		t.FailNow()
 	}
 }
 
@@ -145,7 +146,7 @@ func TestSimpleForm(t *testing.T) {
 		for i, test := range tests {
 			t.Run(fmt.Sprint(i), func(t *testing.T) {
 				f := newSimpleForm()
-				assert.False(t, f.IsBound())
+				require.False(t, f.IsBound())
 
 				r := strings.NewReader(test.data)
 				forms.UnmarshalJSON(f, r)
@@ -228,9 +229,10 @@ func TestSimpleForm(t *testing.T) {
 		for i, test := range tests {
 			t.Run(fmt.Sprint(i), func(t *testing.T) {
 				f := newSimpleForm()
-				assert.False(t, f.IsBound())
+				require.False(t, f.IsBound())
 
-				values, _ := url.ParseQuery(test.data)
+				values, err := url.ParseQuery(test.data)
+				require.NoError(t, err)
 				forms.UnmarshalValues(f, values)
 				testForm(t, test, f)
 			})
@@ -278,7 +280,7 @@ func TestCustomValidation(t *testing.T) {
 		for i, test := range tests {
 			t.Run(fmt.Sprint(i), func(t *testing.T) {
 				f := newCustomValidationForm()
-				assert.False(t, f.IsBound())
+				require.False(t, f.IsBound())
 
 				r := strings.NewReader(test.data)
 				forms.UnmarshalJSON(f, r)

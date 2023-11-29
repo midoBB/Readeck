@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package metrics provides a prometheus/open-metrics route.
 package metrics
 
 import (

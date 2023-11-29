@@ -150,16 +150,16 @@ func (f *createForm) loadMultipart(r *http.Request) (err error) {
 			if file, err = x.Open(); err != nil {
 				return err
 			}
-			if resource, err = newMultipartResource(file); err != nil {
+			resource, err = newMultipartResource(file)
+			if err != nil {
 				if f.Get("url").String() != resource.URL {
 					// As long as the content is not from the requested URL
 					// we can ignore an empty value.
 					continue
 				}
 				return err
-			} else {
-				f.resources = append(f.resources, resource)
 			}
+			f.resources = append(f.resources, resource)
 		}
 	}
 
@@ -361,15 +361,14 @@ func newLabelDeleteForm() *labelDeleteForm {
 	}
 }
 
-func (f *labelDeleteForm) trigger(user *users.User, name string) {
+func (f *labelDeleteForm) trigger(user *users.User, name string) error {
 	id := fmt.Sprintf("%d@%s", user.ID, name)
 
 	if !f.Get("cancel").IsNil() && f.Get("cancel").Value().(bool) {
-		deleteLabelTask.Cancel(id)
-		return
+		return deleteLabelTask.Cancel(id)
 	}
 
-	deleteLabelTask.Run(id, labelDeleteParams{
+	return deleteLabelTask.Run(id, labelDeleteParams{
 		UserID: user.ID, Name: name,
 	})
 }

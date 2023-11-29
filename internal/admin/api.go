@@ -26,9 +26,7 @@ type (
 	ctxUserKey     struct{}
 )
 
-var (
-	errSameUser = errors.New("same user as authenticated")
-)
+var errSameUser = errors.New("same user as authenticated")
 
 type adminAPI struct {
 	chi.Router

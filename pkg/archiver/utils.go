@@ -12,9 +12,7 @@ import (
 	"strings"
 )
 
-var (
-	rxStyleURL = regexp.MustCompile(`(?i)^url\((.+)\)$`)
-)
+var rxStyleURL = regexp.MustCompile(`(?i)^url\((.+)\)$`)
 
 // isValidURL checks if URL is valid.
 func isValidURL(s string) bool {
@@ -56,13 +54,13 @@ func createAbsoluteURL(uri string, base *url.URL) string {
 	return base.ResolveReference(tmp).String()
 }
 
-// cleanURL removes URL fragment (#fragment)
+// cleanURL removes URL fragment (#fragment).
 func cleanURL(uri *url.URL) {
 	uri.Fragment = ""
 }
 
 // sanitizeStyleURL sanitizes the URL in CSS by removing `url()`,
-// quotation mark and trailing slash
+// quotation mark and trailing slash.
 func sanitizeStyleURL(uri string) string {
 	cssURL := rxStyleURL.ReplaceAllString(uri, "$1")
 	cssURL = strings.TrimSpace(cssURL)
@@ -78,7 +76,7 @@ func sanitizeStyleURL(uri string) string {
 	return cssURL
 }
 
-// createDataURL returns base64 encoded data URL
+// createDataURL returns base64 encoded data URL.
 func createDataURL(content []byte, contentType string) string {
 	b64encoded := base64.StdEncoding.EncodeToString(content)
 	return fmt.Sprintf("data:%s;base64,%s", contentType, b64encoded)

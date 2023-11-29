@@ -52,12 +52,12 @@ func (t *Transport) SetHeader(name, value string) {
 	t.header.Set(name, value)
 }
 
-// GetHeader returns a header value from transport
+// GetHeader returns a header value from transport.
 func (t *Transport) GetHeader(name string) string {
 	return t.header.Get(name)
 }
 
-// SetRoundTripper sets an extra transport's round trip function
+// SetRoundTripper sets an extra transport's round trip function.
 func (t *Transport) SetRoundTripper(f transportCache) {
 	t.roundTrip = f
 }
@@ -122,7 +122,7 @@ func NewClient() *http.Client {
 	return client
 }
 
-// SetHeader sets a header on a given client
+// SetHeader sets a header on a given client.
 func SetHeader(client *http.Client, name, value string) {
 	if t, ok := client.Transport.(*Transport); ok {
 		t.header.Set(name, value)

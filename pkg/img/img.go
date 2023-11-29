@@ -2,6 +2,12 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+/*
+Package img provides a unified image loader and manipulation pipeline.
+It can load images using the native go implementations for the major
+web image types, perform some manipulation like resizing and write
+the result to an io.Writer.
+*/
 package img
 
 import (
@@ -30,7 +36,7 @@ var Gray16Palette = []color.Color{
 	color.RGBA{0xff, 0xff, 0xff, 0xff},
 }
 
-// ImageCompression is the compression level used for PNG images
+// ImageCompression is the compression level used for PNG images.
 type ImageCompression uint8
 
 const (

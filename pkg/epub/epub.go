@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package epub creates EPUB files.
 package epub
 
 import (
@@ -9,6 +10,7 @@ import (
 	"bytes"
 	"compress/flate"
 	"encoding/xml"
+	"fmt"
 	"io"
 	"path"
 	"strings"
@@ -153,7 +155,9 @@ func (c *Writer) WritePackage() error {
 
 	enc := xml.NewEncoder(f)
 	enc.Indent("", "  ")
-	f.Write([]byte(xml.Header))
+	if _, err = f.Write([]byte(xml.Header)); err != nil {
+		return err
+	}
 	if err = enc.Encode(c.pkg); err != nil {
 		return err
 	}
@@ -190,8 +194,9 @@ func (c *Writer) WritePackage() error {
 
 	enc = xml.NewEncoder(f)
 	enc.Indent("", "  ")
-	f.Write([]byte(xml.Header))
-	f.Write([]byte(ncxDoctype))
+	if _, err = fmt.Fprint(f, xml.Header, ncxDoctype); err != nil {
+		return err
+	}
 	if err = enc.Encode(toc); err != nil {
 		return err
 	}

@@ -9,7 +9,6 @@ import (
 	"encoding/base64"
 	"fmt"
 	"io"
-
 	"net/http"
 	"net/url"
 
@@ -38,7 +37,7 @@ func NewRemoteImage(src string, client *http.Client) (img.Image, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rsp.Body.Close()
+	defer rsp.Body.Close() //nolint:errcheck
 
 	if rsp.StatusCode/100 != 2 {
 		return nil, fmt.Errorf("Invalid response status (%d)", rsp.StatusCode)
@@ -52,7 +51,7 @@ func NewRemoteImage(src string, client *http.Client) (img.Image, error) {
 	return img.New(mtype.String(), io.MultiReader(buf, rsp.Body))
 }
 
-// Picture is a remote picture
+// Picture is a remote picture.
 type Picture struct {
 	Href   string
 	Type   string
@@ -81,7 +80,7 @@ func (p *Picture) Load(client *http.Client, size uint, toFormat string) error {
 	if err != nil {
 		return err
 	}
-	defer ri.Close()
+	defer ri.Close() //nolint:errcheck
 
 	err = img.Pipeline(ri, pClean, pComp, pQual, pFit(size), pFormat(toFormat))
 	if err != nil {
@@ -107,7 +106,7 @@ func (p *Picture) Copy(size uint, toFormat string) (*Picture, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer ri.Close()
+	defer ri.Close() //nolint:errcheck
 
 	res := &Picture{Href: p.Href}
 	err = img.Pipeline(ri, pClean, pComp, pQual, pFit(size), pFormat(toFormat))
@@ -159,12 +158,15 @@ func pFit(s uint) img.ImageFilter {
 		return img.Fit(im, s, s)
 	}
 }
+
 func pComp(im img.Image) error {
 	return im.SetCompression(img.CompressionBest)
 }
+
 func pClean(im img.Image) error {
 	return im.Clean()
 }
+
 func pQual(im img.Image) error {
 	return im.SetQuality(75)
 }

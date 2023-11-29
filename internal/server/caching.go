@@ -73,7 +73,7 @@ func (s *Server) WriteLastModified(w http.ResponseWriter, r *http.Request, moder
 	w.Header().Set("Last-Modified", mtimes[0].Format(http.TimeFormat))
 }
 
-// WithCacheControl sends the global caching headers
+// WithCacheControl sends the global caching headers.
 func (s *Server) WithCacheControl(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Cache-Control", "private")

@@ -13,12 +13,12 @@ import (
 
 func BenchmarkDecoder(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		xml2map.NewDecoder(strings.NewReader(`<container uid="FA6666D9-EC9F-4DA3-9C3D-4B2460A4E1F6" lifetime="2019-10-10T18:00:11">
+		_, err := xml2map.NewDecoder(strings.NewReader(`<container uid="FA6666D9-EC9F-4DA3-9C3D-4B2460A4E1F6" lifetime="2019-10-10T18:00:11">
 				<cats>
 					<cat>
 						<id>CDA035B6-D453-4A17-B090-84295AE2DEC5</id>
 						<name>moritz</name>
-						<age>7</age> 	
+						<age>7</age>
 						<items>
 							<n>1293</n>
 							<n>1255</n>
@@ -34,7 +34,9 @@ func BenchmarkDecoder(b *testing.B) {
 				<color>white</color>
 				<city>NY</city>
 			</container>`)).Decode()
-
+		if err != nil {
+			b.Fatal(err)
+		}
 	}
 }
 
@@ -77,7 +79,6 @@ func TestPars(t *testing.T) {
 					<n id="30">3</n>
 				</items>
 			</customer>`)).Decode()
-
 	if err != nil {
 		t.Errorf("m: %v, err: %v\n", m, err)
 	}
@@ -121,10 +122,8 @@ func TestSpaces(t *testing.T) {
 
 	if err != nil {
 		t.Errorf("err %v\n", err)
-	} else {
-		if m["note"] != "data" {
-			t.Errorf("data not found")
-		}
+	} else if m["note"] != "data" {
+		t.Errorf("data not found")
 	}
 }
 
@@ -167,7 +166,6 @@ func TestDecode(t *testing.T) {
 				<color>white</color>
 				<city>NY</city>
 			</container>`)).Decode()
-
 	if err != nil {
 		t.Errorf("err: %v", err)
 	}
@@ -211,7 +209,6 @@ func TestWithPrefix(t *testing.T) {
 					<n id="30">3</n>
 				</items>
 			</customer>`), "$", "#").Decode()
-
 	if err != nil {
 		t.Errorf("m: %v, err: %v\n", m, err)
 	}
@@ -227,10 +224,8 @@ func TestWithPrefix(t *testing.T) {
 			list := items["n"].([]map[string]interface{})
 			if len(list) != 3 {
 				t.Errorf("list len %v", len(items))
-			} else {
-				if list[1]["$id"] != "20" && list[1]["%"] != "2" {
-					t.Errorf("invalid parse n element attr or text")
-				}
+			} else if list[1]["$id"] != "20" && list[1]["%"] != "2" {
+				t.Errorf("invalid parse n element attr or text")
 			}
 		}
 	}
@@ -255,7 +250,6 @@ func TestWithNameSpace(t *testing.T) {
 				</item>
 			</channel>
 		</rss>`)).Decode()
-
 	if err != nil {
 		t.Errorf("m: %v, err: %v\n", m, err)
 	}

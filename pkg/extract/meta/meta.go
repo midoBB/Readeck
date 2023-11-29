@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package meta provides extract processors to retrieve several meta information
+// from a page (meta tags, favicon, pictures...).
 package meta
 
 import (
@@ -18,9 +20,7 @@ import (
 	"codeberg.org/readeck/readeck/pkg/extract"
 )
 
-var (
-	rxOpenGraphType = regexp.MustCompile(`^([^:]*:)?(.+?)(\..*|$)`)
-)
+var rxOpenGraphType = regexp.MustCompile(`^([^:]*:)?(.+?)(\..*|$)`)
 
 // ExtractMeta is a processor that extracts metadata from the
 // document and set the Drop values accordingly.
@@ -190,22 +190,30 @@ var specList = []rawSpec{
 	]`, extMeta("name", "content", 3)},
 
 	// Facebook opengraph
-	{"graph", "//meta[@content][starts-with(@property, 'og:')]",
-		extMeta("property", "content", 3)},
+	{
+		"graph", "//meta[@content][starts-with(@property, 'og:')]",
+		extMeta("property", "content", 3),
+	},
 
 	// Twitter cards
-	{"twitter", "//meta[@content][starts-with(@name, 'twitter:')]",
-		extMeta("name", "content", 8)},
+	{
+		"twitter", "//meta[@content][starts-with(@name, 'twitter:')]",
+		extMeta("name", "content", 8),
+	},
 
 	// Schema.org meta tags
-	{"schema", "//meta[@content][@itemprop]",
-		extMeta("itemprop", "content", 0)},
+	{
+		"schema", "//meta[@content][@itemprop]",
+		extMeta("itemprop", "content", 0),
+	},
 
 	// Schema.org author in content
-	{"schema", "//*[contains(concat(' ',normalize-space(@itemprop),' '),' author ')]//*[contains(concat(' ',normalize-space(@itemprop),' '),' name ')]",
+	{
+		"schema", "//*[contains(concat(' ',normalize-space(@itemprop),' '),' author ')]//*[contains(concat(' ',normalize-space(@itemprop),' '),' name ')]",
 		func(n *html.Node) (string, string) {
 			return "author", dom.TextContent(n)
-		}},
+		},
+	},
 
 	// Header links (excluding icons and stylesheets)
 	{"link", `//link[@href][@rel][
@@ -214,7 +222,7 @@ var specList = []rawSpec{
 	]`, extMeta("rel", "href", 0)},
 }
 
-// ParseMeta parses page metadata
+// ParseMeta parses page metadata.
 func ParseMeta(doc *html.Node) extract.DropMeta {
 	res := extract.DropMeta{}
 

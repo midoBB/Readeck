@@ -23,7 +23,7 @@ func MakePassphrase(size int) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	defer f.Close()
+	defer f.Close() //nolint:errcheck
 
 	// Scan lines and store the word index
 	wordIndex := [][2]int{}

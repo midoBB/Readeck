@@ -12,7 +12,7 @@ import (
 	"testing"
 
 	"codeberg.org/readeck/readeck/pkg/zipfs"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func getZipContent(s []byte) []string {
@@ -29,6 +29,7 @@ func getZipContent(s []byte) []string {
 }
 
 func TestZipRW(t *testing.T) {
+	assert := require.New(t)
 	Dest := new(bytes.Buffer)
 
 	z := zipfs.NewZipRW(Dest, nil, 0)
@@ -36,24 +37,24 @@ func TestZipRW(t *testing.T) {
 		&zip.FileHeader{Name: "test/foo/bar"},
 		strings.NewReader("test file"),
 	)
-	assert.NoError(t, err)
+	assert.NoError(err)
 
 	err = z.Add(
 		&zip.FileHeader{Name: "test/foo/new"},
 		strings.NewReader("test file"),
 	)
-	assert.NoError(t, err)
+	assert.NoError(err)
 
 	err = z.Add(
 		&zip.FileHeader{Name: "abc.txt", Method: zip.Deflate},
 		strings.NewReader("test file"),
 	)
-	assert.NoError(t, err)
-
-	z.Close()
+	assert.NoError(err)
+	assert.NoError(z.Close())
 
 	t.Run("initial content", func(t *testing.T) {
-		assert.EqualValues(t,
+		assert := require.New(t)
+		assert.EqualValues(
 			[]string{
 				"test/",
 				"test/foo/",
@@ -66,13 +67,16 @@ func TestZipRW(t *testing.T) {
 
 		r := bytes.NewReader(Dest.Bytes())
 		zr, err := zip.NewReader(r, r.Size())
-		assert.NoError(t, err)
-		rf, _ := zr.Open("test/foo/bar")
-		contents, _ := io.ReadAll(rf)
-		assert.Equal(t, []byte("test file"), contents)
+		assert.NoError(err)
+		rf, err := zr.Open("test/foo/bar")
+		assert.NoError(err)
+		contents, err := io.ReadAll(rf)
+		assert.NoError(err)
+		assert.Equal([]byte("test file"), contents)
 	})
 
 	t.Run("file exists", func(t *testing.T) {
+		assert := require.New(t)
 		d := new(bytes.Buffer)
 
 		z := zipfs.NewZipRW(d, nil, 0)
@@ -80,38 +84,35 @@ func TestZipRW(t *testing.T) {
 			&zip.FileHeader{Name: "test/foo/bar"},
 			strings.NewReader("test file"),
 		)
-		assert.NoError(t, err)
+		assert.NoError(err)
 
 		err = z.Add(
 			&zip.FileHeader{Name: "test/foo/bar/test"},
 			strings.NewReader("test file"),
 		)
-		assert.ErrorContains(t, err, `ile "test/foo/bar" already exists`)
+		assert.ErrorContains(err, `file "test/foo/bar" already exists`)
 
 		err = z.Add(
 			&zip.FileHeader{Name: "test/foo/bar"},
 			strings.NewReader("test file"),
 		)
-		assert.ErrorContains(t, err, `file "test/foo/bar" already exists`)
+		assert.ErrorContains(err, `file "test/foo/bar" already exists`)
 	})
 
 	t.Run("copy files", func(t *testing.T) {
+		assert := require.New(t)
 		r := bytes.NewReader(Dest.Bytes())
 		d := new(bytes.Buffer)
 
 		z := zipfs.NewZipRW(d, r, int64(r.Len()))
-		err := z.Copy("test/foo/bar")
-		assert.NoError(t, err)
 
-		err = z.Copy("test/foo/new")
-		assert.NoError(t, err)
+		assert.NoError(z.Copy("test/foo/bar"))
+		assert.NoError(z.Copy("test/foo/new"))
+		assert.ErrorContains(z.Copy("test/foo/new"), `file "test/foo/new" already exists`)
 
-		err = z.Copy("test/foo/new")
-		assert.ErrorContains(t, err, `file "test/foo/new" already exists`)
+		assert.NoError(z.Close())
 
-		z.Close()
-
-		assert.EqualValues(t,
+		assert.EqualValues(
 			[]string{
 				"test/",
 				"test/foo/",

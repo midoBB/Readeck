@@ -179,7 +179,7 @@ var excludedChars = [][2]int{
 	{0x10FFFE, 0x10FFFF},
 }
 
-// ctrlReplacer is a string replacer for all invalid XML characters
+// ctrlReplacer is a string replacer for all invalid XML characters.
 var ctrlReplacer = func() *strings.Replacer {
 	repl := []string{}
 	for _, t := range excludedChars {

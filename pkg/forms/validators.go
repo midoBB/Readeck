@@ -34,7 +34,7 @@ func ValidateField(f Field, validators ...FieldValidator) Errors {
 	return res
 }
 
-// Chain applies multiple validators but stops at the first error
+// Chain applies multiple validators but stops at the first error.
 func Chain(validators ...FieldValidator) FieldValidator {
 	return func(f Field) error {
 		for _, v := range validators {

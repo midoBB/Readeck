@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package bus provides Readeck's message bus and task executor.
 package bus
 
 import (
@@ -59,7 +60,7 @@ func Load() error {
 	return nil
 }
 
-// LoadCustom loads a custom EventManager and Store. Used for tests
+// LoadCustom loads a custom EventManager and Store. Used for tests.
 func LoadCustom(p string, em superbus.EventManager, s superbus.Store) {
 	protocol = p
 	eventManager = em

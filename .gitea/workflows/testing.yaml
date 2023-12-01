@@ -2,9 +2,8 @@
 
 name: Readeck Tests
 run-name: ${{ gitea.actor }} tests
-# on:
-#   push:
-
+on:
+  push:
 
 jobs:
   lint:

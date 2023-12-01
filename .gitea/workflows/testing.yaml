@@ -44,8 +44,6 @@ jobs:
         with:
           go-version: "^1.21"
           cache: false
-      - run: env
-      - run: echo "${{ secrets.DEPLOY_TOKEN }}"
       - name: Run tests
         env:
           CGO_ENABLED: 1

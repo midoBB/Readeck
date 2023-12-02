@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.10.0] - 2023-12-02
+### Added
+- Content Script system. This includes the five filters rulesets and improves the previous rules system with a documented and much safer JS API to override predefined rules or create complex workflows
+- Video transcripts for youtube, vimeo and TED
+- Content script for substack
+- Store the video duration when available
+- Extract text direction, when available and apply it when showing an article's content
+- Added a scroll indicator on articles, by @joachimesque
+- Added a quick access menu for keyboard navigation, by @joachimesque
+- API documentation (not full yet)
+- Prometheus metrics
+
+### Improved
+- Shorten the bookmark card's title to avoid disgraceful overflows
+- Prefixed every `id` and `name` (on `a` tags) attribute on extracted articles
+- Lots of CSS improvement, by @joachimesque
+- Improved the collection creation workflow
+- Refactored and improved the bookmark storage system (non breaking)
+
+### Fixed
+- Better initial content cleanup
+- Fixed Safari Mobile layout, by @joachimesque
+
 ## [0.9.2] - 2023-09-15
 ### Added
 - New, web based, onboarding process

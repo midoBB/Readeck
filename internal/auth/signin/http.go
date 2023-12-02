@@ -76,7 +76,7 @@ func (h *authHandler) login(w http.ResponseWriter, r *http.Request) {
 		forms.Bind(f, r)
 
 		if f.IsValid() {
-			user := f.checkUser()
+			user := checkUser(f)
 			if user != nil {
 				// User is authenticated, let's carry on
 				sess := h.srv.GetSession(r)

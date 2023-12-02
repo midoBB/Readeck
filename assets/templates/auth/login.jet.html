@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   <input type="hidden" name="redirect" value="{{ .Form.Get(`redirect`).String() }}" />
 
   {{ yield textField(field=.Form.Get("username"),
-                      label="Username",
+                      label="Username or email address",
                       class="max",
                       inputAttrs=attrList("data-login-form-target", "username"),
   ) }}

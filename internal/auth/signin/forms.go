@@ -6,10 +6,12 @@ package signin
 
 import (
 	"errors"
+	"strings"
+
+	"github.com/doug-martin/goqu/v9"
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/pkg/forms"
-	"github.com/doug-martin/goqu/v9"
 )
 
 var errInvalidLogin = errors.New("Invalid user and/or password")
@@ -39,8 +41,15 @@ func newLoginForm() *loginForm {
 	)}
 }
 
-func (f *loginForm) checkUser() *users.User {
-	user, err := users.Users.GetOne(goqu.C("username").Eq(f.Get("username").String()))
+func checkUser(f forms.Binder) *users.User {
+	col := goqu.C("username")
+	if strings.Contains(f.Get("username").String(), "@") {
+		// A username cannot contain a "@" so if we have one here,
+		// we can check on the email instead of the username.
+		col = goqu.C("email")
+	}
+
+	user, err := users.Users.GetOne(col.Eq(f.Get("username").String()))
 	if err != nil {
 		f.AddErrors("", errInvalidLogin)
 		return nil

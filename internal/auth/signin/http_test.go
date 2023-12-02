@@ -29,7 +29,9 @@ func TestSignin(t *testing.T) {
 		tests := []loginTest{
 			{"", "", 422, 303},
 			{"admin", "admin", 303, 200},
+			{"admin@localhost", "admin", 303, 200},
 			{"user", "user", 303, 200},
+			{"user@localhost", "user", 303, 200},
 			{"disabled", "disabled", 303, 403},
 			{"admin", "nope", 401, 303},
 		}

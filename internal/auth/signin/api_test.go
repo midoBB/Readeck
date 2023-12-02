@@ -42,7 +42,49 @@ func TestAPI(t *testing.T) {
 			Target: "/api/auth",
 			JSON: map[string]string{
 				"application": "test",
+				"username":    "admin@localhost",
+				"password":    "nope",
+			},
+			ExpectStatus: 403,
+			ExpectJSON: `{
+				"status":403,
+				"message":"Invalid user and/or password"
+			}`,
+		},
+		RequestTest{
+			Method: "POST",
+			Target: "/api/auth",
+			JSON: map[string]string{
+				"application": "test",
+				"username":    "unknown",
+				"password":    "whatever",
+			},
+			ExpectStatus: 403,
+			ExpectJSON: `{
+				"status":403,
+				"message":"Invalid user and/or password"
+			}`,
+		},
+		RequestTest{
+			Method: "POST",
+			Target: "/api/auth",
+			JSON: map[string]string{
+				"application": "test",
 				"username":    "admin",
+				"password":    "admin",
+			},
+			ExpectStatus: 201,
+			ExpectJSON: `{
+					"id": "<<PRESENCE>>",
+					"token": "<<PRESENCE>>"
+			}`,
+		},
+		RequestTest{
+			Method: "POST",
+			Target: "/api/auth",
+			JSON: map[string]string{
+				"application": "test",
+				"username":    "admin@localhost",
 				"password":    "admin",
 			},
 			ExpectStatus: 201,

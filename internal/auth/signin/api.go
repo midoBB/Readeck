@@ -7,11 +7,9 @@ package signin
 import (
 	"net/http"
 
-	"github.com/doug-martin/goqu/v9"
 	"github.com/go-chi/chi/v5"
 
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
-	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/forms"
@@ -43,11 +41,11 @@ func (api *authAPI) auth(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := users.Users.GetOne(goqu.C("username").Eq(f.Get("username").String()))
-	if err != nil || !user.CheckPassword(f.Get("password").String()) {
+	user := checkUser(f)
+	if !f.IsValid() || user == nil {
 		api.srv.Message(w, r, &server.Message{
 			Status:  http.StatusForbidden,
-			Message: "Invalid user and/or password",
+			Message: errInvalidLogin.Error(),
 		})
 		return
 	}

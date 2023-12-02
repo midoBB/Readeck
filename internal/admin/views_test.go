@@ -53,9 +53,23 @@ func TestViews(t *testing.T) {
 				ExpectStatus:   422,
 				ExpectContains: "Please check your form for errors.",
 			},
+			RequestTest{Target: "/admin/users/add"},
 			RequestTest{
+				Method: "POST",
 				Target: "/admin/users/add",
+				Form: url.Values{
+					"username": {"test3@localhost"},
+					"password": {"1234"},
+					"email":    {"test3"},
+					"group":    {"user"},
+				},
+				ExpectStatus: 422,
+				Assert: func(t *testing.T, r *Response) {
+					require.Contains(t, string(r.Body), "must contain English letters")
+					require.Contains(t, string(r.Body), "not a valid email address")
+				},
 			},
+			RequestTest{Target: "/admin/users/add"},
 			RequestTest{
 				Method: "POST",
 				Target: "/admin/users/add",
@@ -88,6 +102,24 @@ func TestViews(t *testing.T) {
 			},
 
 			// Udpate current user
+			RequestTest{
+				Target: fmt.Sprintf("/admin/users/%d", app.Users["admin"].User.ID),
+			},
+			RequestTest{
+				Method: "POST",
+				Target: fmt.Sprintf("/admin/users/%d", app.Users["admin"].User.ID),
+				Form: url.Values{
+					"username": {"test3@localhost"},
+					"password": {"1234"},
+					"email":    {"test3"},
+					"group":    {"user"},
+				},
+				ExpectStatus: 422,
+				Assert: func(t *testing.T, r *Response) {
+					require.Contains(t, string(r.Body), "must contain English letters")
+					require.Contains(t, string(r.Body), "not a valid email address")
+				},
+			},
 			RequestTest{
 				Target: fmt.Sprintf("/admin/users/%d", app.Users["admin"].User.ID),
 			},

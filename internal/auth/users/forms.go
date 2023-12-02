@@ -53,7 +53,7 @@ type UserForm struct {
 // NewUserForm returns a UserForm instance.
 func NewUserForm() *UserForm {
 	return &UserForm{forms.Must(
-		forms.NewTextField("username", forms.Trim, forms.Required),
+		forms.NewTextField("username", forms.Trim, forms.Required, IsValidUsername),
 		forms.NewTextField("password", forms.Required),
 		forms.NewTextField("email", forms.Trim, forms.Required, forms.IsEmail),
 		forms.NewChoiceField("group", availableGroups, forms.Trim, forms.Required),
@@ -83,7 +83,7 @@ func (f *UserForm) Bind() {
 	}
 
 	// if we have a user, let some fields be optional
-	f.Get("username").SetValidators(forms.Trim, forms.RequiredOrNil)
+	f.Get("username").SetValidators(forms.Trim, forms.RequiredOrNil, IsValidUsername)
 	f.Get("password").SetValidators()
 	f.Get("email").SetValidators(forms.Trim, forms.RequiredOrNil, forms.IsEmail)
 	f.Get("group").SetValidators(forms.Trim, forms.RequiredOrNil)

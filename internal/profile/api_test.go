@@ -97,6 +97,40 @@ func TestAPI(t *testing.T) {
 					}
 				}`,
 		},
+		RequestTest{
+			Method: "PATCH",
+			Target: "/api/profile",
+			JSON: map[string]interface{}{
+				"username": "user@localhost",
+				"email":    "user",
+			},
+			ExpectStatus: 422,
+			ExpectJSON: `{
+					"is_valid":false,
+					"errors":null,
+					"fields":{
+						"email":{
+							"is_null": false,
+							"is_bound": true,
+							"value": "user",
+							"errors":[
+								"not a valid email address"
+							]
+						},
+						"username":{
+							"is_null": false,
+							"is_bound": true,
+							"value":"user@localhost",
+							"errors":[
+        						"must contain English letters, digits, \"_\" and \"-\" only"
+							]
+						},
+						"settings_reader_font": "<<PRESENCE>>",
+						"settings_reader_font_size": "<<PRESENCE>>",
+						"settings_reader_line_height": "<<PRESENCE>>"
+					}
+				}`,
+		},
 
 		RequestTest{
 			Method: "PUT",

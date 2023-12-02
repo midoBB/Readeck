@@ -34,6 +34,20 @@ func TestViews(t *testing.T) {
 				Method: "POST",
 				Target: "/profile",
 				Form: url.Values{
+					"username": {"user@localhost"},
+					"email":    {"user"},
+				},
+				ExpectStatus: 422,
+				Assert: func(t *testing.T, r *Response) {
+					require.Contains(t, string(r.Body), "must contain English letters")
+					require.Contains(t, string(r.Body), "not a valid email address")
+				},
+			},
+			RequestTest{Target: "/profile", ExpectStatus: 200},
+			RequestTest{
+				Method: "POST",
+				Target: "/profile",
+				Form: url.Values{
 					"username": {"user"},
 				},
 				ExpectStatus:   303,

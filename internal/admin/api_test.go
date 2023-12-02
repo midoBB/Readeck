@@ -194,6 +194,51 @@ func TestAPI(t *testing.T) {
 				Method: "POST",
 				Target: "/api/admin/users",
 				JSON: map[string]string{
+					"username": "test3@localhost",
+					"email":    "test3",
+					"group":    "user",
+					"password": "1234",
+				},
+				ExpectStatus: 422,
+				ExpectJSON: `{
+					"is_valid": false,
+					"errors": null,
+					"fields": {
+						"email": {
+							"is_bound": true,
+							"is_null": false,
+							"value": "test3",
+							"errors":[
+								"not a valid email address"
+							]
+						},
+						"group": {
+							"is_bound": true,
+							"is_null": false,
+							"value": "user",
+							"errors": null
+						},
+						"password": {
+							"is_bound": true,
+							"is_null": false,
+							"value": "1234",
+							"errors": null
+						},
+						"username": {
+							"is_bound": true,
+							"is_null": false,
+							"value": "test3@localhost",
+							"errors":[
+								"must contain English letters, digits, \"_\" and \"-\" only"
+							]
+						}
+					}
+				}`,
+			},
+			RequestTest{
+				Method: "POST",
+				Target: "/api/admin/users",
+				JSON: map[string]string{
 					"username": "user",
 					"email":    "test2@localhost",
 					"group":    "user",
@@ -294,6 +339,51 @@ func TestAPI(t *testing.T) {
 				ExpectStatus: 200,
 				ExpectJSON: `{
 					"id": "<<PRESENCE>>"
+				}`,
+			},
+			RequestTest{
+				Method: "PATCH",
+				Target: fmt.Sprintf("/api/admin/users/%d", u1.User.ID),
+				JSON: map[string]string{
+					"username": "test3@localhost",
+					"email":    "test3",
+					"group":    "user",
+					"password": "2345",
+				},
+				ExpectStatus: 422,
+				ExpectJSON: `{
+					"is_valid":false,
+					"errors":null,
+					"fields":{
+						"email":{
+							"is_null":false,
+							"is_bound":true,
+							"value":"test3",
+							"errors":[
+								"not a valid email address"
+							]
+						},
+						"group":{
+							"is_null":false,
+							"is_bound":true,
+							"value":"user",
+							"errors":null
+						},
+						"password":{
+							"is_null":false,
+							"is_bound":true,
+							"value":"2345",
+							"errors":null
+						},
+						"username":{
+							"is_null":false,
+							"is_bound":true,
+							"value":"test3@localhost",
+							"errors":[
+								"must contain English letters, digits, \"_\" and \"-\" only"
+							]
+						}
+					}
 				}`,
 			},
 			RequestTest{

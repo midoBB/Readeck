@@ -27,7 +27,7 @@ var metricTiming = prometheus.NewHistogramVec(prometheus.HistogramOpts{
 
 var metricResources = prometheus.NewHistogram(prometheus.HistogramOpts{
 	Name:      "bookmark_resources_total",
-	Namespace: "readeack",
+	Namespace: "readeck",
 	Help:      "Total of resources saved with a bookmark",
 	Buckets:   []float64{0, 5, 10, 30, 50},
 })

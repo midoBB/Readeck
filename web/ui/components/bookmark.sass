@@ -5,7 +5,93 @@
  */
 
 @layer components
-  .prose
+  .bookmark-grid
+    @apply grid
+    grid-template-columns: minmax(auto, theme("spacing.col-22")) theme("spacing.col-6")
+
+    @screen max-md
+      @apply flex flex-col
+      @apply min-h-screen
+
+    @screen max-sm
+      min-height: calc(100vh - theme('spacing.topnav'))
+
+    @media print
+      @apply block
+
+
+  .bookmark-content
+    @apply col-start-1
+    @apply row-start-1
+
+    @apply bg-transparent
+    @apply max-w-col-22 px-6 pb-8
+
+    @screen md
+      @apply min-h-screen
+
+    @screen max-md
+      @apply px-4 grow
+
+    @media print
+      @apply overflow-visible
+      @apply max-w-none
+      @apply px-0
+
     rd-annotation
       @apply bg-yellow-100
       @apply border-b-yellow-400 border-b
+
+    .bookmark-article
+      @media print
+        columns: 2
+        column-gap: 2rem
+        orphans: 5
+        widows: 5
+        height: 100%
+        column-fill: auto
+
+      .prose
+        p, li, dd
+          @media print
+            text-align: justify
+
+
+  .bookmark-sidebar
+    @apply col-start-2
+    @apply row-start-1
+
+    @apply w-col-6 h-screen sticky overflow-y-auto z-30
+    @apply border-l border-l-gray-200
+
+    @screen md
+      @apply top-0
+
+    @screen max-md
+      @apply order-last
+      @apply bottom-0 bg-white
+      @apply w-full h-auto
+      @apply overflow-y-hidden
+      @apply flex flex-col
+      @apply shadow-panel-t
+      @apply transition-all ease-in-out
+
+    @media print
+      @apply static max-w-none w-full h-auto overflow-visible
+      @apply mb-8 border-b border-l-0
+
+
+  body.js .bookmark-sidebar
+    @screen max-md
+      max-height: 60vh
+
+      .panel--hidden
+        @apply hidden
+
+    [aria-expanded="true"][aria-controls="bookmark-panel"] svg
+      @apply rotate-180
+
+
+  body.no-js .bookmark-sidebar
+    @screen max-md
+      @apply relative

@@ -35,7 +35,7 @@ SPDX-License-Identifier: AGPL-3.0-only
  data-annotations-api-url-value="{{ urlFor(`/api/bookmarks`, .Item.ID) }}/annotations"
  data-annotations-hidden-class="hidden"
 >
-<div class="max-w-3xl mx-auto print:max-w-none relative">
+<div class="bookmark-article max-w-3xl mx-auto print:max-w-none relative">
   <div class="hidden absolute z-50"
     data-annotations-target="controlls">
       <button data-annotations-target="controllCreate" data-action="click->annotations#save"
@@ -53,6 +53,9 @@ SPDX-License-Identifier: AGPL-3.0-only
     data-annotations-target="root">
     {{- unsafeWrite(.HTML) -}}
   </div>
+  {{- include "./bookmark_qrcode" }}
 </div>
 </turbo-frame>
+{{- else -}}
+  {{- include "./bookmark_qrcode" }}
 {{- end -}}

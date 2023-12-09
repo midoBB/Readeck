@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.1] - 2023-12-09
+### Improved
+- Compress HTTP responses for some content types
+
+### Fixed
+- Fixed metric name for bookmark_resources_total
+
 ## [0.10.0] - 2023-12-02
 ### Added
 - Content Script system. This includes the five filters rulesets and improves the previous rules system with a documented and much safer JS API to override predefined rules or create complex workflows

@@ -51,6 +51,7 @@ func New(basePath string) *Server {
 		Logger(),
 		metrics.Middleware,
 		s.SetSecurityHeaders,
+		s.CompressResponse,
 		s.WithCacheControl,
 		s.CannonicalPaths,
 		auth.Init(

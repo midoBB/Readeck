@@ -13,6 +13,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/gorilla/csrf"
+	"github.com/klauspost/compress/gzhttp"
 	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/configs"
@@ -24,6 +25,7 @@ const (
 	csrfCookieName = "__csrf_key"
 	csrfFieldName  = "__csrf__"
 	csrfHeaderName = "X-CSRF-Token"
+	gzipEtagSuffix = "-gzip"
 )
 
 var acceptOffers = []string{
@@ -120,6 +122,26 @@ func (s *Server) CannonicalPaths(next http.Handler) http.Handler {
 
 		next.ServeHTTP(w, r)
 	})
+}
+
+// CompressResponse returns a gzipped response for some content types.
+// It uses gzhttp that provides a BREACH mittigation.
+func (s *Server) CompressResponse(next http.Handler) http.Handler {
+	w, err := gzhttp.NewWrapper(
+		gzhttp.CompressionLevel(5),
+		gzhttp.ContentTypes([]string{
+			"application/json",
+			"text/html", "text/plain", "text/vnd.turbo-stream.html",
+			"image/svg+xml",
+		}),
+		gzhttp.SuffixETag(gzipEtagSuffix),
+		gzhttp.MinSize(1024),
+		gzhttp.RandomJitter(32, 0, false),
+	)
+	if err != nil {
+		panic(err)
+	}
+	return w(next)
 }
 
 // ErrorPages is a middleware that overrides the response writer so

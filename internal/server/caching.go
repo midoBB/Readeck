@@ -9,6 +9,7 @@ import (
 	"hash/crc64"
 	"net/http"
 	"sort"
+	"strings"
 	"time"
 
 	"codeberg.org/readeck/readeck/configs"
@@ -150,7 +151,7 @@ func checkIfModifiedSince(w http.ResponseWriter, r *http.Request) checkResult {
 }
 
 func checkIfMatch(w http.ResponseWriter, r *http.Request) checkResult {
-	rh := r.Header.Get("If-None-Match")
+	rh := strings.TrimSuffix(r.Header.Get("If-None-Match"), gzipEtagSuffix)
 	if rh == "" {
 		return checkNone
 	}

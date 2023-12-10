@@ -113,7 +113,7 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
 	user := auth.GetRequestUser(r)
-	item := newBookmarkItem(h.srv, r, b, "")
+	item := newBookmarkItem(h.srv, r, b, "../bookmarks")
 	item.Embed = b.Embed
 	item.Errors = b.Errors
 

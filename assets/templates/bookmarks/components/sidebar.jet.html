@@ -17,7 +17,9 @@ SPDX-License-Identifier: AGPL-3.0-only
     </details>
   {{- end -}}
 
-  <div class="print:flex print:gap-2">
+  <p class="hidden print:block mb-4 font-semibold text-primary-dark">{{ .Item.URL }}</p>
+
+  <div class="print:flex print:gap-8">
     {{- if .Item.Type == "article" && isset(.Item.Resources.thumbnail) -}}
     <div class="mb-4">
       <span class="
@@ -65,13 +67,16 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{- end -}}
       {{- end -}}
     </ul>
+
+    <div class="hidden print:block ml-auto">
+      <img src="{{ qrcode(.Item.URL, -2, `#1e485b`) }}" alt="" class="rounded">
+    </div>
   </div>
 
   {{ include "./actions" .Item }}
 
-  <p class="mb-4 font-semibold hidden print:block">{{ .Item.URL }}</p>
 
-  <h3 class="mb-2 title text-lg">{{- yield icon(name="o-label") }} Labels</h3>
+  <h3 class="mb-2 title text-lg {{ if len(.Item.Labels) == 0 }}print:hidden{{ end }}">{{- yield icon(name="o-label") }} Labels</h3>
   {{ include "./labels_form" .Item }}
 
   {{- if .Item.HasArticle -}}

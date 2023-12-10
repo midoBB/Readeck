@@ -69,7 +69,7 @@ func (api *apiRouter) exportBookmarksEPUB(w http.ResponseWriter, r *http.Request
 		}()
 
 		for _, b := range bookmarks {
-			if err = m.addBookmark(newBookmarkItem(api.srv, r, b, "")); err != nil {
+			if err = m.addBookmark(newBookmarkItem(api.srv, r, b, "/bookmarks")); err != nil {
 				return err
 			}
 		}

@@ -1,9 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
 {*
 SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
 
 SPDX-License-Identifier: AGPL-3.0-only
 *}
-<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="{{ .Item.Lang }}">
@@ -60,6 +60,19 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{ raw(.Content) }}
   </main>
 {{- end -}}
+
+<hr />
+<table class="info">
+  <tr>
+    <td>
+      <img src="{{ qrcode(.Item.Href, -3) }}" alt="" />
+    </td>
+    <td>
+      Saved with <a href="https://readeck.com/">Readeck</a><br />
+      <a href="{{ .Item.Href}}">{{ .Item.Href }}</a>
+    </td>
+  </tr>
+</table>
 
 </body>
 </html>

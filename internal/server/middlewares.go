@@ -130,7 +130,7 @@ func (s *Server) CompressResponse(next http.Handler) http.Handler {
 	w, err := gzhttp.NewWrapper(
 		gzhttp.CompressionLevel(5),
 		gzhttp.ContentTypes([]string{
-			"application/json",
+			"application/json", "application/atom+xml",
 			"text/html", "text/plain", "text/vnd.turbo-stream.html",
 			"image/svg+xml",
 		}),

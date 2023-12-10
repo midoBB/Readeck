@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.10.2] - 2023-12-10
+### Improved
+- Bookmark print stylesheet
+- Display QR codes in print and ebook
+- Better youtube transcript retrieval
+
 ## [0.10.1] - 2023-12-09
 ### Improved
 - Compress HTTP responses for some content types

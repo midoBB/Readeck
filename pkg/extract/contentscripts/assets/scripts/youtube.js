@@ -39,43 +39,62 @@ exports.processMeta = function () {
 function getVideoInfo(videoID) {
   let rsp = requests.post(
     "https://youtubei.googleapis.com/youtubei/v1/player",
-    JSON.stringify(
-      {
-        context: {
-          client: {
-            hl: "en",
-            clientName: "WEB",
-            clientVersion: "2.20210721.00.00",
-            mainAppWebInfo: {
-              graftUrl: "/watch?v=" + videoID,
-            },
+    JSON.stringify({
+      context: {
+        client: {
+          hl: "en",
+          clientName: "WEB",
+          clientVersion: "2.20210721.00.00",
+          mainAppWebInfo: {
+            graftUrl: "/watch?v=" + videoID,
           },
         },
-        videoId: videoID,
       },
-      {
-        "Content-Type": "application/json",
-      },
-    ),
+      videoId: videoID,
+    }),
+    {
+      "Content-Type": "application/json",
+    },
   )
   rsp.raiseForStatus()
   return rsp.json()
 }
 
 function getTranscript(info) {
+  const langPriority = ["en", undefined, null, ""]
+
+  // Fetch caption list
   let captions =
     info.captions?.playerCaptionsTracklistRenderer?.captionTracks || []
-
-  captions.sort((a, b) => {
-    if (b.kind == "asr" && a.kind != "asr") {
-      return -1
-    } else if (a.kind == "asr" && b.kind != "asr") {
-      return 1
-    }
-    return 0
+  captions = captions.map((x) => {
+    x.auto = x.kind == "asr"
+    return x
   })
 
-  const track = (captions || []).find(() => true)
+  // Look for a default track
+  let trackIdx =
+    info.captions?.playerCaptionsTracklistRenderer?.audioTracks?.find(
+      (x) => x.hasDefaultTrack,
+    )?.defaultCaptionTrackIndex
+
+  let track
+  if (trackIdx !== null) {
+    // If we have a default track, we take this one.
+    track = captions[trackIdx]
+  } else {
+    // If we don't have a caption index, we sort the list by automatic
+    // caption last and language code priorities.
+    captions.sort((a, b) => {
+      return (
+        a.auto - b.auto ||
+        langPriority.indexOf(b.languageCode) -
+          langPriority.indexOf(a.languageCode)
+      )
+    })
+
+    track = (captions || []).find(() => true)
+  }
+
   if (!track) {
     return
   }

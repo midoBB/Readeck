@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.10.3] - 2023-12-16
+### Changed
+- Updated site config files
+- Updated dependencies
+
+### Fixed
+- Fixed a CSS print display bug with QR Codes
+
+
 ## [0.10.2] - 2023-12-10
 ### Improved
 - Bookmark print stylesheet

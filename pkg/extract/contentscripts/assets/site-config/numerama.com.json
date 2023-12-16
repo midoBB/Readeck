@@ -36,6 +36,26 @@
     [
       "\"\u003c/div\u003e\"",
       "\"\u0026lt;/div\u0026gt;\""
+    ],
+    [
+      "w,https://c0.lestechnophiles.com/www.numerama.com/wp-content/uploads/",
+      "w, https://c0.lestechnophiles.com/www.numerama.com/wp-content/uploads/"
+    ],
+    [
+      "resize=928, 522",
+      "resize=928,522"
+    ],
+    [
+      "resize=768, 432",
+      "resize=768,432"
+    ],
+    [
+      "resize=480, 270",
+      "resize=480,270"
+    ],
+    [
+      "resize=512, 288",
+      "resize=512,288"
     ]
   ],
   "http_headers": null,

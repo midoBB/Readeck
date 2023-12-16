@@ -1,0 +1,47 @@
+{
+  "title_selectors": [
+    "//h1[contains(concat(' ', normalize-space(@class), ' '), ' title ')]"
+  ],
+  "body_selectors": [
+    "//strong[contains(concat(' ', normalize-space(@class), ' '), ' subtitle ')] | //div[@class='article-body']"
+  ],
+  "date_selectors": [
+    "//time/@datetime"
+  ],
+  "author_selectors": [
+    "//div[contains(concat(' ', normalize-space(@class), ' '), ' author-title ')]"
+  ],
+  "strip_selectors": [
+    "//time",
+    "//div[contains(concat(' ', normalize-space(@class), ' '), ' article-more-from ')]"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cdiv class=\"article-subtitle",
+      "\u003cstrong class=\"article-subtitle"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.al-monitor.com/originals/2021/03/ukrainians-held-hostage-pkk-militants-iraqi-kurdistan-over-arms-trafficking-scam",
+      "contains": []
+    },
+    {
+      "url": "https://www.al-monitor.com/originals/2023/11/turkeys-parliament-debate-swedens-nato-bid-erdogan-eyes-biden-invite",
+      "contains": []
+    },
+    {
+      "url": "https://www.al-monitor.com/originals/2023/11/proof-life-video-russian-israeli-scholar-suggests-iraqi-captors-want-negotiate",
+      "contains": []
+    }
+  ]
+}

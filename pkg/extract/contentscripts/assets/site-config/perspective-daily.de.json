@@ -1,14 +1,10 @@
 {
   "title_selectors": null,
-  "body_selectors": [
-    "//div[@class='layout_full block']"
-  ],
-  "date_selectors": [
-    "//time/@datetime"
-  ],
+  "body_selectors": null,
+  "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
-    "//p[@class='info']"
+    "//cite"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -18,16 +14,11 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": [
-    [
-      "s-bahn.de/aktuell/files/img/",
-      "s-bahn.de/files/img/"
-    ]
-  ],
+  "replace_strings": null,
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.nordmainische-s-bahn.de/aktuell/die-nordmainische-s-bahn-stellt-sich-vor-der-ingenieur-fuer-hanau.html",
+      "url": "https://perspective-daily.de/article/1212",
       "contains": []
     }
   ]

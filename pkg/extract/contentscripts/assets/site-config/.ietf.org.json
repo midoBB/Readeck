@@ -1,16 +1,16 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[@class='layout_full block']"
+    "//div[@id='content']"
   ],
   "date_selectors": [
     "//time/@datetime"
   ],
   "author_selectors": null,
-  "strip_selectors": [
-    "//p[@class='info']"
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "pilcrow"
   ],
-  "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -18,16 +18,11 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": [
-    [
-      "s-bahn.de/aktuell/files/img/",
-      "s-bahn.de/files/img/"
-    ]
-  ],
+  "replace_strings": null,
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.nordmainische-s-bahn.de/aktuell/die-nordmainische-s-bahn-stellt-sich-vor-der-ingenieur-fuer-hanau.html",
+      "url": "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-01",
       "contains": []
     }
   ]

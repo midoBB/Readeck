@@ -1,8 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//article[contains(@class, 'main-content')]",
-    "//div[@id='articleBody']"
+    "//em[@data-testid='SplitScreenContentHeaderWrapper'] | //div[@class='body__inner-container']"
   ],
   "date_selectors": [
     "//meta[@property=\"article:published_time\"]/@content",
@@ -12,21 +11,20 @@
     "//meta[@property=\"article:author\"]/@content"
   ],
   "strip_selectors": [
-    "//button[@id=\"bookmark\"]"
+    "//button[@id=\"bookmark\"]",
+    "//div[@data-testid=\"ResponsiveClipVideoContainer\"]",
+    "//div[@data-testid=\"ContentHeaderRubric\"]",
+    "//h1",
+    "//div[@data-testid=\"BylinesWrapper\"]",
+    "//time",
+    "//ul[@data-testid=\"socialIconslist\"]",
+    "//div[contains(concat(' ', normalize-space(@class), ' '), ' caption ')]",
+    "//div[@data-testid=\"GenericCallout\"]",
+    "//figure[@data-testid=\"IframeEmbed\"]",
+    "//div[contains(concat(' ', normalize-space(@class), ' '), ' responsive-cartoon ')]"
   ],
   "strip_id_or_class": [
-    "content-header__title-block",
-    "content-header__accreditation",
-    "grid-layout__aside",
-    "full-bleed-ad",
-    "consumer-marketing-unit",
-    "ad--in-content",
-    "ad--rail",
-    "article__social-share",
-    "cne-interlude-embed",
-    "social-icons",
-    "split-screen-content-header__rubric",
-    "split-screen-content-header__rubric-issue-date"
+    "full-bleed-ad"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -35,8 +33,15 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
-  "http_headers": null,
+  "replace_strings": [
+    [
+      "\u003cheader",
+      "\u003cem"
+    ]
+  ],
+  "http_headers": {
+    "Cookie": "pay_ent_msmp=1"
+  },
   "tests": [
     {
       "url": "https://www.newyorker.com/magazine/2016/02/08/mothers-day-fiction-george-saunders",
@@ -48,6 +53,10 @@
     },
     {
       "url": "https://www.newyorker.com/reporting/2013/04/22/130422fa_fact_bilger?currentPage=all\u0026mobify=0",
+      "contains": []
+    },
+    {
+      "url": "https://www.newyorker.com/magazine/2023/11/20/a-coder-considers-the-waning-days-of-the-craft",
       "contains": []
     },
     {

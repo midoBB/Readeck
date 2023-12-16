@@ -3,7 +3,9 @@
   "body_selectors": [
     "//div[@class='mod_newsreader block']"
   ],
-  "date_selectors": null,
+  "date_selectors": [
+    "//time/@datetime"
+  ],
   "author_selectors": null,
   "strip_selectors": [
     "//h1[@itemprop='name']",

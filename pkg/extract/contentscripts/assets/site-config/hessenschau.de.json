@@ -11,7 +11,9 @@
     "//button",
     "//form",
     "//aside[contains(@class, 'dontPrint')]",
-    "//blockquote[contains(@class, 'dontPrint')]"
+    "//blockquote[contains(@class, 'dontPrint')]",
+    "//a[@href='https://whatsapp.com/channel/0029VaDcqVJAu3aJgJtKhX25']/parent::aside",
+    "//a[@href='https://whatsapp.com/channel/0029VaDcqVJAu3aJgJtKhX25']/parent::blockquote"
   ],
   "strip_id_or_class": [
     "c-contentHeader__author",

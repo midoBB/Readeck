@@ -1,0 +1,43 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//main[1]"
+  ],
+  "date_selectors": [
+    "//ul[@aria-label='Authors']/following-sibling::p"
+  ],
+  "author_selectors": [
+    "//h1/following-sibling::ul[@aria-label='Authors']/li/*"
+  ],
+  "strip_selectors": [
+    "//nav",
+    "//button",
+    "//form",
+    "//aside",
+    "//h2[contains(@class, 'h6') and starts-with(text(), 'Filter by')]",
+    "//h2[contains(@class, 'h4') and contains(text(), 'Share this page')]/parent::div"
+  ],
+  "strip_id_or_class": [
+    "blog_sidebar",
+    "ms-3"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.ietf.org/archive/id/draft-ietf-oauth-sd-jwt-vc-01.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.ietf.org/blog/ietf117-highlights/",
+      "contains": []
+    }
+  ]
+}

@@ -1,16 +1,22 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[@class='layout_full block']"
+    "//article[contains(@class, 'doc')]"
   ],
-  "date_selectors": [
-    "//time/@datetime"
+  "date_selectors": null,
+  "author_selectors": [
+    "//article[contains(@class, 'doc')]/@data-analytics-authors"
   ],
-  "author_selectors": null,
   "strip_selectors": [
-    "//p[@class='info']"
+    "//header/h1",
+    "//footer"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "crumbs",
+    "doc_header__time",
+    "iconbox",
+    "js-social"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -20,14 +26,14 @@
   "next_page_link_selectors": null,
   "replace_strings": [
     [
-      "s-bahn.de/aktuell/files/img/",
-      "s-bahn.de/files/img/"
+      "noscript\u003e",
+      "div\u003e"
     ]
   ],
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.nordmainische-s-bahn.de/aktuell/die-nordmainische-s-bahn-stellt-sich-vor-der-ingenieur-fuer-hanau.html",
+      "url": "https://www.kommersant.ru/doc/3669956",
       "contains": []
     }
   ]

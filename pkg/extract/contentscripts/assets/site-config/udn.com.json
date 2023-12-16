@@ -1,15 +1,18 @@
 {
-  "title_selectors": null,
+  "title_selectors": [
+    "//h1[@class='article-content__title']"
+  ],
   "body_selectors": [
-    "//div[@class='layout_full block']"
+    "//section[contains(@class, 'article-content__editor')]/p"
   ],
   "date_selectors": [
-    "//time/@datetime"
+    "//time[@class='article-content__time']"
   ],
-  "author_selectors": null,
+  "author_selectors": [
+    "//span[normalize-space(@class)='article-content__author']"
+  ],
   "strip_selectors": [
-    "//div[@class='layout_full block']/h1",
-    "//p[@class='info']"
+    "//figure[@class='article-content__cover']"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -23,7 +26,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.s6-frankfurt-friedberg.de/newsreader/die-nidda-nach-der-brueckenerneuerung-besserer-lebensraum-fuer-rotauge-barbe-nase-und-schneider.html",
+      "url": "https://udn.com/news/story/123475/7600512",
       "contains": []
     }
   ]

@@ -3,8 +3,12 @@
   "body_selectors": [
     "//div[contains(concat(' ',normalize-space(@class),' '),' content_left ')]"
   ],
-  "date_selectors": null,
-  "author_selectors": null,
+  "date_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' text-style-author-date ')]"
+  ],
+  "author_selectors": [
+    "//a[contains(concat(' ',normalize-space(@class),' '),' link_author-name-blue ')]"
+  ],
   "strip_selectors": null,
   "strip_id_or_class": [
     "subcategories-wrapper",
@@ -13,7 +17,10 @@
     "newsletter_wrapper",
     "embed_newsletter",
     "img_author-headshot-bottom-wrapper",
-    "img_author-headshot-bottom"
+    "img_author-headshot-bottom",
+    "arcticle-ad-block-wrapper",
+    "article_marketplace-ad",
+    "randomized_ads-list-wrapper"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

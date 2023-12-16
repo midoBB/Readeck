@@ -1,0 +1,41 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//main"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//invalid",
+    "//button/parent::div",
+    "//h1[1]",
+    "//div[contains(text(), 'Is this conversation helpful so far?')]/parent::div"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003csvg stroke",
+      "\u003cinvalid stroke"
+    ],
+    [
+      "\u003csvg width",
+      "\u003cinvalid width"
+    ]
+  ],
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/120.0"
+  },
+  "tests": [
+    {
+      "url": "https://chat.openai.com/share/d02f6660-f56f-4afb-b5e6-96c74ead88a3",
+      "contains": []
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article[@class='article']"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//aside",
+    "//button",
+    "//nav",
+    "//div[@class='nr-article-share']/self::div | //div[@class='nr-article-share']/following-sibling::*"
+  ],
+  "strip_id_or_class": [
+    "featured-header",
+    "article-header"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cdiv class=\"video c",
+      "\u003cstrong\u003e\u0026rarr; \u003cem\u003eEmbedded video can not be shown here, open source page to watch\u003c/em\u003e\u003c/strong\u003e\u003cdiv class=\"foo video c"
+    ],
+    [
+      "\u003cvideo",
+      "\u003cdiv"
+    ],
+    [
+      "\u003c/video",
+      "\u003c/div"
+    ],
+    [
+      "class=\"video-container",
+      "class=\"foobar"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.apple.com/newsroom/2023/10/apple-supercharges-24-inch-imac-with-new-m3-chip/",
+      "contains": []
+    },
+    {
+      "url": "https://www.apple.com/newsroom/2023/10/behind-the-scenes-at-scary-fast-apples-keynote-event-shot-on-iphone/",
+      "contains": []
+    }
+  ]
+}

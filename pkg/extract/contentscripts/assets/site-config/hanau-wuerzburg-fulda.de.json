@@ -10,7 +10,9 @@
   "strip_selectors": [
     "//p[@class='info']"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "imgSrc"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -20,14 +22,14 @@
   "next_page_link_selectors": null,
   "replace_strings": [
     [
-      "tunnel-frankfurt.de/aktuell/files/img/",
-      "tunnelfrankfurt.de/files/img/"
+      "src=\"files/img/",
+      "src=\"/files/img/"
     ]
   ],
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.fernbahntunnel-frankfurt.de/meldungen-reader/dialog-zum-fernbahntunnel-gestartet-deutsche-bahn-informiert-ueber-stand-des-frankfurter-knotenprojektes.html",
+      "url": "https://www.hanau-wuerzburg-fulda.de/aktuelles-reader/erste-Projekte-zur-Kompensation-des-Streckenausbaus-Hanau-Gelnhausen.html",
       "contains": []
     }
   ]

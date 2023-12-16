@@ -1,0 +1,37 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//main"
+  ],
+  "date_selectors": [
+    "//meta[@property='og:updated_time']/@content"
+  ],
+  "author_selectors": [
+    "//li[@itemprop='author']"
+  ],
+  "strip_selectors": [
+    "//div[starts-with(@data-widget_type, 'heading')]",
+    "//div[starts-with(@data-widget_type, 'theme-post-title')]",
+    "//div[starts-with(@data-widget_type, 'post-info')]",
+    "//a[@href='https://t.me/glasnaya_media']/ancestor::section[1]",
+    "//div[starts-with(@data-widget_type, 'post-navigation')]/self::div | //div[starts-with(@data-widget_type, 'post-navigation')]/following-sibling::*",
+    "//button[starts-with(text(), 'Подписаться')]/ancestor::form[1]/ancestor::section[1]/parent::div",
+    "//article"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://glasnaya.media/2023/09/11/vse-byli-privyazany/",
+      "contains": []
+    }
+  ]
+}

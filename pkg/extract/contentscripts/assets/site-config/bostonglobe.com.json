@@ -1,19 +1,17 @@
 {
   "title_selectors": [
-    "//article//h1[contains(@class, 'title')]"
+    "//main//h1[contains(@class, 'headline')]"
   ],
   "body_selectors": [
-    "//article//h2[contains(@class, 'subheader')] | (//article//div[contains(@class, 'image')])[1] | //article[@id=\"article-body\"]"
+    "//main//h2[contains(@class, 'subheader')] | (//main//div[contains(@class, 'image')])[1] | //article[@id=\"article-body\"]"
   ],
   "date_selectors": [
     "//meta[@name=\"datePublished\"]/@content"
   ],
   "author_selectors": [
-    "//div[contains(@class, \"byline\")]//span[contains(@class, 'author')]"
+    "//div[contains(@class, \"authors\")]//*[contains(@class, \"author\")]"
   ],
-  "strip_selectors": [
-    "//img[contains(@src, '/20x0/')]"
-  ],
+  "strip_selectors": null,
   "strip_id_or_class": [
     "bgmp-comments",
     "aside",
@@ -27,7 +25,7 @@
     "arc_ad",
     "teads-inread",
     "continue_button",
-    "figure"
+    "affiliation"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -36,7 +34,16 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "\" data-src=\"https://bostonglobe-prod.cdn.arcpublishing.com",
+      "\" x src=\"https://bostonglobe-prod.cdn.arcpublishing.com"
+    ],
+    [
+      "\" src=\"https://bostonglobe-prod.cdn.arcpublishing.com/resizer/",
+      "tinysrc=\"https://bostonglobe-prod.cdn.arcpublishing.com/resizer/"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {

@@ -11,7 +11,7 @@
     "//div[contains(@class, 'view-publish_date')]"
   ],
   "author_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' author ')]"
+    "//meta[@name='author']/@content"
   ],
   "strip_selectors": null,
   "strip_id_or_class": [
@@ -32,7 +32,8 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": [
-    "//div[@class=\"pagenavigator\"][1]/p/span[@class=\"next\"]/a"
+    "//div[@class=\"pagenavigator\"][1]//span[@class=\"next\"]/a",
+    "//a[contains(@href, '/(offset)/') and contains(text(), 'Weiter')]"
   ],
   "replace_strings": null,
   "http_headers": null,

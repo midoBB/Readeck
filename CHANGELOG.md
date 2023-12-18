@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.10.4] - 2023-12-18
+### Fixed
+- Fixed a bug preventing the execution of the main content script
+- Fixed the newyorker.com site configuration
+
 ## [0.10.3] - 2023-12-16
 ### Changed
 - Updated site config files
@@ -7,7 +12,6 @@
 
 ### Fixed
 - Fixed a CSS print display bug with QR Codes
-
 
 ## [0.10.2] - 2023-12-10
 ### Improved

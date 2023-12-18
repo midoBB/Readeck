@@ -38,6 +38,20 @@ exports.setConfig = function (config) {
       config.stripIdOrClass.push("cookie-consent-banner-content")
       break
 
+    case $.domain == "newyorker.com":
+      // 2023-12-18: the new site-config is too restrictive
+      config.bodySelectors.unshift(
+        "//article[contains(@class, 'main-content')]",
+        "//div[@id='articleBody']",
+      )
+      config.stripSelectors = [
+        '//button[@id="bookmark"]',
+        '//div[@data-testid="BylinesWrapper"]',
+        "//time",
+        '//ul[@data-testid="socialIconslist"]',
+        "//div[contains(concat(' ', normalize-space(@class), ' '), ' responsive-cartoon ')]",
+      ]
+
     case $.domain == "slate.com":
       // The original replaceStrings replaces noscript by divs,
       // not the best idea.

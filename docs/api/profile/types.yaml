@@ -22,6 +22,10 @@ schemas:
         items:
           type: string
         description: A list of roles to restrict the new token access.
+    example:
+      username: alice
+      password: "1234"
+      application: api doc
 
   authenticationResult:
     type: object
@@ -32,6 +36,11 @@ schemas:
       token:
         type: string
         description: Authentication token. This is the value you must store in your application.
+    example:
+      {
+        "id": "RFutYEAVM95DUDLUDnhbQm",
+        "token": "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJqdxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      }
 
   userProfile:
     type: object
@@ -95,3 +104,39 @@ schemas:
                     type: integer
                   line_height:
                     type: integer
+    example:
+      {
+        "provider": {
+          "name": "bearer token",
+          "id": "X4bmnMRcnDhQtu5y33qzTp",
+          "application": "internal",
+          "roles": [
+            "scoped_bookmarks_r",
+            "scoped_bookmarks_w"
+          ],
+          "permissions": [
+            "api:bookmarks:collections:read",
+            "api:bookmarks:collections:write",
+            "api:bookmarks:export",
+            "api:bookmarks:read",
+            "api:bookmarks:write",
+            "api:opds:read",
+            "api:profile:read",
+            "api:profile:tokens:delete"
+          ]
+        },
+        "user": {
+          "username": "alice",
+          "email": "alice@localhost",
+          "created": "2023-08-27T13:32:11.704606963Z",
+          "updated": "2023-12-17T09:08:31.909723372Z",
+          "settings": {
+            "debug_info": false,
+            "reader_settings": {
+              "font": "serif",
+              "font_size": 3,
+              "line_height": 3
+            }
+          }
+        }
+      }

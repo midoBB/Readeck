@@ -195,3 +195,285 @@ schemas:
         items:
           type: string
         description: List of labels to set to the bookmark
+
+  bookmarkUpdate:
+    properties:
+      title:
+        type: string
+        description: New bookmark's title
+      is_marked:
+        type: boolean
+        description: Favortie state
+      is_archived:
+        type: boolean
+        description: Archive state
+      is_deleted:
+        type: boolean
+        description: |
+          If `true`, schedules the bookmark for deletion, otherwise, cancels any scheduled deletion
+      labels:
+        type: array
+        items:
+          type: string
+        description: Replaces the bookmark's labels
+      add_labels:
+        items:
+          type: string
+        description: Add the given labels to the bookmark
+      remove_labels:
+        items:
+          type: string
+        description: Remove the given labels from the bookmark
+
+  bookmarkUpdated:
+    required: [href, id, updated]
+    properties:
+      href:
+        type: string
+        format: uri
+        description: Bookmark URI
+      id:
+        type: string
+        format: short-uid
+        description: Bookmark's ID
+      updated:
+        type: string
+        format: date-time
+        description: Last update
+      title:
+        type: string
+        description: Bookmark Title
+      is_marked:
+        type: string
+        description: Favorite status
+      is_archived:
+        type: string
+        description: Archive status
+      is_deleted:
+        type: string
+        description: Scheduled deletion status
+      labels:
+        type: string
+        description: New label list
+
+  labelSummary:
+    properties:
+      name:
+        type: string
+        description: Label's name
+      count:
+        type: integer
+        description: Number of bookmarks with this label
+      href:
+        type: string
+        format: uri
+        description: Link to the label info
+
+  labelInfo:
+    allOf:
+      - $ref: "#/components/schemas/labelSummary"
+      - type: object
+        properties:
+          href_bookmarks:
+            type: string
+            format: uri
+            description: Link to the bookmarks with this label
+
+  labelUpdate:
+    properties:
+      name:
+        type: string
+        description: New label
+
+  annotationSummary:
+    properties:
+      id:
+        type: string
+        format: short-uid
+        description: Highlight ID
+      href:
+        type: string
+        format: uri
+        description: Link to the highlight
+      text:
+        type: string
+        description: Highlighted text
+      created:
+        type: string
+        format: date-time
+        description: Highlight creation date
+      bookmark_id:
+        type: string
+        format: short-uid
+        description: Bookmark ID
+      bookmark_href:
+        type: string
+        format: uri
+        description: Link to the bookmark information
+      bookmark_url:
+        type: string
+        format: uri
+        description: Original bookmark's URL
+      bookmark_title:
+        type: string
+        description: Title of the bookmark
+      bookmark_site_name:
+        type: string
+        description: Bookmark's site name
+
+  annotationInfo:
+    properties:
+      id:
+        type: string
+        format: short-uid
+        description: Highlight ID
+      start_selector:
+        type: string
+        description: Start element's XPath selector
+      start_offset:
+        type: integer
+        description: Start element's text offset
+      end_selector:
+        type: string
+        description: End element's XPath selector
+      end_offset:
+        type: integer
+        description: End element's text offset
+      created:
+        type: string
+        format: date-time
+        description: Highlight creation date
+      text:
+        type: string
+        description: Highlighted text
+
+  annotationCreate:
+    required: [start_selector, start_offset, end_selector, end_offset]
+    properties:
+      start_selector:
+        type: string
+        description: Start element's XPath selector
+      start_offset:
+        type: integer
+        description: Start element's text offset
+      end_selector:
+        type: string
+        description: End element's XPath selector
+      end_offset:
+        type: integer
+        description: End element's text offset
+
+  collectionSummary:
+    properties:
+      updated:
+        type: string
+        format: date-time
+        description: Last update date
+      name:
+        type: string
+        description: Collection's name
+      is_pinned:
+        type: boolean
+        description: |
+          `true` when the collection is pinned
+      is_deleted:
+        type: boolean
+        description: Collection is scheduled for deletion
+      search:
+        type: string
+        description: Search string
+      title:
+        type: string
+        description: Title filter
+      author:
+        type: string
+        description: Author filter
+      site:
+        type: string
+        description: Site (name, host or domain) filter
+      type:
+        type: string
+        enum: [article, photo, video]
+        description: Type filter
+      labels:
+        type: string
+        description: Label filter
+      is_marked:
+        type: boolean
+        description: Favorite filter
+      is_archived:
+        type: boolean
+        description: Archive filter
+      range_start:
+        type: string
+        description: From date filter
+      range_end:
+        type: string
+        description: To date filter
+
+  collectionInfo:
+    allOf:
+      - type: object
+        properties:
+          id:
+            type: string
+            format: short-uid
+            description: Collection ID
+          href:
+            type: string
+            format: uri
+            description: Collection URL
+          created:
+            type: string
+            format: date-time
+            description: Creation date
+      - $ref: "#/components/schemas/collectionSummary"
+
+
+  collectionCreate:
+    properties:
+      name:
+        type: string
+        description: Collection's name
+      is_pinned:
+        type: boolean
+        description: |
+          `true` when the collection is pinned
+      is_deleted:
+        type: boolean
+        description: Collection is scheduled for deletion
+      search:
+        type: string
+        description: Search string
+      title:
+        type: string
+        description: Title filter
+      author:
+        type: string
+        description: Author filter
+      site:
+        type: string
+        description: Site (name, host or domain) filter
+      type:
+        type: string
+        enum: [article, photo, video]
+        description: Type filter
+      labels:
+        type: string
+        description: Label filter
+      is_marked:
+        type: boolean
+        description: Favorite filter
+      is_archived:
+        type: boolean
+        description: Archive filter
+      range_start:
+        type: string
+        description: From date filter
+      range_end:
+        type: string
+        description: To date filter
+
+  collectionUpdate:
+    allOf:
+      - $ref: "#/components/schemas/collectionCreate"

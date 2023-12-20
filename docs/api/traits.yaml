@@ -56,6 +56,20 @@ paginated:
           schema:
             type: integer
 
+created:
+  responses:
+    "201":
+      headers:
+        Location:
+          description: URL of the created resource
+          schema:
+            type: string
+            format: uri
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/message"
+
 deferred:
   responses:
     "202":

@@ -40,6 +40,14 @@ info:
     })
     ```
 
+    ## First time authentication
+
+    While you can create an authentication token from Readeck, you can also get one directly from
+    the API. This provides a mechanism to ask for user credentials and obtain a token for your app
+    only.
+
+    Please refer to [POST /auth](#post-/auth) for more information.
+
     ## Test the API
 
     On this documentation, you can test every route.
@@ -61,21 +69,35 @@ components:
     $merge:
       - "types.yaml#.schemas"
       - "bookmarks/types.yaml#.schemas"
+      - "profile/types.yaml#.schemas"
 
 security:
   - bearer: []
 
 tags:
+  - name: user profile
   - name: bookmarks
-    description: Bookmarks
-
   - name: bookmark export
-    description: Bookmark Export
-
+  - name: bookmark labels
+  - name: bookmark highlights
+  - name: bookmark collections
   - name: dev tools
-    description: Routes used for testing or development
 
 paths:
+  /auth:
+    post:
+      tags: [user profile]
+      $merge:
+        - "profile/routes.yaml#.auth"
+
+  /profile:
+    get:
+      tags: [user profile]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.created"
+        - "profile/routes.yaml#.profile"
+
   /bookmarks:
     get:
       tags: [bookmarks]
@@ -102,6 +124,13 @@ paths:
         - "traits.yaml#.authenticated"
         - "bookmarks/routes.yaml#.retrieve"
 
+    patch:
+      tags: [bookmarks]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "bookmarks/routes.yaml#.update"
+
     delete:
       tags: [bookmarks]
       $merge:
@@ -127,6 +156,112 @@ paths:
       $merge:
         - "traits.yaml#.authenticated"
         - "bookmarks/routes.yaml#.export"
+
+  /bookmarks/labels:
+    get:
+      tags: [bookmark labels]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "bookmarks/routes.yaml#.labels"
+
+  /bookmarks/labels/{name}:
+    $merge:
+      - "bookmarks/routes.yaml#.withLabel"
+
+    get:
+      tags: [bookmark labels]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "bookmarks/routes.yaml#.labelInfo"
+
+    patch:
+      tags: [bookmark labels]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "bookmarks/routes.yaml#.labelUpdate"
+
+    delete:
+      tags: [bookmark labels]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "bookmarks/routes.yaml#.labelDelete"
+
+  /bookmarks/annotations:
+    get:
+      tags: [bookmark highlights]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.paginated"
+        - "bookmarks/routes.yaml#.annotationList"
+
+  /bookmarks/{id}/annotations:
+    $merge:
+      - "bookmarks/routes.yaml#.withBookmark"
+
+    get:
+      tags: [bookmark highlights]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "bookmarks/routes.yaml#.bookmarkAnnotationList"
+
+    post:
+      tags: [bookmark highlights]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.created"
+        - "bookmarks/routes.yaml#.bookmarkAnnotationCreate"
+
+  /bookmarks/{id}/annotations/{annotation_id}:
+    $merge:
+      - "bookmarks/routes.yaml#.withBookmark"
+
+    delete:
+      tags: [bookmark highlights]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "bookmarks/routes.yaml#.withAnnotation"
+        - "bookmarks/routes.yaml#.bookmarkAnnotationDelete"
+
+  /bookmarks/collections:
+    get:
+      tags: [bookmark collections]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.paginated"
+        - "bookmarks/routes.yaml#.collectionList"
+
+    post:
+      tags: [bookmark collections]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.created"
+        - "bookmarks/routes.yaml#.collectionCreate"
+
+  /bookmarks/collections/{id}:
+    $merge:
+      - "bookmarks/routes.yaml#.withCollection"
+
+    get:
+      tags: [bookmark collections]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "bookmarks/routes.yaml#.collectionInfo"
+
+    patch:
+      tags: [bookmark collections]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "bookmarks/routes.yaml#.collectionUpdate"
+
+    delete:
+      tags: [bookmark collections]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "bookmarks/routes.yaml#.collectionDelete"
+
+
 
   /cookbook/extract:
     get:

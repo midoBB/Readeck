@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.10.5] - 2023-12-20
+### Improved
+- Added more API documentation and some examples
+
+### Fixed
+- Fixed API documentation "try" mode not working
+- Fixed a bug when creating a bookmark with cached resources
+
 ## [0.10.4] - 2023-12-18
 ### Fixed
 - Fixed a bug preventing the execution of the main content script

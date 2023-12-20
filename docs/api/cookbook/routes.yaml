@@ -7,6 +7,8 @@
 extract:
   summary: Extract Link
   description: |
+    **NOTE: Only available for user in the admin group.**
+
     This route extracts a link and returns the extraction result.
 
     You can pass an `Accept` header to the request, with one of the following values:

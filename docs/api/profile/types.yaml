@@ -1,0 +1,97 @@
+---
+# SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
+#
+# SPDX-License-Identifier: AGPL-3.0-only
+
+schemas:
+  authenticationForm:
+    type: object
+    required: [username, password, application]
+    properties:
+      username:
+        type: string
+        description: Username
+      password:
+        type: string
+        description: Password
+      application:
+        type: string
+        description: Application name. This can be anything.
+      roles:
+        type: array
+        items:
+          type: string
+        description: A list of roles to restrict the new token access.
+
+  authenticationResult:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Token ID
+      token:
+        type: string
+        description: Authentication token. This is the value you must store in your application.
+
+  userProfile:
+    type: object
+    properties:
+      provider:
+        description: Authentication provider information
+        type: object
+        properties:
+          id:
+            type: string
+            format: short-uid
+            description: Authentication provider ID (ie. the token ID)
+          name:
+            type: string
+            description: Provider name
+          application:
+            type: string
+            description: The registered application name
+          roles:
+            type: array
+            items:
+              type: string
+            description: Roles granted for this session
+          permissions:
+            type: array
+            items:
+              type: string
+            description: Permissions granted for this session
+      user:
+        description: User information
+        type: object
+        properties:
+          username:
+            type: string
+            description: Username
+          email:
+            type: string
+            description: User email
+          created:
+            type: string
+            format: date-time
+            description: Creation date
+          updated:
+            type: string
+            format: date-time
+            description: Last update date
+          settings:
+            description: User settings
+            type: object
+            properties:
+              debug_info:
+                type: boolean
+                description: Enable debug information
+              reader_settings:
+                description: Reader settings
+                type: object
+                properties:
+                  font:
+                    type: string
+                  font_size:
+                    type: integer
+                  line_height:
+                    type: integer

@@ -256,7 +256,7 @@ func extractPageHandler(data interface{}) {
 
 	for _, x := range params.Resources {
 		// Inject resource in client's cache
-		ex.AddToCache(x.URL, x.Headers, bytes.NewReader(x.Data))
+		ex.AddToCache(x.URL, x.Headers, x.Data)
 	}
 
 	ex.AddProcessors(

@@ -231,8 +231,8 @@ func (e *Extractor) Client() *http.Client {
 
 // AddToCache adds a resource to the extractor's resource cache.
 // The cache will be used by the HTTP client during its round trip.
-func (e *Extractor) AddToCache(url string, headers map[string]string, body io.ReadSeeker) {
-	e.cachedResources[url] = &cachedResource{headers: headers, data: &cacheEntry{body}}
+func (e *Extractor) AddToCache(url string, headers map[string]string, body []byte) {
+	e.cachedResources[url] = &cachedResource{headers: headers, data: newCacheEntry(body)}
 }
 
 // IsInCache returns true if a given URL is present in the
@@ -492,18 +492,17 @@ type cachedResource struct {
 }
 
 type cacheEntry struct {
-	body io.ReadSeeker
+	*bytes.Reader
 }
 
-func (cr *cacheEntry) Read(p []byte) (n int, err error) {
-	n, err = cr.body.Read(p)
-	if err == io.EOF {
-		cr.body.Seek(0, 0) //nolint:errcheck
+func newCacheEntry(data []byte) *cacheEntry {
+	return &cacheEntry{
+		bytes.NewReader(data),
 	}
-	return n, err
 }
 
+// Close implement io.ReadCloser on a cache entry.
 func (cr *cacheEntry) Close() error {
-	cr.body.Seek(0, 0) //nolint:errcheck
+	cr.Reader.Reset([]byte{})
 	return nil
 }

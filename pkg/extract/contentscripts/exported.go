@@ -129,6 +129,9 @@ func newProcessMessageProxy(vm *Runtime) (*goja.Object, error) {
 	); err != nil {
 		return nil, err
 	}
+	if err := obj.Set("overrideConfig", p.overrideConfig); err != nil {
+		return nil, err
+	}
 	return obj, nil
 }
 
@@ -229,6 +232,21 @@ func (p *processMessageProxy) getReadability() bool {
 
 func (p *processMessageProxy) setReadability(val bool) {
 	contents.EnableReadability(p.getProcessMessage().Extractor, val)
+}
+
+func (p *processMessageProxy) overrideConfig(cfg *SiteConfig, src string) error {
+	u, err := url.Parse(src)
+	if err != nil {
+		return err
+	}
+	newConfig, err := NewConfigForURL(SiteConfigFiles, u)
+	if err != nil {
+		return err
+	}
+
+	*cfg = *newConfig
+	p.vm.GetLogger().WithField("files", cfg.files).Debug("site configuration override")
+	return nil
 }
 
 type dropMetaProxy struct {

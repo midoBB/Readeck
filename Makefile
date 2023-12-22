@@ -79,7 +79,7 @@ build:
 		-o $(DIST)/$(OUTFILE_NAME)
 
 # Build the documentation
-.PHONY: help-build
+.PHONY: docs-build
 docs-build:
 	$(GO) run codeberg.org/readeck/file-compose@latest -format json docs/api/api.yaml docs/assets/api.json
 	$(GO) run ./tools/docs docs/src docs/assets

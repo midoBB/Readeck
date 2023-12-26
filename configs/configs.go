@@ -64,9 +64,9 @@ type configServer struct {
 	Port               int           `json:"port" env:"READECK_SERVER_PORT"`
 	Prefix             string        `json:"prefix" env:"READECK_SERVER_PREFIX"`
 	AllowedHosts       []string      `json:"allowed_hosts" env:"READECK_ALLOWED_HOSTS"`
-	UseXForwardedFor   bool          `json:"use_x_forwarded_for"`
-	UseXForwardedHost  bool          `json:"use_x_forwarded_host" env:"-"`
-	UseXForwardedProto bool          `json:"use_x_forwarded_proto" env:"-"`
+	UseXForwardedFor   bool          `json:"use_x_forwarded_for" env:"READECK_USE_X_FORWARDED"`
+	UseXForwardedHost  bool          `json:"use_x_forwarded_host" env:"READECK_USE_X_FORWARDED"`
+	UseXForwardedProto bool          `json:"use_x_forwarded_proto" env:"READECK_USE_X_FORWARDED"`
 	Session            configSession `json:"session" env:"-"`
 	Metrics            configMetrics `json:"metrics" env:"-"`
 }

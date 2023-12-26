@@ -818,6 +818,12 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *Bookmark, base string
 		},
 	}
 
+	// Set a relative media base URL when we're not querying the API.
+	if !strings.HasPrefix(r.URL.EscapedPath(), s.AbsoluteURL(r, "/api/").EscapedPath()) {
+		res.mediaURL.Scheme = ""
+		res.mediaURL.Host = ""
+	}
+
 	if b.Labels != nil {
 		res.Labels = b.Labels
 	}

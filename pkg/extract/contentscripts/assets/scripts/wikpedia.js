@@ -1,0 +1,28 @@
+// SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
+exports.priority = 10
+
+exports.isActive = function () {
+  return $.host.endsWith(".wikipedia.org")
+}
+
+exports.setConfig = function (config) {
+  config.stripSelectors.push(
+    "//*[contains(@class, 'mw-editsection')]",
+    "//*[contains(@class, 'printfooter')]",
+    "//*[contains(@class, 'mw-indicators')]",
+    "//*[contains(@class, 'navbox')]",
+    "//*[contains(@class, 'navbox-styles')]",
+    "//*[contains(@class, 'side-box')]",
+    "//div[@id='mw-content-text']/noscript",
+  )
+
+  if (new URL($.url).pathname.startsWith("/wiki/")) {
+    // A wikipedia page is more or less clean and we can
+    // disable readability, which tends to remove way too much
+    // data from the content.
+    $.readability = false
+  }
+}

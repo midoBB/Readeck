@@ -56,44 +56,54 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 		}
 
 		readabilityEnabled, readabilityForced := IsReadabilityEnabled(m.Extractor)
-		if !readabilityEnabled {
-			m.Log.Warn("readability is disabled by flag")
-			return next
-		}
 
+		// Immediate stop on a media where readability is not explicitly set.
 		if m.Extractor.Drop().IsMedia() && !readabilityForced {
 			m.ResetContent()
 			return next
 		}
 
+		// Note: even if readability is disable, we must perform some pre and post processing
+		// tasks.
+
 		fixNoscriptImages(m.Dom)
 		convertPictureNodes(m.Dom, m)
 
-		parser := readability.NewParser()
+		var doc *html.Node
+		var body *html.Node
 
-		for _, f := range options {
-			f(&parser)
+		if readabilityEnabled {
+			parser := readability.NewParser()
+
+			for _, f := range options {
+				f(&parser)
+			}
+
+			article, err := parser.ParseDocument(m.Dom, m.Extractor.Drop().URL)
+			if err != nil {
+				m.Log.WithError(err).Error("readability error")
+				m.ResetContent()
+				return next
+			}
+
+			if article.Node == nil {
+				m.Log.Error("could not extract content")
+				m.ResetContent()
+				return next
+			}
+
+			m.Log.Debug("readability on contents")
+
+			doc = &html.Node{Type: html.DocumentNode}
+			body = dom.CreateElement("body")
+			doc.AppendChild(body)
+			dom.AppendChild(body, article.Node)
+		} else {
+			m.Log.Info("readability is disabled by flag")
+			doc = m.Dom
+			body = dom.QuerySelector(doc, "body")
 		}
 
-		article, err := parser.ParseDocument(m.Dom, m.Extractor.Drop().URL)
-		if err != nil {
-			m.Log.WithError(err).Error("readability error")
-			m.ResetContent()
-			return next
-		}
-
-		if article.Node == nil {
-			m.Log.Error("could not extract content")
-			m.ResetContent()
-			return next
-		}
-
-		m.Log.Debug("readability on contents")
-
-		doc := &html.Node{Type: html.DocumentNode}
-		body := dom.CreateElement("body")
-		doc.AppendChild(body)
-		dom.AppendChild(body, article.Node)
 		// final cleanup
 		removeEmbeds(body)
 		fixImages(body, m)

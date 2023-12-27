@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.10.6] - 2023-12-27
+### Improved
+- Content Script for BNF websites going through oclc.org. This is mainly for the extension where a user can save content on mediapart and arretsurimage while using the BNF portal.
+- When readability is disabled, keep performing the pre and post cleaning process
+- Much better Wikipedia extraction. Thanks @joachimesque
+- Remove some absolute image sources that were not playing well when behind a reverse proxy. Thanks @JerryWham and @franckpaul
+- Added a global READECK_USE_X_FORWARDED environment variable that should be set when running Readeck in a container behind a reverse proxy.
+
+### Fixed
+- Presentation bug with very long numbered lists
+- Typo in the main menu, by @denis_defreyne
+- Fixed a bug preventing loading all the site configuration rules
+
 ## [0.10.5] - 2023-12-20
 ### Improved
 - Added more API documentation and some examples

@@ -10,7 +10,7 @@ import (
 	"path"
 )
 
-//go:embed assets assets/*
+//go:embed assets assets/**/*
 var assets embed.FS
 
 var (

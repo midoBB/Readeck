@@ -5,10 +5,17 @@
 exports.priority = 10
 
 exports.isActive = function () {
-  return $.host.endsWith(".wikipedia.org")
+  return /\.(wikinews|wikipedia)\.org$/.test($.host)
 }
 
 exports.setConfig = function (config) {
+  // Force override for wikinews
+  $.overrideConfig(config, "https://wikipedia.org/")
+
+  // Add a content selector
+  config.bodySelectors.unshift("//div[@id = 'mw-content-text']")
+
+  // Some more filters
   config.stripSelectors.push(
     "//*[contains(@class, 'mw-editsection')]",
     "//*[contains(@class, 'printfooter')]",

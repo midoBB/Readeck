@@ -61,7 +61,9 @@ func (api *apiRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
 	item := newBookmarkItem(api.srv, r, b, "./..")
 	item.Errors = b.Errors
-	item.Embed = b.Embed
+	if err := item.setEmbed(); err != nil {
+		api.srv.Log(r).Error(err)
+	}
 
 	if api.srv.IsTurboRequest(r) {
 		api.srv.RenderTurboStream(w, r,
@@ -764,6 +766,7 @@ type bookmarkItem struct {
 	Annotations   BookmarkAnnotations      `json:"-"`
 	Resources     map[string]*bookmarkFile `json:"resources"`
 	Embed         string                   `json:"embed,omitempty"`
+	EmbedHostname string                   `json:"embed_domain,omitempty"`
 	Errors        []string                 `json:"errors,omitempty"`
 	Links         BookmarkLinks            `json:"links,omitempty"`
 
@@ -907,6 +910,40 @@ func (bi bookmarkItem) getArticle() (*strings.Reader, error) {
 	}
 
 	return reader, nil
+}
+
+// setEmbed sets the Embed and EmbedHostname item properties.
+// The original embed value must be an iframe. We extract the "src"
+// URL and store its hostname that we can later use in the CSP policy.
+// A special case for youtube for which we force
+// the use of youtube-nocookie.com.
+func (bi *bookmarkItem) setEmbed() error {
+	if bi.Bookmark.Embed == "" || bi.EmbedHostname != "" {
+		return nil
+	}
+	node, err := html.Parse(strings.NewReader(bi.Bookmark.Embed))
+	if err != nil {
+		return err
+	}
+	iframe := dom.QuerySelector(node, "iframe")
+	if iframe == nil || !dom.HasAttribute(iframe, "src") {
+		return nil
+	}
+	src, err := url.Parse(dom.GetAttribute(iframe, "src"))
+	if err != nil {
+		return err
+	}
+
+	// Force youtube iframes to use the "nocookie" variant.
+	if src.Host == "www.youtube.com" {
+		src.Host = "www.youtube-nocookie.com"
+	}
+
+	// Set the embed block and its hostname
+	dom.SetAttribute(iframe, "src", src.String())
+	bi.Embed = dom.OuterHTML(iframe)
+	bi.EmbedHostname = src.Hostname()
+	return nil
 }
 
 // addAnnotations adds the given annotations to the document's content.

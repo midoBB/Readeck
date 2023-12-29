@@ -114,7 +114,9 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
 	user := auth.GetRequestUser(r)
 	item := newBookmarkItem(h.srv, r, b, "../bookmarks")
-	item.Embed = b.Embed
+	if err := item.setEmbed(); err != nil {
+		h.srv.Log(r).Error(err)
+	}
 	item.Errors = b.Errors
 
 	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
@@ -151,9 +153,9 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Set CSP for video playback
-	if item.Type == "video" {
+	if item.Type == "video" && item.EmbedHostname != "" {
 		policy := server.GetCSPHeader(r).Clone()
-		policy.Add("frame-src", "*")
+		policy.Add("frame-src", item.EmbedHostname)
 		policy.Write(w.Header())
 	}
 

@@ -13,13 +13,21 @@ export default class extends Controller {
     this.element.addEventListener("toggle", () => {
       if (this.element.open) {
         document.addEventListener("click", this.closeDetails)
+        document.addEventListener("keyup", this.closeDetails)
       } else {
         document.removeEventListener("click", this.closeDetails)
+        document.removeEventListener("keyup", this.closeDetails)
       }
     })
   }
 
   closeDetails = (evt) => {
+    if (evt.type == "keyup") {
+      if (evt.key == "Escape") {
+        this.element.open = false
+      }
+      return
+    }
     if (!this.element.contains(evt.target)) {
       this.element.open = false
     }

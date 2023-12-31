@@ -80,60 +80,52 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{ include "./labels_form" .Item }}
 
   {{- if .Item.HasArticle -}}
-  <div class="print:hidden">
-    <h3 class="mb-2 title text-lg">{{- yield icon(name="o-highlight") }} Highlights</h3>
-    <div class="group">
-      {{- if len(.Item.Annotations) == 0 -}}
-        <p class="mb-4">Start selecting text in the article to create a new highlight.</p>
-      {{- else -}}
-        <ul class="mb-4" data-controller="request scrollto">
-        {{- range _, x := .Item.Annotations -}}
-          <li class="mb-3 flex p-2 bg-yellow-50 bg-opacity-30 group-hfw:bg-opacity-100 border border-yellow-200 rounded
-          hfw:drop-shadow group/btn">
-            <a class="grow" href="#annotation-{{ x.ID }}" data-action="scrollto#scroll:prevent">{{ shortText(x.Text, 100) }}</a>
-            <span class="no-js:hidden flex-shrink-0">
-              <button class="block -mt-4 -mr-4
-              text-gray-400 opacity-0
-              group-hover/btn:opacity-100 group-focus-within/btn:opacity-100
-              hf:text-red-700"
-              data-action="click->request#fetch"
-              data-request-url-param="{{ urlFor(`/api/bookmarks`, .Item.ID, `annotations`, x.ID) }}"
-              data-request-method-param="delete"
-              data-request-event-name-param="annotation-removed"
-              >{{ yield icon(name="o-cross", class="", svgClass="h-5 w-5") }}</button>
-            </span>
-            </li>
+    <div class="print:hidden">
+      <h3 class="mb-2 title text-lg">{{- yield icon(name="o-highlight") }} Highlights</h3>
+      <div class="group">
+        {{- if len(.Item.Annotations) == 0 -}}
+          <p class="mb-4">Start selecting text in the article to create a new highlight.</p>
+        {{- else -}}
+          <ul class="mb-4" data-controller="request scrollto">
+          {{- range _, x := .Item.Annotations -}}
+            <li class="mb-3 flex p-2 bg-yellow-50 bg-opacity-30 group-hfw:bg-opacity-100 border border-yellow-200 rounded
+            hfw:drop-shadow group/btn">
+              <a class="grow" href="#annotation-{{ x.ID }}" data-action="scrollto#scroll:prevent">{{ shortText(x.Text, 100) }}</a>
+              <span class="no-js:hidden flex-shrink-0">
+                <button class="block -mt-4 -mr-4
+                text-gray-400 opacity-0
+                group-hover/btn:opacity-100 group-focus-within/btn:opacity-100
+                hf:text-red-700"
+                data-action="click->request#fetch"
+                data-request-url-param="{{ urlFor(`/api/bookmarks`, .Item.ID, `annotations`, x.ID) }}"
+                data-request-method-param="delete"
+                data-request-event-name-param="annotation-removed"
+                >{{ yield icon(name="o-cross", class="", svgClass="h-5 w-5") }}</button>
+              </span>
+              </li>
+          {{- end -}}
+          </ul>
+        {{- end -}}
+      </div>
+    </div>
+
+    {{- if .Item.HasArticle && .Item.Links && .Item.Links.HasPages() -}}
+      <details class="group mb-4 print:hidden">
+        <summary class="block mb-2 title text-lg hf:text-primary-dark">
+          {{- yield icon(name="o-link") }}
+          <span class="underline decoration-dotted decoration-primary">Links</span>
+        </summary>
+        <ul class="mb-4 list-disc list-outside pl-4">
+        {{- range _, x := .Item.Links.Pages() -}}
+          <li class="list-item mb-1 leading-none">
+            <a class="link text-sm" href="{{ x.URL }}" rel="nofollow noopener noreferrer" target="_blank"
+            title="{{ default(x.Title, x.URL) }}">
+              {{ default(shortText(x.Title, 80), shortURL(x.URL, 40)) }}
+            </a>
+          </li>
         {{- end -}}
         </ul>
-      {{- end -}}
-    </div>
-  </div>
-
-  {{- if .Item.HasArticle && .Item.Links && .Item.Links.HasPages() -}}
-    <details class="group mb-4 print:hidden">
-      <summary class="block mb-2 title text-lg hf:text-primary-dark">
-        {{- yield icon(name="o-link") }}
-        <span class="underline decoration-dotted decoration-primary">Links</span>
-      </summary>
-      <ul class="mb-4 list-disc list-outside pl-4">
-      {{- range _, x := .Item.Links.Pages() -}}
-        <li class="list-item mb-1 leading-none">
-          <a class="link text-sm" href="{{ x.URL }}" rel="nofollow noopener noreferrer" target="_blank"
-           title="{{ default(x.Title, x.URL) }}">
-            {{ default(shortText(x.Title, 80), shortURL(x.URL, 40)) }}
-          </a>
-        </li>
-      {{- end -}}
-      </ul>
-    </details>
-  {{- end -}}
-
-  {{ if hasPermission("api:bookmarks", "export") -}}
-  <div class="print:hidden">
-    <h3 class="mb-2 title text-lg">Export</h3>
-      <a href="{{ urlFor(`/api/bookmarks`, .Item.ID, `article.epub`) }}"
-      class="btn-outlined-primary leading-none rounded-full h-9 px-3">{{ yield icon(name="o-download") }}&nbsp;download ebook</a>
-      {{- end }}
-  </div>
+      </details>
+    {{- end -}}
   {{- end -}}
 </turbo-frame>

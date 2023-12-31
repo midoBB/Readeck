@@ -40,6 +40,7 @@
   "o-pencil":       "node_modules/boxicons/svg/solid/bxs-pencil.svg",
   "o-photo":        "node_modules/boxicons/svg/regular/bx-image.svg",
   "o-plus":         "node_modules/boxicons/svg/regular/bx-plus.svg",
+  "o-share":        "node_modules/boxicons/svg/solid/bxs-share-alt.svg",
   "o-search":       "node_modules/boxicons/svg/regular/bx-search-alt.svg",
   "o-settings":     "node_modules/boxicons/svg/solid/bxs-cog.svg",
   "o-show":         "node_modules/boxicons/svg/solid/bxs-hide.svg",

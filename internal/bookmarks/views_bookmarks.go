@@ -10,8 +10,13 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"time"
+
+	"github.com/doug-martin/goqu/v9"
+	"github.com/go-chi/chi/v5"
 
 	"codeberg.org/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -209,6 +214,19 @@ func (h *viewsRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 	h.srv.Redirect(w, r, redir)
 }
 
+func (h *viewsRouter) bookmarkShare(w http.ResponseWriter, r *http.Request) {
+	info := r.Context().Value(ctxSharedInfoKey{}).(sharedBookmarkItem)
+
+	ctx := server.TC{
+		"URL":     info.URL,
+		"Expires": info.Expires,
+		"Title":   info.Title,
+		"ID":      info.ID,
+	}
+
+	h.srv.RenderTemplate(w, r, http.StatusCreated, "bookmarks/bookmark_shared", ctx)
+}
+
 func (h *viewsRouter) labelList(w http.ResponseWriter, r *http.Request) {
 	labels := r.Context().Value(ctxLabelListKey{}).([]*labelItem)
 
@@ -296,4 +314,83 @@ func (h *viewsRouter) annotationList(w http.ResponseWriter, r *http.Request) {
 	ctx["Annotations"] = al.Items
 
 	h.srv.RenderTemplate(w, r, 200, "/bookmarks/annotation_list", ctx)
+}
+
+func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		data := chi.URLParam(r, "id")
+		expires, id, err := decryptID(data)
+		if err != nil {
+			h.srv.Error(w, r, err)
+			return
+		}
+
+		expired := expires.Before(time.Now())
+		status := http.StatusOK
+		ct := server.TC{
+			"Expired": expired,
+		}
+
+		if !expired {
+			var bu struct {
+				User     *users.User `db:"u"`
+				Bookmark *Bookmark   `db:"b"`
+			}
+			ds := Bookmarks.
+				Query().
+				Join(goqu.T(users.TableName).As("u"), goqu.On(goqu.I("u.id").Eq(goqu.I("b.user_id")))).
+				Where(
+					goqu.I("b.id").Eq(id),
+					goqu.I("b.state").Eq(StateLoaded),
+				)
+			found, err := ds.ScanStruct(&bu)
+
+			if !found || err != nil {
+				status = http.StatusNotFound
+			} else {
+				item := newBookmarkItem(h.srv, r, bu.Bookmark, "../@b")
+				if err := item.setEmbed(); err != nil {
+					h.srv.Error(w, r, err)
+					return
+				}
+				ct["Username"] = bu.User.Username
+				ct["Item"] = item
+
+				h.srv.WriteLastModified(w, r, bu.Bookmark)
+				h.srv.WriteEtag(w, r, bu.Bookmark)
+			}
+		} else {
+			status = http.StatusGone
+		}
+
+		ct["Status"] = status
+
+		ctx := context.WithValue(r.Context(), ctxBaseContextKey{}, ct)
+		h.srv.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
+	})
+}
+
+func (h *publicViewsRouter) get(w http.ResponseWriter, r *http.Request) {
+	ct := r.Context().Value(ctxBaseContextKey{}).(server.TC)
+	status := ct["Status"].(int)
+
+	if status == http.StatusOK {
+		item := ct["Item"].(bookmarkItem)
+		article, err := item.getArticle()
+		if err != nil {
+			h.srv.Error(w, r, err)
+			return
+		}
+
+		ct["HTML"] = article
+
+		// Set CSP for video playback
+		if item.Type == "video" && item.EmbedHostname != "" {
+			policy := server.GetCSPHeader(r).Clone()
+			policy.Add("frame-src", item.EmbedHostname)
+			policy.Write(w.Header())
+		}
+	}
+
+	h.srv.RenderTemplate(w, r, status, "bookmarks/bookmark_public", ct)
 }

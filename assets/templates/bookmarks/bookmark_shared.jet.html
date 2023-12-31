@@ -19,19 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   <div class="flex-1 w-full max-w-3xl overflow-y-auto p-8" id="content">
     <h1 class="text-h2 title">Share: {{ .Title }}</h1>
-
-    <p>You can share the following link with your friends.</p>
-    <p class="mb-4">It expires on: {{ date(.Expires, "Monday, 2 January 2006 15:04 MST") }}</p>
-    <p class="mb-4">
-      <a class="link" href="{{ .URL }}">{{ .URL }}</a>
-    </p>
-
-    <p class="flex max-sm:flex-col gap-2" data-controller="clipboard">
-      <input class="hidden" type="text" value="{{ .URL }}" data-clipboard-target="content">
-      <button class="btn rounded" type="button" data-action="clipboard#copy">Copy link to clipboard</button>
-      <a class="sm:ml-auto btn btn-primary text-center" href="{{ urlFor(`..`, .ID) }}"
-       data-controller="history" data-action="history#back">Go back to the bookmark</a>
-    </p>
+    {{ include "./components/public_share" }}
   </div>
 </div>
 {{- end -}}

@@ -23,7 +23,6 @@ SPDX-License-Identifier: AGPL-3.0-only
        data-turbo-form-method-value="patch">{{ yield icon(name="o-undo") }}&nbsp;Undo</button>
     </form>
   {{- else -}}
-    <form id="share-form" action="{{ urlFor(`./share`) }}" method="post">{{ yield csrfField() }}</form>
     <form action="{{ urlFor(`/bookmarks`, .ID) }}" method="post"
     data-controller="turbo-form"
     data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
@@ -39,14 +38,15 @@ SPDX-License-Identifier: AGPL-3.0-only
           {{ yield icon(name=(.IsArchived ? "o-archive-on" : "o-archive-off")) }}
         </button>
         <details class="" data-controller="details">
-          <summary class="btn-outlined-primary leading-none border-l-0 rounded-r-full h-9 pr-3">
+          <summary class="btn-outlined-primary leading-none border-l-0 rounded-r-full h-9 pr-3"
+           title="Export and Share">
             {{ yield icon(name="o-share") }}
           </summary>
           <div class="absolute z-30 top-10 left-0 w-[max-content] shadow-lg bg-gray-50 border border-gray-300 rounded-md p-4">
             <ul class="flex flex-col gap-2">
               <li><a class="link" href="{{ urlFor(`/api/bookmarks`, .ID, `article.epub`) }}">{{ yield icon(name="o-download") }} Download EPUB</a></li>
               {{ if hasPermission("api:bookmarks", "export") -}}
-              <li><button class="link" form="share-form">{{ yield icon(name="o-link") }} Share by Link</button></li>
+              <li><button class="link" form="share-form" data-details-target="closer">{{ yield icon(name="o-link") }} Share by Link</button></li>
               {{- end }}
             </ul>
           </div>

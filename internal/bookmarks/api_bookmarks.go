@@ -272,6 +272,14 @@ func (api *apiRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 
 func (api *apiRouter) bookmarkShare(w http.ResponseWriter, r *http.Request) {
 	info := r.Context().Value(ctxSharedInfoKey{}).(sharedBookmarkItem)
+
+	if api.srv.IsTurboRequest(r) {
+		api.srv.RenderTurboStream(w, r,
+			"/bookmarks/components/public_share", "replace",
+			"bookmark-share-"+info.ID, info)
+		return
+	}
+
 	api.srv.Render(w, r, http.StatusCreated, info)
 }
 

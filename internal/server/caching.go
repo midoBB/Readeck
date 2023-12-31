@@ -40,6 +40,11 @@ const (
 // the values sent by GetSumStrings. The build date is always
 // included.
 func (s *Server) WriteEtag(w http.ResponseWriter, r *http.Request, taggers ...Etager) {
+	if len(taggers) == 0 {
+		w.Header().Del("Etag")
+		return
+	}
+
 	h := crc64.New(crc64.MakeTable(crc64.ISO))
 	for _, tager := range taggers {
 		for _, x := range tager.GetSumStrings() {
@@ -58,6 +63,11 @@ func (s *Server) WriteEtag(w http.ResponseWriter, r *http.Request, taggers ...Et
 // WriteLastModified adds a Last-Modified headers using the most
 // recent date of GetLastModified and the build date.
 func (s *Server) WriteLastModified(w http.ResponseWriter, r *http.Request, moders ...LastModer) {
+	if len(moders) == 0 {
+		w.Header().Del("Last-Modified")
+		return
+	}
+
 	mtimes := []time.Time{configs.BuildTime()}
 	for _, m := range moders {
 		mtimes = append(mtimes, m.GetLastModified()...)

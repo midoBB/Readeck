@@ -76,7 +76,7 @@ class Prose {
 
     const lineHeight = params["line-height"]?.value || this.lineHeight
     const fontSize = params["font-size"]?.value || 1
-    const minLH = 0.85
+    const minLH = 0.8
     const res = [new Declaration({prop: varLineHeight, value: lineHeight})]
 
     // Remove params
@@ -113,13 +113,10 @@ class Prose {
 
     // Changing the line height moves the block out of the baseline, let's
     // restore it.
-    if (fontSize > lineHeight && lineHeight * covers != fontSize) {
+    if (lh > 1 && fontSize > lineHeight && lineHeight * covers != fontSize) {
       res.push(
         new Declaration({prop: "position", value: "relative"}),
-        new Declaration({
-          prop: "top",
-          value: `${parseFloat(0.9 - lineHeight / fontSize).toFixed(4)}em`,
-        }),
+        new Declaration({prop: "top", value: "0.2em"}),
       )
     }
 

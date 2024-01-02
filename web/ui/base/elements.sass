@@ -16,6 +16,11 @@
   details>summary
     @apply cursor-pointer
 
+    &:not(.with-marker)
+      @apply list-none
+      &::-webkit-details-marker
+        display: none
+
 @layer base
   *
     scrollbar-color: #aaa #fafafa

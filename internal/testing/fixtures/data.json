@@ -1,0 +1,60 @@
+{
+  "users": {
+    "admin": {
+      "group": "admin",
+      "bookmarks": [
+        {
+          "uid": "arQCmFX4CXy2JubRV8msQy",
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "state": 1
+        }
+      ]
+    },
+    "staff": {
+      "group": "staff",
+      "bookmarks": [
+        {
+          "uid": "sv3kk3gA3AXXmDiJvSzPtf",
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "state": 1
+        }
+      ]
+    },
+    "user": {
+      "group": "user",
+      "bookmarks": [
+        {
+          "uid": "us6NJxYvghNoaPZ4sAszJW",
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "state": 1
+        }
+      ]
+    },
+    "disabled": {
+      "group": "none",
+      "bookmarks": [
+        {
+          "uid": "dz6HLyHpskX58zdUCinpQG",
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "state": 1
+        }
+      ]
+    },
+    "": {
+      "group": "",
+      "bookmarks": [
+        {
+          "uid": "us6NJxYvghNoaPZ4sAszJW",
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "state": 1
+        }
+      ]
+    }
+  },
+  "files": {
+    "bookmarks/ar/arQCmFX4CXy2JubRV8msQy.zip": "bookmark-article.zip",
+    "bookmarks/sv/sv3kk3gA3AXXmDiJvSzPtf.zip": "bookmark-article.zip",
+    "bookmarks/us/us6NJxYvghNoaPZ4sAszJW.zip": "bookmark-article.zip",
+    "bookmarks/dz/dz6HLyHpskX58zdUCinpQG.zip": "bookmark-article.zip"
+  }
+}

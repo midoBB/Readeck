@@ -26,7 +26,8 @@
         {
           "uid": "us6NJxYvghNoaPZ4sAszJW",
           "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
-          "state": 1
+          "state": 1,
+          "labels": ["test label"]
         }
       ]
     },

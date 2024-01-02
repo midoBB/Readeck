@@ -45,9 +45,10 @@ type fixtureData struct {
 	Users map[string]struct {
 		Group     string `json:"group"`
 		Bookmarks []struct {
-			UID   string                  `json:"uid"`
-			URL   string                  `json:"url"`
-			State bookmarks.BookmarkState `json:"state"`
+			UID    string                  `json:"uid"`
+			URL    string                  `json:"url"`
+			State  bookmarks.BookmarkState `json:"state"`
+			Labels []string                `json:"labels"`
 		} `json:"bookmarks"`
 	}
 	Files map[string]string `json:"files"`
@@ -134,6 +135,7 @@ func (f *fixtureData) createBookmarks(t *testing.T) {
 				URL:      bookmark.URL,
 				State:    bookmark.State,
 				FilePath: bookmark.UID[0:2] + "/" + bookmark.UID,
+				Labels:   bookmark.Labels,
 			}
 			if username == "" {
 				b.UID = bookmark.UID

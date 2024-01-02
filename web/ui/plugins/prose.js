@@ -116,7 +116,7 @@ class Prose {
     if (lh > 1 && fontSize > lineHeight && lineHeight * covers != fontSize) {
       res.push(
         new Declaration({prop: "position", value: "relative"}),
-        new Declaration({prop: "top", value: "0.2em"}),
+        new Declaration({prop: "top", value: "0.18em"}),
       )
     }
 

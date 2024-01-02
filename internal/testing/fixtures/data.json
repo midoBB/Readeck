@@ -6,7 +6,7 @@
         {
           "uid": "arQCmFX4CXy2JubRV8msQy",
           "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
-          "state": 1
+          "state": 0
         }
       ]
     },
@@ -16,7 +16,7 @@
         {
           "uid": "sv3kk3gA3AXXmDiJvSzPtf",
           "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
-          "state": 1
+          "state": 0
         }
       ]
     },
@@ -26,7 +26,7 @@
         {
           "uid": "us6NJxYvghNoaPZ4sAszJW",
           "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
-          "state": 1,
+          "state": 0,
           "labels": ["test label"]
         }
       ]
@@ -37,7 +37,7 @@
         {
           "uid": "dz6HLyHpskX58zdUCinpQG",
           "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
-          "state": 1
+          "state": 0
         }
       ]
     },
@@ -47,7 +47,7 @@
         {
           "uid": "us6NJxYvghNoaPZ4sAszJW",
           "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
-          "state": 1
+          "state": 0
         }
       ]
     }

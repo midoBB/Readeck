@@ -7,6 +7,7 @@ package testing
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -15,13 +16,17 @@ import (
 	"net/http/httptest"
 	"net/url"
 	"os"
+	"path"
+	"runtime"
 	"strings"
 	"testing"
 	"text/template"
+	"time"
 
 	"golang.org/x/net/html"
 
 	"github.com/go-shiori/dom"
+	"github.com/itchyny/gojq"
 	"github.com/kinbiko/jsonassert"
 	"github.com/stretchr/testify/require"
 	mail "github.com/xhit/go-simple-mail/v2"
@@ -30,17 +35,135 @@ import (
 	"codeberg.org/readeck/readeck/internal/app"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/server"
 )
 
+type fixtureData struct {
+	Users map[string]struct {
+		Group     string `json:"group"`
+		Bookmarks []struct {
+			UID    string                  `json:"uid"`
+			URL    string                  `json:"url"`
+			State  bookmarks.BookmarkState `json:"state"`
+			Labels []string                `json:"labels"`
+		} `json:"bookmarks"`
+	}
+	Files map[string]string `json:"files"`
+
+	users map[string]*TestUser
+}
+
+func loadFixtures(t *testing.T) *fixtureData {
+	_, curFile, _, _ := runtime.Caller(0)
+	fd, err := os.Open(path.Join(path.Dir(curFile), "fixtures/data.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer fd.Close() // nolint:errcheck
+
+	dec := json.NewDecoder(fd)
+	res := new(fixtureData)
+	if err := dec.Decode(res); err != nil {
+		t.Fatal(err)
+	}
+
+	res.copyFiles(t)
+	res.createUsers(t)
+	res.createBookmarks(t)
+
+	return res
+}
+
+func (f *fixtureData) createUsers(t *testing.T) {
+	f.users = map[string]*TestUser{}
+	for name, user := range f.Users {
+		if name == "" {
+			f.users[name] = &TestUser{}
+			continue
+		}
+
+		tu, err := NewTestUser(name, name+"@localhost", name, user.Group)
+		if err != nil {
+			t.Fatal(err)
+		}
+		f.users[name] = tu
+		t.Logf("created user: %s[%s]", tu.User.Username, tu.User.Group)
+	}
+}
+
+func (f *fixtureData) copyFiles(t *testing.T) {
+	_, curFile, _, _ := runtime.Caller(0)
+	root := path.Join(path.Dir(curFile), "fixtures")
+
+	for dstFile, srcFile := range f.Files {
+		func(dstFile, srcFile string) {
+			dstFile = path.Join(configs.Config.Main.DataDirectory, dstFile)
+			srcFile = path.Join(root, srcFile)
+			if err := os.MkdirAll(path.Dir(dstFile), 0o755); err != nil {
+				t.Fatal(err)
+			}
+
+			src, err := os.Open(srcFile)
+			if err != nil {
+				t.Fatal(err)
+			}
+			defer src.Close() // nolint:errcheck
+
+			dst, err := os.Create(dstFile)
+			if err != nil {
+				t.Fatal(err)
+			}
+			defer dst.Close() // nolint:errcheck
+
+			if _, err := io.Copy(dst, src); err != nil {
+				t.Fatal(err)
+			}
+
+			t.Logf("copy %s -> %s", srcFile, dstFile)
+		}(dstFile, srcFile)
+	}
+}
+
+func (f *fixtureData) createBookmarks(t *testing.T) {
+	for username, tu := range f.users {
+		tu.Bookmarks = []*bookmarks.Bookmark{}
+		for _, bookmark := range f.Users[username].Bookmarks {
+			b := &bookmarks.Bookmark{
+				URL:      bookmark.URL,
+				State:    bookmark.State,
+				FilePath: bookmark.UID[0:2] + "/" + bookmark.UID,
+				Labels:   bookmark.Labels,
+			}
+			if username == "" {
+				b.UID = bookmark.UID
+				tu.Bookmarks = append(tu.Bookmarks, b)
+				continue
+			}
+
+			b.UserID = &tu.User.ID
+
+			if err := bookmarks.Bookmarks.Create(b); err != nil {
+				t.Fatal(err)
+			}
+			b.UID = bookmark.UID
+			if err := b.Save(); err != nil {
+				t.Fatal(err)
+			}
+			tu.Bookmarks = append(tu.Bookmarks, b)
+		}
+	}
+}
+
 // TestUser contains the user data that we can use during tests.
 type TestUser struct {
-	User     *users.User
-	Token    *tokens.Token
-	password string
-	jwt      string
+	User      *users.User
+	Token     *tokens.Token
+	Bookmarks []*bookmarks.Bookmark
+	password  string
+	jwt       string
 }
 
 // NewTestUser creates a new user for testing.
@@ -55,7 +178,11 @@ func NewTestUser(name, email, password, group string) (*TestUser, error) {
 		return nil, err
 	}
 
-	res := &TestUser{User: u, password: password}
+	res := &TestUser{
+		User:      u,
+		password:  password,
+		Bookmarks: []*bookmarks.Bookmark{},
+	}
 
 	res.Token = &tokens.Token{
 		UserID:      &u.ID,
@@ -94,6 +221,7 @@ type TestApp struct {
 	TmpDir    string
 	Srv       *server.Server
 	Users     map[string]*TestUser
+	Bookmarks map[string]*bookmarks.Bookmark
 	LastEmail string
 }
 
@@ -108,6 +236,7 @@ func NewTestApp(t *testing.T) *TestApp {
 
 	configs.Config.Main.SecretKey = "1234567890"
 	configs.Config.Main.DataDirectory = tmpDir
+	configs.Config.Extractor.ContentScripts = []string{path.Join(tmpDir, "content-scripts")}
 	configs.Config.Main.DevMode = false
 	configs.Config.Main.LogLevel = "error"
 	configs.Config.Database.Source = "sqlite3::memory:"
@@ -124,25 +253,9 @@ func NewTestApp(t *testing.T) *TestApp {
 		Users:  make(map[string]*TestUser),
 	}
 
-	userList := map[string]string{
-		"admin":    "admin",
-		"user":     "user",
-		"staff":    "staff",
-		"disabled": "none",
-	}
-
-	_, err = db.Q().Delete(users.TableName).Executor().Exec()
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	for name, group := range userList {
-		tu, err := NewTestUser(name, name+"@localhost", name, group)
-		if err != nil {
-			t.Fatal(err)
-		}
-		ta.Users[name] = tu
-	}
+	// Load data
+	fixtures := loadFixtures(t)
+	ta.Users = fixtures.users
 
 	// Email sender
 	configs.Config.Email.Host = "localhost"
@@ -169,6 +282,8 @@ func (ta *TestApp) Close(t *testing.T) {
 	if err := os.RemoveAll(ta.TmpDir); err != nil {
 		t.Logf("error removing temporary folder: %s", err)
 	}
+
+	t.Logf("removed folder: %s", ta.TmpDir)
 
 	// Reset the bus
 	Events().Stop()
@@ -344,6 +459,7 @@ type Response struct {
 	Redirect  string
 	Body      []byte
 	HTML      *html.Node
+	JSON      any
 	CsrfToken string
 }
 
@@ -379,7 +495,8 @@ func NewResponse(rec *httptest.ResponseRecorder, req *http.Request) (*Response, 
 	}
 
 	// When an HTML response is received, parse it
-	if strings.HasPrefix(r.Response.Header.Get("content-type"), "text/html") {
+	switch {
+	case strings.HasPrefix(r.Response.Header.Get("content-type"), "text/html"):
 		r.HTML, err = html.Parse(bytes.NewReader(r.Body))
 		if err != nil {
 			return nil, err
@@ -390,7 +507,11 @@ func NewResponse(rec *httptest.ResponseRecorder, req *http.Request) (*Response, 
 		if n != nil {
 			r.CsrfToken = dom.GetAttribute(n, "content")
 		}
-
+	case strings.HasPrefix(r.Response.Header.Get("content-type"), "application/json"):
+		err := json.Unmarshal(r.Body, &r.JSON)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return r, nil
@@ -424,6 +545,35 @@ func (r *Response) AssertJSON(t *testing.T, expected string) {
 	}
 }
 
+// AssertJQ performs the JQ query and check every expected result argument.
+// The test fails when the returned results count differs from the expected arguments.
+func (r *Response) AssertJQ(t *testing.T, q string, expected ...any) {
+	query, err := gojq.Parse(q)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+
+	iter := query.RunWithContext(ctx, r.JSON)
+	i := 0
+	for {
+		v, ok := iter.Next()
+		if !ok {
+			break
+		}
+		if err, ok := v.(error); ok {
+			t.Fatal(err)
+		}
+
+		require.LessOrEqual(t, i+1, len(expected), "not enough assertions")
+		require.Equal(t, expected[i], v)
+		i++
+	}
+	require.Len(t, expected, i, "not all assertions tested")
+}
+
 // RequestTest contains data that are used to perform requests and assert some results.
 type RequestTest struct {
 	Method         string
@@ -433,6 +583,7 @@ type RequestTest struct {
 	ExpectStatus   int
 	ExpectRedirect string
 	ExpectJSON     string
+	ExpectJQ       []any
 	ExpectContains string
 	Assert         func(*testing.T, *Response)
 }
@@ -453,6 +604,7 @@ func RunRequestSequence(t *testing.T, c *Client, user string, tests ...RequestTe
 		history := []*Response{}
 		templateData := map[string]interface{}{
 			"History": &history,
+			"User":    c.app.Users[user],
 		}
 
 		for _, test := range tests {

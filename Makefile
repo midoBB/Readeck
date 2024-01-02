@@ -98,7 +98,7 @@ test: docs-build
 	test -f assets/www/manifest.json || echo "{}" > assets/www/manifest.json
 	$(GO) test \
 		-tags "$(BUILD_TAGS)" \
-		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" -trimpath \
+		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" \
 		-cover -count=1 ./...
 
 # Clean the build

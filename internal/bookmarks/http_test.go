@@ -5,12 +5,13 @@
 package bookmarks_test
 
 import (
+	"net/url"
 	"testing"
 
 	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
 )
 
-//nolint:gocyclo
+//nolint:gocyclo,gocognit
 func TestPermissions(t *testing.T) {
 	app := NewTestApp(t)
 	defer func() {
@@ -240,6 +241,225 @@ func TestPermissions(t *testing.T) {
 						r.AssertStatus(t, 401)
 					}
 				},
+			},
+			// Views
+			RequestTest{
+				Target: "/bookmarks",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Target: "/bookmarks/unread",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Method: "POST",
+				Target: "/bookmarks",
+				Form:   make(url.Values),
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 422)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Target: "/bookmarks/{{(index .User.Bookmarks 0).UID}}",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Method: "POST",
+				Target: "/bookmarks/{{(index .User.Bookmarks 0).UID}}",
+				Form:   url.Values{},
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 303)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Target: "/bookmarks/{{(index .User.Bookmarks 0).UID}}",
+			},
+			RequestTest{
+				Method: "POST",
+				Target: "/bookmarks/{{(index .User.Bookmarks 0).UID}}/delete",
+				Form:   url.Values{},
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 303)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Target: "/bookmarks/collections",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Target: "/bookmarks/collections/add",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Method: "POST",
+				Target: "/bookmarks/collections/add",
+				Form:   url.Values{},
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 422)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Target: "/bookmarks/collections/RuXBpzio59ktWTEHDodLPU",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 404)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Target: "/bookmarks/highlights",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Target: "/bookmarks/labels",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Target: "/bookmarks/labels/foo",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 404)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Method: "POST",
+				Target: "/bookmarks/labels/foo/delete",
+				Form:   url.Values{},
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 404)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			// Public bookmark's assets
+			RequestTest{
+				Target:       "/bm/{{(slice (index .User.Bookmarks 0).UID 0 2)}}/{{(index .User.Bookmarks 0).UID}}/img/icon.png",
+				ExpectStatus: 200,
+			},
+			RequestTest{
+				Target:       "/bm/{{(slice (index .User.Bookmarks 0).UID 0 2)}}/{{(index .User.Bookmarks 0).UID}}/_resources/KUhyzHK6GqcKLf4e4557qP.png",
+				ExpectStatus: 200,
 			},
 		)
 	}

@@ -763,6 +763,7 @@ func (api *apiRouter) withSharedLink(next http.Handler) http.Handler {
 			ID:      b.UID,
 		}
 		ctx := context.WithValue(r.Context(), ctxSharedInfoKey{}, info)
+		w.Header().Set("Location", info.URL)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

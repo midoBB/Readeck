@@ -280,8 +280,4 @@ release-checksums:
 .PHONY: release-container
 release-container: TAG?=readeck-release:$(VERSION)
 release-container: | $(DIST)/.release-linux
-	docker build \
-		-f Containerfile \
-		--build-arg VERSION=$(VERSION) \
-		--build-arg DIST=$(DIST) \
-		-t $(TAG)
+	VERSION=$(VERSION) ./tools/build-container

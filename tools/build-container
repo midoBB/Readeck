@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
+#
+# SPDX-License-Identifier: AGPL-3.0-only
+
+# This script builds the container image for Readeck.
+# It uses the release files in the dist folder.
+
+set -u
+set -e
+
+work_container=""
+
+cleanup() {
+    if [[ "$work_container" != "" ]]; then
+        buildah rm $work_container > /dev/null
+        echo "> ${work_container} removed"
+    fi
+}
+
+build_image() {
+    local arch=$1
+    trap cleanup ERR RETURN
+
+    # Prepare a scratch image
+    work_container=$(buildah from --arch=${arch} scratch)
+
+    # Copy CA certificates from alpine
+    buildah copy --from alpine:edge \
+        $work_container \
+        /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+
+    # Copy Readeck binary
+    buildah copy $work_container dist/readeck-${VERSION}-linux-${arch} /bin/readeck
+
+    # Set image configuration
+    buildah config \
+        --workingdir /readeck \
+        --volume /readeck \
+        --cmd "/bin/readeck serve -config config.toml" \
+        --port 8000/tcp \
+        --env READECK_SERVER_HOST=0.0.0.0 \
+        --env READECK_SERVER_PORT=8000 \
+        --label org.opencontainers.image.authors="olivier@readeck.com" \
+        --label version=${VERSION} \
+        $work_container
+
+    # Create image
+    buildah commit $work_container readeck/release/${arch}:${VERSION}
+    echo "> Image created: readeck/release/${arch}:${VERSION}"
+}
+
+echo "> Version: ${VERSION}"
+echo "> Image:   readeck/release/{arch}:${VERSION}"
+
+buildah pull --policy=always alpine:edge
+
+for arch in amd64 arm64; do
+    build_image ${arch}
+    echo
+done

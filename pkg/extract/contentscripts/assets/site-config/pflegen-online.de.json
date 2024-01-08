@@ -1,0 +1,48 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//figure[@class='article__image'] | //div[@class='article__intro']/p | //div[contains(@class, 'paragraph--type--body-crosshead')] | //div[contains(@class, 'paragraph--type--content-station-')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "div[@class='container cf']",
+    "//div[@class='article__intro']/h1",
+    "//a[@href='https://www.pflegen-online.de/newsletter']/ancestor::div[1]"
+  ],
+  "strip_id_or_class": [
+    "article__kicker",
+    "article__date",
+    "paragraph--type--content-station-embed",
+    "block-stellenportal",
+    "article__footer",
+    "drimage",
+    "visually-hidden",
+    "annotationroutes",
+    "fixed-action-btn"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "noscript\u003e",
+      "div\u003e"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.pflegen-online.de/delir-5-haeufige-ausloeser-und-7-kluge-reaktionen",
+      "contains": []
+    },
+    {
+      "url": "https://www.pflegen-online.de/aromapflege-und-krebs-10-fragen-und-antworten",
+      "contains": []
+    }
+  ]
+}

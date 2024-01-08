@@ -1,17 +1,21 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, 'thecontent')]"
+    "//article[1]"
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//footer/self::* | //footer/following-sibling::*"
+  ],
   "strip_id_or_class": [
-    "relatedside"
+    "heading_breadcrumb",
+    "heading_title",
+    "heading_meta",
+    "heading_sharing",
+    "article-table-contents"
   ],
-  "strip_image_src": [
-    "loading.gif"
-  ],
+  "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
   "prune": false,
@@ -20,26 +24,20 @@
   "next_page_link_selectors": null,
   "replace_strings": [
     [
-      "src=\"http://cdn.howtogeek.com/public/images/blank.gif\"",
-      "-"
-    ],
-    [
-      "data-href=",
-      "src="
-    ],
-    [
-      "src=\"/pagespeed_static/1.JiBnMqyl6S.gif\"",
-      "-"
-    ],
-    [
-      "data-pagespeed-lazy-src=",
-      "src="
+      "data-img-url=\"https:",
+      "src=\"https:"
     ]
   ],
-  "http_headers": null,
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/122.0"
+  },
   "tests": [
     {
-      "url": "http://www.howtogeek.com/school/microsoft-excel-formulas-and-functions/lesson1/",
+      "url": "https://www.howtogeek.com/how-to-see-who-is-stalking-your-facebook-profile/",
+      "contains": []
+    },
+    {
+      "url": "https://www.howtogeek.com/feed/",
       "contains": []
     }
   ]

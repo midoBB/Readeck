@@ -1,0 +1,61 @@
+{
+  "title_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' watson-story__content ')]//h2[1]"
+  ],
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' watson-story__content ')]"
+  ],
+  "date_selectors": [
+    "substring-before(substring-after(//script[@id='datalayer'] , 'modifiedDate\":\"') , '\",\"')"
+  ],
+  "author_selectors": [
+    "substring-before(substring-after(//script[@id='datalayer'] , 'storyAuthor\":\"') , '\",\"storyDate')"
+  ],
+  "strip_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' watson-story__content ')]//h2[1]"
+  ],
+  "strip_id_or_class": [
+    "table-of-contents",
+    "watson-autocontext__stack",
+    "watson-autocontext__stories__title",
+    "watson-autocontext__stories",
+    "watson-autocontext",
+    "watson-infobox-editorial",
+    "watson-navigation__sidelink",
+    "watson-poll",
+    "watson-snippet__authorbox",
+    "watson-snippet__authorbox-container",
+    "watson-snippet__authors",
+    "watson-snippet__shareBubbles",
+    "watson-snippet__shareBubbles__updated",
+    "watson-snippet__uppertitle",
+    "insert.side.watson-autocontext.de-DE"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.watson.ch/api/1.0/rss.xml?tag=EU",
+      "contains": []
+    },
+    {
+      "url": "https://www.watson.ch/api/1.0/rss.xml?tag=Schweiz",
+      "contains": []
+    },
+    {
+      "url": "https://www.watson.ch/wissen/schweiz/457641772-gallisch-und-lateinisch-im-mittelland",
+      "contains": []
+    },
+    {
+      "url": "https://www.watson.ch/fr/international/animaux/740907649-les-autorites-americaines-veulent-abattre-500-000-chouettes",
+      "contains": []
+    }
+  ]
+}

@@ -2,7 +2,9 @@
   "title_selectors": null,
   "body_selectors": null,
   "date_selectors": null,
-  "author_selectors": null,
+  "author_selectors": [
+    "//meta[@name='author']/@content"
+  ],
   "strip_selectors": [
     "//nav",
     "//a-img"
@@ -24,12 +26,12 @@
   "next_page_link_selectors": null,
   "replace_strings": [
     [
-      "\u003cnoscript",
-      "\u003cdiv"
+      "noscript\u003e",
+      "div\u003e"
     ],
     [
-      "\u003c/noscript\u003e",
-      "\u003c/div\u003e"
+      "class=\"subheading\"",
+      "class=\"wb-foo\""
     ]
   ],
   "http_headers": null,

@@ -25,6 +25,7 @@
     "//div[contains(@class, 'ArticleBio_social')]",
     "//*[contains(@class, 'ArticleRecirc')]",
     "//*[contains(@class, 'ArticleRelatedContentModule')]",
+    "//aside[contains(@class, 'Pullquote')]",
     "//div[@class='moreOnBoxWithImages']",
     "//p[contains(., 'This article available online at:')]",
     "//p[contains(., 'This article available online at:')]/following::*",

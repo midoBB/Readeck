@@ -1,0 +1,42 @@
+{
+  "title_selectors": [
+    "//div[contains(@class,'woman_article')][1]/h1"
+  ],
+  "body_selectors": [
+    "//div[contains(@class,'woman_article')][1]",
+    "//article[@class='break-words'][1]"
+  ],
+  "date_selectors": [
+    "//span[@aria-label='publish time'][1]"
+  ],
+  "author_selectors": [
+    "//span[@aria-label='article author'][1]"
+  ],
+  "strip_selectors": [
+    "//aside",
+    "//section[@aria-label='advertise section']",
+    "//section[@aria-label='extend reading']",
+    "//section[@id='articleInfo']",
+    "//span[@class='endtext']"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://woman.tvbs.com.tw/entertainment/41893",
+      "contains": []
+    },
+    {
+      "url": "https://woman.tvbs.com.tw/fashion/44205",
+      "contains": []
+    }
+  ]
+}

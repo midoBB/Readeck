@@ -21,7 +21,7 @@
   "replace_strings": [
     [
       "\u003chtml\u003e\u0026lt;iframe",
-      "\u003ciframe id=\"video\""
+      "\u003ciframe id=\"video\" width=\"480\" height=\"360\" aspect-ratio=\"auto\""
     ],
     [
       "\u0026gt;\u0026lt;/iframe\u0026gt;\u003c/html\u003e",
@@ -33,7 +33,6 @@
     ]
   ],
   "http_headers": {
-    "cookie": "CONSENT=YES+srp.gws-20220606;",
     "user-agent": "PHP/7.4"
   },
   "tests": [

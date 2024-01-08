@@ -5,7 +5,10 @@
   "body_selectors": [
     "//div[contains(concat(' ',normalize-space(@class),' '),' content ')]"
   ],
-  "date_selectors": null,
+  "date_selectors": [
+    "substring-before(substring-after(//div[contains(concat(' ',normalize-space(@class),' '),' author ')], ' on '), ' at')",
+    "substring-before(substring-after(//div[contains(concat(' ',normalize-space(@class),' '),' author ')], ' on '), '.')"
+  ],
   "author_selectors": [
     "//div[contains(concat(' ',normalize-space(@class),' '),' author ')]/a[1]"
   ],
@@ -38,6 +41,10 @@
   "tests": [
     {
       "url": "https://www.phoronix.com/scan.php?page=article\u0026item=clear-fall-2020\u0026num=8",
+      "contains": []
+    },
+    {
+      "url": "https://www.phoronix.com/news/Linux-6.7-sysctl",
       "contains": []
     }
   ]

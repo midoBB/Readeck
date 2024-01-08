@@ -1,0 +1,33 @@
+{
+  "title_selectors": null,
+  "body_selectors": null,
+  "date_selectors": null,
+  "author_selectors": [
+    "//a[@class='herald-author-name']"
+  ],
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "su-spoiler",
+    "herald-link-pages",
+    "meta-tags"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": [
+    "//link[@rel='next']"
+  ],
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.photografix-magazin.de/sony-a7c-r-test/",
+      "contains": [
+        "Sowohl das Display als auch der Sucher bleiben hinter den Erwartungen zurück, die man im Jahr 2023 an eine Kamera für fast 4.000 Euro stellen kann."
+      ]
+    }
+  ]
+}

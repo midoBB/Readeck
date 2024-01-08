@@ -1,0 +1,41 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@class='vodl-region-article']/div[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//svg",
+    "//button",
+    "//div[@data-type='embed']",
+    "//div[@data-type='video']",
+    "//picture/source",
+    "//picture/img/@srcset"
+  ],
+  "strip_id_or_class": [
+    "vodl-region-article__category-label",
+    "vodl-region-article__title-wrapper",
+    "vodl-region-article__author-box-wrapper",
+    "vodl-region-article__content-bottom"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.vienna.at/s-bahn-ring-mit-zwei-linien-in-wien-plane-nehmen-form-an/8464186",
+      "contains": []
+    },
+    {
+      "url": "https://www.vienna.at/erste-e-busse-der-wiener-linien-in-der-stadt-unterwegs/8455546",
+      "contains": []
+    }
+  ]
+}

@@ -12,6 +12,7 @@
     "//meta[@name=\"author\"]/@content"
   ],
   "strip_selectors": [
+    "//div[@data-area='paywall']",
     "//div[@data-component=\"JWPlayer\"]",
     "//picture/following-sibling::noscript[1]",
     "//button",
@@ -43,7 +44,9 @@
       "src=\""
     ]
   ],
-  "http_headers": null,
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/123.0"
+  },
   "tests": [
     {
       "url": "https://www.spiegel.de/politik/deutschland/barbara-borchardt-skandal-die-linke-grinst-sich-eins-kolumne-a-c1e59f4c-9bbd-42e2-a144-81b7115584ef",

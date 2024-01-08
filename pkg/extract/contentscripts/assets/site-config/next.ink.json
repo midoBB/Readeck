@@ -1,0 +1,47 @@
+{
+  "title_selectors": [
+    "//h1"
+  ],
+  "body_selectors": [
+    "//div[@id='article-single']"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//meta[@name='author']/@content"
+  ],
+  "strip_selectors": [
+    "//div[contains(@class, 'thumbnail-mobile')]",
+    "//div[contains(@class, 'article-header')]/h1",
+    "//div[contains(@class, 'article-header')]/h2"
+  ],
+  "strip_id_or_class": [
+    "author",
+    "share-bottom",
+    "author-info",
+    "other-article",
+    "aside",
+    "comment-widget",
+    "share-mobile",
+    "paywall"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "class=\"wp-block-heading\"",
+      "class=\"wb_foo\""
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://next.ink/120832/le-reseau-interministeriel-de-letat-rie-fete-ses-10-ans-et-se-modernise/",
+      "contains": []
+    }
+  ]
+}

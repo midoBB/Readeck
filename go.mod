@@ -8,12 +8,12 @@ require (
 	github.com/antchfx/xpath v1.2.5 // indirect
 	github.com/anthonynsimon/bild v0.13.0
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
-	github.com/casbin/casbin/v2 v2.79.0
+	github.com/casbin/casbin/v2 v2.81.0
 	github.com/cristalhq/jwt/v3 v3.1.0
 	github.com/dop251/goja v0.0.0-20231027120936-b396bb4c349d
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/fatih/color v1.16.0
-	github.com/go-chi/chi/v5 v5.0.10
+	github.com/go-chi/chi/v5 v5.0.11
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-shiori/dom v0.0.0-20230515143342-73569d674e1c
 	github.com/go-shiori/go-readability v0.0.0-20231029095239-6b97d5aba789
@@ -30,12 +30,12 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.19
 	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.8.4
-	github.com/tdewolff/parse/v2 v2.7.6
+	github.com/tdewolff/parse/v2 v2.7.7
 	github.com/xhit/go-simple-mail/v2 v2.16.0
-	golang.org/x/image v0.14.0
-	golang.org/x/net v0.19.0
-	golang.org/x/sync v0.5.0
-	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/image v0.15.0
+	golang.org/x/net v0.20.0
+	golang.org/x/sync v0.6.0
+	golang.org/x/sys v0.16.0 // indirect
 	golang.org/x/text v0.14.0
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect
 	gopkg.in/hlandau/measurable.v1 v1.0.1 // indirect
@@ -43,16 +43,17 @@ require (
 )
 
 require (
-	github.com/JohannesKaufmann/html-to-markdown v1.4.2
+	github.com/JohannesKaufmann/html-to-markdown v1.5.0
 	github.com/antchfx/xmlquery v1.3.18
 	github.com/cristalhq/acmd v0.11.2
 	github.com/dop251/goja_nodejs v0.0.0-20231122114759-e84d9a924c5c
 	github.com/gabriel-vasile/mimetype v1.4.3
 	github.com/halorium/env v1.0.0
+	github.com/itchyny/gojq v0.12.14
 	github.com/klauspost/compress v1.17.4
 	github.com/lithammer/shortuuid/v4 v4.0.0
 	github.com/mangoumbrella/goldmark-figure v1.0.0
-	github.com/prometheus/client_golang v1.17.0
+	github.com/prometheus/client_golang v1.18.0
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/yuin/goldmark v1.6.0
 	github.com/yuin/goldmark-meta v1.1.0
@@ -73,8 +74,7 @@ require (
 	github.com/go-sourcemap/sourcemap v2.1.3+incompatible // indirect
 	github.com/go-test/deep v1.1.0 // indirect
 	github.com/gogs/chardet v0.0.0-20211120154057-b7413eaefb8f // indirect
-	github.com/google/pprof v0.0.0-20231212022811-ec68065c825e // indirect
-	github.com/itchyny/gojq v0.12.14 // indirect
+	github.com/google/pprof v0.0.0-20231229205709-960ae82b1e42 // indirect
 	github.com/itchyny/timefmt-go v0.1.5 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.14.1 // indirect
@@ -92,17 +92,17 @@ require (
 	github.com/prometheus/common v0.45.0 // indirect
 	github.com/prometheus/procfs v0.12.0 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
-	github.com/toorop/go-dkim v0.0.0-20201103131630-e1cd1a0a5208 // indirect
-	golang.org/x/crypto v0.16.0 // indirect
+	github.com/toorop/go-dkim v0.0.0-20240103092955-90b7d1423f92 // indirect
+	golang.org/x/crypto v0.18.0 // indirect
 	golang.org/x/mod v0.14.0 // indirect
 	golang.org/x/tools v0.16.1 // indirect
-	google.golang.org/protobuf v1.31.0 // indirect
+	google.golang.org/protobuf v1.32.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	lukechampine.com/uint128 v1.3.0 // indirect
 	modernc.org/cc/v3 v3.41.0 // indirect
 	modernc.org/ccgo/v3 v3.16.15 // indirect
-	modernc.org/libc v1.37.6 // indirect
+	modernc.org/libc v1.39.1 // indirect
 	modernc.org/mathutil v1.6.0 // indirect
 	modernc.org/memory v1.7.2 // indirect
 	modernc.org/opt v0.1.3 // indirect

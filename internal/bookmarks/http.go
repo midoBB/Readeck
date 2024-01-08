@@ -29,6 +29,11 @@ type viewsRouter struct {
 	*apiRouter
 }
 
+type publicViewsRouter struct {
+	chi.Router
+	*apiRouter
+}
+
 // SetupRoutes mounts the routes for the bookmarks domain.
 // "/bm" is a public route outside the api scope in order to avoid
 // sending the session cookie.
@@ -43,6 +48,9 @@ func SetupRoutes(s *server.Server) {
 
 	// Website routes
 	s.AddRoute("/bookmarks", newViewsRouter(api))
+
+	// Publicly shared bookmark
+	s.AddRoute("/@b", newSharedViewsRouter(api))
 }
 
 // newAPIRouter returns an apiRouter with all the routes set up.
@@ -59,6 +67,7 @@ func newAPIRouter(s *server.Server) *apiRouter {
 			r.Get("/", api.bookmarkInfo)
 			r.Get("/article", api.bookmarkArticle)
 			r.Get("/annotations", api.bookmarkAnnotations)
+			r.With(api.withSharedLink).Post("/share", api.bookmarkShare)
 			r.Get("/x/*", api.bookmarkResource)
 		})
 
@@ -125,6 +134,8 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 			r.With(api.withBookmarkFilters, api.withBookmarkList).
 				Get("/{filter:(unread|archives|favorites|articles|videos|pictures)}", h.bookmarkList)
 			r.With(api.withBookmark).Get("/{uid:[a-zA-Z0-9]{18,22}}", h.bookmarkInfo)
+			r.With(api.withBookmark, api.withSharedLink).
+				Post("/{uid:[a-zA-Z0-9]{18,22}}/share", h.bookmarkShare)
 			r.With(api.withLabelList).Get("/labels", h.labelList)
 			r.With(api.withLabel, api.withBookmarkList).
 				Get("/labels/{label}", h.labelInfo)
@@ -177,6 +188,14 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 		})
 	})
 
+	return h
+}
+
+func newSharedViewsRouter(api *apiRouter) *publicViewsRouter {
+	r := chi.NewRouter()
+	h := &publicViewsRouter{r, api}
+
+	r.With(h.withBookmark).Get("/{id:[a-zA-Z0-9_-]+}", h.get)
 	return h
 }
 

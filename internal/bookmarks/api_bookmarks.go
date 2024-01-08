@@ -38,9 +38,12 @@ type (
 	ctxBookmarkListTagerKey struct{}
 	ctxLabelKey             struct{}
 	ctxLabelListKey         struct{}
+	ctxSharedInfoKey        struct{}
 	ctxFiltersKey           struct{}
 	ctxDefaultLimitKey      struct{}
 )
+
+var sharingDuration = 24 * time.Hour
 
 // bookmarkList renders a paginated list of the connected
 // user bookmarks in JSON.
@@ -265,6 +268,19 @@ func (api *apiRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusNoContent)
+}
+
+func (api *apiRouter) bookmarkShare(w http.ResponseWriter, r *http.Request) {
+	info := r.Context().Value(ctxSharedInfoKey{}).(sharedBookmarkItem)
+
+	if api.srv.IsTurboRequest(r) {
+		api.srv.RenderTurboStream(w, r,
+			"/bookmarks/components/public_share", "replace",
+			"bookmark-share-"+info.ID, info)
+		return
+	}
+
+	api.srv.Render(w, r, http.StatusCreated, info)
 }
 
 // bookmarkResource is the route returning any resource
@@ -720,6 +736,38 @@ func (api *apiRouter) withLabelList(next http.Handler) http.Handler {
 	})
 }
 
+func (api *apiRouter) withSharedLink(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Disable HTTP caching
+		api.srv.WriteLastModified(w, r)
+		api.srv.WriteEtag(w, r)
+
+		b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
+		if b.State != StateLoaded {
+			api.srv.Error(w, r, errors.New("bookmark not loaded yet"))
+			return
+		}
+
+		expires := time.Now().Round(time.Minute).Add(sharingDuration)
+
+		rr, err := encryptID(uint64(b.ID), expires)
+		if err != nil {
+			api.srv.Error(w, r, err)
+			return
+		}
+
+		info := sharedBookmarkItem{
+			URL:     api.srv.AbsoluteURL(r, "/@b", rr).String(),
+			Expires: expires,
+			Title:   b.Title,
+			ID:      b.UID,
+		}
+		ctx := context.WithValue(r.Context(), ctxSharedInfoKey{}, info)
+		w.Header().Set("Location", info.URL)
+		next.ServeHTTP(w, r.WithContext(ctx))
+	})
+}
+
 // bookmarkList is a paginated list of BookmarkItem instances.
 type bookmarkList struct {
 	items      []*Bookmark
@@ -1017,4 +1065,11 @@ func newAnnotationItem(s *server.Server, r *http.Request, a *annotationQueryResu
 		BookmarkSiteName: a.Bookmark.SiteName,
 	}
 	return res
+}
+
+type sharedBookmarkItem struct {
+	URL     string    `json:"url"`
+	Expires time.Time `json:"expires"`
+	Title   string    `json:"title"`
+	ID      string    `json:"id"`
 }

@@ -77,6 +77,21 @@ func TestClean(t *testing.T) {
 			`<body><p><a name="foo"></a></p><p>test</p></body>`,
 		},
 		{
+			bleach.DefaultPolicy.RemoveEmptyNodes,
+			`<pre> test </pre>`,
+			`<body><pre> test </pre></body>`,
+		},
+		{
+			bleach.DefaultPolicy.RemoveEmptyNodes,
+			`<pre>
+				test:
+						<code>abc</code>
+			</pre>`,
+			`<body><pre>				test:
+						<code>abc</code>
+			</pre></body>`,
+		},
+		{
 			bleach.DefaultPolicy.SetLinkRel,
 			`<p><a href="foo">link</a></p>`,
 			`<body><p><a href="foo" rel="nofollow noopener noreferrer">link</a></p></body>`,

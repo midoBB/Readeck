@@ -122,6 +122,15 @@ func (p Policy) RemoveEmptyNodes(top *html.Node) {
 			return false
 		}
 
+		// Keep anything in a <pre> tag
+		p := node.Parent
+		for p != top && p != nil {
+			if dom.TagName(p) == "pre" {
+				return false
+			}
+			p = p.Parent
+		}
+
 		// Keep <a name> tags
 		if dom.TagName(node) == "a" && dom.GetAttribute(node, "name") != "" {
 			return false

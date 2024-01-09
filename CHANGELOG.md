@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.11.0] - 2024-01-08
+### Added
+- Sharing saved bookmarks. Thanks @bacardi55
+
+### Improved
+- Better display of images in lists (when used as bullets by some contents)
+- Improved display of inner links in titles
+- Save more images from articles
+- Apply Wikipedia extraction rules to Wikinews
+- Added robots rules on all the app's pages (noindex, nofollow, noarchive)
+- Restrict CSP frame-src rule to video provider when a bookmark is a video
+- Force youtube videos to play through the "nocookie" variant
+- Escape key on menu-like UI elements
+- Reduced title sizes. Thanks @joachim
+- More tests
+- Container for arm64 architecture
+
+### Fixed
+- Removed the "summary" element marker on Safari. Thanks @joachim
+- Fixed an extraction bug with code formatting in articles
+
 ## [0.10.6] - 2023-12-27
 ### Improved
 - Content Script for BNF websites going through oclc.org. This is mainly for the extension where a user can save content on mediapart and arretsurimage while using the BNF portal.

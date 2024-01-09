@@ -98,7 +98,9 @@ class readerOption extends Controller {
       return
     }
 
-    this.readerOutletElement.classList.remove(...this.getAllClasses())
-    this.readerOutletElement.classList.add(className)
+    this.readerOutletElements.forEach((e) => {
+      e.classList.remove(...this.getAllClasses())
+      e.classList.add(className)
+    })
   }
 }

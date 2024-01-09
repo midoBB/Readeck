@@ -57,6 +57,13 @@ This toggles the favorite status of the bookmark.
 
 This moves the bookmark to the archives (or removes it from there).
 
+### Share
+
+The share button opens a menu from which you can create a link if you want to share an article with someone.
+
+On the same menu, you can export your bookmark (only EPUB for now) to read it on a different device.
+
+
 ### Delete
 
 This marks the bookmark for deletion.\
@@ -83,7 +90,3 @@ Create a new highlight.
 Your highlights appear in the sidebar.
 
 When you need to remove an highlight, you can do it from the sidebar or by selecting it in the article.
-
-## Export
-
-You can export your bookmark (only EPUB for now) to read it on a different device.

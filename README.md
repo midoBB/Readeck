@@ -131,8 +131,7 @@ If a page really doesn't work at all, please [open an issue](https://codeberg.or
 
 ### Can I share a saved bookmark with a public link?
 
-Not at the moment and it will likely never happen. With the extension, you can save content that's behind a paywall and sharing it publicly would be copyright infringement. \
-You can export or print an article to a PDF file though. What you'll do with it is up to you.
+Yes you can, for a limited time. On each article you can generate a link that'll be valid for 24 hours. You can generate a new link as many times as you want but it will always expire. You can also export or print an article to a PDF file.
 
 ### Is there a system to store my (paywall) website credentials?
 

@@ -62,9 +62,13 @@ func TestClean(t *testing.T) {
 		},
 		{
 			bleach.DefaultPolicy.RemoveEmptyNodes,
-			`<p>test</p><div><span>
-			</span></div><br /><p>test 😺</p>`,
-			`<body><p>test</p><br/><p>test 😺</p></body>`,
+			`<p>test</p><div><span></span></div><br /><p>test 2</p>`,
+			`<body><p>test</p><br/><p>test 2</p></body>`,
+		},
+		{
+			bleach.DefaultPolicy.RemoveEmptyNodes,
+			`<p>test</p><div><span> </span></div><br /><p>test 😺</p>`,
+			`<body><p>test</p><div><span> </span></div><br/><p>test 😺</p></body>`,
 		},
 		{
 			bleach.DefaultPolicy.RemoveEmptyNodes,

@@ -14,26 +14,6 @@ import (
 	"golang.org/x/net/html"
 )
 
-var selfClosingTags = map[string]struct{}{
-	"area":     {},
-	"base":     {},
-	"br":       {},
-	"col":      {},
-	"command":  {},
-	"embed":    {},
-	"hr":       {},
-	"img":      {},
-	"input":    {},
-	"keygen":   {},
-	"link":     {},
-	"menuitem": {},
-	"meta":     {},
-	"param":    {},
-	"source":   {},
-	"track":    {},
-	"wbr":      {},
-}
-
 // Policy holds the cleaning rules and provides methods to
 // perform the DOM cleaning.
 type Policy struct {
@@ -122,15 +102,6 @@ func (p Policy) RemoveEmptyNodes(top *html.Node) {
 			return false
 		}
 
-		// Keep anything in a <pre> tag
-		p := node.Parent
-		for p != top && p != nil {
-			if dom.TagName(p) == "pre" {
-				return false
-			}
-			p = p.Parent
-		}
-
 		// Keep <a name> tags
 		if dom.TagName(node) == "a" && dom.GetAttribute(node, "name") != "" {
 			return false
@@ -142,7 +113,13 @@ func (p Policy) RemoveEmptyNodes(top *html.Node) {
 		}
 
 		// Keep nodes with any text
-		if strings.TrimFunc(dom.TextContent(node), isHTMLSpace) != "" {
+		if _, ok := blockTags[dom.TagName(node)]; ok {
+			// We can remove block tags with only spaces
+			if strings.TrimFunc(dom.TextContent(node), isHTMLSpace) != "" {
+				return false
+			}
+		} else if dom.TextContent(node) != "" {
+			// Only remove inline tags when they contain nothing
 			return false
 		}
 

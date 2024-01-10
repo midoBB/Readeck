@@ -6,6 +6,63 @@ package bleach
 
 import "strings"
 
+var selfClosingTags = map[string]struct{}{
+	"area":     {},
+	"base":     {},
+	"br":       {},
+	"col":      {},
+	"command":  {},
+	"embed":    {},
+	"hr":       {},
+	"img":      {},
+	"input":    {},
+	"keygen":   {},
+	"link":     {},
+	"menuitem": {},
+	"meta":     {},
+	"param":    {},
+	"source":   {},
+	"track":    {},
+	"wbr":      {},
+}
+
+var blockTags = map[string]struct{}{
+	"address":    {},
+	"article":    {},
+	"aside":      {},
+	"blockquote": {},
+	"canvas":     {},
+	"dd":         {},
+	"div":        {},
+	"dl":         {},
+	"dt":         {},
+	"fieldset":   {},
+	"figcaption": {},
+	"figure":     {},
+	"footer":     {},
+	"form":       {},
+	"h1":         {},
+	"h2":         {},
+	"h3":         {},
+	"h4":         {},
+	"h5":         {},
+	"h6":         {},
+	"header":     {},
+	"hr":         {},
+	"li":         {},
+	"main":       {},
+	"nav":        {},
+	"noscript":   {},
+	"ol":         {},
+	"p":          {},
+	"pre":        {},
+	"section":    {},
+	"table":      {},
+	"tfoot":      {},
+	"ul":         {},
+	"video":      {},
+}
+
 // elementMap is the map of all known elements
 // and what they can be transformed to.
 // A value of "-" means the elements must be removed.

@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.11.1] - 2024-01-09
+### Fixed
+- Always keep not empty inline nodes during cleanup. Some can be used for punctuation purposes.
+
 ## [0.11.0] - 2024-01-08
 ### Added
 - Sharing saved bookmarks. Thanks @bacardi55

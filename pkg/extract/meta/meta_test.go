@@ -417,7 +417,7 @@ func TestMeta(t *testing.T) {
 			assert := require.New(t)
 			ex, err := extract.New("http://example.net/", nil)
 			assert.NoError(err)
-			pm := ex.NewProcessMessage(extract.StepDom)
+			pm := ex.NewProcessMessage(extract.StepFinish)
 			pm.Dom, err = html.Parse(bytes.NewReader(getFileContents("meta/meta1.html")))
 			assert.NoError(err)
 
@@ -435,7 +435,7 @@ func TestMeta(t *testing.T) {
 			assert := require.New(t)
 			ex, err := extract.New("http://example.net/", nil)
 			assert.NoError(err)
-			pm := ex.NewProcessMessage(extract.StepDom)
+			pm := ex.NewProcessMessage(extract.StepFinish)
 			pm.Dom, err = html.Parse(bytes.NewReader(getFileContents("meta/meta1.html")))
 			assert.NoError(err)
 

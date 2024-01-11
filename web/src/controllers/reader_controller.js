@@ -4,16 +4,28 @@
 
 import {Controller} from "@hotwired/stimulus"
 
+// Controller "reader" is only an outlet for the "reader-option" controller.
 export default class extends Controller {
   initialize() {
-    this.application.register("reader-option", readerOption)
+    // only add the reader-option controller the first time
+    // the controller is initialized.
+    if (
+      this.application.controllers.find(
+        (x) => x.context.controller.identifier == "reader-option",
+      ) === undefined
+    ) {
+      this.application.register("reader-option", readerOption)
+    }
   }
 }
 
 class readerOption extends Controller {
   static outlets = ["reader"]
   static values = {
-    current: String,
+    current: {
+      type: String,
+      default: "",
+    },
     choices: {
       type: Object,
       default: {},
@@ -23,46 +35,62 @@ class readerOption extends Controller {
       default: [],
     },
   }
-  static targets = ["control", "value"]
-  static classes = ["selected"]
+  static targets = ["choices", "value"]
 
-  readerOutletConnected() {
-    this.applyClass()
-    this.updateControls()
-  }
-
-  updateControls() {
-    // update control target position
-    this.controlTargets.forEach((el) => {
-      if (el.getAttribute("value") == this.currentValue) {
-        el.setAttribute("data-current", "1")
-        return
-      }
-      el.removeAttribute("data-current")
+  connect() {
+    this.valueTargets.forEach((e) => {
+      this.currentValue = e.value
     })
 
-    this.valueTargets.forEach((e) => (e.value = this.currentValue))
+    this.choicesTargets.forEach((e) => {
+      this.choicesValue[e.value] = e.dataset.choiceValue
+    })
+  }
+
+  readerOutletConnected() {
+    if (this.currentValue === null) {
+      return
+    }
+    this.applyClass()
+    this.updateChoices()
+  }
+
+  updateChoices() {
+    let found = false
+    this.choicesTargets.forEach((e) => {
+      if (e.value == this.currentValue) {
+        e.setAttribute("data-current", "1")
+        found = true
+      } else {
+        e.removeAttribute("data-current")
+      }
+    })
+
+    if (!found && this.hasChoicesTarget) {
+      // Set current to the first choice
+      this.choicesTarget.setAttribute("data-current", "1")
+    }
   }
 
   dispatchEvents() {
     this.valueTargets.forEach((e) => this.dispatch("setValue", {target: e}))
   }
 
-  setValue(evt) {
-    this.currentValue = evt.currentTarget.value
+  setChoice(evt) {
+    this.currentValue = evt.target.value
   }
 
-  increaseValue(evt) {
+  increaseValue() {
     const value = parseInt(this.currentValue)
-    if (value == this.valuesValue.length) {
+    if (!isNaN(value) && value == this.valuesValue.length) {
       return
     }
     this.currentValue = value + 1
   }
 
-  decreaseValue(evt) {
+  decreaseValue() {
     const value = parseInt(this.currentValue)
-    if (value == 1) {
+    if (!isNaN(value) && value == 1) {
       return
     }
     this.currentValue = value - 1
@@ -72,35 +100,48 @@ class readerOption extends Controller {
     if (!prev) {
       return
     }
+    this.valueTargets.forEach((e) => (e.value = value))
     this.applyClass()
-    this.updateControls()
+    this.updateChoices()
     this.dispatchEvents()
   }
 
   getAllClasses() {
+    let res = []
     if (this.valuesValue.length > 0) {
-      return this.valuesValue
+      res = this.valuesValue
+    } else {
+      res = Object.values(this.choicesValue)
     }
-    return Object.values(this.choicesValue)
+    return res.reduce((acc, cur) => {
+      return acc.concat(cur.split(/\s+/))
+    }, [])
   }
 
-  getCurrentClass() {
+  getCurrentClasses() {
     const idx = parseInt(this.currentValue)
+    let res = ""
     if (this.valuesValue.length > 0 && !isNaN(idx)) {
-      return this.valuesValue[idx - 1]
+      res = this.valuesValue[idx - 1]
+    } else {
+      res = this.choicesValue[this.currentValue]
     }
-    return this.choicesValue[this.currentValue]
+
+    if (!!res) {
+      return res.split(/\s+/)
+    }
+    return []
   }
 
   applyClass() {
-    const className = this.getCurrentClass()
-    if (!className) {
+    const classNames = this.getCurrentClasses()
+    if (classNames.length == 0) {
       return
     }
 
     this.readerOutletElements.forEach((e) => {
       e.classList.remove(...this.getAllClasses())
-      e.classList.add(className)
+      e.classList.add(...classNames)
     })
   }
 }

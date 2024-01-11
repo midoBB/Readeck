@@ -57,6 +57,11 @@ Copyright: 2021 Olivier Meunier <olivier@neokraft.net>
 License: AGPL-3.0-only
 
 Files:
+    web/ui/fonts/luciole/*
+Copyright: Luciole © Laurent Bourcellier & Jonathan Perez. 2019
+License: CC-BY-4.0
+
+Files:
     web/vendor/rapidoc.js
 Copyright: Copyright (c) 2022 Mrinmoy Majumdar
 License: MIT

@@ -3,6 +3,25 @@ SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
 
 SPDX-License-Identifier: AGPL-3.0-only
 *}
+
+{* We keep the class inventory here so it's picked up by tailwind (and it makes sense) *}
+{{- fontList := slice(
+  slice("lora", "font-lora underline-offset-[3px]"),
+  slice("public-sans", "font-public-sans"),
+  slice("merriweather", "font-merriweather underline-offset-[3px]"),
+  slice("inter", "font-inter"),
+  slice("plex-serif", "font-plex-serif underline-offset-[3px]"),
+  slice("luciole", "font-luciole decoration-1"),
+  slice("atkinson-hyperlegible", "font-atkinson-hyperlegible underline-offset-[3px]"),
+  slice("jetbrains-mono", "font-jetbrains-mono"),
+) -}}
+{{- fontSizes := slice("text-sm", "text-normal", "text-lg", "text-xl", "text-2xl", "text-3xl") -}}
+{{- lineHeights := slice(
+    "leading-[1.1]", "leading-tight", "leading-normal",
+		"leading-relaxed", "leading-loose", "leading-[2.25]",
+) -}}
+{{- userFont := user.Settings.ReaderSettings.Font -}}
+
 <details class="no-js:hidden relative"
   data-controller="details request"
   data-request-url-value="{{ urlFor(`/api/profile`) }}"
@@ -12,56 +31,52 @@ SPDX-License-Identifier: AGPL-3.0-only
     {{- yield icon(name="o-font-family", class="inline-block", svgClass="h-6 w-6") -}}
   </summary>
   <div class="absolute top-6 right-0 w-72 shadow-lg bg-gray-50 border border-gray-300 rounded-md p-4">
-    <div class="flex gap-2"
+    <details class="flex flex-col gap-2 border-b pb-2"
       data-controller="reader-option"
       data-reader-option-reader-outlet="[data-controller='reader']"
-      data-reader-option-current-value="{{ user.Settings.ReaderSettings.Font }}"
-      data-reader-option-choices-value="{{ map(
-      `serif`, `font-serif`, `sans-serif`, `font-sans`
-      )|json() }}"
     >
-      <button value="serif" data-reader-option-target="control" data-action="reader-option#setValue"
-        class="
-          py-1 px-4 rounded-lg border
-          flex-1 flex flex-col items-center whitespace-nowrap
-          data-[current]:bg-gray-200
-        ">
-        {{- yield icon(name="o-serif", class="inline-block", svgClass="h-14 w-14") -}}
-        <span>Serif</span>
-      </button>
-      <button value="sans-serif" data-reader-option-target="control" data-action="reader-option#setValue"
-        class="
-          py-1 px-4 rounded-lg border
-          flex-1 flex flex-col items-center whitespace-nowrap
-          data-[current]:bg-gray-200
-        ">
-        {{- yield icon(name="o-sans-serif", class="inline-block", svgClass="h-14 w-14") -}}
-        <span>Sans-Serif</span>
-      </button>
-      <input type="hidden" data-reader-option-target="value"
-        data-action="reader-option:setValue->request#fetch"
-        data-request-name-param="settings_reader_font">
-    </div>
+      <summary class="flex items-center gap-2 p-2 -mx-2 rounded-sm border border-transparent hover:border-gray-300">{{- yield icon(name="o-font") -}}
+        <span class="flex-grow font-semibold">Font</span>
+        {{- yield icon(name="o-chevron-r") -}}
+      </summary>
+
+      <div class="flex flex-col gap-1 mt-1 -mx-2">
+      {{- range i, x := fontList -}}
+        <button class="
+          capitalize py-1 px-2 text-left text-lg rounded-sm border border-transparent
+          hf:border-gray-300 data-[current]:bg-gray-200 {{ x[1] }}
+         "
+         value="{{ x[0] }}" data-choice-value="{{ x[1] }}"
+         data-reader-option-target="choices"
+         data-action="reader-option#setChoice"
+         {{ x[0] == userFont ? "data-current" : "" }}
+        >{{ replace(x[0], "-", " ", -1) }} </button>
+      {{- end -}}
+      </div>
+
+      <input type="hidden" value="{{ user.Settings.ReaderSettings.Font }}"
+       data-reader-option-target="value"
+       data-action="reader-option:setValue->request#fetch"
+       data-request-name-param="settings_reader_font">
+    </details>
     <div
       class="mt-4 flex items-center gap-2"
       data-controller="reader-option"
       data-reader-option-reader-outlet="[data-controller='reader']"
-      data-reader-option-current-value="{{ user.Settings.ReaderSettings.FontSize }}"
-      data-reader-option-values-value="{{- slice(
-      `text-sm`, `text-normal`, `text-lg`, `text-xl`, `text-2xl`, `text-3xl`
-      )|json() -}}"
+      data-reader-option-values-value="{{- fontSizes|json() -}}"
     >
-      <span class="flex-grow">{{- yield icon(name="o-font-size") -}}&nbsp;Size</span>
-      <button class="py-1.5 px-3 rounded-lg border" data-reader-option-target="decrease"
+      {{- yield icon(name="o-font-size") -}} <span class="flex-grow">Size</span>
+      <button class="py-1.5 px-3 rounded-lg border"
        data-action="reader-option#decreaseValue">
         {{- yield icon(name="o-minus") -}}
       </button>
       <input class="p-1 text-center text-sm bg-gray-200 rounded-full" type="text" size="1" disabled
+        value="{{ user.Settings.ReaderSettings.FontSize }}"
         data-reader-option-target="value"
         data-action="reader-option:setValue->request#fetch"
         data-request-name-param="settings_reader_font_size"
       >
-      <button class="py-1.5 px-3 rounded-lg border" data-reader-option-target="increase"
+      <button class="py-1.5 px-3 rounded-lg border"
        data-action="reader-option#increaseValue">
         {{- yield icon(name="o-plus") -}}
       </button>
@@ -70,23 +85,20 @@ SPDX-License-Identifier: AGPL-3.0-only
       class="mt-4 flex items-center gap-2"
       data-controller="reader-option"
       data-reader-option-reader-outlet="[data-controller='reader']"
-      data-reader-option-current-value="{{ user.Settings.ReaderSettings.LineHeight }}"
-      data-reader-option-values-value="{{- slice(
-      `leading-[1.1]`, `leading-tight`, `leading-normal`,
-      `leading-relaxed`, `leading-loose`, `leading-[2.25]`
-      )|json() -}}"
+      data-reader-option-values-value="{{- lineHeights|json() -}}"
     >
-      <span class="flex-grow">{{- yield icon(name="o-line-height") -}}&nbsp;Line height</span>
-      <button class="py-1.5 px-3 rounded-lg border" data-reader-option-target="decrease"
+      {{- yield icon(name="o-line-height") -}} <span class="flex-grow">Line height</span>
+      <button class="py-1.5 px-3 rounded-lg border"
        data-action="reader-option#decreaseValue">
         {{- yield icon(name="o-minus") -}}
       </button>
       <input class="p-1 text-center text-sm bg-gray-200 rounded-full" type="text" size="1" disabled
+       value="{{ user.Settings.ReaderSettings.LineHeight }}"
        data-reader-option-target="value"
        data-action="reader-option:setValue->request#fetch"
        data-request-name-param="settings_reader_line_height"
       >
-      <button class="py-1.5 px-3 rounded-lg border" data-reader-option-target="increase"
+      <button class="py-1.5 px-3 rounded-lg border"
        data-action="reader-option#increaseValue">
         {{- yield icon(name="o-plus") -}}
       </button>

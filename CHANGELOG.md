@@ -1,5 +1,9 @@
 # Changelog
 
+## [unreleased]
+### Improved
+- Better newyorker.com configuration
+
 ## [0.11.1] - 2024-01-09
 ### Fixed
 - Always keep not empty inline nodes during cleanup. Some can be used for punctuation purposes.

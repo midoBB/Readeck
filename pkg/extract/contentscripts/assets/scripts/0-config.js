@@ -47,6 +47,9 @@ exports.setConfig = function (config) {
       config.stripSelectors = [
         '//button[@id="bookmark"]',
         '//div[@data-testid="BylinesWrapper"]',
+        '//*[@data-testid="IframeEmbed"]',
+        "//*[contains(@class, 'ContentHeaderByline')]",
+        "//*[contains(@class, 'SplitScreenContentHeaderTitleBlock')]",
         "//time",
         '//ul[@data-testid="socialIconslist"]',
         "//div[contains(concat(' ', normalize-space(@class), ' '), ' responsive-cartoon ')]",

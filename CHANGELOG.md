@@ -3,6 +3,7 @@
 ## [unreleased]
 ### Improved
 - Better newyorker.com configuration
+- Enabled HTTP/2, compression and keep-alive on the extractor HTTP client
 
 ## [0.11.1] - 2024-01-09
 ### Fixed

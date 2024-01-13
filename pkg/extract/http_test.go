@@ -25,10 +25,10 @@ func TestClient(t *testing.T) {
 		assert.Equal("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", tr.header.Get("Accept"))
 
 		htr := tr.tr.(*http.Transport)
-		assert.True(htr.DisableKeepAlives)
-		assert.True(htr.DisableCompression)
-		assert.Equal(1, htr.MaxIdleConns)
-		assert.False(htr.ForceAttemptHTTP2)
+		assert.False(htr.DisableKeepAlives)
+		assert.False(htr.DisableCompression)
+		assert.Equal(50, htr.MaxIdleConns)
+		assert.True(htr.ForceAttemptHTTP2)
 	})
 
 	t.Run("SetHeader", func(t *testing.T) {

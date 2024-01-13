@@ -6,13 +6,46 @@ package extract
 
 import (
 	"fmt"
+	"maps"
 	"net"
 	"net/http"
 	"net/http/cookiejar"
 	"time"
 
 	"golang.org/x/net/idna"
+	"golang.org/x/net/publicsuffix"
 )
+
+// defaultDialer is our own default net.Dialer with shorter timeout and keepalive.
+var defaultDialer = net.Dialer{
+	Timeout:   15 * time.Second,
+	KeepAlive: 30 * time.Second,
+}
+
+// defaultTransport is our http.RoundTripper with some custom settings.
+var defaultTransport = &http.Transport{
+	Proxy:                 http.ProxyFromEnvironment,
+	DialContext:           defaultDialer.DialContext,
+	ForceAttemptHTTP2:     true,
+	DisableCompression:    false,
+	DisableKeepAlives:     false,
+	MaxIdleConns:          50,
+	MaxIdleConnsPerHost:   2,
+	IdleConnTimeout:       30 * time.Second,
+	TLSHandshakeTimeout:   10 * time.Second,
+	ExpectContinueTimeout: 1 * time.Second,
+}
+
+// defaultHeaders are the HTTP headers that are sent with every new request.
+// They're attached to the transport and can be overridden and/or modified
+// while using the associated client.
+var defaultHeaders = http.Header{
+	"User-Agent":                []string{"Mozilla/5.0 (X11; Linux x86_64; rv:75.0) Gecko/20100101 Firefox/75.0"},
+	"Accept":                    []string{"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"},
+	"Accept-Language":           []string{"en-US,en;q=0.8"},
+	"Cache-Control":             []string{"max-age=0"},
+	"Upgrade-Insecure-Requests": []string{"1"},
+}
 
 // Transport is a wrapper around http.RoundTripper that
 // lets you set default headers sent with every request.
@@ -47,8 +80,12 @@ func (t *Transport) RoundTrip(req *http.Request) (*http.Response, error) {
 	return t.tr.RoundTrip(req)
 }
 
-// SetHeader lets you set a default header for any subsequent request.
+// SetHeader lets you set a default header for any subsequent requests.
 func (t *Transport) SetHeader(name, value string) {
+	if value == "" {
+		t.header.Del(name)
+		return
+	}
 	t.header.Set(name, value)
 }
 
@@ -92,34 +129,25 @@ func (t *Transport) checkDestIP(r *http.Request) error {
 
 // NewClient returns a new http.Client with our custom transport.
 func NewClient() *http.Client {
-	client := &http.Client{}
-	client.Timeout = 10 * time.Second
-	client.Jar, _ = cookiejar.New(nil)
-
+	// We first try to use http.DefaultTransport and, only when it's
+	// an http.Transport instance, we swap it for our own transport.
+	// This way, httpmock keeps working with tests.
 	tr := http.DefaultTransport
-	htr, ok := tr.(*http.Transport)
-	if ok {
-		htr.DisableKeepAlives = true
-		htr.DisableCompression = true
-		htr.MaxIdleConns = 1
-		htr.ForceAttemptHTTP2 = false
+	if _, ok := http.DefaultTransport.(*http.Transport); ok {
+		tr = defaultTransport
 	}
 
-	t := &Transport{
-		tr:        tr,
-		header:    http.Header{},
-		deniedIPs: []*net.IPNet{},
+	cookies, _ := cookiejar.New(&cookiejar.Options{PublicSuffixList: publicsuffix.List})
+
+	return &http.Client{
+		Timeout: 10 * time.Second,
+		Jar:     cookies,
+		Transport: &Transport{
+			tr:        tr,
+			header:    maps.Clone(defaultHeaders),
+			deniedIPs: []*net.IPNet{},
+		},
 	}
-
-	t.SetHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:75.0) Gecko/20100101 Firefox/75.0")
-	t.SetHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
-	t.SetHeader("Accept-Language", "en-US,en;q=0.8")
-	t.SetHeader("Cache-Control", "max-age=0")
-	t.SetHeader("Upgrade-Insecure-Requests", "1")
-
-	client.Transport = t
-
-	return client
 }
 
 // SetHeader sets a header on a given client.

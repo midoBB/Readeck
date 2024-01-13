@@ -1,8 +1,9 @@
 # Changelog
 
-## [unreleased]
+## [0.11.2] - 2024-01-13
 ### Improved
 - Better newyorker.com configuration
+- Improved reddit.com content extraction (pictures, galleries, self text, links)
 - Enabled HTTP/2, compression and keep-alive on the extractor HTTP client
 - Ensure images from articles are properly requested to avoid edge cases
 

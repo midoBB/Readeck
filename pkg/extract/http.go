@@ -10,6 +10,7 @@ import (
 	"net"
 	"net/http"
 	"net/http/cookiejar"
+	"net/textproto"
 	"time"
 
 	"golang.org/x/net/idna"
@@ -71,27 +72,24 @@ func (t *Transport) RoundTrip(req *http.Request) (*http.Response, error) {
 		return nil, err
 	}
 
-	for k, v := range t.header {
-		for _, x := range v {
-			req.Header.Add(k, x)
+	// Add the client's default headers that don't exist in the
+	// current request.
+	for k, values := range t.header {
+		if _, ok := req.Header[textproto.CanonicalMIMEHeaderKey(k)]; !ok {
+			req.Header[k] = values
 		}
 	}
 
 	return t.tr.RoundTrip(req)
 }
 
-// SetHeader lets you set a default header for any subsequent requests.
-func (t *Transport) SetHeader(name, value string) {
+// setHeader lets you set a default header for any subsequent requests.
+func (t *Transport) setHeader(name, value string) {
 	if value == "" {
 		t.header.Del(name)
 		return
 	}
 	t.header.Set(name, value)
-}
-
-// GetHeader returns a header value from transport.
-func (t *Transport) GetHeader(name string) string {
-	return t.header.Get(name)
 }
 
 // SetRoundTripper sets an extra transport's round trip function.
@@ -153,6 +151,6 @@ func NewClient() *http.Client {
 // SetHeader sets a header on a given client.
 func SetHeader(client *http.Client, name, value string) {
 	if t, ok := client.Transport.(*Transport); ok {
-		t.header.Set(name, value)
+		t.setHeader(name, value)
 	}
 }

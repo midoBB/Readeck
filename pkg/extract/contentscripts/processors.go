@@ -111,14 +111,9 @@ func prepareHeaders(m *extract.ProcessMessage, cfg *SiteConfig) {
 		return
 	}
 
-	tr, ok := m.Extractor.Client().Transport.(*extract.Transport)
-	if !ok {
-		return
-	}
-
 	for k, v := range cfg.HTTPHeaders {
 		m.Log.WithField("header", []string{k, v}).Debug("site config custom headers")
-		tr.SetHeader(k, v)
+		extract.SetHeader(m.Extractor.Client(), k, v)
 	}
 }
 

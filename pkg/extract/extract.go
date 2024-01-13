@@ -323,6 +323,9 @@ func (e *Extractor) Run() {
 	defer func() {
 		m.step = StepDone
 		e.runProcessors(m)
+		if e.client != nil {
+			e.client.CloseIdleConnections()
+		}
 	}()
 
 	for i < len(e.drops) {

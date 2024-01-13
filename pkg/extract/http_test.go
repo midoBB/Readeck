@@ -7,6 +7,7 @@ package extract
 import (
 	"encoding/json"
 	"net/http"
+	"net/textproto"
 	"testing"
 	"time"
 
@@ -34,9 +35,12 @@ func TestClient(t *testing.T) {
 	t.Run("SetHeader", func(t *testing.T) {
 		client := NewClient()
 		SetHeader(client, "x-test", "abc")
+		SetHeader(client, "Accept-Language", "")
 
 		tr := client.Transport.(*Transport)
 		require.Equal(t, "abc", tr.header.Get("x-test"))
+		_, exists := tr.header[textproto.CanonicalMIMEHeaderKey("Accept-Language")]
+		require.False(t, exists)
 	})
 
 	t.Run("RoundTrip", func(t *testing.T) {

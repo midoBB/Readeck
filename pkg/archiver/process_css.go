@@ -52,7 +52,7 @@ func (arc *Archiver) processCSS(ctx context.Context, input io.Reader, baseURL *u
 		g.Go(func() error {
 			cssURL := sanitizeStyleURL(uri)
 			cssURL = createAbsoluteURL(cssURL, baseURL)
-			content, contentType, err := arc.processURL(ctx, cssURL, baseURL.String())
+			content, contentType, err := arc.processURL(ctx, cssURL, baseURL.String(), nil)
 			if err != nil && err != errSkippedURL {
 				arc.SendEvent(ctx, &EventError{err, uri})
 				return err

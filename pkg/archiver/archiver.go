@@ -122,7 +122,7 @@ func (arc *Archiver) Archive(ctx context.Context) error {
 	return nil
 }
 
-func (arc *Archiver) downloadFile(url string, parentURL string) (*http.Response, error) {
+func (arc *Archiver) downloadFile(url string, parentURL string, headers http.Header) (*http.Response, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
@@ -130,6 +130,10 @@ func (arc *Archiver) downloadFile(url string, parentURL string) (*http.Response,
 
 	if parentURL != "" {
 		req.Header.Set("Referer", parentURL)
+	}
+
+	for k, v := range headers {
+		req.Header[k] = v
 	}
 
 	for _, cookie := range arc.cookies {

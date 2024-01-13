@@ -7,6 +7,7 @@ package archiver
 import (
 	"context"
 	"io"
+	"net/http"
 	"net/url"
 	"regexp"
 	"strings"
@@ -492,7 +493,13 @@ func (arc *Archiver) processURLNode(ctx context.Context, node *html.Node, attrNa
 	}
 
 	uri := dom.GetAttribute(node, attrName)
-	content, contentType, err := arc.processURL(ctx, uri, baseURL.String())
+	headers := http.Header{}
+	switch node.Data {
+	case "img", "picture", "source":
+		headers.Set("Accept", "image/webp,image/svg+xml,image/*,*/*;q=0.8")
+	}
+
+	content, contentType, err := arc.processURL(ctx, uri, baseURL.String(), headers)
 	if err != nil && err != errSkippedURL {
 		arc.SendEvent(ctx, &EventError{Err: err, URI: uri})
 		return err
@@ -537,7 +544,7 @@ func (arc *Archiver) processLinkNode(ctx context.Context, node *html.Node, baseU
 	}
 
 	uri := dom.GetAttribute(node, "href")
-	content, _, err := arc.processURL(ctx, uri, baseURL.String())
+	content, _, err := arc.processURL(ctx, uri, baseURL.String(), nil)
 	if err != nil {
 		if err == errSkippedURL {
 			return nil
@@ -563,7 +570,7 @@ func (arc *Archiver) processScriptNode(ctx context.Context, node *html.Node, bas
 	}
 
 	uri := dom.GetAttribute(node, "src")
-	content, _, err := arc.processURL(ctx, uri, baseURL.String())
+	content, _, err := arc.processURL(ctx, uri, baseURL.String(), nil)
 	if err != nil {
 		if err == errSkippedURL {
 			return nil
@@ -587,7 +594,7 @@ func (arc *Archiver) processEmbedNode(ctx context.Context, node *html.Node, base
 	}
 
 	uri := dom.GetAttribute(node, attrName)
-	content, contentType, err := arc.processURL(ctx, uri, baseURL.String())
+	content, contentType, err := arc.processURL(ctx, uri, baseURL.String(), nil)
 	if err != nil && err != errSkippedURL {
 		return err
 	}
@@ -624,7 +631,7 @@ func (arc *Archiver) processMediaNode(ctx context.Context, node *html.Node, base
 		oldURL := parts[1]
 		targetWidth := parts[2]
 
-		content, contentType, err := arc.processURL(ctx, oldURL, baseURL.String())
+		content, contentType, err := arc.processURL(ctx, oldURL, baseURL.String(), nil)
 		if err != nil && err != errSkippedURL {
 			arc.SendEvent(ctx, &EventError{Err: err, URI: oldURL})
 			continue

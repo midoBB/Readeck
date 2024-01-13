@@ -9,6 +9,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net/http"
 	"net/url"
 	"strings"
 
@@ -38,7 +39,7 @@ func DefaultURLProcessor(_ string, content []byte, contentType string) string {
 	return createDataURL(content, contentType)
 }
 
-func (arc *Archiver) processURL(ctx context.Context, uri string, parentURL string, embedded ...bool) ([]byte, string, error) {
+func (arc *Archiver) processURL(ctx context.Context, uri string, parentURL string, headers http.Header, embedded ...bool) ([]byte, string, error) {
 	// Parse embedded value
 	isEmbedded := len(embedded) != 0 && embedded[0]
 
@@ -75,7 +76,7 @@ func (arc *Archiver) processURL(ctx context.Context, uri string, parentURL strin
 		return nil, "", nil
 	}
 
-	resp, err := arc.downloadFile(uri, parentURL)
+	resp, err := arc.downloadFile(uri, parentURL, headers)
 	arc.dlSemaphore.Release(1)
 	if err != nil {
 		arc.SendEvent(ctx, &EventError{err, uri})

@@ -8,6 +8,7 @@ package meta
 
 import (
 	"fmt"
+	"path"
 	"regexp"
 	"strings"
 
@@ -20,11 +21,29 @@ import (
 	"codeberg.org/readeck/readeck/pkg/extract"
 )
 
-var rxOpenGraphType = regexp.MustCompile(`^([^:]*:)?(.+?)(\..*|$)`)
+var (
+	rxOpenGraphType = regexp.MustCompile(`^([^:]*:)?(.+?)(\..*|$)`)
+	rxTitleSpaces   = regexp.MustCompile(`[_-]+`)
+)
 
 // ExtractMeta is a processor that extracts metadata from the
 // document and set the Drop values accordingly.
 func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+	if m.Step() == extract.StepBody && m.Position() == 0 {
+		// Dispatch special types.
+		if strings.HasPrefix(m.Extractor.Drop().ContentType, "image/") {
+			// If the requested link is an image, it's a "photo" type
+			// and we can set a picture URL and a title.
+			d := m.Extractor.Drop()
+			d.Meta.Add("x.picture_url", d.URL.String())
+			d.Title = strings.TrimSuffix(path.Base(d.URL.Path), path.Ext(d.URL.Path))
+			d.Title = rxTitleSpaces.ReplaceAllLiteralString(d.Title, " ")
+			d.DocumentType = "photo"
+
+			return next
+		}
+	}
+
 	if m.Step() != extract.StepDom || m.Dom == nil || m.Position() > 0 {
 		return next
 	}

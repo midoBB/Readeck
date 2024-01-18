@@ -39,8 +39,9 @@ SPDX-License-Identifier: AGPL-3.0-only
         <p class="text-lg">Bookmark is loading…</p>
       </div>
     {{- else -}}
-      <div class="hidden print:block" dir="{{ default(.Item.TextDirection, "ltr") }}">
-        <h1 class="px-6 py-4 text-3xl font-serif print:px-0">{{ .Item.Title }}</h1>
+      <div class="hidden print:block font-lora" data-controller="reader"
+       dir="{{ default(.Item.TextDirection, "ltr") }}">
+        <h1 class="px-6 py-4 text-3xl print:px-0">{{ .Item.Title }}</h1>
       </div>
 
       <div class="bookmark-sidebar"
@@ -109,11 +110,12 @@ SPDX-License-Identifier: AGPL-3.0-only
         </div>
 
         {* title and description *}
-        <div class="max-w-3xl mx-auto mt-4 print:mt-2 print:max-w-none mb-8">
+        <div class="max-w-3xl mx-auto mt-4 print:mt-2 print:max-w-none mb-8 font-lora"
+         data-controller="reader">
           {{ include "./components/title_form" .Item }}
 
           {{- if !empty(.Item.Description) -}}
-            <p class="mt-2 text-lg leading-tight text-justify font-serif italic"
+            <p class="mt-2 text-lg leading-tight text-justify italic"
                dir="{{ default(.Item.TextDirection, "ltr") }}">{{ .Item.Description }}</p>
           {{- end -}}
           {{- if user.Settings.DebugInfo -}}

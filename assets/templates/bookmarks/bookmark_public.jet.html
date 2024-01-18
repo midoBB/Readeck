@@ -28,7 +28,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       </div>
     {{- else -}}
       <div class="max-w-3xl mx-auto my-8">
-        <h1 class="my-4 font-serif text-3xl max-sm:text-2xl"
+        <h1 class="my-4 font-lora text-3xl max-sm:text-2xl"
         dir="{{ default(.Item.TextDirection, "ltr") }}">{{ .Item.Title }}</h1>
 
         <ul class="mb-4">
@@ -69,7 +69,7 @@ SPDX-License-Identifier: AGPL-3.0-only
         <hr>
 
         {{- if !empty(.Item.Description) -}}
-          <p class="my-4 text-lg leading-tight text-justify font-serif italic"
+          <p class="my-4 text-lg leading-tight text-justify font-lora italic"
               dir="{{ default(.Item.TextDirection, "ltr") }}">{{ .Item.Description }}</p>
         {{- end -}}
       </div>
@@ -96,7 +96,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{- end -}}
 
       {{- if .Item.HasArticle -}}
-        <main class="max-w-3xl mx-auto mt-16 prose font-serif text-lg leading-normal overflow-x-auto"
+        <main class="max-w-3xl mx-auto mt-16 prose font-lora text-lg leading-normal overflow-x-auto"
         dir="{{ default(.Item.TextDirection, "ltr") }}">
           {{- unsafeWrite(.HTML) -}}
         </main>

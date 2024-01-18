@@ -238,7 +238,7 @@ type ReaderSettings struct {
 
 func (rs *ReaderSettings) setDefaults() {
 	if rs.Font == "" {
-		rs.Font = "serif"
+		rs.Font = "lora"
 	}
 	if rs.FontSize <= 0 {
 		rs.FontSize = 3

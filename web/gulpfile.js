@@ -27,6 +27,8 @@ const through = require("through2")
 
 const {stimulusPlugin} = require("esbuild-plugin-stimulus")
 
+const fontCatalog = require("./ui/fonts.js")
+
 const DEST = path.resolve("../assets/www")
 
 const sassCompiler = gulpSass(sass)
@@ -169,11 +171,7 @@ function css_bundle() {
     require("tailwindcss"),
     require("./ui/plugins/responsive-units"),
     require("postcss-copy")({
-      basePath: [
-        "ui",
-        "node_modules/@fontsource/lora/files",
-        "node_modules/@fontsource/public-sans/files",
-      ],
+      basePath: fontCatalog.basePath(),
       dest: DEST,
       template: (m) => {
         let folder = "."
@@ -193,6 +191,21 @@ function css_bundle() {
       // prettier-ignore
       "ui/index.sass",
     ])
+    .pipe(
+      through.obj(function (file, _, done) {
+        // Push @import from the font catalog
+        if (file.isBuffer()) {
+          const concat = []
+          concat.push(Buffer.from(fontCatalog.atRules().join("\n")))
+          concat.push(Buffer.from("\n\n"))
+          concat.push(file.contents)
+          file.contents = Buffer.concat(concat)
+        }
+
+        this.push(file)
+        done()
+      }),
+    )
     .pipe(gulpSourcemaps.init())
     .pipe(sassCompiler().on("error", sassCompiler.logError))
     .pipe(gulpRename("bundle.css"))

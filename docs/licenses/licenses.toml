@@ -338,6 +338,64 @@ Copyright 2015 The Public Sans Project Authors
 """
 
 [[licenses]]
+name = "jetbrains-mono font"
+license = "OFL-1.1"
+author = "The JetBrains Mono Project Authors"
+url = "https://github.com/JetBrains/JetBrainsMono"
+copyright = """
+Copyright 2020 The JetBrains Mono Project Authors
+(https://github.com/JetBrains/JetBrainsMono)
+"""
+
+[[licenses]]
+name = "atkinson-hyperlegible font"
+license = "OFL-1.1"
+author = "Braille Institute of America, Inc."
+url = "https://brailleinstitute.org/freefont"
+copyright = """
+Copyright 2020 Braille Institute of America, Inc.
+"""
+
+[[licenses]]
+name = "ibm-plex-serif font"
+license = "OFL-1.1"
+author = "IBM Corp."
+url = "https://github.com/IBM/plexb"
+copyright = """
+Copyright 2020 IBM Corp. All rights reserved.
+"""
+
+[[licenses]]
+name = "inter font"
+license = "OFL-1.1"
+author = "The Inter Project Authors"
+url = "https://rsms.me/inter/"
+copyright = """
+Copyright (c) 2016 The Inter Project Authors
+(https://github.com/rsms/inter)
+"""
+
+[[licenses]]
+name = "luciole font"
+license = "CC-BY-4.0"
+author = "Laurent Bourcellier & Jonathan Perez"
+url = "http://www.luciole-vision.com/"
+copyright = """
+Luciole © Laurent Bourcellier & Jonathan Perez. 2019
+"""
+
+[[licenses]]
+name = "merriweather font"
+license = "OFL-1.1"
+author = "The Merriweather Project Authors"
+url = "https://github.com/EbenSorkin/Merriweather"
+copyright = """
+Copyright 2016 The Merriweather Project Authors
+(https://github.com/EbenSorkin/Merriweather),
+with Reserved Font Name "Merriweather".
+"""
+
+[[licenses]]
 name = "stimulus"
 license = "MIT"
 author = "Basecamp, LLC"

@@ -170,7 +170,7 @@ serve:
 		--build.exclude_dir "" \
 		--build.include_dir "assets,configs,docs,internal,pkg" \
 		--build.include_ext "go,html,json,js,tmpl,toml" \
-		--build.delay 1000
+		--build.delay 2000
 
 # Watch the docs/src folder and rebuild the documentation
 # on changes.

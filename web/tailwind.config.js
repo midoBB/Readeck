@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 
 const colors = require("tailwindcss/colors")
+const fontCatalog = require("./ui/fonts.js")
 
 // source:
 // https://uicolors.app/edit?sv1=golden-tainoi:50-fff9eb/100-ffefc6/200-ffdd88/300-ffcb5c/400-ffae20/500-f98a07/600-dd6402/700-b74406/800-94330c/900-7a2c0d/950-461402;mandy:50-fef2f3/100-fee5e7/200-fccfd6/300-f9a8b3/400-f5778a/500-ed4e6b/600-d9254f/700-b71942/800-99183d/900-83183a/950-49081b;pale-oyster:50-fdfcfc/100-f8f7f6/200-ded9d3/300-c0b4aa/400-a7978b/500-968273/600-81695f/700-69544f/800-594946/900-4c3f3d/950-291f1f;shakespeare:50-f2f9fd/100-e5f1f9/200-c4e4f3/300-91cee8/400-43acd6/500-309bc7/600-217da8/700-1c6488/800-1b5571/900-1b475f/950-122e3f
@@ -84,23 +85,7 @@ var config = {
         dark: palette.blue[800],
       },
     },
-    fontFamily: {
-      sans: [
-        "public sans", "sans-serif",
-        "Apple Color Emoji", "Segoe UI Emoji",
-        "Segoe UI Symbol", "Noto Color Emoji",
-      ],
-      serif: [
-        "lora", "serif",
-        "Apple Color Emoji", "Segoe UI Emoji",
-        "Segoe UI Symbol", "Noto Color Emoji",
-      ],
-      mono: [
-        "ui-monospace", "Cascadia Code", "Source Code Pro", "Menlo", "Consolas", "DejaVu Sans Mono", "monospace",
-        "Apple Color Emoji", "Segoe UI Emoji",
-        "Segoe UI Symbol", "Noto Color Emoji",
-      ],
-    },
+    fontFamily: fontCatalog.families(),
     screens: {
       "xs": {raw: "only screen and (min-width: 340px)"},
       "sm": {raw: "only screen and (min-width: 640px)"},

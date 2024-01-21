@@ -98,8 +98,8 @@ func (d *Drop) Load(client *http.Client) error {
 
 	if client == nil {
 		client = http.DefaultClient
+		defer client.CloseIdleConnections()
 	}
-	defer client.CloseIdleConnections()
 
 	var err error
 	var rsp *http.Response

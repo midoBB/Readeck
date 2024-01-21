@@ -5,6 +5,7 @@
 package extract
 
 import (
+	"crypto/tls"
 	"fmt"
 	"maps"
 	"net"
@@ -23,10 +24,47 @@ var defaultDialer = net.Dialer{
 	KeepAlive: 30 * time.Second,
 }
 
+var cipherSuites = []uint16{
+	// AEADs w/ ECDHE
+	tls.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, tls.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+	tls.TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, tls.TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
+	tls.TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, tls.TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,
+
+	// CBC w/ ECDHE
+	tls.TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, tls.TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,
+	tls.TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, tls.TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,
+
+	// AEADs w/o ECDHE
+	tls.TLS_RSA_WITH_AES_128_GCM_SHA256,
+	tls.TLS_RSA_WITH_AES_256_GCM_SHA384,
+
+	// CBC w/o ECDHE
+	tls.TLS_RSA_WITH_AES_128_CBC_SHA,
+	tls.TLS_RSA_WITH_AES_256_CBC_SHA,
+
+	// 3DES
+	tls.TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,
+	tls.TLS_RSA_WITH_3DES_EDE_CBC_SHA,
+
+	// CBC_SHA256
+	tls.TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, tls.TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,
+	tls.TLS_RSA_WITH_AES_128_CBC_SHA256,
+
+	// RC4
+	tls.TLS_ECDHE_ECDSA_WITH_RC4_128_SHA, tls.TLS_ECDHE_RSA_WITH_RC4_128_SHA,
+	tls.TLS_RSA_WITH_RC4_128_SHA,
+}
+
 // defaultTransport is our http.RoundTripper with some custom settings.
 var defaultTransport = &http.Transport{
-	Proxy:                 http.ProxyFromEnvironment,
-	DialContext:           defaultDialer.DialContext,
+	Proxy:       http.ProxyFromEnvironment,
+	DialContext: defaultDialer.DialContext,
+	TLSClientConfig: &tls.Config{
+		// Note: although some ciphers and TLS version are disabled by default for good reasons,
+		// we need to enable them for some websites :/
+		CipherSuites: cipherSuites,
+		MinVersion:   tls.VersionTLS10,
+	},
 	ForceAttemptHTTP2:     true,
 	DisableCompression:    false,
 	DisableKeepAlives:     false,
@@ -41,7 +79,7 @@ var defaultTransport = &http.Transport{
 // They're attached to the transport and can be overridden and/or modified
 // while using the associated client.
 var defaultHeaders = http.Header{
-	"User-Agent":                []string{"Mozilla/5.0 (X11; Linux x86_64; rv:75.0) Gecko/20100101 Firefox/75.0"},
+	"User-Agent":                []string{"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"},
 	"Accept":                    []string{"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"},
 	"Accept-Language":           []string{"en-US,en;q=0.8"},
 	"Cache-Control":             []string{"max-age=0"},

@@ -59,6 +59,18 @@ type Drop struct {
 
 // NewDrop returns a Drop instance.
 func NewDrop(src *url.URL) *Drop {
+	d := &Drop{
+		Meta:     DropMeta{},
+		Authors:  []string{},
+		Body:     []byte{},
+		Pictures: map[string]*Picture{},
+	}
+	d.SetURL(src)
+	return d
+}
+
+// SetURL sets the Drop's URL and Domain properties in their unicode versions.
+func (d *Drop) SetURL(src *url.URL) {
 	// First, copy url and ensure it's a unicode version
 	var uri *url.URL
 	domain := ""
@@ -70,15 +82,8 @@ func NewDrop(src *url.URL) *Drop {
 		}
 		domain, _ = publicsuffix.EffectiveTLDPlusOne(uri.Hostname())
 	}
-
-	return &Drop{
-		URL:      uri,
-		Domain:   domain,
-		Meta:     DropMeta{},
-		Authors:  []string{},
-		Body:     []byte{},
-		Pictures: map[string]*Picture{},
-	}
+	d.URL = uri
+	d.Domain = domain
 }
 
 // Load loads the remote URL and retrieve data.
@@ -113,7 +118,7 @@ func (d *Drop) Load(client *http.Client) error {
 	d.Header = rsp.Header
 
 	// Set final URL in case it was redirected
-	d.URL = rsp.Request.URL
+	d.SetURL(rsp.Request.URL)
 
 	// Set mime type
 	d.ContentType, _, _ = mime.ParseMediaType(rsp.Header.Get("content-type"))

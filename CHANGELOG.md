@@ -1,5 +1,13 @@
 # Changelog
 
+## [UNRELEASE]
+### Added
+- More font choices. The reader interface offers now 8 font faces
+
+### Improved
+- Accept TLS 1.0 and negotiate more ciphers in the extractor HTTP client
+- Selected font is applied on bookmark's title and description
+
 ## [0.11.2] - 2024-01-13
 ### Improved
 - Better newyorker.com configuration

@@ -16,19 +16,23 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{ yield csrfField() }}
 
   {{ yield textField(field=.Form.Get("username"),
+                     required=true,
                      label="Username",
                      class="field-h") }}
 
   {{ yield textField(field=.Form.Get("email"),
                      type="email",
+                     required=true,
                      label="Email address",
                      class="field-h") }}
 
   {{ yield selectField(field=.Form.Get("group"),
+                       required=true,
                        label="Group",
                        class="field-h") }}
 
   {{ yield passwordField(field=.Form.Get("password"),
+                         required=true,
                          label="Password",
                          class="field-h") }}
 

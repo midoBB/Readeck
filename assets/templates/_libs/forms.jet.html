@@ -21,12 +21,18 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- end -}}
 
 
-{{- block formField(field, name, label, help, class="", controlAttrs=attrList()) -}}
+{{- block formField(field, name, label, help, class="", required=false, controlAttrs=attrList()) -}}
   {{- if !name -}}{{ name = field.Name() }}{{- end -}}
   {{- if field.Errors -}}{{ class = class + " field-err" }}{{- end -}}
 
   <div class="field{{ if class }} {{ class }}{{ end }}">
-    {{ if label }}<label for="{{ name }}">{{ label }}:</label>{{ end }}
+    {{ if label -}}
+      <label for="{{ name }}">
+        {{- label -}}
+        {{- if required }} <span class="sr-only">Required</span>{{- end -}}
+        {{- if required }} <span title="Required" aria-hidden class="text-red-700">•</span>{{- end -}}
+      </label>
+    {{- end }}
     <div class="flex-grow" {{ controlAttrs }}>
       {{ yield content }}
       {{ if field.Errors }}
@@ -43,7 +49,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 
 {{- block textField(
-  field, value=nil, type="text", name, label, class="", help,
+  field, value=nil, type="text", name, label, class="", required=false, help,
   controlAttrs=attrList(), inputAttrs=attrList(), inputClass="form-input w-full"
 ) -}}
   {{- if type == "password" -}}
@@ -51,9 +57,12 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- else if value == nil -}}
     {{ value = field.String() }}
   {{- end -}}
+  {{- if required -}}
+    {{ inputAttrs.Set("required", true) }}
+  {{- end -}}
 
   {{- yield formField(field=field, name=name, label=label, help=help, class=class,
-                      controlAttrs=controlAttrs) content -}}
+                      required=required, controlAttrs=controlAttrs) content -}}
     <input type="{{ type }}" id="{{ name }}" name="{{ name }}"
      value="{{ value }}" class="{{ inputClass }}" {{ inputAttrs }} />
     {{- yield content -}}
@@ -62,12 +71,12 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 
 {{- block dateField(
-  field, value=nil, name, label, class, help,
+  field, value=nil, name, label, class, required, help,
   controlAttrs=attrList(), inputAttrs=attrList(), inputClass="form-input",
 ) -}}
   {{ value = field.String() }}
   {{ yield textField(field=field, value=value, type="date", name=name,
-                     label=label, class=class, help=help,
+                     label=label, class=class, required=required, help=help,
                      controlAttrs=controlAttrs, inputAttrs=inputAttrs,
                      inputClass=inputClass) }}
 {{- end -}}
@@ -101,15 +110,18 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 
 {{- block selectField(
-  field, value=nil, name, options, label, class, help,
+  field, value=nil, name, options, label, class, required, help,
   controlAttrs=attrList(), inputAttrs=attrList(), inputClass="form-select w-full"
 ) -}}
   {{- if !name -}}{{ name = field.Name() }}{{- end -}}
   {{- if value == nil -}}{{ value = field.Value() }}{{- end -}}
   {{- if !options -}}{{ options = field.Choices() }}{{- end -}}
   {{- if field.Errors -}}{{ class = class + " with-errors" }}{{ end }}
+  {{- if required -}}
+    {{ inputAttrs.Set("required", true) }}
+  {{- end -}}
   {{- yield formField(field=field, name=name, label=label, help=help, class=class,
-                      controlAttrs=controlAttrs) content -}}
+                      required=required, controlAttrs=controlAttrs) content -}}
     <select name="{{ name }}" id="{{ name }}" class="{{ inputClass }}" {{ inputAttrs }}>
       {{- range options -}}
         <option value="{{ .[0] }}" {{ if string(value) == string(.[0]) }}selected="selected"{{ end }}>{{ .[1] }}</option>
@@ -124,7 +136,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- if !name -}}{{ name = field.Name() }}{{- end -}}
   {{- if field.Errors -}}{{ class = class + " field-err" }}{{- end -}}
   <div class="field{{ if class }} {{ class }}{{ end }}">
-    <label>{{ label }}:</label>
+    <label>{{ label }}</label>
     <div class="flex-grow">
       <input type="hidden" name="{{ name }}" value="">
       <ul>
@@ -150,14 +162,14 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- end -}}
 
 {{- block passwordField(
-  field, value=nil, name, label, class="", help,
+  field, value=nil, name, label, class="", required=false, help,
   inputClass="form-input w-full", inputAttrs=attrList(),
 ) -}}
   {{ controlAttrs := attrList("data-controller", "pass-reveal", "data-pass-reveal-hidden-class", "hidden")}}
   {{ inputAttrs.Set("data-pass-reveal-target", "field") }}
 
   {{ yield textField(field=field, value=value, type="password", name=name,
-                     label=label, class=class, help=help,
+                     label=label, class=class, required=required, help=help,
                      controlAttrs=controlAttrs, inputAttrs=inputAttrs,
                      inputClass=inputClass) content -}}
     <button type="button" class="-ml-6 mr-2"

@@ -45,6 +45,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{ yield passwordField(field=.Form.Get("password"),
                          label="Password",
                          class="field-h",
+                         inputAttrs=attrList("autocomplete", "off"),
                          help="will not change if empty") }}
 
   <p><button class="btn-primary" type="submit">Save</button></p>

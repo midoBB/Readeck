@@ -5,6 +5,8 @@
 package onboarding
 
 import (
+	"fmt"
+
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -15,11 +17,10 @@ type onboardingForm struct {
 
 func newOnboardingForm() *onboardingForm {
 	return &onboardingForm{forms.Must(
-		forms.NewTextField("email", forms.Trim, forms.Chain(
-			forms.Required,
+		forms.NewTextField("username", forms.Trim, forms.Required),
+		forms.NewTextField("email", forms.Trim, forms.Optional(
 			forms.IsEmail,
 		)),
-		forms.NewTextField("username", forms.Trim, forms.Required),
 		forms.NewTextField("password", forms.Chain(
 			forms.Required,
 			users.IsValidPassword,
@@ -33,6 +34,10 @@ func (f *onboardingForm) createUser() (*users.User, error) {
 		Email:    f.Get("email").String(),
 		Password: f.Get("password").String(),
 		Group:    "admin",
+	}
+
+	if u.Email == "" {
+		u.Email = fmt.Sprintf("%s@localhost", u.Username)
 	}
 
 	err := users.Users.Create(u)

@@ -23,7 +23,10 @@ SPDX-License-Identifier: AGPL-3.0-only
   ) }}
   {{ yield passwordField(field=.Form.Get("password"),
                          label="Password",
-                         inputAttrs=attrList("data-login-form-target", "password"),
+                         inputAttrs=attrList(
+                           "data-login-form-target", "password",
+                           "autocomplete", "current-password",
+                         ),
   ) }}
 
   <button class="btn block mt-6 w-full rounded-md text-white bg-gray-800 border-gray-800" type="submit">Login</button>

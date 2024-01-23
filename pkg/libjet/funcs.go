@@ -245,6 +245,7 @@ func (l attrList) Render(r *jet.Runtime) {
 		if len(values) == 1 {
 			if x, ok := values[0].(bool); ok && x {
 				r.Write([]byte(k))
+				r.Write([]byte(" "))
 				continue
 			} else if ok && !x {
 				continue

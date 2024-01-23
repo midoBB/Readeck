@@ -46,6 +46,15 @@ func Chain(validators ...FieldValidator) FieldValidator {
 	}
 }
 
+func Optional(validators ...FieldValidator) FieldValidator {
+	return func(f Field) error {
+		if f.IsBound() && (f.IsNil() || f.String() == "") {
+			return nil
+		}
+		return Chain(validators...)(f)
+	}
+}
+
 // Trim return a validator that trims spaces from the value when it's a string.
 func Trim(f Field) error {
 	if f.IsNil() {

@@ -39,10 +39,12 @@ SPDX-License-Identifier: AGPL-3.0-only
   <div class="hidden absolute z-50"
     data-annotations-target="controlls">
       <button data-annotations-target="controllCreate" data-action="click->annotations#save"
-      class="p-4 bg-gray-700 text-white hf:text-primary-light rounded-lg shadow-lg"
+      class="p-4 bg-gray-700 text-white hf:text-primary-light rounded-lg shadow-lg
+      dark:bg-gray-300 dark:hf:text-primary-dark"
       title="highlight selection">{{ yield icon(name="o-highlight") }} Highlight</button>
       <button data-annotations-target="controllDelete" data-action="click->annotations#delete"
-      class="p-4 bg-red-800 text-red-100 hf:text-white rounded-lg shadow-lg"
+      class="p-4 bg-red-800 text-red-100 hf:text-white rounded-lg shadow-lg
+      dark:bg-red-400 dark:text-gray-900 dark:hf:text-white"
       title="remove highlight(s)">{{ yield icon(name="o-trash") }} Remove Highlight(s)</button>
   </div>
 

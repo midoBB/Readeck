@@ -21,6 +21,7 @@
     "@mdi/svg": "^7.4.47",
     "boxicons": "^2.1.4",
     "cssnano": "^6.0.3",
+    "culori": "^4.0.0",
     "del": "^7.1.0",
     "esbuild": "^0.19.11",
     "esbuild-plugin-stimulus": "^0.1.5",

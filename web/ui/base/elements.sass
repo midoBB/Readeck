@@ -10,8 +10,11 @@
 
   :focus-visible
     @apply outline-none
-    @apply ring-2 ring-yellow-500 bg-yellow-50
-    @apply ring-offset-2 ring-offset-yellow-50
+    @apply ring-2 ring-offset-2
+    @apply ring-yellow-600 bg-yellow-100 ring-offset-yellow-100
+
+    :is(.dark &)
+      @apply ring-yellow-400 bg-yellow-100 ring-offset-yellow-100
 
   details>summary
     @apply cursor-pointer
@@ -23,19 +26,20 @@
 
 @layer base
   *
-    scrollbar-color: #aaa #fafafa
+    scrollbar-color: rgb(var(--color-gray-400)) rgb(var(--color-gray-100))
+    scrollbar-width: auto
 
-  ::-webkit-scrollbar
-    width: 5px
+  *::-webkit-scrollbar
+    width: 4px
 
-  ::-webkit-scrollbar-track
-    background: #fafafa
-    border-radius: 4px
+  *::-webkit-scrollbar-track
+    width: 4px
+    background: rgb(var(--color-gray-100))
 
-  ::-webkit-scrollbar-thumb
-    background-color: #bbb
+  *::-webkit-scrollbar-thumb
+    background-color: rgb(var(--color-gray-400))
     width: 2px
-    border-radius: 4px
+    border-radius: 3px
 
 @layer base
   @media print

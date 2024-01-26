@@ -7,36 +7,36 @@
 @layer components
   .btn
     @apply inline-block p-2 leading-tight whitespace-nowrap border cursor-pointer
-    @apply bg-gray-500 border-gray-500 text-white
+    @apply bg-btn-default border-btn-default text-btn-default-text
     @apply transition-colors duration-200
-    @apply hf:bg-gray-700 hf:border-gray-700
-
-  .btn-outlined
-    @apply btn
-    @apply bg-transparent border-gray-600
-    @apply text-gray-600
-    @apply hf:bg-gray-600 hf:text-white hf:border-gray-600
+    @apply hf:bg-btn-default-hover hf:border-btn-default-hover
 
   .btn-primary
     @apply btn rounded
-    @apply bg-primary border-primary
-    @apply text-white
-    @apply hf:text-white hf:bg-primary-dark hf:border-primary-dark
+    @apply bg-btn-primary border-btn-primary
+    @apply text-btn-primary-text
+    @apply hf:text-btn-primary-text hf:bg-btn-primary-hover hf:border-btn-primary-hover
 
   .btn-danger
     @apply btn rounded
-    @apply bg-red-600 border-red-600
-    @apply text-white
-    @apply hf:text-white hf:bg-red-800 hf:border-red-800
+    @apply bg-btn-danger border-btn-danger
+    @apply text-btn-danger-text
+    @apply hf:text-btn-danger-text hf:bg-btn-danger-hover hf:border-btn-danger-hover
+
+  .btn-outlined
+    @apply btn
+    @apply bg-transparent border-btn-default
+    @apply text-btn-default
+    @apply hf:bg-btn-default hf:text-btn-default-text hf:border-btn-default
 
   .btn-outlined-primary
     @apply btn
-    @apply bg-transparent border-primary
-    @apply text-primary
-    @apply hf:bg-primary hf:text-white hf:border-primary
+    @apply bg-transparent border-btn-primary
+    @apply text-btn-primary
+    @apply hf:bg-btn-primary hf:text-btn-primary-text hf:border-btn-primary
 
   .btn-outlined-danger
     @apply btn
-    @apply bg-transparent border-red-600
-    @apply text-red-600
-    @apply hf:bg-red-600 hf:text-white hf:border-red-600
+    @apply bg-transparent border-btn-danger
+    @apply text-btn-danger
+    @apply hf:bg-btn-danger hf:text-btn-danger-text hf:border-btn-danger

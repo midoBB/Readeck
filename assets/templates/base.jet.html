@@ -39,14 +39,12 @@ SPDX-License-Identifier: AGPL-3.0-only
   print:text-black print:bg-white
   overscroll-none
  ">
-{{- if !isTurbo }}
 <script nonce="{{ cspNonce }}">
 if ('noModule' in HTMLScriptElement.prototype) {
   document.body.classList.remove("no-js")
   document.body.classList.add("js")
 }
 </script>
-{{ end -}}
 {{ yield body() }}
 </body>
 </html>

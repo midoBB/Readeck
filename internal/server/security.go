@@ -186,7 +186,10 @@ func GetCSPHeader(r *http.Request) csp.Policy {
 // SetSecurityHeaders adds some headers to improve client side security.
 func (s *Server) SetSecurityHeaders(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		nonce := csp.MakeNonce()
+		var nonce string
+		if nonce = r.Header.Get("x-turbo-nonce"); nonce == "" {
+			nonce = csp.MakeNonce()
+		}
 
 		policy := getDefaultCSP()
 		policy.Add("script-src", fmt.Sprintf("'nonce-%s'", nonce), csp.UnsafeInline)

@@ -5,6 +5,10 @@
 import * as Turbo from "@hotwired/turbo"
 import {safeMethods, csrfToken} from "./request"
 
+const cspNonce = document.querySelector(
+  'html>head>meta[name="csp-nonce"]',
+).content
+
 document.addEventListener("turbo:before-fetch-request", (evt) => {
   // Insert the CSRF token when needed
   let meth = evt.detail.fetchOptions.method.toUpperCase()
@@ -14,6 +18,7 @@ document.addEventListener("turbo:before-fetch-request", (evt) => {
 
   // Mark the request for turbo rendering
   evt.detail.fetchOptions.headers["X-Turbo"] = "1"
+  evt.detail.fetchOptions.headers["X-Turbo-Nonce"] = cspNonce
 })
 
 document.addEventListener("turbo:submit-end", (evt) => {

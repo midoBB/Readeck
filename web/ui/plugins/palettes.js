@@ -85,9 +85,17 @@ function setColorScale(decl) {
       case "smoothstep":
         params.smoothstep = true
         break
-      case "gamma":
-        params.gamma = nodes[i + 1].value
+      case "from":
         i++
+        params.from = nodes[i].value
+        break
+      case "to":
+        i++
+        params.to = nodes[i].value
+        break
+      case "gamma":
+        i++
+        params.gamma = nodes[i].value
         break
     }
   }

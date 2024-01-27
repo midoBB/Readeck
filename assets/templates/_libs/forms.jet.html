@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- if !form.IsValid() -}}
     <div class="max-w-xl">
     {{- yield message(type="error") content -}}
-      <strong class="text-red-700">Errors</strong>
+      <strong class="text-red-800">Errors</strong>
       {{- if form.Errors() -}}
         {{ range form.Errors() }}
           <p>{{ .Error() }}</p>
@@ -30,13 +30,13 @@ SPDX-License-Identifier: AGPL-3.0-only
       <label for="{{ name }}">
         {{- label -}}
         {{- if required }} <span class="sr-only">Required</span>{{- end -}}
-        {{- if required }} <span title="Required" aria-hidden class="text-red-700">•</span>{{- end -}}
+        {{- if required }} <span title="Required" aria-hidden class="text-red-600">•</span>{{- end -}}
       </label>
     {{- end }}
     <div class="flex-grow" {{ controlAttrs }}>
       {{ yield content }}
       {{ if field.Errors }}
-        <ul class="mt-1 list-disc list-inside text-red-700">
+        <ul class="mt-1 list-disc list-inside text-red-800">
         {{- range field.Errors }}
           <li>{{ . }}</li>
         {{ end -}}
@@ -97,7 +97,7 @@ SPDX-License-Identifier: AGPL-3.0-only
        {{- if checked }} checked="checked"{{ end -}} />
       <label class="font-bold" for="{{ name }}">{{ label }}</label>
       {{ if field.Errors }}
-        <ul class="mt-1 list-disc list-inside text-red-700">
+        <ul class="mt-1 list-disc list-inside text-red-800">
         {{- range field.Errors }}
           <li>{{ . }}</li>
         {{ end -}}
@@ -151,7 +151,7 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{- end -}}
       </ul>
       {{ if field.Errors }}
-        <ul class="mt-1 list-disc list-inside text-red-700">
+        <ul class="mt-1 list-disc list-inside text-red-800">
         {{- range field.Errors }}
           <li>{{ . }}</li>
         {{ end -}}

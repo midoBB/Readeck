@@ -7,6 +7,7 @@ package cookbook
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 
 	"github.com/go-chi/chi/v5"
 
@@ -27,7 +28,7 @@ func newCookbookViews(api *cookbookAPI) *cookbookViews {
 	r.With(api.srv.WithPermission("cookbook", "read")).Group(func(r chi.Router) {
 		r.Get("/", v.templateView("prose"))
 		r.Get("/colors", v.templateView("colors"))
-		r.Get("/forms", v.formsView)
+		r.Get("/ui", v.uiView)
 	})
 
 	return v
@@ -44,18 +45,23 @@ func (v *cookbookViews) templateView(name string) func(w http.ResponseWriter, r 
 	}
 }
 
-func (v *cookbookViews) formsView(w http.ResponseWriter, r *http.Request) {
+func (v *cookbookViews) uiView(w http.ResponseWriter, r *http.Request) {
+	f := newCookbookForm()
+	ef := newCookbookForm()
+	forms.UnmarshalValues(ef, url.Values{"text": {""}})
+
 	ctx := server.TC{
-		"Form": newCookbookForm(),
+		"Form":    f,
+		"FormErr": ef,
 	}
 
-	v.srv.RenderTemplate(w, r, 200, "cookbook/forms", ctx)
+	v.srv.RenderTemplate(w, r, 200, "cookbook/ui", ctx)
 }
 
 func newCookbookForm() *forms.Form {
 	choices := forms.NewListField("choices", func(s string) forms.Field {
 		return forms.NewTextField(s)
-	}, forms.DefaultListConverter)
+	}, forms.DefaultListConverter, forms.Required)
 	choices.(*forms.ListField).SetChoices(forms.Choices{
 		{"a", "Choice A"},
 		{"b", "Choice B"},
@@ -63,7 +69,7 @@ func newCookbookForm() *forms.Form {
 	})
 
 	f := forms.Must(
-		forms.NewTextField("text"),
+		forms.NewTextField("text", forms.Required, forms.IsEmail),
 		forms.NewChoiceField("select", forms.Choices{
 			{"", ""},
 			{"choice 1", "Choice 1"},

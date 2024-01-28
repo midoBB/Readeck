@@ -5,42 +5,43 @@
  */
 
 @layer components
-  .video-wrapper
-    max-width: 80rem
+  .video-player
+    position: relative
     margin: 0 auto
+    max-height: 80dvh
 
-    .video-player
-      @apply rounded-md
-      background-color: #000
-      position: relative
-      padding-top: 56.25%
-      height: 0
-      overflow: hidden
+    img, iframe, .play-button
+      position: absolute
+      display: block
 
-      img,
-      iframe,
-      .play-button
-        position: absolute
+    img, iframe
+      @apply rounded-md bg-black
+      width: 100%
+      height: 100%
+
+    .play-button
+      display: block
+      width: 100%
+      height: 100%
+      position: absolute
+      top: 0
+      left: 0
+      z-index: 1
+      cursor: pointer
+
+      span
         display: block
-
-      img,
-      iframe
-        top: 0
-        left: 0
-        width: 100%
-        height: 100%
-
-      .play-button
         width: 90px
         height: 90px
-        background-color: #222
-        z-index: 1
-        opacity: 0.9
+        background-color: #000
+        opacity: 0.75
         border-radius: 100%
-        cursor: pointer
+        position: absolute
+        left: 50%
 
         &:before
           position: absolute
+          z-index: 2
           content: ""
           line-height: 0
           border-style: solid
@@ -52,8 +53,13 @@
           left: 50%
           transform: translate3d(-50%, -50%, 0)
 
-        &:hover, &:focus
-          background-color: #000
+      &:hover, &:focus, &:focus-visible
+        background-color: transparent
+        @apply ring-0
+        span
+          opacity: 1
+          @apply ring-4
+          @apply ring-yellow-500
 
-        @media print
-          display: none
+      @media print
+        display: none

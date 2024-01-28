@@ -80,9 +80,15 @@ exports.processMeta = function () {
       })
       .join("\n")
     $.readability = false
+  } else if (post.media?.type == "video" && post.media?.hlsUrl && preview) {
+    // Set an HLS embed when we've got an HLS URL and a preview picture
+    $.type = "video"
+    $.meta["oembed.html"] = `<hls src="${post.media?.hlsUrl}"></hls>`
   } else if (post.media?.type == "video") {
+    // Fallback to a link to the post
     $.type = "video"
     html += `<p><a href="${post.permalink}">Original Reddit Video</a></p>`
+    $.readability = false
   } else if (post.source?.url) {
     html += `<p>Link to <a href="${post.source.url}">${
       post.source.displayText || post.source.url

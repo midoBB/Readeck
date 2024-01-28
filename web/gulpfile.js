@@ -168,6 +168,7 @@ function css_bundle() {
   const processors = [
     require("postcss-import"),
     require("./ui/plugins/prose"),
+    require("./ui/plugins/palettes.js"),
     require("tailwindcss"),
     require("./ui/plugins/responsive-units"),
     require("postcss-copy")({

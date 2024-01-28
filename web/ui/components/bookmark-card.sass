@@ -68,14 +68,14 @@
           @apply text-gray-200
 
         button
-          @apply fill-current hf:text-primary-dark
+          @apply fill-current hf:text-btn-primary
 
           &[name="is_marked"][value="0"],
           &[name="is_archived"][value="0"]
             @apply text-primary
 
           &[name="is_deleted"]
-            @apply hf:text-red-800
+            @apply hf:text-btn-danger
 
         .bookmark-card-deleted
           @apply flex flex-grow items-center
@@ -106,10 +106,10 @@
 
       .bookmark-card-actions
         form button
-          @apply text-primary
+          @apply text-btn-primary-hover
 
           &[name="is_deleted"]
-            @apply text-red-700
+            @apply text-btn-danger-hover
 
         .bookmark-card-deleted
           form button

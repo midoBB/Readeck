@@ -3,6 +3,8 @@
 ## [UNRELEASE]
 ### Added
 - More font choices. The reader interface offers now 8 font faces
+- Dark mode. A new color palette for dark mode and a theme switcher
+  between auto / dark / light.
 
 ### Improved
 - Accept TLS 1.0 and negotiate more ciphers in the extractor HTTP client

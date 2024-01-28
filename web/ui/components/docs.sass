@@ -16,18 +16,18 @@
       @flow-block
       font-size: 1.6em
       font-weight: 500
-      color: theme('colors.gray.700')
-      border-bottom: 1px solid theme('colors.gray.200')
+      color: rgb(var(--color-gray-700))
+      border-bottom: 1px solid rgb(var(--color-gray-200))
       position: relative
       padding-bottom: 5px
       top: -5px
 
     h3
-      color: theme('colors.yellow.700')
+      color: rgb(var(--color-yellow-700))
 
     figure
       img
-        border: 1px solid theme('colors.gray.200')
+        border: 1px solid rgb(var(--color-gray-200))
         padding: 0.25rem
 
       figcaption
@@ -38,15 +38,89 @@
   rapi-doc
     --font-regular: theme("fontFamily.sans")
     --font-mono: theme("fontFamily.mono")
-    --bg: theme("colors.gray.50")
-    --light-fg: theme("colors.gray.700")
-    --blue: theme("colors.primary.DEFAULT")
-    --primary-color: theme("colors.primary.DEFAULT")
-    --primary-color-invert: theme("colors.white")
-    --nav-accent-color: theme("colors.yellow.400")
+
+    --focus-shadow: 0 0 0 1px transparent, 0 0 0 3px var(rgb(--color-yellow-600))
+
+    --bg: rgb(var(--color-app-bg))
+    --bg2: rgb(var(--color-gray-100))
+    --bg3: rgb(var(--color-gray-100))
+    --light-bg: rgb(var(--color-gray-100)/0.8)
+
+    --fg: rgb(var(--color-app-fg))
+    --fg2: rgb(var(--color-gray-fg)/0.9)
+    --fg3: rgb(var(--color-app-fg)/0.8)
+    --light-fg: rgb(var(--color-app-fg)/0.7)
+
+    --selection-bg: rgb(var(--color-btn-primary))
+    --selection-fg: rgb(var(--color-btn-primary-text))
+    --overlay-bg: rgb(var(--color-gray-dark)/0.4)
+
+    --border-color: rgb(var(--color-gray-300))
+    --light-border-color: rgb(var(--color-gray-300))
+    --code-border-color: transparent
+
+    --input-bg: rgb(var(--color-gray-50))
+    --placeholder-color: rgb(var(--color-gray-600))
+    --hover-color: rgb(var(--color-gray-100))
+
+    --red: rgb(var(--color-red-600))
+    --light-red: rgb(var(--color-red-100))
+
+    --pink: #990055
+    --light-pink: #ffb2b2
+
+    --green: rgb(var(--color-green-700))
+    --light-green: rgb(var(--color-green-200))
+
+    --blue: rgb(var(--color-blue-600))
+    --light-blue: rgb(var(--color-blue-200))
+
+    --orange: rgb(var(--color-yellow-800))
+    --light-orange: rgb(var(--color-yellow-400))
+
+    --yellow: rgb(var(--color-yellow-600))
+    --light-yellow: rgb(var(--color-yellow-200))
+
+    --purple: #786FF1
+    --brown: rgb(var(--color-yellow-800))
+
+    --header-bg: rgb(var(--color-gray-800))
+    --header-fg: rgb(var(--color-gray-50))
+
+    --header-color-darker: rgb(var(--color-gray-800))
+    --header-color-border: rgb(var(--color-gray-700))
+
+    --nav-bg-color: rgb(var(--color-app-bg))
+    --nav-text-color: rgb(var(--color-gray-800))
+    --nav-hover-bg-color: rgb(var(--color-gray-200)/0.6)
+    --nav-hover-text-color: rgb(var(--color-app-fg))
+    --nav-accent-color: rgb(var(--color-primary))
+    --nav-accent-text-color: rgb(var(--color-app-fg))
+    --nav-get-color: rgb(var(--color-blue-600))
+    --nav-put-color: rgb(var(--color-yellow-500))
+    --nav-post-color: rgb(var(--color-green-600))
+    --nav-delete-color: rgb(var(--color-red-600))
+    --nav-head-color: rgb(var(--color-yellow-600))
+
+    --primary-color: rgb(var(--color-primary))
+    --primary-color-invert: rgb(var(--color-gray-light))
+    --primary-color-trans: rgb(var(--color-blue-200)/0.4)
+
+    --code-bg: rgb(var(--color-gray-100))
+    --code-fg: rgb(var(--color-grey-900))
+
+    --inline-code-fg: rgb(var(--color-red-700))
+    --code-property-color: rgb(var(--color-red-600))
+    --code-keyword-color: rgb(var(--color-blue-600))
+    --code-operator-color: rgb(var(--color-yellow-700))
+
+    :is(.dark &)
+      --pink: #ffb2b2
+      --light-pink: #ffb2b2
+      --purple: #a8a2f7
 
     &::part(section-navbar)
-      background: linear-gradient(to right, theme("colors.gray.50"), theme("colors.gray.100"))
+      background: linear-gradient(to right, rgb(var(--color-gray-50)), rgb(var(--color-gray-100)))
       box-shadow: theme("boxShadow.sidebar-l")
       width: theme("spacing.col-5")
 
@@ -61,7 +135,7 @@
       font-weight: theme("fontWeight.medium")
 
     &::part(section-navbar-active-item)
-      border-left-color: theme("colors.primary.dark")
+      border-left-color: rgb(var(--color-primary-dark))
       border-radius: 0
 
     &::part(label-operation-method)

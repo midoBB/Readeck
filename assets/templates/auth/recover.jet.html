@@ -27,7 +27,7 @@ SPDX-License-Identifier: AGPL-3.0-only
                         label="Email address",
                         class="max",
       ) }}
-      <button class="btn block mt-6 w-full rounded-md text-white bg-gray-800 border-gray-800" type="submit">Send me a recovery link</button>
+      <button class="btn block mt-6 w-full rounded-md" type="submit">Send me a recovery link</button>
       <p class="mt-4 text-center"><a href="{{ urlFor(`/login`) }}" class="link">Cancel and go back to login</a></p>
     </form>
   {{- else if step == 1 -}}
@@ -50,7 +50,7 @@ SPDX-License-Identifier: AGPL-3.0-only
                                label="New password",
                                class="max",
                                help="must be at least 8 characters long") }}
-        <button class="btn block mt-6 w-full rounded-md text-white bg-gray-800 border-gray-800" type="submit">Update your password</button>
+        <button class="btn block mt-6 w-full rounded-md" type="submit">Update your password</button>
         <p class="mt-4 text-center"><a href="{{ urlFor(`/login`) }}" class="link">Cancel and go back to login</a></p>
     {{- end -}}
   {{- else if step == 3 -}}

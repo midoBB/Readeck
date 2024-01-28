@@ -60,7 +60,7 @@ SPDX-License-Identifier: AGPL-3.0-only
             class="
               md:hidden
               flex-grow flex items-center justify-end gap-2
-              px-4 bg-gray-100
+              px-4 bg-gray-100 dark:bg-gray-200
               cursor-pointer
               select-none"
           >
@@ -74,7 +74,7 @@ SPDX-License-Identifier: AGPL-3.0-only
           data-panel-target="panel"
           aria-label="More information"
           data-action="keydown.esc->panel#toggleMenu"
-          class="panel--hidden px-6 pt-4 pb-8 max-md:px-4 max-md:overflow-y-auto flex-grow print:pb-0 print:px-0"
+          class="panel--hidden px-6 pt-4 pb-8 max-md:px-4 max-md:overflow-y-auto max-md:overscroll-contain flex-grow print:pb-0 print:px-0"
         >
           {{ include "./components/sidebar" }}
         </div>
@@ -86,7 +86,7 @@ SPDX-License-Identifier: AGPL-3.0-only
           sticky top-0 z-20 h-topnav
           flex flex-col
           border-b border-b-gray-200
-          bg-gray-50 text-gray-400 hfw:text-gray-700
+          bg-app-bg bg-opacity-95 text-gray-400 hfw:text-gray-700
           max-sm:top-topnav
           print:hidden
         ">
@@ -94,7 +94,7 @@ SPDX-License-Identifier: AGPL-3.0-only
             <div>
               <a href="{{ urlFor(`/bookmarks/unread`) }}" data-controller="history" data-action="history#back"
               class="p-2 rounded-full w-8 h-8 border border-bg-100 inline-flex items-center justify-center
-              hf:bg-gray-700 hf:text-white">
+              hf:bg-gray-200 hf:text-gray-800">
                 {{- yield icon(name="o-chevron-l", class="inline-block", svgClass="w-6 h-6") -}}
               </a>
             </div>

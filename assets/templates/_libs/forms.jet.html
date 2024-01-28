@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- if !form.IsValid() -}}
     <div class="max-w-xl">
     {{- yield message(type="error") content -}}
-      <strong class="text-red-700">Errors</strong>
+      <strong class="text-red-800">Errors</strong>
       {{- if form.Errors() -}}
         {{ range form.Errors() }}
           <p>{{ .Error() }}</p>
@@ -30,13 +30,13 @@ SPDX-License-Identifier: AGPL-3.0-only
       <label for="{{ name }}">
         {{- label -}}
         {{- if required }} <span class="sr-only">Required</span>{{- end -}}
-        {{- if required }} <span title="Required" aria-hidden class="text-red-700">•</span>{{- end -}}
+        {{- if required }} <span title="Required" aria-hidden class="text-red-600">•</span>{{- end -}}
       </label>
     {{- end }}
     <div class="flex-grow" {{ controlAttrs }}>
       {{ yield content }}
       {{ if field.Errors }}
-        <ul class="mt-1 list-disc list-inside text-red-700">
+        <ul class="mt-1 list-disc list-inside text-red-800">
         {{- range field.Errors }}
           <li>{{ . }}</li>
         {{ end -}}
@@ -97,7 +97,7 @@ SPDX-License-Identifier: AGPL-3.0-only
        {{- if checked }} checked="checked"{{ end -}} />
       <label class="font-bold" for="{{ name }}">{{ label }}</label>
       {{ if field.Errors }}
-        <ul class="mt-1 list-disc list-inside text-red-700">
+        <ul class="mt-1 list-disc list-inside text-red-800">
         {{- range field.Errors }}
           <li>{{ . }}</li>
         {{ end -}}
@@ -131,26 +131,27 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- end -}}
 
 {{- block multiSelectField(
-  field, name, label, class, help
+  field, name, label, class, help, type="checkbox"
 ) -}}
   {{- if !name -}}{{ name = field.Name() }}{{- end -}}
   {{- if field.Errors -}}{{ class = class + " field-err" }}{{- end -}}
+  {{- inputClass := type == "radio" ? "form-radio" : "form-checkbox" -}}
   <div class="field{{ if class }} {{ class }}{{ end }}">
     <label>{{ label }}</label>
     <div class="flex-grow">
       <input type="hidden" name="{{ name }}" value="">
-      <ul>
+      <ul class="space-y-2">
         {{- range field.Field.Choices() -}}
-         <li class="mb-2">
-          <input type="checkbox" name="{{ name }}" id="{{ name }}_{{ .[0] }}" value="{{ .[0] }}"
-           class="form-checkbox"
+         <li class="space-x-1">
+          <input type="{{ type }}" name="{{ name }}" id="{{ name }}_{{ .[0] }}" value="{{ .[0] }}"
+           class="{{ inputClass }}"
            {{ if field.Field.InChoices(.[0]) }} checked{{ end }}>
           <label for="{{ name }}_{{ .[0] }}">{{ .[1] }}</label>
          </li>
         {{- end -}}
       </ul>
       {{ if field.Errors }}
-        <ul class="mt-1 list-disc list-inside text-red-700">
+        <ul class="mt-1 list-disc list-inside text-red-800">
         {{- range field.Errors }}
           <li>{{ . }}</li>
         {{ end -}}

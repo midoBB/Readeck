@@ -101,12 +101,14 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{- else -}}
           <ul class="mb-4" data-controller="request scrollto">
           {{- range _, x := .Item.Annotations -}}
-            <li class="mb-3 flex p-2 bg-yellow-50 bg-opacity-30 group-hfw:bg-opacity-100 border border-yellow-200 rounded
-            hfw:drop-shadow group/btn">
+            <li class="
+              mb-3 flex p-2 bg-hl-yellow bg-opacity-20 hfw:bg-opacity-80
+              rounded border border-hl-yellow-dark
+              group/btn">
               <a class="grow" href="#annotation-{{ x.ID }}" data-action="scrollto#scroll:prevent">{{ shortText(x.Text, 100) }}</a>
               <span class="no-js:hidden flex-shrink-0">
                 <button class="block -mt-4 -mr-4
-                text-gray-400 opacity-0
+                text-gray-600 opacity-0
                 group-hover/btn:opacity-100 group-focus-within/btn:opacity-100
                 hf:text-red-700"
                 data-action="click->request#fetch"

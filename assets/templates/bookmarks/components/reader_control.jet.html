@@ -30,7 +30,11 @@ SPDX-License-Identifier: AGPL-3.0-only
   <summary class="list-none">
     {{- yield icon(name="o-font-family", class="inline-block", svgClass="h-6 w-6") -}}
   </summary>
-  <div class="absolute top-6 right-0 w-72 shadow-lg bg-gray-50 border border-gray-300 rounded-md p-4">
+  <div class="
+    absolute top-6 right-0 w-72 max-h-[calc(100vh-12rem)] overflow-y-auto
+    overscroll-contain
+    shadow-lg text-gray-900 bg-gray-50 border border-gray-300 rounded-md p-4
+  ">
     <details class="flex flex-col gap-2 border-b pb-2"
       data-controller="reader-option"
       data-reader-option-reader-outlet="[data-controller='reader']"

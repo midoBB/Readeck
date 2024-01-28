@@ -36,7 +36,7 @@
 
     .logo
       @apply flex items-center justify-center
-      @apply layout-topbar
+      @apply layout-topbar sm:-mt-2
 
       @screen max-sm
         @apply h-auto
@@ -58,9 +58,12 @@
           @apply block
           @apply rounded
           @apply p-3
-          @apply text-gray-900 bg-black bg-opacity-5
-          @apply hf:bg-opacity-10
-          @apply data-current:bg-yellow-400 data-current:text-yellow-800 data-current:bg-opacity-50
+          @apply text-gray-800 bg-gray-dark bg-opacity-5
+          @apply hf:bg-opacity-15
+          @apply data-current:bg-yellow-600 data-current:text-yellow-900
+
+          :is(.dark &)
+            @apply data-current:text-white data-current:bg-yellow-400
 
           @screen max-xs
             @apply px-2
@@ -73,13 +76,15 @@
 
       a
         @apply absolute left-0 right-0 transition-[top]
-        @apply bg-white bg-opacity-95 font-bold
-        @apply p-4 text-center
+        @apply focus-visible:bg-gray-50/95
+        @apply p-4 text-center font-bold
         @apply hf:top-80 hf:shadow-lg
 
 
   .sidemenu
     @apply flex-shrink-0 sticky top-0 z-30 h-screen overflow-y-auto shadow-sidebar-l bg-gradient-to-r from-gray-50 to-gray-100 px-4
+    :is(.dark &)
+      @apply bg-app-bg from-gray-200/50 to-gray-200/50
 
     @screen max-sm
       @apply w-full

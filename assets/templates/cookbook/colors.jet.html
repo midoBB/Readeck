@@ -9,7 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 {{- block colorBlock(style, name, class="flex flex-col items-center") -}}
 <div class="{{ class }}">
-  <div class="w-24 h-20 rounded flex items-center justify-center text-2xl" style="{{ style }}">{{ yield content }}</div>
+  <div class="w-24 h-20 rounded flex items-center justify-center text-2xl {{ style }}">{{ yield content }}</div>
   <div class="mt-2 text-sm">{{ name }}</div>
 </div>
 {{- end -}}
@@ -26,6 +26,22 @@ SPDX-License-Identifier: AGPL-3.0-only
   slice("green", scale),
   slice("hl", slice("-yellow", "-yellow-dark"))
 ) -}}
+<style nonce="{{ cspNonce }}">
+{{ range _, color := colors }}
+{{ range color[1] }}
+.cookbook-bg-{{ color[0] }}{{ . }} {
+  background-color: rgb(var(--color-{{ color[0] }}{{ . }}));
+}
+.cookbook-border-{{ color[0] }}{{ . }} {
+  border: 2px solid rgb(var(--color-{{ color[0] }}{{ . }}));
+}
+.cookbook-text-{{ color[0] }}{{ . }} {
+  color: rgb(var(--color-{{ color[0] }}{{ . }}));
+}
+
+{{ end }}
+{{ end }}
+</style>
 
 <h1 class="title text-h2">Colors</h1>
 
@@ -33,7 +49,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- range _, color := colors -}}
   <div class="flex gap-4 mb-8">
     {{- range color[1] -}}
-      {{- yield colorBlock(style="background: rgb(var(--color-" + color[0] + ., name=color[0] + .) -}}
+      {{- yield colorBlock(style="cookbook-bg-" + color[0] + ., name=color[0] + .) -}}
     {{- end -}}
   </div>
 {{- end -}}
@@ -42,7 +58,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- range _, color := colors -}}
   <div class="flex gap-4 mb-8">
     {{- range color[1] -}}
-      {{- yield colorBlock(style="border: 2px solid rgb(var(--color-" + color[0] + ., name=color[0] + .) -}}
+      {{- yield colorBlock(style="cookbook-border-" + color[0] + ., name=color[0] + .) -}}
     {{- end -}}
   </div>
 {{- end -}}
@@ -52,7 +68,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   <div class="flex gap-4 mb-8">
     {{- range color[1] -}}
       {{- yield colorBlock(
-        style="color: rgb(var(--color-" + color[0] + .,
+        style="cookbook-text-" + color[0] + ., name=color[0] + .,
         name=color[0] + .,
         class="flex flex-col items-center justify-center border rounded py-2"
       ) content -}}

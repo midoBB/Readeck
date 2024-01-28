@@ -12,7 +12,6 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	"codeberg.org/readeck/readeck/internal/server"
-	"codeberg.org/readeck/readeck/pkg/csp"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -36,11 +35,8 @@ func newCookbookViews(api *cookbookAPI) *cookbookViews {
 
 func (v *cookbookViews) templateView(name string) func(w http.ResponseWriter, r *http.Request) {
 	template := fmt.Sprintf("cookbook/%s", name)
-	return func(w http.ResponseWriter, r *http.Request) {
-		policy := server.GetCSPHeader(r).Clone()
-		policy.Add("style-src-attr", csp.UnsafeInline)
-		policy.Write(w.Header())
 
+	return func(w http.ResponseWriter, r *http.Request) {
 		v.srv.RenderTemplate(w, r, 200, template, nil)
 	}
 }
@@ -48,7 +44,7 @@ func (v *cookbookViews) templateView(name string) func(w http.ResponseWriter, r 
 func (v *cookbookViews) uiView(w http.ResponseWriter, r *http.Request) {
 	f := newCookbookForm()
 	ef := newCookbookForm()
-	forms.UnmarshalValues(ef, url.Values{"text": {""}})
+	forms.UnmarshalValues(ef, url.Values{})
 
 	ctx := server.TC{
 		"Form":    f,

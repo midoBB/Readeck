@@ -818,6 +818,7 @@ type bookmarkItem struct {
 	Errors        []string                 `json:"errors,omitempty"`
 	Links         BookmarkLinks            `json:"links,omitempty"`
 
+	baseURL            *url.URL
 	mediaURL           *url.URL
 	annotationTag      string
 	annotationCallback func(id string, n *html.Node, index int)
@@ -859,7 +860,7 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *Bookmark, base string
 		Resources:     make(map[string]*bookmarkFile),
 		Links:         b.Links,
 
-		mediaURL:      s.AbsoluteURL(r, "/bm", b.FilePath),
+		baseURL:       s.AbsoluteURL(r, "/"),
 		annotationTag: "rd-annotation",
 		annotationCallback: func(id string, n *html.Node, index int) {
 			if index == 0 {
@@ -871,9 +872,11 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *Bookmark, base string
 
 	// Set a relative media base URL when we're not querying the API.
 	if !strings.HasPrefix(r.URL.EscapedPath(), s.AbsoluteURL(r, "/api/").EscapedPath()) {
-		res.mediaURL.Scheme = ""
-		res.mediaURL.Host = ""
+		res.baseURL.Scheme = ""
+		res.baseURL.Host = ""
 	}
+
+	res.mediaURL = res.baseURL.JoinPath("/bm", b.FilePath)
 
 	if b.Labels != nil {
 		res.Labels = b.Labels
@@ -973,11 +976,9 @@ func (bi *bookmarkItem) setEmbed() error {
 	if err != nil {
 		return err
 	}
-	iframe := dom.QuerySelector(node, "iframe")
-	if iframe == nil || !dom.HasAttribute(iframe, "src") {
-		return nil
-	}
-	src, err := url.Parse(dom.GetAttribute(iframe, "src"))
+	embed := dom.QuerySelector(node, "iframe,hls")
+
+	src, err := url.Parse(dom.GetAttribute(embed, "src"))
 	if err != nil {
 		return err
 	}
@@ -987,10 +988,27 @@ func (bi *bookmarkItem) setEmbed() error {
 		src.Host = "www.youtube-nocookie.com"
 	}
 
-	// Set the embed block and its hostname
-	dom.SetAttribute(iframe, "src", src.String())
-	bi.Embed = dom.OuterHTML(iframe)
-	bi.EmbedHostname = src.Hostname()
+	switch dom.TagName(embed) {
+	case "iframe":
+		// Set the embed block and its hostname
+		dom.SetAttribute(embed, "src", src.String())
+		bi.Embed = dom.OuterHTML(embed)
+		bi.EmbedHostname = src.Hostname()
+	case "hls":
+		playerURL := bi.baseURL.JoinPath("/videoplayer")
+		playerURL.RawQuery = url.Values{
+			"src": {src.String()},
+			"w":   {strconv.Itoa(bi.Resources["image"].Width)},
+			"h":   {strconv.Itoa(bi.Resources["image"].Height)},
+		}.Encode()
+		bi.Embed = fmt.Sprintf(
+			`<iframe src="%s" width="%d" height="%d" frameborder="0" scrolling="no" sandbox="allow-scripts"></iframe>`,
+			playerURL,
+			bi.Resources["image"].Width,
+			bi.Resources["image"].Height,
+		)
+	}
+
 	return nil
 }
 

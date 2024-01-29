@@ -12,17 +12,17 @@ SPDX-License-Identifier: AGPL-3.0-only
     width="{{ .Item.Resources.image.Width }}" height="{{ .Item.Resources.image.Height }}">
   </figure>
 {{- else if .Item.Type == "video" && isset(.Item.Resources.image) && .Item.Embed -}}
-  <div class="video-wrapper mb-8">
-    <div class="video-player" data-controller="video">
-      <img alt="" src="{{ .Item.Resources.image.Src }}"
-       width="{{ .Item.Resources.image.Width }}" height="{{ .Item.Resources.image.Height }}">
-      <template data-video-target="embed">
-        {{- raw(.Item.Embed) -}}
-      </template>
-      <template data-video-target="play">
-        <div class="play-button" data-action="click->video#play"></div>
-      </template>
-    </div>
+  <div class="video-player mb-8" data-controller="video">
+    <img alt="" src="{{ .Item.Resources.image.Src }}"
+      width="{{ .Item.Resources.image.Width }}" height="{{ .Item.Resources.image.Height }}">
+    <template data-video-target="embed">
+      {{- raw(.Item.Embed) -}}
+    </template>
+    <template data-video-target="play">
+      <button class="play-button" data-action="click->video#play">
+        <span></span>
+      </button>
+    </template>
   </div>
 {{- end -}}
 

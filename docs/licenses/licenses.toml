@@ -441,6 +441,15 @@ Copyright (c) Tailwind Labs, Inc.
 """
 
 [[licenses]]
+name = "HLS.js"
+license = "Apache-2.0"
+author = "Dailymotion"
+url = "https://github.com/video-dev/hls.js"
+copyright = """
+Copyright (c) 2017 Dailymotion (http://www.dailymotion.com)
+"""
+
+[[licenses]]
 name = "RapiDoc"
 license = "MIT"
 author = "Mrinmoy Majumdar"

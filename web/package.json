@@ -36,6 +36,7 @@
     "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-svgstore": "^9.0.0",
+    "hls.js": "^1.5.2",
     "merge-stream": "^2.0.0",
     "open-color": "^1.9.1",
     "postcss": "^8.4.33",

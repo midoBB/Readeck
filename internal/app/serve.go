@@ -34,6 +34,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/opds"
 	"codeberg.org/readeck/readeck/internal/profile"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/videoplayer"
 )
 
 type serveFlags struct {
@@ -211,6 +212,9 @@ func InitServer(s *server.Server) error {
 
 	// Admin routes
 	admin.SetupRoutes(s)
+
+	// Video player route
+	videoplayer.SetupRoutes(s)
 
 	// Help routes
 	docs.SetupRoutes(s)

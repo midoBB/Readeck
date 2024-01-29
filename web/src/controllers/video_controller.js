@@ -19,10 +19,10 @@ export default class extends Controller {
     const h = parseInt(this.ifr.getAttribute("height")) || 0
 
     if (w > 0 && h > 0) {
-      this.element.style.paddingTop = `${(100 * h) / w}%`
+      this.element.style.aspectRatio = `${w} / ${h}`
     }
 
-    this.playBtn = this.playTarget.content.querySelector("div")
+    this.playBtn = this.playTarget.content.querySelector("button")
     this.element.appendChild(this.playBtn)
   }
 

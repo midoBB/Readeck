@@ -61,11 +61,11 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- if .Count.Total == 0 -}}
     <div class="my-6 flex gap-4">
       <div class="-mt-9">
-        {{ yield icon(name="o-big-arrow", class="text-yellow-300", svgClass="h-36", viewBox="0 0 50 250") }}
+        {{ yield icon(name="o-big-arrow", class="text-yellow-500", svgClass="h-36", viewBox="0 0 50 250") }}
       </div>
       <div class="flex-grow-0 max-w-xl">
         <h1 class="title text-h3">Welcome to Readeck!</h1>
-        <p class="text-xl mb-4 p-4 text-blue-800 bg-yellow-50 border border-blue-800 rounded">
+        <p class="text-xl mb-4 p-4 text-blue-800 bg-yellow-100 border border-blue-800 rounded">
             You don't have any bookmarks yet.<br> Copy a link in the field above and start saving.
         </p>
         <p>Read more about bookmarks in the <a class="link" href="{{ urlFor(`/docs`) }}">documentation</a>.</p>

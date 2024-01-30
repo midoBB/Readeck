@@ -291,7 +291,8 @@ function copy_files() {
       .pipe(gulp.dest(path.join(DEST, "img"))),
 
     gulp
-      .src(require.resolve("hls.js"))
+      .src(path.join(require.resolve("hls.js"), "../hls.min.js"))
+      .pipe(gulpRename("hls.js"))
       .pipe(hashName())
       .pipe(destCompress("gz"))
       .pipe(destCompress("br"))

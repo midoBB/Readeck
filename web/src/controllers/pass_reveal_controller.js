@@ -5,20 +5,21 @@
 import {Controller} from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["field", "template", "show", "hide"]
-  static classes = ["hidden"]
+  static targets = ["field", "btn", "show", "hide"]
 
-  showPassword() {
-    this.fieldTarget.type = "text"
-    this.showTarget.classList.add(this.hiddenClass)
-    this.hideTarget.classList.remove(this.hiddenClass)
-    this.fieldTarget.focus()
+  connect() {
+    this.btnTarget.appendChild(this.showTarget.content.cloneNode(true))
   }
 
-  hidePassword() {
-    this.fieldTarget.type = "password"
-    this.showTarget.classList.remove(this.hiddenClass)
-    this.hideTarget.classList.add(this.hiddenClass)
+  toggle() {
+    this.btnTarget.replaceChildren()
+    if (this.fieldTarget.type == "password") {
+      this.btnTarget.appendChild(this.hideTarget.content.cloneNode(true))
+      this.fieldTarget.type = "text"
+    } else {
+      this.btnTarget.appendChild(this.showTarget.content.cloneNode(true))
+      this.fieldTarget.type = "password"
+    }
     this.fieldTarget.focus()
   }
 }

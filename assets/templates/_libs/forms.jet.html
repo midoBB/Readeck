@@ -166,23 +166,25 @@ SPDX-License-Identifier: AGPL-3.0-only
   field, value=nil, name, label, class="", required=false, help,
   inputClass="form-input w-full", inputAttrs=attrList(),
 ) -}}
-  {{ controlAttrs := attrList("data-controller", "pass-reveal", "data-pass-reveal-hidden-class", "hidden")}}
-  {{ inputAttrs.Set("data-pass-reveal-target", "field") }}
+  {{- controlAttrs := attrList("data-controller", "pass-reveal") -}}
+  {{- inputAttrs.Set("data-pass-reveal-target", "field") -}}
 
-  {{ yield textField(field=field, value=value, type="password", name=name,
-                     label=label, class=class, required=required, help=help,
-                     controlAttrs=controlAttrs, inputAttrs=inputAttrs,
-                     inputClass=inputClass) content -}}
-    <button type="button" class="-ml-6 mr-2"
-     data-pass-reveal-target="show" data-action="pass-reveal#showPassword">
-      {{- yield icon(name="o-show", class="svgicon", svgClass="") -}}
-    </button>
-    {{- "" -}}
-    <button type="button" class="-ml-6 mr-2 hidden"
-     data-pass-reveal-target="hide" data-action="pass-reveal#hidePassword">
-      {{- yield icon(name="o-hide", class="svgicon", svgClass="") -}}
-    </button>
-  {{ end }}
+  {{- yield formField(field=field, name=name, label=label, help=help, class=class,
+                      required=required, controlAttrs=controlAttrs) content -}}
+    <div class="{{ inputClass }} inline-flex gap-2">
+      <input type="password" id="{{ name }}" name="{{ name }}" value="{{ value }}"
+       class="flex-grow hfw:ring-0 focus-visible:ring-0 focus-visible:bg-transparent
+       focus-visible:shadow-none focus-visible:outline-none focus-visible:ring-offset-0"
+       {{ inputAttrs }} />
+      <button type="button" data-pass-reveal-target="btn" data-action="pass-reveal#toggle"></button>
+      <template data-pass-reveal-target="show">
+        {{- yield icon(name="o-show", class="svgicon", svgClass="") -}}
+      </template>
+      <template data-pass-reveal-target="hide">
+        {{- yield icon(name="o-hide", class="svgicon", svgClass="") -}}
+      </template>
+    </div>
+  {{- end -}}
 {{- end -}}
 
 {{- block timeTokenField(

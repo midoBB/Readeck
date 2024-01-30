@@ -168,11 +168,14 @@ SPDX-License-Identifier: AGPL-3.0-only
 ) -}}
   {{- controlAttrs := attrList("data-controller", "pass-reveal") -}}
   {{- inputAttrs.Set("data-pass-reveal-target", "field") -}}
+  {{- if required -}}
+    {{ inputAttrs.Set("required", true) }}
+  {{- end -}}
 
   {{- yield formField(field=field, name=name, label=label, help=help, class=class,
                       required=required, controlAttrs=controlAttrs) content -}}
     <div class="{{ inputClass }} inline-flex gap-2">
-      <input type="password" id="{{ name }}" name="{{ name }}" value="{{ value }}"
+      <input type="password" id="{{ name }}" name="{{ name }}" value=""
        class="flex-grow hfw:ring-0 focus-visible:ring-0 focus-visible:bg-transparent
        focus-visible:shadow-none focus-visible:outline-none focus-visible:ring-offset-0"
        {{ inputAttrs }} />

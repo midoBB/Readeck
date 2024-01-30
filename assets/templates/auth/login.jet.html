@@ -19,7 +19,10 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{ yield textField(field=.Form.Get("username"),
                       label="Username or email address",
                       class="max",
-                      inputAttrs=attrList("data-login-form-target", "username"),
+                      inputAttrs=attrList(
+                        "data-login-form-target", "username",
+                        "autocapitalize", "off",
+                      ),
   ) }}
   {{ yield passwordField(field=.Form.Get("password"),
                          label="Password",

@@ -976,7 +976,10 @@ func (bi *bookmarkItem) setEmbed() error {
 	if err != nil {
 		return err
 	}
-	embed := dom.QuerySelector(node, "iframe,hls")
+	embed := dom.QuerySelector(node, "iframe,hls,video")
+	if embed == nil {
+		return nil
+	}
 
 	src, err := url.Parse(dom.GetAttribute(embed, "src"))
 	if err != nil {
@@ -995,6 +998,20 @@ func (bi *bookmarkItem) setEmbed() error {
 		bi.Embed = dom.OuterHTML(embed)
 		bi.EmbedHostname = src.Hostname()
 	case "hls":
+		playerURL := bi.baseURL.JoinPath("/videoplayer")
+		playerURL.RawQuery = url.Values{
+			"type": {"hls"},
+			"src":  {src.String()},
+			"w":    {strconv.Itoa(bi.Resources["image"].Width)},
+			"h":    {strconv.Itoa(bi.Resources["image"].Height)},
+		}.Encode()
+		bi.Embed = fmt.Sprintf(
+			`<iframe src="%s" width="%d" height="%d" frameborder="0" scrolling="no" sandbox="allow-scripts"></iframe>`,
+			playerURL,
+			bi.Resources["image"].Width,
+			bi.Resources["image"].Height,
+		)
+	case "video":
 		playerURL := bi.baseURL.JoinPath("/videoplayer")
 		playerURL.RawQuery = url.Values{
 			"src": {src.String()},

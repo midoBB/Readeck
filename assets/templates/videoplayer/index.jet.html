@@ -36,9 +36,9 @@ SPDX-License-Identifier: AGPL-3.0-only
   </style>
 </head>
 <body>
-  <video id="video" controls data-manifest="{{ .Manifest }}"
-   width="{{ .Width }}" height="{{ .Height }}"></video>
-
+{{- if .Type == "hls" -}}
+  <video id="video" controls data-manifest="{{ .Src }}" controls
+  width="{{ .Width }}" height="{{ .Height }}"></video>
   <script src="{{ assetURL(`vendor/hls.js`) }}" nonce="{{ cspNonce }}"></script>
   <script nonce="{{ cspNonce }}">
     const video = document.getElementById('video')
@@ -53,5 +53,8 @@ SPDX-License-Identifier: AGPL-3.0-only
       hls.attachMedia(video)
     }
   </script>
+{{- else -}}
+  <video id="video" controls autoplay src="{{ .Src }}" width="{{ .Width }}" height="{{ .Height }}"></video>
+{{- end -}}
 </body>
 </html>

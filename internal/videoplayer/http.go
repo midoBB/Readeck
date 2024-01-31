@@ -25,16 +25,18 @@ func SetupRoutes(s *server.Server) {
 
 func videoPlayerHandler(srv *server.Server) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		manifest := r.URL.Query().Get("src")
-		if manifest == "" {
+		src := r.URL.Query().Get("src")
+		mediaType := r.URL.Query().Get("type")
+		if src == "" {
 			srv.Status(w, r, http.StatusBadRequest)
 			return
 		}
 
 		ctx := server.TC{
-			"Manifest": manifest,
-			"Height":   r.URL.Query().Get("h"),
-			"Width":    r.URL.Query().Get("w"),
+			"Src":    src,
+			"Type":   mediaType,
+			"Height": r.URL.Query().Get("h"),
+			"Width":  r.URL.Query().Get("w"),
 		}
 
 		// Set appropriate CSP values for thie ressource to work
@@ -42,7 +44,7 @@ func videoPlayerHandler(srv *server.Server) http.HandlerFunc {
 		policy := server.GetCSPHeader(r)
 		policy.Set("connect-src", "*")
 		policy.Set("worker-src", "blob:")
-		policy.Add("media-src", "blob:")
+		policy.Add("media-src", "*")
 		policy.Set("frame-ancestors", csp.Self)
 
 		policy.Write(w.Header())

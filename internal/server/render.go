@@ -73,7 +73,9 @@ func (s *Server) Render(w http.ResponseWriter, r *http.Request, status int, valu
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	if w.Header().Get("Content-Type") == "" {
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	}
 	if status >= 100 {
 		w.WriteHeader(status)
 	}

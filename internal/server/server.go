@@ -79,6 +79,9 @@ func (s *Server) Init() {
 		s.AddRoute("/debug", s.debugRoutes())
 	}
 
+	// web manifest
+	s.AddRoute("/manifest.webmanifest", s.manifestRoutes())
+
 	// Init templates
 	s.initTemplates()
 }

@@ -284,7 +284,7 @@ function copy_files() {
       .pipe(hashName())
       .pipe(gulp.dest(path.join(DEST, "img/fi"))),
     gulp
-      .src("media/logo-text.svg")
+      .src(["media/logo-text.svg", "media/logo-maskable.svg"])
       .pipe(hashName())
       .pipe(destCompress("gz"))
       .pipe(destCompress("br"))

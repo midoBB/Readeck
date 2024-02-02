@@ -41,6 +41,9 @@ func registerExported(vm *Runtime) (err error) {
 	if err = vm.Set("decodeXML", decodeXML); err != nil {
 		return
 	}
+	if err = vm.Set("escapeHTML", html.EscapeString); err != nil {
+		return
+	}
 	return
 }
 

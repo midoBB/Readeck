@@ -170,17 +170,16 @@ function css_bundle() {
     require("./ui/plugins/prose"),
     require("./ui/plugins/palettes.js"),
     require("tailwindcss"),
-    require("./ui/plugins/responsive-units"),
+    require("./ui/plugins/responsive-units.js"),
+    require("./ui/plugins/trim-fonts.js"),
     require("postcss-copy")({
       basePath: fontCatalog.basePath(),
       dest: DEST,
+      ignore: (m) => {
+        return m.ext != "woff2"
+      },
       template: (m) => {
-        let folder = "."
-        if (["woff", "woff2"].includes(m.ext)) {
-          folder = "fonts"
-        }
-
-        return `${folder}/${m.name}.${m.hash.substr(0, 8)}.${m.ext}`
+        return `./fonts/${m.name}.${m.hash.substr(0, 8)}.${m.ext}`
       },
     }),
     require("autoprefixer"),

@@ -3,34 +3,26 @@
   font-style: normal;
   font-weight: 400;
   text-rendering: optimizeLegibility;
-  src:
-    url("luciole-regular.woff2") format("woff2"),
-    url("luciole-regular.woff") format("woff");
+  src: url("luciole-regular.woff2") format("woff2");
 }
 @font-face {
   font-family: "Luciole";
   font-style: normal;
   font-weight: 700;
   text-rendering: optimizeLegibility;
-  src:
-    url("luciole-bold.woff2") format("woff2"),
-    url("luciole-bold.woff") format("woff");
+  src: url("luciole-bold.woff2") format("woff2");
 }
 @font-face {
   font-family: "Luciole";
   font-style: italic;
   font-weight: 400;
   text-rendering: optimizeLegibility;
-  src:
-    url("luciole-italic.woff2") format("woff2"),
-    url("luciole-italic.woff") format("woff");
+  src: url("luciole-italic.woff2") format("woff2");
 }
 @font-face {
   font-family: "Luciole";
   font-style: italic;
   font-weight: 700;
   text-rendering: optimizeLegibility;
-  src:
-    url("luciole-bolditalic.woff2") format("woff2"),
-    url("luciole-bolditalic.woff") format("woff");
+  src: url("luciole-bolditalic.woff2") format("woff2");
 }

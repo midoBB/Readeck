@@ -8,7 +8,7 @@ module.exports = {
     es6: true,
     browser: true,
   },
-  extends: [],
+  extends: ["plugin:prettier/recommended"],
   parser: "@babel/eslint-parser",
   parserOptions: {
     requireConfigFile: false,

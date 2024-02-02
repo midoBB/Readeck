@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: © 2024 Olivier Meunier <olivier@neokraft.net>
 //
 // SPDX-License-Identifier: AGPL-3.0-only
+"use strict"
 
 const {
   parse,

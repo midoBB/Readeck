@@ -70,7 +70,6 @@ func randomSvg(s *server.Server) http.Handler {
 			csp.Policy{
 				"base-uri":    {csp.None},
 				"default-src": {csp.None},
-				"style-src":   {csp.UnsafeInline},
 			}.Write(w.Header())
 			s.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
 		})
@@ -101,16 +100,16 @@ func randomCircles(r *random) string {
 		distribution[i][1] = r.Perm(576)[0]
 		// Size
 		distribution[i][2] = r.Perm(100)[0] + 30
-		// Opacity
-		distribution[i][3] = r.Perm(15)[0] + 10
+		// Opacity (will be added as a hexadecimal value)
+		distribution[i][3] = (r.Perm(15)[0] + 10) * 256 / 100
 	}
 
 	res := new(strings.Builder)
 	res.WriteString("<g>\n")
 	for _, x := range distribution {
 		fmt.Fprintf(res,
-			`  <circle cx="%d" cy="%d" r="%d" style="fill:#ffffff;fill-opacity:%.2f" />`,
-			x[0], x[1], x[2], float64(x[3])/100,
+			`  <circle cx="%d" cy="%d" r="%d" fill="#ffffff%x" />`,
+			x[0], x[1], x[2], x[3],
 		)
 		res.WriteString("\n")
 	}

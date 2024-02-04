@@ -1,15 +1,21 @@
 # Changelog
 
-## [UNRELEASE]
+## [0.12.0] - 2024-02-04
 ### Added
 - More font choices. The reader interface offers now 8 font faces
 - Dark mode. A new color palette for dark mode and a theme switcher
   between auto / dark / light.
+- Progressive Web App support
+- Extraction of Fediverse content
+- Directly save images
+- HLS video player
 
 ### Improved
 - Accept TLS 1.0 and negotiate more ciphers in the extractor HTTP client
 - Selected font is applied on bookmark's title and description
 - Regrouped user preferences and admin under the same menu item
+- Mark required form fields
+- Better password reveal widget
 
 ## [0.11.2] - 2024-01-13
 ### Improved

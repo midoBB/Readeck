@@ -1,33 +1,45 @@
 {
-  "title_selectors": [
-    "normalize-space(//meta[@property='og:title']/@content)"
-  ],
+  "title_selectors": null,
   "body_selectors": [
     "//article"
   ],
   "date_selectors": [
-    "//time/@datetime"
+    "//p[contains(@class, 'id-Story-timestamp')]/descendant::time/@datetime"
   ],
   "author_selectors": [
-    "//meta[@name='twitter:creator']/@content"
+    "substring-after(//p[contains(@class, 'id-Story-authors')] , 'on:')",
+    "//div[contains(@class, 'id-AuthorList')]/descendant::*[contains(@class, 'id-Link')]"
   ],
   "strip_selectors": [
-    "//path",
-    "//script",
-    "//footer",
-    "//div[contains(@class, 'recommendations')]",
-    "//div[@data-testid='storyline-intro-authors']",
-    "//aside[contains(@data-testid, 'linkbox')]",
-    "//svg"
+    "//a[@title='Bilderzoom']"
   ],
   "strip_id_or_class": [
-    "recommendations__topStories",
-    "recommendations__cceWidget",
-    "storyElementWrapper__paywallContainer",
-    "storylineIntro__dateAndReadingTime",
-    "loadingBanner",
-    "adSlot",
-    "storylineHeader"
+    "id-Article-dateActionboxCombo",
+    "id-Article-kicker",
+    "id-Article-headline",
+    "id-AuthorList",
+    "id-StoryElement-inArticleReco",
+    "id-Comments",
+    "id-Story-timestamp",
+    "id-Story-authors",
+    "id-Story-interactionBar",
+    "idjs-simpletab-nav-item",
+    "idjs-simpletab-content-close",
+    "id-AuthorList",
+    "id-Article-content-item-copyright",
+    "id-DonaldBreadcrumb",
+    "id-StoryElement-timestamp",
+    "id-StoryElement-authors",
+    "id-StoryElement-interactionBar",
+    "id-StoryElement-image-caption",
+    "id-Mediabox-info-el",
+    "id-Recommendation",
+    "id-js-relatedStory",
+    "id-Article-content-item.id-Article-advert.id-Article-advert--ad3",
+    "id-Article-advert.id-Article-content-item",
+    "id-Article-content-item.id-Article-advert",
+    "id-Article-advert--ad3",
+    "id-Article-advert"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -36,27 +48,11 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": [
-    [
-      ",\"value\":",
-      ",\"invalid\":"
-    ],
-    [
-      ",\"storylineText\":",
-      ",\"value\":"
-    ],
-    [
-      "class=\"contentWrapper slider",
-      "class=\"contentWrapper foo"
-    ]
-  ],
-  "http_headers": {
-    "User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
-    "referer": "https://www.echo-online.de/"
-  },
+  "replace_strings": null,
+  "http_headers": null,
   "tests": [
     {
-      "url": "https://www.oberhessische-zeitung.de/rss/lokales/hessen/",
+      "url": "https://www.oberhessische-zeitung.de/hessen/zugausfaelle-zwischen-frankfurt-und-fulda-wegen-bauarbeiten-zr-92755411.html",
       "contains": []
     }
   ]

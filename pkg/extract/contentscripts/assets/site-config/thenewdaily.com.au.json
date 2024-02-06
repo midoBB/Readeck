@@ -1,0 +1,47 @@
+{
+  "title_selectors": [
+    "//h1[contains(concat(' ', normalize-space(@class), ' '), ' text-article-title ')]"
+  ],
+  "body_selectors": [
+    "(//main/div[contains(concat(' ', normalize-space(@class), ' '), ' foocontainer ')])",
+    "(//main/div[contains(concat(' ', normalize-space(@class), ' '), ' container ')])"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//span[contains(concat(' ', normalize-space(@class), ' '), ' underline ')]"
+  ],
+  "strip_selectors": [
+    "//div[@data-ad-id='bottom-01']/following-sibling::*",
+    "//div[contains(@class, 'grid-in-side')]",
+    "//div[contains(@class, 'text-article-meta')]/parent::div/parent::div",
+    "//div[text()='You Might Like']/parent::div",
+    "//button"
+  ],
+  "strip_id_or_class": [
+    "tnd-article-categories"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "div class=\"container",
+      "div class=\"foocontainer"
+    ]
+  ],
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/123.0"
+  },
+  "tests": [
+    {
+      "url": "https://www.thenewdaily.com.au/news/politics/2024/01/10/stage-three-tax-cuts-2024",
+      "contains": [
+        "As Prime Minister Anthony Albanese refuses"
+      ]
+    }
+  ]
+}

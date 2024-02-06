@@ -5,6 +5,7 @@
   "body_selectors": [
     "//header//img | //div[@class='summary' or contains(@class, 'article-body') or @class='byline']",
     "//main/article/div[@itemprop='articleBody']",
+    "//main/article[1]",
     "//div[contains(concat(' ',normalize-space(@class),' '),' article-page ')]",
     "//main/article/div[@class='article__wrap']"
   ],
@@ -17,6 +18,7 @@
     "//a[@class='article__head__meta__author']/span"
   ],
   "strip_selectors": [
+    "//div[@class='g-artboard']/parent::div/div[position() \u003e 1]",
     "//span[@class='figure__copyright']",
     "//aside",
     "//nav",
@@ -39,6 +41,7 @@
     "js-videoplayer",
     "embed-wrapper__inner",
     "article-footer",
+    "zplus-badge",
     "article__socialbox",
     "article__nextread nextread-base is-centered",
     "js-comments",
@@ -118,6 +121,10 @@
       "contains": [
         "Die bisherigen Hygieneregeln in Restaurants"
       ]
+    },
+    {
+      "url": "https://www.zeit.de/2024/04/landwirtschaft-indien-oeko-duenger-zukunft/komplettansicht",
+      "contains": []
     }
   ]
 }

@@ -3,8 +3,8 @@
     "//meta[@property=\"og:title\"]/@content"
   ],
   "body_selectors": [
-    "//article",
     "//main",
+    "//article",
     "//main[@id=\"main\"]//div[@itemprop=\"articleLead\" or @itemprop=\"articleBody\" or contains(concat(' ',normalize-space(@class),' '),' articleBody ')]",
     "//div[@id='wsj-article-wrap']",
     "//div[@id='article_story_body']",
@@ -25,7 +25,14 @@
     "//picture/@source",
     "//button",
     "//nav",
+    "//svg",
     "//main/div/article//section[last()]/following-sibling::*",
+    "//div[contains(@class, 'article-byline')]/parent::div",
+    "//h1[1]",
+    "//div[@aria-label='Sponsored Offers']",
+    "//div[@aria-label='What to Read Next']",
+    "//div[@aria-label='Utility Bar']",
+    "//div[@data-type='inset']",
     "//amp-iframe",
     "//*[@amp-access-hide]",
     "//div[contains(@class, 'insetContent')]//cite",
@@ -41,6 +48,7 @@
     "print-header",
     "controls-container",
     "category",
+    "aside-container",
     "insetFullBracket",
     "newsletter-inset",
     "insettipBox",
@@ -55,11 +63,7 @@
   "tidy": false,
   "prune": false,
   "autodetect_on_failure": true,
-  "single_page_link_selectors": [
-    "concat('https://www.wsj.com/amp/articles/', substring-after(substring-after(//link[@rel=\"canonical\"]/@href, 'https://www.wsj.com/'), '/'))",
-    "concat('https://www.wsj.com/amp/articles/', substring-after(substring-after(substring-after(//link[@rel=\"canonical\"]/@href, 'https://www.wsj.com/'), '/'), '/'))",
-    "concat('https://www.wsj.com/amp/articles/', substring-after(substring-after(substring-after(substring-after(//link[@rel=\"canonical\"]/@href, 'https://www.wsj.com/'), '/'), '/'), '/'))"
-  ],
+  "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
   "http_headers": {

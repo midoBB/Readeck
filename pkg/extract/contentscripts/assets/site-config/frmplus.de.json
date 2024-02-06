@@ -29,6 +29,10 @@
     [
       "\u0026nbsp;",
       ""
+    ],
+    [
+      "src=\"files/img/",
+      "src=\"/files/img/"
     ]
   ],
   "http_headers": null,

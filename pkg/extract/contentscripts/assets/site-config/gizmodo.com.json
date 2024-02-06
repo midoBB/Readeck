@@ -12,26 +12,49 @@
   "strip_selectors": [
     "//div[contains(@class, 'content-summary')]",
     "//svg",
+    "//div[contains(@class,'sc-1needdh-')]",
     "//aside"
   ],
   "strip_id_or_class": [
     "magnifier",
     "js_commerce-inset-permalink",
-    "ad-commerce"
+    "ad-commerce",
+    "ad-unit",
+    "ad-mobile",
+    "ad-container",
+    "js_ad-dynamic",
+    "js_ad-mobile-dynamic",
+    "ad-mobile-dynamic",
+    "advertisement"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
-  "tidy": false,
+  "tidy": true,
   "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "data-src=\"https://gizmodo.com/embed/inset/iframe?id=youtube-video-",
+      "src=\"https://www.youtube.com/embed/"
+    ],
+    [
+      "\u0026amp;start=",
+      "\" foo=\""
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {
       "url": "https://gizmodo.com/the-new-bad-tick-is-going-to-take-over-half-the-united-1831079855",
       "contains": []
+    },
+    {
+      "url": "https://gizmodo.com/iphone-apps-can-harvest-data-from-notifications-1851194537",
+      "contains": [
+        "This story has been updated with additional comments from LinkedIn."
+      ]
     }
   ]
 }

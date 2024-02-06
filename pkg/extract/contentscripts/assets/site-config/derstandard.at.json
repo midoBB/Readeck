@@ -30,7 +30,8 @@
     "//div[@class='article-byline']",
     "//div[@class='article-meta']",
     "//footer[starts-with(text(), 'Foto:')]",
-    "//div[@data-section-type='newsletter']"
+    "//div[@data-section-type='newsletter']",
+    "//a[contains(@href, '/schicken-sie-uns-ihre-bilder')]/parent::p"
   ],
   "strip_id_or_class": [
     "article-kicker",
@@ -48,6 +49,10 @@
     [
       "0 ? postingCount() : '' \"\u003e",
       ""
+    ],
+    [
+      "\u003ciframe data-ratio=\"16:9\"",
+      "\u003ciframe width=\"640\" height=\"360\" data-ratio=\"16:9\""
     ]
   ],
   "http_headers": {

@@ -1,0 +1,38 @@
+{
+  "title_selectors": [
+    "//h1[1]"
+  ],
+  "body_selectors": [
+    "//article[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//a[contains(@href, '/authors/')]"
+  ],
+  "strip_selectors": [
+    "//a[@data-toggle='tooltip']/following-sibling::a[1]"
+  ],
+  "strip_id_or_class": [
+    "topicmenu",
+    "tablebox",
+    "hide-on-print",
+    "tooltip-container"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.msdvetmanual.com/toxicology/food-hazards/raisin-and-grape-toxicosis-in-dogs",
+      "contains": [
+        "Xylitol toxicosis occurs in dogs after ingestion of xylitol"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "title_selectors": [
+    "//div[@class='post-main-content']/h3[1]"
+  ],
+  "body_selectors": [
+    "//div[@class='post-main-content']"
+  ],
+  "date_selectors": [
+    "//ul[@class='post-meta']//i[contains(@class, 'fa-calendar-alt')]/parent::a"
+  ],
+  "author_selectors": [
+    "//ul[@class='post-meta']//a[contains(@href, 'ispatguru.com/author/')]"
+  ],
+  "strip_selectors": [
+    "//div[@class='post-main-content']/h3[1]",
+    "//p/br"
+  ],
+  "strip_id_or_class": [
+    "post-meta"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.ispatguru.com/process-control-instruments-and-their-classification/",
+      "contains": []
+    }
+  ]
+}

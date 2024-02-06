@@ -38,6 +38,7 @@
     "//span/span[contains(text(), 'Credit')]",
     "//span/span/span[contains(text(), 'Credit')]",
     "//img[contains(@class, 'post-screenshot')]",
+    "//section[@data-testid=\"inline-interactive\"]",
     "//*[@aria-hidden=\"true\" and not(./parent::figcaption)]",
     "//*[@data-testid=\"share-tools\"]",
     "//*[contains(@id, '-recirc')]",
@@ -93,6 +94,7 @@
     ]
   ],
   "http_headers": {
+    "cookie": "nyt-a=AAAA; nyt-gdpr=1;",
     "user-agent": "curl/7.83.1"
   },
   "tests": [

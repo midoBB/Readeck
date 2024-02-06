@@ -1,7 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[@id='maincontent']"
+    "//article"
   ],
   "date_selectors": null,
   "author_selectors": [
@@ -10,7 +10,10 @@
   "strip_selectors": null,
   "strip_id_or_class": [
     "fm-sec",
-    "pmc-page-banner"
+    "pmc-page-banner",
+    "usa-breadcrumb",
+    "pmc-article__disclaimer",
+    "inline_block a_label"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -26,6 +29,12 @@
       "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4157320/",
       "contains": [
         "Infectious diseases continue to pose a tremendous burden of disease worldwide"
+      ]
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10222767/",
+      "contains": [
+        "Less than a year after the global emergence of the coronavirus SARS-CoV-2"
       ]
     }
   ]

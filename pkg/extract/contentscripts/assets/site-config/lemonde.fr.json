@@ -27,9 +27,11 @@
     "//p[@class='article__quote']/parent::blockquote",
     "//ul[contains(@class, 'meta__social')]",
     "//a[contains(@class, 'Header__offer')]",
-    "//link[@rel='stylesheet']"
+    "//link[@rel='stylesheet']",
+    "//div[@id=\"js-modal-gifted-url\"]"
   ],
   "strip_id_or_class": [
+    "article__gift-modal",
     "message--register"
   ],
   "strip_image_src": null,

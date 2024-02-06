@@ -1,17 +1,12 @@
 {
-  "title_selectors": [
-    "//h1[@class=\"post-title\"]"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, 'post-content')]"
+    "//main"
   ],
   "date_selectors": null,
-  "author_selectors": [
-    "//div[@class=\"post-informations\"]//a[@class=\"highlight\"]"
-  ],
+  "author_selectors": null,
   "strip_selectors": [
-    "//div[@class=\"post-informations\"]",
-    "//div[contains(@class, 'slick-cloned')]"
+    "//svg"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -25,8 +20,10 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.canardpc.com/357/fouine-peaks-thimbleweed-park",
-      "contains": []
+      "url": "https://www.pandemicequityinitiative.com/hold-misinformation-lies-betrayal",
+      "contains": [
+        "Here’s the truth: the pandemic is not over"
+      ]
     }
   ]
 }

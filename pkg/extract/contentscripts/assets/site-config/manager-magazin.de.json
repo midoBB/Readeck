@@ -11,7 +11,8 @@
     "//button",
     "//div[contains(@class, 'mt-8')]",
     "//svg[@id='mmo-mmplus-flag-l']",
-    "//aside[@aria-label='Artikel zum Hören']"
+    "//aside[@aria-label='Artikel zum Hören']",
+    "//div[@data-target-id='paywall']"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -22,7 +23,9 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": null,
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/123.0"
+  },
   "tests": [
     {
       "url": "https://www.manager-magazin.de/finanzen/index.rss",

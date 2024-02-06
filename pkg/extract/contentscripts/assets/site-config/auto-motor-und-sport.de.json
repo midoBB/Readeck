@@ -1,0 +1,56 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article"
+  ],
+  "date_selectors": [
+    "//meta[@name='article:published_time']/@content",
+    "//meta[@name='date']/@content"
+  ],
+  "author_selectors": null,
+  "strip_selectors": [
+    "//svg",
+    "//div[contains(text(), \"Die aktuelle Ausgabe\")]/parent::div",
+    "//h2[1]"
+  ],
+  "strip_id_or_class": [
+    "va-barometer",
+    "va-subnav-container",
+    "va-article-slider",
+    "va-related-article",
+    "va-button",
+    "va-article-meta",
+    "va-article-date"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.auto-motor-und-sport.de/tech-zukunft/alternative-antriebe/bosch-wasserstoff-h2-verbrennungsmotor/",
+      "contains": []
+    },
+    {
+      "url": "https://www.auto-motor-und-sport.de/sportwagen/karma-gyesera-kaveya-elektrisch/",
+      "contains": []
+    },
+    {
+      "url": "https://www.auto-motor-und-sport.de/rss/alle",
+      "contains": []
+    },
+    {
+      "url": "https://www.auto-motor-und-sport.de/rss/sport",
+      "contains": []
+    },
+    {
+      "url": "https://www.auto-motor-und-sport.de/rss/oldtimer",
+      "contains": []
+    }
+  ]
+}

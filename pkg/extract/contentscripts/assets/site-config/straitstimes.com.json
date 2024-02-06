@@ -1,0 +1,47 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@id='main']"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//div[@class='field-byline']/p",
+    "//a[contains(@href, \"/authors/\")]"
+  ],
+  "strip_selectors": [
+    "//header",
+    "//div[@class='group-story-timestamp']/parent::div",
+    "//div[contains(@class, '-twig-fieldnode-')]",
+    "//iframe/@width",
+    "//iframe/@height"
+  ],
+  "strip_id_or_class": [
+    "paywall-container",
+    "cx_paywall_area",
+    "group-byline-info"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003ciframe src=\"/media/oembed?url=https%3A//www.youtube.com",
+      "\u003ciframe src=\"https://www.straitstimes.com/media/oembed?url=https%3A//www.youtube.com"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.straitstimes.com/asia/east-asia/new-mature-look-of-kim-jong-un-s-daughter-said-to-set-stage-for-possible-succession",
+      "contains": []
+    },
+    {
+      "url": "https://www.straitstimes.com/singapore/what-s-ahead-for-singapore-in-2024",
+      "contains": []
+    }
+  ]
+}

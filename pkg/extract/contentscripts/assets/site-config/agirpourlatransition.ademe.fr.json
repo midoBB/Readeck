@@ -1,17 +1,12 @@
 {
-  "title_selectors": [
-    "//h1[@class=\"post-title\"]"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, 'post-content')]"
+    "//article"
   ],
   "date_selectors": null,
-  "author_selectors": [
-    "//div[@class=\"post-informations\"]//a[@class=\"highlight\"]"
-  ],
+  "author_selectors": null,
   "strip_selectors": [
-    "//div[@class=\"post-informations\"]",
-    "//div[contains(@class, 'slick-cloned')]"
+    "//div[@class=\"o-block-projet-content-avis\"]"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -25,7 +20,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.canardpc.com/357/fouine-peaks-thimbleweed-park",
+      "url": "https://agirpourlatransition.ademe.fr/particuliers/maison/sante/pourquoi-conseille-daerer-logement-tous-jours",
       "contains": []
     }
   ]

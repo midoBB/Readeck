@@ -17,7 +17,10 @@
     "//div[@class=\"embedded-tag-container\"]",
     "//p[contains(@class, 'humanoid-videos--title')]",
     "//a[contains(@class, 'humanoid-videos__video-title')]",
-    "//div[contains(@class, 'embed-consent-overlay')]"
+    "//div[contains(@class, 'embed-consent-overlay')]",
+    "//div[contains(@class, \"user-options\")]",
+    "//aside[contains(@class, 'premium-promo-alert')]",
+    "//div[contains(@class, 'premium-promo-alert')]"
   ],
   "strip_id_or_class": [
     "js-cookies-bar",

@@ -1,0 +1,41 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//main[@id='main']//div[contains(@class, 'post-content')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//meta[@name='author']/@content"
+  ],
+  "strip_selectors": [
+    "//button",
+    "//div[contains(@class, 'is-layout-constrained')]/self::* | //div[contains(@class, 'is-layout-constrained')]/following-sibling::*"
+  ],
+  "strip_id_or_class": [
+    "wp-lightbox-overlay"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "div class=\"container",
+      "div class=\"foocontainer"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://9to5google.com/2024/01/26/calculating-calculator-critiques-android-iphone/",
+      "contains": []
+    },
+    {
+      "url": "https://9to5google.com/2024/01/15/google-apps-apple-vision-pro/",
+      "contains": []
+    }
+  ]
+}

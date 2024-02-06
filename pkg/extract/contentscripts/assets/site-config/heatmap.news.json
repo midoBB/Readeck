@@ -1,18 +1,13 @@
 {
-  "title_selectors": [
-    "//h1[@class=\"post-title\"]"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, 'post-content')]"
+    "//div[contains(@class, 'current-post')]//div[contains(@class, 'body-description')] | //article[1]//div[@class='widget__head']/picture"
   ],
   "date_selectors": null,
   "author_selectors": [
-    "//div[@class=\"post-informations\"]//a[@class=\"highlight\"]"
+    "//div[contains(@class, 'post-author')]"
   ],
-  "strip_selectors": [
-    "//div[@class=\"post-informations\"]",
-    "//div[contains(@class, 'slick-cloned')]"
-  ],
+  "strip_selectors": null,
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -25,8 +20,10 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.canardpc.com/357/fouine-peaks-thimbleweed-park",
-      "contains": []
+      "url": "https://heatmap.news/technology/sublime-carbon-cement-electrolyzer",
+      "contains": [
+        "Our process is true zero"
+      ]
     }
   ]
 }

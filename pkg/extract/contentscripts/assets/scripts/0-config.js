@@ -54,6 +54,7 @@ exports.setConfig = function (config) {
         '//ul[@data-testid="socialIconslist"]',
         "//div[contains(concat(' ', normalize-space(@class), ' '), ' responsive-cartoon ')]",
       ]
+      break
 
     case $.domain == "slate.fr":
       config.stripIdOrClass.push("newsletter-container")
@@ -69,6 +70,10 @@ exports.setConfig = function (config) {
       config.stripSelectors = config.stripSelectors.filter(
         (x) => x != "//figcaption",
       )
+      break
+
+    case $.domain == "theverge.com":
+      config.replaceStrings = []
       break
   }
 }

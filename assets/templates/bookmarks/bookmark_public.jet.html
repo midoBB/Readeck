@@ -106,7 +106,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
       <div class="max-w-3xl mx-auto mt-4 mb-8 flex gap-2 items-center">
         <p class="flex-grow"><a class="link break-all" href="{{ .Item.URL }}">{{ .Item.URL }}</a></p>
-        <img src="{{ qrcode(.Item.URL, -2, `#1e485b`) }}" alt="" class="rounded">
+        <img src="{{ qrcode(.Item.URL, -2, `#1e485b`) }}" alt="" class="rounded bg-white p-2">
       </div>
     {{- end -}}
 

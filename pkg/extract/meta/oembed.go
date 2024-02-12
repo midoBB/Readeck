@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"strings"
 
 	"golang.org/x/net/html"
 
@@ -37,6 +38,8 @@ func ExtractOembed(m *extract.ProcessMessage, next extract.Processor) extract.Pr
 	}
 
 	if o == nil {
+		// No oembed resource was found, try with opengraph properties.
+		setOembedFromGraph(d)
 		return next
 	}
 
@@ -59,6 +62,29 @@ func ExtractOembed(m *extract.ProcessMessage, next extract.Processor) extract.Pr
 	setOembedMeta(d, "html", o.HTML)
 
 	return next
+}
+
+func setOembedFromGraph(d *extract.Drop) {
+	if !strings.HasPrefix(d.Meta.LookupGet("graph.type"), "video") {
+		return
+	}
+
+	// Set the video iframe from graph.video:* properties.
+	// Sites like invidious use it for their embed player.
+	src := d.Meta.LookupGet("graph.video:url")
+	ssrc := d.Meta.LookupGet("graph.video:secure_url")
+	w := d.Meta.LookupGet("graph.video:width")
+	h := d.Meta.LookupGet("graph.video:height")
+	if ssrc != "" {
+		src = ssrc
+	}
+
+	if w != "" && h != "" && src != "" {
+		setOembedMeta(d, "html", jsonString(fmt.Sprintf(
+			`<iframe src="%s" width="%s" height="%s" frameborder="0" allowfullscreen></iframe>`,
+			src, w, h,
+		)))
+	}
 }
 
 func setOembedMeta(d *extract.Drop, name string, v jsonString) {

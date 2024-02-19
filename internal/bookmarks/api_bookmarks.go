@@ -25,6 +25,7 @@ import (
 	"golang.org/x/net/html"
 
 	"codeberg.org/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/internal/db/filters"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/annotate"
 	"codeberg.org/readeck/readeck/pkg/forms"
@@ -322,7 +323,7 @@ func (api *apiRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 		Where(
 			goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
 		)
-	ds = Bookmarks.AddLabelFilter(ds, []string{label})
+	ds = filters.JSONListFilter(ds, goqu.I("b.labels").Eq(label))
 	count, err := ds.Count()
 	if err != nil {
 		api.srv.Error(w, r, err)

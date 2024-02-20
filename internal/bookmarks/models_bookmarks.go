@@ -353,33 +353,6 @@ func (m *BookmarkManager) CountAll(u *users.User) (CountResult, error) {
 	return res, nil
 }
 
-// AddLabelFilter adds a filter query for the given labels.
-func (m *BookmarkManager) AddLabelFilter(ds *goqu.SelectDataset, labels []string) *goqu.SelectDataset {
-	exp := goqu.And()
-
-	switch db.Driver().Dialect() {
-	case "postgres":
-		v, _ := json.Marshal(labels)
-		exp = exp.Append(
-			goqu.L("b.labels @> ?::jsonb", v),
-		)
-	case "sqlite3":
-		exp = exp.Append(
-			goqu.Func("json_valid", goqu.C("labels").Table("b")),
-			goqu.Func("json_type", goqu.C("labels").Table("b")).Eq("array"),
-		)
-
-		for _, label := range labels {
-			exp = exp.Append(
-				goqu.L("EXISTS ?", goqu.
-					From(goqu.Func("json_each", goqu.L("b.labels"))).
-					Where(goqu.L("json_each.value").Eq(label))),
-			)
-		}
-	}
-	return ds.Where(exp)
-}
-
 // RenameLabel renames or deletes a label in all bookmarks for a given user.
 // If "new" is empty, the label is deleted.
 func (m *BookmarkManager) RenameLabel(u *users.User, old, new string) (ids []int, err error) {

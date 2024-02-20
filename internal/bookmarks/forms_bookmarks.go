@@ -21,7 +21,9 @@ import (
 	"github.com/doug-martin/goqu/v9/exp"
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/db/filters"
 	"codeberg.org/readeck/readeck/internal/db/types"
+	"codeberg.org/readeck/readeck/internal/searchstring"
 	"codeberg.org/readeck/readeck/pkg/forms"
 	"codeberg.org/readeck/readeck/pkg/timetoken"
 )
@@ -378,7 +380,7 @@ type filterForm struct {
 	title        int
 	noPagination bool
 	order        []exp.OrderedExpression
-	st           searchString
+	sq           searchstring.SearchQuery
 }
 
 func newFilterForm() *filterForm {
@@ -425,41 +427,56 @@ func (f *filterForm) Validate() {
 	// the provided free form search and
 	// what we might have in the following fields:
 	// title, author, site, label
-	f.st = newSearchString(f.Get("search").String())
+	var err error
+	f.sq, err = searchstring.ParseQuery(f.Get("search").String())
+	if err != nil {
+		f.AddErrors("search", err)
+		return
+	}
+
 	for _, field := range f.Fields() {
+		var fname string
 		switch n := field.Name(); n {
 		case "title", "author", "site":
-			f.st.addField(n, field.String())
+			fname = n
 		case "labels":
-			f.st.addField("label", field.String())
+			fname = "label"
 		}
+
+		if fname == "" || field.String() == "" {
+			continue
+		}
+
+		q, err := searchstring.ParseField(field.String(), fname)
+		if err != nil {
+			f.AddErrors(field.Name(), err)
+			continue
+		}
+		f.sq.Terms = append(f.sq.Terms, q.Terms...)
 	}
 
-	// Remove any duplicate in the final search string
-	f.st = f.st.dedup()
+	// Remove duplicates from the query
+	f.sq = f.sq.Dedup()
 
-	// At this point, any searchString field that is not permitted
-	// is considered a quotted value.
-	st := searchString{}
-	for _, s := range f.st {
-		if _, ok := allowedSearchFields[s.Field]; !ok && s.Field != "" {
-			st.addField("", fmt.Sprintf(`"%s:%s"`, s.Field, s.Value))
-		} else {
-			st = append(st, s)
-		}
-	}
-	f.st = st
+	// Remove field definition for unallowed fields
+	f.sq = f.sq.Unfield("title", "author", "site", "label")
 
 	// Update the specific search fields
 	for _, field := range f.Fields() {
+		fname := "-"
 		switch n := field.Name(); n {
 		case "search":
-			field.Set(f.st.fieldString(""))
+			fname = ""
 		case "title", "author", "site":
-			field.Set(f.st.fieldString(n))
+			fname = n
 		case "labels":
-			field.Set(f.st.fieldString("label"))
+			fname = "label"
 		}
+
+		if fname == "-" {
+			continue
+		}
+		field.Set(f.sq.ExtractField(fname).RemoveField().String())
 	}
 }
 
@@ -517,24 +534,35 @@ func (f *filterForm) setType(v string) {
 // clauses.
 func (f *filterForm) toSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset {
 	// Separate labels from the final search string
-	var labels searchString
-	var search searchString
-	if len(f.st) > 0 {
-		labels, search = f.st.popField("label")
+	var labels searchstring.SearchQuery
+	var search searchstring.SearchQuery
+	if len(f.sq.Terms) > 0 {
+		labels, search = f.sq.PopField("label")
+		labels = labels.RemoveField()
 	}
 
 	// Label filter
-	if len(labels) > 0 {
-		l := make([]string, len(labels))
-		for i, x := range labels {
-			l[i] = x.Value
+	if len(labels.Terms) > 0 {
+		l := make([]exp.BooleanExpression, len(labels.Terms))
+		col := goqu.I("b.labels")
+		for i, x := range labels.Terms {
+			switch {
+			case x.Wildcard && x.Exclude:
+				l[i] = col.NotLike(x.Value + "%")
+			case x.Wildcard:
+				l[i] = col.Like(x.Value + "%")
+			case x.Exclude:
+				l[i] = col.Neq(x.Value)
+			default:
+				l[i] = col.Eq(x.Value)
+			}
 		}
-		ds = Bookmarks.AddLabelFilter(ds, l)
+		ds = filters.JSONListFilter(ds, l...)
 	}
 
-	// Search string
-	if len(search) > 0 {
-		ds = search.toSelectDataSet(ds)
+	// Build the search query
+	if len(search.Terms) > 0 {
+		ds = searchstring.BuildSQL(ds, search, searchConfig[ds.Dialect().Dialect()])
 	}
 
 	// Forced ordering
@@ -598,4 +626,29 @@ func validateTimeToken(f forms.Field) error {
 	}
 
 	return nil
+}
+
+var searchConfig = map[string]*searchstring.BuilderConfig{
+	"sqlite3": searchstring.NewBuilderConfig(
+		goqu.I("b.id"),
+		goqu.I("bookmark_idx.rowid"),
+		[][2]string{
+			{"", "-catchall"},
+			{"title", "title"},
+			{"author", "author"},
+			{"site", "site"},
+			{"label", "label"},
+		},
+	),
+	"postgres": searchstring.NewBuilderConfig(
+		goqu.I("b.id"),
+		goqu.I("bookmark_search.bookmark_id"),
+		[][2]string{
+			{"", `bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label"`},
+			{"title", "bookmark_search.title"},
+			{"author", "bookmark_search.author"},
+			{"site", "bookmark_search.site"},
+			{"label", "bookmark_search.label"},
+		},
+	),
 }

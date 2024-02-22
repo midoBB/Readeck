@@ -88,10 +88,10 @@ CREATE INDEX bookmark_updated_idx ON "bookmark" USING btree (updated DESC);
 --
 CREATE EXTENSION IF NOT EXISTS unaccent;
 
-CREATE TEXT SEARCH CONFIGURATION ts (COPY = english);
+CREATE TEXT SEARCH CONFIGURATION ts (COPY = simple);
 
 ALTER TEXT SEARCH CONFIGURATION ts
-ALTER MAPPING for hword, hword_part, word, host
+ALTER MAPPING FOR hword, hword_part, word, host
 WITH unaccent, english_stem, french_stem;
 
 CREATE TABLE bookmark_search (
@@ -106,7 +106,7 @@ CREATE TABLE bookmark_search (
     CONSTRAINT fk_bookmark_search_bookmark FOREIGN KEY (bookmark_id) REFERENCES bookmark(id) ON DELETE CASCADE
 );
 
-CREATE INDEX bookmark_search_text_idx ON bookmark_search USING GIN ("text");
+CREATE INDEX bookmark_search_all_idx    ON bookmark_search USING GIN((title || description || "text" || site || "label"));
 CREATE INDEX bookmark_search_title_idx  ON bookmark_search USING GIN (title);
 CREATE INDEX bookmark_search_site_idx   ON bookmark_search USING GIN (site);
 CREATE INDEX bookmark_search_author_idx ON bookmark_search USING GIN (author);

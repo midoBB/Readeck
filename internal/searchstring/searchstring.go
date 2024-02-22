@@ -8,40 +8,53 @@ package searchstring
 import (
 	"bufio"
 	"bytes"
-	"errors"
+	"io"
+	"slices"
 	"strings"
 )
 
-// Token is the type of parsed token.
-type Token int
+// kind is the type of parsed kind.
+type kind int
 
 const (
 	// EOF is the end of file token.
-	EOF Token = iota
+	EOF kind = iota
+	// SPACE is a space token.
+	SPACE
+	// FIELD is a field token.
+	FIELD
+	// NEG is a negation token.
+	NEG
+	// WILDCARD is a wildcard token.
+	WILDCARD
 	// STR is a string token.
 	STR
 	// STRQ is a quoted string.
 	STRQ
-	// FIELD is a field token.
-	FIELD
 )
 
 // eof is the EOF rune.
 var eof = rune(0)
 
-// Scanner is the search string scanner.
-type Scanner struct {
-	r *bufio.Reader
+// token is a parsed token.
+type token struct {
+	kind  kind
+	value string
 }
 
-// NewScanner returns a new instance of Scanner.
-func NewScanner(input string) *Scanner {
-	return &Scanner{r: bufio.NewReader(strings.NewReader(input))}
+// scanner is the search string scanner.
+type scanner struct {
+	*bufio.Reader
+}
+
+// newScanner returns a new instance of Scanner.
+func newScanner(rd io.Reader) *scanner {
+	return &scanner{Reader: bufio.NewReader(rd)}
 }
 
 // next reads the next rune in the string.
-func (s Scanner) next() rune {
-	ch, _, err := s.r.ReadRune()
+func (s scanner) next() rune {
+	ch, _, err := s.ReadRune()
 	if err != nil {
 		return eof
 	}
@@ -49,76 +62,75 @@ func (s Scanner) next() rune {
 }
 
 // prev rewinds the scanner position to the previous rune.
-func (s Scanner) prev() {
-	s.r.UnreadRune() //nolint:errcheck
+func (s scanner) prev() {
+	s.UnreadRune() //nolint:errcheck
 }
 
-// Scan scans the next token in the string.
-func (s Scanner) Scan() (Token, string) {
+// scan scans the next token in the string.
+func (s scanner) scan() token {
 	for {
 		ch := s.next()
-		if ch == eof {
-			return EOF, ""
+		switch {
+		case ch == eof:
+			return token{kind: EOF}
+		case ch == '-':
+			return token{kind: NEG, value: string(ch)}
+		case ch == ':':
+			return token{kind: FIELD, value: string(ch)}
+		case ch == '*':
+			return token{kind: WILDCARD, value: string(ch)}
+		case ch == '"' || ch == '\'':
+			return token{kind: STRQ, value: s.scanQuoted(ch)}
+		case isSpace(ch):
+			return token{kind: SPACE, value: " "}
+		default:
+			s.prev()
+			return token{kind: STR, value: s.scanString()}
 		}
-
-		if ch == '"' {
-			return STRQ, s.scanQuoted()
-		}
-
-		if isSpace(ch) {
-			continue
-		}
-
-		s.prev()
-		return s.scanString()
 	}
 }
 
 // scanString scans a regular (unquoted) string.
-func (s Scanner) scanString() (Token, string) {
+func (s scanner) scanString() string {
 	var b bytes.Buffer
 	b.WriteRune(s.next())
 
-loop:
-	for {
-		switch ch := s.next(); {
-		case ch == eof:
-			break loop
-		case isSpace(ch):
-			break loop
-		case ch == ':':
-			return FIELD, b.String()
-		default:
-			b.WriteRune(ch)
+	ch := s.next()
+	for ch != eof {
+		if ch == ':' || ch == '*' || isSpace(ch) {
+			s.prev()
+			break
 		}
+		b.WriteRune(ch)
+		ch = s.next()
 	}
 
-	return STR, b.String()
+	return b.String()
 }
 
 // scanQuoted scans a quoted string.
-func (s Scanner) scanQuoted() string {
+func (s scanner) scanQuoted(delim rune) string {
 	// Scan until we find a closing " or EOF
 	var b bytes.Buffer
 
-loop:
-	for {
-		switch ch := s.next(); ch {
-		case eof:
-			break loop
-		case '\\':
+	ch := s.next()
+	for ch != eof {
+		if ch == '\\' { //nolint:gocritic
 			c := s.next()
-			if c == '"' {
+			if c == delim {
 				b.WriteRune(c)
 			} else {
 				b.WriteRune('\\')
 				b.WriteRune(c)
 			}
-		case '"':
-			break loop
-		default:
+		} else if ch == delim {
+			break
+		} else if isSpace(ch) {
+			b.WriteString(" ")
+		} else {
 			b.WriteRune(ch)
 		}
+		ch = s.next()
 	}
 
 	return b.String()
@@ -147,47 +159,228 @@ func isSpace(r rune) bool {
 	return false
 }
 
+func parseTokens(rd io.Reader) ([][]token, error) {
+	s := newScanner(rd)
+	tokens := [][]token{}
+
+	// Cut the list on space tokens
+	tok := s.scan()
+	for tok.kind != EOF {
+		switch {
+		case tok.kind == SPACE:
+			// A space will "flush" the current token list and add
+			// a new empty list to the result.
+			// The token is discarded; we don't need it anymore.
+			if len(tokens) > 0 && len(tokens[len(tokens)-1]) > 0 {
+				tokens = append(tokens, []token{})
+			}
+		default:
+			idx := len(tokens) - 1
+			if idx < 0 {
+				tokens = append(tokens, []token{})
+				idx = 0
+			}
+			tokens[idx] = append(tokens[idx], tok)
+		}
+
+		tok = s.scan()
+	}
+
+	return slices.DeleteFunc(tokens, func(t []token) bool {
+		return len(t) == 0
+	}), nil
+}
+
 // SearchTerm is a search term part.
 type SearchTerm struct {
-	Field  string
-	Value  string
-	Quotes bool
+	Field    string
+	Value    string
+	Exact    bool
+	Exclude  bool
+	Wildcard bool
 }
 
-// Quoted returns the term's value with quotes when needed.
-func (st SearchTerm) Quoted() string {
-	if st.Quotes {
-		return `"` + st.Value + `"`
+// String returns a term's string.
+func (st SearchTerm) String() string {
+	b := strings.Builder{}
+	if st.Exclude {
+		b.WriteRune('-')
 	}
-	return st.Value
+	if st.Field != "" {
+		b.WriteString(st.Field)
+		b.WriteRune(':')
+	}
+	if st.Exact {
+		b.WriteRune('"')
+		b.WriteString(strings.ReplaceAll(st.Value, `"`, `\"`))
+		b.WriteRune('"')
+	} else {
+		b.WriteString(st.Value)
+	}
+
+	if st.Wildcard {
+		b.WriteRune('*')
+	}
+
+	return b.String()
 }
 
-// Parse returns a list of SearchTerm from input string.
-func Parse(input string) ([]SearchTerm, error) {
-	s := NewScanner(input)
-	res := []SearchTerm{}
+func newSearchTerm(tl []token, ignoreField bool) SearchTerm {
+	res := SearchTerm{}
 
-	var st *SearchTerm
-loop:
-	for {
-		switch tok, value := s.Scan(); tok {
-		case EOF:
-			break loop
-		case FIELD:
-			if st != nil {
-				return nil, errors.New("field followed by a field")
-			}
-			st = &SearchTerm{Field: value}
-		case STR, STRQ:
-			if st == nil {
-				st = &SearchTerm{}
-			}
-			st.Value = value
-			st.Quotes = tok == STRQ
-			res = append(res, *st)
-			st = nil
+	// Starts with a "-" sign, negates the search term.
+	if len(tl) > 0 && tl[0].kind == NEG {
+		res.Exclude = true
+		tl = tl[1:]
+	}
+
+	// Contains a field separator on second position, make it
+	// a keyword search using the previous text.
+	if !ignoreField && len(tl) > 1 && tl[1].kind == FIELD {
+		res.Field = tl[0].value
+		tl = tl[2:]
+	}
+
+	// The rest becomes the string
+	res.Exact = slices.ContainsFunc(tl, func(t token) bool {
+		return t.kind == STRQ
+	})
+
+	for i, t := range tl {
+		if t.kind == WILDCARD && i == len(tl)-1 {
+			// A wildcard on the last place makes the query a wildcard search term.
+			res.Wildcard = true
+		} else {
+			res.Value += t.value
 		}
 	}
 
-	return res, nil
+	return res
+}
+
+// SearchQuery is a search query that can be transformed into
+// a database query.
+type SearchQuery struct {
+	Terms []SearchTerm
+}
+
+// Strings returns the query as a string.
+func (q SearchQuery) String() string {
+	b := strings.Builder{}
+	for i, t := range q.Terms {
+		if i > 0 {
+			b.WriteRune(' ')
+		}
+		b.WriteString(t.String())
+	}
+	return b.String()
+}
+
+// Dedup returns a new SearchQuery without duplicate entries.
+func (q SearchQuery) Dedup() SearchQuery {
+	seen := map[SearchTerm]struct{}{}
+	res := SearchQuery{Terms: []SearchTerm{}}
+	for _, t := range q.Terms {
+		if _, ok := seen[t]; ok {
+			continue
+		}
+		seen[t] = struct{}{}
+		res.Terms = append(res.Terms, t)
+	}
+	return res
+}
+
+// PopField returns a SearchQuery for the given field and the SearchQuery
+// without the removed search terms. The initial SearchQuery is unchanged.
+func (q SearchQuery) PopField(name string) (sq, nsq SearchQuery) {
+	sq = SearchQuery{Terms: []SearchTerm{}}
+	nsq = SearchQuery{}
+	nsq.Terms = slices.DeleteFunc(q.Terms, func(st SearchTerm) bool {
+		if st.Field == name {
+			sq.Terms = append(sq.Terms, st)
+			return true
+		}
+		return false
+	})
+
+	return
+}
+
+// ExtractField returns a SearchQuery with only the terms for
+// a specific field.
+func (q SearchQuery) ExtractField(name string) SearchQuery {
+	res := SearchQuery{Terms: []SearchTerm{}}
+	for _, t := range q.Terms {
+		if t.Field == name {
+			res.Terms = append(res.Terms, t)
+		}
+	}
+	return res
+}
+
+// RemoveField returns a SearchQuery without the terms for
+// a specific field.
+func (q SearchQuery) RemoveField() SearchQuery {
+	res := SearchQuery{Terms: []SearchTerm{}}
+	for _, t := range q.Terms {
+		t.Field = ""
+		res.Terms = append(res.Terms, t)
+	}
+	return res
+}
+
+// Unfield transforms every field search term that is not in "names"
+// into a normal string.
+func (q SearchQuery) Unfield(names ...string) SearchQuery {
+	res := SearchQuery{Terms: []SearchTerm{}}
+	for _, t := range q.Terms {
+		if t.Field == "" || slices.Contains(names, t.Field) {
+			res.Terms = append(res.Terms, t)
+		} else {
+			t2 := t
+			t2.Value = t2.Field + ":" + t2.Value
+			t2.Field = ""
+			res.Terms = append(res.Terms, t2)
+		}
+	}
+
+	return res
+}
+
+// ParseQuery returns a new SearchQuery after parsing
+// the input string.
+func ParseQuery(s string) (SearchQuery, error) {
+	q := SearchQuery{Terms: []SearchTerm{}}
+
+	tokens, err := parseTokens(strings.NewReader(s))
+	if err != nil {
+		return q, err
+	}
+
+	for _, x := range tokens {
+		q.Terms = append(q.Terms, newSearchTerm(x, false))
+	}
+
+	return q, nil
+}
+
+// ParseField returns a new SearchQuery, ignoring any field definition
+// in the tokens, but taking into acount exclusion or wildcards.
+// "-test*" becomes a search term with wildcard and exclusion
+// for the given label.
+func ParseField(s, name string) (SearchQuery, error) {
+	q := SearchQuery{Terms: []SearchTerm{}}
+
+	tokens, err := parseTokens(strings.NewReader(s))
+	if err != nil {
+		return q, err
+	}
+
+	for _, x := range tokens {
+		t := newSearchTerm(x, true)
+		t.Field = name
+		q.Terms = append(q.Terms, t)
+	}
+
+	return q, nil
 }

@@ -73,6 +73,7 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 		var body *html.Node
 
 		if readabilityEnabled {
+			prepareTitles(m.Dom)
 			parser := readability.NewParser()
 
 			for _, f := range options {
@@ -116,6 +117,9 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 
 		// Ensure we always start with a <section>
 		encloseArticle(body)
+
+		// Restore stored attributes
+		restoreDataAttributes(body)
 
 		// Replaces id attributes in content
 		setIDs(body)
@@ -168,6 +172,32 @@ func findFirstContentNode(node *html.Node) *html.Node {
 	}
 
 	return findFirstContentNode(dom.FirstElementChild(node))
+}
+
+// prepareTitles moves the "id" and "class" attributes from h* and h* a tags
+// into their data--readeck counterparts. This is to avoid readability discarding
+// valid titles with, for example id="examples".
+func prepareTitles(top *html.Node) {
+	dom.ForEachNode(
+		dom.QuerySelectorAll(top, "h1, h2, h3, h4, h5, h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a"),
+		func(n *html.Node, i int) {
+			for _, x := range []string{"id", "class"} {
+				if !dom.HasAttribute(n, x) {
+					continue
+				}
+				dom.SetAttribute(n, "data--readeck-"+x, dom.GetAttribute(n, x))
+				dom.RemoveAttribute(n, x)
+			}
+		},
+	)
+}
+
+// restoreDataAttributes restore attributes previously stored as "data--readeck-*".
+func restoreDataAttributes(top *html.Node) {
+	dom.ForEachNode(dom.QuerySelectorAll(top, "[data--readeck-id]"), func(n *html.Node, i int) {
+		dom.SetAttribute(n, "id", dom.GetAttribute(n, "data--readeck-id"))
+		dom.RemoveAttribute(n, "data--readeck-id")
+	})
 }
 
 func setIDs(top *html.Node) {

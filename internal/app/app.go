@@ -22,6 +22,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/email"
+	"codeberg.org/readeck/readeck/locales"
 )
 
 var commands = []acmd.Command{}
@@ -62,6 +63,9 @@ func InitApp() {
 		log.SetOutput(os.Stdout)
 		log.SetLevel(log.TraceLevel)
 	}
+
+	// Load locales
+	locales.Load()
 
 	// Create required folders
 	if err := createFolder(configs.Config.Main.DataDirectory); err != nil {

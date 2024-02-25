@@ -184,6 +184,7 @@ func (s *Server) initTemplates() {
 // in the request's context.
 func (s *Server) templateVars(r *http.Request) jet.VarMap {
 	cspNonce, _ := r.Context().Value(ctxCSPNonceKey{}).(string)
+	tr := s.Locale(r)
 
 	return make(jet.VarMap).
 		Set("basePath", s.BasePath).
@@ -195,7 +196,11 @@ func (s *Server) templateVars(r *http.Request) jet.VarMap {
 		Set("request", r).
 		Set("cspNonce", cspNonce).
 		Set("user", auth.GetRequestUser(r)).
-		Set("flashes", s.Flashes(r))
+		Set("flashes", s.Flashes(r)).
+		Set("gettext", tr.Gettext).
+		Set("ngettext", tr.Ngettext).
+		Set("pgettext", tr.Pgettext).
+		Set("npgettext", tr.Npgettext)
 }
 
 func parseHexColor(s string) (c color.RGBA, err error) {

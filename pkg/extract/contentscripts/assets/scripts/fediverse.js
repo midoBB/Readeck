@@ -27,13 +27,14 @@ exports.processMeta = function () {
   // Only one post and the first attachment is a video, document is a video.
   const isVideo =
     notes.length == 1 &&
+    (notes[0].attachment || []).length > 0 &&
     (notes[0].attachment[0].mediaType || "").startsWith("video/")
 
   // Only one post and one attachment that is an image, document is a picture.
   // This isn't always true but that's a best effort.
   const isPicture =
     notes.length == 1 &&
-    notes[0].attachment.length == 1 &&
+    (notes[0].attachment || []).length == 1 &&
     (notes[0].attachment[0].mediaType || "").startsWith("image/") &&
     Math.max(notes[0].attachment[0].width, notes[0].attachment[0].height) > 800
 

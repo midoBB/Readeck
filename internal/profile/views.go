@@ -67,7 +67,7 @@ func newProfileViews(api *profileAPI) *profileViews {
 // userProfile handles GET and POST requests on /profile.
 func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
 	user := auth.GetRequestUser(r)
-	f := newProfileForm()
+	f := newProfileForm(v.srv.Locale(r))
 	f.setUser(user)
 
 	if r.Method == http.MethodPost {
@@ -157,7 +157,7 @@ func (v *profileViews) credentialCreate(w http.ResponseWriter, r *http.Request) 
 
 func (v *profileViews) credentialInfo(w http.ResponseWriter, r *http.Request) {
 	ci := r.Context().Value(ctxCredentialKey{}).(credentialItem)
-	f := newCredentialForm(auth.GetRequestUser(r))
+	f := newCredentialForm(v.srv.Locale(r), auth.GetRequestUser(r))
 
 	flashes := v.srv.Flashes(r)
 	passphrase := ""
@@ -194,7 +194,7 @@ func (v *profileViews) credentialInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (v *profileViews) credentialDelete(w http.ResponseWriter, r *http.Request) {
-	f := newDeleteCredentialForm()
+	f := newDeleteCredentialForm(v.srv.Locale(r))
 	f.Get("_to").Set("/profile/credentials")
 	forms.Bind(f, r)
 
@@ -236,7 +236,7 @@ func (v *profileViews) tokenCreate(w http.ResponseWriter, r *http.Request) {
 
 func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 	ti := r.Context().Value(ctxtTokenKey{}).(tokenItem)
-	f := newTokenForm(auth.GetRequestUser(r))
+	f := newTokenForm(v.srv.Locale(r), auth.GetRequestUser(r))
 
 	if r.Method == http.MethodGet {
 		f.setToken(ti.Token)
@@ -272,7 +272,7 @@ func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (v *profileViews) tokenDelete(w http.ResponseWriter, r *http.Request) {
-	f := newDeleteTokenForm()
+	f := newDeleteTokenForm(v.srv.Locale(r))
 	f.Get("_to").Set("/profile/tokens")
 	forms.Bind(f, r)
 

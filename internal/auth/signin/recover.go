@@ -29,8 +29,8 @@ type recoverForm struct {
 	prefix string
 }
 
-func newRecoverForm() *recoverForm {
-	return &recoverForm{
+func newRecoverForm(tr forms.Translator) (f *recoverForm) {
+	f = &recoverForm{
 		Form: forms.Must(
 			forms.NewIntegerField("step", forms.Required),
 			forms.NewTextField("email", forms.Trim),
@@ -39,6 +39,8 @@ func newRecoverForm() *recoverForm {
 		ttl:    time.Duration(2 * time.Hour),
 		prefix: "recover_code",
 	}
+	f.SetLocale(tr)
+	return
 }
 
 func (f *recoverForm) Validate() {
@@ -77,7 +79,7 @@ func (f *recoverForm) delCode(code string) error {
 }
 
 func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
-	f := newRecoverForm()
+	f := newRecoverForm(h.srv.Locale(r))
 	f.Get("step").Set(0)
 
 	tc := server.TC{

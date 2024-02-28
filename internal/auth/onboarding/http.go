@@ -53,7 +53,7 @@ func (h *viewHandler) onboarding(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	f := newOnboardingForm()
+	f := newOnboardingForm(h.srv.Locale(r))
 
 	if r.Method == http.MethodPost {
 		forms.Bind(f, r)

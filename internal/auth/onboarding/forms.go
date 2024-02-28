@@ -15,8 +15,8 @@ type onboardingForm struct {
 	*forms.Form
 }
 
-func newOnboardingForm() *onboardingForm {
-	return &onboardingForm{forms.Must(
+func newOnboardingForm(tr forms.Translator) (f *onboardingForm) {
+	f = &onboardingForm{forms.Must(
 		forms.NewTextField("username", forms.Trim, forms.Required),
 		forms.NewTextField("email", forms.Trim, forms.Optional(
 			forms.IsEmail,
@@ -26,6 +26,8 @@ func newOnboardingForm() *onboardingForm {
 			users.IsValidPassword,
 		)),
 	)}
+	f.SetLocale(tr)
+	return
 }
 
 func (f *onboardingForm) createUser() (*users.User, error) {

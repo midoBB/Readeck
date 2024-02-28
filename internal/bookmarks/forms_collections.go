@@ -22,11 +22,13 @@ type collectionDeleteForm struct {
 	*forms.Form
 }
 
-func newCollectionDeleteForm() *collectionDeleteForm {
-	return &collectionDeleteForm{forms.Must(
+func newCollectionDeleteForm(tr forms.Translator) (f *collectionDeleteForm) {
+	f = &collectionDeleteForm{forms.Must(
 		forms.NewBooleanField("cancel"),
 		forms.NewTextField("_to"),
 	)}
+	f.SetLocale(tr)
+	return
 }
 
 func (f *collectionDeleteForm) trigger(c *Collection) error {
@@ -44,13 +46,14 @@ type collectionForm struct {
 	filterFields map[string]struct{}
 }
 
-func newCollectionForm() *collectionForm {
-	f := &collectionForm{Form: forms.Must(
+func newCollectionForm(tr forms.Translator) (f *collectionForm) {
+	f = &collectionForm{Form: forms.Must(
 		forms.NewTextField("name", forms.Trim, forms.Required),
 		forms.NewBooleanField("is_pinned"),
 	)}
+	f.SetLocale(tr)
 
-	f.Filters = newFilterForm()
+	f.Filters = newFilterForm(tr)
 	f.filterFields = map[string]struct{}{
 		"search":      {},
 		"title":       {},
@@ -64,7 +67,7 @@ func newCollectionForm() *collectionForm {
 		"range_end":   {},
 	}
 
-	return f
+	return
 }
 
 func (f *collectionForm) Fields() []*forms.FormField {

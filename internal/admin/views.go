@@ -62,7 +62,7 @@ func (h *adminViews) userList(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *adminViews) userCreate(w http.ResponseWriter, r *http.Request) {
-	f := users.NewUserForm()
+	f := users.NewUserForm(h.srv.Locale(r))
 	f.Get("group").Set("user")
 
 	if r.Method == http.MethodPost {
@@ -90,7 +90,7 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 	u := r.Context().Value(ctxUserKey{}).(*users.User)
 	item := newUserItem(h.srv, r, u, "./..")
 
-	f := users.NewUserForm()
+	f := users.NewUserForm(h.srv.Locale(r))
 	f.SetUser(u)
 
 	if r.Method == http.MethodPost {
@@ -123,7 +123,7 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *adminViews) userDelete(w http.ResponseWriter, r *http.Request) {
-	f := newDeleteForm()
+	f := newDeleteForm(h.srv.Locale(r))
 	f.Get("_to").Set("/admin/users")
 	forms.Bind(f, r)
 

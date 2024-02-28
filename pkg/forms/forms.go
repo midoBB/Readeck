@@ -91,7 +91,9 @@ func Must(fields ...Field) *Form {
 
 // SetLocale sets the form current locale.
 func (f *Form) SetLocale(tr Translator) {
-	f.context = context.WithValue(f.context, ctxTranslatorKey{}, tr)
+	if tr != nil {
+		f.context = context.WithValue(f.context, ctxTranslatorKey{}, tr)
+	}
 }
 
 // Fields returns the form's field list.

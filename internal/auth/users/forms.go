@@ -51,13 +51,15 @@ type UserForm struct {
 }
 
 // NewUserForm returns a UserForm instance.
-func NewUserForm() *UserForm {
-	return &UserForm{forms.Must(
+func NewUserForm(tr forms.Translator) (f *UserForm) {
+	f = &UserForm{forms.Must(
 		forms.NewTextField("username", forms.Trim, forms.Required, IsValidUsername),
 		forms.NewTextField("password", forms.Required),
 		forms.NewTextField("email", forms.Trim, forms.Required, forms.IsEmail),
 		forms.NewChoiceField("group", availableGroups, forms.Trim, forms.Required),
 	)}
+	f.SetLocale(tr)
+	return
 }
 
 // SetUser adds a user to the form's context.

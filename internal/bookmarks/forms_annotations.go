@@ -19,13 +19,15 @@ type annotationForm struct {
 	*forms.Form
 }
 
-func newAnnotationForm() *annotationForm {
-	return &annotationForm{forms.Must(
+func newAnnotationForm(tr forms.Translator) (f *annotationForm) {
+	f = &annotationForm{forms.Must(
 		forms.NewTextField("start_selector", forms.Required, forms.Trim),
 		forms.NewIntegerField("start_offset", forms.Required, forms.Gte(0)),
 		forms.NewTextField("end_selector", forms.Required, forms.Trim),
 		forms.NewIntegerField("end_offset", forms.Required, forms.Gte(0)),
 	)}
+	f.SetLocale(tr)
+	return
 }
 
 func (f *annotationForm) addToBookmark(bi *bookmarkItem) (*BookmarkAnnotation, error) {

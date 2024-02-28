@@ -26,7 +26,7 @@ func (h *viewsRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *viewsRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
-	f := newCollectionForm()
+	f := newCollectionForm(h.srv.Locale(r))
 
 	switch r.Method {
 	case http.MethodGet:
@@ -64,7 +64,7 @@ func (h *viewsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 	c := r.Context().Value(ctxCollectionKey{}).(*Collection)
 	item := newCollectionItem(h.srv, r, c, "./..")
 
-	f := newCollectionForm()
+	f := newCollectionForm(h.srv.Locale(r))
 	f.setCollection(c)
 
 	if r.Method == http.MethodPost {
@@ -98,7 +98,7 @@ func (h *viewsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *viewsRouter) collectionDelete(w http.ResponseWriter, r *http.Request) {
-	f := newCollectionDeleteForm()
+	f := newCollectionDeleteForm(h.srv.Locale(r))
 	f.Get("_to").Set("/bookmarks/collections")
 	forms.Bind(f, r)
 

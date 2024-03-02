@@ -20,6 +20,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bus"
 	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/locales"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -110,6 +111,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 		mailTc := server.TC{
 			"SiteURL":   h.srv.AbsoluteURL(r, "/"),
 			"EmailAddr": f.Get("email").String(),
+			"Loc":       locales.LoadTranslation("en_US"),
 		}
 		code := shortuuid.New()
 		if user != nil {
@@ -118,6 +120,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 			}
 
 			mailTc["RecoverLink"] = h.srv.AbsoluteURL(r, "/login/recover", code)
+			mailTc["Loc"] = locales.LoadTranslation(user.Settings.Lang)
 		}
 		err = email.SendEmail(
 			fmt.Sprintf("Readeck <%s>", configs.Config.Email.FromNoReply),

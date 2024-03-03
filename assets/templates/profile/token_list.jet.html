@@ -44,8 +44,8 @@ access to the Readeck API.</p>
           <a class="link" href="{{ urlFor(`.`, .ID ) }}">{{ .ID }}</a>
           - <small>{{ .Application }}</small>
         </div>
-        <div><small>Created on: {{ date(.Created, "2006-01-02") }}
-        {{- if .Expires }} (Expires on: {{ date(.Expires, "2006-01-02") }}){{ end -}}
+        <div><small>Created on: {{ date(.Created, "%e %B %Y") }}
+        {{- if .Expires }} (Expires on: {{ date(.Expires, "%e %B %Y") }}){{ end -}}
         </small></div>
       </div>
       {{- if .IsDeleted -}}

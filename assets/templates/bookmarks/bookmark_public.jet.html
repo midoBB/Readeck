@@ -44,7 +44,7 @@ SPDX-License-Identifier: AGPL-3.0-only
           </li>
           {{- if !empty(.Item.Published) -}}
             {{- yield line_icon(icon="o-calendar") content -}}
-              {{ gettext("Published on %s", date(.Item.Published, "02 January 2006")) }}
+              {{ gettext("Published on %s", date(.Item.Published, "%e %B %Y")) }}
             {{- end -}}
           {{- end -}}
           {{- if !empty(.Item.Authors) -}}

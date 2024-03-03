@@ -15,6 +15,7 @@ import (
 	"os"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/CloudyKit/jet/v6"
 	"github.com/gorilla/csrf"
@@ -23,8 +24,10 @@ import (
 	"codeberg.org/readeck/readeck/assets"
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/email"
+	"codeberg.org/readeck/readeck/locales"
 	"codeberg.org/readeck/readeck/pkg/glob"
 	"codeberg.org/readeck/readeck/pkg/libjet"
+	"codeberg.org/readeck/readeck/pkg/strftime"
 )
 
 // TC is a simple type to carry template context.
@@ -77,7 +80,7 @@ func (s *Server) RenderTemplate(w http.ResponseWriter, r *http.Request,
 	w.Header().Set("content-type", "text/html; charset=utf-8")
 	w.WriteHeader(status)
 
-	if err = t.Execute(w, s.templateVars(r), ctx); err != nil {
+	if err = t.Execute(w, s.TemplateVars(r), ctx); err != nil {
 		panic(err)
 	}
 }
@@ -100,7 +103,7 @@ func (s *Server) RenderTurboStream(
 	w.Header().Set("Content-Type", "text/vnd.turbo-stream.html; charset=utf-8")
 
 	fmt.Fprintf(w, `<turbo-stream action="%s" target="%s"><template>%s`, action, target, "\n")
-	if err = t.Execute(w, s.templateVars(r), ctx); err != nil {
+	if err = t.Execute(w, s.TemplateVars(r), ctx); err != nil {
 		panic(err)
 	}
 	fmt.Fprint(w, "</template></turbo-stream>\n\n")
@@ -115,6 +118,29 @@ func (s *Server) initTemplates() {
 	for k, v := range libjet.VarMap() {
 		views.AddGlobal(k, v)
 	}
+
+	views.AddGlobalFunc("date", func(args jet.Arguments) reflect.Value {
+		args.RequireNumOfArguments("date", 2, 2)
+		v, isNil := libjet.Indirect(args.Get(0))
+		if isNil {
+			return reflect.ValueOf("")
+		}
+
+		date, ok := v.(time.Time)
+		if !ok {
+			panic("first argument must be a time.Time value or pointer")
+		}
+
+		var result string
+		tr, ok := args.Runtime().Resolve("translator").Interface().(*locales.Locale)
+		if !ok {
+			result = strftime.Strftime(libjet.ToString(args.Get(1)), date)
+		} else {
+			result = strftime.New(tr).Strftime(libjet.ToString(args.Get(1)), date)
+		}
+
+		return reflect.ValueOf(result)
+	})
 
 	views.AddGlobalFunc("assetURL", func(args jet.Arguments) reflect.Value {
 		args.RequireNumOfArguments("assetURL", 1, 1)
@@ -180,9 +206,9 @@ func (s *Server) initTemplates() {
 	})
 }
 
-// templateVars returns the default variables set for a template
+// TemplateVars returns the default variables set for a template
 // in the request's context.
-func (s *Server) templateVars(r *http.Request) jet.VarMap {
+func (s *Server) TemplateVars(r *http.Request) jet.VarMap {
 	cspNonce, _ := r.Context().Value(ctxCSPNonceKey{}).(string)
 	tr := s.Locale(r)
 
@@ -197,6 +223,7 @@ func (s *Server) templateVars(r *http.Request) jet.VarMap {
 		Set("cspNonce", cspNonce).
 		Set("user", auth.GetRequestUser(r)).
 		Set("flashes", s.Flashes(r)).
+		Set("translator", tr).
 		Set("gettext", tr.Gettext).
 		Set("ngettext", tr.Ngettext).
 		Set("pgettext", tr.Pgettext).

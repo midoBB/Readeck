@@ -13,7 +13,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     <h1 class="title text-h1">About Readeck</h1>
 
       <p class="my-1"><strong>Version:</strong><br> {{ .Version }}</p>
-      <p class="my-1"><strong>Built on:</strong><br> {{ date(.BuildTime, "Monday, 2 January 2006 15:04:05 MST") }}</p>
+      <p class="my-1"><strong>Built on:</strong><br> {{ date(.BuildTime, "%A, %e %B %Y %H:%M:%S %Z") }}</p>
   </div>
 
   <h2 class="title text-h2">System Information</h2>

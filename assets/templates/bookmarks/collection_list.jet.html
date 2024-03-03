@@ -58,7 +58,7 @@ SPDX-License-Identifier: AGPL-3.0-only
         <div>
           <a class="link" href="{{ urlFor(`.`, .ID) }}">{{ .Name }}</a>
         </div>
-        <div><small>Created on: {{ date(.Created, "2006-01-02") }}</small></div>
+        <div><small>Created on: {{ date(.Created, "%e %B %Y") }}</small></div>
       </div>
       {{- if .IsDeleted -}}
         <div class="flex items-center max-w-xs"

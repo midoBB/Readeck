@@ -29,8 +29,8 @@ SPDX-License-Identifier: AGPL-3.0-only
           ({{ .Group }})
         </div>
         <div class="text-sm">
-          {{ gettext("Created on: %s", date(.Created, "2006-01-02")) }},
-          {{ gettext("Last update: %s", date(.Updated, "2006-01-02")) }}
+          {{ gettext("Created on: %s", date(.Created, "%e %B %Y")) }},
+          {{ gettext("Last update: %s", date(.Updated, "%e %B %Y")) }}
         </div>
       </div>
       {{- if .IsDeleted -}}

@@ -16,6 +16,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/db/types"
+	"codeberg.org/readeck/readeck/locales"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -28,6 +29,11 @@ type profileForm struct {
 	*forms.Form
 }
 
+var (
+	errInvalidUserOrEmail = forms.Gettext("invalid username and/or email")
+	errInvalidPassword    = forms.Gettext("invalid password")
+)
+
 // newProfileForm returns a ProfileForm instance.
 func newProfileForm(tr forms.Translator) (f *profileForm) {
 	f = &profileForm{
@@ -36,7 +42,8 @@ func newProfileForm(tr forms.Translator) (f *profileForm) {
 				forms.Trim, forms.RequiredOrNil, users.IsValidUsername),
 			forms.NewTextField("email",
 				forms.Trim, forms.RequiredOrNil, forms.IsEmail),
-			forms.NewTextField("settings_lang",
+			forms.NewChoiceField("settings_lang",
+				locales.Available(),
 				forms.Trim, forms.RequiredOrNil,
 			),
 			forms.NewTextField("settings_reader_font",
@@ -51,6 +58,7 @@ func newProfileForm(tr forms.Translator) (f *profileForm) {
 		),
 	}
 	f.SetLocale(tr)
+
 	return
 }
 
@@ -61,6 +69,7 @@ func (f *profileForm) setUser(u *users.User) {
 
 	f.Get("username").Set(u.Username)
 	f.Get("email").Set(u.Email)
+	f.Get("settings_lang").Set(u.Settings.Lang)
 }
 
 // Validate performs extra validation.
@@ -88,7 +97,7 @@ func (f *profileForm) Validate() {
 				return
 			}
 			if c > 0 {
-				f.AddErrors("", errors.New("invalid username and/or email"))
+				f.AddErrors("", errInvalidUserOrEmail)
 				return
 			}
 		}
@@ -120,6 +129,9 @@ func (f *profileForm) updateUser(u *users.User) (res map[string]interface{}, err
 			case "line_height":
 				u.Settings.ReaderSettings.LineHeight = field.Value().(int)
 			}
+			res["settings"] = u.Settings
+		case n == "settings_lang":
+			u.Settings.Lang = field.String()
 			res["settings"] = u.Settings
 		default:
 			if n == "email" || n == "username" {
@@ -188,7 +200,7 @@ func (f *passwordForm) Validate() {
 		return
 	}
 	if !u.CheckPassword(f.Get("current").String()) {
-		f.AddErrors("current", errors.New("Invalid password"))
+		f.AddErrors("current", errInvalidPassword)
 	}
 }
 

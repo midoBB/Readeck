@@ -4,8 +4,8 @@ SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
 SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{- import "/_libs/common" -}}
-{{- textArch := .IsArchived ? "Remove from archive" : "Move to archive" -}}
-{{- textFav := .IsMarked ? "Remove from favorites" : "Add to favorites" -}}
+{{- textArch := .IsArchived ? gettext("Remove from archive") : gettext("Move to archive") -}}
+{{- textFav := .IsMarked ? gettext("Remove from favorites") : gettext("Add to favorites") -}}
 
 <turbo-frame id="bookmark-bottom-actions-{{ .ID }}">
 <form action="{{ urlFor(`/bookmarks`, .ID) }}" method="post"

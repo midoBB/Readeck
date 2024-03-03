@@ -7,19 +7,19 @@ SPDX-License-Identifier: AGPL-3.0-only
   <nav class="my-4 flex items-center justify-center print:hidden">
     <div class="hidden flex-1 max-sm:flex justify-between">
       {{- if .PreviousPage -}}
-        <a href="{{ .PreviousPage }}" class="px-4 py-2 border border-gray-300 rounded-md hf:text-primary">Previous</a>
+        <a href="{{ .PreviousPage }}" class="px-4 py-2 border border-gray-300 rounded-md hf:text-primary">{{ pgettext("page", "Previous") }}</a>
       {{- else -}}
         <span></span>
       {{- end -}}
       {{- if .NextPage -}}
-        <a href="{{ .NextPage }}" class="px-4 py-2 border border-gray-300 rounded-md hf:text-primary">Next</a>
+        <a href="{{ .NextPage }}" class="px-4 py-2 border border-gray-300 rounded-md hf:text-primary">{{ pgettext("page", "Next") }}</a>
       {{- end -}}
     </div>
 
     <div class="max-sm:hidden overflow-hidden flex items-center justify-center flex-shrink border border-gray-300 rounded-md divide-x">
       {{- if .PreviousPage -}}
         <a href="{{ .PreviousPage }}" class="py-2 px-4 hf:bg-gray-200 hf:text-primary"
-         aria-label="Go to previous page">{{ yield icon(name="o-chevron-l") }}</a>
+         aria-label="{{ gettext(`Go to previous page`) }}">{{ yield icon(name="o-chevron-l") }}</a>
       {{- end -}}
 
       {{- current := .CurrentPage -}}
@@ -27,7 +27,7 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{- if .Index == current -}}
           <span class="py-2 px-4 bg-gray-200 font-bold">{{ .Index }}</span>
         {{- else if .Index != 0 -}}
-          <a href="{{ .URL }}" aria-label="Go to page {{ .Index }}" class="py-2 px-4 hf:bg-gray-200 hf:text-primary">{{ .Index }}</a>
+          <a href="{{ .URL }}" aria-label="{{ gettext(`Go to page %d`, .Index) }}" class="py-2 px-4 hf:bg-gray-200 hf:text-primary">{{ .Index }}</a>
         {{- else -}}
           <span class="py-2 px-4 text-gray-600">&hellip;</span>
         {{- end -}}
@@ -35,7 +35,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
       {{- if .NextPage -}}
         <a href="{{ .NextPage }}" class="py-2 px-4 hf:bg-gray-200 hf:text-primary"
-         aria-label="Go to next page">{{ yield icon(name="o-chevron-r") }}</a>
+         aria-label="{{ gettext(`Go to next page`) }}">{{ yield icon(name="o-chevron-r") }}</a>
       {{- end -}}
     </div>
   </nav>

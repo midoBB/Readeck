@@ -17,28 +17,28 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   {{ yield textField(field=.Form.Get("username"),
                      required=true,
-                     label="Username",
+                     label=gettext("Username"),
                      class="field-h") }}
 
   {{ yield textField(field=.Form.Get("email"),
                      type="email",
                      required=true,
-                     label="Email address",
+                     label=gettext("Email address"),
                      class="field-h") }}
 
   {{ yield selectField(field=.Form.Get("group"),
                        required=true,
-                       label="Group",
+                       label=gettext("Group"),
                        class="field-h") }}
 
   {{ yield passwordField(field=.Form.Get("password"),
                          required=true,
-                         label="Password",
+                         label=gettext("Password"),
                          class="field-h",
                          inputAttrs=attrList("autocomplete", "off"),
                         ) }}
 
-  <p><button class="btn-primary" type="submit">Save</button></p>
+  <p><button class="btn-primary" type="submit">{{ gettext("Create user") }}</button></p>
 </form>
 
 {{ end }}

@@ -40,7 +40,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       data-reader-option-reader-outlet="[data-controller='reader']"
     >
       <summary class="flex items-center gap-2 p-2 -mx-2 rounded-sm border border-transparent hover:border-gray-300">{{- yield icon(name="o-font") -}}
-        <span class="flex-grow font-semibold">Font</span>
+        <span class="flex-grow font-semibold">{{ gettext("Font") }}</span>
         {{- yield icon(name="o-chevron-r") -}}
       </summary>
 
@@ -69,7 +69,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       data-reader-option-reader-outlet="[data-controller='reader']"
       data-reader-option-values-value="{{- fontSizes|json() -}}"
     >
-      {{- yield icon(name="o-font-size") -}} <span class="flex-grow">Size</span>
+      {{- yield icon(name="o-font-size") -}} <span class="flex-grow">{{ gettext("Size") }}</span>
       <button class="py-1.5 px-3 rounded-lg border"
        data-action="reader-option#decreaseValue">
         {{- yield icon(name="o-minus") -}}
@@ -91,7 +91,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       data-reader-option-reader-outlet="[data-controller='reader']"
       data-reader-option-values-value="{{- lineHeights|json() -}}"
     >
-      {{- yield icon(name="o-line-height") -}} <span class="flex-grow">Line height</span>
+      {{- yield icon(name="o-line-height") -}} <span class="flex-grow">{{ gettext("Line height") }}</span>
       <button class="py-1.5 px-3 rounded-lg border"
        data-action="reader-option#decreaseValue">
         {{- yield icon(name="o-minus") -}}

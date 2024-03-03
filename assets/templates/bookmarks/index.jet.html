@@ -24,7 +24,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   ">
     <label for="create-url"
      class="inline-block ml-4 my-1 text-sm font-semibold cursor-pointer invisible group-hfw:visible"
-    >Save a new link</label>
+    >{{ gettext("Save a new link") }}</label>
     <form action="{{ urlFor(`/bookmarks`) }}" method="post"
        data-controller="turbo-form"
        data-turbo-frame="_top">
@@ -35,7 +35,7 @@ SPDX-License-Identifier: AGPL-3.0-only
            value="{{ string(.Form.Get(`url`).String()) }}" placeholder="https://" />
           <button type="submit" class="whitespace-nowrap btn-primary rounded-full pl-0.5 py-0 inline-flex gap-1 items-center leading-none">
             {{ yield icon(name="o-create", class="text-yellow-400 dark:text-yellow-600", svgClass="h-8 w-8") }}
-            <span>Save link</span>
+            <span>{{ pgettext("button", "Save link") }}</span>
           </button>
         </div>
 
@@ -44,9 +44,11 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{- end -}}
         {{- if .MaybeSearch -}}
           {{- yield message() content -}}
-          "{{ .Form.Get(`url`).String() }}" is not a valid address. Did you mean to search your bookmarks for
-          <a data-turbo-frame="_top" href="{{ urlFor(`/bookmarks`) }}?bf=1&search={{ .Form.Get(`url`).String() }}"
-           class="link font-bold">"{{ .Form.Get(`url`).String() }}"</a>?
+          {{ gettext(`"%s" is not a valid address. Did you mean to search your bookmarks for %s?`,
+            html(.Form.Get(`url`).String()),
+            `<a data-turbo-frame="_top" href="` + urlFor(`/bookmarks`) + `?bf=1&search=` + url(.Form.Get(`url`).String()) + `"` +
+            `class="link font-bold">` + html(.Form.Get(`url`).String()) + `</a>`,
+          )|unsafe }}
           {{- end -}}
         {{- else if .Form.Get("url").Errors -}}
           {{- yield message(type="error") content -}}
@@ -64,11 +66,15 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{ yield icon(name="o-big-arrow", class="text-yellow-500", svgClass="h-36", viewBox="0 0 50 250") }}
       </div>
       <div class="flex-grow-0 max-w-xl">
-        <h1 class="title text-h3">Welcome to Readeck!</h1>
+        <h1 class="title text-h3">{{ gettext("Welcome to Readeck!") }}</h1>
         <p class="text-xl mb-4 p-4 text-blue-800 bg-yellow-100 border border-blue-800 rounded">
-            You don't have any bookmarks yet.<br> Copy a link in the field above and start saving.
+            {{ gettext("You don't have any bookmarks yet.<br> Copy a link in the field above and start saving.")|raw }}
         </p>
-        <p>Read more about bookmarks in the <a class="link" href="{{ urlFor(`/docs`) }}">documentation</a>.</p>
+        <p>{{ gettext(
+          `Read more about bookmarks in the <a class="%s" href="%s">documentation</a>.`,
+          "link",
+          urlFor(`/docs`),
+        )|raw }}</p>
       </div>
     </div>
   {{- end -}}
@@ -85,10 +91,13 @@ SPDX-License-Identifier: AGPL-3.0-only
         <p class="mb-2">
         {{- if .Pagination.TotalCount == 0 -}}
           Your search query yielded <strong>no results</strong>.
-        {{- else if .Pagination.TotalCount == 1 -}}
-          Your search query yielded <strong>1 result</strong>.
         {{- else -}}
-          Your search query yielded <strong>{{ .Pagination.TotalCount }} results</strong>.
+          {{ ngettext(
+            `Your search query yielded <strong>%d result</strong>.`,
+            `Your search query yielded <strong>%d results</strong>.`,
+            .Pagination.TotalCount,
+            .Pagination.TotalCount,
+          )|raw }}
         {{- end -}}
         </p>
       {{- end -}}
@@ -98,18 +107,19 @@ SPDX-License-Identifier: AGPL-3.0-only
           inline-block md:absolute md:right-0 md:top-3
           link py-1 px-4 border border-primary rounded-full
           hf:bg-yellow-100
-        ">{{ yield icon(name="o-filter") }} Filter list</summary>
+        ">{{ yield icon(name="o-filter") }}
+          {{ pgettext("action", "Filter list") }}</summary>
         <div class="bg-gray-100 border rounded p-2 text-sm max-md:mt-2">
           {{ include("./components/filters") .Filters }}
 
           <div class="mt-4 flex gap-2 items-center">
-            <button class="btn btn-primary">Search</button>
+            <button class="btn btn-primary">{{ pgettext("action", "Search") }}</button>
             {{ if .Filters.IsActive() -}}
               <span class="flex-grow">
-                <a href="{{ urlFor() }}?bf=1" class="btn rounded">Reset search</a>
+                <a href="{{ urlFor() }}?bf=1" class="btn rounded">{{ gettext("Reset search") }}</a>
               </span>
               <a href="{{ urlFor(`/bookmarks/collections/add`)}}?{{ .Filters.GetQueryString() }}"
-                class="link font-semibold">Create a collection</a>
+                class="link font-semibold">{{ gettext("Create a collection") }}</a>
             {{- end }}
           </div>
 

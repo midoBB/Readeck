@@ -80,7 +80,7 @@ href="{{ assetURL(`img/icons.svg`) }}#{{ name }}"></use></svg></span>
 
 {{- block quickAccessMenu(items=slice()) -}}
 {{- if items -}}
-<ul label="Quick access menu"
+<ul label="{{ gettext(`Quick access menu`) }}"
  class="a11y-nav">
   {{- range items -}}
     <li><a href="#{{ .[0] }}" class="link">{{ .[1] }}</a></li>

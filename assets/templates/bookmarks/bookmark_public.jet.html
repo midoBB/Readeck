@@ -10,7 +10,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- if isset(.Item) -}}
     {{ .Item.Title }}
   {{- else -}}
-    Shared link
+    {{ gettext("Shared link") }}
   {{- end -}}
 {{- end -}}
 
@@ -20,16 +20,16 @@ SPDX-License-Identifier: AGPL-3.0-only
       <div class="max-w-3xl mx-auto my-8">
         <h1 class="text-3xl text-center">
           {{- if .Status == 404 -}}
-            Page not found
+            {{ gettext("Page not found") }}
           {{- else if .Status == 410 -}}
-            Page has expired
+            {{ gettext("Page has expired") }}
           {{- end -}}
         </h1>
       </div>
     {{- else -}}
       <div class="max-w-3xl mx-auto my-8">
         <h1 class="my-4 font-lora text-3xl max-sm:text-2xl"
-        dir="{{ default(.Item.TextDirection, "ltr") }}">{{ .Item.Title }}</h1>
+        dir="{{ default(.Item.TextDirection, `ltr`) }}">{{ .Item.Title }}</h1>
 
         <ul class="mb-4">
           <li class="flex items-center gap-1 mb-2">
@@ -39,17 +39,17 @@ SPDX-License-Identifier: AGPL-3.0-only
             width="{{ .Item.Resources.icon.Width }}"
             height="{{ .Item.Resources.icon.Height }}">
           {{- end -}}
-          <strong class="overflow-hidden text-ellipsis" title="{{ default(.Item.SiteName, "no site name") }}"
-          dir="{{ default(.Item.TextDirection, "ltr") }}">{{ default(.Item.SiteName, "no site name") }}</strong>
+          <strong class="overflow-hidden text-ellipsis" title="{{ default(.Item.SiteName, `no site name`) }}"
+          dir="{{ default(.Item.TextDirection, `ltr`) }}">{{ default(.Item.SiteName, "no site name") }}</strong>
           </li>
           {{- if !empty(.Item.Published) -}}
             {{- yield line_icon(icon="o-calendar") content -}}
-              Published on {{ date(.Item.Published, "02 January 2006") }}
+              {{ gettext("Published on %s", date(.Item.Published, "02 January 2006")) }}
             {{- end -}}
           {{- end -}}
           {{- if !empty(.Item.Authors) -}}
             {{- yield line_icon(icon="o-pen") content -}}
-              By {{ join(.Item.Authors, ", ") }}
+              {{ gettext("By %s", join(.Item.Authors, ", ")) }}
             {{- end -}}
           {{- end -}}
           {{- yield line_icon(icon="o-link") content -}}
@@ -57,12 +57,13 @@ SPDX-License-Identifier: AGPL-3.0-only
           {{- end -}}
           {{- if .Item.ReadingTime() > 0 -}}
             {{- yield line_icon(icon="o-clock") content -}}
-              {{ .Item.ReadingTime() }}&nbsp;min
+              {{ gettext("%d min", .Item.ReadingTime()) }}
             {{- end -}}
           {{- end -}}
         </ul>
 
-        <p class="my-4 text-right">Shared by {{ .Username }} with
+        <p class="my-4 text-right">{{ gettext("Shared by %s", .Username) }}
+          {{ gettext("with") }}
           <a class="link" href="https://readeck.org/">Readeck {{ yield icon(name="o-logo-square") }}</a>
         </p>
 
@@ -111,7 +112,8 @@ SPDX-License-Identifier: AGPL-3.0-only
     {{- end -}}
 
     <p class="max-w-3xl mx-auto my-8 pt-4 border-t text-right">
-      Powered by <a class="link" href="https://readeck.org/">Readeck {{ yield icon(name="o-logo-square") }}</a>
+      {{ gettext("Powered by") }}
+      <a class="link" href="https://readeck.org/">Readeck {{ yield icon(name="o-logo-square") }}</a>
     </p>
   </div>
 {{- end -}}

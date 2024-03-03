@@ -21,11 +21,11 @@ SPDX-License-Identifier: AGPL-3.0-only
     <menu class="flex-shrink-0">
       <li class="no-js:hidden">
         <button type="button" data-controller="theme" data-action="theme#toggleTheme"
-         title="Change theme">
+         title="{{ gettext(`Change theme`) }}">
           <span data-theme-target="icon">
             {{ yield icon(name="o-theme-system") }}
           </span>
-          <span class="sr-only">Change color theme</span>
+          <span class="sr-only">{{ gettext("Change color theme") }}</span>
           <template data-theme-target="iconLight">{{ yield icon(name="o-theme-light") }}</template>
           <template data-theme-target="iconDark">{{ yield icon(name="o-theme-dark") }}</template>
           <template data-theme-target="iconSystem">{{ yield icon(name="o-theme-system") }}</template>
@@ -40,7 +40,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       <li>
         <form action="{{ urlFor(`/logout`)}}" method="post">
           <button type="submit">{{ yield icon(name="o-logout") }}
-          <span class="sr-only">Log out</span></button>
+          <span class="sr-only">{{ gettext("Sign out") }}</span></button>
         </form>
       </li>
     </menu>

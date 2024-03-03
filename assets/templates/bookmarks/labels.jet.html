@@ -5,14 +5,17 @@ SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{ extends "./base" }}
 
-{{ block title() }}Bookmark Labels{{ end }}
+{{ block title() }}{{ gettext("Bookmark Labels") }}{{ end }}
 
 {{ block mainContent() -}}
 
-<h1 class="title text-h2">Bookmark Labels</h1>
+<h1 class="title text-h2">{{ yield title() }}</h1>
 
-<p class="mb-4">Labels let your organize your bookmarks the way you want. You can set
-anything to a label, including emojis!</p>
+<p class="mb-4">{{ gettext(`
+  Labels let your organize your bookmarks the way you want.
+  You can set anything to a label, including emojis!
+`) }}
+</p>
 
 <ul class="grid lg:grid-cols-3 xl:grid-cols-4 gap-4">
 {{- range .Labels -}}

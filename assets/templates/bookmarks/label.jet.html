@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "./base" }}
 {{- import "/_libs/pagination" -}}
 
-{{ block title() }}Label - {{ .Label }}{{ end }}
+{{ block title() }}{{ gettext("Label") }} - {{ .Label }}{{ end }}
 
 {{ block mainContent() -}}
 <form action="" method="post" class="md:flex md:mb-4 items-center"
@@ -33,7 +33,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     <div>
       <button class="btn-danger"
       formaction="{{ url(.Label) }}/delete" formmethod="post"
-      >{{ yield icon(name="o-trash") }} Delete label</button>
+      >{{ yield icon(name="o-trash") }} {{ gettext("Delete label") }}</button>
     </div>
   {{- end -}}
 </form>
@@ -42,8 +42,8 @@ SPDX-License-Identifier: AGPL-3.0-only
   <form action="{{ url(.Label) }}/delete" method="post" class="mb-4">
   {{ yield csrfField() }}
   {{- yield message(type="info") content -}}
-    Label will be removed in a few seconds&nbsp;
-    <button class="btn-primary" name="cancel" value="1">Cancel</button>
+    {{ gettext("Label will be removed in a few seconds.") }}&nbsp;
+    <button class="btn-primary" name="cancel" value="1">{{ gettext("Cancel") }}</button>
   {{- end -}}
   </form>
 {{- end -}}

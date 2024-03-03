@@ -6,13 +6,13 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "./base" }}
 {{ import "/_libs/list"}}
 
-{{- block title() -}}Bookmark Collections{{- end -}}
+{{- block title() -}}{{ gettext("Bookmark Collections") }}{{- end -}}
 
 {{- block mainContent() -}}
-<h1 class="title text-h2">Bookmark Collections</h1>
+<h1 class="title text-h2">{{ yield title() }}</h1>
 
 <p class="my-4"><a href="{{ urlFor(`./add`) }}"
- class="btn-primary">Create a new collection</a></p>
+ class="btn-primary">{{ gettext("Create a new collection") }}</a></p>
 
 {{- if len(.Collections) == 0 -}}
   <div class="flex gap-4">
@@ -21,19 +21,26 @@ SPDX-License-Identifier: AGPL-3.0-only
     </div>
     <div class="flex-grow-0 max-w-2xl">
       <div class="prose my-4 px-4 pt-4 text-blue-800 bg-yellow-100 border border-blue-800 rounded">
-        <p>Collections let you easily organize and export your bookmarks
-        by saving search requests of your choice.
-        When you create a new bookmark that matches a collection's criteria,
-        it will appear immediately.
-        Here are some examples:</p>
+        <p>{{ gettext(`
+          Collections let you easily organize and export your bookmarks
+          by saving search requests of your choice.
+          When you create a new bookmark that matches a collection's
+          criteria, it will appear immediately.
+          Here are some examples:
+        `) }}
+        </p>
         <ul>
-          <li>The unread articles (no photos or videos),</li>
-          <li>The archived articles from "wikipedia.org"</li>
-          <li>The pictures with the tag "cat",</li>
-          <li>The articles that contain "breaking" in their title</li>
+          <li>{{ gettext("The unread articles (no photos or videos)") }},</li>
+          <li>{{ gettext(`The archived articles from "wikipedia.org"`) }},</li>
+          <li>{{ gettext(`The pictures with the label "cat"`) }},</li>
+          <li>{{ gettext(`The articles that contain "shelter" in their title`) }}.</li>
         </ul>
       </div>
-      <p>Read more about collections in the <a class="link" href="{{ urlFor(`/docs/en/collections`) }}">documentation</a>.</p>
+      <p>{{ gettext(
+        `Read more about collections in the <a class="%s" href="%s">documentation</a>.`,
+        "link",
+        urlFor(`/docs/en/collections`),
+      )|raw }}</p>
     </div>
   </div>
 {{- end -}}

@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "../profile/base" }}
 {{ import "/_libs/forms" }}
 
-{{ block title() }}Users - {{ .User.Username }}{{ end }}
+{{ block title() }}{{ gettext("Users") }} - {{ .User.Username }}{{ end }}
 
 {{ block mainContent() }}
 <h1 class="title text-h2">{{ .User.Username }}</h1>
@@ -16,8 +16,8 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{ yield csrfField() }}
   <input type="hidden" name="_to" value="{{ currentPath }}" />
   {{- yield message(type="info") content -}}
-    User will be removed in a few seconds&nbsp;
-    <button class="btn-primary" name="cancel" value="1">Cancel</button>
+    {{ gettext("User will be removed in a few seconds") }}&nbsp;
+    <button class="btn-primary" name="cancel" value="1">{{ gettext("Cancel") }}</button>
   {{- end -}}
 </form>
 {{- end -}}
@@ -28,33 +28,33 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   {{ yield textField(field=.Form.Get("username"),
                      required=true,
-                     label="Username",
+                     label=gettext("Username"),
                      class="field-h") }}
 
   {{ yield textField(field=.Form.Get("email"),
                      type="email",
                      required=true,
-                     label="Email address",
+                     label=gettext("Email address"),
                      class="field-h") }}
 
   {{ yield selectField(field=.Form.Get("group"),
-                       label="Group",
+                       label=gettext("Group"),
                        required=true,
                        class="field-h") }}
 
   {{ yield passwordField(field=.Form.Get("password"),
-                         label="Password",
+                         label=gettext("Password"),
                          class="field-h",
                          inputAttrs=attrList("autocomplete", "off"),
-                         help="will not change if empty") }}
+                         help=gettext("will not change if empty")) }}
 
-  <p><button class="btn-primary" type="submit">Save</button></p>
+  <p><button class="btn-primary" type="submit">{{ gettext("Save") }}</button></p>
 </form>
 
 {{- if .User.ID != user.ID && !.User.IsDeleted -}}
   <form class="mt-4" action="{{ urlFor(`.`, `delete`) }}" method="POST">
     {{ yield csrfField() }}
-    <p><button class="btn-danger" type="submit">Delete this user</button></p>
+    <p><button class="btn-danger" type="submit">{{ gettext("Delete this user") }}</button></p>
   </form>
 {{- end -}}
 

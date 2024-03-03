@@ -85,29 +85,31 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 		bl.Items[i] = newBookmarkItem(h.srv, r, item, ".")
 	}
 
+	tr := h.srv.Locale(r)
+
 	ctx["Form"] = f
 	ctx["Pagination"] = bl.Pagination
 	ctx["Bookmarks"] = bl.Items
-	title := "All your Bookmarks"
+	title := tr.Gettext("All your Bookmarks")
 
 	if filters, ok := r.Context().Value(ctxFiltersKey{}).(*filterForm); ok {
 		ctx["Filters"] = filters
 		if filters.IsActive() {
-			title = "Bookmark Search"
+			title = tr.Gettext("Bookmark Search")
 		} else {
 			switch filters.title {
 			case filtersTitleUnread:
-				title = "Unread Bookmarks"
+				title = tr.Gettext("Unread Bookmarks")
 			case filtersTitleArchived:
-				title = "Archived Bookmarks"
+				title = tr.Gettext("Archived Bookmarks")
 			case filtersTitleFavorites:
-				title = "Favorite Bookmarks"
+				title = tr.Gettext("Favorite Bookmarks")
 			case filtersTitleArticles:
-				title = "Articles"
+				title = tr.Gettext("Articles")
 			case filtersTitlePictures:
-				title = "Pictures"
+				title = tr.Gettext("Pictures")
 			case filtersTitleVideos:
-				title = "Videos"
+				title = tr.Gettext("Videos")
 			}
 		}
 	}

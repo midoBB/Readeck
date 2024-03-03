@@ -59,33 +59,7 @@ var (
 
 	// ErrBookmarkNotFound is returned when a bookmark record was not found.
 	ErrBookmarkNotFound = errors.New("not found")
-
-	// availableTypes are the allowed bookmark types.
-	availableTypes = [][2]string{
-		{"article", "Article"},
-		{"photo", "Picture"},
-		{"video", "Video"},
-	}
 )
-
-// AvailableTypes returns the available bookmark types.
-// This is a mapping of ID => name.
-func AvailableTypes() map[string]string {
-	res := map[string]string{}
-	for _, v := range availableTypes {
-		res[v[0]] = v[1]
-	}
-	return res
-}
-
-// ValidTypes returns a list of available bookmark types.
-func ValidTypes() []string {
-	r := make([]string, len(availableTypes))
-	for i := 0; i < len(availableTypes); i++ {
-		r[i] = availableTypes[i][0]
-	}
-	return r
-}
 
 // StoragePath returns the storage base directory for bookmark files.
 func StoragePath() string {

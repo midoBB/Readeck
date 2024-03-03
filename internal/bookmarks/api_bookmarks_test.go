@@ -7,6 +7,8 @@ package bookmarks_test
 import (
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
 )
 
@@ -32,16 +34,13 @@ func TestBookmarkAPIShare(t *testing.T) {
 		},
 	)
 
-	if publicPath == "" {
-		t.Error("public path was not set")
-		t.FailNow()
-	}
+	require.NotEmpty(t, publicPath, "public path is set")
 
 	RunRequestSequence(t, client, "",
 		RequestTest{
 			Target:         publicPath,
 			ExpectStatus:   200,
-			ExpectContains: `Shared by user with`,
+			ExpectContains: `Shared by user`,
 		},
 	)
 }

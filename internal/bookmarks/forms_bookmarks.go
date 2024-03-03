@@ -397,6 +397,13 @@ type filterForm struct {
 }
 
 func newFilterForm(tr forms.Translator) (f *filterForm) {
+	availableTypes := [][2]string{
+		{"", tr.Gettext("All")},
+		{"article", tr.Gettext("Article")},
+		{"photo", tr.Gettext("Picture")},
+		{"video", tr.Gettext("Video")},
+	}
+
 	f = &filterForm{
 		Form: forms.Must(
 			forms.NewBooleanField("bf"),
@@ -404,7 +411,7 @@ func newFilterForm(tr forms.Translator) (f *filterForm) {
 			forms.NewTextField("title", forms.Trim),
 			forms.NewTextField("author", forms.Trim),
 			forms.NewTextField("site", forms.Trim),
-			forms.NewChoiceField("type", append([][2]string{{"", "All"}}, availableTypes...), forms.Trim),
+			forms.NewChoiceField("type", availableTypes, forms.Trim),
 			forms.NewTextField("labels", forms.Trim),
 			forms.NewBooleanField("is_marked"),
 			forms.NewBooleanField("is_archived"),

@@ -31,17 +31,17 @@ SPDX-License-Identifier: AGPL-3.0-only
       width="{{ .Item.Resources.icon.Width }}"
       height="{{ .Item.Resources.icon.Height }}" />
     {{- end -}}
-    <strong>{{ default(.Item.SiteName, "no site name") }}</strong>
+    <strong>{{ default(.Item.SiteName, gettext("no site name")) }}</strong>
   </li>
   {{- if !empty(.Item.Published) -}}
-    <li>Published on {{ date(.Item.Published, "02 January 2006") }}</li>
+    <li>{{ gettext("Published on %s", date(.Item.Published, "02 January 2006")) }}</li>
   {{- end -}}
   {{- if !empty(.Item.Authors) -}}
-    <li>By {{ join(.Item.Authors, ", ") }}</li>
+    <li>{{ gettext("By %s", join(.Item.Authors, ", ")) }}</li>
   {{- end -}}
     <li><a href="{{ .Item.URL }}">{{ .Item.Domain }}</a></li>
   {{- if .Item.ReadingTime() > 0 -}}
-    <li>About {{ .Item.ReadingTime() }}&nbsp;min read</li>
+    <li>{{ gettext("About %d min read", .Item.ReadingTime()) }}</li>
   {{- end -}}
 </ul>
 

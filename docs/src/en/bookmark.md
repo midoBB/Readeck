@@ -2,7 +2,7 @@
 
 ## The view
 
-![The bookmark view](img/bookmark-view.webp)
+![The bookmark view](../img/bookmark-view.webp)
 The bookmark view of an article.
 
 The bookmark view is divided in 3 sections:
@@ -33,7 +33,7 @@ On top of the bookmark view, a link takes you back to the previous page.
 
 If the bookmark is an article, a button on the other side lets you change some typography settings.
 
-![Bookmark typography settings](img/bookmark-typography.webp)
+![Bookmark typography settings](../img/bookmark-typography.webp)
 Typography settings.
 
 There you can set the font used for the text, the font size and the line height.\
@@ -74,7 +74,7 @@ No worries if you click on this by mistake! This action can be canceled before a
 
 You can add as many labels as you want to a bookmark. To do so, enter some text in the label field and click on **Add label**. There is no limit as to what can be a label. You can even add emojis if you like them.
 
-![Bookmark labels form](img/bookmark-labels.webp)
+![Bookmark labels form](../img/bookmark-labels.webp)
 Add a new label.
 
 Please read the [Labels](./labels.md) section for more information.
@@ -84,7 +84,7 @@ Please read the [Labels](./labels.md) section for more information.
 Found some interesting part in an article? You can highlight it!\
 When you select any text in the article, a menu appears that lets you create a new highlight.
 
-![Bookmark highlight creation](img/bookmark-highlight.webp)
+![Bookmark highlight creation](../img/bookmark-highlight.webp)
 Create a new highlight.
 
 Your highlights appear in the sidebar.

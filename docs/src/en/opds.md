@@ -34,11 +34,11 @@ The URL of your OPDS catalog is: \
 
 Once you have an Application Password, you can access the OPDS section in Koreader's lookup menu:
 
-![Koreader's lookup menu](./img/koreader-1.webp)
+![Koreader's lookup menu](../img/koreader-1.webp)
 
 This section shows a list of preconfigured OPDS sources and you can add yours by pressing the "+" icon on the top left corner:
 
-![Koreader catalog list](./img/koreader-2.webp)
+![Koreader catalog list](../img/koreader-2.webp)
 
 In this dialog replace the fields bellow with:
 
@@ -46,8 +46,8 @@ In this dialog replace the fields bellow with:
 - alice: your username
 - your application password in the last field
 
-![Koreader add catalog](./img/koreader-3.webp)
+![Koreader add catalog](../img/koreader-3.webp)
 
 You can now access your bookmarks from Koreader!
 
-![Koreader readeck catalog](./img/koreader-4.webp)
+![Koreader readeck catalog](../img/koreader-4.webp)

@@ -192,7 +192,7 @@ func (tm *TaskManager) Start() {
 	go tm.em.Listen()
 	for i := 0; i < tm.numWorkers; i++ {
 		tm.workerGroup.Add(1)
-		go func(id int) {
+		go func(_ int) {
 			defer tm.workerGroup.Done()
 			for task := range tm.queue {
 				task()

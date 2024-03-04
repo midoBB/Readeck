@@ -337,7 +337,6 @@ func main() {
 		log.Printf("%s -> %s", src, dst)
 		return nil
 	})
-
 	if err != nil {
 		log.Fatal(err)
 	}

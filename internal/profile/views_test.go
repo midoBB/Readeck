@@ -146,7 +146,7 @@ func TestViews(t *testing.T) {
 					evt := map[string]interface{}{}
 					assert.NoError(json.Unmarshal(Events().Records("task")[0], &evt))
 					assert.Equal("token.delete", evt["name"])
-					assert.Equal(float64(token.ID), evt["id"])
+					assert.InDelta(float64(token.ID), evt["id"], 0)
 
 					// There's a task in the store
 					task := fmt.Sprintf("tasks:token.delete:%d", token.ID)
@@ -155,7 +155,7 @@ func TestViews(t *testing.T) {
 
 					payload := map[string]interface{}{}
 					assert.NoError(json.Unmarshal([]byte(m), &payload))
-					assert.Equal(float64(20), payload["delay"])
+					assert.InDelta(float64(20), payload["delay"], 0)
 				},
 			},
 
@@ -236,7 +236,7 @@ func TestViews(t *testing.T) {
 					evt := map[string]interface{}{}
 					assert.NoError(json.Unmarshal(Events().Records("task")[0], &evt))
 					assert.Equal("credential.delete", evt["name"])
-					assert.Equal(float64(credential.ID), evt["id"])
+					assert.InDelta(float64(credential.ID), evt["id"], 0)
 
 					// There's a task in the store
 					task := fmt.Sprintf("tasks:credential.delete:%d", credential.ID)
@@ -245,7 +245,7 @@ func TestViews(t *testing.T) {
 
 					payload := map[string]interface{}{}
 					assert.NoError(json.Unmarshal([]byte(m), &payload))
-					assert.Equal(float64(20), payload["delay"])
+					assert.InDelta(float64(20), payload["delay"], 0)
 				},
 			},
 

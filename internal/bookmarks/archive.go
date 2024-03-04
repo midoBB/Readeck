@@ -111,7 +111,7 @@ var mimeTypes = map[string]string{
 func eventHandler(ex *extract.Extractor) func(ctx context.Context, arc *archiver.Archiver, evt archiver.Event) {
 	entry := log.NewEntry(ex.GetLogger()).WithFields(*ex.LogFields)
 
-	return func(ctx context.Context, arc *archiver.Archiver, evt archiver.Event) {
+	return func(_ context.Context, _ *archiver.Archiver, evt archiver.Event) {
 		switch evt.(type) {
 		case *archiver.EventError:
 			entry.WithFields(evt.Fields()).Warn("archive error")

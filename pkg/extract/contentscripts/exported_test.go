@@ -32,14 +32,14 @@ func TestExported(t *testing.T) {
 			},
 			{
 				"$.domain",
-				func(value goja.Value, drop *extract.Drop) any {
+				func(value goja.Value, _ *extract.Drop) any {
 					return value.Export()
 				},
 				"example.net",
 			},
 			{
 				"$.host",
-				func(value goja.Value, drop *extract.Drop) any {
+				func(value goja.Value, _ *extract.Drop) any {
 					return value.Export()
 				},
 				"host.example.net",
@@ -60,7 +60,7 @@ func TestExported(t *testing.T) {
 			},
 			{
 				`$.authors = ["john"]`,
-				func(value goja.Value, d *extract.Drop) any {
+				func(_ goja.Value, d *extract.Drop) any {
 					return d.Authors
 				},
 				[]string{"john"},
@@ -74,7 +74,7 @@ func TestExported(t *testing.T) {
 			},
 			{
 				`$.description = "new description"`,
-				func(value goja.Value, d *extract.Drop) any {
+				func(_ goja.Value, d *extract.Drop) any {
 					return d.Description
 				},
 				"new description",
@@ -88,7 +88,7 @@ func TestExported(t *testing.T) {
 			},
 			{
 				`$.title = "new title"`,
-				func(value goja.Value, d *extract.Drop) any {
+				func(_ goja.Value, d *extract.Drop) any {
 					return d.Title
 				},
 				"new title",
@@ -102,7 +102,7 @@ func TestExported(t *testing.T) {
 			},
 			{
 				`$.type = "video"`,
-				func(value goja.Value, d *extract.Drop) any {
+				func(_ goja.Value, d *extract.Drop) any {
 					return d.DocumentType
 				},
 				"video",
@@ -130,14 +130,14 @@ func TestExported(t *testing.T) {
 			},
 			{
 				`$.meta["abc"] = ["xyz", 123]`,
-				func(value goja.Value, d *extract.Drop) any {
+				func(_ goja.Value, d *extract.Drop) any {
 					return d.Meta["abc"]
 				},
 				[]string{"xyz", "123"},
 			},
 			{
 				`$.meta["abc"] = "xyz"`,
-				func(value goja.Value, d *extract.Drop) any {
+				func(_ goja.Value, d *extract.Drop) any {
 					return d.Meta["abc"]
 				},
 				[]string{"xyz"},
@@ -151,7 +151,7 @@ func TestExported(t *testing.T) {
 			},
 			{
 				`delete($.meta["test"])`,
-				func(value goja.Value, d *extract.Drop) any {
+				func(_ goja.Value, d *extract.Drop) any {
 					return d.Meta["test"]
 				},
 				[]string(nil),
@@ -208,7 +208,7 @@ func TestExported(t *testing.T) {
 		}{
 			{
 				`$.type = "not valid"`,
-				func(value goja.Value, d *extract.Drop) any {
+				func(_ goja.Value, d *extract.Drop) any {
 					return d.DocumentType
 				},
 				errors.New("is not a valid type"),

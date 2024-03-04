@@ -73,7 +73,7 @@ func TestImagePipeline(t *testing.T) {
 		{
 			[]img.ImageFilter{
 				func(i img.Image) error { return i.Clean() },
-				func(i img.Image) error { return errors.New("some error") },
+				func(_ img.Image) error { return errors.New("some error") },
 			},
 			"some error",
 		},

@@ -20,18 +20,18 @@ func TestRequests(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	httpmock.RegisterResponder("GET", "/json", func(r *http.Request) (*http.Response, error) {
+	httpmock.RegisterResponder("GET", "/json", func(_ *http.Request) (*http.Response, error) {
 		return httpmock.NewJsonResponse(200, map[string]any{
 			"a": "testA",
 			"b": "testB",
 		})
 	})
-	httpmock.RegisterResponder("GET", "/text", func(r *http.Request) (*http.Response, error) {
+	httpmock.RegisterResponder("GET", "/text", func(_ *http.Request) (*http.Response, error) {
 		rsp := httpmock.NewBytesResponse(200, []byte("some text"))
 		rsp.Header.Add("X-Test", "abc")
 		return rsp, nil
 	})
-	httpmock.RegisterResponder("GET", "/error", func(r *http.Request) (*http.Response, error) {
+	httpmock.RegisterResponder("GET", "/error", func(_ *http.Request) (*http.Response, error) {
 		return httpmock.NewBytesResponse(400, []byte("error")), nil
 	})
 	httpmock.RegisterResponder("GET", "/echo", func(r *http.Request) (*http.Response, error) {

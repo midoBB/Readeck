@@ -49,7 +49,7 @@ func TestTextField(t *testing.T) {
 	assert.Equal("test", f.Name())
 	assert.False(f.IsBound())
 	assert.True(f.IsNil())
-	assert.Equal(nil, f.Value())
+	assert.Nil(f.Value())
 
 	f.Set("value")
 	assert.False(f.IsBound())
@@ -59,7 +59,7 @@ func TestTextField(t *testing.T) {
 	f.Set(nil)
 	assert.False(f.IsBound())
 	assert.True(f.IsNil())
-	assert.Equal(nil, f.Value())
+	assert.Nil(f.Value())
 
 	t.Run("bind json", func(t *testing.T) {
 		tests := []fieldTypeTest{
@@ -144,7 +144,7 @@ func TestBooleanField(t *testing.T) {
 	assert.Equal("test", f.Name())
 	assert.False(f.IsBound())
 	assert.True(f.IsNil())
-	assert.Equal(nil, f.Value())
+	assert.Nil(f.Value())
 	assert.Equal("", f.String())
 
 	f.Set(true)
@@ -156,7 +156,7 @@ func TestBooleanField(t *testing.T) {
 	f.Set(nil)
 	assert.False(f.IsBound())
 	assert.True(f.IsNil())
-	assert.Equal(nil, f.Value())
+	assert.Nil(f.Value())
 	assert.Equal("", f.String())
 
 	t.Run("bind json", func(t *testing.T) {
@@ -249,7 +249,7 @@ func TestIntegerField(t *testing.T) {
 	assert.Equal("test", f.Name())
 	assert.False(f.IsBound())
 	assert.True(f.IsNil())
-	assert.Equal(nil, f.Value())
+	assert.Nil(f.Value())
 	assert.Equal("", f.String())
 
 	f.Set(10)
@@ -261,7 +261,7 @@ func TestIntegerField(t *testing.T) {
 	f.Set(nil)
 	assert.False(f.IsBound())
 	assert.True(f.IsNil())
-	assert.Equal(nil, f.Value())
+	assert.Nil(f.Value())
 	assert.Equal("", f.String())
 
 	assert.False(f.Set("abc"))
@@ -372,19 +372,19 @@ func TestDatetimeField(t *testing.T) {
 	assert.Equal("test", f.Name())
 	assert.False(f.IsBound())
 	assert.True(f.IsNil())
-	assert.Equal(nil, f.Value())
+	assert.Nil(f.Value())
 	assert.Equal("", f.String())
 
 	f.Set(nil)
 	assert.False(f.IsBound())
 	assert.True(f.IsNil())
-	assert.Equal(nil, f.Value())
+	assert.Nil(f.Value())
 	assert.Equal("", f.String())
 
 	f.Set(time.Time{})
 	assert.False(f.IsBound())
 	assert.True(f.IsNil())
-	assert.Equal(nil, f.Value())
+	assert.Nil(f.Value())
 	assert.Equal("", f.String())
 
 	f.Set(d)
@@ -487,13 +487,13 @@ func TestListField(t *testing.T) {
 	assert.Equal("test", f.Name())
 	assert.False(f.IsBound())
 	assert.True(f.IsNil())
-	assert.Equal(nil, f.Value())
+	assert.Nil(f.Value())
 	assert.Equal("", f.String())
 
 	f.Set(nil)
 	assert.False(f.IsBound())
 	assert.True(f.IsNil())
-	assert.Equal(nil, f.Value())
+	assert.Nil(f.Value())
 	assert.Equal("", f.String())
 
 	assert.True(f.Set([]int{1, 2, 3, 4}))
@@ -504,12 +504,12 @@ func TestListField(t *testing.T) {
 	assert.False(f.Set("value"))
 	assert.False(f.IsBound())
 	assert.True(f.IsNil())
-	assert.Equal(nil, f.Value())
+	assert.Nil(f.Value())
 
 	assert.False(f.Set([]bool{true, false}))
 	assert.False(f.IsBound())
 	assert.True(f.IsNil())
-	assert.Equal(nil, f.Value())
+	assert.Nil(f.Value())
 
 	assert.True(f.Set([]interface{}{1, 2, 3, 4}))
 	assert.False(f.IsBound())
@@ -519,7 +519,7 @@ func TestListField(t *testing.T) {
 	assert.False(f.Set([]interface{}{"a", "b"}))
 	assert.False(f.IsBound())
 	assert.True(f.IsNil())
-	assert.Equal(nil, f.Value())
+	assert.Nil(f.Value())
 
 	t.Run("bind param", func(t *testing.T) {
 		tests := []fieldTypeTest{
@@ -700,7 +700,7 @@ func TestChoiceListField(t *testing.T) {
 	assert.Equal("test", f.Name())
 	assert.False(f.IsBound())
 	assert.True(f.IsNil())
-	assert.Equal(nil, f.Value())
+	assert.Nil(f.Value())
 	assert.Equal("", f.String())
 
 	assert.True(f.Set([]string{"a", "b"}))
@@ -711,7 +711,7 @@ func TestChoiceListField(t *testing.T) {
 	assert.False(f.Set([]int{1, 2}))
 	assert.False(f.IsBound())
 	assert.True(f.IsNil())
-	assert.Equal(nil, f.Value())
+	assert.Nil(f.Value())
 
 	assert.True(f.Set([]string{"a", "f"}))
 	assert.EqualError(forms.ValidateField(f, f.Validators()...), "f is not a valid value")

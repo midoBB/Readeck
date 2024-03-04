@@ -83,7 +83,7 @@ func AddAnnotation(
 	if err != nil {
 		return err
 	}
-	r.Wrap(append(options, func(n *html.Node, index int) {
+	r.Wrap(append(options, func(n *html.Node, _ int) {
 		// Allways set the tag name, regardless of previously applied modifiers
 		n.Data = tagName
 	})...)

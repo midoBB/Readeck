@@ -26,7 +26,7 @@ func TestBookmarkAPIShare(t *testing.T) {
 			Target:       "/api/bookmarks/{{(index .User.Bookmarks 0).UID}}/share",
 			JSON:         true,
 			ExpectStatus: 201,
-			Assert: func(t *testing.T, r *Response) {
+			Assert: func(_ *testing.T, r *Response) {
 				publicPath = r.Redirect
 			},
 		},

@@ -149,7 +149,7 @@ func TestViews(t *testing.T) {
 				Target:         fmt.Sprintf("/admin/users/%d", u1.User.ID),
 				ExpectStatus:   200,
 				ExpectContains: "User will be removed in a few seconds",
-				Assert: func(t *testing.T, r *Response) {
+				Assert: func(t *testing.T, _ *Response) {
 					assert := require.New(t)
 					evt := map[string]interface{}{}
 
@@ -157,7 +157,7 @@ func TestViews(t *testing.T) {
 					assert.Len(Events().Records("task"), 1)
 					assert.NoError(json.Unmarshal(Events().Records("task")[0], &evt))
 					assert.Equal("user.delete", evt["name"])
-					assert.Equal(float64(u1.User.ID), evt["id"])
+					assert.InEpsilon(float64(u1.User.ID), evt["id"], 0)
 
 					// There's a task in the store
 					task := fmt.Sprintf("tasks:user.delete:%d", u1.User.ID)

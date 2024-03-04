@@ -385,7 +385,7 @@ func TestAnnotation(t *testing.T) {
 				"p[1]", 19,
 				"p[1]", 24,
 				[]func(r *AnnotationRange) error{
-					func(r *AnnotationRange) error {
+					func(_ *AnnotationRange) error {
 						return nil
 					},
 				},
@@ -395,10 +395,10 @@ func TestAnnotation(t *testing.T) {
 				"p[1]", 19,
 				"p[1]", 24,
 				[]func(r *AnnotationRange) error{
-					func(r *AnnotationRange) error {
+					func(_ *AnnotationRange) error {
 						return nil
 					},
-					func(r *AnnotationRange) error {
+					func(_ *AnnotationRange) error {
 						return errors.New("invalid range")
 					},
 				},
@@ -408,13 +408,13 @@ func TestAnnotation(t *testing.T) {
 				"p[1]", 19,
 				"p[1]", 24,
 				[]func(r *AnnotationRange) error{
-					func(r *AnnotationRange) error {
+					func(_ *AnnotationRange) error {
 						return nil
 					},
-					func(r *AnnotationRange) error {
+					func(_ *AnnotationRange) error {
 						return errors.New("error 1")
 					},
-					func(r *AnnotationRange) error {
+					func(_ *AnnotationRange) error {
 						return errors.New("error 2")
 					},
 				},
@@ -626,7 +626,7 @@ func TestAddAnnotation(t *testing.T) {
 
 			var err error
 			for j, a := range test.annotations {
-				err = AddAnnotation(root, "my-annotation", a.startSelector, a.startOffset, a.endSelector, a.endOffset, func(n *html.Node, index int) {
+				err = AddAnnotation(root, "my-annotation", a.startSelector, a.startOffset, a.endSelector, a.endOffset, func(n *html.Node, _ int) {
 					dom.SetAttribute(n, "data-annotation-id", strconv.Itoa(j))
 				})
 				if err != nil {

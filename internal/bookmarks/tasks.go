@@ -303,7 +303,7 @@ func conditionnalProcessor(test bool, p extract.Processor) extract.Processor {
 	return nilProcessor
 }
 
-var nilProcessor = func(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+var nilProcessor = func(_ *extract.ProcessMessage, next extract.Processor) extract.Processor {
 	return next
 }
 

@@ -213,14 +213,14 @@ func parseLine(line string) ([3]string, error) {
 type entryParser func(*Config, int, [][3]string) error
 
 func simpleStringValue(v *[]string) entryParser {
-	return func(cfg *Config, i int, entries [][3]string) error {
+	return func(_ *Config, i int, entries [][3]string) error {
 		*v = append(*v, entries[i][2])
 		return nil
 	}
 }
 
 func simpleBoolValue(v *bool) entryParser {
-	return func(cfg *Config, i int, entries [][3]string) error {
+	return func(_ *Config, i int, entries [][3]string) error {
 		*v = entries[i][2] == "yes"
 		return nil
 	}

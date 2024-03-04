@@ -110,8 +110,10 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 		fixImages(body, m)
 
 		// Simplify the top hierarchy
-		node := findFirstContentNode(body)
-		if node != body.FirstChild {
+		switch node := findFirstContentNode(body); {
+		case node == body:
+			break // just carry on
+		case node != body.FirstChild:
 			dom.ReplaceChild(body, node, body.FirstChild)
 		}
 
@@ -180,7 +182,7 @@ func findFirstContentNode(node *html.Node) *html.Node {
 func prepareTitles(top *html.Node) {
 	dom.ForEachNode(
 		dom.QuerySelectorAll(top, "h1, h2, h3, h4, h5, h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a"),
-		func(n *html.Node, i int) {
+		func(n *html.Node, _ int) {
 			for _, x := range []string{"id", "class"} {
 				if !dom.HasAttribute(n, x) {
 					continue
@@ -194,7 +196,7 @@ func prepareTitles(top *html.Node) {
 
 // restoreDataAttributes restore attributes previously stored as "data--readeck-*".
 func restoreDataAttributes(top *html.Node) {
-	dom.ForEachNode(dom.QuerySelectorAll(top, "[data--readeck-id]"), func(n *html.Node, i int) {
+	dom.ForEachNode(dom.QuerySelectorAll(top, "[data--readeck-id]"), func(n *html.Node, _ int) {
 		dom.SetAttribute(n, "id", dom.GetAttribute(n, "data--readeck-id"))
 		dom.RemoveAttribute(n, "data--readeck-id")
 	})
@@ -357,7 +359,7 @@ func convertPictureNodes(top *html.Node, _ *extract.ProcessMessage) {
 			return
 		}
 
-		dom.ForEachNode(dom.QuerySelectorAll(node, "*"), func(n *html.Node, i int) {
+		dom.ForEachNode(dom.QuerySelectorAll(node, "*"), func(n *html.Node, _ int) {
 			dom.SetAttribute(n, "class", "")
 			dom.SetAttribute(n, "id", "")
 		})

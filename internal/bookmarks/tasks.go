@@ -288,6 +288,11 @@ func extractPageHandler(data interface{}) {
 		fetchLinksProcessor(b),
 	)
 
+	if !params.FindMain {
+		// Disable readability when find_main=0
+		contents.EnableReadability(ex, false)
+	}
+
 	ex.Run()
 }
 
@@ -420,7 +425,6 @@ func fetchLinksProcessor(b *Bookmark) extract.Processor {
 				// d := seen[links[i].URL]
 				d := extract.NewDrop(URL)
 				err = d.Load(m.Extractor.Client())
-
 				if err != nil {
 					log.WithField("url", d.URL).WithError(err).Warn("extract link error")
 				}

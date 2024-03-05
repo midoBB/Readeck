@@ -21,7 +21,7 @@ type (
 func (s *Server) LoadLocale(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		user := auth.GetRequestUser(r)
-		lang := "en_US"
+		lang := "en-US"
 		var tr *locales.Locale
 		if !user.IsAnonymous() {
 			lang = user.Settings.Lang
@@ -41,5 +41,5 @@ func (s *Server) Locale(r *http.Request) *locales.Locale {
 	if t, ok := r.Context().Value(ctxLocaleKey{}).(*locales.Locale); ok {
 		return t
 	}
-	return locales.LoadTranslation("en_US")
+	return locales.LoadTranslation("en-US")
 }

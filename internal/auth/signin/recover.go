@@ -111,7 +111,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 		mailTc := server.TC{
 			"SiteURL":   h.srv.AbsoluteURL(r, "/"),
 			"EmailAddr": f.Get("email").String(),
-			"Loc":       locales.LoadTranslation("en_US"),
+			"Loc":       locales.LoadTranslation("en-US"),
 		}
 		code := shortuuid.New()
 		if user != nil {

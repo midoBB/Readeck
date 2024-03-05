@@ -25,8 +25,9 @@ import (
 )
 
 type (
-	ctxFileKey    struct{}
-	ctxSectionKey struct{}
+	ctxFileKey     struct{}
+	ctxSectionKey  struct{}
+	ctxLanguageKey struct{}
 )
 
 type helpHandlers struct {
@@ -59,41 +60,38 @@ func SetupRoutes(s *server.Server) {
 	// Document routes
 	// docHandler serves the document and requires authentication
 	docHandler := handler.With(s.AuthenticatedRouter(s.WithRedirectLogin).Middlewares()...)
-	for lang, section := range manifest.Sections {
+	for tag, section := range manifest.Sections {
 		for _, f := range section.Files {
 			// Document
 			docHandler.With(
 				s.WithPermission("docs", "read"),
 				handler.withFile(f),
-				handler.withSection(section),
+				handler.withSection(tag, section),
 			).Get("/"+f.Route, handler.serveDocument)
 
 			// Aliases
 			for _, alias := range f.Aliases {
-				handler.With(
+				docHandler.With(
 					s.WithPermission("docs", "read"),
-				).Get("/"+alias, handler.serverRedirect(routePrefix+"/"+f.Route))
+				).Get("/"+alias, handler.serveRedirect(routePrefix+"/"+f.Route))
 			}
 		}
-
-		if lang == "en" {
-			// About page
-			docHandler.With(
-				s.WithPermission("system", "read"),
-				handler.withSection(section),
-			).Get("/about", handler.serverAbout)
-		}
 	}
+	// About page
+	docHandler.With(
+		s.WithPermission("system", "read"),
+	).Get("/about", handler.serveAbout)
 
 	// Main redirection (TODO: do something with user language when we have translations)
-	handler.Get("/", handler.serverRedirect(routePrefix+"/en/"))
+	docHandler.With(s.WithPermission("docs", "read")).Get("/", handler.localeRedirect)
+	docHandler.With(s.WithPermission("docs", "read")).Get("/{path}", handler.localeRedirect)
 
 	// API documentation
 	docHandler.With(
 		s.WithPermission("docs", "read"),
 	).Group(func(r chi.Router) {
-		r.Get("/api", handler.serverAPIDocs)
-		r.Get("/api.json", handler.serverAPISchema)
+		r.Get("/api", handler.serveAPIDocs)
+		r.Get("/api.json", handler.serveAPISchema)
 	})
 
 	s.AddRoute(routePrefix, handler)
@@ -115,17 +113,29 @@ func (h *helpHandlers) withFile(f *File) func(next http.Handler) http.Handler {
 	}
 }
 
-func (h *helpHandlers) withSection(section *Section) func(next http.Handler) http.Handler {
+func (h *helpHandlers) withSection(tag string, section *Section) func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			ctx := context.WithValue(r.Context(), ctxSectionKey{}, section)
+			ctx = context.WithValue(ctx, ctxLanguageKey{}, tag)
 			next.ServeHTTP(w, r.WithContext(ctx))
 		})
 	}
 }
 
+func (h *helpHandlers) getSection(r *http.Request) (*Section, string) {
+	if section, ok := r.Context().Value(ctxSectionKey{}).(*Section); ok {
+		return section, r.Context().Value(ctxLanguageKey{}).(string)
+	}
+
+	tag := h.srv.Locale(r).Tag.String()
+	if _, ok := manifest.Sections[tag]; !ok {
+		tag = "en-US"
+	}
+	return manifest.Sections[tag], tag
+}
+
 func (h *helpHandlers) serveDocument(w http.ResponseWriter, r *http.Request) {
-	section, _ := r.Context().Value(ctxSectionKey{}).(*Section)
 	f, _ := r.Context().Value(ctxFileKey{}).(*File)
 
 	fd, err := Files.Open(f.File)
@@ -143,10 +153,12 @@ func (h *helpHandlers) serveDocument(w http.ResponseWriter, r *http.Request) {
 	buf := new(bytes.Buffer)
 	repl.WriteString(buf, contents.String())
 
+	section, tag := h.getSection(r)
 	h.srv.RenderTemplate(w, r, http.StatusOK, "docs/index", server.TC{
-		"TOC":   section.TOC,
-		"Title": f.Title,
-		"HTML":  buf,
+		"TOC":      section.TOC,
+		"Language": tag,
+		"Title":    f.Title,
+		"HTML":     buf,
 	})
 }
 
@@ -162,13 +174,22 @@ func (h *helpHandlers) serveStatic(w http.ResponseWriter, r *http.Request) {
 	http.ServeContent(w, r, f.File, time.Time{}, fd)
 }
 
-func (h *helpHandlers) serverRedirect(to string) http.HandlerFunc {
+func (h *helpHandlers) localeRedirect(w http.ResponseWriter, r *http.Request) {
+	tag := h.srv.Locale(r).Tag.String()
+	if _, ok := manifest.Sections[tag]; !ok {
+		tag = "en-US"
+	}
+
+	h.srv.Redirect(w, r, routePrefix+"/"+tag+"/"+chi.URLParam(r, "path"))
+}
+
+func (h *helpHandlers) serveRedirect(to string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		h.srv.Redirect(w, r, to)
 	}
 }
 
-func (h *helpHandlers) serverAbout(w http.ResponseWriter, r *http.Request) {
+func (h *helpHandlers) serveAbout(w http.ResponseWriter, r *http.Request) {
 	fp, err := assets.Open("licenses/licenses.toml")
 	if err != nil {
 		h.srv.Error(w, r, err)
@@ -185,9 +206,10 @@ func (h *helpHandlers) serverAbout(w http.ResponseWriter, r *http.Request) {
 		return strings.Compare(strings.ToLower(a.Name), strings.ToLower(b.Name))
 	})
 
-	section, _ := r.Context().Value(ctxSectionKey{}).(*Section)
+	section, tag := h.getSection(r)
 	h.srv.RenderTemplate(w, r, http.StatusOK, "docs/about", server.TC{
 		"TOC":         section.TOC,
+		"Language":    tag,
 		"Version":     configs.Version(),
 		"BuildTime":   configs.BuildTime(),
 		"Licenses":    licenses["licenses"],
@@ -198,7 +220,7 @@ func (h *helpHandlers) serverAbout(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func (h *helpHandlers) serverAPISchema(w http.ResponseWriter, r *http.Request) {
+func (h *helpHandlers) serveAPISchema(w http.ResponseWriter, r *http.Request) {
 	fd, err := Files.Open("api.json")
 	if err != nil {
 		h.srv.Error(w, r, err)
@@ -217,7 +239,7 @@ func (h *helpHandlers) serverAPISchema(w http.ResponseWriter, r *http.Request) {
 	repl.WriteString(w, contents.String())
 }
 
-func (h *helpHandlers) serverAPIDocs(w http.ResponseWriter, r *http.Request) {
+func (h *helpHandlers) serveAPIDocs(w http.ResponseWriter, r *http.Request) {
 	// By including a web component full of inline styles, we need
 	// to relax the style-src policy.
 	policy := server.GetCSPHeader(r).Clone()

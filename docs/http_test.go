@@ -24,12 +24,35 @@ func TestDocs(t *testing.T) {
 			RequestTest{
 				Target: "/docs",
 				Assert: func(t *testing.T, r *Response) {
-					r.AssertStatus(t, 303)
-					r.AssertRedirect(t, "/docs/en/")
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/docs/en-US/")
+					case "disabled":
+						r.AssertStatus(t, 403)
+					case "":
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
 				},
 			},
 			RequestTest{
-				Target: "/docs/en/",
+				Target: "/docs/bookmark",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/docs/en-US/bookmark")
+					case "disabled":
+						r.AssertStatus(t, 403)
+					case "":
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Target: "/docs/en-US/",
 				Assert: func(t *testing.T, r *Response) {
 					switch user {
 					case "admin", "staff", "user":
@@ -43,7 +66,7 @@ func TestDocs(t *testing.T) {
 				},
 			},
 			RequestTest{
-				Target: "/docs/en/bookmark",
+				Target: "/docs/en-US/bookmark",
 				Assert: func(t *testing.T, r *Response) {
 					switch user {
 					case "admin", "staff", "user":
@@ -57,11 +80,11 @@ func TestDocs(t *testing.T) {
 				},
 			},
 			RequestTest{
-				Target:       "/docs/en/not-found",
+				Target:       "/docs/en-US/not-found",
 				ExpectStatus: 404,
 			},
 			RequestTest{
-				Target: "/docs/en/img/bookmark-new.webp",
+				Target: "/docs/img/bookmark-new.webp",
 				Assert: func(t *testing.T, r *Response) {
 					r.AssertStatus(t, 200)
 					require.Equal(t, "image/webp", r.Header.Get("content-type"))

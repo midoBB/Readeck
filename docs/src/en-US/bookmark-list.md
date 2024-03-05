@@ -8,7 +8,7 @@ Found a web page you like? Great! Copy its link into the text field named **new 
 
 ![New Bookmark form](../img/bookmark-new.webp)
 
-After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook (for more information, please read the [Bookmark View](./bookmark.md) section).
+After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section.
 
 ## Bookmark type
 
@@ -78,7 +78,7 @@ A card shows:
 - the **title** on which you can click to watch or read the bookmark,
 - the **site name**,
 - the estimated **reading time**,
-- the **tag list**,
+- the **label list**,
 - **action buttons**
 
 The action buttons perform the following:
@@ -91,7 +91,7 @@ The action buttons perform the following:
   This marks the bookmark for deletion (it can be canceled during a few seconds).
 
 
-## Filter results
+## Filter bookmarks
 
 On the bookmark list, you can filter your results based on one or several criteria. Click on the button "Filter list" next to the page title to open the filtering form.
 

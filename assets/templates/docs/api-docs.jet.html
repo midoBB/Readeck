@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{ extends "/base" }}
 
-{{- block title() -}}API Documentation{{- end -}}
+{{- block title() -}}{{ gettext("API Documentation") }}{{- end -}}
 
 {{- block head() -}}
   <script type="module" src="{{ assetURL(`vendor/rapidoc.js`) }}" nonce="{{ cspNonce }}"></script>
@@ -18,7 +18,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 )) -}}
 <div class="flex h-screen max-sm:flex-col">
   {{ include "/menu" }}
-  <div class="grow md:overflow-y-auto" id="content">
+  <div class="grow md:overflow-y-auto" id="content" lang="en-US">
     <rapi-doc
      spec-url="{{ .Schema }}"
      persist-auth="true"

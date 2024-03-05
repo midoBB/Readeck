@@ -58,7 +58,7 @@ func (t *Locale) Npgettext(ctx, str, plural string, n int, vars ...interface{}) 
 
 // LoadTranslation loads the best match translation for a given locale code.
 func LoadTranslation(lang string) *Locale {
-	_, i := language.MatchStrings(language.NewMatcher(allTags), lang, "en_US")
+	_, i := language.MatchStrings(language.NewMatcher(allTags), lang, "en-US")
 
 	return catalog[allTags[i]]
 }

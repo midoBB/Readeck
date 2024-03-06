@@ -28,7 +28,7 @@ export GOOS?=
 export GOARCH?=
 export CGO_CFLAGS ?= -D_LARGEFILE64_SOURCE
 export CC?=
-export XGO_VERSION ?= go-1.21.x
+export XGO_VERSION ?= go-1.22.x
 export XGO_PACKAGE ?= src.techknowlogick.com/xgo@latest
 export XGO_FLAGS ?= ""
 

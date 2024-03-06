@@ -1,0 +1,50 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "blog-item-top-wrapper",
+    "eapps-social-share-buttons-container",
+    "eapps-social-share-buttons-all-inner",
+    "sqs-gallery-thumbnails",
+    "newsletter-form-wrapper",
+    "blog-item-author-profile-wrapper",
+    "blog-item-comments"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "data-src=\"https://",
+      "src=\"https://"
+    ],
+    [
+      "\u003cnoscript\u003e",
+      "\u003cdiv style=\"display:none;\"\u003e"
+    ],
+    [
+      "\u003c/noscript\u003e",
+      "\u003c/div\u003e"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.matthewball.vc/all/gaming2024?utm_campaign=mb\u0026utm_medium=newsletter\u0026utm_source=morning_brew",
+      "contains": []
+    },
+    {
+      "url": "https://www.matthewball.vc/all/digitalthemeparkplatforms",
+      "contains": []
+    }
+  ]
+}

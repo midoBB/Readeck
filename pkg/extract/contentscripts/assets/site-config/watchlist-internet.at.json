@@ -1,0 +1,49 @@
+{
+  "title_selectors": [
+    "//h1[contains(@class, 'inner-intro__title')]"
+  ],
+  "body_selectors": [
+    "//main[1]/div[contains(@class, 'frame')]"
+  ],
+  "date_selectors": [
+    "//*[@class='news-info__date']",
+    "substring-after(//div[@class='news-info'], 'online seit')"
+  ],
+  "author_selectors": null,
+  "strip_selectors": [
+    "//button/self::* | //button/parent::h2[contains(@class, 'accordion')]",
+    "//div[contains(@class, 'alert') and contains(text(), 'info icon') ]/text()",
+    "//div[contains(@class, 'alert') and contains(text(), 'Info Icon') ]/text()"
+  ],
+  "strip_id_or_class": [
+    "visually-hidden"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cdiv class=\"container",
+      "\u003cdiv class=\"foocontainer"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.watchlist-internet.at/news/e-mail-von-dns-eu-ist-betruegerisch/",
+      "contains": []
+    },
+    {
+      "url": "https://www.watchlist-internet.at/news/unserioese-dirndl-shops-drohen-mit-anzeige-ignorieren-sie-die-nachrichten/",
+      "contains": []
+    },
+    {
+      "url": "https://www.watchlist-internet.at/rss/",
+      "contains": []
+    }
+  ]
+}

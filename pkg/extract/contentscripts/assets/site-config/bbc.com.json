@@ -24,7 +24,10 @@
     "//article//header",
     "//div[contains(@class, \"CommentsWrapper\")]",
     "//*[contains(@class, 'VisuallyHidden')]",
+    "//*[@data-testid='byline-role' or @data-testid='drawer-background' or @data-testid='main-footer']",
+    "//*[@data-analytics_group_name='More' or @data-analytics_group_name='Related']",
     "//svg",
+    "//button",
     "//div[contains(@class, \"story-feature\") and not(contains(@class, 'full-width'))]",
     "//span[@class=\"story-date\"]",
     "//div[@class=\"warning\"]//p",
@@ -53,7 +56,9 @@
     "share-help",
     "comments_module"
   ],
-  "strip_image_src": null,
+  "strip_image_src": [
+    "grey-placeholder.png"
+  ],
   "native_ad_selectors": [
     "//meta[@property=\"og:url\" and contains(@content, '/sponsored/')]"
   ],

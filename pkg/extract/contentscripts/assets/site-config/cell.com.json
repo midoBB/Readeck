@@ -1,0 +1,45 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@class='article__body']"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//button",
+    "//*[contains(@style, 'display:none')]"
+  ],
+  "strip_id_or_class": [
+    "left-side-nav",
+    "dropBlock__holder",
+    "accordion",
+    "rlist--inline",
+    "widget-verticalAd",
+    "literatumAd",
+    "Marketplace-Recs"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "class=\"container\"",
+      "class=\"foocontainer\""
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.cell.com/cell/fulltext/S0092-8674(23)01349-1",
+      "contains": []
+    },
+    {
+      "url": "https://www.cell.com/cell/fulltext/S0092-8674(22)01377-0",
+      "contains": []
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//main[1] | //div[@id='page-features']"
+  ],
+  "date_selectors": [
+    "//attribute[@name='date']/@value",
+    "//div[contains(@class, 'byline')]//div[@class='dates']/text()"
+  ],
+  "author_selectors": [
+    "//attribute[@name='author']/@value",
+    "//div[contains(@class, 'byline')]//div[@class='name']"
+  ],
+  "strip_selectors": [
+    "//div [contains(@class, 'byline')]/ancestor::section[1]",
+    "//section[@class='subscribe-section']/self::section | //section[@class='subscribe-section']/following-sibling::section"
+  ],
+  "strip_id_or_class": [
+    "join-community"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.mercatornet.com/hosing_down_the_biggest_moral_panic_in_canadian_history",
+      "contains": []
+    },
+    {
+      "url": "https://www.mercatornet.com/europe_new_digital_identity_wallet",
+      "contains": []
+    }
+  ]
+}

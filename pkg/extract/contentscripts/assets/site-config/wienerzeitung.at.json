@@ -3,19 +3,21 @@
     "//header/div/h1[1]"
   ],
   "body_selectors": [
-    "//body/div[contains(@class, 'w-full')]"
+    "//main[1] | //main[1]/preceding-sibling::div/figure | //header[1]/h1"
   ],
   "date_selectors": [
     "//time"
   ],
   "author_selectors": [
-    "//header/div/ul/li/a"
+    "//meta[@name='author']/@content"
   ],
   "strip_selectors": [
     "//nav/parent::div",
-    "//header",
     "//footer",
     "//svg",
+    "//ul[contains(@class, 'scrollbar-hide')]/parent::div",
+    "//button[contains(text(), 'Cookie Einstellungen')]/ancestor::div[1]",
+    "//a[substring(@href, string-length(@href) - string-length('/transparenz') + 1)  = '/transparenz']",
     "//h2[text()='Andere Inhalte']/parent::section",
     "//a[contains(@href, '/newsletter')]/parent::div"
   ],
@@ -26,7 +28,9 @@
   "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
-  "next_page_link_selectors": null,
+  "next_page_link_selectors": [
+    "//a[substring(@href, string-length(@href) - string-length('/transparenz') + 1)  = '/transparenz']"
+  ],
   "replace_strings": null,
   "http_headers": null,
   "tests": [

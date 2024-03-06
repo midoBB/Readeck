@@ -4,6 +4,7 @@
   ],
   "body_selectors": [
     "//div[contains(concat(' ',normalize-space(@class),' '),' article__content-body ')]",
+    "//article[@id='article-body'] | //div[@class='main-image']",
     "//div[@id='storyContent']"
   ],
   "date_selectors": [
@@ -14,6 +15,7 @@
     "//meta[@property=\"article:author\"]/@content"
   ],
   "strip_selectors": [
+    "//a[contains(@href, '/newsletter')]/ancestor::*[@class='n-content-layout']",
     "//aside",
     "//experimental"
   ],
@@ -21,7 +23,8 @@
     "shareArt",
     "promobox",
     "n-content-pullquote__content",
-    "in-article-advert"
+    "in-article-advert",
+    "flourish-disclaimer"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

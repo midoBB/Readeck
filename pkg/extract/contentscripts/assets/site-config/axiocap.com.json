@@ -1,0 +1,48 @@
+{
+  "title_selectors": [
+    "//meta[@property='og:title' and substring(@content, string-length(@content) - 9) != ' - Axiocap']/@content",
+    "substring-before( //meta[@property='og:title']/@content , ' - Axiocap')",
+    "//div[contains(@class, 'div-block-header')]//h1"
+  ],
+  "body_selectors": [
+    "//body/div[starts-with(@class, 'section-')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//div[@class='text-block-134']"
+  ],
+  "strip_selectors": [
+    "(//body/div[starts-with(@class, 'section-')])[last()]",
+    "(//body/div[starts-with(@class, 'section-')])[1]/div[not(contains(@class, 'div-block-header'))]",
+    "(//body/div[starts-with(@class, 'section-')])[1]//h1"
+  ],
+  "strip_id_or_class": [
+    "text-block-234",
+    "collection-list-wrapper",
+    "div-block-131",
+    "div-block-142",
+    "div-block-144",
+    "div-block-326",
+    "div-block-135",
+    "div-block-501"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.axiocap.com/blog/digitalisation-entreprises-reussir-transformation-ere-numerique",
+      "contains": []
+    },
+    {
+      "url": "https://www.axiocap.com/blog/actionnariat-salarie-entreprise",
+      "contains": []
+    }
+  ]
+}

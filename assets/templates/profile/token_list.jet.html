@@ -7,21 +7,23 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ import "/_libs/forms" }}
 {{ import "/_libs/list"}}
 
-{{ block title() }}API Tokens{{ end }}
+{{ block title() }}{{ gettext("API Tokens") }}{{ end }}
 
 {{ block mainContent() }}
-<h1 class="title text-h2">Your API Tokens</h1>
+<h1 class="title text-h2">{{ gettext("Your API Tokens") }}</h1>
 
 <div class="prose mb-4">
-<p>An API Token is a key that grants you (or another tool like a browser extension)
-access to the Readeck API.</p>
-<p>Please read the <a href="{{ urlFor(`/docs/api`) }}">API Documentation</a> if you plan to use it.</p>
+<p>{{ gettext(`
+  An API Token is a key that grants you (or another tool like a browser extension)
+  access to the Readeck API.
+`) }}</p>
+<p>{{ gettext(`Please read the <a href="%s">API Documentation</a> if you plan to use it.`, urlFor("/docs/api"))|raw }}</p>
 </div>
 
 
 <form class="mb-4" action="{{ urlFor() }}" method="post">
   {{ yield csrfField() }}
-  <p><button class="btn-primary" type="submit">Create a new API token</button></p>
+  <p><button class="btn-primary" type="submit">{{ gettext("Create a new API token") }}</button></p>
 </form>
 
 {{ if len(.Tokens) > 0 }}
@@ -44,21 +46,21 @@ access to the Readeck API.</p>
           <a class="link" href="{{ urlFor(`.`, .ID ) }}">{{ .ID }}</a>
           - <small>{{ .Application }}</small>
         </div>
-        <div><small>Created on: {{ date(.Created, "%e %B %Y") }}
-        {{- if .Expires }} (Expires on: {{ date(.Expires, "%e %B %Y") }}){{ end -}}
+        <div><small>{{ gettext("Created on: %s", date(.Created, "%e %B %Y")) }}
+        {{- if .Expires }} ({{ gettext("Expires on: %s", date(.Expires, "%e %B %Y")) }}){{ end -}}
         </small></div>
       </div>
       {{- if .IsDeleted -}}
         <div class="flex items-center max-w-xs"
           data-user-deleted="true">
           <span class="text-red-700 text-xs font-semibold">
-            This token will be removed in a few seconds.
+            {{ gettext("This token will be removed in a few seconds.") }}
           </span>
           <form action="{{ urlFor(`.`, .ID, `delete`) }}" method="post">
             {{ yield csrfField() }}
             <input type="hidden" name="cancel" value="1" />
             <button type="submit"
-            class="btn-primary whitespace-nowrap text-sm py-1 ml-2">{{ yield icon(name="o-undo") }} Undo</button>
+            class="btn-primary whitespace-nowrap text-sm py-1 ml-2">{{ yield icon(name="o-undo") }} {{ gettext("Cancel") }}</button>
           </form>
         </div>
       {{- end -}}

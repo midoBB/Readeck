@@ -24,7 +24,7 @@ func newTokenLoginForm(tr forms.Translator) (f *tokenLoginForm) {
 		forms.NewTextField("username", forms.Trim, forms.Required),
 		forms.NewTextField("password", forms.Required),
 		forms.NewTextField("application", forms.Required),
-		users.NewRolesField(nil),
+		users.NewRolesField(tr, nil),
 	)}
 	f.SetLocale(tr)
 	return

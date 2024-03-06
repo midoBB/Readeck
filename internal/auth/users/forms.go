@@ -25,13 +25,6 @@ type (
 // rxUsername is the regexp used to validate a username.
 var rxUsername = regexp.MustCompile(`^[a-zA-Z0-9_-]+$`)
 
-var availableScopes = [][2]string{
-	{"scoped_bookmarks_r", "Bookmarks : Read Only"},
-	{"scoped_bookmarks_w", "Bookmarks : Write Only"},
-	{"scoped_admin_r", "Admin : Read Only"},
-	{"scoped_admin_w", "Admin : Write Only"},
-}
-
 // IsValidPassword is the password validation rule.
 var IsValidPassword = forms.StringValidator(func(v string) bool {
 	if strings.TrimSpace(v) == "" {
@@ -189,7 +182,7 @@ func (f *UserForm) UpdateUser(u *User) (res map[string]interface{}, err error) {
 }
 
 // NewRolesField returns a forms.Field with user's role choices.
-func NewRolesField(user *User) forms.Field {
+func NewRolesField(tr forms.Translator, user *User) forms.Field {
 	roleConstructor := func(n string) forms.Field {
 		return forms.NewTextField(n, forms.Trim)
 	}
@@ -199,6 +192,13 @@ func NewRolesField(user *User) forms.Field {
 			res[i] = x.String()
 		}
 		return res
+	}
+
+	availableScopes := [][2]string{
+		{"scoped_bookmarks_r", tr.Gettext("Bookmarks : Read Only")},
+		{"scoped_bookmarks_w", tr.Gettext("Bookmarks : Write Only")},
+		{"scoped_admin_r", tr.Gettext("Admin : Read Only")},
+		{"scoped_admin_w", tr.Gettext("Admin : Write Only")},
 	}
 
 	// Only present policies that the current user can access

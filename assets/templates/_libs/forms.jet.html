@@ -29,8 +29,8 @@ SPDX-License-Identifier: AGPL-3.0-only
     {{ if label -}}
       <label for="{{ name }}">
         {{- label -}}
+        {{- if required }} <span title="{{ gettext(`Required`) }}" aria-hidden class="text-red-600">•</span>{{- end -}}
         {{- if required }} <span class="sr-only">{{ gettext("Required") }}</span>{{- end -}}
-        {{- if required }} <span title="{{ gettext(`Required`) }}" aria-hidden class="text-red-600">•</span>{{- end -}}
       </label>
     {{- end }}
     <div class="flex-grow" {{ controlAttrs }}>

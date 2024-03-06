@@ -252,7 +252,7 @@ func newCredentialForm(tr forms.Translator, user *users.User) (f *credentialForm
 	f = &credentialForm{forms.Must(
 		forms.NewBooleanField("is_enabled", forms.RequiredOrNil),
 		forms.NewTextField("name", forms.Required, forms.Trim),
-		users.NewRolesField(user),
+		users.NewRolesField(tr, user),
 	)}
 	f.SetLocale(tr)
 	return
@@ -329,7 +329,7 @@ func newTokenForm(tr forms.Translator, user *users.User) (f *tokenForm) {
 	f = &tokenForm{forms.Must(
 		forms.NewBooleanField("is_enabled", forms.RequiredOrNil),
 		forms.NewDatetimeField("expires"),
-		users.NewRolesField(user),
+		users.NewRolesField(tr, user),
 	)}
 	f.SetLocale(tr)
 	return

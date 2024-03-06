@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "./base" }}
 {{ import "/_libs/forms" }}
 
-{{ block title() }}API Token{{ end }}
+{{ block title() }}{{ gettext("API Token") }}{{ end }}
 
 {{ block mainContent() }}
 <h1 class="title text-h2">{{ yield title() }}</h1>
@@ -16,13 +16,13 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{ yield csrfField() }}
   <input type="hidden" name="_to" value="{{ currentPath }}" />
   {{- yield message() content -}}
-      Token will be removed in a few seconds&nbsp;
-      <button class="btn-primary" name="cancel" value="1">Cancel</button>
+      {{ gettext("Token will be removed in a few seconds") }}&nbsp;
+      <button class="btn-primary" name="cancel" value="1">{{ gettext("Cancel") }}</button>
   {{- end -}}
 </form>
 {{- end }}
 
-<h2 class="title text-h3">Properties</h2>
+<h2 class="title text-h3">{{ gettext("Properties") }}</h2>
 
 <form class="mb-4" action="{{ urlFor() }}" method="post">
   {{ yield formErrors(form=.Form) }}
@@ -33,43 +33,43 @@ SPDX-License-Identifier: AGPL-3.0-only
     <div class="control">{{ .Token.UID }}</div>
   </div>
   <div class="field field-h">
-    <label>Application:</label>
+    <label>{{ gettext("Application:") }}</label>
     <div class="control">{{ .Token.Application }}</div>
   </div>
 
   {{ yield checkboxField(
     field=.Form.Get("is_enabled"),
-    label="Enabled",
+    label=gettext("Enabled"),
     class="field-h",
   ) }}
 
   {{ yield dateField(
     field=.Form.Get("expires"),
-    label="Expires at",
+    label=gettext("Expires at"),
     class="field-h",
   ) }}
 
   <h2 class="title text-h3">Roles</h2>
 
-  <p class="my-4 max-w-xl">
+  <p class="my-4 max-w-xl">{{ gettext(`
     You can limit the permissions granted to this token by choosing one or more
     group of permissions bellow.<br>
     Leave all the choices blank to grant all your permissions to this token.
-  </p>
+  `)|raw }}</p>
 
   {{ yield multiSelectField(
     field=.Form.Get("roles"),
-    label="Roles",
+    label=gettext("Roles"),
     class="field-h",
   ) }}
 
-  <p><button class="btn-primary" type="submit">Save</button></p>
+  <p><button class="btn-primary" type="submit">{{ gettext("Save") }}</button></p>
 </form>
 
-<h2 class="title text-h3">API authentication</h2>
+<h2 class="title text-h3">{{ gettext("API authentication") }}</h2>
 
 <div class="w-full mb-6" data-controller="clipboard">
-  <label class="font-semibold">Your API token</label>
+  <label class="font-semibold">{{ gettext("Your API token") }}</label>
   <button class="link" type="button" data-action="clipboard#copy">
     {{- yield icon(name="o-copy") -}}
   </button>
@@ -77,8 +77,7 @@ SPDX-License-Identifier: AGPL-3.0-only
    data-clipboard-target="content">{{ .JWT }}</textarea>
 </div>
 
-<p class="mb-2">You can use this token by passing it as an <code>Authorization: Bearer</code>
-HTTP header.</p>
+<p class="mb-2">{{ gettext("You can use this token by passing it as an <code>Authorization: Bearer</code> HTTP header.")|raw }}</p>
 <div class="w-full mb-4" data-controller="clipboard">
   <label class="font-semibold">HTTP Header</label>
   <button class="link" type="button" data-action="clipboard#copy">
@@ -90,10 +89,10 @@ HTTP header.</p>
 
 
 {{ if !.Token.IsDeleted -}}
-<h2 class="title text-h3">Delete token</h2>
+<h2 class="title text-h3">{{ gettext("Delete token") }}</h2>
 <form action="{{ urlFor(`.`, `delete`) }}" method="POST">
   {{ yield csrfField() }}
-  <p><button class="btn-danger">Delete token</button></p>
+  <p><button class="btn-danger">{{ gettext("Delete token") }}</button></p>
 </form>
 {{- end }}
 

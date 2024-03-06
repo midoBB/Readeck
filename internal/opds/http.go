@@ -46,29 +46,31 @@ func (h *opdsRouter) mainCatalog(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	tr := h.srv.Locale(r)
+
 	c := catalog.New(h.srv, r,
 		catalog.WithFeedType(opds.OPDSTypeNavigation),
 		catalog.WithTitle("Readeck"),
 		catalog.WithUpdated(lastUpdate),
 		catalog.WithURL(h.srv.AbsoluteURL(r).String()),
 		catalog.WithNavEntry(
-			"Unread Bookmarks", lastUpdate,
+			tr.Gettext("Unread Bookmarks"), lastUpdate,
 			h.srv.AbsoluteURL(r, ".", "bookmarks/unread").String(),
 		),
 		catalog.WithNavEntry(
-			"Archived Bookmarks", lastUpdate,
+			tr.Gettext("Archived Bookmarks"), lastUpdate,
 			h.srv.AbsoluteURL(r, ".", "bookmarks/archives").String(),
 		),
 		catalog.WithNavEntry(
-			"Favorite Bookmarks", lastUpdate,
+			tr.Gettext("Favorite Bookmarks"), lastUpdate,
 			h.srv.AbsoluteURL(r, ".", "bookmarks/favorites").String(),
 		),
 		catalog.WithNavEntry(
-			"All Bookmarks", lastUpdate,
+			tr.Gettext("All Bookmarks"), lastUpdate,
 			h.srv.AbsoluteURL(r, ".", "bookmarks/all").String(),
 		),
 		catalog.WithNavEntry(
-			"Bookmark Collections", lastUpdate,
+			tr.Gettext("Bookmark Collections"), lastUpdate,
 			h.srv.AbsoluteURL(r, ".", "bookmarks/collections").String(),
 			func(e *opds.Entry) {
 				e.Links[0].TypeLink = opds.OPDSTypeNavigation

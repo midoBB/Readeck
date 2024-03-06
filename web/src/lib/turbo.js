@@ -10,9 +10,11 @@ const cspNonce = document.querySelector(
 ).content
 
 document.addEventListener("turbo:before-fetch-request", (evt) => {
+  // Method MUST be uppercase
+  evt.detail.fetchOptions.method = evt.detail.fetchOptions.method.toUpperCase()
+
   // Insert the CSRF token when needed
-  let meth = evt.detail.fetchOptions.method.toUpperCase()
-  if (!safeMethods.includes(meth)) {
+  if (!safeMethods.includes(evt.detail.fetchOptions.method)) {
     evt.detail.fetchOptions.headers["X-CSRF-Token"] = csrfToken
   }
 

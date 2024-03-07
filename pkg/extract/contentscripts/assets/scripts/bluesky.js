@@ -70,6 +70,10 @@ function loadThread(userName, postID) {
       noteHtml = noteHtml.replace(/\n\n/g, "</p><p>")
       noteHtml = noteHtml.replace(/\n/g, "<br>")
 
+      if ("link" in n) {
+        noteHtml += `<p><a href="${n.link.uri}">${n.link.title}</a></p>`
+      }
+
       return `<article>${noteHtml}</article>`
     })
 
@@ -88,6 +92,13 @@ function getNoteData(note) {
   const noteData = {
     published: note.record.createdAt,
     html: note.record.text,
+  }
+
+  if (!!note?.embed?.external) {
+    noteData.link = {
+      uri: note.embed.external.uri,
+      title: note.embed.external.title,
+    }
   }
   return noteData
 }

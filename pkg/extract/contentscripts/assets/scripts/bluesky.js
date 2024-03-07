@@ -100,5 +100,27 @@ function getNoteData(note) {
       title: note.embed.external.title,
     }
   }
+
+  for (const key in note.record.facets) {
+    const facet = note.record.facets[key]
+    if (facet?.features[0].uri === noteData.link.uri) {
+      // There’s a discrepancy between byteStart/byteEnd and the content of `note.record.text`
+      const difference = note.record.text.length - facet.index.byteEnd
+
+      if (difference <= 0) {
+        // If the link is at the end of the post, remove it
+        noteData.html = note.record.text.slice(0, facet.index.byteStart + difference) + note.record.text.slice(facet.index.byteEnd + difference)
+      } else {
+        // If the link is inside the post, replace it with a clickable link
+        // Hoping there’s no discrepancy
+        noteData.html = note.record.text.slice(0, facet.index.byteStart)
+        noteData.html += `<a href="${facet.features[0].uri}">`
+        noteData.html += note.record.text.slice(facet.index.byteStart, facet.index.byteEnd)
+        noteData.html += "</a>"
+        noteData.html += note.record.text.slice(facet.index.byteEnd)
+      }
+    }
+  }
+
   return noteData
 }

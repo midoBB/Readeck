@@ -51,6 +51,19 @@ function loadThread(userName, postID) {
     next = getNextPostFromUser(next.replies, userName)
   }
 
+  if ("parent" in data.thread) {
+    let parent = data.thread.parent
+
+    while (true) {
+      if (!parent) {
+        break
+      }
+
+      notes.unshift(getNoteData(parent.post))
+      parent = parent.parent
+    }
+  }
+
   const html = notes
     .map((n) => {
       let noteHtml = `<p>${n.html}</p>`

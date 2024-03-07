@@ -30,12 +30,15 @@ func newOnboardingForm(tr forms.Translator) (f *onboardingForm) {
 	return
 }
 
-func (f *onboardingForm) createUser() (*users.User, error) {
+func (f *onboardingForm) createUser(language string) (*users.User, error) {
 	u := &users.User{
 		Username: f.Get("username").String(),
 		Email:    f.Get("email").String(),
 		Password: f.Get("password").String(),
 		Group:    "admin",
+		Settings: &users.UserSettings{
+			Lang: language,
+		},
 	}
 
 	if u.Email == "" {

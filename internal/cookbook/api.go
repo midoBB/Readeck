@@ -18,6 +18,7 @@ import (
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/pkg/accept"
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"codeberg.org/readeck/readeck/pkg/extract/contents"
 	"codeberg.org/readeck/readeck/pkg/extract/contentscripts"
@@ -94,7 +95,8 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 	runtime.GC()
 
 	// Very rough but good enough for our tests
-	if r.Header.Get("accept") == "text/html" {
+	accepted := accept.NegotiateContentType(r.Header, []string{"application/json", "text/html"}, "application/json")
+	if accepted == "text/html" {
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		w.WriteHeader(http.StatusOK)
 		w.Write(ex.HTML)

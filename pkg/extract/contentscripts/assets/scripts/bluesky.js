@@ -64,6 +64,40 @@ function loadThread(userName, postID) {
     }
   }
 
+  // Bluesky doesn’t handle video upload yet
+  // const isVideo =
+  //   notes.length == 1 &&
+  //   (notes[0].videos || []).length > 0
+
+  const isPicture =
+    notes.length == 1 &&
+    (notes[0].images || []).length == 1
+
+  switch (true) {
+    // Bluesky doesn’t handle video upload yet
+    // case isVideo:
+    //   $.type = "video"
+    //   $.meta[
+    //     "oembed.html"
+    //   ] = `<video src="${notes[0].videos[0].url}"></video>`
+    //   notes[0].videos.shift()
+    //   break
+    case isPicture:
+      $.type = "photo"
+      $.meta["x.picture_url"] = notes[0].images[0].fullsize
+      notes[0].images.shift()
+      break
+    default:
+      if ("images" in notes[0]) {
+        $.meta["x.picture_url"] = notes[0]?.images[0].fullsize
+        break
+      }
+      
+      $.meta["x.picture_url"] = data.thread.post.author.avatar
+      break
+  }
+
+
   const html = notes
     .map((n) => {
       let noteHtml = `<p>${n.html}</p>`
@@ -74,10 +108,17 @@ function loadThread(userName, postID) {
         noteHtml += `<p><a href="${n.link.uri}">${n.link.title}</a></p>`
       }
 
+      if ("images" in n) {
+        noteHtml += n.images
+          .map((image) => {
+            return `<figure><img alt="${image.alt}" src="${image.fullsize}"></figure>`
+          })
+          .join("\n")
+      }
+
       return `<article>${noteHtml}</article>`
     })
 
-  $.meta["x.picture_url"] = data.thread.post.author.avatar
   $.description = ""
   $.html = `<div>${html.join("<hr>")}</div>`
   $.readability = false
@@ -100,6 +141,10 @@ function getNoteData(note) {
       uri: note.embed.external.uri,
       title: note.embed.external.title,
     }
+  }
+
+  if (!!note?.embed?.images) {
+    noteData.images = note.embed.images
   }
 
   for (const key in note.record.facets) {

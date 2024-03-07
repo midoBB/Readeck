@@ -28,20 +28,42 @@ function loadThread(userName, postID) {
 
   const postURI = `at://${did}/app.bsky.feed.post/${postID}`
   rsp = requests.get(
-    `https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?uri=${postURI}`,
+    `https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?uri=${postURI}&depth=20`,
   )
   rsp.raiseForStatus()
   const data = rsp.json()
   const replies = data.thread?.replies || []
-  replies.reverse()
 
-  replies
-    .filter((x) => {
-      return (x.replies || []).length > 0
-    })
-    .map((x) => {
-      console.log(x)
+  const notes = []
+
+  const post = getNoteData(data.thread?.post)
+
+  notes.push(post)
+
+  const html = notes
+    .map((n) => {
+      let noteHtml = `<p>${n.html}</p>`
+      noteHtml = noteHtml.replace(/\n\n/g, "</p><p>")
+      noteHtml = noteHtml.replace(/\n/g, "<br>")
+
+      return `<article>${noteHtml}</article>`
     })
 
-  // console.warn(JSON.stringify(data, null, "  "))
+  $.description = ""
+  $.html = `<div>${html.join("<hr>")}</div>`
+  $.readability = false
+}
+
+function getNextPostFromUser(replies, userName) {
+  return replies?.filter(reply =>
+    reply.post.author.handle == userName
+  ).reverse()[0]
+}
+
+function getNoteData(note) {
+  const noteData = {
+    published: note.record.createdAt,
+    html: note.record.text,
+  }
+  return noteData
 }

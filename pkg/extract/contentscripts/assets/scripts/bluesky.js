@@ -59,6 +59,10 @@ function loadThread(userName, postID) {
         break
       }
 
+      if (parent?.author?.handle !== userName) {
+        break
+      }
+
       notes.unshift(getNoteData(parent.post))
       parent = parent.parent
     }

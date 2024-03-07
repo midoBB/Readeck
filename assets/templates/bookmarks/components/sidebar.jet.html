@@ -10,7 +10,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- if len(.Item.Errors) -}}
     <details class="my-4">
       <summary class="text-sm bg-red-700 text-white inline-block p-0.5 rounded"
-      >{{ yield icon(name="o-error") }} {{ gettext("Errors occured during extraction") }}</summary>
+      >{{ yield icon(name="o-error") }} {{ gettext("Errors occurred during extraction.") }}</summary>
       <ul class="text-red-800">{{ range .Item.Errors }}
         <li class="mt-0.5">{{ . }}</li>
       {{ end }}</ul>

@@ -7,10 +7,10 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ import "/_libs/forms" }}
 {{ import "/_libs/list"}}
 
-{{ block title() }}{{ gettext("API Tokens") }}{{ end }}
+{{ block title() }}{{ gettext("My API Tokens") }}{{ end }}
 
 {{ block mainContent() }}
-<h1 class="title text-h2">{{ gettext("Your API Tokens") }}</h1>
+<h1 class="title text-h2">{{ yield title() }}</h1>
 
 <div class="prose mb-4">
 <p>{{ gettext(`

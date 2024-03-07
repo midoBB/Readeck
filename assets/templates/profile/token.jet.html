@@ -16,7 +16,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{ yield csrfField() }}
   <input type="hidden" name="_to" value="{{ currentPath }}" />
   {{- yield message() content -}}
-      {{ gettext("Token will be removed in a few seconds") }}&nbsp;
+      {{ gettext("Token will be removed in a few seconds.") }}&nbsp;
       <button class="btn-primary" name="cancel" value="1">{{ gettext("Cancel") }}</button>
   {{- end -}}
 </form>
@@ -29,11 +29,11 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{ yield csrfField() }}
 
   <div class="field field-h">
-    <label>Token ID:</label>
+    <label>{{ gettext("Token ID") }}</label>
     <div class="control">{{ .Token.UID }}</div>
   </div>
   <div class="field field-h">
-    <label>{{ gettext("Application:") }}</label>
+    <label>{{ gettext("Application") }}</label>
     <div class="control">{{ .Token.Application }}</div>
   </div>
 
@@ -45,7 +45,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   {{ yield dateField(
     field=.Form.Get("expires"),
-    label=gettext("Expires at"),
+    label=gettext("Expires on"),
     class="field-h",
   ) }}
 
@@ -77,7 +77,7 @@ SPDX-License-Identifier: AGPL-3.0-only
    data-clipboard-target="content">{{ .JWT }}</textarea>
 </div>
 
-<p class="mb-2">{{ gettext("You can use this token by passing it as an <code>Authorization: Bearer</code> HTTP header.")|raw }}</p>
+<p class="mb-2">{{ gettext("You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header.")|raw }}</p>
 <div class="w-full mb-4" data-controller="clipboard">
   <label class="font-semibold">HTTP Header</label>
   <button class="link" type="button" data-action="clipboard#copy">

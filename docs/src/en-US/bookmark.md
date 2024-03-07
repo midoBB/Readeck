@@ -31,7 +31,7 @@ A video is a page that was identified as a video container (ie. a link to Youtub
 
 On top of the bookmark view, a link takes you back to the previous page.
 
-If the bookmark is an article, a button on the other side lets you change some typography settings.
+If the bookmark contains an article, a button on the other side lets you change some typography settings.
 
 ![Bookmark typography settings](../img/bookmark-typography.webp)
 Typography settings.

@@ -4,7 +4,7 @@ The [Profile section](readeck-instance://profile) of Readeck lets you change you
 
 ## Edit your profile
 
-On the main profile page, you can change your username and your email address.
+On the main profile page, you can change your username, your email address and choose the app's language.
 
 ## Change your password
 

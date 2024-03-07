@@ -77,6 +77,7 @@ function loadThread(userName, postID) {
       return `<article>${noteHtml}</article>`
     })
 
+  $.meta["x.picture_url"] = data.thread.post.author.avatar
   $.description = ""
   $.html = `<div>${html.join("<hr>")}</div>`
   $.readability = false

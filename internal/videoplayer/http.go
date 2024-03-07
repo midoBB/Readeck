@@ -44,7 +44,7 @@ func videoPlayerHandler(srv *server.Server) http.HandlerFunc {
 		policy := server.GetCSPHeader(r)
 		policy.Set("connect-src", "*")
 		policy.Set("worker-src", "blob:")
-		policy.Add("media-src", "*")
+		policy.Add("media-src", "blob:", "*")
 		policy.Set("frame-ancestors", csp.Self)
 
 		policy.Write(w.Header())

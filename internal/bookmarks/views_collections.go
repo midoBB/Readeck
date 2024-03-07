@@ -73,7 +73,8 @@ func (h *viewsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 			if _, err := f.updateCollection(c); err != nil {
 				h.srv.Log(r).Error(err)
 			} else {
-				h.srv.AddFlash(w, r, "success", "Collection updated")
+				tr := h.srv.Locale(r)
+				h.srv.AddFlash(w, r, "success", tr.Gettext("Collection updated."))
 				h.srv.Redirect(w, r, c.UID+"?edit=1")
 				return
 			}

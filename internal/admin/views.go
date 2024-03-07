@@ -72,7 +72,8 @@ func (h *adminViews) userCreate(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				h.srv.Log(r).Error(err)
 			} else {
-				h.srv.AddFlash(w, r, "success", "User created")
+				tr := h.srv.Locale(r)
+				h.srv.AddFlash(w, r, "success", tr.Gettext("User created."))
 				h.srv.Redirect(w, r, "./..", fmt.Sprint(u.ID))
 				return
 			}
@@ -106,7 +107,8 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 					sess.Payload.User = u.ID
 					sess.Payload.Seed = u.Seed
 				}
-				h.srv.AddFlash(w, r, "success", "User updated")
+				tr := h.srv.Locale(r)
+				h.srv.AddFlash(w, r, "success", tr.Gettext("User updated."))
 				h.srv.Redirect(w, r, fmt.Sprint(u.ID))
 				return
 			}

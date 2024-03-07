@@ -40,6 +40,17 @@ function loadThread(userName, postID) {
 
   notes.push(post)
 
+  let next = getNextPostFromUser(replies, userName)
+
+  while (true) {
+    if (!next) {
+      break
+    }
+
+    notes.push(getNoteData(next.post))
+    next = getNextPostFromUser(next.replies, userName)
+  }
+
   const html = notes
     .map((n) => {
       let noteHtml = `<p>${n.html}</p>`

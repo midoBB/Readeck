@@ -1,5 +1,10 @@
 # Changelog
 
+## [UNRELEASED]
+### Added
+- Internationalization
+- French translation
+
 ## [0.12.0] - 2024-02-04
 ### Added
 - More font choices. The reader interface offers now 8 font faces

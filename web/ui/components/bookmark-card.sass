@@ -78,13 +78,16 @@
             @apply hf:text-btn-danger
 
         .bookmark-card-deleted
-          @apply flex flex-grow items-center
+          @apply flex flex-grow flex-col gap-2 items-center
 
           & > span
             @apply flex-grow text-red-700 text-xs font-semibold
 
+          form
+            @apply block w-full
+
           button
-            @apply btn-primary whitespace-nowrap text-sm py-1 ml-2
+            @apply btn-primary whitespace-nowrap text-sm py-1 w-full
             svg
               @apply fill-current
 

@@ -5,9 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{ extends "/base" }}
 
-{{- block title() -}}
-  Share {{ .Title }}
-{{- end -}}
+{{- block title() -}}{{ gettext("Share link") }}{{- end -}}
 
 {{- block body() -}}
 {{- yield quickAccessMenu(items=slice(
@@ -18,7 +16,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{ include "/menu" }}
 
   <div class="flex-1 w-full max-w-3xl overflow-y-auto p-8" id="content">
-    <h1 class="text-h2 title">Share: {{ .Title }}</h1>
+    <h1 class="text-h2 title">{{ gettext("Share: %s", .Title) }}</h1>
     {{ include "./components/public_share" }}
   </div>
 </div>

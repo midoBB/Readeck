@@ -43,7 +43,7 @@ func (api *apiRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *apiRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
-	f := newCollectionForm()
+	f := newCollectionForm(api.srv.Locale(r))
 
 	forms.Bind(f, r)
 	if !f.IsValid() {
@@ -64,7 +64,7 @@ func (api *apiRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
 func (api *apiRouter) collectionUpdate(w http.ResponseWriter, r *http.Request) {
 	c := r.Context().Value(ctxCollectionKey{}).(*Collection)
 
-	f := newCollectionForm()
+	f := newCollectionForm(api.srv.Locale(r))
 	f.setCollection(c)
 	forms.Bind(f, r)
 

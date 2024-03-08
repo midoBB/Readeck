@@ -5,17 +5,15 @@
 package forms
 
 import (
-	"errors"
-	"fmt"
 	"net/url"
 	"slices"
 	"strings"
 )
 
 var (
-	ErrRequired     = errors.New("field is required")         // ErrRequired is a required field
-	ErrInvalidEmail = errors.New("not a valid email address") // ErrInvalidEmail is an invalid e-mail address
-	ErrInvalidURL   = errors.New("invalid URL")               // ErrInvalidURL is an invalid URL
+	ErrRequired     = Gettext("field is required")         // ErrRequired is a required field
+	ErrInvalidEmail = Gettext("not a valid email address") // ErrInvalidEmail is an invalid e-mail address
+	ErrInvalidURL   = Gettext("invalid URL")               // ErrInvalidURL is an invalid URL
 )
 
 // FieldValidator is a function that validates and/or alters a field.
@@ -134,7 +132,7 @@ func Gte(value int) FieldValidator {
 	return func(f Field) error {
 		if v, ok := f.Value().(int); ok {
 			if v < value {
-				return fmt.Errorf("must be greater or equal than %d", value)
+				return Gettext("must be greater or equal than %d", value)
 			}
 		}
 		return nil
@@ -146,7 +144,7 @@ func Lte(value int) FieldValidator {
 	return func(f Field) error {
 		if v, ok := f.Value().(int); ok {
 			if v > value {
-				return fmt.Errorf("must be lower or equal than %d", value)
+				return Gettext("must be lower or equal than %d", value)
 			}
 		}
 		return nil

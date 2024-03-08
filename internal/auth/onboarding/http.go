@@ -53,12 +53,12 @@ func (h *viewHandler) onboarding(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	f := newOnboardingForm()
+	f := newOnboardingForm(h.srv.Locale(r))
 
 	if r.Method == http.MethodPost {
 		forms.Bind(f, r)
 		if f.IsValid() {
-			user, err := f.createUser()
+			user, err := f.createUser(h.srv.Locale(r).Tag.String())
 			if err != nil {
 				h.srv.Log(r).Error(err)
 			} else {

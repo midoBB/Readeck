@@ -5,20 +5,26 @@ SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{ extends "./base" }}
 
-{{- block title() -}}Bookmark Highlights{{- end -}}
+{{- block title() -}}{{ gettext("Bookmark Highlights") }}{{- end -}}
 
 {{- block mainContent() -}}
-<h1 class="title text-h2">Bookmark Highlights</h1>
+<h1 class="title text-h2">{{ yield title() }}</h1>
 
 
 {{- if .Pagination.TotalCount == 0 -}}
   <div class="max-w-2xl">
     <div class="my-4 p-4 text-blue-800 bg-yellow-100 border border-blue-800 rounded">
-      <p class="font-bold mb-2">You don't have any highlights yet.</p>
-      <p>Once you start highlighting parts of your saved articles, they will appear on this page
-      for you to easily find them.</p>
+      <p class="font-bold mb-2">{{ gettext("You don't have any highlights yet.") }}</p>
+      <p>{{ gettext(`
+        Once you start highlighting parts of your saved articles, they will appear on this page
+        for you to easily find them.
+      `) }}</p>
     </div>
-    <p>Read more about highlights in the <a class="link" href="{{ urlFor(`/docs/en/bookmark`) }}#highlights">documentation</a>.</p>
+    <p>{{ gettext(
+      `Read more about highlights in the <a class="%s" href="%s">documentation</a>.`,
+      "link",
+      urlFor(`/docs/bookmark`) + "#highlights",
+    )|raw }}</p>
   </div>
 {{- else -}}
   {{- include "/_libs/pagination" .Pagination -}}
@@ -27,7 +33,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   <blockquote class="my-2">
     <a class="block mb-1 pt-2 pb-4 px-4 bg-hl-yellow bg-opacity-30 border border-hl-yellow-dark rounded hf:bg-opacity-80"
     href="{{ urlFor(`/bookmarks`, x.BookmarkID) }}#annotation-{{ x.ID }}">
-      <p class="block mb-1 text-sm text-yellow-800">{{ date(x.Created, "2 January 2006, 15:04") }}</p>
+      <p class="block mb-1 text-sm text-yellow-800">{{ date(x.Created, "%e %B %Y, %H:%M") }}</p>
       <p>{{ x.Text }}</p>
     </a>
 

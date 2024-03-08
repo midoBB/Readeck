@@ -13,6 +13,7 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/CloudyKit/jet/v6"
 	"github.com/google/uuid"
 
 	"codeberg.org/readeck/readeck/assets"
@@ -69,7 +70,7 @@ func (api *apiRouter) exportBookmarksEPUB(w http.ResponseWriter, r *http.Request
 		}()
 
 		for _, b := range bookmarks {
-			if err = m.addBookmark(newBookmarkItem(api.srv, r, b, "/bookmarks")); err != nil {
+			if err = m.addBookmark(newBookmarkItem(api.srv, r, b, "/bookmarks"), api.srv.TemplateVars(r)); err != nil {
 				return err
 			}
 		}
@@ -115,7 +116,7 @@ func (m *EpubMaker) addStylesheet() error {
 }
 
 // addBookmark adds a bookmark, with all its resources, to the epub file.
-func (m *EpubMaker) addBookmark(b bookmarkItem) (err error) {
+func (m *EpubMaker) addBookmark(b bookmarkItem, vars jet.VarMap) (err error) {
 	// Open the original container file
 	var c *bookmarkContainer
 	if c, err = b.OpenContainer(); err != nil {
@@ -200,7 +201,7 @@ func (m *EpubMaker) addBookmark(b bookmarkItem) (err error) {
 		"Content": c.GetArticle(),
 	}
 	buf := new(strings.Builder)
-	if err = tpl.Execute(buf, nil, ctx); err != nil {
+	if err = tpl.Execute(buf, vars, ctx); err != nil {
 		return
 	}
 

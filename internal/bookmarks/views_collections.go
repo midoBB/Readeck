@@ -26,7 +26,7 @@ func (h *viewsRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *viewsRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
-	f := newCollectionForm()
+	f := newCollectionForm(h.srv.Locale(r))
 
 	switch r.Method {
 	case http.MethodGet:
@@ -64,7 +64,7 @@ func (h *viewsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 	c := r.Context().Value(ctxCollectionKey{}).(*Collection)
 	item := newCollectionItem(h.srv, r, c, "./..")
 
-	f := newCollectionForm()
+	f := newCollectionForm(h.srv.Locale(r))
 	f.setCollection(c)
 
 	if r.Method == http.MethodPost {
@@ -73,7 +73,8 @@ func (h *viewsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 			if _, err := f.updateCollection(c); err != nil {
 				h.srv.Log(r).Error(err)
 			} else {
-				h.srv.AddFlash(w, r, "success", "Collection updated")
+				tr := h.srv.Locale(r)
+				h.srv.AddFlash(w, r, "success", tr.Gettext("Collection updated."))
 				h.srv.Redirect(w, r, c.UID+"?edit=1")
 				return
 			}
@@ -98,7 +99,7 @@ func (h *viewsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *viewsRouter) collectionDelete(w http.ResponseWriter, r *http.Request) {
-	f := newCollectionDeleteForm()
+	f := newCollectionDeleteForm(h.srv.Locale(r))
 	f.Get("_to").Set("/bookmarks/collections")
 	forms.Bind(f, r)
 

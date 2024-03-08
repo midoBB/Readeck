@@ -6,25 +6,21 @@ When you create a new bookmark that matches a collection's criteria,
 it will appear immediately.
 Here are some examples:
 
-- The unread articles (no photos or videos),
-- The archived articles from "wikipedia.org"
-- The pictures with the tag "cat",
-- The articles that contain "breaking" in their title
+- The unread articles (no picture or videos),
+- The archived articles from "wikipedia.org",
+- The pictures with the label "cat",
+- The articles that contain "climate" in their title.
 
 ## Create a new collection
 
 To create a new collection, go to the [Collection List](readeck-instance://bookmarks/collections) and click on **Create a new collection**.
 
-![New Collection form](img/collection-new.webp)
+![New Collection form](./img/collection-new.webp)
 The collection form
 
 Enter any criteria and click on **Save**.
 
-Please note that if you want to search with an exact text, you must quote the text.\
-For example, if you want to filter by a label **fluffy cat**, enter **"fluffy cat"** in the **Label** field.
-
-Filters like label or author can contain multiple values, separated by a space.
-
+Please refer to [bookmark filters](./bookmark-list.md#filters) for more details about filtering.
 
 ## Export a collection
 

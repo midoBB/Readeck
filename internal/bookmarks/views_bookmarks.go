@@ -6,6 +6,7 @@ package bookmarks
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -44,7 +45,7 @@ func (h *viewsRouter) withBaseContext(next http.Handler) http.Handler {
 }
 
 func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
-	f := newCreateForm(auth.GetRequestUser(r).ID, h.srv.GetReqID(r))
+	f := newCreateForm(h.srv.Locale(r), auth.GetRequestUser(r).ID, h.srv.GetReqID(r))
 	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
 	ctx["MaybeSearch"] = false
 
@@ -68,7 +69,7 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// If the URL is not valid, set MaybeSearch so we can suggest it later
-		if len(f.Get("url").Errors) > 0 && f.Get("url").Errors[0] == forms.ErrInvalidURL {
+		if len(f.Get("url").Errors) > 0 && errors.Is(f.Get("url").Errors[0], forms.ErrInvalidURL) {
 			// User entered a wrong URL, we can mark it.
 			ctx["MaybeSearch"] = true
 		}
@@ -84,29 +85,31 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 		bl.Items[i] = newBookmarkItem(h.srv, r, item, ".")
 	}
 
+	tr := h.srv.Locale(r)
+
 	ctx["Form"] = f
 	ctx["Pagination"] = bl.Pagination
 	ctx["Bookmarks"] = bl.Items
-	title := "All your Bookmarks"
+	title := tr.Gettext("All your Bookmarks")
 
 	if filters, ok := r.Context().Value(ctxFiltersKey{}).(*filterForm); ok {
 		ctx["Filters"] = filters
 		if filters.IsActive() {
-			title = "Bookmark Search"
+			title = tr.Gettext("Bookmark Search")
 		} else {
 			switch filters.title {
 			case filtersTitleUnread:
-				title = "Unread Bookmarks"
+				title = tr.Gettext("Unread Bookmarks")
 			case filtersTitleArchived:
-				title = "Archived Bookmarks"
+				title = tr.Gettext("Archived Bookmarks")
 			case filtersTitleFavorites:
-				title = "Favorite Bookmarks"
+				title = tr.Gettext("Favorite Bookmarks")
 			case filtersTitleArticles:
-				title = "Articles"
+				title = tr.Gettext("Articles")
 			case filtersTitlePictures:
-				title = "Pictures"
+				title = tr.Gettext("Pictures")
 			case filtersTitleVideos:
-				title = "Videos"
+				title = tr.Gettext("Videos")
 			}
 		}
 	}
@@ -168,7 +171,7 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *viewsRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
-	f := newUpdateForm()
+	f := newUpdateForm(h.srv.Locale(r))
 	forms.Bind(f, r)
 
 	if !f.IsValid() {
@@ -193,7 +196,7 @@ func (h *viewsRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 
 func (h *viewsRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
-	f := newDeleteForm()
+	f := newDeleteForm(h.srv.Locale(r))
 	forms.Bind(f, r)
 
 	if err := b.Update(map[string]interface{}{}); err != nil {
@@ -247,7 +250,7 @@ func (h *viewsRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 
 	// POST, update label name
 	if r.Method == http.MethodPost {
-		f := newLabelForm()
+		f := newLabelForm(h.srv.Locale(r))
 		forms.Bind(f, r)
 
 		if f.IsValid() {
@@ -290,7 +293,7 @@ func (h *viewsRouter) labelDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	f := newLabelDeleteForm()
+	f := newLabelDeleteForm(h.srv.Locale(r))
 	forms.Bind(f, r)
 	if err := f.trigger(auth.GetRequestUser(r), label); err != nil {
 		h.srv.Error(w, r, err)

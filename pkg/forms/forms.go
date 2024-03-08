@@ -19,10 +19,12 @@ import (
 
 // ErrUnexpected is an error that can be used during custom validation
 // or form actions.
-var ErrUnexpected = errors.New("an unexpected error has occurred")
+var ErrUnexpected = Gettext("an unexpected error has occurred")
 
 // Errors is an error list.
 type Errors []error
+
+type ctxTranslatorKey struct{}
 
 // Binder describes the basic needed method for a form that can be bound
 // from JSON or URL values.
@@ -87,6 +89,13 @@ func Must(fields ...Field) *Form {
 	return f
 }
 
+// SetLocale sets the form current locale.
+func (f *Form) SetLocale(tr Translator) {
+	if tr != nil {
+		f.context = context.WithValue(f.context, ctxTranslatorKey{}, tr)
+	}
+}
+
 // Fields returns the form's field list.
 func (f *Form) Fields() []*FormField {
 	res := make([]*FormField, len(f.fields))
@@ -109,15 +118,18 @@ func (f *Form) Get(name string) *FormField {
 }
 
 // AddErrors adds an error to the form.
-func (f *Form) AddErrors(name string, errors ...error) {
-	if len(errors) == 0 {
+func (f *Form) AddErrors(name string, errorList ...error) {
+	if len(errorList) == 0 {
 		return
 	}
 	if _, ok := f.errors[name]; !ok {
 		f.errors[name] = []error{}
 	}
 
-	f.errors[name] = append(f.errors[name], errors...)
+	tr, _ := f.context.Value(ctxTranslatorKey{}).(Translator)
+	for _, err := range errorList {
+		f.errors[name] = append(f.errors[name], localizedError{err: err, tr: tr})
+	}
 }
 
 // IsValid returns true if the form has no error.

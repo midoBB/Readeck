@@ -51,6 +51,7 @@ require (
 	github.com/halorium/env v1.0.0
 	github.com/itchyny/gojq v0.12.14
 	github.com/klauspost/compress v1.17.7
+	github.com/leonelquinteros/gotext v1.5.2
 	github.com/lithammer/shortuuid/v4 v4.0.0
 	github.com/mangoumbrella/goldmark-figure v1.0.0
 	github.com/prometheus/client_golang v1.19.0

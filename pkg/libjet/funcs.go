@@ -49,10 +49,6 @@ var funcMap = map[string]jet.Func{
 
 		return reflect.ValueOf(strings.Join(list, sep))
 	},
-	"date": func(a jet.Arguments) reflect.Value {
-		a.RequireNumOfArguments("date", 2, 2)
-		return reflect.ValueOf(ToDateFmt(a.Get(0), a.Get(1)))
-	},
 	"checksum": func(a jet.Arguments) reflect.Value {
 		a.RequireNumOfArguments("checksum", 1, 1)
 		h := adler32.New()
@@ -202,21 +198,6 @@ func ToString(v reflect.Value) string {
 	}
 
 	return fmt.Sprintf("%v", val)
-}
-
-// ToDateFmt returns a date formatted with the given format.
-func ToDateFmt(d reflect.Value, f reflect.Value) string {
-	v, isNil := Indirect(d)
-	if isNil {
-		return ""
-	}
-	date, ok := v.(time.Time)
-	if !ok {
-		panic("first argument must be a time.Time value or pointer")
-	}
-
-	layout := ToString(f)
-	return date.Format(layout)
 }
 
 // ToInt returns a value as an integer value.

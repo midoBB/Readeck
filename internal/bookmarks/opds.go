@@ -49,10 +49,11 @@ func (h *opdsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 	}
 
 	bl := r.Context().Value(ctxBookmarkListKey{}).(bookmarkList)
+	tr := h.srv.Locale(r)
 
 	c := catalog.New(h.srv, r,
 		catalog.WithFeedType(opds.OPDSTypeAcquisistion),
-		catalog.WithTitle("Readeck Bookmarks"),
+		catalog.WithTitle(tr.Gettext("Readeck Bookmarks")),
 		catalog.WithURL(h.srv.AbsoluteURL(r).String()),
 		catalog.WithUpdated(lastUpdate),
 		func(feed *opds.Feed) {
@@ -93,10 +94,11 @@ func (h *opdsRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 	}
 
 	cl := r.Context().Value(ctxCollectionListKey{}).(collectionList)
+	tr := h.srv.Locale(r)
 
 	c := catalog.New(h.srv, r,
 		catalog.WithFeedType(opds.OPDSTypeNavigation),
-		catalog.WithTitle("Readeck Bookmark Collections"),
+		catalog.WithTitle(tr.Gettext("Readeck Bookmark Collections")),
 		catalog.WithURL(h.srv.AbsoluteURL(r).String()),
 		catalog.WithUpdated(lastUpdate),
 		func(feed *opds.Feed) {
@@ -128,23 +130,25 @@ func (h *opdsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	tr := h.srv.Locale(r)
+
 	item := r.Context().Value(ctxCollectionKey{}).(*Collection)
 	c := catalog.New(h.srv, r,
 		catalog.WithFeedType(opds.OPDSTypeAcquisistion),
-		catalog.WithTitle(fmt.Sprintf("Readeck Collection: %s", item.Name)),
+		catalog.WithTitle(tr.Gettext("Readeck Collection: %s", item.Name)),
 		catalog.WithURL(h.srv.AbsoluteURL(r).String()),
 		catalog.WithUpdated(lastUpdate),
 		func(feed *opds.Feed) {
 			id, _ := shortuuid.DefaultEncoder.Decode(item.UID)
 			catalog.WithBookEntry(
-				id, fmt.Sprintf("Collection ebook - %s", item.Name),
+				id, tr.Gettext("Collection ebook - %s", item.Name),
 				h.srv.AbsoluteURL(r, "/api/bookmarks", fmt.Sprintf("export.epub?collection=%s", item.UID)).String(),
 				item.Created, item.Created, item.Updated,
 				"Readeck", "", "",
 			)(feed)
 
 			catalog.WithNavEntry(
-				fmt.Sprintf("Browse collection: %s", item.Name), lastUpdate,
+				tr.Gettext("Browse collection: %s", item.Name), lastUpdate,
 				h.srv.AbsoluteURL(r, "../../bookmarks", fmt.Sprintf("all?collection=%s", item.UID)).String(),
 			)(feed)
 		},

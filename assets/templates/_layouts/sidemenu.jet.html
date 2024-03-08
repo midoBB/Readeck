@@ -7,9 +7,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 {{ block body() -}}
   {{- yield quickAccessMenu(items=slice(
-    slice("menu", "Menu"),
-    slice("sidemenu", "Secondary Menu"),
-    slice("content", "Main content"),
+    slice("menu", gettext("Menu")),
+    slice("sidemenu", gettext("Secondary Menu")),
+    slice("content", gettext("Main content")),
   )) -}}
   <div class="layout" data-controller="panel"
     data-panel-hidden-class="sidemenu--hidden"
@@ -31,7 +31,7 @@ SPDX-License-Identifier: AGPL-3.0-only
         "
     >
       {{- yield icon(name="o-menu", class="inline-block", svgClass="w-6 h-6") -}}
-      <span class="sr-only">Open menu</span>
+      <span class="sr-only">{{ gettext("Open menu") }}</span>
     </button>
 
     <nav

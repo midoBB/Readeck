@@ -16,6 +16,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/db/types"
+	"codeberg.org/readeck/readeck/locales"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -28,27 +29,37 @@ type profileForm struct {
 	*forms.Form
 }
 
+var (
+	errInvalidUserOrEmail = forms.Gettext("invalid username and/or email")
+	errInvalidPassword    = forms.Gettext("invalid password")
+)
+
 // newProfileForm returns a ProfileForm instance.
-func newProfileForm() *profileForm {
-	f, err := forms.New(
-		forms.NewTextField("username",
-			forms.Trim, forms.RequiredOrNil, users.IsValidUsername),
-		forms.NewTextField("email",
-			forms.Trim, forms.RequiredOrNil, forms.IsEmail),
-		forms.NewTextField("settings_reader_font",
-			forms.Trim, forms.RequiredOrNil,
+func newProfileForm(tr forms.Translator) (f *profileForm) {
+	f = &profileForm{
+		forms.Must(
+			forms.NewTextField("username",
+				forms.Trim, forms.RequiredOrNil, users.IsValidUsername),
+			forms.NewTextField("email",
+				forms.Trim, forms.RequiredOrNil, forms.IsEmail),
+			forms.NewChoiceField("settings_lang",
+				locales.Available(),
+				forms.Trim, forms.RequiredOrNil,
+			),
+			forms.NewTextField("settings_reader_font",
+				forms.Trim, forms.RequiredOrNil,
+			),
+			forms.NewIntegerField("settings_reader_font_size",
+				forms.RequiredOrNil, forms.Gte(1), forms.Lte(6),
+			),
+			forms.NewIntegerField("settings_reader_line_height",
+				forms.RequiredOrNil, forms.Gte(1), forms.Lte(6),
+			),
 		),
-		forms.NewIntegerField("settings_reader_font_size",
-			forms.RequiredOrNil, forms.Gte(1), forms.Lte(6),
-		),
-		forms.NewIntegerField("settings_reader_line_height",
-			forms.RequiredOrNil, forms.Gte(1), forms.Lte(6),
-		),
-	)
-	if err != nil {
-		panic(err)
 	}
-	return &profileForm{f}
+	f.SetLocale(tr)
+
+	return
 }
 
 // setUser sets the form's values from a user instance.
@@ -58,6 +69,7 @@ func (f *profileForm) setUser(u *users.User) {
 
 	f.Get("username").Set(u.Username)
 	f.Get("email").Set(u.Email)
+	f.Get("settings_lang").Set(u.Settings.Lang)
 }
 
 // Validate performs extra validation.
@@ -85,7 +97,7 @@ func (f *profileForm) Validate() {
 				return
 			}
 			if c > 0 {
-				f.AddErrors("", errors.New("invalid username and/or email"))
+				f.AddErrors("", errInvalidUserOrEmail)
 				return
 			}
 		}
@@ -117,6 +129,9 @@ func (f *profileForm) updateUser(u *users.User) (res map[string]interface{}, err
 			case "line_height":
 				u.Settings.ReaderSettings.LineHeight = field.Value().(int)
 			}
+			res["settings"] = u.Settings
+		case n == "settings_lang":
+			u.Settings.Lang = field.String()
 			res["settings"] = u.Settings
 		default:
 			if n == "email" || n == "username" {
@@ -185,7 +200,7 @@ func (f *passwordForm) Validate() {
 		return
 	}
 	if !u.CheckPassword(f.Get("current").String()) {
-		f.AddErrors("current", errors.New("Invalid password"))
+		f.AddErrors("current", errInvalidPassword)
 	}
 }
 
@@ -210,11 +225,13 @@ type deleteCredentialForm struct {
 }
 
 // newDeleteTokenForm returns a deleteForm instance.
-func newDeleteCredentialForm() *deleteCredentialForm {
-	return &deleteCredentialForm{forms.Must(
+func newDeleteCredentialForm(tr forms.Translator) (f *deleteCredentialForm) {
+	f = &deleteCredentialForm{forms.Must(
 		forms.NewBooleanField("cancel"),
 		forms.NewTextField("_to"),
 	)}
+	f.SetLocale(tr)
+	return
 }
 
 // trigger launch the token deletion or cancel task.
@@ -231,12 +248,14 @@ type credentialForm struct {
 }
 
 // newCredentialForm returns an credentialForm instance.
-func newCredentialForm(user *users.User) *credentialForm {
-	return &credentialForm{forms.Must(
+func newCredentialForm(tr forms.Translator, user *users.User) (f *credentialForm) {
+	f = &credentialForm{forms.Must(
 		forms.NewBooleanField("is_enabled", forms.RequiredOrNil),
 		forms.NewTextField("name", forms.Required, forms.Trim),
-		users.NewRolesField(user),
+		users.NewRolesField(tr, user),
 	)}
+	f.SetLocale(tr)
+	return
 }
 
 // setCredential set the token's values from an existing token.
@@ -282,11 +301,13 @@ type deleteTokenForm struct {
 }
 
 // newDeleteTokenForm returns a deleteForm instance.
-func newDeleteTokenForm() *deleteTokenForm {
-	return &deleteTokenForm{forms.Must(
+func newDeleteTokenForm(tr forms.Translator) (f *deleteTokenForm) {
+	f = &deleteTokenForm{forms.Must(
 		forms.NewBooleanField("cancel"),
 		forms.NewTextField("_to"),
 	)}
+	f.SetLocale(tr)
+	return
 }
 
 // trigger launch the token deletion or cancel task.
@@ -304,12 +325,14 @@ type tokenForm struct {
 }
 
 // tokenForm returns a tokenForm instance.
-func newTokenForm(user *users.User) *tokenForm {
-	return &tokenForm{forms.Must(
+func newTokenForm(tr forms.Translator, user *users.User) (f *tokenForm) {
+	f = &tokenForm{forms.Must(
 		forms.NewBooleanField("is_enabled", forms.RequiredOrNil),
 		forms.NewDatetimeField("expires"),
-		users.NewRolesField(user),
+		users.NewRolesField(tr, user),
 	)}
+	f.SetLocale(tr)
+	return
 }
 
 // setToken set the token's values from an existing token.

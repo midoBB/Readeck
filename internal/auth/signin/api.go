@@ -32,7 +32,7 @@ func newAuthAPI(s *server.Server) *authAPI {
 // auth performs the user authentication with its username and
 // password and then, returns a JWT token tied to this user.
 func (api *authAPI) auth(w http.ResponseWriter, r *http.Request) {
-	f := newTokenLoginForm()
+	f := newTokenLoginForm(api.srv.Locale(r))
 
 	forms.Bind(f, r)
 

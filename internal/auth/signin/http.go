@@ -65,7 +65,7 @@ func newAuthHandler(s *server.Server) *authHandler {
 }
 
 func (h *authHandler) login(w http.ResponseWriter, r *http.Request) {
-	f := newLoginForm()
+	f := newLoginForm(h.srv.Locale(r))
 
 	if r.Method == http.MethodGet {
 		// Set the redirect value from the query string

@@ -6,9 +6,11 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "./base" }}
 {{ import "/_libs/forms" }}
 
-{{ block title() }}Login{{ end }}
+{{ block title() }}{{ gettext("Sign in") }}{{ end }}
 
 {{ block main() }}
+<h2 class="text-h3 mb-8 text-center">{{ gettext("Sign in to Readeck") }}</h2>
+
 <form action="{{ urlFor(`/login`) }}" method="post" data-controller="login-form"
   data-action="login-form#validate">
 
@@ -17,7 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   <input type="hidden" name="redirect" value="{{ .Form.Get(`redirect`).String() }}" />
 
   {{ yield textField(field=.Form.Get("username"),
-                      label="Username or email address",
+                      label=gettext("Username or email address"),
                       class="max",
                       inputAttrs=attrList(
                         "data-login-form-target", "username",
@@ -25,17 +27,17 @@ SPDX-License-Identifier: AGPL-3.0-only
                       ),
   ) }}
   {{ yield passwordField(field=.Form.Get("password"),
-                         label="Password",
+                         label=gettext("Password"),
                          inputAttrs=attrList(
                            "data-login-form-target", "password",
                            "autocomplete", "current-password",
                          ),
   ) }}
 
-  <button class="btn block mt-6 w-full rounded-md" type="submit">Login</button>
+  <button class="btn block mt-6 w-full rounded-md" type="submit">{{ gettext("Sign in") }}</button>
 </form>
 
 {{- if canSendEmail -}}
-  <p class="mt-4 text-center"><a href="{{ urlFor(`/login/recover`) }}" class="link">Forgot your password?</a></p>
+  <p class="mt-4 text-center"><a href="{{ urlFor(`/login/recover`) }}" class="link">{{ gettext("Forgot your password?") }}</a></p>
 {{- end -}}
 {{ end }}

@@ -67,7 +67,7 @@ func newProfileViews(api *profileAPI) *profileViews {
 // userProfile handles GET and POST requests on /profile.
 func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
 	user := auth.GetRequestUser(r)
-	f := newProfileForm()
+	f := newProfileForm(v.srv.Locale(r))
 	f.setUser(user)
 
 	if r.Method == http.MethodPost {
@@ -78,9 +78,10 @@ func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
 			} else {
 				// Set the new seed in the session.
 				// We needn't save the session since AddFlash does that already.
+				tr := v.srv.Locale(r)
 				sess := v.srv.GetSession(r)
 				sess.Payload.Seed = user.Seed
-				v.srv.AddFlash(w, r, "success", "Profile updated")
+				v.srv.AddFlash(w, r, "success", tr.Gettext("Profile updated."))
 				v.srv.Redirect(w, r, "profile")
 				return
 			}
@@ -108,9 +109,10 @@ func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 			} else {
 				// Set the new seed in the session.
 				// We needn't save the session since AddFlash does it already.
+				tr := v.srv.Locale(r)
 				sess := v.srv.GetSession(r)
 				sess.Payload.Seed = user.Seed
-				v.srv.AddFlash(w, r, "success", "Your password was changed.")
+				v.srv.AddFlash(w, r, "success", tr.Gettext("Your password was changed."))
 				v.srv.Redirect(w, r, "password")
 				return
 			}
@@ -136,9 +138,10 @@ func (v *profileViews) credentialList(w http.ResponseWriter, r *http.Request) {
 }
 
 func (v *profileViews) credentialCreate(w http.ResponseWriter, r *http.Request) {
+	tr := v.srv.Locale(r)
 	cl := r.Context().Value(ctxCredentialListKey{}).(credentialList)
 	if cl.Pagination.TotalCount >= maxCredentials {
-		v.srv.AddFlash(w, r, "error", "Error: you can not create more credentials")
+		v.srv.AddFlash(w, r, "error", tr.Gettext("Error: you can not create more credentials."))
 		v.srv.Redirect(w, r)
 		return
 	}
@@ -146,7 +149,7 @@ func (v *profileViews) credentialCreate(w http.ResponseWriter, r *http.Request) 
 	c, passphrase, err := credentials.Credentials.GenerateCredential(auth.GetRequestUser(r).ID)
 	if err != nil {
 		v.srv.Log(r).WithError(err).Error("server error")
-		v.srv.AddFlash(w, r, "error", "An error append while creating your password.")
+		v.srv.AddFlash(w, r, "error", tr.Gettext("An error occurred while creating your password."))
 		v.srv.Redirect(w, r, "credentials")
 		return
 	}
@@ -157,7 +160,7 @@ func (v *profileViews) credentialCreate(w http.ResponseWriter, r *http.Request) 
 
 func (v *profileViews) credentialInfo(w http.ResponseWriter, r *http.Request) {
 	ci := r.Context().Value(ctxCredentialKey{}).(credentialItem)
-	f := newCredentialForm(auth.GetRequestUser(r))
+	f := newCredentialForm(v.srv.Locale(r), auth.GetRequestUser(r))
 
 	flashes := v.srv.Flashes(r)
 	passphrase := ""
@@ -177,7 +180,8 @@ func (v *profileViews) credentialInfo(w http.ResponseWriter, r *http.Request) {
 			if err := f.updateCredential(ci.Credential); err != nil {
 				v.srv.Log(r).Error(err)
 			} else {
-				v.srv.AddFlash(w, r, "success", "Password was updated.")
+				tr := v.srv.Locale(r)
+				v.srv.AddFlash(w, r, "success", tr.Gettext("Password was updated."))
 				v.srv.Redirect(w, r, ci.UID)
 				return
 			}
@@ -194,7 +198,7 @@ func (v *profileViews) credentialInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (v *profileViews) credentialDelete(w http.ResponseWriter, r *http.Request) {
-	f := newDeleteCredentialForm()
+	f := newDeleteCredentialForm(v.srv.Locale(r))
 	f.Get("_to").Set("/profile/credentials")
 	forms.Bind(f, r)
 
@@ -223,20 +227,21 @@ func (v *profileViews) tokenCreate(w http.ResponseWriter, r *http.Request) {
 		IsEnabled:   true,
 		Application: "internal",
 	}
+	tr := v.srv.Locale(r)
 	if err := tokens.Tokens.Create(t); err != nil {
 		v.srv.Log(r).WithError(err).Error("server error")
-		v.srv.AddFlash(w, r, "error", "An error append while creating your token.")
+		v.srv.AddFlash(w, r, "error", tr.Gettext("An error occurred while creating your token."))
 		v.srv.Redirect(w, r, "tokens")
 		return
 	}
 
-	v.srv.AddFlash(w, r, "success", "New token created.")
+	v.srv.AddFlash(w, r, "success", tr.Gettext("New token created."))
 	v.srv.Redirect(w, r, ".", t.UID)
 }
 
 func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 	ti := r.Context().Value(ctxtTokenKey{}).(tokenItem)
-	f := newTokenForm(auth.GetRequestUser(r))
+	f := newTokenForm(v.srv.Locale(r), auth.GetRequestUser(r))
 
 	if r.Method == http.MethodGet {
 		f.setToken(ti.Token)
@@ -248,7 +253,8 @@ func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 			if err := f.updateToken(ti.Token); err != nil {
 				v.srv.Log(r).Error(err)
 			} else {
-				v.srv.AddFlash(w, r, "success", "Token was updated.")
+				tr := v.srv.Locale(r)
+				v.srv.AddFlash(w, r, "success", tr.Gettext("Token was updated."))
 				v.srv.Redirect(w, r, ti.UID)
 				return
 			}
@@ -272,7 +278,7 @@ func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (v *profileViews) tokenDelete(w http.ResponseWriter, r *http.Request) {
-	f := newDeleteTokenForm()
+	f := newDeleteTokenForm(v.srv.Locale(r))
 	f.Get("_to").Set("/profile/tokens")
 	forms.Bind(f, r)
 

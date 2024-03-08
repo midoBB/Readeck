@@ -6,10 +6,10 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "./base" }}
 {{ import "/_libs/forms"}}
 
-{{- block title() -}}New Collection{{- end -}}
+{{- block title() -}}{{ gettext("New Collection") }}{{- end -}}
 
 {{- block mainContent() -}}
-<h1 class="title text-h2">New Collection</h1>
+<h1 class="title text-h2">{{ yield title() }}</h1>
 
 <form action="{{ urlFor() }}" method="post"
  class="my-4 p-2 bg-gray-100 border rounded">
@@ -20,14 +20,14 @@ SPDX-License-Identifier: AGPL-3.0-only
   <div class="text-sm mt-2">
     {{ yield textField(
       field=.Form.Get("name"),
-      label="Name",
+      label=gettext("Name"),
       class="mb-2",
       inputAttrs=attrList("autofocus", true),
     ) }}
     {{ include("./components/filters") .Form }}
   </div>
 
-  <p class="mt-4"><button class="btn-primary" type="submit">Save</button></p>
+  <p class="mt-4"><button class="btn-primary" type="submit">{{ gettext("Save") }}</button></p>
 </form>
 
 {{- include "./components/bookmark_list" -}}

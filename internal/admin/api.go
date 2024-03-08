@@ -140,7 +140,7 @@ func (api *adminAPI) userInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *adminAPI) userCreate(w http.ResponseWriter, r *http.Request) {
-	f := users.NewUserForm()
+	f := users.NewUserForm(api.srv.Locale(r))
 	forms.Bind(f, r)
 	if !f.IsValid() {
 		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
@@ -158,7 +158,7 @@ func (api *adminAPI) userCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *adminAPI) userUpdate(w http.ResponseWriter, r *http.Request) {
-	f := users.NewUserForm()
+	f := users.NewUserForm(api.srv.Locale(r))
 
 	u := r.Context().Value(ctxUserKey{}).(*users.User)
 	f.SetUser(u)

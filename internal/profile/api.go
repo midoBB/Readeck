@@ -107,7 +107,7 @@ func (api *profileAPI) profileInfo(w http.ResponseWriter, r *http.Request) {
 // profileUpdate updates the current user profile information.
 func (api *profileAPI) profileUpdate(w http.ResponseWriter, r *http.Request) {
 	user := auth.GetRequestUser(r)
-	f := newProfileForm()
+	f := newProfileForm(api.srv.Locale(r))
 	f.setUser(user)
 	forms.Bind(f, r)
 

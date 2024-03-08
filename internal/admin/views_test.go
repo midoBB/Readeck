@@ -98,7 +98,7 @@ func TestViews(t *testing.T) {
 			RequestTest{
 				Target:         fmt.Sprintf("/admin/users/%d", u1.User.ID),
 				ExpectStatus:   200,
-				ExpectContains: "<strong>User updated</strong>",
+				ExpectContains: "<strong>User updated.</strong>",
 			},
 
 			// Udpate current user
@@ -132,7 +132,7 @@ func TestViews(t *testing.T) {
 			RequestTest{
 				Target:         fmt.Sprintf("/admin/users/%d", u1.User.ID),
 				ExpectStatus:   200,
-				ExpectContains: "<strong>User updated</strong>",
+				ExpectContains: "<strong>User updated.</strong>",
 			},
 
 			// Delete user

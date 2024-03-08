@@ -5,20 +5,20 @@ SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{ extends "./base" }}
 
-{{ block title() }}About Readeck{{ end }}
+{{ block title() }}{{ gettext("About Readeck") }}{{ end }}
 
 {{ block mainContent() }}
 <div class="max-w-3xl">
   <div class="text-center my-4">
-    <h1 class="title text-h1">About Readeck</h1>
+    <h1 class="title text-h1">{{ yield title() }}</h1>
 
-      <p class="my-1"><strong>Version:</strong><br> {{ .Version }}</p>
-      <p class="my-1"><strong>Built on:</strong><br> {{ date(.BuildTime, "Monday, 2 January 2006 15:04:05 MST") }}</p>
+      <p class="my-1"><strong>{{ gettext("Version:") }}</strong><br> {{ .Version }}</p>
+      <p class="my-1"><strong>{{ gettext("Built Date:") }}</strong><br> {{ date(.BuildTime, "%A, %e %B %Y %H:%M:%S %Z") }}</p>
   </div>
 
-  <h2 class="title text-h2">System Information</h2>
+  <h2 class="title text-h2">{{ gettext("System Information") }}</h2>
 
-  <p>Here are your current system information. Please include them if you report a bug.</p>
+  <p>{{ gettext("Here are your current system information. Please include them if you report a bug.") }}</p>
 
   <ul class="my-4 p-2 text-sm font-mono bg-gray-100 border border-gray-200 rounded">
     <li>Version: {{ .Version }}</li>
@@ -28,18 +28,20 @@ SPDX-License-Identifier: AGPL-3.0-only
     <li>Database Connector: {{ .DBConnecter }}</li>
   </ul>
 
-  <h2 class="title text-h2">License</h2>
+  <h2 class="title text-h2">{{ gettext("License") }}</h2>
 
-  <p>Readeck is distributed under the terms of the
-  <a href="https://www.gnu.org/licenses/agpl-3.0.html" class="link">GNU Affero General Public License v3.0</a>.
-  Here's a short summary of the license conditions:</p>
+  <p>{{ gettext(
+    `Readeck is distributed under the terms of the license "%s"`,
+    `<a href="https://www.gnu.org/licenses/agpl-3.0.html" class="link">GNU Affero General Public License v3.0.</a>`
+  )|raw }}<br>
+  {{ gettext("Here's a short summary of the license conditions:") }}</p>
 
-  <table class="my-4 w-full table-fixed">
+  <table class="my-4 w-full table-fixed" lang="en-US">
     <thead>
       <tr>
-        <th class="text-left">Permissions</th>
-        <th class="text-left">Conditions</th>
-        <th class="text-left">Limitations</th>
+        <th class="text-left">{{ gettext("Permissions") }}</th>
+        <th class="text-left">{{ gettext("Conditions") }}</th>
+        <th class="text-left">{{ gettext("Limitations") }}</th>
       </tr>
     </thead>
     <tbody>
@@ -47,48 +49,48 @@ SPDX-License-Identifier: AGPL-3.0-only
         <td class="align-baseline">
           <ul>
             <li title="The licensed material and derivatives may be used for commercial purposes.">
-              {{ yield icon(name="o-circle", class="svgicon text-green-700") }} Commercial use
+              {{ yield icon(name="o-circle", class="svgicon text-green-700") }} {{ gettext("Commercial use") }}
             </li>
             <li title="The licensed material may be distributed.">
-              {{ yield icon(name="o-circle", class="svgicon text-green-700") }} Distribution
+              {{ yield icon(name="o-circle", class="svgicon text-green-700") }} {{ gettext("Distribution") }}
             </li>
             <li title="The licensed material may be modified.">
-              {{ yield icon(name="o-circle", class="svgicon text-green-700") }} Modification
+              {{ yield icon(name="o-circle", class="svgicon text-green-700") }} {{ gettext("Modification") }}
             </li>
             <li title="This license provides an express grant of patent rights from contributors.">
-              {{ yield icon(name="o-circle", class="svgicon text-green-700") }} Patent use
+              {{ yield icon(name="o-circle", class="svgicon text-green-700") }} {{ gettext("Patent use") }}
             </li>
             <li title="The licensed material may be used and modified in private.">
-              {{ yield icon(name="o-circle", class="svgicon text-green-700") }} Private use
+              {{ yield icon(name="o-circle", class="svgicon text-green-700") }} {{ gettext("Private use") }}
             </li>
           </ul>
         </td>
         <td class="align-baseline">
           <ul>
             <li title="Source code must be made available when the licensed material is distributed.">
-              {{ yield icon(name="o-circle", class="svgicon text-blue-700") }} Disclose source
+              {{ yield icon(name="o-circle", class="svgicon text-blue-700") }} {{ gettext("Disclose source") }}
             </li>
             <li title="A copy of the license and copyright notice must be included with the licensed material.">
-              {{ yield icon(name="o-circle", class="svgicon text-blue-700") }} License and copyright notice
+              {{ yield icon(name="o-circle", class="svgicon text-blue-700") }} {{ gettext("License and copyright notice") }}
             </li>
             <li title="Users who interact with the licensed material via network are given the right to receive a copy of the source code.">
-              {{ yield icon(name="o-circle", class="svgicon text-blue-700") }} Network use is distribution
+              {{ yield icon(name="o-circle", class="svgicon text-blue-700") }} {{ gettext("Network use is distribution") }}
             </li>
             <li title="Modifications must be released under the same license when distributing the licensed material. In some cases a similar or related license may be used.">
-              {{ yield icon(name="o-circle", class="svgicon text-blue-700") }} Same license
+              {{ yield icon(name="o-circle", class="svgicon text-blue-700") }} {{ gettext("Same license") }}
             </li>
             <li title="Changes made to the licensed material must be documented.">
-              {{ yield icon(name="o-circle", class="svgicon text-blue-700") }} State changes
+              {{ yield icon(name="o-circle", class="svgicon text-blue-700") }} {{ gettext("State changes") }}
             </li>
           </ul>
         </td>
         <td class="align-baseline">
           <ul>
             <li title="This license includes a limitation of liability.">
-              {{ yield icon(name="o-circle", class="svgicon text-red-700") }} Liability
+              {{ yield icon(name="o-circle", class="svgicon text-red-700") }} {{ gettext("Liability") }}
             </li>
             <li title="This license explicitly states that it does NOT provide any warranty.">
-              {{ yield icon(name="o-circle", class="svgicon text-red-700") }} Warranty
+              {{ yield icon(name="o-circle", class="svgicon text-red-700") }} {{ gettext("Warranty") }}
             </li>
           </ul>
         </td>
@@ -115,9 +117,9 @@ SPDX-License-Identifier: AGPL-3.0-only
     If not, see <a href="https://www.gnu.org/licenses/" class="link">https://www.gnu.org/licenses/</a></p>
   </div>
 
-  <h2 class="title text-h2">Third-Party Licenses</h2>
+  <h2 class="title text-h2">{{ gettext("Third-Party Licenses") }}</h2>
 
-  <p class="my-4">Readeck includes and/or uses the following open source assets:</p>
+  <p class="my-4">{{ gettext("Readeck includes and/or uses the following open source assets:") }}</p>
 
   {{- range .Licenses -}}
   <h3 class="font-bold mt-4 mb-2">{{ .Name }}</h3>

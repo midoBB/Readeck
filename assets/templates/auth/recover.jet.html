@@ -6,36 +6,40 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "./base" }}
 {{ import "/_libs/forms" }}
 
-{{ block title() }}Recover your password{{ end }}
+{{ block title() }}{{ gettext("Password recovery") }}{{ end }}
 
 {{ block main() }}
   {{- step := .Form.Get("step").Value() -}}
 
-  <h2 class="text-xl mb-4 border-b">Password recovery</h2>
+  <h2 class="text-h3 mb-8 text-center">{{ yield title() }}</h2>
   {{- if step == 0 -}}
     <form action="" method="post">
       {{ yield formErrors(form=.Form) }}
       {{ yield csrfField() }}
       <input type="hidden" name="step" value="{{ step }}" />
 
-      <p class="mt-4">No worries, it happens to anyone.</p>
-      <p class="mt-2 mb-6">Please provide the email address you used to create
-      your account and we'll send you a message with a link to recover your
-      password.</p>
+      <p class="mt-4">{{ gettext("No worries, it happens to anyone.") }}</p>
+      <p class="mt-2 mb-6">{{ gettext(`
+        Please provide the email address you used to create
+        your account and we'll send you a message with a link
+        to recover your password.
+      `) }}</p>
 
       {{ yield textField(field=.Form.Get("email"),
-                        label="Email address",
+                        label=gettext("Email address"),
                         class="max",
       ) }}
-      <button class="btn block mt-6 w-full rounded-md" type="submit">Send me a recovery link</button>
-      <p class="mt-4 text-center"><a href="{{ urlFor(`/login`) }}" class="link">Cancel and go back to login</a></p>
+      <button class="btn block mt-6 w-full rounded-md" type="submit">{{ gettext("Send me a recovery link") }}</button>
+      <p class="mt-4 text-center"><a href="{{ urlFor(`/login`) }}" class="link">{{ gettext("Cancel and go back to sign in") }}</a></p>
     </form>
   {{- else if step == 1 -}}
     {{- yield message(type="success") content -}}
-      <p>Almost there!</p>
-      <p class="mt-2">We have sent an email to
-      <strong>{{ .Form.Get("email").Value() }}</strong>
-      with further instructions.</p>
+      <p>{{ gettext("Almost there!") }}</p>
+      <p class="mt-2">{{ gettext(`
+        We have sent an email to
+        <strong>%s</strong>
+        with further instructions.
+      `, html(.Form.Get("email").String()))|unsafe }}</p>
     {{- end -}}
   {{- else if step == 2 -}}
     {{- if isset(.Error) -}}
@@ -47,16 +51,16 @@ SPDX-License-Identifier: AGPL-3.0-only
         <input type="hidden" name="step" value="{{ step }}" />
 
         {{ yield passwordField(field=.Form.Get("password"),
-                               label="New password",
+                               label=gettext("New password"),
                                class="max",
-                               help="must be at least 8 characters long") }}
-        <button class="btn block mt-6 w-full rounded-md" type="submit">Update your password</button>
-        <p class="mt-4 text-center"><a href="{{ urlFor(`/login`) }}" class="link">Cancel and go back to login</a></p>
+                               help=gettext("must be at least 8 characters long")) }}
+        <button class="btn block mt-6 w-full rounded-md" type="submit">{{ gettext("Update your password") }}</button>
+        <p class="mt-4 text-center"><a href="{{ urlFor(`/login`) }}" class="link">{{ gettext("Cancel and go back to sign in") }}</a></p>
     {{- end -}}
   {{- else if step == 3 -}}
     {{- yield message(type="success") content -}}
-      <p>Your password has been changed.</p>
-      <p class="mt-2"><a class="link" href="{{ urlFor(`/login`) }}">Go to the login page</a></p>
+      <p>{{ gettext("Your password has been changed.") }}</p>
+      <p class="mt-2"><a class="link" href="{{ urlFor(`/login`) }}">{{ gettext("Go to the sign in page") }}</a></p>
     {{- end -}}
   {{- end -}}
 

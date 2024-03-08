@@ -7,7 +7,6 @@ package libjet
 import (
 	"reflect"
 	"testing"
-	"time"
 
 	"github.com/stretchr/testify/require"
 )
@@ -84,35 +83,4 @@ func TestToString(t *testing.T) {
 		v := ToString(reflect.ValueOf(tt.v))
 		require.Equal(t, tt.expect, v, "%#v", tt.v)
 	}
-}
-
-func TestToDateFmt(t *testing.T) {
-	var date1 *time.Time
-	date2, _ := time.Parse("2006-01-02", "2012-04-02")
-	date3 := &date2
-
-	values := []struct {
-		v      interface{}
-		format string
-		expect string
-	}{
-		{date1, "2006-01-02", ""},
-		{date2, "2006-01-02", "2012-04-02"},
-		{date3, "2006-01-02", "2012-04-02"},
-	}
-
-	assert := require.New(t)
-	for _, tt := range values {
-		r := ToDateFmt(reflect.ValueOf(tt.v), reflect.ValueOf(tt.format))
-		t.Logf("%#v\n", r)
-		assert.Equal(tt.expect, r, "%#v", tt.v)
-	}
-
-	assert.Panics(func() {
-		ToDateFmt(reflect.ValueOf(123), reflect.ValueOf(""))
-	})
-	assert.Panics(func() {
-		v := &[]byte{}
-		ToDateFmt(reflect.ValueOf(v), reflect.ValueOf(""))
-	})
 }

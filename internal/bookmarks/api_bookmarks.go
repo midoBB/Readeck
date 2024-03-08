@@ -151,7 +151,7 @@ func (api *apiRouter) bookmarkCreate(w http.ResponseWriter, r *http.Request) {
 	var err error
 	ct, _, _ := mime.ParseMediaType(r.Header.Get("content-type"))
 
-	f := newCreateForm(auth.GetRequestUser(r).ID, api.srv.GetReqID(r))
+	f := newCreateForm(api.srv.Locale(r), auth.GetRequestUser(r).ID, api.srv.GetReqID(r))
 
 	if ct == "multipart/form-data" {
 		// A multipart form must provide a section with the url and others "resource"
@@ -192,7 +192,7 @@ func (api *apiRouter) bookmarkCreate(w http.ResponseWriter, r *http.Request) {
 
 // bookmarkUpdate updates an existing bookmark.
 func (api *apiRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
-	f := newUpdateForm()
+	f := newUpdateForm(api.srv.Locale(r))
 	forms.Bind(f, r)
 
 	if !f.IsValid() {
@@ -262,7 +262,7 @@ func (api *apiRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	f := newDeleteForm()
+	f := newDeleteForm(api.srv.Locale(r))
 	f.Get("cancel").Set(false)
 	if err := f.trigger(b); err != nil {
 		api.srv.Error(w, r, err)
@@ -350,7 +350,7 @@ func (api *apiRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 
 func (api *apiRouter) labelUpdate(w http.ResponseWriter, r *http.Request) {
 	label := r.Context().Value(ctxLabelKey{}).(string)
-	f := newLabelForm()
+	f := newLabelForm(api.srv.Locale(r))
 	forms.Bind(f, r)
 
 	if !f.IsValid() {
@@ -397,7 +397,7 @@ func (api *apiRouter) bookmarkAnnotations(w http.ResponseWriter, r *http.Request
 
 func (api *apiRouter) annotationCreate(w http.ResponseWriter, r *http.Request) {
 	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
-	f := newAnnotationForm()
+	f := newAnnotationForm(api.srv.Locale(r))
 	forms.Bind(f, r)
 	if !f.IsValid() {
 		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
@@ -487,7 +487,7 @@ func (api *apiRouter) withBookmark(next http.Handler) http.Handler {
 func (api *apiRouter) withBookmarkFilters(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		filter := chi.URLParam(r, "filter")
-		filters := newFilterForm()
+		filters := newFilterForm(api.srv.Locale(r))
 
 		switch filter {
 		case "unread":
@@ -518,7 +518,7 @@ func (api *apiRouter) withLabel(next http.Handler) http.Handler {
 
 		ctx := context.WithValue(r.Context(), ctxLabelKey{}, label)
 
-		filters := newFilterForm()
+		filters := newFilterForm(api.srv.Locale(r))
 		filters.Get("labels").Set(fmt.Sprintf(`"%s"`, label))
 		ctx = filters.saveContext(ctx)
 
@@ -537,7 +537,7 @@ func (api *apiRouter) withDefaultLimit(limit int) func(next http.Handler) http.H
 
 func (api *apiRouter) withoutPagination(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		f := newContextFilterForm(r.Context())
+		f := newContextFilterForm(r.Context(), api.srv.Locale(r))
 		f.noPagination = true
 		next.ServeHTTP(w, r.Clone(f.saveContext(r.Context())))
 	})
@@ -570,8 +570,8 @@ func (api *apiRouter) withCollectionFilters(next http.Handler) http.Handler {
 		}
 
 		// Apply filters
-		f := newCollectionForm()
-		f.Filters = newContextFilterForm(r.Context())
+		f := newCollectionForm(api.srv.Locale(r))
+		f.Filters = newContextFilterForm(r.Context(), api.srv.Locale(r))
 		f.setCollection(c)
 		f.Filters.order = []exp.OrderedExpression{goqu.I("created").Desc()}
 		ctx = f.Filters.saveContext(ctx)
@@ -608,7 +608,7 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 		ds = ds.Order(goqu.I("created").Desc())
 
 		// Filters (search and other filters)
-		filters := newContextFilterForm(r.Context())
+		filters := newContextFilterForm(r.Context(), api.srv.Locale(r))
 
 		// We accept any values coming from a post or get method.
 		_ = r.ParseForm()
@@ -719,7 +719,7 @@ func (api *apiRouter) withLabelList(next http.Handler) http.Handler {
 				goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
 			)
 
-		f := newLabelSearchForm()
+		f := newLabelSearchForm(api.srv.Locale(r))
 		forms.UnmarshalValues(f, r.URL.Query())
 		if f.Get("q").String() != "" {
 			q := strings.ReplaceAll(f.Get("q").String(), "*", "%")

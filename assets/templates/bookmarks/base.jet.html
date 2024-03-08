@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "/_layouts/sidemenu" }}
 
 {{- block sideMenu() -}}
-{{- yield sideMenuTitle() content -}}Bookmarks{{- end }}
+{{- yield sideMenuTitle() content -}}{{ gettext("Bookmarks") }}{{- end }}
 
 <form class="mt-2 ml-0.5 mr-1 flex" action="{{ urlFor(`/bookmarks`) }}" method="get">
   <input type="hidden" name="bf" value="1" />
@@ -21,30 +21,30 @@ SPDX-License-Identifier: AGPL-3.0-only
 </form>
 
 <menu class="my-4">
-  {{ yield sideMenuItem(name="All", path="/bookmarks", icon="o-library",
+  {{ yield sideMenuItem(name=gettext("All"), path="/bookmarks", icon="o-library",
                         current=pathIs("/bookmarks")) }}
-  {{ yield sideMenuItem(name="Unread", path="/bookmarks/unread", icon="o-check-off",
+  {{ yield sideMenuItem(name=gettext("Unread"), path="/bookmarks/unread", icon="o-check-off",
                         current=pathIs("/bookmarks/unread")) }}
-  {{ yield sideMenuItem(name="Archive", path="/bookmarks/archives", icon="o-archive-off",
+  {{ yield sideMenuItem(name=gettext("Archive"), path="/bookmarks/archives", icon="o-archive-off",
                         current=pathIs("/bookmarks/archives")) }}
-  {{ yield sideMenuItem(name="Favorites", path="/bookmarks/favorites", icon="o-favorite-off",
+  {{ yield sideMenuItem(name=gettext("Favorites"), path="/bookmarks/favorites", icon="o-favorite-off",
                         current=pathIs("/bookmarks/favorites")) }}
 </menu>
 
 {{- if isset(.Count) }}
   <menu class="my-4">
     {{- if isset(.Count.ByType.article) && .Count.ByType.article > 0 }}
-      {{ yield sideMenuItem(name="Articles", path="/bookmarks/articles", icon="o-file",
+      {{ yield sideMenuItem(name=gettext("Articles"), path="/bookmarks/articles", icon="o-file",
                             current=pathIs("/bookmarks/articles")) }}
     {{- end -}}
 
     {{- if isset(.Count.ByType.video) && .Count.ByType.video > 0 }}
-      {{ yield sideMenuItem(name="Videos", path="/bookmarks/videos", icon="o-video",
+      {{ yield sideMenuItem(name=gettext("Videos"), path="/bookmarks/videos", icon="o-video",
                             current=pathIs("/bookmarks/videos")) }}
     {{- end -}}
 
     {{- if isset(.Count.ByType.photo) && .Count.ByType.photo > 0 }}
-      {{ yield sideMenuItem(name="Pictures", path="/bookmarks/pictures", icon="o-photo",
+      {{ yield sideMenuItem(name=gettext("Pictures"), path="/bookmarks/pictures", icon="o-photo",
                             current=pathIs("/bookmarks/pictures")) }}
     {{- end -}}
   </menu>
@@ -53,11 +53,11 @@ SPDX-License-Identifier: AGPL-3.0-only
 <hr class="w-[25%] border-gray-200 mx-auto">
 
 <menu class="mt-4">
-  {{ yield sideMenuItem(name="Labels", path="/bookmarks/labels", icon="o-label",
+  {{ yield sideMenuItem(name=gettext("Labels"), path="/bookmarks/labels", icon="o-label",
                         current=pathIs("/bookmarks/labels", "/bookmarks/labels/*")) }}
-  {{ yield sideMenuItem(name="Highlights", path="/bookmarks/highlights", icon="o-highlight",
+  {{ yield sideMenuItem(name=gettext("Highlights"), path="/bookmarks/highlights", icon="o-highlight",
                         current=pathIs("/bookmarks/highlights")) }}
-  {{ yield sideMenuItem(name="Collections", path="/bookmarks/collections", icon="o-collection",
+  {{ yield sideMenuItem(name=gettext("Collections"), path="/bookmarks/collections", icon="o-collection",
                         current=pathIs("/bookmarks/collections", "/bookmarks/collections/*")) }}
 </menu>
 {{- end -}}

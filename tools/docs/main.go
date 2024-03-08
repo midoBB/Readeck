@@ -128,6 +128,7 @@ func mdToHTML(source, dest string) (*File, error) {
 			meta.Meta,
 		),
 		goldmark.WithParserOptions(
+			parser.WithHeadingAttribute(),
 			parser.WithAutoHeadingID(),
 			parser.WithASTTransformers(
 				util.Prioritized(&linkTransform{}, 900),
@@ -311,7 +312,6 @@ func main() {
 		aliases := []string{}
 
 		if path.Ext(src) == ".md" {
-			// destFile = strings.TrimSuffix(destFile, ".md") + ".html"
 			dst = strings.TrimSuffix(dst, ".md") + ".html"
 
 			file, err = mdToHTML(src, dst)

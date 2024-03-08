@@ -62,7 +62,7 @@ func (h *adminViews) userList(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *adminViews) userCreate(w http.ResponseWriter, r *http.Request) {
-	f := users.NewUserForm()
+	f := users.NewUserForm(h.srv.Locale(r))
 	f.Get("group").Set("user")
 
 	if r.Method == http.MethodPost {
@@ -72,7 +72,8 @@ func (h *adminViews) userCreate(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				h.srv.Log(r).Error(err)
 			} else {
-				h.srv.AddFlash(w, r, "success", "User created")
+				tr := h.srv.Locale(r)
+				h.srv.AddFlash(w, r, "success", tr.Gettext("User created."))
 				h.srv.Redirect(w, r, "./..", fmt.Sprint(u.ID))
 				return
 			}
@@ -90,7 +91,7 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 	u := r.Context().Value(ctxUserKey{}).(*users.User)
 	item := newUserItem(h.srv, r, u, "./..")
 
-	f := users.NewUserForm()
+	f := users.NewUserForm(h.srv.Locale(r))
 	f.SetUser(u)
 
 	if r.Method == http.MethodPost {
@@ -106,7 +107,8 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 					sess.Payload.User = u.ID
 					sess.Payload.Seed = u.Seed
 				}
-				h.srv.AddFlash(w, r, "success", "User updated")
+				tr := h.srv.Locale(r)
+				h.srv.AddFlash(w, r, "success", tr.Gettext("User updated."))
 				h.srv.Redirect(w, r, fmt.Sprint(u.ID))
 				return
 			}
@@ -123,7 +125,7 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *adminViews) userDelete(w http.ResponseWriter, r *http.Request) {
-	f := newDeleteForm()
+	f := newDeleteForm(h.srv.Locale(r))
 	f.Get("_to").Set("/admin/users")
 	forms.Bind(f, r)
 

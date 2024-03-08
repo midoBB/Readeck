@@ -6,30 +6,31 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "./base" }}
 {{ import "/_libs/forms" }}
 
-{{ block title() }}Profile{{ end }}
+{{ block title() }}{{ gettext("My profile") }}{{ end }}
 
 {{ block mainContent() }}
-<h1 class="title text-h2">Your profile</h1>
+<h1 class="title text-h2">{{ yield title() }}</h1>
 
 <form action="{{ urlFor() }}" method="post">
   {{ yield formErrors(form=.Form) }}
   {{ yield csrfField() }}
 
-  {{ yield textField(
-    field=.Form.Get("username"),
-    required=true,
-    label="Username",
-    class="field-h",
-  ) }}
+  {{ yield textField(field=.Form.Get("username"),
+                     required=true,
+                     label=gettext("Username"),
+                     class="field-h") }}
 
-  {{ yield textField(
-    field=.Form.Get("email"),
-    type="email",
-    required=true,
-    label="Email",
-    class="field-h",
-  ) }}
+  {{ yield textField(field=.Form.Get("email"),
+                     type="email",
+                     required=true,
+                     label=gettext("Email Address"),
+                     class="field-h") }}
 
-  <p><button class="btn-primary" type="submit">Save</button></p>
+  {{ yield selectField(field=.Form.Get("settings_lang"),
+                       required=true,
+                       label=gettext("Language"),
+                       class="field-h") }}
+
+  <p><button class="btn-primary" type="submit">{{ gettext("Save") }}</button></p>
 </form>
 {{ end }}

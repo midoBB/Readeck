@@ -226,6 +226,7 @@ func (u *User) HasPermission(obj, act string) bool {
 // UserSettings contains some user settings.
 type UserSettings struct {
 	DebugInfo      bool           `json:"debug_info"`
+	Lang           string         `json:"lang"`
 	ReaderSettings ReaderSettings `json:"reader_settings"`
 }
 

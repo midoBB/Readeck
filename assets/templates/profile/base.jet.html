@@ -6,20 +6,24 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "/_layouts/sidemenu" }}
 
 {{- block sideMenu() -}}
-{{- yield sideMenuTitle() content -}}Settings{{- end }}
+{{- yield sideMenuTitle() content -}}{{ gettext("Settings") }}{{- end }}
 
   <menu class="my-4">
     <li><a href="{{ urlFor(`/profile`) }}"
-    data-current="{{ pathIs(`/profile`) }}">{{ yield icon(name="o-user") }} Profile</a></li>
+    data-current="{{ pathIs(`/profile`) }}">{{ yield icon(name="o-user") }}
+      {{ gettext("Profile") }}</a></li>
     <li><a href="{{ urlFor(`/profile/password`) }}"
-    data-current="{{ pathIs(`/profile/password`) }}">{{ yield icon(name="o-lock") }} Password</a></li>
+    data-current="{{ pathIs(`/profile/password`) }}">{{ yield icon(name="o-lock") }}
+      {{ gettext("Password") }}</a></li>
     {{ if hasPermission("profile:credentials", "read") -}}
     <li><a href="{{ urlFor(`/profile/credentials`) }}"
-    data-current="{{ pathIs(`/profile/credentials`, `/profile/credentials/*`) }}">{{ yield icon(name="o-key") }} Application Passwords</a></li>
+    data-current="{{ pathIs(`/profile/credentials`, `/profile/credentials/*`) }}">{{ yield icon(name="o-key") }}
+      {{ gettext("Application Passwords") }}</a></li>
     {{- end }}
     {{ if hasPermission("profile:tokens", "read") -}}
       <li><a href="{{ urlFor(`/profile/tokens`) }}"
-      data-current="{{ pathIs(`/profile/tokens`, `/profile/tokens/*`) }}">{{ yield icon(name="o-terminal") }} API Tokens</a></li>
+      data-current="{{ pathIs(`/profile/tokens`, `/profile/tokens/*`) }}">{{ yield icon(name="o-terminal") }}
+        {{ gettext("API Tokens") }}</a></li>
     {{- end }}
   </menu>
 
@@ -27,7 +31,8 @@ SPDX-License-Identifier: AGPL-3.0-only
     <hr class="w-[25%] border-gray-200 mx-auto">
     <menu class="my-4">
       <li><a href="{{ urlFor(`/admin/users`) }}"
-        data-current="{{ pathIs(`/admin/users`, `/admin/users/*`) }}">{{ yield icon(name="o-user-admin") }} Users</a></li>
+      data-current="{{ pathIs(`/admin/users`, `/admin/users/*`) }}">{{ yield icon(name="o-user-admin") }}
+        {{ gettext("Users") }}</a></li>
     </menu>
   {{- end -}}
 {{- end -}}

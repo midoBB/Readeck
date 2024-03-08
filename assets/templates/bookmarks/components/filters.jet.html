@@ -6,58 +6,58 @@ SPDX-License-Identifier: AGPL-3.0-only
 <div class="grid grid-cols-3 gap-x-4 gap-y-2 max-md:grid-cols-2">
   {{ yield textField(
     field=.Get("search"),
-    label="Search",
+    label=gettext("Search"),
     class="mb-0 col-span-3 max-md:col-span-2",
   ) }}
   {{ yield textField(
     field=.Get("title"),
-    label="Title",
+    label=gettext("Title"),
     class="mb-0",
   ) }}
   {{ yield textField(
     field=.Get("author"),
-    label="Author",
+    label=gettext("Author"),
     class="mb-0",
   ) }}
   {{ yield textField(
     field=.Get("site"),
-    label="Site",
+    label=gettext("Site"),
     class="mb-0",
   ) }}
 
   {{ yield textField(
     field=.Get("labels"),
-    label="Label",
+    label=gettext("Label"),
     class="mb-0",
   ) }}
 
-  <div class="flex flex-wrap gap-x-4">
+  <div class="flex flex-wrap gap-x-4 gap-y-2">
     {{ yield selectField(field=.Get("is_marked"),
-      label="Is Favorite",
+      label=gettext("Is Favorite"),
       class="mb-0 flex-grow",
-      options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
+      options=slice(slice("", ""), slice(true, gettext("yes")), slice(false, gettext("no"))),
     ) }}
     {{ yield selectField(field=.Get("is_archived"),
-      label="Is Archived",
+      label=gettext("Is Archived"),
       class="mb-0 flex-grow",
-      options=slice(slice("", ""), slice(true, "yes"), slice(false, "no")),
+      options=slice(slice("", ""), slice(true, gettext("yes")), slice(false, gettext("no"))),
     ) }}
 
     {{ yield selectField(field=.Get("type"),
-      label="Type",
+      label=gettext("Type"),
       class="mb-0 flex-grow",
     ) }}
   </div>
 
-  <div class="flex flex-wrap gap-x-4">
+  <div class="flex flex-wrap gap-x-4 gap-y-2">
     {{ yield timeTokenField(
       field=.Get("range_start"),
-      label="From date",
+      label=gettext("From date"),
       class="mb-0 flex-grow",
     ) }}
     {{ yield timeTokenField(
       field=.Get("range_end"),
-      label="To date",
+      label=gettext("To date"),
       class="mb-0 flex-grow",
     ) }}
   </div>

@@ -6,9 +6,9 @@ Bookmarks are where you save the web content you like.
 
 Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks).
 
-![New Bookmark form](img/bookmark-new.webp)
+![New Bookmark form](./img/bookmark-new.webp)
 
-After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook (for more information, please read the [Bookmark View](./bookmark.md) section).
+After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section.
 
 ## Bookmark type
 
@@ -62,7 +62,7 @@ Finally, you'll see 3 more sections that take you to bookmark related pages:
 
 - **[Labels](./labels.md)** \
   All your bookmark labels
-- **Highligts** \
+- **Highlights** \
   All the highlights created on your bookmarks
 - **[Collections](./collections.md)** \
   The list of all your collections
@@ -78,7 +78,7 @@ A card shows:
 - the **title** on which you can click to watch or read the bookmark,
 - the **site name**,
 - the estimated **reading time**,
-- the **tag list**,
+- the **label list**,
 - **action buttons**
 
 The action buttons perform the following:
@@ -91,18 +91,42 @@ The action buttons perform the following:
   This marks the bookmark for deletion (it can be canceled during a few seconds).
 
 
-## Filter results
+## Filter bookmarks {#filters}
 
 On the bookmark list, you can filter your results based on one or several criteria. Click on the button "Filter list" next to the page title to open the filtering form.
 
 ![Bookmark list filters](./img/bookmark-filters.webp)
 The filter form
 
-Enter any criteria and click on **Save**.
+Enter any criteria and click on **Search**.
 
-Please note that if you want to search with an exact text, you must quote the text.\
-For example, if you want to filter by a label **fluffy cat**, enter **"fluffy cat"** in the **Label** field.
+### Available filters
 
-The "site" field lets you search by the website name or its domain.
+You can combine the following filters:
+
+- **Search**\
+  Search in the bookmark's text, its title, its authors, its site name and domain and the labels.
+- **Title**\
+  Search in the title only.
+- **Author**\
+  Search in the author list only.
+- **Site**\
+  Search in the site title and the site domain name.
+- **Label**\
+  Search for specific labels.
+- **Is Favorite**, **Is Archived**, **Type**\
+  This filters let you restrict your search to any of these criteria.
+- **From date**, **To date**\
+  This last filters let you restrict from when and to when the bookmark was saved. For example, this lets you retrieve the bookmark list saved during the past 4 weeks but not after the last week.
+
+### Search query
+
+The **Search**, **Title**, **Author**, **Site** and **Label** fields understand search criteria the same way:
+
+- `startled cat` will find the content with the words **playing** and **cat**
+- `"startled cat"` will find the content with the exact words **playing cat** together.
+- `cat*` will find the content with the words starting with **cat** (cat, catnip and caterpillar would be a match).
+- `-startled cat` will find the content with the word **cat** but NOT the word **startled**.
+
 
 After you performed a search, you can save it into a new [collection](./collections.md) to make it permanent.

@@ -20,6 +20,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bus"
 	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/locales"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -29,8 +30,8 @@ type recoverForm struct {
 	prefix string
 }
 
-func newRecoverForm() *recoverForm {
-	return &recoverForm{
+func newRecoverForm(tr forms.Translator) (f *recoverForm) {
+	f = &recoverForm{
 		Form: forms.Must(
 			forms.NewIntegerField("step", forms.Required),
 			forms.NewTextField("email", forms.Trim),
@@ -39,6 +40,8 @@ func newRecoverForm() *recoverForm {
 		ttl:    time.Duration(2 * time.Hour),
 		prefix: "recover_code",
 	}
+	f.SetLocale(tr)
+	return
 }
 
 func (f *recoverForm) Validate() {
@@ -77,7 +80,7 @@ func (f *recoverForm) delCode(code string) error {
 }
 
 func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
-	f := newRecoverForm()
+	f := newRecoverForm(h.srv.Locale(r))
 	f.Get("step").Set(0)
 
 	tc := server.TC{
@@ -108,6 +111,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 		mailTc := server.TC{
 			"SiteURL":   h.srv.AbsoluteURL(r, "/"),
 			"EmailAddr": f.Get("email").String(),
+			"Loc":       locales.LoadTranslation("en-US"),
 		}
 		code := shortuuid.New()
 		if user != nil {
@@ -116,6 +120,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 			}
 
 			mailTc["RecoverLink"] = h.srv.AbsoluteURL(r, "/login/recover", code)
+			mailTc["Loc"] = locales.LoadTranslation(user.Settings.Lang)
 		}
 		err = email.SendEmail(
 			fmt.Sprintf("Readeck <%s>", configs.Config.Email.FromNoReply),

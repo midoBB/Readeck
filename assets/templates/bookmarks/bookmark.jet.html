@@ -9,10 +9,10 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 {{- block title() -}}
   {{- if !.Item.Loaded -}}
-    Bookmark loading
+    {{ gettext("Bookmark loading") }}
   {{- else -}}
     {{ .Item.Title }}
-  {{- end }} - Bookmarks
+  {{- end }} - {{ gettext("Bookmarks") }}
 {{- end -}}
 
 {{- block head() -}}
@@ -23,8 +23,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 {{- block body() -}}
   {{- yield quickAccessMenu(items=slice(
-    slice("menu", "Menu"),
-    slice("content", "Main content"),
+    slice("menu", gettext("Menu")),
+    slice("content", gettext("Main content")),
   )) -}}
 <div class="layout layout--bookmark">
   {{ include "/menu" }}
@@ -36,11 +36,11 @@ SPDX-License-Identifier: AGPL-3.0-only
     {{- if !.Item.Loaded -}}
       <div class="text-center mt-8" id="content">
         <span class="text-3xl">{{ yield spinner() }}</span>
-        <p class="text-lg">Bookmark is loading…</p>
+        <p class="text-lg">{{ gettext("Bookmark is loading") }}…</p>
       </div>
     {{- else -}}
       <div class="hidden print:block font-lora" data-controller="reader"
-       dir="{{ default(.Item.TextDirection, "ltr") }}">
+       dir="{{ default(.Item.TextDirection, `ltr`) }}">
         <h1 class="px-6 py-4 text-3xl print:px-0">{{ .Item.Title }}</h1>
       </div>
 
@@ -64,7 +64,7 @@ SPDX-License-Identifier: AGPL-3.0-only
               cursor-pointer
               select-none"
           >
-            <span>More information</span>
+            <span>{{ gettext("More information") }}</span>
             {{- yield icon(name="o-chevron-u", class="inline-block link", svgClass="w-6 h-6") -}}
           </button>
         </div>
@@ -72,7 +72,7 @@ SPDX-License-Identifier: AGPL-3.0-only
           id="bookmark-panel"
           tabindex="-1"
           data-panel-target="panel"
-          aria-label="More information"
+          aria-label="{{ gettext(`More information`) }}"
           data-action="keydown.esc->panel#toggleMenu"
           class="panel--hidden px-6 pt-4 pb-8 max-md:px-4 max-md:overflow-y-auto max-md:overscroll-contain flex-grow print:pb-0 print:px-0"
         >
@@ -116,7 +116,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
           {{- if !empty(.Item.Description) -}}
             <p class="mt-2 text-lg leading-tight text-justify italic"
-               dir="{{ default(.Item.TextDirection, "ltr") }}">{{ .Item.Description }}</p>
+               dir="{{ default(.Item.TextDirection, `ltr`) }}">{{ .Item.Description }}</p>
           {{- end -}}
           {{- if user.Settings.DebugInfo -}}
             {{ include "./components/debug" map("log", ._log, "props", ._props) }}

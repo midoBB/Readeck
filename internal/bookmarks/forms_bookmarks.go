@@ -88,7 +88,7 @@ type createForm struct {
 	resources []multipartResource
 }
 
-func newCreateForm(userID int, requestID string) *createForm {
+func newCreateForm(tr forms.Translator, userID int, requestID string) (f *createForm) {
 	strConstructor := func(n string) forms.Field {
 		return forms.NewTextField(n, forms.Trim)
 	}
@@ -100,7 +100,7 @@ func newCreateForm(userID int, requestID string) *createForm {
 		return res
 	}
 
-	return &createForm{
+	f = &createForm{
 		Form: forms.Must(
 			forms.NewTextField("url",
 				forms.Trim,
@@ -116,6 +116,8 @@ func newCreateForm(userID int, requestID string) *createForm {
 		userID:    userID,
 		requestID: requestID,
 	}
+	f.SetLocale(tr)
+	return
 }
 
 func (f *createForm) loadMultipart(r *http.Request) (err error) {
@@ -215,7 +217,7 @@ type updateForm struct {
 	*forms.Form
 }
 
-func newUpdateForm() *updateForm {
+func newUpdateForm(tr forms.Translator) (f *updateForm) {
 	strConstructor := func(n string) forms.Field {
 		return forms.NewTextField(n, forms.Trim)
 	}
@@ -227,7 +229,7 @@ func newUpdateForm() *updateForm {
 		return res
 	}
 
-	return &updateForm{forms.Must(
+	f = &updateForm{forms.Must(
 		forms.NewTextField("title", forms.Trim),
 		forms.NewBooleanField("is_marked"),
 		forms.NewBooleanField("is_archived"),
@@ -237,6 +239,8 @@ func newUpdateForm() *updateForm {
 		forms.NewListField("remove_labels", strConstructor, strConverter),
 		forms.NewTextField("_to", forms.Trim),
 	)}
+	f.SetLocale(tr)
+	return
 }
 
 func (f *updateForm) update(b *Bookmark) (updated map[string]interface{}, err error) {
@@ -302,7 +306,7 @@ func (f *updateForm) update(b *Bookmark) (updated map[string]interface{}, err er
 
 	if deleted != nil {
 		updated["is_deleted"] = *deleted
-		df := newDeleteForm()
+		df := newDeleteForm(nil)
 		df.Get("cancel").Set(!*deleted)
 		err = df.trigger(b)
 	}
@@ -314,11 +318,13 @@ type deleteForm struct {
 	*forms.Form
 }
 
-func newDeleteForm() *deleteForm {
-	return &deleteForm{forms.Must(
+func newDeleteForm(tr forms.Translator) (f *deleteForm) {
+	f = &deleteForm{forms.Must(
 		forms.NewBooleanField("cancel"),
 		forms.NewTextField("_to", forms.Trim),
 	)}
+	f.SetLocale(tr)
+	return
 }
 
 // trigger launch the user deletion or cancel task.
@@ -334,34 +340,40 @@ type labelForm struct {
 	*forms.Form
 }
 
-func newLabelForm() *labelForm {
-	return &labelForm{
+func newLabelForm(tr forms.Translator) (f *labelForm) {
+	f = &labelForm{
 		Form: forms.Must(
 			forms.NewTextField("name", forms.Trim, forms.Required),
 		),
 	}
+	f.SetLocale(tr)
+	return
 }
 
 type labelSearchForm struct {
 	*forms.Form
 }
 
-func newLabelSearchForm() *labelSearchForm {
-	return &labelSearchForm{forms.Must(
+func newLabelSearchForm(tr forms.Translator) (f *labelSearchForm) {
+	f = &labelSearchForm{forms.Must(
 		forms.NewTextField("q", forms.Trim, forms.RequiredOrNil),
 	)}
+	f.SetLocale(tr)
+	return
 }
 
 type labelDeleteForm struct {
 	*forms.Form
 }
 
-func newLabelDeleteForm() *labelDeleteForm {
-	return &labelDeleteForm{
+func newLabelDeleteForm(tr forms.Translator) (f *labelDeleteForm) {
+	f = &labelDeleteForm{
 		forms.Must(
 			forms.NewBooleanField("cancel"),
 		),
 	}
+	f.SetLocale(tr)
+	return
 }
 
 func (f *labelDeleteForm) trigger(user *users.User, name string) error {
@@ -384,15 +396,22 @@ type filterForm struct {
 	sq           searchstring.SearchQuery
 }
 
-func newFilterForm() *filterForm {
-	return &filterForm{
+func newFilterForm(tr forms.Translator) (f *filterForm) {
+	availableTypes := [][2]string{
+		{"", tr.Gettext("All")},
+		{"article", tr.Gettext("Article")},
+		{"photo", tr.Gettext("Picture")},
+		{"video", tr.Gettext("Video")},
+	}
+
+	f = &filterForm{
 		Form: forms.Must(
 			forms.NewBooleanField("bf"),
 			forms.NewTextField("search", forms.Trim),
 			forms.NewTextField("title", forms.Trim),
 			forms.NewTextField("author", forms.Trim),
 			forms.NewTextField("site", forms.Trim),
-			forms.NewChoiceField("type", append([][2]string{{"", "All"}}, availableTypes...), forms.Trim),
+			forms.NewChoiceField("type", availableTypes, forms.Trim),
 			forms.NewTextField("labels", forms.Trim),
 			forms.NewBooleanField("is_marked"),
 			forms.NewBooleanField("is_archived"),
@@ -410,14 +429,16 @@ func newFilterForm() *filterForm {
 		),
 		title: filtersTitleUnset,
 	}
+	f.SetLocale(tr)
+	return f
 }
 
 // newContextFilterForm returns an instance of filterForm. If one already
 // exists in the given context, it's reused, otherwise it returns a new one.
-func newContextFilterForm(c context.Context) *filterForm {
+func newContextFilterForm(c context.Context, tr forms.Translator) *filterForm {
 	ff, ok := c.Value(ctxFiltersKey{}).(*filterForm)
 	if !ok {
-		ff = newFilterForm()
+		ff = newFilterForm(tr)
 	}
 
 	return ff

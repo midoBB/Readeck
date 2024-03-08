@@ -5,7 +5,6 @@
 package signin
 
 import (
-	"errors"
 	"strings"
 
 	"github.com/doug-martin/goqu/v9"
@@ -14,31 +13,35 @@ import (
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
-var errInvalidLogin = errors.New("Invalid user and/or password")
+var errInvalidLogin = forms.Gettext("Invalid user and/or password")
 
 type tokenLoginForm struct {
 	*forms.Form
 }
 
-func newTokenLoginForm() *tokenLoginForm {
-	return &tokenLoginForm{forms.Must(
+func newTokenLoginForm(tr forms.Translator) (f *tokenLoginForm) {
+	f = &tokenLoginForm{forms.Must(
 		forms.NewTextField("username", forms.Trim, forms.Required),
 		forms.NewTextField("password", forms.Required),
 		forms.NewTextField("application", forms.Required),
-		users.NewRolesField(nil),
+		users.NewRolesField(tr, nil),
 	)}
+	f.SetLocale(tr)
+	return
 }
 
 type loginForm struct {
 	*forms.Form
 }
 
-func newLoginForm() *loginForm {
-	return &loginForm{forms.Must(
+func newLoginForm(tr forms.Translator) (f *loginForm) {
+	f = &loginForm{forms.Must(
 		forms.NewTextField("username", forms.Trim, forms.Required),
 		forms.NewTextField("password", forms.Required),
 		forms.NewTextField("redirect", forms.Trim),
 	)}
+	f.SetLocale(tr)
+	return
 }
 
 func checkUser(f forms.Binder) *users.User {

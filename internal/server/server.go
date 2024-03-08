@@ -62,6 +62,7 @@ func New(basePath string) *Server {
 				UnauthorizedHandler: s.unauthorizedHandler,
 			},
 		),
+		s.LoadLocale,
 		s.ErrorPages,
 	)
 
@@ -95,6 +96,7 @@ func (s *Server) AuthenticatedRouter(middlewares ...func(http.Handler) http.Hand
 	r.Use(
 		s.WithSession(),
 		auth.Required,
+		s.LoadLocale,
 		s.Csrf,
 		// It's already in the main router but this one will be called first and have
 		// the current user information

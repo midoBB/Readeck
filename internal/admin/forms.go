@@ -13,11 +13,13 @@ type deleteForm struct {
 	*forms.Form
 }
 
-func newDeleteForm() *deleteForm {
-	return &deleteForm{forms.Must(
+func newDeleteForm(tr forms.Translator) (f *deleteForm) {
+	f = &deleteForm{forms.Must(
 		forms.NewBooleanField("cancel"),
 		forms.NewTextField("_to"),
 	)}
+	f.SetLocale(tr)
+	return
 }
 
 // trigger launch the user deletion or cancel task.

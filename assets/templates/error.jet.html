@@ -5,25 +5,25 @@ SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{ extends "/base" }}
 
-{{ block title() }}Error{{ end }}
+{{ block title() }}{{ gettext("Error") }}{{ end }}
 
 {{ block body() }}
 {{- yield quickAccessMenu(items=slice(
-  slice("menu", "Menu"),
-  slice("content", "Main content"),
+  slice("menu", gettext("Menu")),
+  slice("content", gettext("Main content")),
 )) -}}
 <div class="flex h-screen max-sm:flex-col">
   {{ include "./menu" }}
 
   <div class="flex-1 w-full overflow-y-auto p-8" id="content">
-    <h1 class="text-h1 title">Error</h1>
+    <h1 class="text-h1 title">{{ yield title() }}</h1>
 
     {{ if .Status == 403 }}
-    <p>Permission denied</p>
+    <p>{{ gettext("Permission denied.") }}</p>
     {{ else if .Status == 404 }}
-    <p>Page not found</p>
+    <p>{{ gettext("Page not found.") }}</p>
     {{ else }}
-    <p>An error occured</p>
+    <p>{{ gettext("An error occurred.") }}</p>
     {{ end }}
   </div>
 </div>

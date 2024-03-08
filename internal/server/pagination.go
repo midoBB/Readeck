@@ -18,11 +18,13 @@ type PaginationForm struct {
 	*forms.Form
 }
 
-func newPaginationForm() *PaginationForm {
-	return &PaginationForm{forms.Must(
+func newPaginationForm(tr forms.Translator) (f *PaginationForm) {
+	f = &PaginationForm{forms.Must(
 		forms.NewIntegerField("limit", forms.Gte(0), forms.Lte(100)),
 		forms.NewIntegerField("offset", forms.Gte(0)),
 	)}
+	f.SetLocale(tr)
+	return
 }
 
 // Limit returns the current limit or zero if none was given.
@@ -48,7 +50,7 @@ func (f *PaginationForm) SetLimit(v int) {
 
 // GetPageParams returns the pagination parameters from the query string.
 func (s *Server) GetPageParams(r *http.Request, defaultLimit int) *PaginationForm {
-	f := newPaginationForm()
+	f := newPaginationForm(s.Locale(r))
 	f.Get("limit").Set(0)
 	f.Get("offset").Set(0)
 	forms.UnmarshalValues(f, r.URL.Query())

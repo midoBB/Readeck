@@ -90,4 +90,5 @@ var migrationList = []migrationEntry{
 	newMigrationEntry(8, "bookmark_duration", applyMigrationFile("08_bookmark_duration.sql")),
 	newMigrationEntry(9, "bookmark_dir", applyMigrationFile("09_bookmark_dir.sql")),
 	newMigrationEntry(10, "bookmark_fts", applyMigrationFile("10_bookmark_fts.sql")),
+	newMigrationEntry(11, "bookmark_sort_labels", migrations.M11sortLabels),
 }

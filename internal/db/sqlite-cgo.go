@@ -13,11 +13,17 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 	_ "github.com/doug-martin/goqu/v9/dialect/sqlite3" // dialect
-	_ "github.com/mattn/go-sqlite3"                    // driver
+	"github.com/mattn/go-sqlite3"                      // driver
 )
 
 func init() {
 	drivers["sqlite3"] = &sqliteConnector{}
+
+	sql.Register("sqlite3_extended", &sqlite3.SQLiteDriver{
+		ConnectHook: func(conn *sqlite3.SQLiteConn) error {
+			return conn.RegisterCollation("UNICODE", UnaccentCompare)
+		},
+	})
 }
 
 type sqliteConnector struct{}
@@ -38,7 +44,7 @@ func (c *sqliteConnector) Open(dsn *url.URL) (*sql.DB, error) {
 
 	// Set default options
 	uri.RawQuery = ""
-	db, err := sql.Open("sqlite3", uri.String())
+	db, err := sql.Open("sqlite3_extended", uri.String())
 	if err != nil {
 		return nil, err
 	}

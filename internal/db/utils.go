@@ -6,6 +6,8 @@ package db
 
 import (
 	"github.com/doug-martin/goqu/v9"
+	"golang.org/x/text/collate"
+	"golang.org/x/text/language"
 )
 
 // InsertWithID executes an insert statement and returns the value
@@ -26,3 +28,8 @@ func InsertWithID(stmt *goqu.InsertDataset, r string) (id int, err error) {
 
 	return
 }
+
+var unicodeCollate = collate.New(language.Und, collate.Loose, collate.Numeric)
+
+// UnaccentCompare performs a string comparison after removing accents.
+var UnaccentCompare = unicodeCollate.CompareString

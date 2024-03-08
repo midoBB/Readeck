@@ -245,7 +245,7 @@ func (m *BookmarkManager) GetLabels() *goqu.SelectDataset {
 			).
 			Where(goqu.C("value").Table("l").Neq(nil)).
 			GroupBy(goqu.C("name")).
-			Order(goqu.C("name").Asc()).
+			Order(goqu.L("`name` COLLATE UNICODE").Asc()).
 			Prepared(true)
 	}
 
@@ -513,7 +513,7 @@ func (b *Bookmark) replaceLabel(old, new string) {
 		}
 	}
 
-	slices.Sort(b.Labels)
+	slices.SortFunc(b.Labels, db.UnaccentCompare)
 	b.Labels = slices.Compact(b.Labels)
 }
 

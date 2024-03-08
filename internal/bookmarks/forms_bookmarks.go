@@ -21,6 +21,7 @@ import (
 	"github.com/doug-martin/goqu/v9/exp"
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/db/filters"
 	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/internal/searchstring"
@@ -279,7 +280,7 @@ func (f *updateForm) update(b *Bookmark) (updated map[string]interface{}, err er
 	}
 
 	if labelsChanged {
-		slices.Sort(b.Labels)
+		slices.SortFunc(b.Labels, db.UnaccentCompare)
 		b.Labels = slices.Compact(b.Labels)
 		updated["labels"] = b.Labels
 	}

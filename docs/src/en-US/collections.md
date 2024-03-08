@@ -15,7 +15,7 @@ Here are some examples:
 
 To create a new collection, go to the [Collection List](readeck-instance://bookmarks/collections) and click on **Create a new collection**.
 
-![New Collection form](../img/collection-new.webp)
+![New Collection form](./img/collection-new.webp)
 The collection form
 
 Enter any criteria and click on **Save**.

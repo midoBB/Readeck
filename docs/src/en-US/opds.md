@@ -1,6 +1,6 @@
-# Ebook Catalog
+# E-book Catalog
 
-Readeck provides an Ebook Catalog of all your bookmarks, organized in a catalog with the structure bellow:
+Readeck provides an E-book Catalog of all your bookmarks, organized in a catalog with the structure bellow:
 
 - Unread Bookmarks
 - Archived Bookmarks
@@ -8,17 +8,17 @@ Readeck provides an Ebook Catalog of all your bookmarks, organized in a catalog 
 - All Bookmarks
 - Bookmark Collections
   - (Collection Name)
-    - Collection Ebook
+    - Collection E-book
     - Browse Collection
 
-Each section, except Collections, provides every bookmark as an Ebook.
+Each section, except Collections, provides every bookmark as an E-book.
 
-On a collection's section, you can download the full collection as a single Ebook.
+On a collection's section, you can download the full collection as a single E-book.
 
 
 ## Catalog access
 
-The catalog can be accessed by any app or ereader supporting the OPDS format.
+The catalog can be accessed by any app or e-reader supporting the OPDS format.
 To give access to the catalog, you must first create an [Application Password](readeck-instance://profile/credentials).
 
 You can restrict the permission of this password to "Bookmarks : Read Only".

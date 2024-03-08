@@ -84,7 +84,7 @@ func TestDocs(t *testing.T) {
 				ExpectStatus: 404,
 			},
 			RequestTest{
-				Target: "/docs/img/bookmark-new.webp",
+				Target: "/docs/en-US/img/bookmark-new.webp",
 				Assert: func(t *testing.T, r *Response) {
 					r.AssertStatus(t, 200)
 					require.Equal(t, "image/webp", r.Header.Get("content-type"))

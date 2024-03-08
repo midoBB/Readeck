@@ -86,7 +86,7 @@ var migrationList = []migrationEntry{
 	newMigrationEntry(4, "bookmark_links", applyMigrationFile("04_bookmark_links.sql")),
 	newMigrationEntry(5, "bookmark_dates_idx", applyMigrationFile("05_bookmark_dates_idx.sql")),
 	newMigrationEntry(6, "credential", applyMigrationFile("06_credential.sql")),
-	newMigrationEntry(7, "bookmark_html_ids", migrations.MigrateBookmarkIDs),
+	newMigrationEntry(7, "bookmark_html_ids", migrations.M07migrateBookmarkIDs),
 	newMigrationEntry(8, "bookmark_duration", applyMigrationFile("08_bookmark_duration.sql")),
 	newMigrationEntry(9, "bookmark_dir", applyMigrationFile("09_bookmark_dir.sql")),
 	newMigrationEntry(10, "bookmark_fts", applyMigrationFile("10_bookmark_fts.sql")),

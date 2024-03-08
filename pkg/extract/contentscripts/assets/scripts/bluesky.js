@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: © 2024 Olivier Meunier <olivier@neokraft.net>
+// SPDX-FileCopyrightText: © 2024 Joachim Robert <joachim.robert@protonmail.com>
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
@@ -68,17 +68,15 @@ function loadThread(userName, postID) {
     }
   }
 
-  // Bluesky doesn’t handle video upload yet
+  // Bluesky doesn't handle video upload yet
   // const isVideo =
   //   notes.length == 1 &&
   //   (notes[0].videos || []).length > 0
 
-  const isPicture =
-    notes.length == 1 &&
-    (notes[0].images || []).length == 1
+  const isPicture = notes.length == 1 && (notes[0].images || []).length == 1
 
   switch (true) {
-    // Bluesky doesn’t handle video upload yet
+    // Bluesky doesn't handle video upload yet
     // case isVideo:
     //   $.type = "video"
     //   $.meta[
@@ -96,32 +94,30 @@ function loadThread(userName, postID) {
         $.meta["x.picture_url"] = notes[0]?.images[0].fullsize
         break
       }
-      
+
       $.meta["x.picture_url"] = data.thread.post.author.avatar
       break
   }
 
+  const html = notes.map((n) => {
+    let noteHtml = `<p>${n.html}</p>`
+    noteHtml = noteHtml.replace(/\n\n/g, "</p><p>")
+    noteHtml = noteHtml.replace(/\n/g, "<br>")
 
-  const html = notes
-    .map((n) => {
-      let noteHtml = `<p>${n.html}</p>`
-      noteHtml = noteHtml.replace(/\n\n/g, "</p><p>")
-      noteHtml = noteHtml.replace(/\n/g, "<br>")
+    if ("link" in n) {
+      noteHtml += `<p><a href="${n.link.uri}">${n.link.title}</a></p>`
+    }
 
-      if ("link" in n) {
-        noteHtml += `<p><a href="${n.link.uri}">${n.link.title}</a></p>`
-      }
+    if ("images" in n) {
+      noteHtml += n.images
+        .map((image) => {
+          return `<figure><img alt="${image.alt}" src="${image.fullsize}"></figure>`
+        })
+        .join("\n")
+    }
 
-      if ("images" in n) {
-        noteHtml += n.images
-          .map((image) => {
-            return `<figure><img alt="${image.alt}" src="${image.fullsize}"></figure>`
-          })
-          .join("\n")
-      }
-
-      return `<article>${noteHtml}</article>`
-    })
+    return `<article>${noteHtml}</article>`
+  })
 
   $.description = ""
   $.html = `<div>${html.join("<hr>")}</div>`
@@ -129,9 +125,9 @@ function loadThread(userName, postID) {
 }
 
 function getNextPostFromUser(replies, userName) {
-  return replies?.filter(reply =>
-    reply.post.author.handle == userName
-  ).reverse()[0]
+  return replies
+    ?.filter((reply) => reply.post.author.handle == userName)
+    .reverse()[0]
 }
 
 function getNoteData(note) {
@@ -153,19 +149,24 @@ function getNoteData(note) {
 
   for (const key in note.record.facets) {
     const facet = note.record.facets[key]
-    if (facet?.features[0].uri === noteData.link.uri) {
-      // There’s a discrepancy between byteStart/byteEnd and the content of `note.record.text`
+    if (facet?.features[0].uri === noteData.link?.uri) {
+      // There's a discrepancy between byteStart/byteEnd and the content of `note.record.text`
       const difference = note.record.text.length - facet.index.byteEnd
 
       if (difference <= 0) {
         // If the link is at the end of the post, remove it
-        noteData.html = note.record.text.slice(0, facet.index.byteStart + difference) + note.record.text.slice(facet.index.byteEnd + difference)
+        noteData.html =
+          note.record.text.slice(0, facet.index.byteStart + difference) +
+          note.record.text.slice(facet.index.byteEnd + difference)
       } else {
         // If the link is inside the post, replace it with a clickable link
-        // Hoping there’s no discrepancy
+        // Hoping there's no discrepancy
         noteData.html = note.record.text.slice(0, facet.index.byteStart)
         noteData.html += `<a href="${facet.features[0].uri}">`
-        noteData.html += note.record.text.slice(facet.index.byteStart, facet.index.byteEnd)
+        noteData.html += note.record.text.slice(
+          facet.index.byteStart,
+          facet.index.byteEnd,
+        )
         noteData.html += "</a>"
         noteData.html += note.record.text.slice(facet.index.byteEnd)
       }

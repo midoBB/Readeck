@@ -1,9 +1,25 @@
 # Changelog
 
-## [UNRELEASED]
+## [0.13.0] - 2024-03-09
 ### Added
 - Internationalization
 - French translation
+- Bluesky content script. Thanks @joachimesque
+- Healthcheck command
+
+### Improved
+- Bookmark search with wildcards and exclusions
+- Preserve titles in content during extraction
+- Embed video privacy
+- Embed player for invidious videos
+- Disable readability when saving selection from the browser addon
+- More natural label ordering
+- White border around QR codes so scanning works in dark mode too
+
+## Changed
+- Go 1.22
+- Turbo 8
+- Updated site-config rules
 
 ## [0.12.0] - 2024-02-04
 ### Added

@@ -48,6 +48,10 @@ func M11sortLabels(db *goqu.TxDatabase, _ fs.FS) error {
 		ids = append(ids, x.ID)
 	}
 
+	if len(cases.GetWhens()) == 0 {
+		return nil
+	}
+
 	_, err = db.Update("bookmark").Prepared(true).
 		Set(goqu.Record{"labels": cases}).
 		Where(goqu.C("id").In(ids)).

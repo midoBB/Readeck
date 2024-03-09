@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.13.1] - 2024-03-09
+### Fixed
+- Failed migration when label list is empty
+
 ## [0.13.0] - 2024-03-09
 ### Added
 - Internationalization

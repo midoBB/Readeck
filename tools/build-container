@@ -24,7 +24,7 @@ build_image() {
     trap cleanup ERR RETURN
 
     # Prepare a scratch image
-    work_container=$(buildah from --arch=${arch} scratch)
+    work_container=$(buildah from --arch=${arch} busybox:uclibc)
 
     # Copy CA certificates from alpine
     buildah copy --from alpine:edge \

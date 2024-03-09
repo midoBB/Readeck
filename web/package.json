@@ -17,7 +17,7 @@
     "@fontsource/ibm-plex-serif": "^5.0.12",
     "@fontsource/merriweather": "^5.0.12",
     "@hotwired/stimulus": "^3.2.2",
-    "@hotwired/turbo": "^8.0.3",
+    "@hotwired/turbo": "^8.0.4",
     "@mdi/svg": "^7.4.47",
     "boxicons": "^2.1.4",
     "cssnano": "^6.1.0",

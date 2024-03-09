@@ -253,6 +253,15 @@ Copyright (c) 2019 Santiago De la Cruz
 """
 
 [[licenses]]
+name = "gotext"
+license = "MIT"
+author = "Leonel Quinteros"
+url = "https://github.com/leonelquinteros/gotext"
+copyright = """
+Copyright (c) 2016 Leonel Quinteros
+"""
+
+[[licenses]]
 name = "x/image"
 license = "BSD-3-Clause"
 author = "Google Inc."

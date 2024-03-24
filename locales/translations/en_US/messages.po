@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-08 07:39+0000\n"
+"POT-Creation-Date: 2024-03-24 12:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -231,7 +231,7 @@ msgid ""
 "\n"
 "  Your email address is optionnal and will never leave this installation."
 "\n"
-"  It will never be collected, transfered or sold.\n"
+"  It will never be collected, transferred or sold.\n"
 "  It will <strong>only</strong> be used, should you need it, for password"
 " recovery and internal notifications.\n"
 "  "
@@ -1507,149 +1507,4 @@ msgstr ""
 msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr ""
-
-#~ msgid "Previous"
-#~ msgstr ""
-
-#~ msgid "Next"
-#~ msgstr ""
-
-#~ msgctxt "auth"
-#~ msgid "Login"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Please provide the email address you used to create\n"
-#~ "        your account and we'll send "
-#~ "you a message with a link to "
-#~ "recover your\n"
-#~ "        password."
-#~ msgstr ""
-
-#~ msgid "Cancel and go back to login<"
-#~ msgstr ""
-
-#~ msgid "Cancel and go back to login"
-#~ msgstr ""
-
-#~ msgid "Add a new label"
-#~ msgstr ""
-
-#~ msgid "Mon, 2 Jan. 2006 15:04 MST"
-#~ msgstr ""
-
-#~ msgctxt "time"
-#~ msgid "min"
-#~ msgstr ""
-
-#~ msgid "Truc dans %s %%s"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "\n"
-#~ "          Collections let you easily "
-#~ "organize and export your bookmarks\n"
-#~ "          by saving search requests of your choice.\n"
-#~ "          When you create a new "
-#~ "bookmark that matches a collection's "
-#~ "criteria,\n"
-#~ "          it will appear immediately.\n"
-#~ "          Here are some examples:\n"
-#~ "        "
-#~ msgstr ""
-
-#~ msgid "The pictures with the tag \"cat\""
-#~ msgstr ""
-
-#~ msgid "Collection will be removed in a few seconds"
-#~ msgstr ""
-
-#~ msgid "Created on"
-#~ msgstr ""
-
-#~ msgid "2006-01-02"
-#~ msgstr ""
-
-#~ msgid "Last update"
-#~ msgstr ""
-
-#~ msgctxt "datetime"
-#~ msgid "%Y-%m-%d"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Readeck is distributed under the terms"
-#~ " of the GNU Affero General Public "
-#~ "License v3.0."
-#~ msgstr ""
-
-#~ msgid "Errors occured during extraction"
-#~ msgstr ""
-
-#~ msgid "An error occured."
-#~ msgstr ""
-
-#~ msgid "Password will be removed in a few seconds"
-#~ msgstr ""
-
-#~ msgid "Token will be removed in a few seconds"
-#~ msgstr ""
-
-#~ msgid "Application:"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "You can use this token by passing"
-#~ " it as an <code>Authorization: "
-#~ "Bearer</code> HTTP header."
-#~ msgstr ""
-
-#~ msgid "Expires at"
-#~ msgstr ""
-
-#~ msgid "User created"
-#~ msgstr ""
-
-#~ msgid "User updated"
-#~ msgstr ""
-
-#~ msgid "Errors occurred during extraction"
-#~ msgstr ""
-
-#~ msgid "Your Application Passwords"
-#~ msgstr ""
-
-#~ msgid "Your profile"
-#~ msgstr ""
-
-#~ msgid "Change your password"
-#~ msgstr ""
-
-#~ msgid "Your API Tokens"
-#~ msgstr ""
-
-#~ msgid "Please note"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "\n"
-#~ "  Your email address is not collected in any way.\n"
-#~ "  It is stored only on your installation for password recovery.\n"
-#~ "  "
-#~ msgstr ""
-
-#~ msgid "Collection updated"
-#~ msgstr ""
-
-#~ msgid "Profile updated"
-#~ msgstr ""
-
-#~ msgid "Error: you can not create more credentials"
-#~ msgstr ""
-
-#~ msgid "An error append while creating your password."
-#~ msgstr ""
-
-#~ msgid "An error append while creating your token."
-#~ msgstr ""
 

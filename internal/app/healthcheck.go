@@ -9,7 +9,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"net/http"
+	"net"
 
 	"github.com/cristalhq/acmd"
 
@@ -41,30 +41,17 @@ func runHealthcheck(_ context.Context, args []string) error {
 		return fmt.Errorf("error loading configuration (%s)", err)
 	}
 
-	client := &http.Client{
-		CheckRedirect: func(_ *http.Request, _ []*http.Request) error {
-			return http.ErrUseLastResponse
-		},
-	}
-
-	serverURL := fmt.Sprintf(
-		"http://%s:%d/%s",
+	// Try to open a TCP connection to the HTTP server.
+	conn, err := net.Dial("tcp", fmt.Sprintf(
+		"%s:%d",
 		configs.Config.Server.Host,
 		configs.Config.Server.Port,
-		configs.Config.Server.Prefix,
-	)
-
-	println("Checking URL:", serverURL)
-	rsp, err := client.Get(serverURL)
+	))
 	if err != nil {
 		return errors.Join(err, errors.New("Readeck server does not answer"))
 	}
-	defer rsp.Body.Close() //nolint:errcheck
+	defer conn.Close() //nolint:errcheck
 
-	if rsp.StatusCode != http.StatusSeeOther {
-		return fmt.Errorf(`Invalid response: status %s`, rsp.Status)
-	}
-
-	println("All good!")
+	fmt.Printf("Readeck is listening on %s\n", conn.RemoteAddr())
 	return nil
 }

@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.13.2] - 2024-03-24
+### Fixed
+- Healthcheck command (only connect to server, don't perform any request)
+
 ## [0.13.1] - 2024-03-09
 ### Fixed
 - Failed migration when label list is empty

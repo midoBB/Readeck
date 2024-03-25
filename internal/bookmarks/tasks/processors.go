@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package bookmarks
+package tasks
 
 import (
 	"context"
@@ -11,6 +11,7 @@ import (
 
 	"github.com/go-shiori/dom"
 
+	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/pkg/bleach"
 	"codeberg.org/readeck/readeck/pkg/extract"
 )
@@ -49,7 +50,7 @@ func extractLinksProcessor(m *extract.ProcessMessage, next extract.Processor) ex
 	}
 
 	m.Log.Debug("extract links from content")
-	links := BookmarkLinks{}
+	links := bookmarks.BookmarkLinks{}
 	seen := map[string]*extract.Drop{}
 
 	for _, node := range dom.QuerySelectorAll(m.Dom, "a[href]") {
@@ -71,11 +72,11 @@ func extractLinksProcessor(m *extract.ProcessMessage, next extract.Processor) ex
 
 		if URL.Scheme == "http" || URL.Scheme == "https" {
 			seen[URL.String()] = extract.NewDrop(URL)
-			links = append(links, BookmarkLink{URL: URL.String(), Domain: d.Domain})
+			links = append(links, bookmarks.BookmarkLink{URL: URL.String(), Domain: d.Domain})
 		}
 	}
 
-	links = slices.CompactFunc(links, func(a, b BookmarkLink) bool {
+	links = slices.CompactFunc(links, func(a, b bookmarks.BookmarkLink) bool {
 		return a.URL == b.URL
 	})
 
@@ -85,9 +86,9 @@ func extractLinksProcessor(m *extract.ProcessMessage, next extract.Processor) ex
 
 // GetExtractedLinks returns the extracted link list previously
 // stored in the extractor context.
-func GetExtractedLinks(ctx context.Context) BookmarkLinks {
-	if links, ok := ctx.Value(ctxExtractLinksKey).(BookmarkLinks); ok {
+func GetExtractedLinks(ctx context.Context) bookmarks.BookmarkLinks {
+	if links, ok := ctx.Value(ctxExtractLinksKey).(bookmarks.BookmarkLinks); ok {
 		return links
 	}
-	return BookmarkLinks{}
+	return bookmarks.BookmarkLinks{}
 }

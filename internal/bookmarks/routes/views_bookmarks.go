@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package bookmarks
+package routes
 
 import (
 	"context"
@@ -18,6 +18,8 @@ import (
 
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -28,7 +30,7 @@ type (
 
 func (h *viewsRouter) withBaseContext(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		count, err := Bookmarks.CountAll(auth.GetRequestUser(r))
+		count, err := bookmarks.Bookmarks.CountAll(auth.GetRequestUser(r))
 		if err != nil {
 			h.srv.Error(w, r, err)
 			return
@@ -119,7 +121,7 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
-	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
+	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
 	user := auth.GetRequestUser(r)
 	item := newBookmarkItem(h.srv, r, b, "../bookmarks")
 	if err := item.setEmbed(); err != nil {
@@ -179,7 +181,7 @@ func (h *viewsRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
+	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
 
 	if _, err := f.update(b); err != nil {
 		h.srv.Error(w, r, err)
@@ -195,7 +197,7 @@ func (h *viewsRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *viewsRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
-	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
+	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
 	f := newDeleteForm(h.srv.Locale(r))
 	forms.Bind(f, r)
 
@@ -254,7 +256,7 @@ func (h *viewsRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 		forms.Bind(f, r)
 
 		if f.IsValid() {
-			_, err := Bookmarks.RenameLabel(auth.GetRequestUser(r), label, f.Get("name").String())
+			_, err := bookmarks.Bookmarks.RenameLabel(auth.GetRequestUser(r), label, f.Get("name").String())
 			if err != nil {
 				h.srv.Error(w, r, err)
 				return
@@ -279,7 +281,7 @@ func (h *viewsRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 	ctx["Label"] = label
 	ctx["Pagination"] = bl.Pagination
 	ctx["Bookmarks"] = bl.Items
-	ctx["IsDeleted"] = deleteLabelTask.IsRunning(fmt.Sprintf("%d@%s", auth.GetRequestUser(r).ID, label))
+	ctx["IsDeleted"] = tasks.DeleteLabelTask.IsRunning(fmt.Sprintf("%d@%s", auth.GetRequestUser(r).ID, label))
 
 	h.srv.RenderTemplate(w, r, 200, "/bookmarks/label", ctx)
 }
@@ -322,7 +324,7 @@ func (h *viewsRouter) annotationList(w http.ResponseWriter, r *http.Request) {
 func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		data := chi.URLParam(r, "id")
-		expires, id, err := decryptID(data)
+		expires, id, err := bookmarks.DecryptID(data)
 		if err != nil {
 			h.srv.Error(w, r, err)
 			return
@@ -336,15 +338,15 @@ func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
 
 		if !expired {
 			var bu struct {
-				User     *users.User `db:"u"`
-				Bookmark *Bookmark   `db:"b"`
+				User     *users.User         `db:"u"`
+				Bookmark *bookmarks.Bookmark `db:"b"`
 			}
-			ds := Bookmarks.
+			ds := bookmarks.Bookmarks.
 				Query().
 				Join(goqu.T(users.TableName).As("u"), goqu.On(goqu.I("u.id").Eq(goqu.I("b.user_id")))).
 				Where(
 					goqu.I("b.id").Eq(id),
-					goqu.I("b.state").Eq(StateLoaded),
+					goqu.I("b.state").Eq(bookmarks.StateLoaded),
 				)
 			found, err := ds.ScanStruct(&bu)
 

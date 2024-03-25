@@ -14,7 +14,8 @@ import (
 	"codeberg.org/readeck/readeck/configs"
 )
 
-func encryptID(id uint64, expires time.Time) (string, error) {
+// EncryptID returns an 128bit base64 encrypted ID and timestamp.
+func EncryptID(id uint64, expires time.Time) (string, error) {
 	// Pack the expiry timestamp and the bookmark ID in a 128bit packet
 	buf := make([]byte, 16)
 	now := uint64(expires.Unix())
@@ -34,7 +35,9 @@ func encryptID(id uint64, expires time.Time) (string, error) {
 	return base64.RawURLEncoding.EncodeToString(res), nil
 }
 
-func decryptID(value string) (time.Time, uint64, error) {
+// DecryptID deciphers a base64 encrypted value into a timestamp and
+// a unsigned integer.
+func DecryptID(value string) (time.Time, uint64, error) {
 	// Load the base64 encoded value. It must be exactly 16 bytes.
 	data, err := base64.RawURLEncoding.DecodeString(value)
 	if err != nil {

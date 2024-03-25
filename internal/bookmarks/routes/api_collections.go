@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package bookmarks
+package routes
 
 import (
 	"context"
@@ -14,6 +14,8 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	"codeberg.org/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -36,7 +38,7 @@ func (api *apiRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *apiRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
-	c := r.Context().Value(ctxCollectionKey{}).(*Collection)
+	c := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
 	item := newCollectionItem(api.srv, r, c, "./..")
 
 	api.srv.Render(w, r, http.StatusOK, item)
@@ -62,7 +64,7 @@ func (api *apiRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *apiRouter) collectionUpdate(w http.ResponseWriter, r *http.Request) {
-	c := r.Context().Value(ctxCollectionKey{}).(*Collection)
+	c := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
 
 	f := newCollectionForm(api.srv.Locale(r))
 	f.setCollection(c)
@@ -83,7 +85,7 @@ func (api *apiRouter) collectionUpdate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *apiRouter) collectionDelete(w http.ResponseWriter, r *http.Request) {
-	c := r.Context().Value(ctxCollectionKey{}).(*Collection)
+	c := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
 	if err := c.Delete(); err != nil {
 		api.srv.Error(w, r, err)
 		return
@@ -102,7 +104,7 @@ func (api *apiRouter) withColletionList(next http.Handler) http.Handler {
 			return
 		}
 
-		ds := Collections.Query().
+		ds := bookmarks.Collections.Query().
 			Select(
 				"c.id", "c.uid", "c.user_id", "c.created", "c.updated",
 				"c.name", "c.is_pinned", "c.filters",
@@ -118,7 +120,7 @@ func (api *apiRouter) withColletionList(next http.Handler) http.Handler {
 		var count int64
 		var err error
 		if count, err = ds.ClearOrder().ClearLimit().ClearOffset().Count(); err != nil {
-			if errors.Is(err, ErrCollectionNotFound) {
+			if errors.Is(err, bookmarks.ErrCollectionNotFound) {
 				api.srv.TextMessage(w, r, http.StatusNotFound, "not found")
 			} else {
 				api.srv.Error(w, r, err)
@@ -126,7 +128,7 @@ func (api *apiRouter) withColletionList(next http.Handler) http.Handler {
 			return
 		}
 
-		res.items = []*Collection{}
+		res.items = []*bookmarks.Collection{}
 		if err := ds.ScanStructs(&res.items); err != nil {
 			api.srv.Error(w, r, err)
 			return
@@ -144,7 +146,7 @@ func (api *apiRouter) withCollection(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		uid := chi.URLParam(r, "uid")
 
-		c, err := Collections.GetOne(
+		c, err := bookmarks.Collections.GetOne(
 			goqu.C("uid").Eq(uid),
 			goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
 		)
@@ -161,13 +163,13 @@ func (api *apiRouter) withCollection(next http.Handler) http.Handler {
 }
 
 type collectionList struct {
-	items      []*Collection
+	items      []*bookmarks.Collection
 	Pagination server.Pagination
 	Items      []collectionItem
 }
 
 type collectionItem struct {
-	*Collection `json:"-"`
+	*bookmarks.Collection `json:"-"`
 
 	ID        string    `json:"id"`
 	Href      string    `json:"href"`
@@ -190,7 +192,7 @@ type collectionItem struct {
 	RangeEnd   string `json:"range_end"`
 }
 
-func newCollectionItem(s *server.Server, r *http.Request, c *Collection, base string) collectionItem {
+func newCollectionItem(s *server.Server, r *http.Request, c *bookmarks.Collection, base string) collectionItem {
 	return collectionItem{
 		Collection: c,
 		ID:         c.UID,
@@ -199,7 +201,7 @@ func newCollectionItem(s *server.Server, r *http.Request, c *Collection, base st
 		Updated:    c.Updated,
 		Name:       c.Name,
 		IsPinned:   c.IsPinned,
-		IsDeleted:  deleteCollectionTask.IsRunning(c.ID),
+		IsDeleted:  tasks.DeleteCollectionTask.IsRunning(c.ID),
 
 		// Filters
 		Search:     c.Filters.Search,

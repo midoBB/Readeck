@@ -26,7 +26,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/assets"
 	"codeberg.org/readeck/readeck/internal/auth/onboarding"
 	"codeberg.org/readeck/readeck/internal/auth/signin"
-	"codeberg.org/readeck/readeck/internal/bookmarks"
+	bookmark_routes "codeberg.org/readeck/readeck/internal/bookmarks/routes"
 	"codeberg.org/readeck/readeck/internal/bus"
 	"codeberg.org/readeck/readeck/internal/cookbook"
 	"codeberg.org/readeck/readeck/internal/dashboard"
@@ -202,7 +202,7 @@ func InitServer(s *server.Server) error {
 	// Bookmark routes
 	// - /bookmarks/*
 	// - /bm/* (for bookmark media files)
-	bookmarks.SetupRoutes(s)
+	bookmark_routes.SetupRoutes(s)
 
 	// OPDS routes
 	opds.SetupRoutes(s)

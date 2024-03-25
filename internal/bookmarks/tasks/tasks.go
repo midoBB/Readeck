@@ -2,7 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package bookmarks
+// Package tasks contains the bookmark and collection related tasks.
+package tasks
 
 import (
 	"archive/zip"
@@ -28,6 +29,7 @@ import (
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bus"
 	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/pkg/archiver"
@@ -40,21 +42,30 @@ import (
 )
 
 var (
-	extractPageTask      superbus.Task
-	deleteBookmarkTask   superbus.Task
-	deleteCollectionTask superbus.Task
-	deleteLabelTask      superbus.Task
+	ExtractPageTask      superbus.Task // ExtractPageTask is the bookmark creation task.
+	DeleteBookmarkTask   superbus.Task // DeleteBookmarkTask is the bookmark deletion task.
+	DeleteCollectionTask superbus.Task // DeleteCollectionTask is the collection deletion task.
+	DeleteLabelTask      superbus.Task // DeleteLabelTask is the label deletion task.
 )
 
 type (
-	extractParams struct {
+	// MultipartResource contains information loaded from a form/multipart request body.
+	MultipartResource struct {
+		URL     string            `json:"url"`
+		Headers map[string]string `json:"headers"`
+		Data    []byte            `json:"data"`
+	}
+
+	// ExtractParams contains the extraction parameters.
+	ExtractParams struct {
 		BookmarkID int
 		RequestID  string
-		Resources  []multipartResource
+		Resources  []MultipartResource
 		FindMain   bool
 	}
 
-	labelDeleteParams struct {
+	// LabelDeleteParams contains the label deletion parameters.
+	LabelDeleteParams struct {
 		UserID int
 		Name   string
 	}
@@ -62,10 +73,10 @@ type (
 
 func init() {
 	bus.OnReady(func() {
-		extractPageTask = bus.Tasks().NewTask(
+		ExtractPageTask = bus.Tasks().NewTask(
 			"bookmark.create",
 			superbus.WithUnmarshall(func(data []byte) interface{} {
-				var res extractParams
+				var res ExtractParams
 				err := json.Unmarshal(data, &res)
 				if err != nil {
 					panic(err)
@@ -75,7 +86,7 @@ func init() {
 			superbus.WithTaskHandler(extractPageHandler),
 		)
 
-		deleteBookmarkTask = bus.Tasks().NewTask(
+		DeleteBookmarkTask = bus.Tasks().NewTask(
 			"bookmark.delete",
 			superbus.WithTaskDelay(20),
 			superbus.WithUnmarshall(func(data []byte) interface{} {
@@ -89,7 +100,7 @@ func init() {
 			superbus.WithTaskHandler(deleteBookmarkHandler),
 		)
 
-		deleteCollectionTask = bus.Tasks().NewTask(
+		DeleteCollectionTask = bus.Tasks().NewTask(
 			"collection.delete",
 			superbus.WithTaskDelay(20),
 			superbus.WithUnmarshall(func(data []byte) interface{} {
@@ -103,11 +114,11 @@ func init() {
 			superbus.WithTaskHandler(deleteCollectionHandler),
 		)
 
-		deleteLabelTask = bus.Tasks().NewTask(
+		DeleteLabelTask = bus.Tasks().NewTask(
 			"label.delete",
 			superbus.WithTaskDelay(20),
 			superbus.WithUnmarshall(func(data []byte) interface{} {
-				var res labelDeleteParams
+				var res LabelDeleteParams
 				err := json.Unmarshal(data, &res)
 				if err != nil {
 					panic(err)
@@ -124,7 +135,7 @@ func deleteBookmarkHandler(data interface{}) {
 	logger := log.WithField("id", id)
 
 	logger.Debug("deleting bookmark")
-	b, err := Bookmarks.GetOne(goqu.C("id").Eq(id))
+	b, err := bookmarks.Bookmarks.GetOne(goqu.C("id").Eq(id))
 	if err != nil {
 		logger.WithError(err).Error("bookmark retrieve")
 		return
@@ -144,7 +155,7 @@ func deleteCollectionHandler(data interface{}) {
 
 	logger.Debug("deleting collection")
 
-	c, err := Collections.GetOne(goqu.C("id").Eq(id))
+	c, err := bookmarks.Collections.GetOne(goqu.C("id").Eq(id))
 	if err != nil {
 		logger.WithError(err).Error("collection retrieve")
 		return
@@ -159,7 +170,7 @@ func deleteCollectionHandler(data interface{}) {
 }
 
 func deleteLabelHandler(data interface{}) {
-	params := data.(labelDeleteParams)
+	params := data.(LabelDeleteParams)
 	logger := log.WithFields(log.Fields{
 		"user":  params.UserID,
 		"label": params.Name,
@@ -172,7 +183,7 @@ func deleteLabelHandler(data interface{}) {
 		return
 	}
 
-	if _, err = Bookmarks.RenameLabel(u, params.Name, ""); err != nil {
+	if _, err = bookmarks.Bookmarks.RenameLabel(u, params.Name, ""); err != nil {
 		logger.WithError(err).Error("label remove")
 		return
 	}
@@ -181,10 +192,10 @@ func deleteLabelHandler(data interface{}) {
 }
 
 func extractPageHandler(data interface{}) {
-	var b *Bookmark
+	var b *bookmarks.Bookmark
 	var err error
 
-	params := data.(extractParams)
+	params := data.(ExtractParams)
 
 	var resourceCount int
 	saved := false
@@ -205,14 +216,14 @@ func extractPageHandler(data interface{}) {
 		if r := recover(); r != nil {
 			logger.WithField("recover", r).Error("error during extraction")
 			debug.PrintStack()
-			b.State = StateError
+			b.State = bookmarks.StateError
 			b.Errors = append(b.Errors, fmt.Sprintf("%v", r))
 			saved = false
 		}
 
 		// Never stay hanging
-		if b.State == StateLoading {
-			b.State = StateLoaded
+		if b.State == bookmarks.StateLoading {
+			b.State = bookmarks.StateLoaded
 			saved = false
 		}
 
@@ -229,7 +240,7 @@ func extractPageHandler(data interface{}) {
 		runtime.GC()
 	}()
 
-	b, err = Bookmarks.GetOne(goqu.C("id").Eq(params.BookmarkID))
+	b, err = bookmarks.Bookmarks.GetOne(goqu.C("id").Eq(params.BookmarkID))
 	if err != nil {
 		logger.WithError(err).Error()
 		return
@@ -261,7 +272,7 @@ func extractPageHandler(data interface{}) {
 
 	ex.AddProcessors(
 		contentscripts.LoadScripts(
-			GetContentScripts(ex.GetLogger())...,
+			bookmarks.GetContentScripts(ex.GetLogger())...,
 		),
 		meta.ExtractMeta,
 		meta.ExtractOembed,
@@ -310,7 +321,7 @@ var nilProcessor = func(_ *extract.ProcessMessage, next extract.Processor) extra
 // saveBookmark is one last step of the extraction process, it saves the bookmark
 // and marks it ready for reading.
 // Other steps can still perform tasks later.
-func saveBookmark(b *Bookmark, saved *bool, resourceCount *int) extract.Processor {
+func saveBookmark(b *bookmarks.Bookmark, saved *bool, resourceCount *int) extract.Processor {
 	return func(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
 		if m.Step() != extract.StepDone {
 			return next
@@ -325,7 +336,7 @@ func saveBookmark(b *Bookmark, saved *bool, resourceCount *int) extract.Processo
 
 		b.Updated = time.Now()
 		b.URL = drop.UnescapedURL()
-		b.State = StateLoaded
+		b.State = bookmarks.StateLoaded
 		b.Domain = drop.Domain
 		b.Site = drop.URL.Hostname()
 		b.SiteName = drop.Site
@@ -367,7 +378,7 @@ func saveBookmark(b *Bookmark, saved *bool, resourceCount *int) extract.Processo
 		var arc *archiver.Archiver
 		logEntry := log.NewEntry(ex.GetLogger()).WithFields(*ex.LogFields)
 		if len(ex.HTML) > 0 && ex.Drop().IsHTML() {
-			arc, err = newArchive(context.TODO(), ex)
+			arc, err = bookmarks.NewArchive(context.TODO(), ex)
 			if err != nil {
 				logEntry.WithError(err).Error("archiver error")
 			}
@@ -382,9 +393,9 @@ func saveBookmark(b *Bookmark, saved *bool, resourceCount *int) extract.Processo
 		if err != nil {
 			// If something goes really wrong, cleanup after ourselves
 			b.Errors = append(b.Errors, err.Error())
-			b.removeFiles()
+			b.RemoveFiles()
 			b.FilePath = ""
-			b.Files = BookmarkFiles{}
+			b.Files = bookmarks.BookmarkFiles{}
 		}
 
 		// All good? Save now
@@ -401,13 +412,13 @@ func saveBookmark(b *Bookmark, saved *bool, resourceCount *int) extract.Processo
 // process all of them to get some information (content type, title when possible...)
 // The link list is then saved into the bookmark.
 // This processor MUST run after saveBookmark.
-func fetchLinksProcessor(b *Bookmark) extract.Processor {
+func fetchLinksProcessor(b *bookmarks.Bookmark) extract.Processor {
 	return func(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
 		if m.Step() != extract.StepDone {
 			return next
 		}
 
-		links, ok := m.Extractor.Context.Value(ctxExtractLinksKey).(BookmarkLinks)
+		links, ok := m.Extractor.Context.Value(ctxExtractLinksKey).(bookmarks.BookmarkLinks)
 		if !ok {
 			return next
 		}
@@ -454,7 +465,7 @@ func fetchLinksProcessor(b *Bookmark) extract.Processor {
 			log.WithError(err).Error("extract links")
 		}
 
-		links = slices.CompactFunc(links, func(a, b BookmarkLink) bool {
+		links = slices.CompactFunc(links, func(a, b bookmarks.BookmarkLink) bool {
 			return a.URL == b.URL
 		})
 
@@ -470,16 +481,16 @@ func fetchLinksProcessor(b *Bookmark) extract.Processor {
 	}
 }
 
-func createZipFile(b *Bookmark, ex *extract.Extractor, arc *archiver.Archiver) error {
+func createZipFile(b *bookmarks.Bookmark, ex *extract.Extractor, arc *archiver.Archiver) error {
 	// Fail fast
-	fileURL, err := b.getBaseFileURL()
+	fileURL, err := b.GetBaseFileURL()
 	if err != nil {
 		return err
 	}
-	zipFile := filepath.Join(StoragePath(), fileURL+".zip")
+	zipFile := filepath.Join(bookmarks.StoragePath(), fileURL+".zip")
 
 	b.FilePath = fileURL
-	b.Files = BookmarkFiles{}
+	b.Files = bookmarks.BookmarkFiles{}
 
 	// Create the zip file
 	z := zipfs.NewZipRW(nil, nil, 0)
@@ -505,7 +516,7 @@ func createZipFile(b *Bookmark, ex *extract.Extractor, arc *archiver.Archiver) e
 		); err != nil {
 			return err
 		}
-		b.Files[k] = &BookmarkFile{name, p.Type, p.Size}
+		b.Files[k] = &bookmarks.BookmarkFile{Name: name, Type: p.Type, Size: p.Size}
 	}
 
 	// Add HTML content
@@ -516,13 +527,13 @@ func createZipFile(b *Bookmark, ex *extract.Extractor, arc *archiver.Archiver) e
 		); err != nil {
 			return err
 		}
-		b.Files["article"] = &BookmarkFile{Name: "index.html"}
+		b.Files["article"] = &bookmarks.BookmarkFile{Name: "index.html"}
 	}
 
 	// Add assets
 	if arc != nil && len(arc.Cache) > 0 {
 		for uri, asset := range arc.Cache {
-			fname := path.Join(resourceDirName, getURLfilename(uri, asset.ContentType))
+			fname := path.Join(bookmarks.ResourceDirName(), bookmarks.GetURLfilename(uri, asset.ContentType))
 			if err = z.Add(
 				&zip.FileHeader{Name: fname},
 				bytes.NewReader(asset.Data),
@@ -539,7 +550,7 @@ func createZipFile(b *Bookmark, ex *extract.Extractor, arc *archiver.Archiver) e
 	); err != nil {
 		return err
 	}
-	b.Files["log"] = &BookmarkFile{Name: "log"}
+	b.Files["log"] = &bookmarks.BookmarkFile{Name: "log"}
 
 	// Add the metadata
 	buf := new(bytes.Buffer)
@@ -554,7 +565,7 @@ func createZipFile(b *Bookmark, ex *extract.Extractor, arc *archiver.Archiver) e
 	); err != nil {
 		return err
 	}
-	b.Files["props"] = &BookmarkFile{Name: "props.json"}
+	b.Files["props"] = &bookmarks.BookmarkFile{Name: "props.json"}
 
 	return nil
 }

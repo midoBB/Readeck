@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package bookmarks provides storage and tooling
+// for bookmarks and collections management.
 package bookmarks
 
 import (
@@ -409,7 +411,7 @@ func (b *Bookmark) Delete() error {
 		return err
 	}
 
-	b.removeFiles()
+	b.RemoveFiles()
 	return nil
 }
 
@@ -426,12 +428,14 @@ func (b *Bookmark) ReadingTime() int {
 	return b.WordCount / 200
 }
 
-func (b *Bookmark) getBaseFileURL() (string, error) {
+// GetBaseFileURL returns the base path for archive URL.
+func (b *Bookmark) GetBaseFileURL() (string, error) {
 	return path.Join(b.UID[:2], b.UID), nil
 }
 
-func (b *Bookmark) removeFiles() {
-	filename := b.getFilePath()
+// RemoveFiles removes all the bookmark's files.
+func (b *Bookmark) RemoveFiles() {
+	filename := b.GetFilePath()
 	if filename == "" {
 		return
 	}
@@ -459,7 +463,8 @@ func (b *Bookmark) removeFiles() {
 	}
 }
 
-func (b *Bookmark) getFilePath() string {
+// GetFilePath returns the bookmark's associated file path.
+func (b *Bookmark) GetFilePath() string {
 	if b.FilePath == "" {
 		return ""
 	}
@@ -586,7 +591,8 @@ func (f BookmarkFiles) Value() (driver.Value, error) {
 	return string(v), nil
 }
 
-type annotationQueryResult struct {
+// AnnotationQueryResult hold the content of an annotation.
+type AnnotationQueryResult struct {
 	Bookmark Bookmark         `db:"b"`
 	ID       string           `db:"annotation_id"`
 	Text     string           `db:"annotation_text"`

@@ -2,15 +2,18 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package bookmarks
+package routes
 
 import (
 	"context"
+	"database/sql/driver"
 	"encoding/json"
 	"errors"
 	"net/url"
 	"time"
 
+	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -22,6 +25,16 @@ type collectionDeleteForm struct {
 	*forms.Form
 }
 
+type filterMap map[string]interface{}
+
+func (m filterMap) Value() (driver.Value, error) {
+	v, err := json.Marshal(m)
+	if err != nil {
+		return "", err
+	}
+	return string(v), nil
+}
+
 func newCollectionDeleteForm(tr forms.Translator) (f *collectionDeleteForm) {
 	f = &collectionDeleteForm{forms.Must(
 		forms.NewBooleanField("cancel"),
@@ -31,12 +44,12 @@ func newCollectionDeleteForm(tr forms.Translator) (f *collectionDeleteForm) {
 	return
 }
 
-func (f *collectionDeleteForm) trigger(c *Collection) error {
+func (f *collectionDeleteForm) trigger(c *bookmarks.Collection) error {
 	if !f.Get("cancel").IsNil() && f.Get("cancel").Value().(bool) {
-		return deleteCollectionTask.Cancel(c.ID)
+		return tasks.DeleteCollectionTask.Cancel(c.ID)
 	}
 
-	return deleteCollectionTask.Run(c.ID, c.ID)
+	return tasks.DeleteCollectionTask.Run(c.ID, c.ID)
 }
 
 type collectionForm struct {
@@ -118,7 +131,7 @@ func (f *collectionForm) Get(name string) *forms.FormField {
 func (f *collectionForm) Bind() {
 	f.Form.Bind()
 
-	c, _ := f.Context().Value(ctxCollectionFormKey{}).(*Collection)
+	c, _ := f.Context().Value(ctxCollectionFormKey{}).(*bookmarks.Collection)
 	if c != nil {
 		f.Get("name").SetValidators(forms.Trim, forms.RequiredOrNil)
 	}
@@ -139,7 +152,7 @@ func (f *collectionForm) BindQueryString(values url.Values) {
 	}
 }
 
-func (f *collectionForm) setCollection(c *Collection) {
+func (f *collectionForm) setCollection(c *bookmarks.Collection) {
 	ctx := context.WithValue(f.Context(), ctxCollectionFormKey{}, c)
 	f.SetContext(ctx)
 
@@ -181,15 +194,15 @@ func (f *collectionForm) setCollection(c *Collection) {
 	}
 }
 
-func (f *collectionForm) createCollection(userID int) (*Collection, error) {
+func (f *collectionForm) createCollection(userID int) (*bookmarks.Collection, error) {
 	if !f.IsBound() {
 		return nil, errors.New("form is not bound")
 	}
 
-	c := &Collection{
+	c := &bookmarks.Collection{
 		UserID: &userID,
 		Name:   f.Get("name").String(),
-		Filters: CollectionFilters{
+		Filters: bookmarks.CollectionFilters{
 			Search:     f.Get("search").String(),
 			Title:      f.Get("title").String(),
 			Author:     f.Get("author").String(),
@@ -213,22 +226,22 @@ func (f *collectionForm) createCollection(userID int) (*Collection, error) {
 		c.Filters.IsArchived = &v
 	}
 
-	err := Collections.Create(c)
+	err := bookmarks.Collections.Create(c)
 	if err != nil {
 		f.AddErrors("", forms.ErrUnexpected)
 	}
 	return c, err
 }
 
-func (f *collectionForm) updateCollection(c *Collection) (res map[string]interface{}, err error) {
+func (f *collectionForm) updateCollection(c *bookmarks.Collection) (res map[string]interface{}, err error) {
 	if !f.IsBound() {
 		err = errors.New("form is not bound")
 		return
 	}
 
 	res = map[string]interface{}{}
-	current := c.flatten()
-	updated := c.flatten()
+	current := c.Flatten()
+	updated := c.Flatten()
 
 	forms.Validate(f.Filters)
 	for _, field := range f.Fields() {

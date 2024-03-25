@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package bookmarks
+package routes
 
 import (
 	"bufio"
@@ -21,6 +21,8 @@ import (
 	"github.com/doug-martin/goqu/v9/exp"
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/db/filters"
 	"codeberg.org/readeck/readeck/internal/db/types"
@@ -41,51 +43,11 @@ const (
 	filtersTitlePictures
 )
 
-type multipartResource struct {
-	URL     string            `json:"url"`
-	Headers map[string]string `json:"headers"`
-	Data    []byte            `json:"data"`
-}
-
-// newMultipartResource returns a new instance of multipartResource from
-// an io.Reader. The input MUST contain a JSON payload on the first line
-// (with the url and headers) and the data on the remaining lines.
-func newMultipartResource(r io.Reader) (res multipartResource, err error) {
-	const bufSize = 256 << 10 // In KiB
-	bio := bufio.NewReaderSize(r, bufSize)
-
-	// Read the first line containing the JSON metadata
-	var line []byte
-	if line, err = bio.ReadBytes('\n'); err != nil {
-		return
-	}
-	if err = json.Unmarshal(line, &res); err != nil {
-		return
-	}
-
-	if res.URL == "" {
-		err = fmt.Errorf("No resource URL")
-		return
-	}
-
-	// Read the rest (the content)
-	res.Data, err = io.ReadAll(bio)
-	if err != nil {
-		return
-	}
-	if len(res.Data) == 0 {
-		err = fmt.Errorf("No resource content")
-		return
-	}
-
-	return
-}
-
 type createForm struct {
 	*forms.Form
 	userID    int
 	requestID string
-	resources []multipartResource
+	resources []tasks.MultipartResource
 }
 
 func newCreateForm(tr forms.Translator, userID int, requestID string) (f *createForm) {
@@ -120,6 +82,40 @@ func newCreateForm(tr forms.Translator, userID int, requestID string) (f *create
 	return
 }
 
+// newMultipartResource returns a new instance of multipartResource from
+// an io.Reader. The input MUST contain a JSON payload on the first line
+// (with the url and headers) and the data on the remaining lines.
+func newMultipartResource(r io.Reader) (res tasks.MultipartResource, err error) {
+	const bufSize = 256 << 10 // In KiB
+	bio := bufio.NewReaderSize(r, bufSize)
+
+	// Read the first line containing the JSON metadata
+	var line []byte
+	if line, err = bio.ReadBytes('\n'); err != nil {
+		return
+	}
+	if err = json.Unmarshal(line, &res); err != nil {
+		return
+	}
+
+	if res.URL == "" {
+		err = fmt.Errorf("No resource URL")
+		return
+	}
+
+	// Read the rest (the content)
+	res.Data, err = io.ReadAll(bio)
+	if err != nil {
+		return
+	}
+	if len(res.Data) == 0 {
+		err = fmt.Errorf("No resource content")
+		return
+	}
+
+	return
+}
+
 func (f *createForm) loadMultipart(r *http.Request) (err error) {
 	const maxMemory = 16 << 20 // In MiB
 
@@ -149,7 +145,7 @@ func (f *createForm) loadMultipart(r *http.Request) (err error) {
 		}
 		for _, x := range v {
 			var file multipart.File
-			var resource multipartResource
+			var resource tasks.MultipartResource
 			var err error
 
 			if file, err = x.Open(); err != nil {
@@ -171,16 +167,16 @@ func (f *createForm) loadMultipart(r *http.Request) (err error) {
 	return
 }
 
-func (f *createForm) createBookmark() (b *Bookmark, err error) {
+func (f *createForm) createBookmark() (b *bookmarks.Bookmark, err error) {
 	if !f.IsBound() {
 		return nil, errors.New("form is not bound")
 	}
 
 	uri, _ := url.Parse(f.Get("url").String())
 
-	b = &Bookmark{
+	b = &bookmarks.Bookmark{
 		UserID:   &f.userID,
-		State:    StateLoading,
+		State:    bookmarks.StateLoading,
 		URL:      uri.String(),
 		Title:    f.Get("title").String(),
 		Site:     uri.Hostname(),
@@ -199,12 +195,12 @@ func (f *createForm) createBookmark() (b *Bookmark, err error) {
 		}
 	}()
 
-	if err = Bookmarks.Create(b); err != nil {
+	if err = bookmarks.Bookmarks.Create(b); err != nil {
 		return
 	}
 
 	// Start extraction job
-	err = extractPageTask.Run(b.ID, extractParams{
+	err = tasks.ExtractPageTask.Run(b.ID, tasks.ExtractParams{
 		BookmarkID: b.ID,
 		RequestID:  f.requestID,
 		Resources:  f.resources,
@@ -243,7 +239,7 @@ func newUpdateForm(tr forms.Translator) (f *updateForm) {
 	return
 }
 
-func (f *updateForm) update(b *Bookmark) (updated map[string]interface{}, err error) {
+func (f *updateForm) update(b *bookmarks.Bookmark) (updated map[string]interface{}, err error) {
 	updated = map[string]interface{}{}
 	var deleted *bool
 	labelsChanged := false
@@ -328,12 +324,12 @@ func newDeleteForm(tr forms.Translator) (f *deleteForm) {
 }
 
 // trigger launch the user deletion or cancel task.
-func (f *deleteForm) trigger(b *Bookmark) error {
+func (f *deleteForm) trigger(b *bookmarks.Bookmark) error {
 	if !f.Get("cancel").IsNil() && f.Get("cancel").Value().(bool) {
-		return deleteBookmarkTask.Cancel(b.ID)
+		return tasks.DeleteBookmarkTask.Cancel(b.ID)
 	}
 
-	return deleteBookmarkTask.Run(b.ID, b.ID)
+	return tasks.DeleteBookmarkTask.Run(b.ID, b.ID)
 }
 
 type labelForm struct {
@@ -380,10 +376,10 @@ func (f *labelDeleteForm) trigger(user *users.User, name string) error {
 	id := fmt.Sprintf("%d@%s", user.ID, name)
 
 	if !f.Get("cancel").IsNil() && f.Get("cancel").Value().(bool) {
-		return deleteLabelTask.Cancel(id)
+		return tasks.DeleteLabelTask.Cancel(id)
 	}
 
-	return deleteLabelTask.Run(id, labelDeleteParams{
+	return tasks.DeleteLabelTask.Run(id, tasks.LabelDeleteParams{
 		UserID: user.ID, Name: name,
 	})
 }

@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package bookmarks
+package routes
 
 import (
 	"context"
@@ -25,6 +25,8 @@ import (
 	"golang.org/x/net/html"
 
 	"codeberg.org/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/db/filters"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/annotate"
@@ -62,7 +64,7 @@ func (api *apiRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 
 // bookmarkInfo renders a given bookmark items in JSON.
 func (api *apiRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
-	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
+	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
 	item := newBookmarkItem(api.srv, r, b, "./..")
 	item.Errors = b.Errors
 	if err := item.setEmbed(); err != nil {
@@ -82,7 +84,7 @@ func (api *apiRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 // bookmarkArticle renders the article HTML content of a bookmark.
 // Note that only the body's content is rendered.
 func (api *apiRouter) bookmarkArticle(w http.ResponseWriter, r *http.Request) {
-	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
+	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
 
 	bi := newBookmarkItem(api.srv, r, b, "")
 	buf, err := bi.getArticle()
@@ -115,7 +117,7 @@ func (api *apiRouter) bookmarkArticle(w http.ResponseWriter, r *http.Request) {
 
 // bookmarkExport renders a list of bookmarks in the requested export format.
 func (api *apiRouter) bookmarkExport(w http.ResponseWriter, r *http.Request) {
-	var fn func(http.ResponseWriter, *http.Request, ...*Bookmark)
+	var fn func(http.ResponseWriter, *http.Request, ...*bookmarks.Bookmark)
 
 	// Check if we have a valid format
 	format := chi.URLParam(r, "format")
@@ -137,7 +139,7 @@ func (api *apiRouter) bookmarkExport(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Just one bookmark?
-	b, ok := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
+	b, ok := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
 	if ok {
 		fn(w, r, b)
 		return
@@ -200,7 +202,7 @@ func (api *apiRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
+	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
 
 	updated, err := f.update(b)
 	if err != nil {
@@ -255,7 +257,7 @@ func (api *apiRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 
 // bookmarkDelete deletes a bookmark.
 func (api *apiRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
-	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
+	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
 
 	if err := b.Update(map[string]interface{}{}); err != nil {
 		api.srv.Error(w, r, err)
@@ -290,7 +292,7 @@ func (api *apiRouter) bookmarkShare(w http.ResponseWriter, r *http.Request) {
 // Note that for images, we'll use another route that is not
 // authenticated and thus, much faster.
 func (api *apiRouter) bookmarkResource(w http.ResponseWriter, r *http.Request) {
-	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
+	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
 	p := path.Clean(chi.URLParam(r, "*"))
 
 	r2 := new(http.Request)
@@ -299,7 +301,7 @@ func (api *apiRouter) bookmarkResource(w http.ResponseWriter, r *http.Request) {
 	*r2.URL = *r.URL
 	r2.URL.Path = p
 
-	fs := zipfs.HTTPZipFile(b.getFilePath())
+	fs := zipfs.HTTPZipFile(b.GetFilePath())
 	fs.ServeHTTP(w, r2)
 }
 
@@ -318,7 +320,7 @@ func (api *apiRouter) labelList(w http.ResponseWriter, r *http.Request) {
 // labelInfo return the information about a label.
 func (api *apiRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 	label := r.Context().Value(ctxLabelKey{}).(string)
-	ds := Bookmarks.Query().
+	ds := bookmarks.Bookmarks.Query().
 		Select("id").
 		Where(
 			goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
@@ -358,7 +360,7 @@ func (api *apiRouter) labelUpdate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ids, err := Bookmarks.RenameLabel(auth.GetRequestUser(r), label, f.Get("name").String())
+	ids, err := bookmarks.Bookmarks.RenameLabel(auth.GetRequestUser(r), label, f.Get("name").String())
 	if err != nil {
 		api.srv.Error(w, r, err)
 		return
@@ -372,7 +374,7 @@ func (api *apiRouter) labelUpdate(w http.ResponseWriter, r *http.Request) {
 func (api *apiRouter) labelDelete(w http.ResponseWriter, r *http.Request) {
 	label := r.Context().Value(ctxLabelKey{}).(string)
 
-	ids, err := Bookmarks.RenameLabel(auth.GetRequestUser(r), label, "")
+	ids, err := bookmarks.Bookmarks.RenameLabel(auth.GetRequestUser(r), label, "")
 	if err != nil {
 		api.srv.Error(w, r, err)
 		return
@@ -386,17 +388,17 @@ func (api *apiRouter) labelDelete(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *apiRouter) bookmarkAnnotations(w http.ResponseWriter, r *http.Request) {
-	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
+	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
 	if b.Annotations != nil {
 		api.srv.Render(w, r, http.StatusOK, b.Annotations)
 		return
 	}
 
-	api.srv.Render(w, r, http.StatusOK, BookmarkAnnotations{})
+	api.srv.Render(w, r, http.StatusOK, bookmarks.BookmarkAnnotations{})
 }
 
 func (api *apiRouter) annotationCreate(w http.ResponseWriter, r *http.Request) {
-	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
+	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
 	f := newAnnotationForm(api.srv.Locale(r))
 	forms.Bind(f, r)
 	if !f.IsValid() {
@@ -423,18 +425,18 @@ func (api *apiRouter) annotationCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *apiRouter) annotationDelete(w http.ResponseWriter, r *http.Request) {
-	b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
+	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
 	id := chi.URLParam(r, "id")
 	if b.Annotations == nil {
 		api.srv.Status(w, r, http.StatusNotFound)
 		return
 	}
-	if b.Annotations.get(id) == nil {
+	if b.Annotations.Get(id) == nil {
 		api.srv.Status(w, r, http.StatusNotFound)
 		return
 	}
 
-	b.Annotations.delete(id)
+	b.Annotations.Delete(id)
 	err := b.Update(map[string]interface{}{
 		"annotations": b.Annotations,
 	})
@@ -459,7 +461,7 @@ func (api *apiRouter) withBookmark(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		uid := chi.URLParam(r, "uid")
 
-		b, err := Bookmarks.GetOne(
+		b, err := bookmarks.Bookmarks.GetOne(
 			goqu.C("uid").Eq(uid),
 			goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
 		)
@@ -469,7 +471,7 @@ func (api *apiRouter) withBookmark(next http.Handler) http.Handler {
 		}
 		ctx := context.WithValue(r.Context(), ctxBookmarkKey{}, b)
 
-		if b.State == StateLoaded {
+		if b.State == bookmarks.StateLoaded {
 			api.srv.WriteLastModified(w, r, b, auth.GetRequestUser(r))
 			api.srv.WriteEtag(w, r, b, auth.GetRequestUser(r))
 		}
@@ -545,11 +547,11 @@ func (api *apiRouter) withoutPagination(next http.Handler) http.Handler {
 
 func (api *apiRouter) withCollectionFilters(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		var c *Collection
+		var c *bookmarks.Collection
 		var ok bool
 		var err error
 		ctx := r.Context()
-		c, ok = ctx.Value(ctxCollectionKey{}).(*Collection)
+		c, ok = ctx.Value(ctxCollectionKey{}).(*bookmarks.Collection)
 		if !ok {
 			// No collection in context, let's see if we have an ID
 			uid := r.URL.Query().Get("collection")
@@ -558,7 +560,7 @@ func (api *apiRouter) withCollectionFilters(next http.Handler) http.Handler {
 				return
 			}
 
-			c, err = Collections.GetOne(
+			c, err = bookmarks.Collections.GetOne(
 				goqu.C("uid").Eq(uid),
 				goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
 			)
@@ -595,7 +597,7 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 			return
 		}
 
-		ds := Bookmarks.Query().
+		ds := bookmarks.Bookmarks.Query().
 			Select(
 				"b.id", "b.uid", "b.created", "b.updated", "b.state", "b.url", "b.title",
 				"b.domain", "b.site", "b.site_name", "b.authors", "b.lang", "b.dir", "b.type",
@@ -629,7 +631,7 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 		var count int64
 		var err error
 		if count, err = ds.ClearOrder().ClearLimit().ClearOffset().Count(); err != nil {
-			if errors.Is(err, ErrBookmarkNotFound) {
+			if errors.Is(err, bookmarks.ErrBookmarkNotFound) {
 				api.srv.TextMessage(w, r, http.StatusNotFound, "not found")
 			} else {
 				api.srv.Error(w, r, err)
@@ -637,7 +639,7 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 			return
 		}
 
-		res.items = []*Bookmark{}
+		res.items = []*bookmarks.Bookmark{}
 		if err = ds.ScanStructs(&res.items); err != nil {
 			api.srv.Error(w, r, err)
 			return
@@ -676,7 +678,7 @@ func (api *apiRouter) withAnnotationList(next http.Handler) http.Handler {
 			return
 		}
 
-		ds := Bookmarks.GetAnnotations().
+		ds := bookmarks.Bookmarks.GetAnnotations().
 			Where(
 				goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
 			)
@@ -696,7 +698,7 @@ func (api *apiRouter) withAnnotationList(next http.Handler) http.Handler {
 
 		res.Pagination = api.srv.NewPagination(r, int(count), pf.Limit(), pf.Offset())
 
-		res.items = []*annotationQueryResult{}
+		res.items = []*bookmarks.AnnotationQueryResult{}
 		if err = ds.ScanStructs(&res.items); err != nil {
 			api.srv.Error(w, r, err)
 			return
@@ -714,7 +716,7 @@ func (api *apiRouter) withAnnotationList(next http.Handler) http.Handler {
 
 func (api *apiRouter) withLabelList(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		ds := Bookmarks.GetLabels().
+		ds := bookmarks.Bookmarks.GetLabels().
 			Where(
 				goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
 			)
@@ -743,15 +745,15 @@ func (api *apiRouter) withSharedLink(next http.Handler) http.Handler {
 		api.srv.WriteLastModified(w, r)
 		api.srv.WriteEtag(w, r)
 
-		b := r.Context().Value(ctxBookmarkKey{}).(*Bookmark)
-		if b.State != StateLoaded {
+		b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
+		if b.State != bookmarks.StateLoaded {
 			api.srv.Error(w, r, errors.New("bookmark not loaded yet"))
 			return
 		}
 
 		expires := time.Now().Round(time.Minute).Add(sharingDuration)
 
-		rr, err := encryptID(uint64(b.ID), expires)
+		rr, err := bookmarks.EncryptID(uint64(b.ID), expires)
 		if err != nil {
 			api.srv.Error(w, r, err)
 			return
@@ -771,7 +773,7 @@ func (api *apiRouter) withSharedLink(next http.Handler) http.Handler {
 
 // bookmarkList is a paginated list of BookmarkItem instances.
 type bookmarkList struct {
-	items      []*Bookmark
+	items      []*bookmarks.Bookmark
 	Pagination server.Pagination
 	Items      []bookmarkItem
 }
@@ -788,36 +790,36 @@ func (bl bookmarkList) GetSumStrings() []string {
 // bookmarkItem is a serialized bookmark instance that can
 // be used directly on the API or by an HTML template.
 type bookmarkItem struct {
-	*Bookmark `json:"-"`
+	*bookmarks.Bookmark `json:"-"`
 
-	ID            string                   `json:"id"`
-	Href          string                   `json:"href"`
-	Created       time.Time                `json:"created"`
-	Updated       time.Time                `json:"updated"`
-	State         BookmarkState            `json:"state"`
-	Loaded        bool                     `json:"loaded"`
-	URL           string                   `json:"url"`
-	Title         string                   `json:"title"`
-	SiteName      string                   `json:"site_name"`
-	Site          string                   `json:"site"`
-	Published     *time.Time               `json:"published,omitempty"`
-	Authors       []string                 `json:"authors"`
-	Lang          string                   `json:"lang"`
-	TextDirection string                   `json:"text_direction"`
-	DocumentType  string                   `json:"document_type"`
-	Type          string                   `json:"type"`
-	HasArticle    bool                     `json:"has_article"`
-	Description   string                   `json:"description"`
-	IsDeleted     bool                     `json:"is_deleted"`
-	IsMarked      bool                     `json:"is_marked"`
-	IsArchived    bool                     `json:"is_archived"`
-	Labels        []string                 `json:"labels"`
-	Annotations   BookmarkAnnotations      `json:"-"`
-	Resources     map[string]*bookmarkFile `json:"resources"`
-	Embed         string                   `json:"embed,omitempty"`
-	EmbedHostname string                   `json:"embed_domain,omitempty"`
-	Errors        []string                 `json:"errors,omitempty"`
-	Links         BookmarkLinks            `json:"links,omitempty"`
+	ID            string                        `json:"id"`
+	Href          string                        `json:"href"`
+	Created       time.Time                     `json:"created"`
+	Updated       time.Time                     `json:"updated"`
+	State         bookmarks.BookmarkState       `json:"state"`
+	Loaded        bool                          `json:"loaded"`
+	URL           string                        `json:"url"`
+	Title         string                        `json:"title"`
+	SiteName      string                        `json:"site_name"`
+	Site          string                        `json:"site"`
+	Published     *time.Time                    `json:"published,omitempty"`
+	Authors       []string                      `json:"authors"`
+	Lang          string                        `json:"lang"`
+	TextDirection string                        `json:"text_direction"`
+	DocumentType  string                        `json:"document_type"`
+	Type          string                        `json:"type"`
+	HasArticle    bool                          `json:"has_article"`
+	Description   string                        `json:"description"`
+	IsDeleted     bool                          `json:"is_deleted"`
+	IsMarked      bool                          `json:"is_marked"`
+	IsArchived    bool                          `json:"is_archived"`
+	Labels        []string                      `json:"labels"`
+	Annotations   bookmarks.BookmarkAnnotations `json:"-"`
+	Resources     map[string]*bookmarkFile      `json:"resources"`
+	Embed         string                        `json:"embed,omitempty"`
+	EmbedHostname string                        `json:"embed_domain,omitempty"`
+	Errors        []string                      `json:"errors,omitempty"`
+	Links         bookmarks.BookmarkLinks       `json:"links,omitempty"`
 
 	baseURL            *url.URL
 	mediaURL           *url.URL
@@ -834,7 +836,7 @@ type bookmarkFile struct {
 }
 
 // newBookmarkItem builds a BookmarkItem from a Bookmark instance.
-func newBookmarkItem(s *server.Server, r *http.Request, b *Bookmark, base string) bookmarkItem {
+func newBookmarkItem(s *server.Server, r *http.Request, b *bookmarks.Bookmark, base string) bookmarkItem {
 	res := bookmarkItem{
 		Bookmark:      b,
 		ID:            b.UID,
@@ -842,7 +844,7 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *Bookmark, base string
 		Created:       b.Created,
 		Updated:       b.Updated,
 		State:         b.State,
-		Loaded:        b.State != StateLoading,
+		Loaded:        b.State != bookmarks.StateLoading,
 		URL:           b.URL,
 		Title:         b.Title,
 		SiteName:      b.SiteName,
@@ -853,7 +855,7 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *Bookmark, base string
 		TextDirection: b.TextDirection,
 		DocumentType:  b.DocumentType,
 		Description:   b.Description,
-		IsDeleted:     deleteBookmarkTask.IsRunning(b.ID),
+		IsDeleted:     tasks.DeleteBookmarkTask.IsRunning(b.ID),
 		IsMarked:      b.IsMarked,
 		IsArchived:    b.IsArchived,
 		Labels:        make([]string, 0),
@@ -930,7 +932,7 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *Bookmark, base string
 // This lets us test for error and log them when needed.
 func (bi bookmarkItem) getArticle() (*strings.Reader, error) {
 	var err error
-	var c *bookmarkContainer
+	var c *bookmarks.BookmarkContainer
 	if c, err = bi.OpenContainer(); err != nil {
 		return strings.NewReader(""), err
 	}
@@ -1049,7 +1051,7 @@ func (bi bookmarkItem) addAnnotations(input *strings.Reader) (*strings.Reader, e
 	}
 	root := dom.QuerySelector(doc, "body")
 
-	err = bi.Annotations.addToNode(root, bi.annotationTag, bi.annotationCallback)
+	err = bi.Annotations.AddToNode(root, bi.annotationTag, bi.annotationCallback)
 	if err != nil {
 		input.Seek(0, 0) //nolint:errcheck
 		return input, err
@@ -1077,7 +1079,7 @@ func (s labelString) Path() string {
 }
 
 type annotationList struct {
-	items      []*annotationQueryResult
+	items      []*bookmarks.AnnotationQueryResult
 	Pagination server.Pagination
 	Items      []annotationItem
 }
@@ -1094,7 +1096,7 @@ type annotationItem struct {
 	BookmarkSiteName string    `json:"bookmark_site_name"`
 }
 
-func newAnnotationItem(s *server.Server, r *http.Request, a *annotationQueryResult) annotationItem {
+func newAnnotationItem(s *server.Server, r *http.Request, a *bookmarks.AnnotationQueryResult) annotationItem {
 	res := annotationItem{
 		ID:               a.ID,
 		Href:             s.AbsoluteURL(r, "/api/bookmarks", a.Bookmark.UID, "annotations", a.ID).String(),

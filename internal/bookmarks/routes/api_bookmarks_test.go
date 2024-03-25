@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package bookmarks_test
+package routes_test
 
 import (
 	"testing"

@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package bookmarks
+package routes
 
 import (
 	"fmt"
@@ -13,6 +13,7 @@ import (
 	"github.com/lithammer/shortuuid/v4"
 
 	"codeberg.org/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/opds/catalog"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/opds"
@@ -40,7 +41,7 @@ func NewOPDSRouteHandler(s *server.Server) func(r chi.Router) {
 }
 
 func (h *opdsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
-	lastUpdate, err := Bookmarks.GetLastUpdate(
+	lastUpdate, err := bookmarks.Bookmarks.GetLastUpdate(
 		goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
 	)
 	if err != nil {
@@ -85,7 +86,7 @@ func (h *opdsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *opdsRouter) collectionList(w http.ResponseWriter, r *http.Request) {
-	lastUpdate, err := Bookmarks.GetLastUpdate(
+	lastUpdate, err := bookmarks.Bookmarks.GetLastUpdate(
 		goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
 	)
 	if err != nil {
@@ -122,7 +123,7 @@ func (h *opdsRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *opdsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
-	lastUpdate, err := Bookmarks.GetLastUpdate(
+	lastUpdate, err := bookmarks.Bookmarks.GetLastUpdate(
 		goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
 	)
 	if err != nil {
@@ -132,7 +133,7 @@ func (h *opdsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 
 	tr := h.srv.Locale(r)
 
-	item := r.Context().Value(ctxCollectionKey{}).(*Collection)
+	item := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
 	c := catalog.New(h.srv, r,
 		catalog.WithFeedType(opds.OPDSTypeAcquisistion),
 		catalog.WithTitle(tr.Gettext("Readeck Collection: %s", item.Name)),

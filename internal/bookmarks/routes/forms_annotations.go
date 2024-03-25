@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package bookmarks
+package routes
 
 import (
 	"strings"
@@ -12,6 +12,7 @@ import (
 	"github.com/lithammer/shortuuid/v4"
 	"golang.org/x/net/html"
 
+	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -30,8 +31,8 @@ func newAnnotationForm(tr forms.Translator) (f *annotationForm) {
 	return
 }
 
-func (f *annotationForm) addToBookmark(bi *bookmarkItem) (*BookmarkAnnotation, error) {
-	annotation := &BookmarkAnnotation{
+func (f *annotationForm) addToBookmark(bi *bookmarkItem) (*bookmarks.BookmarkAnnotation, error) {
+	annotation := &bookmarks.BookmarkAnnotation{
 		ID:            shortuuid.New(),
 		StartSelector: f.Get("start_selector").String(),
 		StartOffset:   f.Get("start_offset").Value().(int),
@@ -54,7 +55,7 @@ func (f *annotationForm) addToBookmark(bi *bookmarkItem) (*BookmarkAnnotation, e
 
 	// Add annotation and store its text content
 	contents := &strings.Builder{}
-	err = annotation.addToNode(root, bi.annotationTag, func(n *html.Node, index int) {
+	err = annotation.AddToNode(root, bi.annotationTag, func(n *html.Node, index int) {
 		contents.WriteString(n.FirstChild.Data)
 		bi.annotationCallback(annotation.ID, n, index)
 	})
@@ -67,11 +68,11 @@ func (f *annotationForm) addToBookmark(bi *bookmarkItem) (*BookmarkAnnotation, e
 	// All good? Create the annotation now
 	b := bi.Bookmark
 	if b.Annotations == nil {
-		b.Annotations = BookmarkAnnotations{}
+		b.Annotations = bookmarks.BookmarkAnnotations{}
 	}
 
-	b.Annotations.add(annotation)
-	b.Annotations.sort(root, bi.annotationTag)
+	b.Annotations.Add(annotation)
+	b.Annotations.Sort(root, bi.annotationTag)
 
 	err = b.Update(map[string]interface{}{
 		"annotations": b.Annotations,

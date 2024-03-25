@@ -53,8 +53,8 @@ func (a BookmarkAnnotations) Value() (driver.Value, error) {
 	return string(v), nil
 }
 
-// addToNode adds one annotation to a DOM node (the designated root).
-func (a *BookmarkAnnotation) addToNode(root *html.Node, tagName string, options ...annotate.WrapCallback) error {
+// AddToNode adds one annotation to a DOM node (the designated root).
+func (a *BookmarkAnnotation) AddToNode(root *html.Node, tagName string, options ...annotate.WrapCallback) error {
 	return annotate.AddAnnotation(
 		root, tagName,
 		a.StartSelector, a.StartOffset,
@@ -63,10 +63,10 @@ func (a *BookmarkAnnotation) addToNode(root *html.Node, tagName string, options 
 	)
 }
 
-// addToNode adds all annotations to a DOM node (the designated root).
-func (a BookmarkAnnotations) addToNode(root *html.Node, tagName string, options ...func(string, *html.Node, int)) error {
+// AddToNode adds all annotations to a DOM node (the designated root).
+func (a BookmarkAnnotations) AddToNode(root *html.Node, tagName string, options ...func(string, *html.Node, int)) error {
 	for _, annotation := range a {
-		err := annotation.addToNode(root, tagName, func(n *html.Node, index int) {
+		err := annotation.AddToNode(root, tagName, func(n *html.Node, index int) {
 			for _, f := range options {
 				f(annotation.ID, n, index)
 			}
@@ -78,8 +78,8 @@ func (a BookmarkAnnotations) addToNode(root *html.Node, tagName string, options 
 	return nil
 }
 
-// get retrieves an annotation or returns nil if it does not exist.
-func (a *BookmarkAnnotations) get(id string) *BookmarkAnnotation {
+// Get retrieves an annotation or returns nil if it does not exist.
+func (a *BookmarkAnnotations) Get(id string) *BookmarkAnnotation {
 	for _, x := range *a {
 		if x.ID == id {
 			return x
@@ -88,31 +88,31 @@ func (a *BookmarkAnnotations) get(id string) *BookmarkAnnotation {
 	return nil
 }
 
-// add adds a new annotation to the list.
-func (a *BookmarkAnnotations) add(item *BookmarkAnnotation) {
+// Add adds a new annotation to the list.
+func (a *BookmarkAnnotations) Add(item *BookmarkAnnotation) {
 	set := *a
 	set = append(set, item)
 	*a = set
 }
 
-// sort sorts the annotations based on their position in the root document.
-func (a *BookmarkAnnotations) sort(root *html.Node, tagName string) {
+// Sort sorts the annotations based on their position in the root document.
+func (a *BookmarkAnnotations) Sort(root *html.Node, tagName string) {
 	set := BookmarkAnnotations{}
 	for _, n := range dom.QuerySelectorAll(root, tagName) {
 		if dom.GetAttribute(n, "id") == "" {
 			continue
 		}
 		id := dom.GetAttribute(n, "data-annotation-id-value")
-		if item := a.get(id); item != nil {
+		if item := a.Get(id); item != nil {
 			set = append(set, item)
 		}
 	}
 	*a = set
 }
 
-// delete removes an annotation from the list.
-func (a *BookmarkAnnotations) delete(id string) {
-	item := a.get(id)
+// Delete removes an annotation from the list.
+func (a *BookmarkAnnotations) Delete(id string) {
+	item := a.Get(id)
 	if item == nil {
 		return
 	}

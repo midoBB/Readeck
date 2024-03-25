@@ -2,12 +2,13 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package bookmarks
+package routes
 
 import (
 	"net/http"
 
 	"codeberg.org/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -61,7 +62,7 @@ func (h *viewsRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *viewsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
-	c := r.Context().Value(ctxCollectionKey{}).(*Collection)
+	c := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
 	item := newCollectionItem(h.srv, r, c, "./..")
 
 	f := newCollectionForm(h.srv.Locale(r))
@@ -103,7 +104,7 @@ func (h *viewsRouter) collectionDelete(w http.ResponseWriter, r *http.Request) {
 	f.Get("_to").Set("/bookmarks/collections")
 	forms.Bind(f, r)
 
-	c := r.Context().Value(ctxCollectionKey{}).(*Collection)
+	c := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
 
 	// This update forces cache invalidation
 	if err := c.Update(map[string]interface{}{}); err != nil {

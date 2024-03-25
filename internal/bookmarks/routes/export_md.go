@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package bookmarks
+package routes
 
 import (
 	"bytes"
@@ -12,10 +12,12 @@ import (
 
 	html2md "github.com/JohannesKaufmann/html-to-markdown"
 	"github.com/JohannesKaufmann/html-to-markdown/plugin"
+
+	"codeberg.org/readeck/readeck/internal/bookmarks"
 )
 
-func (api *apiRouter) exportBookmarksMD(w http.ResponseWriter, r *http.Request, bookmarks ...*Bookmark) {
-	if len(bookmarks) == 0 {
+func (api *apiRouter) exportBookmarksMD(w http.ResponseWriter, r *http.Request, bookmarkList ...*bookmarks.Bookmark) {
+	if len(bookmarkList) == 0 {
 		api.srv.Status(w, r, http.StatusNotFound)
 		return
 	}
@@ -28,7 +30,7 @@ func (api *apiRouter) exportBookmarksMD(w http.ResponseWriter, r *http.Request, 
 
 	w.Header().Set("Content-Type", "text/markdown; charset=utf-8")
 
-	for i, b := range bookmarks {
+	for i, b := range bookmarkList {
 		if i > 0 {
 			w.Write([]byte("\n------------------------------------------------------------\n\n"))
 		}

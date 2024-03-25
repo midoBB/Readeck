@@ -111,7 +111,9 @@ func (c *Collection) Update(v interface{}) error {
 	return err
 }
 
-func (c *Collection) flatten() map[string]interface{} {
+// Flatten returns a flat mapping of all the collection's property,
+// including filters.
+func (c *Collection) Flatten() map[string]interface{} {
 	res := map[string]interface{}{
 		"name":        c.Name,
 		"is_pinned":   c.IsPinned,
@@ -188,18 +190,6 @@ func (s *CollectionFilters) Scan(value interface{}) error {
 // Value encodes a CollectionFilters value for storage.
 func (s CollectionFilters) Value() (driver.Value, error) {
 	v, err := json.Marshal(s)
-	if err != nil {
-		return "", err
-	}
-	return string(v), nil
-}
-
-// type collectionFilterMap map[string]interface{}
-
-type filterMap map[string]interface{}
-
-func (m filterMap) Value() (driver.Value, error) {
-	v, err := json.Marshal(m)
 	if err != nil {
 		return "", err
 	}

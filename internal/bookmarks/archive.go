@@ -36,8 +36,13 @@ var (
 	imgCtx = context.TODO()
 )
 
-// newArchive runs the archiver and returns a BookmarkArchive instance.
-func newArchive(_ context.Context, ex *extract.Extractor) (*archiver.Archiver, error) {
+// ResourceDirName returns the resource folder name in an archive.
+func ResourceDirName() string {
+	return resourceDirName
+}
+
+// NewArchive runs the archiver and returns a BookmarkArchive instance.
+func NewArchive(_ context.Context, ex *extract.Extractor) (*archiver.Archiver, error) {
 	req := &archiver.Request{
 		Client: ex.Client(),
 		Input:  bytes.NewReader(ex.HTML),
@@ -125,7 +130,10 @@ func eventHandler(ex *extract.Extractor) func(ctx context.Context, arc *archiver
 	}
 }
 
-func getURLfilename(uri string, contentType string) string {
+// GetURLfilename returns a filename from a URL and MIME type. The filename
+// is a short UUID based on the URL and its extension is based on the
+// MIME type.
+func GetURLfilename(uri string, contentType string) string {
 	ext, ok := mimeTypes[strings.Split(contentType, ";")[0]]
 	if !ok {
 		ext = ".bin"
@@ -135,7 +143,7 @@ func getURLfilename(uri string, contentType string) string {
 }
 
 func urlProcessor(uri string, _ []byte, contentType string) string {
-	return "./" + path.Join(resourceDirName, getURLfilename(uri, contentType))
+	return "./" + path.Join(resourceDirName, GetURLfilename(uri, contentType))
 }
 
 func imageProcessor(ctx context.Context, arc *archiver.Archiver, input io.Reader, contentType string, uri *url.URL) ([]byte, string, error) {

@@ -17,6 +17,7 @@ import (
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
+	bookmark_tasks "codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/accept"
 	"codeberg.org/readeck/readeck/pkg/extract"
@@ -87,7 +88,7 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 		contentscripts.StripTags,
 		contentscripts.GoToNextPage,
 		contents.Readability(),
-		bookmarks.CleanDomProcessor,
+		bookmark_tasks.CleanDomProcessor,
 		contents.Text,
 		archiveProcessor,
 	)
@@ -145,7 +146,7 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	for _, link := range bookmarks.GetExtractedLinks(ex.Context) {
+	for _, link := range bookmark_tasks.GetExtractedLinks(ex.Context) {
 		res.Links = append(res.Links, link)
 	}
 

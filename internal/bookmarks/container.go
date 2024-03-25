@@ -19,9 +19,9 @@ var (
 	rxHTMLEnd   = regexp.MustCompile(`</body>\s*</html>\s*$`)
 )
 
-// bookmarkContainer is a wrapper around zip.ReadCloser
+// BookmarkContainer is a wrapper around zip.ReadCloser
 // to handle a bookmark's zipfile.
-type bookmarkContainer struct {
+type BookmarkContainer struct {
 	*zip.ReadCloser
 	articleFilename string
 	articleContent  *strings.Builder
@@ -29,8 +29,8 @@ type bookmarkContainer struct {
 
 // OpenContainer opens the bookmark's zipfile and returns a new
 // bookmarkContainer instance.
-func (b *Bookmark) OpenContainer() (*bookmarkContainer, error) { //revive:disable:unexported-return
-	p := b.getFilePath()
+func (b *Bookmark) OpenContainer() (*BookmarkContainer, error) { //revive:disable:unexported-return
+	p := b.GetFilePath()
 	if p == "" {
 		return nil, os.ErrNotExist
 	}
@@ -40,7 +40,7 @@ func (b *Bookmark) OpenContainer() (*bookmarkContainer, error) { //revive:disabl
 		return nil, err
 	}
 
-	res := &bookmarkContainer{
+	res := &BookmarkContainer{
 		ReadCloser:     z,
 		articleContent: new(strings.Builder),
 	}
@@ -52,7 +52,7 @@ func (b *Bookmark) OpenContainer() (*bookmarkContainer, error) { //revive:disabl
 }
 
 // ListResources returns a list of files located under "_resources/".
-func (c *bookmarkContainer) ListResources() []*zip.File {
+func (c *BookmarkContainer) ListResources() []*zip.File {
 	res := []*zip.File{}
 	for _, entry := range c.File {
 		if !strings.HasSuffix(entry.Name, "/") && strings.HasPrefix(entry.Name, resourceDirName) {
@@ -64,7 +64,7 @@ func (c *bookmarkContainer) ListResources() []*zip.File {
 }
 
 // LoadArticle loads the bookmark´s article when it exists.
-func (c *bookmarkContainer) LoadArticle() error {
+func (c *BookmarkContainer) LoadArticle() error {
 	if c.articleFilename == "" {
 		return os.ErrNotExist
 	}
@@ -80,7 +80,7 @@ func (c *bookmarkContainer) LoadArticle() error {
 }
 
 // ReplaceLinks replaces all the link to _resources/* in the article content.
-func (c *bookmarkContainer) ReplaceLinks(orig, repl string) (err error) {
+func (c *BookmarkContainer) ReplaceLinks(orig, repl string) (err error) {
 	args := []string{}
 	for _, x := range c.ListResources() {
 		args = append(args,
@@ -97,7 +97,7 @@ func (c *bookmarkContainer) ReplaceLinks(orig, repl string) (err error) {
 }
 
 // ExtractBody extract the content of the article's HTML body.
-func (c *bookmarkContainer) ExtractBody() (err error) {
+func (c *BookmarkContainer) ExtractBody() (err error) {
 	res := rxHTMLStart.ReplaceAllString(c.articleContent.String(), "")
 	res = rxHTMLEnd.ReplaceAllString(res, "")
 	c.articleContent.Reset()
@@ -106,12 +106,12 @@ func (c *bookmarkContainer) ExtractBody() (err error) {
 }
 
 // GetArticle returns a string of the article's HTML.
-func (c *bookmarkContainer) GetArticle() string {
+func (c *BookmarkContainer) GetArticle() string {
 	return c.articleContent.String()
 }
 
 // GetFile returns a file's content.
-func (c *bookmarkContainer) GetFile(name string) ([]byte, error) {
+func (c *BookmarkContainer) GetFile(name string) ([]byte, error) {
 	fd, err := c.Open(name)
 	if err != nil {
 		return nil, err

@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package bookmarks
+package routes
 
 import (
 	"fmt"
@@ -17,6 +17,7 @@ import (
 	"github.com/google/uuid"
 
 	"codeberg.org/readeck/readeck/assets"
+	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/epub"
 	"codeberg.org/readeck/readeck/pkg/utils"
@@ -24,26 +25,26 @@ import (
 
 var uuidURL = uuid.Must(uuid.Parse("6ba7b811-9dad-11d1-80b4-00c04fd430c8"))
 
-func (api *apiRouter) exportBookmarksEPUB(w http.ResponseWriter, r *http.Request, bookmarks ...*Bookmark) {
-	if len(bookmarks) == 0 {
+func (api *apiRouter) exportBookmarksEPUB(w http.ResponseWriter, r *http.Request, bookmarkList ...*bookmarks.Bookmark) {
+	if len(bookmarkList) == 0 {
 		api.srv.Status(w, r, http.StatusNotFound)
 		return
 	}
 
 	// Define a title, date and filename
 	title := "Readec Bookmarks"
-	date := bookmarks[0].Created
-	if collection, ok := r.Context().Value(ctxCollectionKey{}).(*Collection); ok {
+	date := bookmarkList[0].Created
+	if collection, ok := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection); ok {
 		// In case of a collection, we give the book a title and reverse
 		// the items order.
 		title = collection.Name
-		slices.Reverse(bookmarks)
-	} else if len(bookmarks) == 1 {
-		title = bookmarks[0].Title
+		slices.Reverse(bookmarkList)
+	} else if len(bookmarkList) == 1 {
+		title = bookmarkList[0].Title
 	}
 
 	id := ""
-	for _, x := range bookmarks {
+	for _, x := range bookmarkList {
 		id += x.UID
 	}
 
@@ -57,8 +58,8 @@ func (api *apiRouter) exportBookmarksEPUB(w http.ResponseWriter, r *http.Request
 	)
 
 	err := func() (err error) {
-		var m *EpubMaker
-		if m, err = NewEpubMaker(w, uuid.NewSHA1(uuidURL, []byte(id))); err != nil {
+		var m *epubMaker
+		if m, err = newEpubMaker(w, uuid.NewSHA1(uuidURL, []byte(id))); err != nil {
 			return
 		}
 		defer func() {
@@ -69,7 +70,7 @@ func (api *apiRouter) exportBookmarksEPUB(w http.ResponseWriter, r *http.Request
 			m.Close() //nolint:errcheck
 		}()
 
-		for _, b := range bookmarks {
+		for _, b := range bookmarkList {
 			if err = m.addBookmark(newBookmarkItem(api.srv, r, b, "/bookmarks"), api.srv.TemplateVars(r)); err != nil {
 				return err
 			}
@@ -82,15 +83,15 @@ func (api *apiRouter) exportBookmarksEPUB(w http.ResponseWriter, r *http.Request
 	}
 }
 
-// EpubMaker is a wrapper around epub.Writer with extra methods to
+// epubMaker is a wrapper around epub.Writer with extra methods to
 // create an epub file from one or many bookmarks.
-type EpubMaker struct {
+type epubMaker struct {
 	*epub.Writer
 }
 
-// NewEpubMaker creates a new EpubMaker instance.
-func NewEpubMaker(w io.Writer, id uuid.UUID) (*EpubMaker, error) {
-	m := &EpubMaker{epub.New(w)}
+// newEpubMaker creates a new EpubMaker instance.
+func newEpubMaker(w io.Writer, id uuid.UUID) (*epubMaker, error) {
+	m := &epubMaker{epub.New(w)}
 	if err := m.Bootstrap(); err != nil {
 		return nil, err
 	}
@@ -106,7 +107,7 @@ func NewEpubMaker(w io.Writer, id uuid.UUID) (*EpubMaker, error) {
 }
 
 // addStylesheet adds the stylesheet to the epub file.
-func (m *EpubMaker) addStylesheet() error {
+func (m *epubMaker) addStylesheet() error {
 	f, err := assets.StaticFilesFS().Open("epub.css")
 	if err != nil {
 		return err
@@ -116,9 +117,9 @@ func (m *EpubMaker) addStylesheet() error {
 }
 
 // addBookmark adds a bookmark, with all its resources, to the epub file.
-func (m *EpubMaker) addBookmark(b bookmarkItem, vars jet.VarMap) (err error) {
+func (m *epubMaker) addBookmark(b bookmarkItem, vars jet.VarMap) (err error) {
 	// Open the original container file
-	var c *bookmarkContainer
+	var c *bookmarks.BookmarkContainer
 	if c, err = b.OpenContainer(); err != nil {
 		return
 	}

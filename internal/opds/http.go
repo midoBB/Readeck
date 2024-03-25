@@ -14,6 +14,7 @@ import (
 
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
+	bookmark_routes "codeberg.org/readeck/readeck/internal/bookmarks/routes"
 	"codeberg.org/readeck/readeck/internal/opds/catalog"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/opds"
@@ -31,7 +32,7 @@ func SetupRoutes(s *server.Server) {
 	h.Use(middleware.GetHead)
 	h.With(s.WithPermission("api:opds", "read")).Group(func(r chi.Router) {
 		r.Get("/", h.mainCatalog)
-		r.Route("/bookmarks", bookmarks.NewOPDSRouteHandler(s))
+		r.Route("/bookmarks", bookmark_routes.NewOPDSRouteHandler(s))
 	})
 
 	s.AddRoute("/opds", h)

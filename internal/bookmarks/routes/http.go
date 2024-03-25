@@ -2,9 +2,9 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-// Package bookmarks provides, models, forms and http routes
+// Package routes provides http routes
 // for bookmarks and collections management.
-package bookmarks
+package routes
 
 import (
 	"net/http"
@@ -13,6 +13,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
+	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/csp"
 	"codeberg.org/readeck/readeck/pkg/zipfs"
@@ -217,7 +218,7 @@ func mediaRoutes(_ *server.Server) http.Handler {
 		r2.URL.Path = p
 
 		zipfile := path.Join(
-			StoragePath(),
+			bookmarks.StoragePath(),
 			chi.URLParam(r, "prefix"),
 			chi.URLParam(r, "fname")+".zip",
 		)

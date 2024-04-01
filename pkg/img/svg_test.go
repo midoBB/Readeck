@@ -225,7 +225,7 @@ func TestClean(t *testing.T) {
 			  </script>
 			</svg>`,
 			`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-			<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1">
 			</svg>`,
 		},
 		{
@@ -242,7 +242,7 @@ func TestClean(t *testing.T) {
 			  </g>
 			</svg>`,
 			`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-			<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  version="1.1">
 			  <defs id="defs4">
 			    <circle id="my_circle" cx="100" cy="50" r="40" fill="red"/>
 			  </defs>
@@ -291,7 +291,7 @@ func TestClean(t *testing.T) {
 			`
 			<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 			<!-- Created with Inkscape (http://www.inkscape.org/) -->
-			<svg xmlns:cc="http://creativecommons.org/ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
+			<svg xmlns:cc="http://creativecommons.org/ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  xmlns="http://www.w3.org/2000/svg" version="1.1"
 			 width="512" height="512" id="svg2">
 			<title>Mostly harmless</title>
 			<metadata id="metadata7">Some metadata</metadata>

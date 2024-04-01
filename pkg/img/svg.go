@@ -317,6 +317,9 @@ var allowedSVGTags = map[xmlName]svgTagCleaner{
 }
 
 var allowedSVGAttributes = map[xmlName]struct{}{
+	{"xmlns", "svg"}:   {},
+	{"xmlns", "xlink"}: {},
+
 	{svgNS, "accent-height"}:               {},
 	{svgNS, "accumulate"}:                  {},
 	{svgNS, "additive"}:                    {},

@@ -110,7 +110,18 @@ func (b urlBookmarkItem) URL() string {
 
 // LoadAdapter returns an import loader based on a given name.
 func LoadAdapter(name string) ImportLoader {
-	return nil
+	switch name {
+	case importText:
+		return &textAdapter{}
+	case importBrowser:
+		return &browserAdapter{}
+	case importPocketFile:
+		return &pocketFileAdapter{}
+	case importWallabag:
+		return &wallabagAdapter{}
+	default:
+		return nil
+	}
 }
 
 // Import performs the iteration on its adapter and import every item.

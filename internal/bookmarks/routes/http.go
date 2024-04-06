@@ -119,6 +119,13 @@ func newAPIRouter(s *server.Server) *apiRouter {
 		})
 	})
 
+	// Import API
+	r.Route("/import", func(r chi.Router) {
+		r.With(api.srv.WithPermission("api:bookmarks:import", "write")).Group(func(r chi.Router) {
+			r.Post("/{source}", api.bookmarksImport)
+		})
+	})
+
 	return api
 }
 

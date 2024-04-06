@@ -44,15 +44,15 @@ func runWorker(_ context.Context, args []string) error {
 	defer appPostRun()
 
 	// Start the metrics HTTP server
-	startMetrics := configs.Config.Worker.Metrics.Port > 0
+	startMetrics := configs.Config.Metrics.Port > 0
 	if startMetrics {
-		log.WithField("host", configs.Config.Worker.Metrics.Host).
-			WithField("port", configs.Config.Worker.Metrics.Port).
+		log.WithField("host", configs.Config.Metrics.Host).
+			WithField("port", configs.Config.Metrics.Port).
 			Info("metrics endpoint")
 		go func() {
 			if err := metrics.ListenAndServe(
-				configs.Config.Worker.Metrics.Host,
-				configs.Config.Worker.Metrics.Port,
+				configs.Config.Metrics.Host,
+				configs.Config.Metrics.Port,
 			); err != nil {
 				log.WithError(err).Error("cannot start the metrics server")
 				os.Exit(1)

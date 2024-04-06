@@ -103,15 +103,15 @@ func runServer(_ context.Context, args []string) error {
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
 
 	// Start the metrics HTTP server
-	startMetrics := configs.Config.Server.Metrics.Port > 0
+	startMetrics := configs.Config.Metrics.Port > 0
 	if startMetrics {
-		log.WithField("host", configs.Config.Server.Metrics.Host).
-			WithField("port", configs.Config.Server.Metrics.Port).
+		log.WithField("host", configs.Config.Metrics.Host).
+			WithField("port", configs.Config.Metrics.Port).
 			Info("metrics endpoint")
 		go func() {
 			if err := metrics.ListenAndServe(
-				configs.Config.Server.Metrics.Host,
-				configs.Config.Server.Metrics.Port,
+				configs.Config.Metrics.Host,
+				configs.Config.Metrics.Port,
 			); err != nil {
 				log.WithError(err).Error("cannot start the metrics server")
 				os.Exit(1)

@@ -15,6 +15,7 @@ import (
 	"net/url"
 	"os"
 	"runtime"
+	"strings"
 	"time"
 
 	"github.com/araddon/dateparse"
@@ -48,6 +49,7 @@ type config struct {
 	Email        configEmail     `json:"email" env:"-"`
 	Extractor    configExtractor `json:"extractor" env:"-"`
 	Worker       configWorker    `json:"worker" env:"-"`
+	Metrics      configMetrics   `json:"metrics" env:"-"`
 	Commissioned bool            `json:"-" env:"-"`
 	secretKey    []byte
 }
@@ -68,7 +70,6 @@ type configServer struct {
 	UseXForwardedHost  bool          `json:"use_x_forwarded_host" env:"READECK_USE_X_FORWARDED"`
 	UseXForwardedProto bool          `json:"use_x_forwarded_proto" env:"READECK_USE_X_FORWARDED"`
 	Session            configSession `json:"session" env:"-"`
-	Metrics            configMetrics `json:"metrics" env:"-"`
 }
 
 type configDB struct {
@@ -93,10 +94,9 @@ type configEmail struct {
 }
 
 type configWorker struct {
-	DSN         string        `json:"dsn" env:"-"`
-	NumWorkers  int           `json:"num_workers" env:"-"`
-	StartWorker bool          `json:"start_worker" env:"-"`
-	Metrics     configMetrics `json:"metrics" env:"-"`
+	DSN         string `json:"dsn" env:"READECK_WORKER_DSN"`
+	NumWorkers  int    `json:"num_workers" env:"READECK_WORKER_NUMBER"`
+	StartWorker bool   `json:"start_worker" env:"READECK_WORKER_START"`
 }
 
 type configExtractor struct {
@@ -107,8 +107,8 @@ type configExtractor struct {
 }
 
 type configMetrics struct {
-	Host string `json:"host" env:"-"`
-	Port int    `json:"port" env:"-"`
+	Host string `json:"host" env:"READECK_METRICS_HOST"`
+	Port int    `json:"port" env:"READECK_METRICS_PORT"`
 }
 
 type configIPNet struct {
@@ -205,10 +205,6 @@ var Config = config{
 			CookieName: "sxid",
 			MaxAge:     86400 * 30, // 60 days
 		},
-		Metrics: configMetrics{
-			Host: "127.0.0.1",
-			Port: 0,
-		},
 	},
 	Database: configDB{},
 	Email: configEmail{
@@ -216,12 +212,8 @@ var Config = config{
 	},
 	Worker: configWorker{
 		DSN:         "memory://",
-		NumWorkers:  runtime.NumCPU(),
+		NumWorkers:  max(1, runtime.NumCPU()-1),
 		StartWorker: true,
-		Metrics: configMetrics{
-			Host: "127.0.0.1",
-			Port: 0,
-		},
 	},
 	Extractor: configExtractor{
 		NumWorkers:     runtime.NumCPU(),
@@ -231,6 +223,10 @@ var Config = config{
 			newConfigIPNet("::1/128"),
 		},
 		ProxyMatch: []configProxyMatch{},
+	},
+	Metrics: configMetrics{
+		Host: "127.0.0.1",
+		Port: 0,
 	},
 }
 
@@ -253,6 +249,10 @@ func LoadConfiguration(configPath string) error {
 
 	// Override configuration from environment variables
 	if err = env.Unmarshal(&Config); err != nil {
+		return err
+	}
+
+	if err = cleanEnv(); err != nil {
 		return err
 	}
 
@@ -347,4 +347,23 @@ func BuildTime() time.Time {
 		return startTime
 	}
 	return buildTime
+}
+
+func cleanEnv() error {
+	for _, v := range os.Environ() {
+		if !strings.HasPrefix(v, "READECK_") {
+			continue
+		}
+		var i int
+		var x rune
+		for i, x = range v {
+			if x == '=' {
+				break
+			}
+		}
+		if err := os.Unsetenv(v[0:i]); err != nil {
+			return err
+		}
+	}
+	return nil
 }

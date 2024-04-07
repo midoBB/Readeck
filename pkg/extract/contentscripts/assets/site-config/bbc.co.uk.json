@@ -1,23 +1,27 @@
 {
   "title_selectors": [
     "//meta[@property=\"og:title\"]/@content",
-    "//h1[@class=\"story-header\"]"
+    "//h1[@class=\"story-header\"]",
+    "//h1[contains(concat(' ',normalize-space(@class),' '),' LongArticle-headline ')]"
   ],
   "body_selectors": [
     "//article[contains(@class, \"-ArticleWrapper\")]",
     "(//div[contains(@class, 'article__body-content')])[1]",
     "(//div[@id=\"story-body\"])[1]",
     "//div[contains(@class, \"videoInStory\") or @id=\"meta-information\"]",
-    "//div[contains(@class, 'hrecipe')]//div[@id='subcolumn-1']"
+    "//div[contains(@class, 'hrecipe')]//div[@id='subcolumn-1']",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' LongArticle-body ')]"
   ],
   "date_selectors": [
     "//article//div[contains(@class, 'author-unit__container')]//span",
     "//span[@class=\"story-date\"]/span[@class='date']",
-    "//meta[@name='DCTERMS.created']/@content"
+    "//meta[@name='DCTERMS.created']/@content",
+    "//time[contains(concat(' ',normalize-space(@class),' '),' Info-timestamp ')]"
   ],
   "author_selectors": [
     "//meta[@name=\"author\"]/@content",
-    "//div[@id='headline']//span[@class='byline-name']"
+    "//div[@id='headline']//span[@class='byline-name']",
+    "//span[contains(concat(' ',normalize-space(@class),' '),' Info-authorName ')]"
   ],
   "strip_selectors": [
     "//article//header",
@@ -112,6 +116,12 @@
     {
       "url": "http://www.bbc.co.uk/news/world-asia-22056933",
       "contains": []
+    },
+    {
+      "url": "https://www.bbc.co.uk/bbcthree/article/991ea351-1e67-46dc-824d-a13033526ca6",
+      "contains": [
+        "In essence, Professor Rippon believes that our 'male' and 'female' behaviour is not innate but learned as we develop."
+      ]
     }
   ]
 }

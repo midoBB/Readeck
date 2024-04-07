@@ -32,6 +32,7 @@
   ],
   "strip_id_or_class": [
     "article__gift-modal",
+    "reuse__content",
     "message--register"
   ],
   "strip_image_src": null,
@@ -71,6 +72,10 @@
     },
     {
       "url": "https://www.lemonde.fr/pixels/article/2023/12/20/manettes-de-playstation-sony-condamne-a-13-5-millions-d-euros-d-amende-pour-des-pratiques-anticoncurrentielles_6206941_4408996.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.lemonde.fr/planete/article/2024/02/29/contre-le-frelon-asiatique-les-apiculteurs-appellent-a-la-mobilisation-generale_6219215_3244.html",
       "contains": []
     }
   ]

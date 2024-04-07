@@ -1,14 +1,12 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//*[@class='article-body']"
+    "//article[@class=\"prose\"]"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": null,
-  "strip_id_or_class": [
-    "continue-reading-slot"
-  ],
+  "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -17,13 +15,13 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": {
-    "user-agent": "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)"
-  },
+  "http_headers": null,
   "tests": [
     {
-      "url": "https://www.msn.com/en-us/news/us/mass-casualty-incident-at-us-mexico-border/ar-BB1jice0",
-      "contains": []
+      "url": "https://labs.ripe.net/author/kathleen_moriarty/the-llm-misinformation-problem-i-was-not-expecting/",
+      "contains": [
+        "The problems around vetting AI results won't be going away anytime soon."
+      ]
     }
   ]
 }

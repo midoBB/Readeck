@@ -1,17 +1,13 @@
 {
-  "title_selectors": [
-    "//div[@id='post-title']//h1"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[@id='pageContent']"
+    "//main[@class='main']"
   ],
-  "date_selectors": [
-    "//li[@class='post-date']//div[@class='meta-info']//a"
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//h1[1]"
   ],
-  "author_selectors": [
-    "//a[@rel='author']"
-  ],
-  "strip_selectors": null,
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -24,7 +20,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://blog.trendmicro.com/trendlabs-security-intelligence/winnti-abuses-github/",
+      "url": "https://fmhy.net/unsafesites",
       "contains": []
     }
   ]

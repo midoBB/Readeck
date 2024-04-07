@@ -1,0 +1,31 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[contains(concat(' ', normalize-space(@class), ' '), ' article-body ')]"
+  ],
+  "date_selectors": [
+    "//span[contains(concat(' ', normalize-space(@class), ' '), ' article-date ')]"
+  ],
+  "author_selectors": [
+    "//div[contains(concat(' ', normalize-space(@class), ' '), ' al-authors-list ')]"
+  ],
+  "strip_selectors": null,
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://publications.aap.org/pediatrics/article/doi/10.1542/peds.2023-062570/196606/Postacute-Sequelae-of-SARS-CoV-2-in-Children?autologincheck=redirected",
+      "contains": [
+        "The coronavirus disease 2019 (COVID-19) pandemic has caused unprecedented devastating medical, social, and economic impacts"
+      ]
+    }
+  ]
+}

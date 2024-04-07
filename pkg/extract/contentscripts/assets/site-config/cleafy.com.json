@@ -1,13 +1,15 @@
 {
-  "title_selectors": null,
+  "title_selectors": [
+    "//h1[@class='clabtitle']"
+  ],
   "body_selectors": [
-    "//*[@class='article-body']"
+    "//div[contains(@class, 'full blog')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": null,
   "strip_id_or_class": [
-    "continue-reading-slot"
+    "author-block"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -17,12 +19,10 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": {
-    "user-agent": "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)"
-  },
+  "http_headers": null,
   "tests": [
     {
-      "url": "https://www.msn.com/en-us/news/us/mass-casualty-incident-at-us-mexico-border/ar-BB1jice0",
+      "url": "https://www.cleafy.com/cleafy-labs/on-device-fraud-on-the-rise-exposing-a-recent-copybara-fraud-campaign",
       "contains": []
     }
   ]

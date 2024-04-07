@@ -5,7 +5,7 @@
   ],
   "body_selectors": [
     "//article[contains(@class, \"-ArticleWrapper\")]",
-    "(//div[contains(@class, 'article__body-content')])[1]",
+    "//article[@class='article__body'] | (//div[contains(@class, 'article__body-content')])[1]",
     "(//div[@id=\"story-body\"])[1]",
     "//div[contains(@class, \"videoInStory\") or @id=\"meta-information\"]",
     "//div[contains(@class, 'hrecipe')]//div[@id='subcolumn-1']"

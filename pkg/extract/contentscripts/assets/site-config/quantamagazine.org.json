@@ -1,12 +1,27 @@
 {
-  "title_selectors": null,
+  "title_selectors": [
+    "//h1[contains(@class, 'post__title__title')]"
+  ],
   "body_selectors": [
-    "//div[contains(@class, 'post__content__section')]"
+    "//div[@id='postBody']"
   ],
   "date_selectors": null,
-  "author_selectors": null,
-  "strip_selectors": null,
-  "strip_id_or_class": null,
+  "author_selectors": [
+    "//div[contains(@class,'post__title__author-date')]/a"
+  ],
+  "strip_selectors": [
+    "//figcaption//div[contains(@class, 'attribution theme__anchors')]",
+    "//aside[contains(@class, 'post__sidebar hide')]"
+  ],
+  "strip_id_or_class": [
+    "screen-reader-text",
+    "hide-on-print",
+    "bookmark-button",
+    "post__title__actions",
+    "post__title__author-date",
+    "post__title__title",
+    "post__title__kicker"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

@@ -39,6 +39,7 @@ func (c *sqliteConnector) Open(dsn *url.URL) (*sql.DB, error) {
 	uri.Scheme = ""
 
 	// Set default options
+	uri.RawQuery = "?_txlock=immediate"
 	db, err := sql.Open("sqlite", uri.String())
 	if err != nil {
 		return nil, err
@@ -48,8 +49,11 @@ func (c *sqliteConnector) Open(dsn *url.URL) (*sql.DB, error) {
 		PRAGMA foreign_keys = 1;
 		PRAGMA journal_mode = WAL;
 		PRAGMA mmap_size = 30000000000;
+		PRAGMA cache_size = 1000000000;
 		PRAGMA secure_delete = 1;
-		PRAGMA synchronous = normal;
+		PRAGMA synchronous = NORMAL;
+		PRAGMA busy_timeout = 5000;
+		PRAGMA temp_store = memory;
 	`)
 	if err != nil {
 		return nil, err

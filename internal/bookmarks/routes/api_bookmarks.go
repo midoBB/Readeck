@@ -258,18 +258,11 @@ func (api *apiRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 // bookmarkDelete deletes a bookmark.
 func (api *apiRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
-
-	if err := b.Update(map[string]interface{}{}); err != nil {
+	if err := b.Delete(); err != nil {
 		api.srv.Error(w, r, err)
 		return
 	}
 
-	f := newDeleteForm(api.srv.Locale(r))
-	f.Get("cancel").Set(false)
-	if err := f.trigger(b); err != nil {
-		api.srv.Error(w, r, err)
-		return
-	}
 	w.WriteHeader(http.StatusNoContent)
 }
 

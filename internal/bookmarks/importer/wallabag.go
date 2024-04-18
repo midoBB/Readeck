@@ -207,7 +207,7 @@ func (adapter *wallabagAdapter) authenticate(f forms.Binder) error {
 	defer rsp.Body.Close() //nolint:errcheck
 
 	if rsp.StatusCode != http.StatusOK {
-		f.AddErrors("", errors.New("invalid credentials"))
+		f.AddErrors("", forms.Gettext("Invalid credentials"))
 		return nil
 	}
 
@@ -218,7 +218,7 @@ func (adapter *wallabagAdapter) authenticate(f forms.Binder) error {
 
 	var ok bool
 	if adapter.Token, ok = res["access_token"]; !ok {
-		f.AddErrors("", errors.New("no access token in result"))
+		f.AddErrors("", forms.Gettext("No access token found"))
 		return nil
 	}
 

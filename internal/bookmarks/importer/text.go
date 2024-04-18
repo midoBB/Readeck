@@ -32,10 +32,18 @@ func (adapter *textAdapter) Params(form forms.Binder) ([]byte, error) {
 
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
-		adapter.URLs = append(adapter.URLs, scanner.Text())
+		b, err := newURLBookmark(scanner.Text())
+		if err == nil && b.URL() != "" {
+			adapter.URLs = append(adapter.URLs, b.URL())
+		}
 	}
 	if err := scanner.Err(); err != nil {
 		return nil, err
+	}
+
+	if len(adapter.URLs) == 0 {
+		form.AddErrors("data", forms.Gettext("Empty or invalid import file"))
+		return nil, nil
 	}
 
 	slices.Reverse(adapter.URLs)

@@ -5,7 +5,6 @@
 package importer
 
 import (
-	"errors"
 	"io"
 	"net/http"
 	"strings"
@@ -30,37 +29,54 @@ func newMultipartForm() *multipartForm {
 func (f *multipartForm) BindAny(contentType string, r *http.Request) {
 	// With a multipart content, we'll extract the first "data" field.
 	if contentType == "multipart/form-data" {
-		mr, err := r.MultipartReader()
-		if err != nil {
-			f.AddErrors("data", err)
-			return
-		}
+		found := false
+		if r.MultipartForm != nil {
+			for _, part := range r.MultipartForm.File["data"] {
+				found = true
+				reader, err := part.Open()
+				if err != nil {
+					f.AddErrors("data", err)
+					return
+				}
 
-		for {
-			p, err := mr.NextPart()
-			if err == io.EOF {
-				break
+				f.Get("data").Set(reader)
+				break //nolint
 			}
+		} else {
+			mr, err := r.MultipartReader()
 			if err != nil {
 				f.AddErrors("data", err)
 				return
 			}
-			if p.FormName() != "data" {
-				continue
-			}
 
-			f.Get("data").Set(p)
-			f.Get("data").Field.(*readerField).SetBind()
-			return
+			for {
+				p, err := mr.NextPart()
+				if err == io.EOF {
+					break
+				}
+				if err != nil {
+					f.AddErrors("data", err)
+					return
+				}
+				if p.FormName() != "data" {
+					continue
+				}
+
+				found = true
+				f.Get("data").Set(p)
+				break
+			}
 		}
 
-		f.AddErrors("data", errors.New("field is required"))
+		if !found {
+			f.AddErrors("data", forms.Gettext("field is required"))
+		}
 		return
 	}
 
 	// On regular text/* content-type, simply use the request's body.
 	if !strings.HasPrefix(contentType, "text/") {
-		f.AddErrors("", errors.New("invalid Content-Type"))
+		f.AddErrors("", forms.Gettext("Invalid Content-Type"))
 		return
 	}
 
@@ -92,11 +108,13 @@ func (f *readerField) Set(value interface{}) bool {
 	f.BaseField.SetNil(value)
 	if f.IsNil() {
 		f.value = nil
+		f.SetBind()
 		return true
 	}
 
 	if v, ok := value.(io.Reader); ok {
 		f.value = v
+		f.SetBind()
 		return true
 	}
 

@@ -28,7 +28,7 @@ func (api *apiRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 
 	adapter := importer.LoadAdapter(source)
 	if adapter == nil {
-		api.srv.TextMessage(w, r, http.StatusNotFound, fmt.Sprintf(`Import from "%s" is not possible`, source))
+		api.srv.TextMessage(w, r, http.StatusNotFound, fmt.Sprintf(`Import from "%s" does not exist.`, source))
 		return
 	}
 

@@ -37,6 +37,12 @@ type Binder interface {
 	IsValid() bool
 }
 
+// Localized describes a form that can receive a translator
+// so messages and errors can be translated.
+type Localized interface {
+	SetLocale(Translator)
+}
+
 // AnyBinder describes a form that provides its own binding method for unknown content-type.
 // One can use it to bind from multipart data, plain text, etc.
 type AnyBinder interface {

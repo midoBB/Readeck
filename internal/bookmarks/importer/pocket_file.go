@@ -59,7 +59,7 @@ func (adapter *pocketFileAdapter) Params(form forms.Binder) ([]byte, error) {
 
 	root, err := html.Parse(f)
 	if err != nil {
-		form.AddErrors("data", errors.New("unabled to read HTML content"), err)
+		form.AddErrors("data", forms.Gettext("Unabled to read HTML content"), err)
 		return nil, nil
 	}
 
@@ -96,6 +96,11 @@ func (adapter *pocketFileAdapter) Params(form forms.Binder) ([]byte, error) {
 
 			adapter.Items = append(adapter.Items, item)
 		}
+	}
+
+	if len(adapter.Items) == 0 {
+		form.AddErrors("data", forms.Gettext("Empty or invalid import file"))
+		return nil, nil
 	}
 
 	slices.SortFunc(adapter.Items, func(a, b pocketBookmarkItem) int {

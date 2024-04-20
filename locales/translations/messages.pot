@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-03-24 12:59+0000\n"
+"POT-Creation-Date: 2024-04-20 07:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -67,6 +67,14 @@ msgctxt "word"
 msgid "or"
 msgstr ""
 
+#: assets/templates/_libs/forms.jet.html:251
+msgid "Select or drop file"
+msgstr ""
+
+#: assets/templates/_libs/forms.jet.html:255
+msgid "remove"
+msgstr ""
+
 #: assets/templates/_libs/pagination.jet.html:1
 msgid "Go to previous page"
 msgstr ""
@@ -104,6 +112,10 @@ msgstr ""
 #: assets/templates/admin/user_list.jet.html:46
 #: assets/templates/bookmarks/collection.jet.html:23
 #: assets/templates/bookmarks/components/card.jet.html:88
+#: assets/templates/bookmarks/import/form-browser.jet.html:39
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:46
+#: assets/templates/bookmarks/import/form-text.jet.html:34
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:63
 #: assets/templates/bookmarks/label.jet.html:46
 #: assets/templates/profile/credential.jet.html:20
 #: assets/templates/profile/credential_list.jet.html:59
@@ -115,6 +127,7 @@ msgstr ""
 #: assets/templates/admin/user.jet.html:31
 #: assets/templates/admin/user_create.jet.html:20
 #: assets/templates/auth/onboarding.jet.html:24
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:39
 #: assets/templates/profile/index.jet.html:20
 msgid "Username"
 msgstr ""
@@ -135,6 +148,7 @@ msgstr ""
 #: assets/templates/admin/user_create.jet.html:36
 #: assets/templates/auth/login.jet.html:30
 #: assets/templates/auth/onboarding.jet.html:29
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:45
 #: assets/templates/profile/base.jet.html:17
 msgid "Password"
 msgstr ""
@@ -199,7 +213,7 @@ msgid "Forgot your password?"
 msgstr ""
 
 #: assets/templates/auth/onboarding.jet.html:9
-#: assets/templates/bookmarks/index.jet.html:69
+#: assets/templates/bookmarks/index.jet.html:75
 msgid "Welcome to Readeck!"
 msgstr ""
 
@@ -319,7 +333,7 @@ msgid "Bookmarks"
 msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:24
-#: internal/bookmarks/forms_bookmarks.go:401
+#: internal/bookmarks/routes/forms_bookmarks.go:397
 msgid "All"
 msgstr ""
 
@@ -336,17 +350,17 @@ msgid "Favorites"
 msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:37
-#: internal/bookmarks/views_bookmarks.go:108
+#: internal/bookmarks/routes/views_bookmarks.go:110
 msgid "Articles"
 msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:42
-#: internal/bookmarks/views_bookmarks.go:112
+#: internal/bookmarks/routes/views_bookmarks.go:114
 msgid "Videos"
 msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:47
-#: internal/bookmarks/views_bookmarks.go:110
+#: internal/bookmarks/routes/views_bookmarks.go:112
 msgid "Pictures"
 msgstr ""
 
@@ -465,7 +479,7 @@ msgid "New Collection"
 msgstr ""
 
 #: assets/templates/bookmarks/collection_list.jet.html:9
-#: internal/opds/http.go:73
+#: internal/opds/http.go:74
 msgid "Bookmark Collections"
 msgstr ""
 
@@ -679,61 +693,226 @@ msgstr ""
 msgid "Links"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:27
+#: assets/templates/bookmarks/import/form-browser.jet.html:16
+msgid ""
+"\n"
+"      In your web browser, export your bookmarks as an HTML file.<br>\n"
+"      Upload this file in the form bellow and Readeck will create and "
+"fetch\n"
+"      every bookmark found it the file.\n"
+"    "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:23
+msgid "Instructions for Firefox"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:24
+msgid "Instructions for Chrome"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:16
+#, python-format
+msgid ""
+"\n"
+"      You can export your articles on Pocket by visiting:<br>\n"
+"      <a class=\"%s\" href=\"%s\">%s</a>.\n"
+"    "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:22
+msgid ""
+"\n"
+"      Upload this file in the form bellow and Readeck will fetch and save"
+"\n"
+"      every link found it the file.\n"
+"    "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:28
+msgid ""
+"\n"
+"      Please note that Pocket does not let you export the content of your"
+" saved articles,\n"
+"      which forces Readeck to fetch them anew.\n"
+"    "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-text.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:33
+msgid "Import Links from a Text File"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-text.jet.html:17
+msgid ""
+"\n"
+"      Upload a text file that contains one link per line and Readeck will"
+" fetch\n"
+"      all of them and save them in your bookmark list.\n"
+"    "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:33
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:40
+#: assets/templates/bookmarks/import/form-text.jet.html:28
+msgid "File"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:38
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:45
+#: assets/templates/bookmarks/import/form-text.jet.html:33
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:62
+msgid "Import Bookmarks"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:16
+msgid ""
+"\n"
+"      To import your articles from Wallabag, you must first create an API"
+" client\n"
+"      in the <strong>API clients management</strong> menu. This will give"
+" you\n"
+"      a <strong>Client ID</strong> and <strong>Client secret</strong>.\n"
+"    "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:22
+msgid ""
+"\n"
+"      You can then enter all the necessary information in the form "
+"bellow.\n"
+"    "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:32
+msgid "Wallabag URL"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:34
+msgid "Base URL of you Wallabag instance"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:51
+msgid "Client ID"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:57
+msgid "Client Secret"
+msgstr ""
+
+#: assets/templates/bookmarks/import/index.jet.html:9
+msgid "Import your Bookmarks"
+msgstr ""
+
+#: assets/templates/bookmarks/import/index.jet.html:17
+msgid "Import operation will launch momentarily."
+msgstr ""
+
+#: assets/templates/bookmarks/import/index.jet.html:19
+#, python-format
+msgid ""
+"\n"
+"        Import operation has started!<br>\n"
+"        Your bookmarks will start appearing in your <a class=\"%s\" "
+"href=\"%s\">bookmark list</a>.\n"
+"      "
+msgstr ""
+
+#: assets/templates/bookmarks/import/index.jet.html:26
+msgid ""
+"\n"
+"    Here you can import your existing bookmark collection from various "
+"sources into Readeck.\n"
+"  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:37
+msgid "Import your Browser's Bookmarks"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:41
+msgid "Import your Pocket Articles"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:44
+msgid "Import your Wallabag Articles"
+msgstr ""
+
+#: assets/templates/bookmarks/index.jet.html:28
 msgid "Save a new link"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:38
+#: assets/templates/bookmarks/index.jet.html:31
+msgid "Import"
+msgstr ""
+
+#: assets/templates/bookmarks/index.jet.html:44
 msgctxt "button"
 msgid "Save link"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:47
+#: assets/templates/bookmarks/index.jet.html:53
 #, python-format
 msgid ""
 "\"%s\" is not a valid address. Did you mean to search your bookmarks for "
 "%s?"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:71
+#: assets/templates/bookmarks/index.jet.html:77
 msgid ""
 "You don't have any bookmarks yet.<br> Copy a link in the field above and "
 "start saving."
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:73
+#: assets/templates/bookmarks/index.jet.html:79
 #, python-format
 msgid ""
 "Read more about bookmarks in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:95
+#: assets/templates/bookmarks/index.jet.html:85
+msgid ""
+"\n"
+"          Would you like to import from a similar tool or from a file "
+"with existing bookmarks?\n"
+"          Try Readeck's import tool.\n"
+"        "
+msgstr ""
+
+#: assets/templates/bookmarks/index.jet.html:92
+msgid "Import links and articles"
+msgstr ""
+
+#: assets/templates/bookmarks/index.jet.html:111
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/templates/bookmarks/index.jet.html:111
+#: assets/templates/bookmarks/index.jet.html:127
 msgctxt "action"
 msgid "Filter list"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:115
+#: assets/templates/bookmarks/index.jet.html:131
 msgid "Filters documentation"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:121
+#: assets/templates/bookmarks/index.jet.html:137
 msgctxt "action"
 msgid "Search"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:123
+#: assets/templates/bookmarks/index.jet.html:139
 msgid "Reset search"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:126
+#: assets/templates/bookmarks/index.jet.html:142
 msgid "Create a collection"
 msgstr ""
 
@@ -1175,66 +1354,93 @@ msgstr ""
 msgid "Admin : Write Only"
 msgstr ""
 
-#: internal/bookmarks/forms_bookmarks.go:402
+#: internal/bookmarks/importer/browser.go:57
+#: internal/bookmarks/importer/pocket_file.go:62
+msgid "Unabled to read HTML content"
+msgstr ""
+
+#: internal/bookmarks/importer/browser.go:78
+#: internal/bookmarks/importer/pocket_file.go:102
+#: internal/bookmarks/importer/text.go:45
+msgid "Empty or invalid import file"
+msgstr ""
+
+#: internal/bookmarks/importer/forms.go:72 pkg/forms/validators.go:14
+msgid "field is required"
+msgstr ""
+
+#: internal/bookmarks/importer/forms.go:79
+msgid "Invalid Content-Type"
+msgstr ""
+
+#: internal/bookmarks/importer/wallabag.go:210
+msgid "Invalid credentials"
+msgstr ""
+
+#: internal/bookmarks/importer/wallabag.go:221
+msgid "No access token found"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go:398
 msgid "Article"
 msgstr ""
 
-#: internal/bookmarks/forms_bookmarks.go:403
+#: internal/bookmarks/routes/forms_bookmarks.go:399
 msgid "Picture"
 msgstr ""
 
-#: internal/bookmarks/forms_bookmarks.go:404
+#: internal/bookmarks/routes/forms_bookmarks.go:400
 msgid "Video"
 msgstr ""
 
-#: internal/bookmarks/opds.go:56
+#: internal/bookmarks/routes/opds.go:57
 msgid "Readeck Bookmarks"
 msgstr ""
 
-#: internal/bookmarks/opds.go:101
+#: internal/bookmarks/routes/opds.go:102
 msgid "Readeck Bookmark Collections"
 msgstr ""
 
-#: internal/bookmarks/opds.go:138
+#: internal/bookmarks/routes/opds.go:139
 #, python-format
 msgid "Readeck Collection: %s"
 msgstr ""
 
-#: internal/bookmarks/opds.go:144
+#: internal/bookmarks/routes/opds.go:145
 #, python-format
 msgid "Collection ebook - %s"
 msgstr ""
 
-#: internal/bookmarks/opds.go:151
+#: internal/bookmarks/routes/opds.go:152
 #, python-format
 msgid "Browse collection: %s"
 msgstr ""
 
-#: internal/bookmarks/views_bookmarks.go:93
+#: internal/bookmarks/routes/views_bookmarks.go:95
 msgid "All your Bookmarks"
 msgstr ""
 
-#: internal/bookmarks/views_bookmarks.go:98
+#: internal/bookmarks/routes/views_bookmarks.go:100
 msgid "Bookmark Search"
 msgstr ""
 
-#: internal/bookmarks/views_bookmarks.go:102 internal/opds/http.go:57
+#: internal/bookmarks/routes/views_bookmarks.go:104 internal/opds/http.go:58
 msgid "Unread Bookmarks"
 msgstr ""
 
-#: internal/bookmarks/views_bookmarks.go:104 internal/opds/http.go:61
+#: internal/bookmarks/routes/views_bookmarks.go:106 internal/opds/http.go:62
 msgid "Archived Bookmarks"
 msgstr ""
 
-#: internal/bookmarks/views_bookmarks.go:106 internal/opds/http.go:65
+#: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:66
 msgid "Favorite Bookmarks"
 msgstr ""
 
-#: internal/bookmarks/views_collections.go:77
+#: internal/bookmarks/routes/views_collections.go:78
 msgid "Collection updated."
 msgstr ""
 
-#: internal/opds/http.go:69
+#: internal/opds/http.go:70
 msgid "All Bookmarks"
 msgstr ""
 
@@ -1280,10 +1486,6 @@ msgstr ""
 
 #: pkg/forms/forms.go:22
 msgid "an unexpected error has occurred"
-msgstr ""
-
-#: pkg/forms/validators.go:14
-msgid "field is required"
 msgstr ""
 
 #: pkg/forms/validators.go:15

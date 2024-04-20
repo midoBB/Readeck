@@ -228,3 +228,32 @@ SPDX-License-Identifier: AGPL-3.0-only
     </template>
   {{ end }}
 {{- end -}}
+
+{{- block fileDropField(
+  field, label, class,
+) -}}
+  {{ yield textField(
+    field=field,
+    type="file",
+    label=label,
+    class=class,
+    inputClass="js:hidden",
+    controlAttrs=attrList(
+      "data-controller", "dropzone",
+      "data-dropzone-hidden-class", "hidden",
+      "data-dropzone-focus-class", "bg-primary-100",
+    ),
+  ) content }}
+    <p class="no-js:hidden border-2 border-primary border-dashed rounded px-4 py-6 cursor-pointer flex items-center gap-1"
+      tabindex="0"
+      data-dropzone-target="zone"
+      data-action="click->dropzone#select:prevent keydown.enter->dropzone#select:self keydown.space->dropzone#select:self">
+      <span data-dropzone-target="placeholder">{{ gettext("Select or drop file") }}</span>
+      <span data-dropzone-target="fileinfo"></span>
+      <button class="hidden ml-auto text-btn-danger hf:text-btn-danger-hover"
+       data-dropzone-target="clearbtn" data-action="dropzone#clear:stop:prevent">
+        {{- gettext("remove") -}}
+      </button>
+    </p>
+  {{ end }}
+{{- end -}}

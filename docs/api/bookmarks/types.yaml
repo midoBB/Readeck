@@ -477,3 +477,22 @@ schemas:
   collectionUpdate:
     allOf:
       - $ref: "#/components/schemas/collectionCreate"
+
+  wallabagImport:
+    properties:
+      url:
+        type: string
+        format: uri
+        description: Your Wallabag instance's URL
+      username:
+        type: string
+        description: Your Wallabag username
+      password:
+        type: string
+        description: Your Wallabag password
+      client_id:
+        type: string
+        description: API Client ID
+      client_secret:
+        type: string
+        description: API Client Secret

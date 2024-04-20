@@ -67,5 +67,5 @@ func (api *apiRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	api.srv.TextMessage(w, r, http.StatusCreated, "import started")
+	api.srv.TextMessage(w, r, http.StatusAccepted, "import started")
 }

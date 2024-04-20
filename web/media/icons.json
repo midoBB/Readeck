@@ -39,6 +39,7 @@
   "o-minus":        "node_modules/boxicons/svg/regular/bx-minus.svg",
   "o-pen":          "node_modules/boxicons/svg/regular/bx-pen.svg",
   "o-pencil":       "node_modules/boxicons/svg/solid/bxs-pencil.svg",
+  "o-pocket":       "node_modules/boxicons/svg/logos/bxl-pocket.svg",
   "o-photo":        "node_modules/boxicons/svg/regular/bx-image.svg",
   "o-plus":         "node_modules/boxicons/svg/regular/bx-plus.svg",
   "o-share":        "node_modules/boxicons/svg/solid/bxs-share-alt.svg",
@@ -54,6 +55,7 @@
   "o-user":         "node_modules/boxicons/svg/regular/bx-user-circle.svg",
   "o-user-admin":   "node_modules/boxicons/svg/solid/bxs-user-circle.svg",
   "o-video":        "node_modules/boxicons/svg/regular/bx-film.svg",
+  "o-wallabag":     "media/img/logo-wallabag.svg",
 
   "o-big-arrow":    "media/img/big-arrow.svg",
   "o-spinner":      "media/img/spinner.svg",

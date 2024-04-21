@@ -5,7 +5,10 @@
 package importer_test
 
 import (
+	"fmt"
 	"io"
+	"net/http"
+	"regexp"
 	"strconv"
 	"strings"
 	"testing"
@@ -14,6 +17,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks/importer"
 	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/pkg/forms"
+	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/require"
 )
 
@@ -221,5 +225,113 @@ func TestFileAdapters(t *testing.T) {
 			require.NoError(t, err)
 			test.assert(&test, require.New(t), f, data)
 		})
+	}
+}
+
+func TestWallabagImporter(t *testing.T) {
+	adapter := importer.LoadAdapter("wallabag")
+	f := adapter.Form()
+	f.Get("url").Set("https://wallabag/")
+	f.Get("username").Set("user")
+	f.Get("password").Set("pass")
+	f.Get("client_id").Set("client_id")
+	f.Get("client_secret").Set("client_secret")
+	f.Bind()
+
+	httpmock.Activate()
+	defer httpmock.DeactivateAndReset()
+
+	httpmock.RegisterResponder("POST", "/oauth/v2/token", httpmock.NewJsonResponderOrPanic(
+		http.StatusOK,
+		map[string]string{
+			"access_token": "1234",
+		},
+	))
+
+	httpmock.RegisterRegexpResponder("GET", regexp.MustCompile(`^/api/entries\?`), func(r *http.Request) (*http.Response, error) {
+		page, _ := strconv.Atoi(r.URL.Query().Get("page"))
+
+		var next map[string]string
+		if page < 5 {
+			q := r.URL.Query()
+			q.Set("page", strconv.Itoa(page+1))
+			r.URL.RawQuery = q.Encode()
+			next = map[string]string{
+				"href": r.URL.String(),
+			}
+		}
+
+		response := map[string]any{
+			"_links": map[string]any{
+				"next": next,
+			},
+		}
+
+		items := []map[string]any{}
+		for _, x := range []string{"a", "b", "c"} {
+			items = append(items, map[string]any{
+				"is_archived":     0,
+				"is_starred":      0,
+				"title":           fmt.Sprintf("Article %d/%s", page, x),
+				"url":             fmt.Sprintf("https://example.net/%d/article-%s", page, x),
+				"content":         fmt.Sprintf("<p>some content %d - %s</p>", page, x),
+				"created_at":      "2024-01-02 12:23:43",
+				"published_at":    "2022-01-02 12:23:43",
+				"published_by":    []string{},
+				"language":        "en",
+				"tags":            []string{},
+				"preview_picture": fmt.Sprintf("https://example.net/picture-%d%s.webp", page, x),
+				"headers":         map[string]string{},
+			})
+		}
+		response["_embedded"] = map[string]any{
+			"items": items,
+		}
+
+		return httpmock.NewJsonResponse(200, response)
+	})
+
+	require := require.New(t)
+
+	data, err := adapter.Params(f)
+	require.NoError(err)
+	require.True(f.IsValid())
+	require.Equal(`{"url":"https://wallabag","token":"1234"}`, string(data))
+
+	worker := adapter.(importer.ImportWorker)
+	err = worker.LoadData(data)
+	require.NoError(err)
+
+	i := 0
+	letters := []string{"a", "b", "c"}
+	for {
+		item, err := worker.Next()
+		if err == io.EOF {
+			break
+		}
+		require.NoError(err)
+
+		page := 1 + i/3
+		x := letters[i%3]
+		i++
+
+		require.Equal(fmt.Sprintf("https://example.net/%d/article-%s", page, x), item.URL())
+		bi, err := item.(importer.BookmarkEnhancer).Meta()
+		require.NoError(err)
+
+		require.Equal(fmt.Sprintf("Article %d/%s", page, x), bi.Title)
+		require.Equal(time.Date(2024, time.January, 2, 12, 23, 43, 0, time.UTC), bi.Created)
+		require.Equal(time.Date(2022, time.January, 2, 12, 23, 43, 0, time.UTC), bi.Published)
+
+		resources := item.(importer.BookmarkResourceProvider).Resources()
+		require.Len(resources, 1)
+
+		require.Equal(
+			fmt.Sprintf(
+				`<html><head><meta property="og:image" content="https://example.net/picture-%d%s.webp"/></head><body><p>some content %d - %s</p></body></html>`,
+				page, x, page, x,
+			),
+			string(resources[0].Data),
+		)
 	}
 }

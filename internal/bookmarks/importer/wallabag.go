@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"net/url"
 	"path"
+	"slices"
 	"strings"
 
 	"github.com/araddon/dateparse"
@@ -133,7 +134,7 @@ func (adapter *wallabagAdapter) Form() forms.Binder {
 func (adapter *wallabagAdapter) Params(f forms.Binder) ([]byte, error) {
 	endpoint, _ := url.Parse(f.Get("url").String())
 	endpoint.Fragment = ""
-	endpoint.Path = path.Clean(endpoint.Path)
+	endpoint.Path = strings.TrimSuffix(path.Clean(endpoint.Path), "/")
 	adapter.Endpoint = endpoint.String()
 
 	err := adapter.authenticate(f)
@@ -158,7 +159,7 @@ func (adapter *wallabagAdapter) LoadData(data []byte) (err error) {
 
 	// Initialize an empty article list with the first "next" URL to fetch
 	adapter.articles = &wallabagArticleList{}
-	adapter.articles.Links.Next.Href = fmt.Sprintf("%s/api/entries?sort=created&order=desc&perPage=10page=1", adapter.Endpoint)
+	adapter.articles.Links.Next.Href = fmt.Sprintf("%s/api/entries?sort=created&order=desc&perPage=10&page=1", adapter.Endpoint)
 	adapter.articles.Embedded.Items = []wallabagArticle{}
 	return
 }
@@ -181,6 +182,19 @@ func (adapter *wallabagAdapter) Next() (BookmarkImporter, error) {
 	// Pull the first item in the list
 	item := adapter.articles.Embedded.Items[0]
 	adapter.articles.Embedded.Items = adapter.articles.Embedded.Items[1:]
+
+	// Cleanup the URL. This is done later by createBookmark() but
+	// we want the URL to match anything that is sent by Resources() later.
+	uri, err := url.Parse(item.ArticleURL)
+	if err != nil {
+		return nil, fmt.Errorf("%w: %w", ErrIgnore, err)
+	}
+
+	if !slices.Contains(allowedSchemes, uri.Scheme) {
+		return nil, fmt.Errorf("%w: invalid scheme %s (%s)", ErrIgnore, uri.Scheme, uri)
+	}
+
+	item.ArticleURL = uri.String()
 
 	return &item, nil
 }

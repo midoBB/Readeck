@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"net/url"
 	"slices"
 	"strconv"
 	"strings"
@@ -37,8 +38,8 @@ func (bi *pocketBookmarkItem) URL() string {
 	return bi.Link
 }
 
-func (bi *pocketBookmarkItem) Meta() (*bookmarkMeta, error) {
-	return &bookmarkMeta{
+func (bi *pocketBookmarkItem) Meta() (*BookmarkMeta, error) {
+	return &BookmarkMeta{
 		Title:      bi.Title,
 		Labels:     bi.Labels,
 		IsArchived: bi.IsArchived,
@@ -71,9 +72,24 @@ func (adapter *pocketFileAdapter) Params(form forms.Binder) ([]byte, error) {
 		}
 
 		for _, n := range dom.QuerySelectorAll(node, "li>a[href]") {
+			uri, err := url.Parse(dom.GetAttribute(n, "href"))
+			if err != nil {
+				continue
+			}
+			uri.Fragment = ""
+			if !slices.Contains(allowedSchemes, uri.Scheme) {
+				continue
+			}
+
+			if slices.ContainsFunc(adapter.Items, func(bi pocketBookmarkItem) bool {
+				return bi.Link == uri.String()
+			}) {
+				continue
+			}
+
 			item := pocketBookmarkItem{
 				Created:    time.Now(),
-				Link:       dom.GetAttribute(n, "href"),
+				Link:       uri.String(),
 				IsArchived: section == "read archive",
 				Labels:     types.Strings{},
 			}
@@ -114,7 +130,7 @@ func (adapter *pocketFileAdapter) LoadData(data []byte) error {
 	return json.Unmarshal(data, adapter)
 }
 
-func (adapter *pocketFileAdapter) Next() (bookmarkImporter, error) {
+func (adapter *pocketFileAdapter) Next() (BookmarkImporter, error) {
 	if adapter.idx+1 > len(adapter.Items) {
 		return nil, io.EOF
 	}

@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"net/url"
 	"slices"
 	"strconv"
 	"strings"
@@ -34,8 +35,8 @@ func (bi *browserBookmarkItem) URL() string {
 	return bi.Link
 }
 
-func (bi *browserBookmarkItem) Meta() (*bookmarkMeta, error) {
-	return &bookmarkMeta{
+func (bi *browserBookmarkItem) Meta() (*BookmarkMeta, error) {
+	return &BookmarkMeta{
 		Title:   bi.Title,
 		Created: bi.Created,
 	}, nil
@@ -59,9 +60,24 @@ func (adapter *browserAdapter) Params(form forms.Binder) ([]byte, error) {
 	}
 
 	for _, n := range dom.QuerySelectorAll(root, "dt > a[href]") {
+		uri, err := url.Parse(dom.GetAttribute(n, "href"))
+		if err != nil {
+			continue
+		}
+		uri.Fragment = ""
+		if !slices.Contains(allowedSchemes, uri.Scheme) {
+			continue
+		}
+
+		if slices.ContainsFunc(adapter.Items, func(bi browserBookmarkItem) bool {
+			return bi.Link == uri.String()
+		}) {
+			continue
+		}
+
 		item := browserBookmarkItem{
 			Created: time.Now(),
-			Link:    dom.GetAttribute(n, "href"),
+			Link:    uri.String(),
 			Title:   strings.TrimSpace(dom.TextContent(n)),
 		}
 
@@ -87,7 +103,7 @@ func (adapter *browserAdapter) LoadData(data []byte) error {
 	return json.Unmarshal(data, adapter)
 }
 
-func (adapter *browserAdapter) Next() (bookmarkImporter, error) {
+func (adapter *browserAdapter) Next() (BookmarkImporter, error) {
 	// return nil, io.EOF
 	if adapter.idx+1 > len(adapter.Items) {
 		return nil, io.EOF

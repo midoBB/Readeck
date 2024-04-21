@@ -10,6 +10,7 @@ import (
 	"errors"
 	"io"
 	"slices"
+	"strings"
 
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -32,8 +33,8 @@ func (adapter *textAdapter) Params(form forms.Binder) ([]byte, error) {
 
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
-		b, err := newURLBookmark(scanner.Text())
-		if err == nil && b.URL() != "" {
+		b, err := newURLBookmark(strings.TrimSpace(scanner.Text()))
+		if err == nil && b.URL() != "" && !slices.Contains(adapter.URLs, b.URL()) {
 			adapter.URLs = append(adapter.URLs, b.URL())
 		}
 	}
@@ -54,7 +55,7 @@ func (adapter *textAdapter) LoadData(data []byte) error {
 	return json.Unmarshal(data, adapter)
 }
 
-func (adapter *textAdapter) Next() (bookmarkImporter, error) {
+func (adapter *textAdapter) Next() (BookmarkImporter, error) {
 	if adapter.idx+1 > len(adapter.URLs) {
 		return nil, io.EOF
 	}

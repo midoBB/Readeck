@@ -64,8 +64,8 @@ func (wa *wallabagArticle) URL() string {
 	return wa.ArticleURL
 }
 
-func (wa *wallabagArticle) Meta() (*bookmarkMeta, error) {
-	res := &bookmarkMeta{
+func (wa *wallabagArticle) Meta() (*BookmarkMeta, error) {
+	res := &BookmarkMeta{
 		Title:      wa.Title,
 		Authors:    wa.PublishedBy,
 		Lang:       wa.Language,
@@ -84,7 +84,7 @@ func (wa *wallabagArticle) Meta() (*bookmarkMeta, error) {
 	return res, nil
 }
 
-func (wa *wallabagArticle) enableReadability() bool {
+func (wa *wallabagArticle) EnableReadability() bool {
 	return wa.Content == ""
 }
 
@@ -163,7 +163,7 @@ func (adapter *wallabagAdapter) LoadData(data []byte) (err error) {
 	return
 }
 
-func (adapter *wallabagAdapter) Next() (bookmarkImporter, error) {
+func (adapter *wallabagAdapter) Next() (BookmarkImporter, error) {
 	var err error
 
 	if len(adapter.articles.Embedded.Items) == 0 {

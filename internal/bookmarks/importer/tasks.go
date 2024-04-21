@@ -52,7 +52,7 @@ func importBookmarksHandler(data interface{}) {
 		panic(fmt.Errorf(`adapter "%s" not found`, params.Source))
 	}
 
-	worker, ok := adapter.(importWorker)
+	worker, ok := adapter.(ImportWorker)
 	if !ok {
 		panic(fmt.Errorf(`loader "%s" does not implement worker`, params.Source))
 	}

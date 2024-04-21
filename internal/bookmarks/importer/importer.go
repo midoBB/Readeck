@@ -44,31 +44,34 @@ type ImportLoader interface {
 	Params(forms.Binder) ([]byte, error)
 }
 
-// importWorker describes an import worker.
-type importWorker interface {
+// ImportWorker describes an import worker.
+type ImportWorker interface {
 	LoadData([]byte) error
-	Next() (bookmarkImporter, error)
+	Next() (BookmarkImporter, error)
 }
 
-// bookmarkImporter describes a simple adapter item.
-type bookmarkImporter interface {
+// BookmarkImporter describes a simple adapter item.
+type BookmarkImporter interface {
 	URL() string
 }
 
-// bookmarkEnhancer describes an item providing more adapter item information.
-type bookmarkEnhancer interface {
-	Meta() (*bookmarkMeta, error)
+// BookmarkEnhancer describes an item providing more adapter item information.
+type BookmarkEnhancer interface {
+	Meta() (*BookmarkMeta, error)
 }
 
-type bookmarkResourceProvider interface {
+// BookmarkResourceProvider describes an item providing attached resources.
+type BookmarkResourceProvider interface {
 	Resources() []tasks.MultipartResource
 }
 
-type bookmarkReadabilityToggler interface {
-	enableReadability() bool
+// BookmarkReadabilityToggler describes an item than disable readability.
+type BookmarkReadabilityToggler interface {
+	EnableReadability() bool
 }
 
-type bookmarkMeta struct {
+// BookmarkMeta provides an import item extra information.
+type BookmarkMeta struct {
 	Title         string
 	Published     time.Time
 	Authors       types.Strings
@@ -84,7 +87,7 @@ type bookmarkMeta struct {
 }
 
 type importer struct {
-	worker          importWorker
+	worker          ImportWorker
 	log             *log.Entry
 	user            *users.User
 	requestID       string
@@ -101,6 +104,8 @@ func newURLBookmark(src string) (urlBookmarkItem, error) {
 	if !slices.Contains(allowedSchemes, uri.Scheme) {
 		return urlBookmarkItem(""), fmt.Errorf("%w: invalid scheme %s (%s)", ErrIgnore, uri.Scheme, src)
 	}
+	uri.Fragment = ""
+
 	return urlBookmarkItem(uri.String()), nil
 }
 
@@ -153,7 +158,7 @@ func (imp importer) Import() error {
 	return nil
 }
 
-func (imp importer) createBookmark(next func() (bookmarkImporter, error)) (*bookmarks.Bookmark, error) {
+func (imp importer) createBookmark(next func() (BookmarkImporter, error)) (*bookmarks.Bookmark, error) {
 	item, err := next()
 	if err != nil {
 		return nil, err
@@ -189,12 +194,12 @@ func (imp importer) createBookmark(next func() (bookmarkImporter, error)) (*book
 		}
 	}
 
-	if t, ok := item.(bookmarkResourceProvider); ok {
+	if t, ok := item.(BookmarkResourceProvider); ok {
 		t.Resources()
 	}
 
 	var created time.Time
-	if t, ok := item.(bookmarkEnhancer); ok {
+	if t, ok := item.(BookmarkEnhancer); ok {
 		bm, err := t.Meta()
 		if err != nil {
 			return nil, err
@@ -230,13 +235,13 @@ func (imp importer) createBookmark(next func() (bookmarkImporter, error)) (*book
 	}
 
 	var resources []tasks.MultipartResource
-	if t, ok := item.(bookmarkResourceProvider); ok {
+	if t, ok := item.(BookmarkResourceProvider); ok {
 		resources = t.Resources()
 	}
 
 	readabilityEnabled := true
-	if t, ok := item.(bookmarkReadabilityToggler); ok {
-		readabilityEnabled = t.enableReadability()
+	if t, ok := item.(BookmarkReadabilityToggler); ok {
+		readabilityEnabled = t.EnableReadability()
 	}
 
 	if err = tasks.ExtractPageTask.Run(b.ID, tasks.ExtractParams{

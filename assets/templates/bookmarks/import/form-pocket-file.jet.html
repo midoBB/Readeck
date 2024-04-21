@@ -20,14 +20,15 @@ SPDX-License-Identifier: AGPL-3.0-only
     "link", "https://getpocket.com/export", "https://getpocket.com/export",
     )|raw }}</p>
     <p>{{ gettext(`
-      Upload this file in the form bellow and Readeck will fetch and save
+      Upload this file in the form below and Readeck will fetch and save
       every link found it the file.
     `) }}</p>
 
     {{- yield message() content -}}
     {{ gettext(`
-      Please note that Pocket does not let you export the content of your saved articles,
-      which forces Readeck to fetch them anew.
+      Please note that Pocket does not allow the article content to be exported.
+      This could lead to different results in Readeck than what you currently
+      see in Pocket.
     `) }}
     {{- end -}}
   </div>

@@ -15,12 +15,12 @@ SPDX-License-Identifier: AGPL-3.0-only
   <div class="prose mb-8">
     <p>{{ gettext(`
       To import your articles from Wallabag, you must first create an API client
-      in the <strong>API clients management</strong> menu. This will give you
+      in Wallabag's <strong>API clients management</strong> menu. This will give you
       a <strong>Client ID</strong> and <strong>Client secret</strong>.
     `)|raw }}</p>
 
     <p>{{ gettext(`
-      You can then enter all the necessary information in the form bellow.
+      You can then enter all the necessary information in the form below.
     `) }}</p>
   </div>
 
@@ -31,7 +31,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     field=.Form.Get("url"),
     label=gettext("Wallabag URL"),
     class="field-h",
-    help=gettext("Base URL of you Wallabag instance")
+    help=gettext("URL of your Wallabag homepage")
   ) }}
 
   {{ yield textField(

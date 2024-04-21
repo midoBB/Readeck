@@ -1,6 +1,6 @@
 # E-book Catalog
 
-Readeck provides an E-book Catalog of all your bookmarks, organized in a catalog with the structure bellow:
+Readeck provides an E-book Catalog of all your bookmarks, organized in a catalog with the structure below:
 
 - Unread Bookmarks
 - Archived Bookmarks
@@ -40,7 +40,7 @@ This section shows a list of preconfigured OPDS sources and you can add yours by
 
 ![Koreader catalog list](../img/koreader-2.webp)
 
-In this dialog replace the fields bellow with:
+In this dialog replace the fields below with:
 
 - https://readeck.example.com : `readeck-instance://opds`
 - alice: your username

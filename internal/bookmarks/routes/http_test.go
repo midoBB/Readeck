@@ -242,6 +242,21 @@ func TestPermissions(t *testing.T) {
 					}
 				},
 			},
+			RequestTest{
+				Method: "POST",
+				Target: "/api/bookmarks/import/text",
+				JSON:   false,
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 422)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					case "":
+						r.AssertStatus(t, 401)
+					}
+				},
+			},
 			// Views
 			RequestTest{
 				Target: "/bookmarks",
@@ -452,6 +467,61 @@ func TestPermissions(t *testing.T) {
 					}
 				},
 			},
+			RequestTest{
+				Target: "/bookmarks/import",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					case "":
+						r.AssertStatus(t, 303)
+					}
+				},
+			},
+			RequestTest{
+				Target: "/bookmarks/import/NJXoidA6hYSoWyJ6cyuCo4",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					case "":
+						r.AssertStatus(t, 303)
+					}
+				},
+			},
+			RequestTest{
+				Target: "/bookmarks/import/text",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					case "":
+						r.AssertStatus(t, 303)
+					}
+				},
+			},
+			RequestTest{
+				Method: "POST",
+				Target: "/bookmarks/import/wallabag",
+				Form:   url.Values{},
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 422)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					case "":
+						r.AssertStatus(t, 303)
+					}
+				},
+			},
+
 			// Public bookmark's assets
 			RequestTest{
 				Target:       "/bm/{{(slice (index .User.Bookmarks 0).UID 0 2)}}/{{(index .User.Bookmarks 0).UID}}/img/icon.png",

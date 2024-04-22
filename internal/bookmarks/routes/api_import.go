@@ -9,7 +9,6 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/lithammer/shortuuid/v4"
 
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/bookmarks/importer"
@@ -55,8 +54,8 @@ func (api *apiRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Create the import task
-	taskID := shortuuid.New()
-	err = importer.ImportBookmarksTask.Run(taskID, importer.ImportParams{
+	trackID := importer.GetTrackID(api.srv.GetReqID(r))
+	err = importer.ImportBookmarksTask.Run(trackID, importer.ImportParams{
 		Source:    source,
 		Data:      data,
 		UserID:    auth.GetRequestUser(r).ID,
@@ -67,5 +66,35 @@ func (api *apiRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.Header().Add(
+		"Location",
+		api.srv.AbsoluteURL(r, "./..", trackID).String(),
+	)
 	api.srv.TextMessage(w, r, http.StatusAccepted, "import started")
+}
+
+func (api *apiRouter) bookmaksImportStatus(w http.ResponseWriter, r *http.Request) {
+	trackID := chi.URLParam(r, "trackID")
+	p, err := importer.NewImportProgress(trackID)
+	if err != nil {
+		api.srv.Error(w, r, err)
+		return
+	}
+
+	if api.srv.IsTurboRequest(r) {
+		api.srv.RenderTurboStream(w, r,
+			"/bookmarks/import/progress", "replace",
+			"import-progress-"+trackID, map[string]interface{}{
+				"TrackID":  trackID,
+				"Running":  importer.ImportBookmarksTask.IsRunning(trackID),
+				"Progress": p,
+			},
+		)
+		return
+	}
+
+	api.srv.Render(w, r, http.StatusOK, map[string]interface{}{
+		"scheduled": importer.ImportBookmarksTask.IsRunning(trackID),
+		"progress":  p,
+	})
 }

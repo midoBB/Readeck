@@ -9,7 +9,6 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/lithammer/shortuuid/v4"
 
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/bookmarks/importer"
@@ -18,11 +17,13 @@ import (
 )
 
 func (h *viewsRouter) bookmarksImportMain(w http.ResponseWriter, r *http.Request) {
-	uid := chi.URLParam(r, "uid")
+	trackID := chi.URLParam(r, "trackID")
 
 	ctx := server.TC{}
-	if uid != "" {
-		ctx["Operation"] = importer.ImportBookmarksTask.IsRunning(uid)
+	if trackID != "" {
+		ctx["TrackID"] = trackID
+		ctx["Running"] = importer.ImportBookmarksTask.IsRunning(trackID)
+		ctx["Progress"], _ = importer.NewImportProgress(trackID)
 	}
 
 	h.srv.RenderTemplate(w, r, 200, "/bookmarks/import/index", ctx)
@@ -69,8 +70,8 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Create the import task
-		taskID := shortuuid.New()
-		err = importer.ImportBookmarksTask.Run(taskID, importer.ImportParams{
+		trackID := importer.GetTrackID(h.srv.GetReqID(r))
+		err = importer.ImportBookmarksTask.Run(trackID, importer.ImportParams{
 			Source:    source,
 			Data:      data,
 			UserID:    auth.GetRequestUser(r).ID,
@@ -81,7 +82,7 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		h.srv.Redirect(w, r, "/bookmarks/import", taskID)
+		h.srv.Redirect(w, r, "./..", trackID)
 		return
 	}
 

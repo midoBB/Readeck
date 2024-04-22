@@ -9,14 +9,22 @@ import (
 	"fmt"
 
 	"github.com/doug-martin/goqu/v9"
+	"github.com/google/uuid"
+	"github.com/lithammer/shortuuid/v4"
 	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/bus"
+	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/pkg/superbus"
 )
 
-var ImportBookmarksTask superbus.Task // ImportBookmarksTask is the bookmark import task.
+var (
+	ImportBookmarksTask superbus.Task // ImportBookmarksTask is the bookmark import task.
+	ImportExtractTask   superbus.Task // ImportExtractTask is the bookmark extraction task.
+)
 
 // ImportParams contains the ImportBookmarksTask parameters.
 type ImportParams struct {
@@ -40,6 +48,18 @@ func init() {
 				return res
 			}),
 			superbus.WithTaskHandler(importBookmarksHandler),
+		)
+		ImportExtractTask = bus.Tasks().NewTask(
+			"bookmarks.import_extract",
+			superbus.WithUnmarshall(func(data []byte) interface{} {
+				var res tasks.ExtractParams
+				err := json.Unmarshal(data, &res)
+				if err != nil {
+					panic(err)
+				}
+				return res
+			}),
+			superbus.WithTaskHandler(importExtractHandler),
 		)
 	})
 }
@@ -74,7 +94,99 @@ func importBookmarksHandler(data interface{}) {
 
 	imp.log = log.WithFields(log.Fields{"user": imp.user.ID, "@id": imp.requestID})
 
-	if err = imp.Import(); err != nil {
-		panic(err)
+	trackID := GetTrackID(imp.requestID)
+	imp.Import(func(ids []int) {
+		_ = setStoreProgressList(trackID, ids)
+	})
+}
+
+func importExtractHandler(data interface{}) {
+	params := data.(tasks.ExtractParams)
+	trackID := GetTrackID(params.RequestID)
+
+	logger := log.WithFields(log.Fields{
+		"@id":         params.RequestID,
+		"bookmark_id": params.BookmarkID,
+	})
+
+	defer func() {
+		p, err := NewImportProgress(trackID)
+		if err != nil {
+			logger.WithError(err).Error("fetching progress")
+		}
+
+		if p.Status == 1 {
+			if err = clearStoreProgressList(trackID); err != nil {
+				logger.WithError(err).Error("clearing progress")
+			}
+			logger.Info("import finished")
+		}
+	}()
+
+	tasks.ExtractPage(params)
+}
+
+func getStoreProgressList(trackID string) (ids []int) {
+	ids = []int{}
+	data := bus.Store().Get(fmt.Sprintf("bookmark_import_%s", trackID))
+
+	if data == "" {
+		return
 	}
+	_ = json.Unmarshal([]byte(data), &ids)
+	return
+}
+
+func setStoreProgressList(trackID string, ids []int) error {
+	data, err := json.Marshal(ids)
+	if err != nil {
+		return err
+	}
+	return bus.Store().Set(fmt.Sprintf("bookmark_import_%s", trackID), string(data), 0)
+}
+
+func clearStoreProgressList(trackID string) error {
+	return bus.Store().Del(fmt.Sprintf("bookmark_import_%s", trackID))
+}
+
+// GetTrackID returns a tracking ID based on the request ID.
+func GetTrackID(requestID string) string {
+	return shortuuid.DefaultEncoder.Encode(
+		uuid.NewSHA1(uuid.NameSpaceOID, []byte(requestID)),
+	)
+}
+
+// ImportProgress contains the import progress information.
+type ImportProgress struct {
+	Total  int64 `json:"total"`
+	Done   int64 `json:"done"`
+	Status int   `json:"status"`
+}
+
+// NewImportProgress returns an ImportProgress instance based on a
+// trackID. It counts bookmarks with a state not StateLoading.
+func NewImportProgress(trackID string) (p ImportProgress, err error) {
+	ids := getStoreProgressList(trackID)
+	p.Total = int64(len(ids))
+	if p.Total == 0 {
+		p.Status = 1
+		return
+	}
+
+	p.Done, err = db.Q().Select(goqu.C("id")).
+		From(bookmarks.TableName).
+		Where(
+			goqu.C("id").In(ids),
+			goqu.C("state").Neq(bookmarks.StateLoading),
+		).
+		Count()
+	if err != nil {
+		return
+	}
+
+	if p.Done == p.Total {
+		p.Status = 1
+	}
+
+	return
 }

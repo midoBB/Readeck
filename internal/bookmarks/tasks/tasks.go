@@ -130,6 +130,12 @@ func init() {
 	})
 }
 
+// ExtractPage is the public function that run an extraction synchronously.
+// Caution: it will panic and should only be run insisde another task.
+func ExtractPage(params ExtractParams) {
+	extractPageHandler(params)
+}
+
 func deleteBookmarkHandler(data interface{}) {
 	id := data.(int)
 	logger := log.WithField("id", id)

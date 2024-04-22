@@ -11,16 +11,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- block mainContent() -}}
 <h1 class="title text-h2">{{ yield title() }}</h1>
 
-{{- if isset(.Operation) -}}
+{{- if isset(.TrackID) -}}
   {{- yield message() content -}}
-    {{- if .Operation -}}
-      <p>{{ gettext("Import operation will launch momentarily.") }}</p>
-    {{- else -}}
-      <p>{{ gettext(`
-        Import operation has started!<br>
-        Your bookmarks will start appearing in your <a class="%s" href="%s">bookmark list</a>.
-      `, "link", urlFor("/bookmarks"))|raw }}</p>
-    {{- end -}}
+    {{ include "./progress" }}
   {{- end -}}
 {{- else -}}
   <p class="mb-8">{{ gettext(`

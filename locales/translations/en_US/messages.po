@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-20 20:08+0000\n"
+"POT-Creation-Date: 2024-04-22 20:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -829,25 +829,36 @@ msgid "Import your Bookmarks"
 msgstr ""
 
 #: assets/templates/bookmarks/import/index.jet.html
-msgid "Import operation will launch momentarily."
-msgstr ""
-
-#: assets/templates/bookmarks/import/index.jet.html
-#, python-format
-msgid ""
-"\n"
-"        Import operation has started!<br>\n"
-"        Your bookmarks will start appearing in your <a class=\"%s\" "
-"href=\"%s\">bookmark list</a>.\n"
-"      "
-msgstr ""
-
-#: assets/templates/bookmarks/import/index.jet.html
 msgid ""
 "\n"
 "    Here you can import your existing bookmark collection from various "
 "sources into Readeck.\n"
 "  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/progress.jet.html
+msgid "Import operation will launch momentarily."
+msgstr ""
+
+#: assets/templates/bookmarks/import/progress.jet.html
+msgid "Import operation has started!"
+msgstr ""
+
+#: assets/templates/bookmarks/import/progress.jet.html
+msgid "You can keep using Readeck while the import is running."
+msgstr ""
+
+#: assets/templates/bookmarks/import/progress.jet.html
+msgid "Import is finished!"
+msgstr ""
+
+#: assets/templates/bookmarks/import/progress.jet.html
+#, python-format
+msgid ""
+"\n"
+"      Your bookmarks are now available in your <a class=\"%s\" "
+"href=\"%s\">bookmark list</a>.\n"
+"      "
 msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html

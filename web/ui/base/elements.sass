@@ -24,6 +24,20 @@
       &::-webkit-details-marker
         display: none
 
+  progress
+    -webkit-appearance: none
+    @apply rounded-full bg-gray-300
+
+    &::-webkit-progress-bar
+      @apply rounded-full bg-gray-300
+
+    &::-moz-progress-bar
+      @apply rounded-full bg-primary
+
+    &::-webkit-progress-value
+      @apply rounded-full bg-primary
+
+
 @layer base
   *
     scrollbar-color: rgb(var(--color-gray-400)) rgb(var(--color-gray-100))

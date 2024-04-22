@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-04-20 20:08+0000\n"
-"PO-Revision-Date: 2024-04-20 22:09+0200\n"
+"POT-Creation-Date: 2024-04-22 20:34+0000\n"
+"PO-Revision-Date: 2024-04-22 22:35+0200\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
 "Language: fr_FR\n"
@@ -882,25 +882,6 @@ msgid "Import your Bookmarks"
 msgstr "Importez vos bookmarks"
 
 #: assets/templates/bookmarks/import/index.jet.html
-msgid "Import operation will launch momentarily."
-msgstr "L'opération d'importation va démarrer dans un instant."
-
-#: assets/templates/bookmarks/import/index.jet.html
-#, python-format
-msgid ""
-"\n"
-"        Import operation has started!<br>\n"
-"        Your bookmarks will start appearing in your <a class=\"%s\" "
-"href=\"%s\">bookmark list</a>.\n"
-"      "
-msgstr ""
-"\n"
-"L'opération d'importation a démarré !<br>\n"
-"Vos bookmarks vont commencer à apparaître dans votre <a class=\"%s\" "
-"href=\"%s\">liste de bookmarks</a>.\n"
-" "
-
-#: assets/templates/bookmarks/import/index.jet.html
 msgid ""
 "\n"
 "    Here you can import your existing bookmark collection from various sources "
@@ -910,6 +891,36 @@ msgstr ""
 "\n"
 "Ici vous pouvez importer dans Readeck votre collection de bookmarks depuis "
 "différentes sources.\n"
+" "
+
+#: assets/templates/bookmarks/import/progress.jet.html
+msgid "Import operation will launch momentarily."
+msgstr "L'opération d'importation va démarrer dans un instant."
+
+#: assets/templates/bookmarks/import/progress.jet.html
+msgid "Import operation has started!"
+msgstr "L'opération d'importation a commencé !"
+
+#: assets/templates/bookmarks/import/progress.jet.html
+msgid "You can keep using Readeck while the import is running."
+msgstr ""
+"Vous pouvez continuer d'utiliser Readeck pendant que l'importation continue."
+
+#: assets/templates/bookmarks/import/progress.jet.html
+msgid "Import is finished!"
+msgstr "L'importation est terminée !"
+
+#: assets/templates/bookmarks/import/progress.jet.html
+#, python-format
+msgid ""
+"\n"
+"      Your bookmarks are now available in your <a class=\"%s\" "
+"href=\"%s\">bookmark list</a>.\n"
+"      "
+msgstr ""
+"\n"
+"Vos bookmarks sont maintenant disponibles dans votre <a class=\"%s\" "
+"href=\"%s\">liste de bookmarks</a>.\n"
 " "
 
 #: assets/templates/bookmarks/index.jet.html

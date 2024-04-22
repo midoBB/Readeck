@@ -130,7 +130,9 @@ func LoadAdapter(name string) ImportLoader {
 }
 
 // Import performs the iteration on its adapter and import every item.
-func (imp importer) Import() error {
+func (imp importer) Import(f func([]int)) {
+	ids := []int{}
+
 	for {
 		b, err := imp.createBookmark(imp.worker.Next)
 		logger := imp.log
@@ -154,8 +156,9 @@ func (imp importer) Import() error {
 		}
 
 		logger.Info("bookmark created")
+		ids = append(ids, b.ID)
+		f(ids)
 	}
-	return nil
 }
 
 func (imp importer) createBookmark(next func() (BookmarkImporter, error)) (*bookmarks.Bookmark, error) {
@@ -187,10 +190,10 @@ func (imp importer) createBookmark(next func() (BookmarkImporter, error)) (*book
 			goqu.C("url").Eq(uri.String()),
 		).Prepared(true).Count()
 		if err != nil {
-			return b, err
+			return nil, err
 		}
 		if count > 0 {
-			return b, fmt.Errorf("already exists, %w", ErrIgnore)
+			return nil, fmt.Errorf("already exists, %w", ErrIgnore)
 		}
 	}
 
@@ -244,7 +247,7 @@ func (imp importer) createBookmark(next func() (BookmarkImporter, error)) (*book
 		readabilityEnabled = t.EnableReadability()
 	}
 
-	if err = tasks.ExtractPageTask.Run(b.ID, tasks.ExtractParams{
+	if err = ImportExtractTask.Run(b.ID, tasks.ExtractParams{
 		BookmarkID: b.ID,
 		RequestID:  imp.requestID,
 		Resources:  resources,

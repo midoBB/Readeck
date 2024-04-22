@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-04-20 20:08+0000\n"
+"POT-Creation-Date: 2024-04-22 20:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -740,7 +740,7 @@ msgid ""
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:33
+#: assets/templates/bookmarks/import/index.jet.html:26
 msgid "Import Links from a Text File"
 msgstr ""
 
@@ -805,21 +805,7 @@ msgstr ""
 msgid "Import your Bookmarks"
 msgstr ""
 
-#: assets/templates/bookmarks/import/index.jet.html:17
-msgid "Import operation will launch momentarily."
-msgstr ""
-
 #: assets/templates/bookmarks/import/index.jet.html:19
-#, python-format
-msgid ""
-"\n"
-"        Import operation has started!<br>\n"
-"        Your bookmarks will start appearing in your <a class=\"%s\" "
-"href=\"%s\">bookmark list</a>.\n"
-"      "
-msgstr ""
-
-#: assets/templates/bookmarks/import/index.jet.html:26
 msgid ""
 "\n"
 "    Here you can import your existing bookmark collection from various "
@@ -828,18 +814,43 @@ msgid ""
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:37
+#: assets/templates/bookmarks/import/index.jet.html:30
 msgid "Import your Browser's Bookmarks"
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:41
+#: assets/templates/bookmarks/import/index.jet.html:34
 msgid "Import your Pocket Articles"
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:44
+#: assets/templates/bookmarks/import/index.jet.html:37
 msgid "Import your Wallabag Articles"
+msgstr ""
+
+#: assets/templates/bookmarks/import/progress.jet.html:15
+msgid "Import operation will launch momentarily."
+msgstr ""
+
+#: assets/templates/bookmarks/import/progress.jet.html:17
+msgid "Import operation has started!"
+msgstr ""
+
+#: assets/templates/bookmarks/import/progress.jet.html:21
+msgid "You can keep using Readeck while the import is running."
+msgstr ""
+
+#: assets/templates/bookmarks/import/progress.jet.html:24
+msgid "Import is finished!"
+msgstr ""
+
+#: assets/templates/bookmarks/import/progress.jet.html:25
+#, python-format
+msgid ""
+"\n"
+"      Your bookmarks are now available in your <a class=\"%s\" "
+"href=\"%s\">bookmark list</a>.\n"
+"      "
 msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:28
@@ -1355,13 +1366,13 @@ msgstr ""
 msgid "Admin : Write Only"
 msgstr ""
 
-#: internal/bookmarks/importer/browser.go:57
-#: internal/bookmarks/importer/pocket_file.go:62
+#: internal/bookmarks/importer/browser.go:58
+#: internal/bookmarks/importer/pocket_file.go:63
 msgid "Unabled to read HTML content"
 msgstr ""
 
-#: internal/bookmarks/importer/browser.go:78
-#: internal/bookmarks/importer/pocket_file.go:102
+#: internal/bookmarks/importer/browser.go:94
+#: internal/bookmarks/importer/pocket_file.go:118
 #: internal/bookmarks/importer/text.go:46
 msgid "Empty or invalid import file"
 msgstr ""
@@ -1374,11 +1385,11 @@ msgstr ""
 msgid "Invalid Content-Type"
 msgstr ""
 
-#: internal/bookmarks/importer/wallabag.go:210
+#: internal/bookmarks/importer/wallabag.go:224
 msgid "Invalid credentials"
 msgstr ""
 
-#: internal/bookmarks/importer/wallabag.go:221
+#: internal/bookmarks/importer/wallabag.go:235
 msgid "No access token found"
 msgstr ""
 

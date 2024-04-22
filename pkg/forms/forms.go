@@ -34,6 +34,19 @@ type Binder interface {
 	AddErrors(string, ...error)
 	IsBound() bool
 	Bind()
+	IsValid() bool
+}
+
+// Localized describes a form that can receive a translator
+// so messages and errors can be translated.
+type Localized interface {
+	SetLocale(Translator)
+}
+
+// AnyBinder describes a form that provides its own binding method for unknown content-type.
+// One can use it to bind from multipart data, plain text, etc.
+type AnyBinder interface {
+	BindAny(contentType string, r *http.Request)
 }
 
 // Validator describes a form that implements a custom validation.
@@ -320,6 +333,10 @@ func Bind(f Binder, r *http.Request) {
 		}
 		UnmarshalValues(f, r.PostForm)
 	default:
+		if f, ok := f.(AnyBinder); ok {
+			f.BindAny(mediaType, r)
+			break
+		}
 		f.AddErrors("", errors.New("Unknown content-type"))
 	}
 }

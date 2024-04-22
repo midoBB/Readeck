@@ -90,9 +90,11 @@ func (s *MemStore) Set(key, value string, expiration time.Duration) error {
 	defer s.Unlock()
 	s.data[key] = value
 
-	time.AfterFunc(expiration, func() {
-		delete(s.data, key)
-	})
+	if expiration > 0 {
+		time.AfterFunc(expiration, func() {
+			delete(s.data, key)
+		})
+	}
 
 	return nil
 }

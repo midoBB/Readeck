@@ -147,18 +147,15 @@ func (tm *TaskManager) onTask(e Event) {
 			return
 		}
 
-		// The payload can be removed when we're done.
-		defer func() {
-			if err := tm.delPayload(&op); err != nil {
-				l.WithError(err).Error("removing payload")
-			}
-		}()
-
 		// Push the worker to the queue.
 		tm.queue <- func() {
 			defer func() {
 				if r := recover(); r != nil {
 					l.Errorf("task error: %v", r)
+				}
+				// The payload can be removed when we're done.
+				if err := tm.delPayload(&op); err != nil {
+					l.WithError(err).Error("removing payload")
 				}
 			}()
 			f(&op, &p1)

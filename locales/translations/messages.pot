@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-04-22 20:34+0000\n"
+"POT-Creation-Date: 2024-04-23 04:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.12.1\n"
 
-#: assets/templates/_layouts/sidemenu.jet.html:11
+#: assets/templates/_layouts/sidemenu.jet.html:18
 msgid "Secondary Menu"
 msgstr ""
 
-#: assets/templates/_layouts/sidemenu.jet.html:34
+#: assets/templates/_layouts/sidemenu.jet.html:41
 msgid "Open menu"
 msgstr ""
 
@@ -114,7 +114,7 @@ msgstr ""
 #: assets/templates/bookmarks/components/card.jet.html:88
 #: assets/templates/bookmarks/import/form-browser.jet.html:39
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:47
-#: assets/templates/bookmarks/import/form-text.jet.html:34
+#: assets/templates/bookmarks/import/form-text.jet.html:33
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:63
 #: assets/templates/bookmarks/label.jet.html:46
 #: assets/templates/profile/credential.jet.html:20
@@ -157,21 +157,21 @@ msgstr ""
 msgid "will not change if empty"
 msgstr ""
 
-#: assets/templates/admin/user.jet.html:51
+#: assets/templates/admin/user.jet.html:52
 #: assets/templates/bookmarks/collection.jet.html:47
 #: assets/templates/bookmarks/collection_create.jet.html:30
 #: assets/templates/profile/credential.jet.html:83
-#: assets/templates/profile/index.jet.html:34
-#: assets/templates/profile/password.jet.html:35
-#: assets/templates/profile/token.jet.html:66
+#: assets/templates/profile/index.jet.html:35
+#: assets/templates/profile/password.jet.html:36
+#: assets/templates/profile/token.jet.html:67
 msgid "Save"
 msgstr ""
 
-#: assets/templates/admin/user.jet.html:57
+#: assets/templates/admin/user.jet.html:55
 msgid "Delete this user"
 msgstr ""
 
-#: assets/templates/admin/user_create.jet.html:41
+#: assets/templates/admin/user_create.jet.html:42
 msgid "Create user"
 msgstr ""
 
@@ -462,7 +462,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/collection.jet.html:41
 #: assets/templates/bookmarks/collection_create.jet.html:23
-#: assets/templates/profile/credential.jet.html:59
+#: assets/templates/profile/credential.jet.html:58
 msgid "Name"
 msgstr ""
 
@@ -693,50 +693,72 @@ msgstr ""
 msgid "Links"
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-browser.jet.html:16
-msgid ""
-"\n"
-"      In your web browser, export your bookmarks as an HTML file.<br>\n"
-"      Upload this file in the form below and Readeck will create and "
-"fetch\n"
-"      every bookmark found it the file.\n"
-"    "
+#: assets/templates/bookmarks/import/form-browser.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:30
+msgid "Import your Browser's Bookmarks"
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-browser.jet.html:23
+#: assets/templates/bookmarks/import/form-browser.jet.html:15
+msgid ""
+"\n"
+"    In your web browser, export your bookmarks as an HTML file.<br>\n"
+"    Upload this file in the form below and Readeck will create and fetch\n"
+"    every bookmark found it the file.\n"
+"  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:22
 msgid "Instructions for Firefox"
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-browser.jet.html:24
+#: assets/templates/bookmarks/import/form-browser.jet.html:23
 msgid "Instructions for Chrome"
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:16
+#: assets/templates/bookmarks/import/form-browser.jet.html:33
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:41
+#: assets/templates/bookmarks/import/form-text.jet.html:27
+msgid "File"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:38
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:46
+#: assets/templates/bookmarks/import/form-text.jet.html:32
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:62
+msgid "Import Bookmarks"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:34
+msgid "Import your Pocket Articles"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
 #, python-format
 msgid ""
 "\n"
-"      You can export your articles on Pocket by visiting:<br>\n"
-"      <a class=\"%s\" href=\"%s\">%s</a>.\n"
-"    "
+"    You can export your articles on Pocket by visiting:<br>\n"
+"    <a class=\"%s\" href=\"%s\">%s</a>.\n"
+"  "
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:22
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:21
 msgid ""
 "\n"
-"      Upload this file in the form below and Readeck will fetch and save\n"
-"      every link found it the file.\n"
-"    "
+"    Upload this file in the form below and Readeck will fetch and save\n"
+"    every link found it the file.\n"
+"  "
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:28
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:27
 msgid ""
 "\n"
-"      Please note that Pocket does not allow the article content to be "
+"    Please note that Pocket does not allow the article content to be "
 "exported.\n"
-"      This could lead to different results in Readeck than what you "
+"    This could lead to different results in Readeck than what you "
 "currently\n"
-"      see in Pocket.\n"
-"    "
+"    see in Pocket.\n"
+"  "
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
@@ -744,45 +766,36 @@ msgstr ""
 msgid "Import Links from a Text File"
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-text.jet.html:17
+#: assets/templates/bookmarks/import/form-text.jet.html:15
 msgid ""
 "\n"
-"      Upload a text file that contains one link per line and Readeck will"
-" fetch\n"
-"      all of them and save them in your bookmark list.\n"
-"    "
+"    Upload a text file that contains one link per line and Readeck will "
+"fetch\n"
+"    all of them and save them in your bookmark list.\n"
+"  "
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-browser.jet.html:33
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:41
-#: assets/templates/bookmarks/import/form-text.jet.html:28
-msgid "File"
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:37
+msgid "Import your Wallabag Articles"
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-browser.jet.html:38
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:46
-#: assets/templates/bookmarks/import/form-text.jet.html:33
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:62
-msgid "Import Bookmarks"
-msgstr ""
-
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:16
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:15
 msgid ""
 "\n"
-"      To import your articles from Wallabag, you must first create an API"
-" client\n"
-"      in Wallabag's <strong>API clients management</strong> menu. This "
-"will give you\n"
-"      a <strong>Client ID</strong> and <strong>Client secret</strong>.\n"
-"    "
+"    To import your articles from Wallabag, you must first create an API "
+"client\n"
+"    in Wallabag's <strong>API clients management</strong> menu. This will"
+" give you\n"
+"    a <strong>Client ID</strong> and <strong>Client secret</strong>.\n"
+"  "
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:22
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:21
 msgid ""
 "\n"
-"      You can then enter all the necessary information in the form below."
-"\n"
-"    "
+"    You can then enter all the necessary information in the form below.\n"
+"  "
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:32
@@ -811,21 +824,6 @@ msgid ""
 "    Here you can import your existing bookmark collection from various "
 "sources into Readeck.\n"
 "  "
-msgstr ""
-
-#: assets/templates/bookmarks/import/form-browser.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:30
-msgid "Import your Browser's Bookmarks"
-msgstr ""
-
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:34
-msgid "Import your Pocket Articles"
-msgstr ""
-
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:37
-msgid "Import your Wallabag Articles"
 msgstr ""
 
 #: assets/templates/bookmarks/import/progress.jet.html:15
@@ -952,107 +950,102 @@ msgid ""
 "  You can set anything to a label, including emojis!\n"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:8
-#: assets/templates/docs/base.jet.html:27
-msgid "About Readeck"
-msgstr ""
-
-#: assets/templates/docs/about.jet.html:15
+#: assets/templates/docs/about.jet.html:14
 msgid "Version:"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:16
+#: assets/templates/docs/about.jet.html:15
 msgid "Built Date:"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:19
+#: assets/templates/docs/about.jet.html:18
 msgid "System Information"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:21
+#: assets/templates/docs/about.jet.html:20
 msgid ""
 "Here are your current system information. Please include them if you "
 "report a bug."
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:31
+#: assets/templates/docs/about.jet.html:30
 msgid "License"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:33
+#: assets/templates/docs/about.jet.html:32
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:37
+#: assets/templates/docs/about.jet.html:36
 msgid "Here's a short summary of the license conditions:"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:42
+#: assets/templates/docs/about.jet.html:41
 msgid "Permissions"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:43
+#: assets/templates/docs/about.jet.html:42
 msgid "Conditions"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:44
+#: assets/templates/docs/about.jet.html:43
 msgid "Limitations"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:52
+#: assets/templates/docs/about.jet.html:51
 msgid "Commercial use"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:55
+#: assets/templates/docs/about.jet.html:54
 msgid "Distribution"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:58
+#: assets/templates/docs/about.jet.html:57
 msgid "Modification"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:61
+#: assets/templates/docs/about.jet.html:60
 msgid "Patent use"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:64
+#: assets/templates/docs/about.jet.html:63
 msgid "Private use"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:71
+#: assets/templates/docs/about.jet.html:70
 msgid "Disclose source"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:74
+#: assets/templates/docs/about.jet.html:73
 msgid "License and copyright notice"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:77
+#: assets/templates/docs/about.jet.html:76
 msgid "Network use is distribution"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:80
+#: assets/templates/docs/about.jet.html:79
 msgid "Same license"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:83
+#: assets/templates/docs/about.jet.html:82
 msgid "State changes"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:90
+#: assets/templates/docs/about.jet.html:89
 msgid "Liability"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:93
+#: assets/templates/docs/about.jet.html:92
 msgid "Warranty"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:120
+#: assets/templates/docs/about.jet.html:119
 msgid "Third-Party Licenses"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:122
+#: assets/templates/docs/about.jet.html:121
 msgid "Readeck includes and/or uses the following open source assets:"
 msgstr ""
 
@@ -1063,6 +1056,11 @@ msgstr ""
 
 #: assets/templates/docs/base.jet.html:9
 msgid "Readeck Help"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html:8
+#: assets/templates/docs/base.jet.html:27
+msgid "About Readeck"
 msgstr ""
 
 #: assets/templates/emails/recover.tmpl:8
@@ -1112,13 +1110,13 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: assets/templates/_layouts/sidemenu.jet.html:10
+#: assets/templates/_layouts/sidemenu.jet.html:17
 #: assets/templates/bookmarks/bookmark.jet.html:26
 #: assets/templates/error.jet.html:12
 msgid "Menu"
 msgstr ""
 
-#: assets/templates/_layouts/sidemenu.jet.html:12
+#: assets/templates/_layouts/sidemenu.jet.html:19
 #: assets/templates/bookmarks/bookmark.jet.html:27
 #: assets/templates/error.jet.html:13
 msgid "Main content"
@@ -1194,16 +1192,16 @@ msgstr ""
 msgid "Properties"
 msgstr ""
 
-#: assets/templates/profile/credential.jet.html:52
+#: assets/templates/profile/credential.jet.html:51
 msgid "Password ID"
 msgstr ""
 
-#: assets/templates/profile/credential.jet.html:65
+#: assets/templates/profile/credential.jet.html:64
 #: assets/templates/profile/token.jet.html:42
 msgid "Enabled"
 msgstr ""
 
-#: assets/templates/profile/credential.jet.html:71
+#: assets/templates/profile/credential.jet.html:70
 msgid ""
 "\n"
 "    You can limit the permissions granted to this password by choosing "
@@ -1214,13 +1212,12 @@ msgid ""
 "  "
 msgstr ""
 
-#: assets/templates/profile/credential.jet.html:79
+#: assets/templates/profile/credential.jet.html:78
 #: assets/templates/profile/token.jet.html:62
 msgid "Roles"
 msgstr ""
 
-#: assets/templates/profile/credential.jet.html:87
-#: assets/templates/profile/credential.jet.html:90
+#: assets/templates/profile/credential.jet.html:86
 msgid "Delete password"
 msgstr ""
 
@@ -1287,23 +1284,22 @@ msgid ""
 "  "
 msgstr ""
 
-#: assets/templates/profile/token.jet.html:69
+#: assets/templates/profile/token.jet.html:70
+msgid "Delete token"
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:75
 msgid "API authentication"
 msgstr ""
 
-#: assets/templates/profile/token.jet.html:72
+#: assets/templates/profile/token.jet.html:78
 msgid "Your API token"
 msgstr ""
 
-#: assets/templates/profile/token.jet.html:80
+#: assets/templates/profile/token.jet.html:86
 msgid ""
 "You can use this token by passing it as an <strong>Authorization: "
 "Bearer</strong> HTTP header."
-msgstr ""
-
-#: assets/templates/profile/token.jet.html:92
-#: assets/templates/profile/token.jet.html:95
-msgid "Delete token"
 msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:10
@@ -1734,4 +1730,3 @@ msgstr ""
 msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr ""
-

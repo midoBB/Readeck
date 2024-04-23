@@ -3,7 +3,7 @@ SPDX-FileCopyrightText: © 2024 Olivier Meunier <olivier@neokraft.net>
 
 SPDX-License-Identifier: AGPL-3.0-only
 *}
-{{ extends "../base" }}
+{{ extends "./base" }}
 {{ import "/_libs/forms"}}
 
 {{- block title() -}}{{ gettext("Import Links from a Text File") }}{{- end -}}
@@ -11,15 +11,14 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- block mainContent() -}}
 <h1 class="title text-h2">{{ yield title() }}</h1>
 
+<div class="prose mb-8">
+  <p>{{ gettext(`
+    Upload a text file that contains one link per line and Readeck will fetch
+    all of them and save them in your bookmark list.
+  `) }}</p>
+</div>
 
-<form class="max-w-xl" action="{{ urlFor() }}" method="POST" enctype="multipart/form-data">
-  <div class="prose mb-8">
-    <p>{{ gettext(`
-      Upload a text file that contains one link per line and Readeck will fetch
-      all of them and save them in your bookmark list.
-    `) }}</p>
-  </div>
-
+<form action="{{ urlFor() }}" method="POST" enctype="multipart/form-data">
   {{ yield formErrors(form=.Form) }}
   {{ yield csrfField() }}
 
@@ -29,10 +28,9 @@ SPDX-License-Identifier: AGPL-3.0-only
     class="field-h",
   ) -}}
 
-  <p class="flex gap-1">
+  <p class="btn-block">
     <button class="btn-primary" type="submit">{{ gettext("Import Bookmarks") }}</button>
     <a class="ml-auto btn rounded" href="{{ urlFor(`/bookmarks/import`) }}">{{ gettext("Cancel") }}</a>
   </p>
 </form>
-
 {{- end -}}

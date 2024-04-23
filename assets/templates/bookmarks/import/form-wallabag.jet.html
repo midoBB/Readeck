@@ -3,7 +3,7 @@ SPDX-FileCopyrightText: © 2024 Olivier Meunier <olivier@neokraft.net>
 
 SPDX-License-Identifier: AGPL-3.0-only
 *}
-{{ extends "../base" }}
+{{ extends "./base" }}
 {{ import "/_libs/forms"}}
 
 {{- block title() -}}{{ gettext("Import your Wallabag Articles") }}{{- end -}}
@@ -11,19 +11,19 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- block mainContent() -}}
 <h1 class="title text-h2">{{ yield title() }}</h1>
 
-<form class="max-w-xl" action="{{ urlFor() }}" method="POST">
-  <div class="prose mb-8">
-    <p>{{ gettext(`
-      To import your articles from Wallabag, you must first create an API client
-      in Wallabag's <strong>API clients management</strong> menu. This will give you
-      a <strong>Client ID</strong> and <strong>Client secret</strong>.
-    `)|raw }}</p>
+<div class="prose mb-8">
+  <p>{{ gettext(`
+    To import your articles from Wallabag, you must first create an API client
+    in Wallabag's <strong>API clients management</strong> menu. This will give you
+    a <strong>Client ID</strong> and <strong>Client secret</strong>.
+  `)|raw }}</p>
 
-    <p>{{ gettext(`
-      You can then enter all the necessary information in the form below.
-    `) }}</p>
-  </div>
+  <p>{{ gettext(`
+    You can then enter all the necessary information in the form below.
+  `) }}</p>
+</div>
 
+<form action="{{ urlFor() }}" method="POST">
   {{ yield formErrors(form=.Form) }}
   {{ yield csrfField() }}
 
@@ -58,10 +58,9 @@ SPDX-License-Identifier: AGPL-3.0-only
     class="field-h",
   ) }}
 
-  <p class="flex gap-1">
+  <p class="btn-block">
     <button class="btn-primary" type="submit">{{ gettext("Import Bookmarks") }}</button>
     <a class="ml-auto btn rounded" href="{{ urlFor(`/bookmarks/import`) }}">{{ gettext("Cancel") }}</a>
   </p>
 </form>
-
 {{- end -}}

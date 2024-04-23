@@ -53,15 +53,13 @@ SPDX-License-Identifier: AGPL-3.0-only
  data-turbo-refresh-on-value="[data-collection-deleted='true']">
   {{- yield list() content -}}
   {{- range .Collections -}}
-    {{- yield list_item(class="flex items-center") content -}}
-      <div class="flex-grow">
-        <div>
-          <a class="link" href="{{ urlFor(`.`, .ID) }}">{{ .Name }}</a>
-        </div>
-        <div><small>Created on: {{ date(.Created, "%e %B %Y") }}</small></div>
-      </div>
+    {{- yield list_item(class="flex gap-2 items-center hfw:bg-gray-100 max-md:block") content -}}
+      <a class="block flex-grow p-4" href="{{ urlFor(`.`, .ID) }}">
+        <strong class="link font-semibold">{{ .Name }}</strong>
+        <small class="block">Created on: {{ date(.Created, "%e %B %Y") }}</small>
+      </a>
       {{- if .IsDeleted -}}
-        <div class="flex items-center max-w-xs"
+        <div class="flex items-center max-w-xs m-4 max-md:mt-0"
          data-collection-deleted="true">
           <span class="text-red-700 text-xs font-semibold">
             This collection will be removed in a few seconds.

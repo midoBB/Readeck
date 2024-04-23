@@ -22,19 +22,17 @@ SPDX-License-Identifier: AGPL-3.0-only
  data-turbo-refresh-on-value="[data-user-deleted='true']">
   {{ yield list(class="my-6") content}}
   {{ range .Users }}
-    {{ yield list_item(class="flex items-center") content }}
-      <div class="flex-grow">
-        <div>
-          <strong><a class="link" href="{{ urlFor(`.`, .ID) }}">{{ .Username }}</a></strong>
+    {{ yield list_item(class="flex gap-2 items-center hfw:bg-gray-100 max-md:block") content }}
+      <a class="block flex-grow p-4" href="{{ urlFor(`.`, .ID) }}">
+        <strong class="link font-semibold">{{ .Username }}</strong>
           ({{ .Group }})
-        </div>
-        <div class="text-sm">
+        <small class="block">
           {{ gettext("Created on: %s", date(.Created, "%e %B %Y")) }},
           {{ gettext("Last update: %s", date(.Updated, "%e %B %Y")) }}
-        </div>
-      </div>
+        </small>
+      </a>
       {{- if .IsDeleted -}}
-        <div class="flex items-center max-w-xs"
+        <div class="flex items-center max-w-xs m-4 max-md:mt-0"
           data-user-deleted="true">
           <span class="text-red-700 text-xs font-semibold">
             {{ gettext("This user will be removed in a few seconds.") }}

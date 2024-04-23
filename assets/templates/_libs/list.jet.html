@@ -9,8 +9,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 </div>
 {{- end -}}
 
-{{- block list_item(class="") -}}
-<div class="p-4 {{ class }}">
+{{- block list_item(class="p-4") -}}
+<div class="{{ class }}">
 {{ yield content }}
 </div>
 {{- end -}}

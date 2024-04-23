@@ -35,23 +35,21 @@ SPDX-License-Identifier: AGPL-3.0-only
  data-turbo-refresh-on-value="[data-user-deleted='true']">
   {{ yield list() content }}
   {{ range .Tokens }}
-    {{ yield list_item(class="flex items-center") content }}
-      <div class="flex-grow">
-        <div>
-          {{- if .IsEnabled -}}
-            {{ yield icon(name="o-check-on", class="svgicon text-green-700") }}
-          {{- else -}}
-            {{ yield icon(name="o-cross", class="svgicon text-red-700") }}
-          {{- end }}
-          <a class="link" href="{{ urlFor(`.`, .ID ) }}">{{ .ID }}</a>
-          - <small>{{ .Application }}</small>
-        </div>
-        <div><small>{{ gettext("Created on: %s", date(.Created, "%e %B %Y")) }}
+    {{ yield list_item(class="flex gap-2 items-center hfw:bg-gray-100 max-md:block") content }}
+      <a class="block flex-grow p-4" href="{{ urlFor(`.`, .ID ) }}">
+        {{- if .IsEnabled -}}
+          {{ yield icon(name="o-check-on", class="svgicon text-green-700") }}
+        {{- else -}}
+          {{ yield icon(name="o-cross", class="svgicon text-red-700") }}
+        {{- end }}
+        <strong class="link font-semibold" >{{ .ID }}</strong>
+        - <small>{{ .Application }}</small>
+        <small class="block">{{ gettext("Created on: %s", date(.Created, "%e %B %Y")) }}
         {{- if .Expires }} ({{ gettext("Expires on: %s", date(.Expires, "%e %B %Y")) }}){{ end -}}
-        </small></div>
-      </div>
+        </small>
+      </a>
       {{- if .IsDeleted -}}
-        <div class="flex items-center max-w-xs"
+        <div class="flex items-center max-w-xs m-4 max-md:mt-0"
           data-user-deleted="true">
           <span class="text-red-700 text-xs font-semibold">
             {{ gettext("This token will be removed in a few seconds.") }}

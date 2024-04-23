@@ -5,6 +5,13 @@ SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{ extends "/base" }}
 
+{{- block _main() -}}
+  <main class="layout-content" id="content">
+    {{ yield flashes() }}
+    {{ yield mainContent() }}
+  </main>
+{{- end -}}
+
 {{ block body() -}}
   {{- yield quickAccessMenu(items=slice(
     slice("menu", gettext("Menu")),
@@ -44,10 +51,6 @@ SPDX-License-Identifier: AGPL-3.0-only
     >
       {{ try }}{{- yield sideMenu() -}}{{ end }}
     </nav>
-
-    <main class="layout-content" id="content">
-      {{ yield flashes() }}
-      {{ yield mainContent() }}
-    </main>
+    {{- yield _main() -}}
   </div>
 {{- end}}

@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ block title() }}{{ .Title }}{{ end }}
 
 {{ block mainContent() }}
-<div class="text-base leading-normal prose docs max-w-3xl" lang="{{ .Language }}">
+<div class="text-base leading-normal prose docs" lang="{{ .Language }}">
 {{- unsafeWrite(.HTML) -}}
 </div>
 {{ end }}

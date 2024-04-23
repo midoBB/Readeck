@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{- block formErrors(form) -}}
   {{- if !form.IsValid() -}}
-    <div class="max-w-xl">
+    <div class="max-w-std">
     {{- yield message(type="error") content -}}
       <strong class="text-red-800">{{ gettext("Errors") }}</strong>
       {{- if form.Errors() -}}

@@ -38,7 +38,8 @@ SPDX-License-Identifier: AGPL-3.0-only
                          inputAttrs=attrList("autocomplete", "off"),
                         ) }}
 
-  <p><button class="btn-primary" type="submit">{{ gettext("Create user") }}</button></p>
+  <p class="btn-block">
+    <button class="btn-primary" type="submit">{{ gettext("Create user") }}</button>
+  </p>
 </form>
-
 {{ end }}

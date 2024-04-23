@@ -48,14 +48,12 @@ SPDX-License-Identifier: AGPL-3.0-only
                          inputAttrs=attrList("autocomplete", "off"),
                          help=gettext("will not change if empty")) }}
 
-  <p><button class="btn-primary" type="submit">{{ gettext("Save") }}</button></p>
+  <p class="btn-block">
+    <button class="btn-primary" type="submit">{{ gettext("Save") }}</button>
+    {{- if .User.ID != user.ID && !.User.IsDeleted -}}
+      <button class="ml-auto btn-danger" type="submit"
+        formaction="{{ urlFor(`.`, `delete`) }}">{{ gettext("Delete this user") }}</button>
+    {{- end -}}
+  </p>
 </form>
-
-{{- if .User.ID != user.ID && !.User.IsDeleted -}}
-  <form class="mt-4" action="{{ urlFor(`.`, `delete`) }}" method="POST">
-    {{ yield csrfField() }}
-    <p><button class="btn-danger" type="submit">{{ gettext("Delete this user") }}</button></p>
-  </form>
-{{- end -}}
-
 {{ end }}

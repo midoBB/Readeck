@@ -134,10 +134,7 @@ var config = {
       width: {
       },
       maxWidth: {
-        ...[...Array(26).keys()].reduce((acc, x) => {
-          acc[`col-${x+1}`] = `${(x+1) * 3.5}rem`
-          return acc
-        }, {}),
+        "std": "49rem",
       },
     },
   },

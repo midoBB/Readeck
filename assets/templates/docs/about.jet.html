@@ -8,7 +8,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ block title() }}{{ gettext("About Readeck") }}{{ end }}
 
 {{ block mainContent() }}
-<div class="max-w-3xl">
   <div class="text-center my-4">
     <h1 class="title text-h1">{{ yield title() }}</h1>
 
@@ -134,5 +133,4 @@ SPDX-License-Identifier: AGPL-3.0-only
     <li title="Copyright" class="flex gap-2 mb-1">{{ yield icon(name="o-copyright") }} <pre class="text-sm">{{ .Copyright}}</pre></li>
   </ul>
   {{- end -}}
-</div>
 {{ end }}

@@ -1,0 +1,13 @@
+{*
+SPDX-FileCopyrightText: © 2024 Olivier Meunier <olivier@neokraft.net>
+
+SPDX-License-Identifier: AGPL-3.0-only
+*}
+{{ extends "./sidemenu" }}
+
+{{- block _main() -}}
+  <main class="layout-content max-w-std" id="content">
+    {{ yield flashes() }}
+    {{ yield mainContent() }}
+  </main>
+{{- end -}}

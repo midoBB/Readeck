@@ -33,6 +33,11 @@ import (
 // TC is a simple type to carry template context.
 type TC map[string]interface{}
 
+// SetBreadcrumbs sets the current page's breadcrumbs.
+func (tc TC) SetBreadcrumbs(items [][2]string) {
+	tc["Breadcrumbs"] = items
+}
+
 // tplLoader implements a jet.Loader using fs.FS so we can use it
 // with embed fs.
 type tplLoader struct {

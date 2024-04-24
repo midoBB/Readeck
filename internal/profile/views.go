@@ -66,6 +66,7 @@ func newProfileViews(api *profileAPI) *profileViews {
 
 // userProfile handles GET and POST requests on /profile.
 func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
+	tr := v.srv.Locale(r)
 	user := auth.GetRequestUser(r)
 	f := newProfileForm(v.srv.Locale(r))
 	f.setUser(user)
@@ -78,7 +79,6 @@ func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
 			} else {
 				// Set the new seed in the session.
 				// We needn't save the session since AddFlash does that already.
-				tr := v.srv.Locale(r)
 				sess := v.srv.GetSession(r)
 				sess.Payload.Seed = user.Seed
 				v.srv.AddFlash(w, r, "success", tr.Gettext("Profile updated."))
@@ -92,11 +92,16 @@ func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
 	ctx := server.TC{
 		"Form": f,
 	}
+	ctx.SetBreadcrumbs([][2]string{
+		{tr.Gettext("Profile")},
+	})
+
 	v.srv.RenderTemplate(w, r, 200, "profile/index", ctx)
 }
 
 // userPassword handles GET and POST requests on /profile/password.
 func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
+	tr := v.srv.Locale(r)
 	f := newPasswordForm()
 
 	if r.Method == http.MethodPost {
@@ -109,7 +114,6 @@ func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 			} else {
 				// Set the new seed in the session.
 				// We needn't save the session since AddFlash does it already.
-				tr := v.srv.Locale(r)
 				sess := v.srv.GetSession(r)
 				sess.Payload.Seed = user.Seed
 				v.srv.AddFlash(w, r, "success", tr.Gettext("Your password was changed."))
@@ -123,10 +127,15 @@ func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 	ctx := server.TC{
 		"Form": f,
 	}
+	ctx.SetBreadcrumbs([][2]string{
+		{tr.Gettext("Profile"), v.srv.AbsoluteURL(r, "/profile").String()},
+		{tr.Gettext("Password")},
+	})
 	v.srv.RenderTemplate(w, r, 200, "profile/password", ctx)
 }
 
 func (v *profileViews) credentialList(w http.ResponseWriter, r *http.Request) {
+	tr := v.srv.Locale(r)
 	cl := r.Context().Value(ctxCredentialListKey{}).(credentialList)
 	ctx := server.TC{
 		"Pagination":     cl.Pagination,
@@ -134,6 +143,11 @@ func (v *profileViews) credentialList(w http.ResponseWriter, r *http.Request) {
 		"CanCreate":      cl.Pagination.TotalCount < maxCredentials,
 		"MaxCredentials": maxCredentials,
 	}
+	ctx.SetBreadcrumbs([][2]string{
+		{tr.Gettext("Profile"), v.srv.AbsoluteURL(r, "/profile").String()},
+		{tr.Gettext("Application Passwords")},
+	})
+
 	v.srv.RenderTemplate(w, r, 200, "profile/credential_list", ctx)
 }
 
@@ -159,6 +173,7 @@ func (v *profileViews) credentialCreate(w http.ResponseWriter, r *http.Request) 
 }
 
 func (v *profileViews) credentialInfo(w http.ResponseWriter, r *http.Request) {
+	tr := v.srv.Locale(r)
 	ci := r.Context().Value(ctxCredentialKey{}).(credentialItem)
 	f := newCredentialForm(v.srv.Locale(r), auth.GetRequestUser(r))
 
@@ -180,7 +195,6 @@ func (v *profileViews) credentialInfo(w http.ResponseWriter, r *http.Request) {
 			if err := f.updateCredential(ci.Credential); err != nil {
 				v.srv.Log(r).Error(err)
 			} else {
-				tr := v.srv.Locale(r)
 				v.srv.AddFlash(w, r, "success", tr.Gettext("Password was updated."))
 				v.srv.Redirect(w, r, ci.UID)
 				return
@@ -194,6 +208,12 @@ func (v *profileViews) credentialInfo(w http.ResponseWriter, r *http.Request) {
 		"Credential": ci,
 		"Form":       f,
 	}
+	ctx.SetBreadcrumbs([][2]string{
+		{tr.Gettext("Profile"), v.srv.AbsoluteURL(r, "/profile").String()},
+		{tr.Gettext("Application Passwords"), v.srv.AbsoluteURL(r, "/profile/credentials").String()},
+		{ci.UID},
+	})
+
 	v.srv.RenderTemplate(w, r, 200, "profile/credential", ctx)
 }
 
@@ -213,11 +233,17 @@ func (v *profileViews) credentialDelete(w http.ResponseWriter, r *http.Request) 
 
 func (v *profileViews) tokenList(w http.ResponseWriter, r *http.Request) {
 	tl := r.Context().Value(ctxTokenListKey{}).(tokenList)
+	tr := v.srv.Locale(r)
 
 	ctx := server.TC{
 		"Pagination": tl.Pagination,
 		"Tokens":     tl.Items,
 	}
+	ctx.SetBreadcrumbs([][2]string{
+		{tr.Gettext("Profile"), v.srv.AbsoluteURL(r, "/profile").String()},
+		{tr.Gettext("API Tokens")},
+	})
+
 	v.srv.RenderTemplate(w, r, 200, "profile/token_list", ctx)
 }
 
@@ -240,6 +266,7 @@ func (v *profileViews) tokenCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
+	tr := v.srv.Locale(r)
 	ti := r.Context().Value(ctxtTokenKey{}).(tokenItem)
 	f := newTokenForm(v.srv.Locale(r), auth.GetRequestUser(r))
 
@@ -253,7 +280,6 @@ func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 			if err := f.updateToken(ti.Token); err != nil {
 				v.srv.Log(r).Error(err)
 			} else {
-				tr := v.srv.Locale(r)
 				v.srv.AddFlash(w, r, "success", tr.Gettext("Token was updated."))
 				v.srv.Redirect(w, r, ti.UID)
 				return
@@ -273,6 +299,11 @@ func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 		"JWT":   jwt,
 		"Form":  f,
 	}
+	ctx.SetBreadcrumbs([][2]string{
+		{tr.Gettext("Profile"), v.srv.AbsoluteURL(r, "/profile").String()},
+		{tr.Gettext("API Tokens"), v.srv.AbsoluteURL(r, "/profile/tokens").String()},
+		{ti.UID},
+	})
 
 	v.srv.RenderTemplate(w, r, 200, "profile/token", ctx)
 }

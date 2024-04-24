@@ -47,6 +47,7 @@ func (h *adminViews) main(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *adminViews) userList(w http.ResponseWriter, r *http.Request) {
+	tr := h.srv.Locale(r)
 	ul := r.Context().Value(ctxUserListKey{}).(userList)
 	ul.Items = make([]userItem, len(ul.items))
 	for i, item := range ul.items {
@@ -57,11 +58,15 @@ func (h *adminViews) userList(w http.ResponseWriter, r *http.Request) {
 		"Pagination": ul.Pagination,
 		"Users":      ul.Items,
 	}
+	ctx.SetBreadcrumbs([][2]string{
+		{tr.Gettext("Users")},
+	})
 
 	h.srv.RenderTemplate(w, r, 200, "/admin/user_list", ctx)
 }
 
 func (h *adminViews) userCreate(w http.ResponseWriter, r *http.Request) {
+	tr := h.srv.Locale(r)
 	f := users.NewUserForm(h.srv.Locale(r))
 	f.Get("group").Set("user")
 
@@ -72,7 +77,6 @@ func (h *adminViews) userCreate(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				h.srv.Log(r).Error(err)
 			} else {
-				tr := h.srv.Locale(r)
 				h.srv.AddFlash(w, r, "success", tr.Gettext("User created."))
 				h.srv.Redirect(w, r, "./..", fmt.Sprint(u.ID))
 				return
@@ -84,10 +88,15 @@ func (h *adminViews) userCreate(w http.ResponseWriter, r *http.Request) {
 	ctx := server.TC{
 		"Form": f,
 	}
+	ctx.SetBreadcrumbs([][2]string{
+		{tr.Gettext("Users"), h.srv.AbsoluteURL(r, "/admin/users").String()},
+		{tr.Gettext("New User")},
+	})
 	h.srv.RenderTemplate(w, r, 200, "/admin/user_create", ctx)
 }
 
 func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
+	tr := h.srv.Locale(r)
 	u := r.Context().Value(ctxUserKey{}).(*users.User)
 	item := newUserItem(h.srv, r, u, "./..")
 
@@ -107,7 +116,6 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 					sess.Payload.User = u.ID
 					sess.Payload.Seed = u.Seed
 				}
-				tr := h.srv.Locale(r)
 				h.srv.AddFlash(w, r, "success", tr.Gettext("User updated."))
 				h.srv.Redirect(w, r, fmt.Sprint(u.ID))
 				return
@@ -120,6 +128,10 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 		"User": item,
 		"Form": f,
 	}
+	ctx.SetBreadcrumbs([][2]string{
+		{tr.Gettext("Users"), h.srv.AbsoluteURL(r, "/admin/users").String()},
+		{item.Username},
+	})
 
 	h.srv.RenderTemplate(w, r, 200, "/admin/user", ctx)
 }

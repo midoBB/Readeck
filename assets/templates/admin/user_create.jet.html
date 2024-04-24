@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "../profile/base" }}
 {{ import "/_libs/forms" }}
 
-{{ block title() }}New User{{ end }}
+{{ block title() }}{{ gettext("New User") }}{{ end }}
 
 {{ block mainContent() }}
 <h1 class="title text-h2">{{ yield title() }}</h1>

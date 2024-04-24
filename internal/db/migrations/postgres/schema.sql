@@ -56,6 +56,7 @@ CREATE TABLE IF NOT EXISTS bookmark (
     is_archived boolean     NOT NULL DEFAULT false,
     state       integer     NOT NULL DEFAULT 0,
     url         text        NOT NULL,
+    initial_url text        NOT NULL,
     domain      text        NOT NULL,
     title       text        NOT NULL,
     site        text        NOT NULL DEFAULT '',
@@ -82,6 +83,8 @@ CREATE TABLE IF NOT EXISTS bookmark (
 
 CREATE INDEX bookmark_created_idx ON "bookmark" USING btree (created DESC);
 CREATE INDEX bookmark_updated_idx ON "bookmark" USING btree (updated DESC);
+CREATE INDEX bookmark_url_idx ON "bookmark" (url);
+CREATE INDEX bookmark_initial_url_idx ON "bookmark" (initial_url);
 
 --
 -- Search configuration

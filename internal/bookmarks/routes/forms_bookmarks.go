@@ -173,6 +173,7 @@ func (f *createForm) createBookmark() (b *bookmarks.Bookmark, err error) {
 	}
 
 	uri, _ := url.Parse(f.Get("url").String())
+	uri.Fragment = ""
 
 	b = &bookmarks.Bookmark{
 		UserID:   &f.userID,

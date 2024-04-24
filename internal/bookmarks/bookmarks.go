@@ -77,6 +77,7 @@ type Bookmark struct {
 	Updated       time.Time           `db:"updated"`
 	State         BookmarkState       `db:"state"`
 	URL           string              `db:"url"`
+	InitialURL    string              `db:"initial_url"`
 	Title         string              `db:"title"`
 	Domain        string              `db:"domain"`
 	Site          string              `db:"site"`
@@ -113,6 +114,10 @@ func (m *BookmarkManager) Create(bookmark *Bookmark) error {
 	bookmark.Created = time.Now()
 	bookmark.Updated = bookmark.Created
 	bookmark.UID = shortuuid.New()
+
+	if bookmark.InitialURL == "" {
+		bookmark.InitialURL = bookmark.URL
+	}
 
 	ds := db.Q().Insert(TableName).
 		Rows(bookmark).

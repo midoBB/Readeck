@@ -56,6 +56,7 @@ CREATE TABLE IF NOT EXISTS bookmark (
     is_archived integer  NOT NULL DEFAULT 0,
     state       integer  NOT NULL DEFAULT 0,
     url         text     NOT NULL,
+    initial_url text     NOT NULL,
     title       text     NOT NULL,
     domain      text     NOT NULL DEFAULT "",
     site        text     NOT NULL DEFAULT "",
@@ -82,6 +83,8 @@ CREATE TABLE IF NOT EXISTS bookmark (
 
 CREATE INDEX bookmark_created_idx ON "bookmark" (created DESC);
 CREATE INDEX bookmark_updated_idx ON "bookmark" (updated DESC);
+CREATE INDEX bookmark_url_idx ON "bookmark" (url);
+CREATE INDEX bookmark_initial_url_idx ON "bookmark" (initial_url);
 
 CREATE VIRTUAL TABLE IF NOT EXISTS bookmark_idx USING fts5(
     tokenize='unicode61 remove_diacritics 2',

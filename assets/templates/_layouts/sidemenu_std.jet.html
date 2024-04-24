@@ -8,6 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- block _main() -}}
   <main class="layout-content max-w-std" id="content">
     {{ yield flashes() }}
+    {{ yield breadcrumbs() }}
     {{ yield mainContent() }}
   </main>
 {{- end -}}

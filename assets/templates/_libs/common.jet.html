@@ -104,3 +104,22 @@ href="{{ assetURL(`img/icons.svg`) }}#{{ name }}"></use></svg></span>
 <li><a href="{{ urlFor(path) }}" data-current="{{ current }}">{{ yield icon(name=icon) }}
 {{ name }}</a></li>
 {{- end -}}
+
+{{- block breadcrumbs() -}}
+  {{- if isset(.Breadcrumbs) -}}
+    <nav class="breadcrumbs" aria-label="Breadcrumbs">
+      <ol>
+        <li><a href="{{ urlFor(`/`) }}" title="{{ gettext(`Home Page`) }}">{{ yield icon(name="o-home") }}</a></li>
+        {{- range .Breadcrumbs -}}
+          <li>
+            {{- if .[1] -}}
+              <a href="{{ .[1] }}">{{ .[0] }}</a>
+            {{- else -}}
+              {{ .[0] }}
+            {{- end -}}
+          </li>
+        {{- end -}}
+      </ol>
+    </nav>
+  {{- end -}}
+{{- end -}}

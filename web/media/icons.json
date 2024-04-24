@@ -27,6 +27,7 @@
   "o-help":         "node_modules/boxicons/svg/regular/bx-help-circle.svg",
   "o-hide":         "node_modules/boxicons/svg/solid/bxs-show.svg",
   "o-highlight":    "node_modules/boxicons/svg/regular/bx-highlight.svg",
+  "o-home":         "node_modules/boxicons/svg/regular/bx-home.svg",
   "o-import":       "node_modules/boxicons/svg/solid/bxs-cloud-download.svg",
   "o-info":         "node_modules/boxicons/svg/solid/bxs-info-circle.svg",
   "o-key":          "node_modules/boxicons/svg/solid/bxs-key.svg",

@@ -40,6 +40,7 @@ var allowedSchemes = []string{"http", "https"}
 
 // ImportLoader describes an import loader.
 type ImportLoader interface {
+	Name(forms.Translator) string
 	Form() forms.Binder
 	Params(forms.Binder) ([]byte, error)
 }

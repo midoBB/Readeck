@@ -47,6 +47,10 @@ func (bi *pocketBookmarkItem) Meta() (*BookmarkMeta, error) {
 	}, nil
 }
 
+func (adapter *pocketFileAdapter) Name(_ forms.Translator) string {
+	return "Pocket"
+}
+
 func (adapter *pocketFileAdapter) Form() forms.Binder {
 	return newMultipartForm()
 }

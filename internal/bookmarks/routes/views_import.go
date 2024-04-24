@@ -17,9 +17,15 @@ import (
 )
 
 func (h *viewsRouter) bookmarksImportMain(w http.ResponseWriter, r *http.Request) {
+	tr := h.srv.Locale(r)
 	trackID := chi.URLParam(r, "trackID")
 
 	ctx := server.TC{}
+	ctx.SetBreadcrumbs([][2]string{
+		{"Bookmarks", h.srv.AbsoluteURL(r, "/bookmarks").String()},
+		{tr.Gettext("Import")},
+	})
+
 	if trackID != "" {
 		ctx["TrackID"] = trackID
 		ctx["Running"] = importer.ImportBookmarksTask.IsRunning(trackID)
@@ -30,6 +36,7 @@ func (h *viewsRouter) bookmarksImportMain(w http.ResponseWriter, r *http.Request
 }
 
 func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
+	tr := h.srv.Locale(r)
 	source := chi.URLParam(r, "source")
 	if source == "" {
 		h.srv.Status(w, r, http.StatusNotFound)
@@ -50,6 +57,11 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 	templateName := fmt.Sprintf("/bookmarks/import/form-%s", source)
 	ctx := server.TC{}
 	ctx["Form"] = f
+	ctx.SetBreadcrumbs([][2]string{
+		{"Bookmarks", h.srv.AbsoluteURL(r, "/bookmarks").String()},
+		{tr.Gettext("Import"), h.srv.AbsoluteURL(r, "/bookmarks/import").String()},
+		{adapter.Name(tr)},
+	})
 
 	if r.Method == http.MethodPost {
 		forms.Bind(f, r)

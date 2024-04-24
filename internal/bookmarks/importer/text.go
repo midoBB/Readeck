@@ -20,6 +20,10 @@ type textAdapter struct {
 	URLs []string `json:"url_list"`
 }
 
+func (adapter *textAdapter) Name(tr forms.Translator) string {
+	return tr.Gettext("Text File")
+}
+
 func (adapter *textAdapter) Form() forms.Binder {
 	return newMultipartForm()
 }

@@ -42,6 +42,10 @@ func (bi *browserBookmarkItem) Meta() (*BookmarkMeta, error) {
 	}, nil
 }
 
+func (adapter *browserAdapter) Name(tr forms.Translator) string {
+	return tr.Gettext("Browser Bookmarks")
+}
+
 func (adapter *browserAdapter) Form() forms.Binder {
 	return newMultipartForm()
 }

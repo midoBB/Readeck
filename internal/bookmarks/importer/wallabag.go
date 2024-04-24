@@ -118,6 +118,10 @@ func (wa *wallabagArticle) Resources() []tasks.MultipartResource {
 	}
 }
 
+func (adapter *wallabagAdapter) Name(_ forms.Translator) string {
+	return "Wallabag"
+}
+
 func (adapter *wallabagAdapter) Form() forms.Binder {
 	return forms.Must(
 		forms.NewTextField("url",

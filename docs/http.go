@@ -21,6 +21,7 @@ import (
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/locales"
 	"codeberg.org/readeck/readeck/pkg/csp"
 )
 
@@ -154,12 +155,19 @@ func (h *helpHandlers) serveDocument(w http.ResponseWriter, r *http.Request) {
 	repl.WriteString(buf, contents.String())
 
 	section, tag := h.getSection(r)
-	h.srv.RenderTemplate(w, r, http.StatusOK, "docs/index", server.TC{
+	tr := locales.LoadTranslation(tag)
+	ctx := server.TC{
 		"TOC":      section.TOC,
 		"Language": tag,
 		"Title":    f.Title,
 		"HTML":     buf,
+	}
+	ctx.SetBreadcrumbs([][2]string{
+		{tr.Gettext("Documentation"), h.srv.AbsoluteURL(r, "/docs", tag, "/").String()},
+		{f.Title},
 	})
+
+	h.srv.RenderTemplate(w, r, http.StatusOK, "docs/index", ctx)
 }
 
 func (h *helpHandlers) serveStatic(w http.ResponseWriter, r *http.Request) {
@@ -207,7 +215,8 @@ func (h *helpHandlers) serveAbout(w http.ResponseWriter, r *http.Request) {
 	})
 
 	section, tag := h.getSection(r)
-	h.srv.RenderTemplate(w, r, http.StatusOK, "docs/about", server.TC{
+	tr := locales.LoadTranslation(tag)
+	ctx := server.TC{
 		"TOC":         section.TOC,
 		"Language":    tag,
 		"Version":     configs.Version(),
@@ -217,7 +226,13 @@ func (h *helpHandlers) serveAbout(w http.ResponseWriter, r *http.Request) {
 		"Arch":        runtime.GOARCH,
 		"GoVersion":   runtime.Version(),
 		"DBConnecter": db.Driver().Name(),
+	}
+	ctx.SetBreadcrumbs([][2]string{
+		{tr.Gettext("Documentation"), h.srv.AbsoluteURL(r, "/docs", tag, "/").String()},
+		{tr.Gettext("About Readeck")},
 	})
+
+	h.srv.RenderTemplate(w, r, http.StatusOK, "docs/about", ctx)
 }
 
 func (h *helpHandlers) serveAPISchema(w http.ResponseWriter, r *http.Request) {
@@ -246,7 +261,14 @@ func (h *helpHandlers) serveAPIDocs(w http.ResponseWriter, r *http.Request) {
 	policy.Set("style-src", csp.ReportSample, csp.Self, csp.UnsafeInline)
 	policy.Write(w.Header())
 
-	h.srv.RenderTemplate(w, r, http.StatusOK, "docs/api-docs", server.TC{
+	tr := h.srv.Locale(r)
+	ctx := server.TC{
 		"Schema": h.srv.AbsoluteURL(r, "/docs/api.json"),
+	}
+	ctx.SetBreadcrumbs([][2]string{
+		{tr.Gettext("Documentation"), h.srv.AbsoluteURL(r, "/docs", tr.Tag.String(), "/").String()},
+		{"API"},
 	})
+
+	h.srv.RenderTemplate(w, r, http.StatusOK, "docs/api-docs", ctx)
 }

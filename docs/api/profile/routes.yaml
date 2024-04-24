@@ -32,6 +32,13 @@ auth:
           schema:
             $ref: "#/components/schemas/authenticationResult"
 
+    "403":
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/message"
+
 # GET /profile
 profile:
   summary: User Profile

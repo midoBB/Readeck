@@ -33,6 +33,7 @@ SPDX-License-Identifier: AGPL-3.0-only
      schema-description-expanded="true"
      default-schema-tab="schema"
     >
+      {{ yield breadcrumbs() }}
     </rapi-doc>
     <script nonce="{{ cspNonce }}">
       // Add the X-CSRF-Token header when no token is sent with the request.

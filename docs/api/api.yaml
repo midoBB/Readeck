@@ -96,7 +96,6 @@ paths:
       tags: [user profile]
       $merge:
         - "traits.yaml#.authenticated"
-        - "traits.yaml#.created"
         - "profile/routes.yaml#.profile"
 
   /bookmarks:

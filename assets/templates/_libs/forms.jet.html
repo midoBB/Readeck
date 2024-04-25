@@ -33,7 +33,7 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{- if required }} <span class="sr-only">{{ gettext("Required") }}</span>{{- end -}}
       </label>
     {{- end }}
-    <div class="flex-grow" {{ controlAttrs }}>
+    <div class="flex-grow min-w-0" {{ controlAttrs }}>
       {{ yield content }}
       {{ if field.Errors }}
         <ul class="mt-1 list-disc list-inside text-red-800">
@@ -245,13 +245,13 @@ SPDX-License-Identifier: AGPL-3.0-only
       "data-dropzone-focus-class", "bg-primary-100",
     ),
   ) content }}
-    <p class="no-js:hidden border-2 border-primary border-dashed rounded px-4 py-6 cursor-pointer flex items-center gap-1"
-      tabindex="0"
-      data-dropzone-target="zone"
-      data-action="click->dropzone#select:prevent keydown.enter->dropzone#select:self keydown.space->dropzone#select:self">
-      <span data-dropzone-target="placeholder">{{ gettext("Select or drop file") }}</span>
-      <span data-dropzone-target="fileinfo"></span>
-      <button class="hidden ml-auto text-btn-danger hf:text-btn-danger-hover"
+    <p class="no-js:hidden border-2 border-primary border-dashed rounded px-4 py-6 flex items-center justify-between gap-3"
+      data-dropzone-target="zone">
+      <button type="button" class="mx-auto link"
+       data-dropzone-target="placeholder"
+       data-action="click->dropzone#select">{{ gettext("Select or drop file") }}</button>
+      <span class="max-w-full wrap-anywhere font-semibold" data-dropzone-target="fileinfo"></span>
+      <button type="button" class="hidden text-btn-danger hf:text-btn-danger-hover"
        data-dropzone-target="clearbtn" data-action="dropzone#clear:stop:prevent">
         {{- gettext("remove") -}}
       </button>

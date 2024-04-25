@@ -15,6 +15,7 @@ export default class extends Controller {
       return
     }
 
+    this.input.removeAttribute("required")
     this.actions = [
       [this.input, "change", () => this.setFileInfo()],
       [this.element, "dragenter", (e) => this.enter(e)],
@@ -45,6 +46,10 @@ export default class extends Controller {
   }
 
   setFileInfo() {
+    this.zoneTargets.forEach((e) => {
+      e.classList.remove(this.focusClass)
+    })
+
     const files = this.input.files
     if (files.length == 1) {
       this.placeholderTargets.forEach((e) => e.classList.add(this.hiddenClass))
@@ -83,7 +88,6 @@ export default class extends Controller {
    */
   enter(evt) {
     evt.preventDefault()
-    console.log(evt)
     this.zoneTargets.forEach((e) => {
       e.classList.add(this.focusClass)
     })

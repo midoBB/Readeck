@@ -30,9 +30,12 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   {{- yield fileDropField(
     field=.Form.Get("data"),
+    required=true,
     label=gettext("File"),
     class="field-h",
   ) -}}
+
+  {{ include "./options" }}
 
   <p class="btn-block">
     <button class="btn-primary" type="submit">{{ gettext("Import Bookmarks") }}</button>

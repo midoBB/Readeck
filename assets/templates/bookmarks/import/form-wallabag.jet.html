@@ -29,6 +29,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   {{ yield textField(
     field=.Form.Get("url"),
+    required=true,
     label=gettext("Wallabag URL"),
     class="field-h",
     help=gettext("URL of your Wallabag homepage")
@@ -36,27 +37,33 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   {{ yield textField(
     field=.Form.Get("username"),
+    required=true,
     label=gettext("Username"),
     class="field-h",
   ) }}
 
   {{ yield passwordField(
     field=.Form.Get("password"),
+    required=true,
     label=gettext("Password"),
     class="field-h",
   ) }}
 
   {{ yield textField(
     field=.Form.Get("client_id"),
+    required=true,
     label=gettext("Client ID"),
     class="field-h",
   ) }}
 
   {{ yield textField(
     field=.Form.Get("client_secret"),
+    required=true,
     label=gettext("Client Secret"),
     class="field-h",
   ) }}
+
+  {{ include "./options" }}
 
   <p class="btn-block">
     <button class="btn-primary" type="submit">{{ gettext("Import Bookmarks") }}</button>

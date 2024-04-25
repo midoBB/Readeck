@@ -30,6 +30,8 @@ func (api *apiRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 		api.srv.TextMessage(w, r, http.StatusNotFound, fmt.Sprintf(`Import from "%s" does not exist.`, source))
 		return
 	}
+	options := importer.NewOptionForm()
+	forms.Bind(options, r)
 
 	f := adapter.Form()
 	forms.Bind(f, r)
@@ -53,13 +55,20 @@ func (api *apiRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	ignoreDuplicates := true
+	if !options.Get("ignore_duplicates").IsNil() {
+		ignoreDuplicates = options.Get("ignore_duplicates").Value().(bool)
+	}
+
 	// Create the import task
 	trackID := importer.GetTrackID(api.srv.GetReqID(r))
 	err = importer.ImportBookmarksTask.Run(trackID, importer.ImportParams{
-		Source:    source,
-		Data:      data,
-		UserID:    auth.GetRequestUser(r).ID,
-		RequestID: api.srv.GetReqID(r),
+		Source:          source,
+		Data:            data,
+		UserID:          auth.GetRequestUser(r).ID,
+		RequestID:       api.srv.GetReqID(r),
+		AllowDuplicates: !ignoreDuplicates,
+		Label:           options.Get("label").String(),
 	})
 	if err != nil {
 		api.srv.Error(w, r, err)

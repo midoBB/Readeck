@@ -12,6 +12,37 @@ import (
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
+// OptionForm is the form containing common import options.
+type OptionForm struct {
+	*forms.Form
+}
+
+// NewOptionForm returns a new OptionForm.
+func NewOptionForm() *OptionForm {
+	f := &OptionForm{
+		forms.Must(
+			forms.NewTextField("label", forms.Trim),
+			forms.NewBooleanField("ignore_duplicates", forms.RequiredOrNil),
+		),
+	}
+	f.Get("ignore_duplicates").Set(true)
+	return f
+}
+
+// BindAny implements forms.AnyBinder.
+func (f *OptionForm) BindAny(contentType string, r *http.Request) {
+	if contentType == "multipart/form-data" {
+		err := r.ParseMultipartForm(10 << 20) // 10MB
+		if err != nil {
+			return
+		}
+		f.Get("label").Set(r.FormValue("label"))
+		for _, v := range r.Form["ignore_duplicates"] {
+			_ = f.Get("ignore_duplicates").UnmarshalText([]byte(v))
+		}
+	}
+}
+
 // multipartForm wraps a form and implements forms.AnyBinder
 // to handler multipart and text/* content types.
 type multipartForm struct {

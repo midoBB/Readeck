@@ -8,6 +8,12 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 {{- block title() -}}{{ gettext("Import your Bookmarks") }}{{- end -}}
 
+{{- block head() -}}
+  {{- if isset(.TrackID) && (.Running || .Progress.Status == 0) -}}
+    <noscript><meta http-equiv="refresh" content="5"></noscript>
+  {{- end -}}
+{{- end -}}
+
 {{- block mainContent() -}}
 <h1 class="title text-h2">{{ yield title() }}</h1>
 

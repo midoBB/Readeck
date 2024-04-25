@@ -21,15 +21,21 @@ func (h *viewsRouter) bookmarksImportMain(w http.ResponseWriter, r *http.Request
 	trackID := chi.URLParam(r, "trackID")
 
 	ctx := server.TC{}
-	ctx.SetBreadcrumbs([][2]string{
-		{"Bookmarks", h.srv.AbsoluteURL(r, "/bookmarks").String()},
-		{tr.Gettext("Import")},
-	})
 
 	if trackID != "" {
+		ctx.SetBreadcrumbs([][2]string{
+			{"Bookmarks", h.srv.AbsoluteURL(r, "/bookmarks").String()},
+			{tr.Gettext("Import"), h.srv.AbsoluteURL(r, "/bookmarks/import").String()},
+			{tr.Gettext("Progress")},
+		})
 		ctx["TrackID"] = trackID
 		ctx["Running"] = importer.ImportBookmarksTask.IsRunning(trackID)
 		ctx["Progress"], _ = importer.NewImportProgress(trackID)
+	} else {
+		ctx.SetBreadcrumbs([][2]string{
+			{"Bookmarks", h.srv.AbsoluteURL(r, "/bookmarks").String()},
+			{tr.Gettext("Import")},
+		})
 	}
 
 	h.srv.RenderTemplate(w, r, 200, "/bookmarks/import/index", ctx)
@@ -49,14 +55,18 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	options := importer.NewOptionForm()
+
 	f := adapter.Form()
 	if f, ok := f.(forms.Localized); ok {
 		f.SetLocale(h.srv.Locale(r))
 	}
 
 	templateName := fmt.Sprintf("/bookmarks/import/form-%s", source)
-	ctx := server.TC{}
-	ctx["Form"] = f
+	ctx := server.TC{
+		"Form":    f,
+		"Options": options,
+	}
 	ctx.SetBreadcrumbs([][2]string{
 		{"Bookmarks", h.srv.AbsoluteURL(r, "/bookmarks").String()},
 		{tr.Gettext("Import"), h.srv.AbsoluteURL(r, "/bookmarks/import").String()},
@@ -65,6 +75,7 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == http.MethodPost {
 		forms.Bind(f, r)
+		forms.Bind(options, r)
 
 		var data []byte
 		var err error
@@ -81,13 +92,20 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		ignoreDuplicates := true
+		if !options.Get("ignore_duplicates").IsNil() {
+			ignoreDuplicates = options.Get("ignore_duplicates").Value().(bool)
+		}
+
 		// Create the import task
 		trackID := importer.GetTrackID(h.srv.GetReqID(r))
 		err = importer.ImportBookmarksTask.Run(trackID, importer.ImportParams{
-			Source:    source,
-			Data:      data,
-			UserID:    auth.GetRequestUser(r).ID,
-			RequestID: h.srv.GetReqID(r),
+			Source:          source,
+			Data:            data,
+			UserID:          auth.GetRequestUser(r).ID,
+			RequestID:       h.srv.GetReqID(r),
+			AllowDuplicates: !ignoreDuplicates,
+			Label:           options.Get("label").String(),
 		})
 		if err != nil {
 			h.srv.Error(w, r, err)

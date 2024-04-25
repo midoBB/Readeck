@@ -93,6 +93,7 @@ type importer struct {
 	user            *users.User
 	requestID       string
 	allowDuplicates bool
+	label           string
 }
 
 type urlBookmarkItem string
@@ -160,6 +161,13 @@ func (imp importer) Import(f func([]int)) {
 		ids = append(ids, b.ID)
 		f(ids)
 	}
+
+	if len(ids) == 0 {
+		if err := clearStoreProgressList(GetTrackID(imp.requestID)); err != nil {
+			imp.log.WithError(err).Error("clearing progress")
+		}
+		imp.log.Info("import finished")
+	}
 }
 
 func (imp importer) createBookmark(next func() (BookmarkImporter, error)) (*bookmarks.Bookmark, error) {
@@ -188,7 +196,10 @@ func (imp importer) createBookmark(next func() (BookmarkImporter, error)) (*book
 	if !imp.allowDuplicates {
 		count, err := bookmarks.Bookmarks.Query().Where(
 			goqu.C("user_id").Eq(imp.user.ID),
-			goqu.C("url").Eq(uri.String()),
+			goqu.Or(
+				goqu.C("url").Eq(uri.String()),
+				goqu.C("initial_url").Eq(uri.String()),
+			),
 		).Prepared(true).Count()
 		if err != nil {
 			return nil, err
@@ -196,10 +207,6 @@ func (imp importer) createBookmark(next func() (BookmarkImporter, error)) (*book
 		if count > 0 {
 			return nil, fmt.Errorf("already exists, %w", ErrIgnore)
 		}
-	}
-
-	if t, ok := item.(BookmarkResourceProvider); ok {
-		t.Resources()
 	}
 
 	var created time.Time
@@ -225,6 +232,10 @@ func (imp importer) createBookmark(next func() (BookmarkImporter, error)) (*book
 		b.IsArchived = bm.IsArchived
 		b.IsMarked = bm.IsMarked
 		created = bm.Created
+	}
+
+	if imp.label != "" {
+		b.Labels = append(b.Labels, imp.label)
 	}
 
 	if err = bookmarks.Bookmarks.Create(b); err != nil {

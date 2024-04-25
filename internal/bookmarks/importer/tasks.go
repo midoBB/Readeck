@@ -33,6 +33,7 @@ type ImportParams struct {
 	UserID          int    `json:"user_id"`
 	RequestID       string `json:"request_id"`
 	AllowDuplicates bool   `json:"allow_duplicates"`
+	Label           string `json:"label"`
 }
 
 func init() {
@@ -86,6 +87,7 @@ func importBookmarksHandler(data interface{}) {
 		worker:          worker,
 		requestID:       params.RequestID,
 		allowDuplicates: params.AllowDuplicates,
+		label:           params.Label,
 	}
 
 	if imp.user, err = users.Users.GetOne(goqu.C("id").Eq(params.UserID)); err != nil {

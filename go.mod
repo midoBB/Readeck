@@ -9,11 +9,11 @@ require (
 	github.com/antchfx/xmlquery v1.4.0
 	github.com/anthonynsimon/bild v0.13.0
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
-	github.com/casbin/casbin/v2 v2.87.0
+	github.com/casbin/casbin/v2 v2.87.1
 	github.com/cristalhq/acmd v0.11.2
 	github.com/cristalhq/jwt/v3 v3.1.0
 	github.com/dop251/goja v0.0.0-20240220182346-e401ed450204
-	github.com/dop251/goja_nodejs v0.0.0-20240221231712-27eeffc9c235
+	github.com/dop251/goja_nodejs v0.0.0-20240418154818-2aae10d4cbcf
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/fatih/color v1.16.0
 	github.com/gabriel-vasile/mimetype v1.4.3
@@ -30,9 +30,9 @@ require (
 	github.com/jackc/pgx/v5 v5.5.5
 	github.com/jarcoal/httpmock v1.3.1
 	github.com/kinbiko/jsonassert v1.1.1
-	github.com/klauspost/compress v1.17.7
+	github.com/klauspost/compress v1.17.8
 	github.com/komkom/toml v0.1.2
-	github.com/leonelquinteros/gotext v1.5.2
+	github.com/leonelquinteros/gotext v1.6.0
 	github.com/lithammer/shortuuid/v4 v4.0.0
 	github.com/mangoumbrella/goldmark-figure v1.0.0
 	github.com/mattn/go-sqlite3 v1.14.22
@@ -40,7 +40,7 @@ require (
 	github.com/sirupsen/logrus v1.9.3
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/stretchr/testify v1.9.0
-	github.com/tdewolff/parse/v2 v2.7.12
+	github.com/tdewolff/parse/v2 v2.7.13
 	github.com/xhit/go-simple-mail/v2 v2.16.0
 	github.com/yuin/goldmark v1.7.0
 	github.com/yuin/goldmark-meta v1.1.0
@@ -48,7 +48,7 @@ require (
 	golang.org/x/net v0.24.0
 	golang.org/x/sync v0.7.0
 	golang.org/x/text v0.14.0
-	modernc.org/sqlite v1.29.5
+	modernc.org/sqlite v1.29.8
 )
 
 require (
@@ -67,7 +67,7 @@ require (
 	github.com/go-test/deep v1.1.0 // indirect
 	github.com/gogs/chardet v0.0.0-20211120154057-b7413eaefb8f // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
-	github.com/google/pprof v0.0.0-20240402174815-29b9bb013b0f // indirect
+	github.com/google/pprof v0.0.0-20240424215950-a892ee059fd6 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
 	github.com/itchyny/timefmt-go v0.1.5 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
@@ -80,8 +80,8 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_model v0.6.1 // indirect
-	github.com/prometheus/common v0.52.2 // indirect
-	github.com/prometheus/procfs v0.13.0 // indirect
+	github.com/prometheus/common v0.53.0 // indirect
+	github.com/prometheus/procfs v0.14.0 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/toorop/go-dkim v0.0.0-20240103092955-90b7d1423f92 // indirect
 	golang.org/x/crypto v0.22.0 // indirect
@@ -93,7 +93,7 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	modernc.org/gc/v3 v3.0.0-20240304020402-f0dba7c97c2b // indirect
-	modernc.org/libc v1.49.2 // indirect
+	modernc.org/libc v1.50.2 // indirect
 	modernc.org/mathutil v1.6.0 // indirect
 	modernc.org/memory v1.8.0 // indirect
 	modernc.org/strutil v1.2.0 // indirect

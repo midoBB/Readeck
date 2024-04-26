@@ -230,10 +230,11 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- end -}}
 
 {{- block fileDropField(
-  field, label, class, required=false,
+  field, name, label, class, required=false,
 ) -}}
   {{ yield textField(
     field=field,
+    name=name,
     type="file",
     label=label,
     required=required,

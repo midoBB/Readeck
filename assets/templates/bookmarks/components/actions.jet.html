@@ -33,7 +33,7 @@ SPDX-License-Identifier: AGPL-3.0-only
         title="{{ textFav }}">
           {{ yield icon(name=(.IsMarked ? "o-favorite-on" : "o-favorite-off")) }}
         </button>
-        <button class="btn-outlined-primary leading-none border-x-0 h-9" name="is_archived" value="{{ .IsArchived ? 0 : 1 }}"
+        <button class="btn-outlined-primary leading-none rounded-none border-x-0 h-9" name="is_archived" value="{{ .IsArchived ? 0 : 1 }}"
         title="{{ textArch }}">
           {{ yield icon(name=(.IsArchived ? "o-archive-on" : "o-archive-off")) }}
         </button>

@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 {{- block title() -}}User Interface{{- end -}}
 
-{{ block mainContent() }}<div class="max-w-2xl">
+{{ block mainContent() }}<div class="max-w-std">
 
 <h1 class="title text-h2">User Interface</h1>
 
@@ -137,6 +137,13 @@ Removable message
 ) content }}
   <input type="file" name="file" id="file">
 {{ end }}
+
+{{ yield fileDropField(
+  field=.Form.Get("text"),
+  name="dropzone",
+  label="Drop Zone Field",
+  class="field-h",
+) }}
 
 <hr class="my-8">
 

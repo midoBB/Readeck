@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-24 05:24+0000\n"
+"POT-Creation-Date: 2024-04-26 05:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -619,6 +619,7 @@ msgid "Site"
 msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
+#: assets/templates/bookmarks/import/options.jet.html
 #: assets/templates/bookmarks/label.jet.html
 msgid "Label"
 msgstr ""
@@ -842,6 +843,18 @@ msgid ""
 "  "
 msgstr ""
 
+#: assets/templates/bookmarks/import/options.jet.html
+msgid "Options"
+msgstr ""
+
+#: assets/templates/bookmarks/import/options.jet.html
+msgid "A label to add to all imported bookmarks"
+msgstr ""
+
+#: assets/templates/bookmarks/import/options.jet.html
+msgid "Ignore links already in your bookmarks"
+msgstr ""
+
 #: assets/templates/bookmarks/import/progress.jet.html
 msgid "Import operation will launch momentarily."
 msgstr ""
@@ -963,6 +976,7 @@ msgid ""
 msgstr ""
 
 #: assets/templates/docs/about.jet.html assets/templates/docs/base.jet.html
+#: docs/http.go
 msgid "About Readeck"
 msgstr ""
 
@@ -1332,6 +1346,10 @@ msgstr ""
 msgid "This token will be removed in a few seconds."
 msgstr ""
 
+#: docs/http.go
+msgid "Documentation"
+msgstr ""
+
 #: internal/admin/views.go
 msgid "User created."
 msgstr ""
@@ -1452,6 +1470,10 @@ msgstr ""
 
 #: internal/bookmarks/routes/views_collections.go
 msgid "Collection updated."
+msgstr ""
+
+#: internal/bookmarks/routes/views_import.go
+msgid "Progress"
 msgstr ""
 
 #: internal/opds/http.go
@@ -1736,3 +1758,4 @@ msgstr ""
 msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr ""
+

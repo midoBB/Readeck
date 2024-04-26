@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-04-24 05:24+0000\n"
+"POT-Creation-Date: 2024-04-26 05:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -71,11 +71,11 @@ msgctxt "word"
 msgid "or"
 msgstr ""
 
-#: assets/templates/_libs/forms.jet.html:251
+#: assets/templates/_libs/forms.jet.html:253
 msgid "Select or drop file"
 msgstr ""
 
-#: assets/templates/_libs/forms.jet.html:255
+#: assets/templates/_libs/forms.jet.html:257
 msgid "remove"
 msgstr ""
 
@@ -117,10 +117,10 @@ msgstr ""
 #: assets/templates/admin/user_list.jet.html:44
 #: assets/templates/bookmarks/collection.jet.html:23
 #: assets/templates/bookmarks/components/card.jet.html:88
-#: assets/templates/bookmarks/import/form-browser.jet.html:39
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:47
-#: assets/templates/bookmarks/import/form-text.jet.html:33
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:63
+#: assets/templates/bookmarks/import/form-browser.jet.html:42
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
+#: assets/templates/bookmarks/import/form-text.jet.html:36
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:70
 #: assets/templates/bookmarks/label.jet.html:46
 #: assets/templates/profile/credential.jet.html:20
 #: assets/templates/profile/credential_list.jet.html:57
@@ -132,7 +132,7 @@ msgstr ""
 #: assets/templates/admin/user.jet.html:31
 #: assets/templates/admin/user_create.jet.html:20
 #: assets/templates/auth/onboarding.jet.html:24
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:39
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:41
 #: assets/templates/profile/index.jet.html:20
 msgid "Username"
 msgstr ""
@@ -153,7 +153,7 @@ msgstr ""
 #: assets/templates/admin/user_create.jet.html:36
 #: assets/templates/auth/login.jet.html:30
 #: assets/templates/auth/onboarding.jet.html:29
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:45
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:48
 #: assets/templates/profile/base.jet.html:17 internal/profile/views.go:132
 msgid "Password"
 msgstr ""
@@ -342,7 +342,7 @@ msgid "Bookmarks"
 msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:24
-#: internal/bookmarks/routes/forms_bookmarks.go:397
+#: internal/bookmarks/routes/forms_bookmarks.go:398
 msgid "All"
 msgstr ""
 
@@ -703,7 +703,7 @@ msgid "Links"
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:30
+#: assets/templates/bookmarks/import/index.jet.html:36
 msgid "Import your Browser's Bookmarks"
 msgstr ""
 
@@ -724,21 +724,21 @@ msgstr ""
 msgid "Instructions for Chrome"
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-browser.jet.html:33
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:41
-#: assets/templates/bookmarks/import/form-text.jet.html:27
+#: assets/templates/bookmarks/import/form-browser.jet.html:34
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:42
+#: assets/templates/bookmarks/import/form-text.jet.html:28
 msgid "File"
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-browser.jet.html:38
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:46
-#: assets/templates/bookmarks/import/form-text.jet.html:32
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:62
+#: assets/templates/bookmarks/import/form-browser.jet.html:41
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:49
+#: assets/templates/bookmarks/import/form-text.jet.html:35
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:69
 msgid "Import Bookmarks"
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:34
+#: assets/templates/bookmarks/import/index.jet.html:40
 msgid "Import your Pocket Articles"
 msgstr ""
 
@@ -771,7 +771,7 @@ msgid ""
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:26
+#: assets/templates/bookmarks/import/index.jet.html:32
 msgid "Import Links from a Text File"
 msgstr ""
 
@@ -785,7 +785,7 @@ msgid ""
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:37
+#: assets/templates/bookmarks/import/index.jet.html:43
 msgid "Import your Wallabag Articles"
 msgstr ""
 
@@ -807,19 +807,19 @@ msgid ""
 "  "
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:32
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:33
 msgid "Wallabag URL"
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:34
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:35
 msgid "URL of your Wallabag homepage"
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:51
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:55
 msgid "Client ID"
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:57
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:62
 msgid "Client Secret"
 msgstr ""
 
@@ -827,12 +827,24 @@ msgstr ""
 msgid "Import your Bookmarks"
 msgstr ""
 
-#: assets/templates/bookmarks/import/index.jet.html:19
+#: assets/templates/bookmarks/import/index.jet.html:25
 msgid ""
 "\n"
 "    Here you can import your existing bookmark collection from various "
 "sources into Readeck.\n"
 "  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/options.jet.html:7
+msgid "Options"
+msgstr ""
+
+#: assets/templates/bookmarks/import/options.jet.html:12
+msgid "A label to add to all imported bookmarks"
+msgstr ""
+
+#: assets/templates/bookmarks/import/options.jet.html:16
+msgid "Ignore links already in your bookmarks"
 msgstr ""
 
 #: assets/templates/bookmarks/import/progress.jet.html:15
@@ -865,8 +877,9 @@ msgid "Save a new link"
 msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:31
-#: internal/bookmarks/routes/views_import.go:26
-#: internal/bookmarks/routes/views_import.go:62
+#: internal/bookmarks/routes/views_import.go:28
+#: internal/bookmarks/routes/views_import.go:37
+#: internal/bookmarks/routes/views_import.go:72
 msgid "Import"
 msgstr ""
 
@@ -938,6 +951,7 @@ msgid "Create a collection"
 msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:30
+#: assets/templates/bookmarks/import/options.jet.html:10
 #: assets/templates/bookmarks/label.jet.html:9
 msgid "Label"
 msgstr ""
@@ -1070,7 +1084,7 @@ msgid "Readeck Help"
 msgstr ""
 
 #: assets/templates/docs/about.jet.html:8
-#: assets/templates/docs/base.jet.html:27
+#: assets/templates/docs/base.jet.html:27 docs/http.go:232
 msgid "About Readeck"
 msgstr ""
 
@@ -1350,6 +1364,10 @@ msgstr ""
 msgid "This token will be removed in a few seconds."
 msgstr ""
 
+#: docs/http.go:166 docs/http.go:231 docs/http.go:269
+msgid "Documentation"
+msgstr ""
+
 #: internal/admin/views.go:80
 msgid "User created."
 msgstr ""
@@ -1393,11 +1411,11 @@ msgstr ""
 msgid "Empty or invalid import file"
 msgstr ""
 
-#: internal/bookmarks/importer/forms.go:72 pkg/forms/validators.go:14
+#: internal/bookmarks/importer/forms.go:103 pkg/forms/validators.go:14
 msgid "field is required"
 msgstr ""
 
-#: internal/bookmarks/importer/forms.go:79
+#: internal/bookmarks/importer/forms.go:110
 msgid "Invalid Content-Type"
 msgstr ""
 
@@ -1413,15 +1431,15 @@ msgstr ""
 msgid "No access token found"
 msgstr ""
 
-#: internal/bookmarks/routes/forms_bookmarks.go:398
+#: internal/bookmarks/routes/forms_bookmarks.go:399
 msgid "Article"
 msgstr ""
 
-#: internal/bookmarks/routes/forms_bookmarks.go:399
+#: internal/bookmarks/routes/forms_bookmarks.go:400
 msgid "Picture"
 msgstr ""
 
-#: internal/bookmarks/routes/forms_bookmarks.go:400
+#: internal/bookmarks/routes/forms_bookmarks.go:401
 msgid "Video"
 msgstr ""
 
@@ -1470,6 +1488,10 @@ msgstr ""
 
 #: internal/bookmarks/routes/views_collections.go:78
 msgid "Collection updated."
+msgstr ""
+
+#: internal/bookmarks/routes/views_import.go:29
+msgid "Progress"
 msgstr ""
 
 #: internal/opds/http.go:70

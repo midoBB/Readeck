@@ -968,7 +968,7 @@ msgid ""
 "saving."
 msgstr ""
 "Vous n'avez aucun bookmark pour le moment<br>\n"
-"Copiez un lien dans le champs au dessus pour commencer."
+"Copiez un lien dans le champ au dessus pour commencer."
 
 #: assets/templates/bookmarks/index.jet.html
 #, python-format

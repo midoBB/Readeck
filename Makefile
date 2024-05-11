@@ -36,6 +36,11 @@ SITECONFIG_SRC=./ftr-site-config
 SITECONFIG_DEST=pkg/extract/contentscripts/assets/site-config
 
 
+FILE_COMPOSE_PKG ?= codeberg.org/readeck/file-compose@latest
+GOLANGCI_PKG ?= github.com/golangci/golangci-lint/cmd/golangci-lint@v1.58.1
+AIR_PKG ?= github.com/cosmtrek/air@v1.52.0
+SLOC_PKG ?= github.com/boyter/scc/v3@v3.3.3
+
 # -------------------------------------------------------------------
 # Base targets
 # -------------------------------------------------------------------
@@ -81,7 +86,7 @@ build:
 # Build the documentation
 .PHONY: docs-build
 docs-build:
-	$(GO) run codeberg.org/readeck/file-compose@latest -format json docs/api/api.yaml docs/assets/api.json
+	$(GO) run $(FILE_COMPOSE_PKG) -format json docs/api/api.yaml docs/assets/api.json
 	$(GO) run ./tools/docs docs/src docs/assets
 
 # Build the frontend assets
@@ -121,13 +126,13 @@ list:
 lint: docs-build
 	test -f assets/www/manifest.json || echo "{}" > assets/www/manifest.json
 	CGO_ENABLED=0 \
-	$(GO) run github.com/golangci/golangci-lint/cmd/golangci-lint@v1.56.2 run
+	$(GO) run $(GOLANGCI_PKG) run
 
 # Single lines of code
 .PHONY: sloc
 sloc:
 	CGO_ENABLED=0 \
-	$(GO) run github.com/boyter/scc/v3@latest -i go,js,sass,html,md
+	$(GO) run $(SLOC_PKG) -i go,js,sass,html,md
 
 
 # Update site-config folder with definitions from
@@ -161,7 +166,7 @@ dev:
 serve:
 	# modd -f modd.conf
 	CGO_ENABLED=0 \
-	$(GO) run github.com/cosmtrek/air@latest \
+	$(GO) run $(AIR_PKG) \
 		--tmp_dir "dist" \
 		--build.log "" \
 		--build.cmd "${MAKE} DATE= build" \
@@ -177,7 +182,7 @@ serve:
 .PHONY: docs-watch
 docs-watch:
 	CGO_ENABLED=0 \
-	$(GO) run github.com/cosmtrek/air@latest \
+	$(GO) run $(AIR_PKG) \
 		--tmp_dir "dist" \
 		--build.log "" \
 		--build.cmd "${MAKE} docs-build" \

@@ -29,7 +29,8 @@ run:
   build-tags: []
 
 output:
-  format: tab
+  formats:
+    - format: tab
   sort-results: true
 
 issues:

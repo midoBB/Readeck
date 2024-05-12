@@ -28,6 +28,7 @@ var config = {
   content: [
     "src/**/*.js",
     "../assets/templates/**/*.jet.html",
+    "../internal/auth/users/styles.go",
   ],
   darkMode: "class",
   theme: {

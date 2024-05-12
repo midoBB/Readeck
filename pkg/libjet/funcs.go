@@ -13,8 +13,9 @@ import (
 	"strings"
 	"time"
 
-	"codeberg.org/readeck/readeck/pkg/utils"
 	"github.com/CloudyKit/jet/v6"
+
+	"codeberg.org/readeck/readeck/pkg/utils"
 )
 
 var strType = reflect.TypeOf("")

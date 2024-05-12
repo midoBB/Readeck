@@ -48,10 +48,16 @@ SPDX-License-Identifier: AGPL-3.0-only
       title="remove highlight(s)">{{ yield icon(name="o-trash") }} {{ gettext("Remove Highlight(s)") }}</button>
   </div>
 
-  <div class="prose font-lora leading-normal text-lg overflow-x-auto"
+  <div class="
+    prose
+    {{ user.Settings.ReaderSettings.FontClass() }}
+    {{ user.Settings.ReaderSettings.LineHeightClass() }}
+    {{ user.Settings.ReaderSettings.FontSizeClass() }}
+    overflow-x-auto
+    "
     lang="{{ .Item.Lang }}"
-    dir="{{ default(.Item.TextDirection, "ltr") }}"
-    data-controller="reader"
+    dir="{{ default(.Item.TextDirection, `ltr`) }}"
+    data-controller="styler"
     data-annotations-target="root">
     {{- unsafeWrite(.HTML) -}}
   </div>

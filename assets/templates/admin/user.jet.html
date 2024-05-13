@@ -51,7 +51,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   <p class="btn-block">
     <button class="btn btn-primary" type="submit">{{ gettext("Save") }}</button>
     {{- if .User.ID != user.ID && !.User.IsDeleted -}}
-      <button class="ml-auto btn btn-danger" type="submit"
+      <button class="ml-auto btn-outlined btn-danger" type="submit"
         formaction="{{ urlFor(`.`, `delete`) }}">{{ gettext("Delete this user") }}</button>
     {{- end -}}
   </p>

@@ -11,7 +11,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 {{ block mainContent() -}}
 
-
 <turbo-frame id="bookmark-list"
  data-controller="turbo-refresh"
  data-turbo-refresh-interval-value="10"
@@ -39,7 +38,7 @@ SPDX-License-Identifier: AGPL-3.0-only
           <input type="text" name="url" id="create-url" size="15"
            class="leading-tight w-full rounded-full px-4 py-2 bg-gray-light focus-visible:bg-gray-light text-gray-dark ring-0 ring-offset-0"
            value="{{ string(.Form.Get(`url`).String()) }}" placeholder="https://" />
-          <button type="submit" class="whitespace-nowrap btn-primary rounded-full pl-0.5 py-0 inline-flex gap-1 items-center leading-none">
+          <button type="submit" class="whitespace-nowrap btn btn-primary rounded-full pl-0.5 py-0 inline-flex gap-1 items-center leading-none">
             {{ yield icon(name="o-create", class="text-yellow-400 dark:text-yellow-600", svgClass="h-8 w-8") }}
             <span>{{ pgettext("button", "Save link") }}</span>
           </button>
@@ -87,7 +86,7 @@ SPDX-License-Identifier: AGPL-3.0-only
           Try Readeck's import tool.
         `) }}</p>
         <p class="flex justify-center">
-          <a class="btn-primary rounded-full p-4" href="{{ urlFor(`/bookmarks/import`) }}">
+          <a class="btn btn-primary rounded-full p-4" href="{{ urlFor(`/bookmarks/import`) }}">
             {{- yield icon(name="o-import") }}
             {{ gettext("Import links and articles") }}</a>
         </p>

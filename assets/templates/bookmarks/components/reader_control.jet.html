@@ -51,7 +51,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       data-styler-option-values-value="{{- user.Settings.ReaderSettings.FontSizes()|json() -}}"
     >
       {{- yield icon(name="o-font-size") -}} <span class="flex-grow">{{ gettext("Size") }}</span>
-      <button class="py-1.5 px-3 rounded-lg border"
+      <button class="btn-outlined py-1.5 w-9 rounded"
        data-action="styler-option#decreaseValue">
         {{- yield icon(name="o-minus") -}}
       </button>
@@ -61,7 +61,7 @@ SPDX-License-Identifier: AGPL-3.0-only
         data-action="styler-option:setValue->request#fetch"
         data-request-name-param="settings_reader_font_size"
       >
-      <button class="py-1.5 px-3 rounded-lg border"
+      <button class="btn-outlined py-1.5 w-9 rounded"
        data-action="styler-option#increaseValue">
         {{- yield icon(name="o-plus") -}}
       </button>
@@ -73,7 +73,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       data-styler-option-values-value="{{- user.Settings.ReaderSettings.LineHeights()|json() -}}"
     >
       {{- yield icon(name="o-line-height") -}} <span class="flex-grow">{{ gettext("Line height") }}</span>
-      <button class="py-1.5 px-3 rounded-lg border"
+      <button class="btn-outlined py-1.5 w-9 rounded"
        data-action="styler-option#decreaseValue">
         {{- yield icon(name="o-minus") -}}
       </button>
@@ -83,7 +83,7 @@ SPDX-License-Identifier: AGPL-3.0-only
        data-action="styler-option:setValue->request#fetch"
        data-request-name-param="settings_reader_line_height"
       >
-      <button class="py-1.5 px-3 rounded-lg border"
+      <button class="btn-outlined py-1.5 w-9 rounded"
        data-action="styler-option#increaseValue">
         {{- yield icon(name="o-plus") -}}
       </button>

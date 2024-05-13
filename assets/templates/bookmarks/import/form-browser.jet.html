@@ -38,8 +38,8 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{ include "./options" }}
 
   <p class="btn-block">
-    <button class="btn-primary" type="submit">{{ gettext("Import Bookmarks") }}</button>
-    <a class="ml-auto btn rounded" href="{{ urlFor(`/bookmarks/import`) }}">{{ gettext("Cancel") }}</a>
+    <button class="btn btn-primary" type="submit">{{ gettext("Import Bookmarks") }}</button>
+    <a class="ml-auto btn btn-default rounded" href="{{ urlFor(`/bookmarks/import`) }}">{{ gettext("Cancel") }}</a>
   </p>
 </form>
 {{- end -}}

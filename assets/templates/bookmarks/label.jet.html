@@ -31,7 +31,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   {{- if !.IsDeleted -}}
     <div>
-      <button class="btn-danger"
+      <button class="btn btn-danger"
       formaction="{{ url(.Label) }}/delete" formmethod="post"
       >{{ yield icon(name="o-trash") }} {{ gettext("Delete label") }}</button>
     </div>
@@ -43,7 +43,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{ yield csrfField() }}
   {{- yield message(type="info") content -}}
     {{ gettext("Label will be removed in a few seconds.") }}&nbsp;
-    <button class="btn-primary" name="cancel" value="1">{{ gettext("Cancel") }}</button>
+    <button class="btn btn-primary" name="cancel" value="1">{{ gettext("Cancel") }}</button>
   {{- end -}}
   </form>
 {{- end -}}

@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ block mainContent() }}
 <h1 class="title text-h2">{{ yield title() }}</h1>
 
-<p><a href="{{ urlFor(`.`, `add`)}}" class="btn-primary">{{ gettext("Add a new user") }}</a></p>
+<p><a href="{{ urlFor(`.`, `add`)}}" class="btn btn-primary">{{ gettext("Add a new user") }}</a></p>
 
 {{ if .Users }}
 {{ include "/_libs/pagination" .Pagination }}
@@ -41,7 +41,7 @@ SPDX-License-Identifier: AGPL-3.0-only
             {{ yield csrfField() }}
             <input type="hidden" name="cancel" value="1" />
             <button type="submit"
-            class="btn-primary whitespace-nowrap text-sm py-1 ml-2">{{ yield icon(name="o-undo") }} {{ gettext("Cancel") }}</button>
+            class="btn btn-primary whitespace-nowrap text-sm py-1 ml-2">{{ yield icon(name="o-undo") }} {{ gettext("Cancel") }}</button>
           </form>
         </div>
       {{- end -}}

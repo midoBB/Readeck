@@ -5,65 +5,75 @@
  */
 
 @layer components
-  .btn
-    --color-text: var(--color-btn-default-text)
-    --color-bg: var(--color-btn-default)
-    --color-bg-hover: var(--color-btn-default-hover)
+  :root
+    --btn-color: var(--color-gray-200)
+    --btn-color-hover: var(--color-gray-300)
+    --btn-color-invert: var(--color-gray-dark)
+    --btn-color-border: var(--color-gray-200)
 
+  .btn
     @apply transition-colors duration-200
     @apply inline-block leading-tight whitespace-nowrap cursor-pointer
     @apply rounded
+
     padding: theme("spacing.2")
-    padding: calc(theme("spacing.2") + 1px)
-    color: rgb(var(--color-text))
-    background-color: rgb(var(--color-bg))
+    padding: calc(theme("spacing.2") + 1px) theme("spacing.2")
+    color: rgb(var(--btn-color-invert))
+    background-color: rgb(var(--btn-color))
     background-image: linear-gradient(to top, rgba(0, 0, 0, 0.2) 1px, transparent 2px)
 
-    &:hover, &:focus
-      background-color: rgb(var(--color-bg-hover))
+    &:hover, &:focus-visible
+      background-color: rgb(var(--btn-color-hover))
 
     &:active
       background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 1px, transparent 2px)
-      background-color: rgb(var(--color-bg))
-
-  .btn-primary
-    @apply btn
-    --color-text: var(--color-btn-primary-text)
-    --color-bg: var(--color-btn-primary)
-    --color-bg-hover: var(--color-btn-primary-hover)
-
-  .btn-danger
-    @apply btn
-    --color-text: var(--color-btn-danger-text)
-    --color-bg: var(--color-btn-danger)
-    --color-bg-hover: var(--color-btn-danger-hover)
+      background-color: rgb(var(--btn-color))
 
   .btn-outlined
     @apply btn
     @apply p-2 bg-transparent
-    border: 1px solid rgb(var(--color-bg))
-    background-image: none
-    color: rgb(var(--color-bg))
+    --btn-color: var(--color-btn-default)
+    --btn-color-hover: var(--color-btn-default)
+    --btn-color-invert: var(--color-gray-light)
 
-    &:hover, &:focus
-      color: rgb(var(--color-text))
-      border-color: rgb(var(--color-bg-hover))
+    border: 1px solid rgb(var(--btn-color-border))
+    background-image: none
+    color: rgb(var(--btn-color))
+
+    &:hover, &:focus-visible
+      color: rgb(var(--btn-color-invert))
+      border-color: rgb(var(--btn-color-hover))
 
     &:active
-      color: rgb(var(--color-text))
-      border-color: rgb(var(--color-bg))
+      color: rgb(var(--btn-color))
+      border-color: rgb(var(--btn-color))
+      background: transparent
 
-  .btn-outlined-primary
-    @apply btn-outlined
-    --color-text: var(--color-btn-primary-text)
-    --color-bg: var(--color-btn-primary)
-    --color-bg-hover: var(--color-btn-primary-hover)
+  .btn-group
+    @apply inline-flex rounded overflow-hidden
+    border: 1px solid rgb(var(--btn-color-border))
 
-  .btn-outlined-danger
-    @apply btn-outlined
-    --color-text: var(--color-btn-danger-text)
-    --color-bg: var(--color-btn-danger)
-    --color-bg-hover: var(--color-btn-danger-hover)
+    .btn, .btn-outlined
+      border: none
+      border-radius: 0
+
+  .btn-default
+    --btn-color: var(--color-btn-default)
+    --btn-color-border: var(--btn-color)
+    --btn-color-hover: var(--color-btn-default-hover)
+    --btn-color-invert: var(--color-btn-default-text)
+
+  .btn-primary
+    --btn-color: var(--color-btn-primary)
+    --btn-color-border: var(--btn-color)
+    --btn-color-hover: var(--color-btn-primary-hover)
+    --btn-color-invert: var(--color-btn-primary-text)
+
+  .btn-danger
+    --btn-color: var(--color-btn-danger)
+    --btn-color-border: var(--btn-color)
+    --btn-color-hover: var(--color-btn-danger-hover)
+    --btn-color-invert: var(--color-btn-danger-text)
 
   .btn-block
     @apply flex gap-2 mt-8 p-3 bg-gray-100/60 border border-gray-200/60 rounded

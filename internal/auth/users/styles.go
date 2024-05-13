@@ -29,6 +29,11 @@ var readerFontLineHeights = []string{
 	"leading-relaxed", "leading-loose", "leading-[2.25]",
 }
 
+var readerListDisplay = [][2]string{
+	{"grid", "bookmark-list--grid"},
+	{"compact", "bookmark-list--compact"},
+}
+
 // FontList returns the available fonts.
 func (rs *ReaderSettings) FontList() [][2]string {
 	return readerFontList
@@ -68,4 +73,14 @@ func (rs *ReaderSettings) LineHeightClass() string {
 		return readerFontLineHeights[idx]
 	}
 	return readerFontLineHeights[2]
+}
+
+// ListDisplayClass returns the list display CSS class.
+func (rs *ReaderSettings) ListDisplayClass() string {
+	if idx := slices.IndexFunc(readerListDisplay, func(e [2]string) bool {
+		return e[0] == rs.ListDisplay
+	}); idx >= 0 {
+		return readerListDisplay[idx][1]
+	}
+	return readerListDisplay[0][1]
 }

@@ -5,16 +5,15 @@ SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{ extends "./base" }}
 {{- import "/_libs/forms" -}}
-
+{{- import "./components/list_actions"}}
 
 {{- block title() -}}
     {{ .Item.Name }} - {{ gettext("Collections") }}
 {{- end -}}
 
 {{- block mainContent() -}}
-<h1 class="title text-h2">{{ gettext("Collection %s", .Item.Name) }}</h1>
-
 {{- if .Item.IsDeleted -}}
+  <h1 class="title text-h2">{{ gettext("Collection %s", .Item.Name) }}</h1>
   <form action="{{ urlFor(`./delete`) }}" method="post">
     {{ yield csrfField() }}
     <input type="hidden" name="_to" value="{{ currentPath }}" />
@@ -28,14 +27,28 @@ SPDX-License-Identifier: AGPL-3.0-only
   data-controller="turbo-refresh"
   data-turbo-refresh-interval-value="10"
   data-turbo-refresh-on-value="[data-bookmark-deleted='true']">
-    <form action="{{ urlFor() }}?edit=1" method="post"
-     class="my-4 p-2 bg-gray-100 border rounded">
+
+    <div class="flex flex-wrap items-center gap-2">
+      <h1 class="flex-grow title mb-0 text-h2 max-md:w-full">
+        <span class="font-normal"><a href="{{ urlFor(`/bookmarks/collections`) }}" class="link">{{ gettext("Collections") }}</a>:</span>
+        {{ .Item.Name }}</h1>
+      {{- yield list_actions() content -}}
+        <button type="button" class="btn-outlined btn-primary py-1"
+          data-controller="remote"
+          data-action="remote#toggleDetails"
+          data-remote-selector-param="#filters"
+          >{{- yield icon(name="o-pencil") }} {{ gettext("Edit") }}
+        </button>
+      {{- end -}}
+    </div>
+
+    <form action="{{ urlFor() }}?edit=1" method="post">
       {{ yield formErrors(form=.Form) }}
       {{ yield csrfField() }}
-      <details {{- if .Editing }} open{{- end -}}>
-        <summary class="block link font-semibold"
+      <details id="filters" {{- if .Editing }} open{{- end -}}>
+        <summary class="hidden no-js:block"
         >{{- yield icon(name="o-pencil") }} {{ gettext("Edit") }}</summary>
-        <div class="text-sm mt-2">
+        <div class="my-4 p-2 bg-gray-100 border rounded text-sm mt-2">
           {{ yield textField(
             field=.Form.Get("name"),
             label=gettext("Name"),
@@ -47,7 +60,7 @@ SPDX-License-Identifier: AGPL-3.0-only
               <button class="btn btn-primary">{{ gettext("Save") }}</button>
             </p>
             <p>
-              <button class="btn btn-danger" formaction="{{ urlFor(`./delete`) }}" formmethod="post"
+              <button class="btn-outlined btn-danger" formaction="{{ urlFor(`./delete`) }}" formmethod="post"
               >{{ yield icon(name="o-trash") }} {{ gettext("Delete collection") }}</button>
             </p>
           </div>

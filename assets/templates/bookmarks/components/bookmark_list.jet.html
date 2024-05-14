@@ -7,7 +7,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 {{- include "/_libs/pagination" .Pagination -}}
 
-<div class="my-4 grid lg:grid-cols-cards gap-4">
+<div class="my-4 {{ user.Settings.ReaderSettings.ListDisplayClass() }}"
+ data-controller="styler">
 {{- range .Bookmarks -}}
   {{- include "./card" . -}}
 {{- end -}}

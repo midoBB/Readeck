@@ -31,13 +31,16 @@ module.exports = plugin(function ({addVariant, config, e}) {
     })
   })
 
-  addVariant("hf", ["&:hover", "&:focus"])
-  addVariant("hfw", ["&:hover", "&:focus", "&:focus-within"])
-  addVariant("group-hf", [":merge(.group):hover &", ":merge(.group):focus &"])
+  addVariant("hf", ["&:hover", "&:focus-visible"])
+  addVariant("hfw", ["&:hover", "&:focus-visible", "&:focus-within"])
+  addVariant("group-hf", [
+    ":merge(.group):hover &",
+    ":merge(.group):focus-visible &",
+  ])
   addVariant("group-fw", [":merge(.group):focus-within &"])
   addVariant("group-hfw", [
     ":merge(.group):hover &",
-    ":merge(.group):focus &",
+    ":merge(.group):focus-visible &",
     ":merge(.group):focus-within &",
   ])
 })

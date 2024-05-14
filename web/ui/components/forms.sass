@@ -17,7 +17,7 @@
     &:hover
       @apply border-gray-600
 
-    &:focus, &:focus-within
+    &:focus-visible, &:focus-within
       outline: none
       outline-offset: 0px
       @apply ring-primary
@@ -64,10 +64,10 @@
       background-position: center
       background-repeat: no-repeat
 
-    &:hover, &:focus
+    &:hover, &:focus-visible
       @apply border-gray-600
 
-    &:focus
+    &:focus-visible
       outline: none
       outline-offset: 0px
 
@@ -102,7 +102,7 @@
     font-size: inherit
     line-height: inherit
 
-    &:focus
+    &:focus-visible
       outline: 1px solid ButtonText, 1px auto -webkit-focus-ring-color
 
 @layer components

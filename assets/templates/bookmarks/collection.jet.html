@@ -39,6 +39,10 @@ SPDX-License-Identifier: AGPL-3.0-only
           data-remote-selector-param="#filters"
           >{{- yield icon(name="o-pencil") }} {{ gettext("Edit") }}
         </button>
+
+        {{- if hasPermission("api:bookmarks", "export") -}}
+          {{- yield export_menu(url=urlFor(`/api/bookmarks/export.epub`) + `?collection=` + .Item.ID) -}}
+        {{- end -}}
       {{- end -}}
     </div>
 
@@ -67,15 +71,6 @@ SPDX-License-Identifier: AGPL-3.0-only
         </div>
       </details>
     </form>
-
-    {{- if hasPermission("api:bookmarks", "export") -}}
-      <p class="mt-4 mb-6">
-        <span class="font-semibold">{{ yield icon(name="o-download") }}
-        {{ gettext("Export this collection") }}</span>:
-        <a href="{{ urlFor(`/api/bookmarks/export.epub`) }}?collection={{ .Item.ID }}"
-         class="link">Epub</a>
-      </p>
-    {{- end }}
 
     {{- include "./components/bookmark_list" -}}
   </turbo-frame>

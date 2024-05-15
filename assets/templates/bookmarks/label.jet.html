@@ -32,9 +32,13 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   {{- yield list_actions() content -}}
     {{- if !.IsDeleted -}}
-    <button class="btn-outlined btn-danger py-1"
-     formaction="{{ url(.Label) }}/delete" formmethod="post"
-    >{{ yield icon(name="o-trash") }} {{ gettext("Delete") }}</button>
+      <button class="btn-outlined btn-danger py-1"
+      formaction="{{ url(.Label) }}/delete" formmethod="post"
+      >{{ yield icon(name="o-trash") }} {{ gettext("Delete") }}</button>
+
+      {{- if hasPermission("api:bookmarks", "export") -}}
+        {{- yield export_menu(url=urlFor(`/api/bookmarks/export.epub`) + `?labels="` + url(.Label) + `"`) -}}
+      {{- end -}}
     {{- end -}}
   {{- end -}}
 </form>

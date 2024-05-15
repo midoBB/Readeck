@@ -34,3 +34,19 @@ SPDX-License-Identifier: AGPL-3.0-only
   </div>
   {{- yield content -}}
 {{- end -}}
+
+{{- block export_menu(url) -}}
+  <div class="relative flex items-center">
+    <details class="btn-group" data-controller="menu">
+      <summary class="btn-outlined py-1">
+        {{- yield icon(name="o-menu-dots") -}}
+      </summary>
+      <div class="absolute z-30 top-8 right-0 w-[max-content] shadow-lg bg-gray-50 border border-gray-300 rounded-md p-4">
+        <ul class="flex flex-col gap-4">
+          {{- yield content -}}
+          <li><a class="link" href="{{ url }}">{{- yield icon(name="o-download") }} {{ gettext("Download EPUB") }}</a></li>
+        </ul>
+      </div>
+    </details>
+  </div>
+{{- end -}}

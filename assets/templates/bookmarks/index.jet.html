@@ -23,12 +23,8 @@ SPDX-License-Identifier: AGPL-3.0-only
     print:hidden
   ">
     <div class="flex items-center mx-4 my-2 invisible group-hfw:visible">
-      <label for="create-url"
-      class="text-sm font-semibold cursor-pointer"
+      <label for="create-url" class="text-sm font-semibold cursor-pointer"
       >{{ gettext("Save a new link") }}</label>
-      <a class="ml-auto link font-semibold" href="{{ urlFor(`/bookmarks/import`) }}">
-        {{- yield icon(name="o-import") }}
-        {{ gettext("Import") }}</a>
     </div>
 
     <form action="{{ urlFor(`/bookmarks`) }}" method="post"
@@ -99,14 +95,21 @@ SPDX-License-Identifier: AGPL-3.0-only
     <div class="flex flex-wrap items-center gap-2 -mx-6 px-6 py-2">
       <h1 class="flex-grow title mb-0 text-h2 max-md:w-full">{{ .PageTitle }}</h1>
       {{- yield list_actions() content -}}
-      <div class="btn-group">
-        <button type="button" class="btn-outlined py-1"
-        data-controller="remote"
-        data-action="remote#toggleDetails"
-        data-remote-selector-param="#filters"
-        >{{- yield icon(name="o-filter") }} {{ pgettext("action", "Filter list") }}
-        </button>
-      </div>
+        <div class="btn-group">
+          <button type="button" class="btn-outlined py-1"
+          data-controller="remote"
+          data-action="remote#toggleDetails"
+          data-remote-selector-param="#filters"
+          >{{- yield icon(name="o-filter") }} {{ pgettext("action", "Filter list") }}
+          </button>
+        </div>
+
+        {{- if hasPermission("api:bookmarks", "export") && hasPermission("api:bookmarks:import", "write") -}}
+          {{- yield export_menu(url=urlFor(`/api/bookmarks/export.epub`) + `?` + .Filters.GetQueryString()) content -}}
+            <li><a class="link" href="{{ urlFor(`/bookmarks/import`) }}">
+              {{- yield icon(name="o-import") }} {{ gettext("Import bookmarks") }}</a></li>
+          {{- end -}}
+        {{- end -}}
       {{- end -}}
     </div>
 

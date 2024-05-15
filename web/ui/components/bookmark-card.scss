@@ -1,0 +1,363 @@
+/*
+ * SPDX-FileCopyrightText: © 2023 Joachim Robert <joachim.robert@protonmail.com>
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+@layer components {
+  // Common styles
+  .bookmark-card {
+    &:hover,
+    &:focus-within {
+      @apply shadow;
+
+      .bookmark-card--title a {
+        @apply link;
+      }
+
+      .bookmark-card--actions {
+        form button {
+          @apply text-btn-primary hf:text-btn-primary-hover;
+
+          &[name="is_deleted"] {
+            @apply text-btn-danger hf:text-btn-danger-hover;
+          }
+        }
+      }
+    }
+
+    &--img {
+      grid-area: img;
+    }
+
+    &--ico {
+      grid-area: ico;
+    }
+
+    &--title {
+      grid-area: title;
+      text-wrap: balance;
+
+      a {
+        @apply overflow-hidden text-ellipsis;
+        @apply block font-semibold text-left;
+      }
+    }
+
+    &--spinner {
+      grid-area: spinner;
+      @apply p-2;
+      @apply flex gap-2 items-center;
+      @apply text-center;
+
+      > .svgicon,
+      .svgicon svg {
+        @apply w-8 h-8;
+      }
+
+      > p {
+        @apply overflow-hidden text-ellipsis;
+        overflow-wrap: anywhere;
+      }
+    }
+
+    &--labels {
+      grid-area: labels;
+
+      > ul {
+        @apply inline-flex flex-wrap justify-start gap-x-1 gap-y-3 my-1;
+
+        > li > a {
+          @apply text-sm bg-gray-100 leading-none py-1 px-1.5 border rounded-md;
+          @apply hf:bg-yellow-100;
+        }
+      }
+    }
+
+    &--meta {
+      grid-area: meta;
+    }
+
+    &--actions {
+      grid-area: actions;
+
+      form {
+        @apply text-gray-200;
+      }
+
+      button {
+        @apply fill-current hf:text-btn-primary;
+
+        &[name="is_marked"][value="0"],
+        &[name="is_archived"][value="0"] {
+          @apply text-primary;
+        }
+
+        &[name="is_deleted"] {
+          @apply hf:text-btn-danger;
+        }
+      }
+    }
+
+    &--deleted {
+      grid-area: deleted;
+      @apply flex flex-wrap gap-2 items-center;
+
+      & > span {
+        @apply flex-grow text-red-700 text-xs font-semibold;
+      }
+
+      form {
+        @apply flex flex-grow;
+      }
+
+      button {
+        @apply btn btn-primary whitespace-nowrap text-sm py-1 w-full;
+
+        svg {
+          @apply fill-current;
+        }
+      }
+    }
+
+    // Card in deleted state
+    &[data-deleted="true"] {
+      .bookmark-card--img,
+      .bookmark-card--ico,
+      .bookmark-card--title,
+      .bookmark-card--meta,
+      .bookmark-card--labels {
+        @apply opacity-50;
+      }
+    }
+  }
+
+  // Grid display
+  .bookmark-list--grid {
+    @apply grid gap-4;
+
+    @screen lg {
+      @apply grid-cols-cards;
+    }
+
+    .bookmark-card {
+      display: grid;
+      position: relative;
+      grid-template-areas:
+        "img img" "spinner spinner"
+        "title title" "ico meta"
+        "labels labels"
+        "deleted deleted"
+        "actions actions";
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto auto auto 1fr;
+
+      height: 100%;
+
+      @apply overflow-hidden rounded;
+
+      > .svgicon {
+        @apply absolute z-10 top-1 left-1 flex items-center justify-center;
+        @apply w-6 h-6 rounded-full;
+        @apply bg-black bg-opacity-25 text-white;
+      }
+
+      &--img {
+        @apply block overflow-hidden;
+
+        > img {
+          @apply w-full aspect-video object-cover object-center filter;
+        }
+      }
+
+      &--ico {
+        @apply self-baseline;
+        @apply pl-2;
+
+        > img,
+        .svgicon {
+          @apply block w-4 h-auto;
+          @apply filter grayscale opacity-50;
+        }
+      }
+
+      &--title {
+        @apply p-2;
+      }
+
+      &--spinner {
+        @apply flex-col;
+      }
+
+      &--meta {
+        @apply self-center;
+        @apply px-2 overflow-x-clip overflow-y-hidden;
+        @apply flex items-baseline gap-2;
+        @apply text-xs text-gray-600;
+        line-height: 0;
+
+        > strong {
+          @apply leading-none overflow-hidden text-ellipsis;
+        }
+      }
+
+      &--labels {
+        @apply px-2 pt-2;
+      }
+
+      &--actions {
+        @apply self-end;
+        @apply p-2;
+
+        @apply flex items-end gap-x-3;
+
+        form {
+          @apply inline-flex gap-x-2;
+        }
+
+        form:nth-of-type(1) {
+          @apply flex-grow;
+        }
+      }
+
+      &--deleted {
+        @apply p-2;
+      }
+
+      // Hover and focus on the card
+      &:hover,
+      &:focus-within {
+        .bookmark-card--img {
+          > img {
+            @apply contrast-105 brightness-95;
+          }
+        }
+
+        .bookmark-card--ico {
+          > img,
+          .svgicon {
+            @apply filter-none opacity-100;
+          }
+        }
+      }
+
+      // Responsive states
+      @screen max-lg {
+        grid-template-areas:
+          "img spinner title title"
+          "img spinner ico meta"
+          "img spinner labels labels"
+          "img spinner deleted deleted"
+          "img spinner actions actions";
+        grid-template-columns: auto auto auto 1fr;
+
+        &--img {
+          @apply overflow-hidden w-28;
+
+          > img {
+            @apply w-full h-full;
+          }
+        }
+
+        &--meta {
+          > strong {
+            @apply flex-grow-0;
+          }
+        }
+
+        &--spinner {
+          @apply flex-row text-left;
+        }
+      }
+    }
+  }
+
+  // Compact display
+  .bookmark-list--compact {
+    .bookmark-card {
+      display: grid;
+      position: relative;
+      grid-template-areas:
+        "ico title title actions deleted"
+        "ico meta labels actions deleted"
+        "ico spinner spinner . .";
+      grid-template-columns: auto auto 1fr auto auto;
+      @apply mb-2 pb-2;
+      @apply rounded;
+
+      > .svgicon {
+        @apply absolute z-10 top-5 left-3 flex items-center justify-center;
+        @apply w-6 h-6 rounded-full;
+        @apply bg-black bg-opacity-40 text-white;
+      }
+
+      &--img {
+        @apply hidden;
+      }
+
+      &--ico {
+        @apply self-baseline;
+        @apply py-2 pr-4 pl-1;
+
+        > img,
+        .svgicon,
+        .svgicon svg {
+          @apply w-6 h-6;
+        }
+      }
+
+      &--title {
+        @apply pt-2 pr-2;
+      }
+
+      &--meta {
+        @apply self-baseline;
+        @apply text-sm text-gray-600;
+        @apply pt-1 pr-2;
+
+        > strong {
+          @apply overflow-hidden text-ellipsis;
+        }
+      }
+
+      &--labels {
+        @apply self-baseline;
+        @apply pt-1;
+      }
+
+      &--actions {
+        @apply flex items-end gap-x-3;
+        @apply pt-2 pr-2;
+        align-self: start;
+
+        form {
+          @apply inline-flex gap-x-3;
+        }
+
+        form:nth-of-type(1) {
+          @apply flex-grow;
+        }
+      }
+
+      &--deleted {
+        @apply pt-2 pr-2;
+        align-self: start;
+      }
+
+      // Responsive states
+      @screen max-lg {
+        grid-template-areas:
+          "ico spinner title title"
+          "ico spinner meta meta"
+          "ico spinner labels labels"
+          "ico spinner actions actions"
+          "ico spinner deleted deleted";
+        grid-template-columns: auto auto auto 1fr;
+
+        &--spinner {
+          @apply text-left;
+        }
+      }
+    }
+  }
+}

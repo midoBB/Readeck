@@ -189,7 +189,7 @@ function css_bundle() {
   return gulp
     .src([
       // prettier-ignore
-      "ui/index.sass",
+      "ui/index.scss",
     ])
     .pipe(
       through.obj(function (file, _, done) {
@@ -228,7 +228,7 @@ function css_epub() {
   return gulp
     .src([
       // prettier-ignore
-      "ui/epub/stylesheet.sass",
+      "ui/epub/stylesheet.scss",
     ])
     .pipe(gulpSourcemaps.init())
     .pipe(sassCompiler().on("error", sassCompiler.logError))

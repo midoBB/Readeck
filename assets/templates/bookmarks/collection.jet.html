@@ -30,7 +30,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
     <div class="flex flex-wrap items-center gap-2">
       <h1 class="flex-grow title mb-0 text-h2 max-md:w-full">
-        <span class="font-normal"><a href="{{ urlFor(`/bookmarks/collections`) }}" class="link">{{ gettext("Collections") }}</a>:</span>
+        <span class="font-normal"><a href="{{ urlFor(`/bookmarks/collections`) }}" class="link">{{ gettext("Collections") }}</a> /</span>
         {{ .Item.Name }}</h1>
       {{- yield list_actions() content -}}
         <button type="button" class="btn-outlined btn-primary py-1"

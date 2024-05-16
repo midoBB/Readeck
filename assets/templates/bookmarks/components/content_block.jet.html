@@ -50,9 +50,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   <div class="
     prose
-    {{ user.Settings.ReaderSettings.FontClass() }}
-    {{ user.Settings.ReaderSettings.LineHeightClass() }}
-    {{ user.Settings.ReaderSettings.FontSizeClass() }}
+    {{ preferences.ReaderFont().Class }}
+    {{ preferences.ReaderFontSize().Class }}
+    {{ preferences.ReaderLineHeight().Class }}
     overflow-x-auto
     "
     lang="{{ .Item.Lang }}"

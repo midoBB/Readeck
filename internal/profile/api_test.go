@@ -94,8 +94,7 @@ func TestAPI(t *testing.T) {
 						"settings_lang": "<<PRESENCE>>",
 						"settings_reader_font": "<<PRESENCE>>",
 						"settings_reader_font_size": "<<PRESENCE>>",
-						"settings_reader_line_height": "<<PRESENCE>>",
-						"settings_reader_list_display": "<<PRESENCE>>"
+						"settings_reader_line_height": "<<PRESENCE>>"
 					}
 				}`,
 		},
@@ -130,9 +129,20 @@ func TestAPI(t *testing.T) {
 						"settings_lang": "<<PRESENCE>>",
 						"settings_reader_font": "<<PRESENCE>>",
 						"settings_reader_font_size": "<<PRESENCE>>",
-						"settings_reader_line_height": "<<PRESENCE>>",
-						"settings_reader_list_display": "<<PRESENCE>>"
+						"settings_reader_line_height": "<<PRESENCE>>"
 					}
+				}`,
+		},
+
+		RequestTest{
+			Method: "PATCH",
+			Target: "/api/profile/session",
+			JSON: map[string]interface{}{
+				"bookmark_list_display": "grid",
+			},
+			ExpectStatus: 400,
+			ExpectJSON: `{
+					"status":400,"message":"invalid authentication provider"
 				}`,
 		},
 

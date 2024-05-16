@@ -3,13 +3,12 @@ SPDX-FileCopyrightText: © 2024 Olivier Meunier <olivier@neokraft.net>
 
 SPDX-License-Identifier: AGPL-3.0-only
 *}
-
 {{- block list_actions() -}}
   <div
     class="btn-group"
     data-controller="styler-option request"
     data-styler-option-styler-outlet="[data-controller='styler']"
-    data-request-url-value="{{ urlFor(`/api/profile`) }}"
+    data-request-url-value="{{ urlFor(`/api/profile/session`) }}"
     data-request-method-value="patch"
   >
     <button class="btn-outlined py-1 data-[current]:btn-primary"
@@ -27,10 +26,10 @@ SPDX-License-Identifier: AGPL-3.0-only
     data-action="styler-option#setChoice"
     >{{ yield icon(name="o-list") }}</button>
 
-    <input type="hidden" value="{{ user.Settings.ReaderSettings.ListDisplay }}"
+    <input type="hidden" value="{{ preferences.BookmarkListLayout().Value }}"
     data-styler-option-target="value"
     data-action="styler-option:setValue->request#fetch"
-    data-request-name-param="settings_reader_list_display">
+    data-request-name-param="bookmark_list_display">
   </div>
   {{- yield content -}}
 {{- end -}}

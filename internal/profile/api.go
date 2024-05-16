@@ -46,6 +46,7 @@ func newProfileAPI(s *server.Server) *profileAPI {
 
 	r.With(api.srv.WithPermission("api:profile", "write")).Group(func(r chi.Router) {
 		r.Patch("/", api.profileUpdate)
+		r.Patch("/session", api.sessionPref)
 		r.Put("/password", api.passwordUpdate)
 	})
 
@@ -123,6 +124,32 @@ func (api *profileAPI) profileUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	api.srv.Render(w, r, 200, updated)
+}
+
+func (api *profileAPI) sessionPref(w http.ResponseWriter, r *http.Request) {
+	p, ok := auth.GetRequestProvider(r).(*auth.SessionAuthProvider)
+	if !ok {
+		api.srv.TextMessage(w, r, http.StatusBadRequest, "invalid authentication provider")
+		return
+	}
+
+	f := newSessionPrefForm(api.srv.Locale(r))
+	forms.Bind(f, r)
+
+	if !f.IsValid() {
+		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
+		return
+	}
+
+	sess := p.GetSession(r)
+	updated, err := f.updateSession(sess.Payload)
+	if err != nil {
+		api.srv.Error(w, r, err)
+		return
+	}
+
+	sess.Save(r, w)
+	api.srv.Render(w, r, http.StatusOK, updated)
 }
 
 // passwordUpdate updates the current user's password.

@@ -232,10 +232,9 @@ type UserSettings struct {
 
 // ReaderSettings contains the reader settings.
 type ReaderSettings struct {
-	Font        string `json:"font"`
-	FontSize    int    `json:"font_size"`
-	LineHeight  int    `json:"line_height"`
-	ListDisplay string `json:"list_display"`
+	Font       string `json:"font"`
+	FontSize   int    `json:"font_size"`
+	LineHeight int    `json:"line_height"`
 }
 
 func (rs *ReaderSettings) setDefaults() {
@@ -247,9 +246,6 @@ func (rs *ReaderSettings) setDefaults() {
 	}
 	if rs.LineHeight <= 0 {
 		rs.LineHeight = 3
-	}
-	if rs.ListDisplay == "" {
-		rs.ListDisplay = "grid"
 	}
 }
 

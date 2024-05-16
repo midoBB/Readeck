@@ -127,3 +127,68 @@
     }
   }
 }
+
+.bookmark-display {
+  &--size-1 {
+    @apply text-sm;
+  }
+  &--size-2 {
+    @apply text-base;
+  }
+  &--size-3 {
+    @apply text-lg;
+  }
+  &--size-4 {
+    @apply text-xl;
+  }
+  &--size-5 {
+    @apply text-2xl;
+  }
+  &--size-6 {
+    @apply text-3xl;
+  }
+
+  &--leading-1 {
+    @apply leading-[1.1];
+  }
+  &--leading-2 {
+    @apply leading-tight;
+  }
+  &--leading-3 {
+    @apply leading-normal;
+  }
+  &--leading-4 {
+    @apply leading-relaxed;
+  }
+  &--leading-5 {
+    @apply leading-loose;
+  }
+  &--leading-6 {
+    @apply leading-[2.25];
+  }
+
+  &--font-lora {
+    @apply font-lora underline-offset-[3px];
+  }
+  &--font-public-sans {
+    @apply font-public-sans;
+  }
+  &--font-merriweather {
+    @apply font-merriweather underline-offset-[3px];
+  }
+  &--font-inter {
+    @apply font-inter;
+  }
+  &--font-plex-serif {
+    @apply font-plex-serif underline-offset-[3px];
+  }
+  &--font-luciole {
+    @apply font-luciole decoration-1;
+  }
+  &--font-atkinson-hyperlegible {
+    @apply font-atkinson-hyperlegible underline-offset-[3px];
+  }
+  &--font-jetbrains-mono {
+    @apply font-jetbrains-mono;
+  }
+}

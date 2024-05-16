@@ -16,15 +16,22 @@ import (
 
 // Payload contains session values.
 type Payload struct {
-	Seed    int            `json:"s"`
-	User    int            `json:"u"`
-	Flashes []FlashMessage `json:"f"`
+	Seed        int            `json:"s"`
+	User        int            `json:"u"`
+	Flashes     []FlashMessage `json:"f"`
+	Preferences Preferences    `json:"p"`
 }
 
 // FlashMessage is a message stored in the session.
 type FlashMessage struct {
 	Type    string `json:"t"`
 	Message string `json:"m"`
+}
+
+// Preferences contains the user session preferences.
+type Preferences struct {
+	LastUpdate          time.Time `json:"u"`
+	BookmarkListDisplay string    `json:"bld"`
 }
 
 // Session is a unique session.

@@ -48,7 +48,7 @@ func Chain(validators ...FieldValidator) FieldValidator {
 // is set and not empty or nil.
 func Optional(validators ...FieldValidator) FieldValidator {
 	return func(f Field) error {
-		if f.IsBound() && (f.IsNil() || f.String() == "") {
+		if f.IsNil() || f.String() == "" {
 			return nil
 		}
 		return Chain(validators...)(f)

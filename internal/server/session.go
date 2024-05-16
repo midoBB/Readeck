@@ -62,7 +62,10 @@ func (s *Server) WithSession() func(next http.Handler) http.Handler {
 // It will panic (on purpose) if the route is not using the
 // WithSession() middleware.
 func (s *Server) GetSession(r *http.Request) *sessions.Session {
-	return r.Context().Value(ctxSessionKey{}).(*sessions.Session)
+	if sess, ok := r.Context().Value(ctxSessionKey{}).(*sessions.Session); ok {
+		return sess
+	}
+	return nil
 }
 
 // AddFlash saves a flash message in the session.

@@ -6,8 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ import "/_libs/common" }}
 
 {{- include "/_libs/pagination" .Pagination -}}
-
-<div class="my-4 {{ user.Settings.ReaderSettings.ListDisplayClass() }}"
+<div class="my-4 {{ preferences.BookmarkListLayout().Class }}"
  data-controller="styler">
 {{- range .Bookmarks -}}
   {{- include "./card" . -}}

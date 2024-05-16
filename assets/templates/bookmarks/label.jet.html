@@ -11,12 +11,12 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 {{ block mainContent() -}}
 <form action="" method="post" class="flex flex-wrap items-center gap-2"
- data-controller="inplace-input turbo-form"
+ data-controller="inplace-input"
  data-inplace-input-hidden-class="hidden">
   {{ yield csrfField() }}
   <h1 class="flex flex-grow items-center gap-2 group title mb-0 text-h2 max-md:w-full">
     {* JS context *}
-    <span class="font-normal"><a href="{{ urlFor(`/bookmarks/labels`) }}" class="link">Labels</a>:</span>
+    <span class="font-normal"><a href="{{ urlFor(`/bookmarks/labels`) }}" class="link">Labels</a> /</span>
     <span class="no-js:hidden text-h2 mr-2 cursor-pointer hover:outline-std"
      data-inplace-input-target="editable">{{ .Label }}</span>
     {* Classic input field shown in no-JS *}

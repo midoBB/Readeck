@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-26 05:28+0000\n"
+"POT-Creation-Date: 2024-05-17 18:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -485,10 +485,6 @@ msgstr ""
 msgid "Delete collection"
 msgstr ""
 
-#: assets/templates/bookmarks/collection.jet.html
-msgid "Export this collection"
-msgstr ""
-
 #: assets/templates/bookmarks/collection_create.jet.html
 msgid "New Collection"
 msgstr ""
@@ -578,6 +574,7 @@ msgid "Undo"
 msgstr ""
 
 #: assets/templates/bookmarks/components/actions.jet.html
+#: assets/templates/bookmarks/components/list_actions.jet.html
 msgid "Download EPUB"
 msgstr ""
 
@@ -662,6 +659,14 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/labels_form.jet.html
 msgid "Add label"
+msgstr ""
+
+#: assets/templates/bookmarks/components/list_actions.jet.html
+msgid "Grid view"
+msgstr ""
+
+#: assets/templates/bookmarks/components/list_actions.jet.html
+msgid "Compact view"
 msgstr ""
 
 #: assets/templates/bookmarks/components/public_share.jet.html
@@ -885,11 +890,6 @@ msgid "Save a new link"
 msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html
-#: internal/bookmarks/routes/views_import.go
-msgid "Import"
-msgstr ""
-
-#: assets/templates/bookmarks/index.jet.html
 msgctxt "button"
 msgid "Save link"
 msgstr ""
@@ -928,16 +928,25 @@ msgid "Import links and articles"
 msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html
+msgctxt "action"
+msgid "Filter list"
+msgstr ""
+
+#: assets/templates/bookmarks/index.jet.html
+msgid "Import bookmarks"
+msgstr ""
+
+#: assets/templates/bookmarks/index.jet.html
+#, fuzzy
+msgid "Your search query yielded <strong>no results</strong>."
+msgstr ""
+
+#: assets/templates/bookmarks/index.jet.html
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
 msgstr[0] ""
 msgstr[1] ""
-
-#: assets/templates/bookmarks/index.jet.html
-msgctxt "action"
-msgid "Filter list"
-msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html
 msgid "Filters documentation"
@@ -957,7 +966,7 @@ msgid "Create a collection"
 msgstr ""
 
 #: assets/templates/bookmarks/label.jet.html
-msgid "Delete label"
+msgid "Delete"
 msgstr ""
 
 #: assets/templates/bookmarks/label.jet.html
@@ -1473,6 +1482,10 @@ msgid "Collection updated."
 msgstr ""
 
 #: internal/bookmarks/routes/views_import.go
+msgid "Import"
+msgstr ""
+
+#: internal/bookmarks/routes/views_import.go
 msgid "Progress"
 msgstr ""
 
@@ -1758,4 +1771,10 @@ msgstr ""
 msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr ""
+
+#~ msgid "Export this collection"
+#~ msgstr ""
+
+#~ msgid "Delete label"
+#~ msgstr ""
 

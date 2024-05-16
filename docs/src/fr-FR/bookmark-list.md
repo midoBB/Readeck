@@ -71,7 +71,8 @@ Enfin, se trouvent 3 autres sections qui mènent vers des pages liées aux bookm
 
 Chaque élément de la liste des bookmarks est une carte.
 
-![Carte de bookmark](./img/bookmark-card.webp)
+![Liste des bookmarks](./img/bookmark-list.webp)
+Liste des bookmarks en grille
 
 Une carte contient:
 
@@ -89,6 +90,13 @@ Les buttons permettent d'effectuer les actions suivantes:
   Archive un bookmark (ou le retire des archives).
 - **Supprimer** \
   Marque le bookmark pour suppression (cette action peut être annulée pendant quelques secondes).
+
+### Liste compacte
+
+Si vous trouvez la liste de bookmarks sous forme de grille trop encombrée, vous pouvez changer pour une liste plus compacte contenant moins d'images. Cliquez sur le bouton près du titre pour passer à la vue compacte.
+
+![Bookmark Compact List](./img/bookmark-list-compact.webp)
+Liste compacte de bookmarks
 
 
 ## Filtrer les bookmarks {#filters}
@@ -119,13 +127,26 @@ Vous pouvez combiner les filtres suivants :
 - **Depuis**, **Jusqu'à**\
   Ces derniers filtres vous permettent de limiter les résultats par date de création des bookmarks. Par example, vous pouvez obtenir la liste des bookmarks créés pendant les 4 dernières semaines mais pas après la dernière semaine.
 
-### Search query
+### Critères de recherche
 
-The **Search**, **Title**, **Author**, **Site** and **Label** fields understand search criteria the same way:
+Les champs **Recherche**, **Titre**, **Auteur**, **Site** et **Label** comprennent les critères de recherche de la même façon :
 
-- `startled cat` will find the content with the words **playing** and **cat**
-- `"startled cat"` will find the content with the exact words **playing cat** together.
-- `cat*` will find the content with the words starting with **cat** (cat, catnip and caterpillar would be a match).
-- `-startled cat` will find the content with the word **cat** but NOT the word **startled**.
+- `startled cat` trouvera le contenu avec les mots **startled** and **cat**
+- `"startled cat"` trouvera le contenu avec la phrase exacte **startled cat** together.
+- `cat*` trouvera le contenu avec les mots commençant par **cat** (cat, catnip et caterpillar, par example).
+- `-startled cat` trouvera le contenu avec le mot **cat** mais PAS le mot **startled**.
 
 Après avoir effectué une recherche, vous pouvez l'enregistrer en tant que [collection](./collections.md) pour la rendre permanente.
+
+## Exporter et importer des bookmarks
+
+![Menu](./img/bookmark-list-menu.webp)
+Menu de la liste des bookmarks
+
+### Exporter des bookmarks
+
+Le bouton de menu près des filtres vous permet de télécharger un fichier EPUB de la liste de bookmarks affichée. Il créer un e-book contenant tous les articles organisés en chapitres.
+
+### Importer des bookmarks
+
+Dans le même menu, vous trouverez un lien [Importer des bookmarks](readeck-instance://bookmarks/import). Il vous mènera à un assistant vous permettant d'importer des liens existants depuis différentes sources.

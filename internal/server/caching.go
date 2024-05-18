@@ -56,6 +56,9 @@ func (s *Server) WriteEtag(w http.ResponseWriter, r *http.Request, taggers ...Et
 	if user := auth.GetRequestUser(r); user.ID != 0 {
 		fmt.Fprint(h, user.ID, user.GetLastModified()[0].Unix())
 	}
+	if sess := s.GetSession(r); sess != nil {
+		fmt.Fprint(h, sess.Payload.Preferences.LastUpdate.Unix())
+	}
 
 	w.Header().Set("Etag", fmt.Sprintf("%x", h.Sum64()))
 }
@@ -75,6 +78,9 @@ func (s *Server) WriteLastModified(w http.ResponseWriter, r *http.Request, moder
 
 	if user := auth.GetRequestUser(r); user.ID != 0 {
 		mtimes = append(mtimes, user.GetLastModified()...)
+	}
+	if sess := s.GetSession(r); sess != nil {
+		mtimes = append(mtimes, sess.Payload.Preferences.LastUpdate)
 	}
 
 	sort.Slice(mtimes, func(i, j int) bool {

@@ -13,7 +13,7 @@ Voici quelques exemples :
 
 ## Créer une collection
 
-Pour créer une collection, rendez-vous sur la [list des collections](readeck-instance://bookmarks/collections) et cliquez sur **Créer une collection**.
+Pour créer une collection, rendez-vous sur la [liste des collections](readeck-instance://bookmarks/collections) et cliquez sur **Créer une collection**.
 
 ![Formulaire de nouvelle collection](./img/collection-new.webp)
 Le formulaire de nouvelle collection

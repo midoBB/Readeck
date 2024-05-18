@@ -71,7 +71,8 @@ Finally, you'll see 3 more sections that take you to bookmark related pages:
 
 Each item on a list is called a Bookmark Card.
 
-![Bookmark Card Interface](./img/bookmark-card.webp)
+![Bookmark List](./img/bookmark-list.webp)
+Grid Bookmark List
 
 A card shows:
 
@@ -90,8 +91,14 @@ The action buttons perform the following:
 - **Delete** \
   This marks the bookmark for deletion (it can be canceled during a few seconds).
 
+### Compact List
 
-## Filter bookmarks {#filters}
+If you find the bookmark grid view too busy, you can switch to a more compact list with less images. Click on the button next to the title to switch from the grid view to the compact view.
+
+![Bookmark Compact List](./img/bookmark-list-compact.webp)
+Compact Bookmark List
+
+## Filter Bookmarks {#filters}
 
 On the bookmark list, you can filter your results based on one or several criteria. Click on the button "Filter list" next to the page title to open the filtering form.
 
@@ -123,10 +130,23 @@ You can combine the following filters:
 
 The **Search**, **Title**, **Author**, **Site** and **Label** fields understand search criteria the same way:
 
-- `startled cat` will find the content with the words **playing** and **cat**
-- `"startled cat"` will find the content with the exact words **playing cat** together.
+- `startled cat` will find the content with the words **startled** and **cat**
+- `"startled cat"` will find the content with the exact words **startled cat** together.
 - `cat*` will find the content with the words starting with **cat** (cat, catnip and caterpillar would be a match).
 - `-startled cat` will find the content with the word **cat** but NOT the word **startled**.
 
 
 After you performed a search, you can save it into a new [collection](./collections.md) to make it permanent.
+
+## Export and Import Bookmarks
+
+![Menu](./img/bookmark-list-menu.webp)
+Bookmark list menu
+
+### Export bookmarks
+
+The menu button next to the filters button let you download an EPUB file of the current list of bookmarks. It exports one e-book containing all the articles organized in chapters.
+
+### Import bookmarks
+
+In the same menu, you'll find a [Import bookmarks](readeck-instance://bookmarks/import) link. It will take you to an import wizard that lets you import your existing bookmarks from various sources.

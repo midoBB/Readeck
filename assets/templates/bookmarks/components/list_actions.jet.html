@@ -1,0 +1,49 @@
+{*
+SPDX-FileCopyrightText: © 2024 Olivier Meunier <olivier@neokraft.net>
+
+SPDX-License-Identifier: AGPL-3.0-only
+*}
+{{- block list_actions() -}}
+  <div
+    class="btn-group"
+    data-controller="styler-option request"
+    data-styler-option-styler-outlet="[data-controller='styler']"
+    data-request-url-value="{{ urlFor(`/profile/session`) }}"
+    data-request-method-value="post"
+  >
+    <button class="btn-outlined py-1 data-[current]:btn-primary"
+    title="{{ gettext(`Grid view`) }}"
+    type="button" value="grid"
+    data-choice-value="bookmark-list--grid"
+    data-styler-option-target="choices"
+    data-action="styler-option#setChoice"
+    >{{ yield icon(name="o-grid") }}</button>
+    <button class="btn-outlined py-1 data-[current]:btn-primary"
+    title="{{ gettext(`Compact view`) }}"
+    type="button" value="compact"
+    data-styler-option-target="choices"
+    data-choice-value="bookmark-list--compact"
+    data-action="styler-option#setChoice"
+    >{{ yield icon(name="o-list") }}</button>
+
+    <input type="hidden" value="{{ preferences.BookmarkListLayout().Value }}"
+    data-styler-option-target="value"
+    data-action="styler-option:setValue->request#fetch"
+    data-request-name-param="bookmark_list_display">
+  </div>
+  {{- yield content -}}
+{{- end -}}
+
+{{- block export_menu(url) -}}
+  <div class="relative flex items-center">
+    <details class="menu btn-group" data-controller="menu">
+      <summary class="btn-outlined py-1">
+        {{- yield icon(name="o-menu-dots") -}}
+      </summary>
+      <ul class="top-8 right-0">
+        {{- yield content -}}
+        <li><a class="link" href="{{ url }}">{{- yield icon(name="o-download") }} {{ gettext("Download EPUB") }}</a></li>
+      </ul>
+    </details>
+  </div>
+{{- end -}}

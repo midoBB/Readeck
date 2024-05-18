@@ -32,7 +32,7 @@ func (api *apiRouter) exportBookmarksEPUB(w http.ResponseWriter, r *http.Request
 	}
 
 	// Define a title, date and filename
-	title := "Readec Bookmarks"
+	title := "Readeck Bookmarks"
 	date := bookmarkList[0].Created
 	if collection, ok := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection); ok {
 		// In case of a collection, we give the book a title and reverse

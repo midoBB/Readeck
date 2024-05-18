@@ -5,17 +5,18 @@ SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{ extends "./base" }}
 {{- import "/_libs/pagination" -}}
+{{- import "./components/list_actions"}}
 
 {{ block title() }}{{ gettext("Label") }} - {{ .Label }}{{ end }}
 
 {{ block mainContent() -}}
-<form action="" method="post" class="md:flex md:mb-4 items-center"
+<form action="" method="post" class="flex flex-wrap items-center gap-2"
  data-controller="inplace-input"
  data-inplace-input-hidden-class="hidden">
   {{ yield csrfField() }}
-  <h1 class="flex flex-grow items-baseline gap-2 group title md:mb-0">
-    {{ yield icon(name="o-label", class="text-h2 h-6 w-6 mr-2", svgClass="h-6 w-6") }}
+  <h1 class="flex flex-grow items-center gap-2 group title mb-0 text-h2 max-md:w-full">
     {* JS context *}
+    <span class="font-normal"><a href="{{ urlFor(`/bookmarks/labels`) }}" class="link">Labels</a> /</span>
     <span class="no-js:hidden text-h2 mr-2 cursor-pointer hover:outline-std"
      data-inplace-input-target="editable">{{ .Label }}</span>
     {* Classic input field shown in no-JS *}
@@ -29,12 +30,16 @@ SPDX-License-Identifier: AGPL-3.0-only
     </button>
   </h1>
 
-  {{- if !.IsDeleted -}}
-    <div>
-      <button class="btn-danger"
+  {{- yield list_actions() content -}}
+    {{- if !.IsDeleted -}}
+      <button class="btn-outlined btn-danger py-1"
       formaction="{{ url(.Label) }}/delete" formmethod="post"
-      >{{ yield icon(name="o-trash") }} {{ gettext("Delete label") }}</button>
-    </div>
+      >{{ yield icon(name="o-trash") }} {{ gettext("Delete") }}</button>
+
+      {{- if hasPermission("api:bookmarks", "export") -}}
+        {{- yield export_menu(url=urlFor(`/api/bookmarks/export.epub`) + `?labels="` + url(.Label) + `"`) -}}
+      {{- end -}}
+    {{- end -}}
   {{- end -}}
 </form>
 
@@ -43,7 +48,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{ yield csrfField() }}
   {{- yield message(type="info") content -}}
     {{ gettext("Label will be removed in a few seconds.") }}&nbsp;
-    <button class="btn-primary" name="cancel" value="1">{{ gettext("Cancel") }}</button>
+    <button class="btn btn-primary" name="cancel" value="1">{{ gettext("Cancel") }}</button>
   {{- end -}}
   </form>
 {{- end -}}
@@ -53,14 +58,6 @@ SPDX-License-Identifier: AGPL-3.0-only
  data-turbo-refresh-interval-value="10"
  data-turbo-refresh-on-value="[data-bookmark-deleted='true']">
 
-  {{- include "/_libs/pagination" .Pagination -}}
-
-  <div class="my-4 grid lg:grid-cols-cards gap-4">
-  {{- range .Bookmarks -}}
-    {{- include "./components/card" . -}}
-  {{- end -}}
-  </div>
-
-  {{- include "/_libs/pagination" .Pagination -}}
+  {{- include "./components/bookmark_list" -}}
 </turbo-frame>
 {{- end }}

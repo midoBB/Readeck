@@ -6,11 +6,11 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ extends "./base" }}
 {{- import "/_libs/forms" -}}
 {{- import "/_libs/pagination" -}}
+{{- import "./components/list_actions"}}
 
 {{ block title() }}{{ .PageTitle }}{{ end }}
 
 {{ block mainContent() -}}
-
 
 <turbo-frame id="bookmark-list"
  data-controller="turbo-refresh"
@@ -23,12 +23,8 @@ SPDX-License-Identifier: AGPL-3.0-only
     print:hidden
   ">
     <div class="flex items-center mx-4 my-2 invisible group-hfw:visible">
-      <label for="create-url"
-      class="text-sm font-semibold cursor-pointer"
+      <label for="create-url" class="text-sm font-semibold cursor-pointer"
       >{{ gettext("Save a new link") }}</label>
-      <a class="ml-auto link font-semibold" href="{{ urlFor(`/bookmarks/import`) }}">
-        {{- yield icon(name="o-import") }}
-        {{ gettext("Import") }}</a>
     </div>
 
     <form action="{{ urlFor(`/bookmarks`) }}" method="post"
@@ -39,7 +35,7 @@ SPDX-License-Identifier: AGPL-3.0-only
           <input type="text" name="url" id="create-url" size="15"
            class="leading-tight w-full rounded-full px-4 py-2 bg-gray-light focus-visible:bg-gray-light text-gray-dark ring-0 ring-offset-0"
            value="{{ string(.Form.Get(`url`).String()) }}" placeholder="https://" />
-          <button type="submit" class="whitespace-nowrap btn-primary rounded-full pl-0.5 py-0 inline-flex gap-1 items-center leading-none">
+          <button type="submit" class="whitespace-nowrap btn btn-primary rounded-full pl-0.5 py-0 inline-flex gap-1 items-center leading-none">
             {{ yield icon(name="o-create", class="text-yellow-400 dark:text-yellow-600", svgClass="h-8 w-8") }}
             <span>{{ pgettext("button", "Save link") }}</span>
           </button>
@@ -87,7 +83,7 @@ SPDX-License-Identifier: AGPL-3.0-only
           Try Readeck's import tool.
         `) }}</p>
         <p class="flex justify-center">
-          <a class="btn-primary rounded-full p-4" href="{{ urlFor(`/bookmarks/import`) }}">
+          <a class="btn btn-primary rounded-full p-4" href="{{ urlFor(`/bookmarks/import`) }}">
             {{- yield icon(name="o-import") }}
             {{ gettext("Import links and articles") }}</a>
         </p>
@@ -96,17 +92,32 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- end -}}
 
   {{- if isset(.Filters) && .Count.Total > 0 }}
-  <form action="{{ urlFor(`/bookmarks`) }}" method="get"
-   class="my-4 pt-2">
-    <input type="hidden" name="bf" value="1" />
+    <div class="flex flex-wrap items-center gap-2 -mx-6 px-6 py-2">
+      <h1 class="flex-grow title mb-0 text-h2 max-md:w-full">{{ .PageTitle }}</h1>
+      {{- yield list_actions() content -}}
+        <div class="btn-group">
+          <button type="button" class="btn-outlined py-1"
+          data-controller="remote"
+          data-action="remote#toggleDetails"
+          data-remote-selector-param="#filters"
+          >{{- yield icon(name="o-filter") }} {{ pgettext("action", "Filter list") }}
+          </button>
+        </div>
 
-    <div class="relative">
-      <h1 class="title text-h2">{{ .PageTitle }}</h1>
+        {{- if hasPermission("api:bookmarks", "export") && hasPermission("api:bookmarks:import", "write") -}}
+          {{- yield export_menu(url=urlFor(`/api/bookmarks/export.epub`) + `?` + .Filters.GetQueryString()) content -}}
+            <li><a class="link" href="{{ urlFor(`/bookmarks/import`) }}">
+              {{- yield icon(name="o-import") }} {{ gettext("Import bookmarks") }}</a></li>
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    </div>
 
+    <form action="{{ urlFor(`/bookmarks`) }}" method="get">
       {{- if .Filters.IsActive() -}}
         <p class="mb-2">
         {{- if .Pagination.TotalCount == 0 -}}
-          Your search query yielded <strong>no results</strong>.
+          {{ gettext(`Your search query yielded <strong>no results</strong>.`)|raw }}
         {{- else -}}
           {{ ngettext(
             `Your search query yielded <strong>%d result</strong>.`,
@@ -117,14 +128,10 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{- end -}}
         </p>
       {{- end -}}
-
-      <details class="print:hidden" {{- if .Filters.IsActive() }} open{{- end -}}>
-        <summary class="
-          inline-block md:absolute md:right-0 md:top-3
-          link py-1 px-4 border border-primary rounded-full
-          hf:bg-yellow-100
-        ">{{ yield icon(name="o-filter") }}
+      <details id="filters" class="print:hidden" {{- if .Filters.IsActive() }} open{{- end -}}>
+        <summary class="hidden no-js:block">{{ yield icon(name="o-filter") }}
           {{ pgettext("action", "Filter list") }}</summary>
+        <input type="hidden" name="bf" value="1" />
         <div class="bg-gray-100 border rounded p-2 text-sm max-md:mt-2 relative">
           <span class="absolute top-1 right-4">
             <a href="{{ urlFor(`/docs/bookmark-list`) }}#filters" class="link">{{ yield icon(name="o-help") }}
@@ -134,19 +141,18 @@ SPDX-License-Identifier: AGPL-3.0-only
           {{ include("./components/filters") .Filters }}
 
           <div class="mt-4 flex gap-2 items-center max-md:flex-col">
-            <button class="btn-primary max-md:w-full">{{ pgettext("action", "Search") }}</button>
+            <button class="btn btn-primary max-md:w-full">{{ pgettext("action", "Search") }}</button>
             {{ if .Filters.IsActive() -}}
-              <a href="{{ urlFor() }}?bf=1" class="block max-md:w-full btn rounded text-center">{{ gettext("Reset search") }}</a>
+              <a href="{{ urlFor() }}?bf=1" class="block max-md:w-full btn btn-default rounded text-center">{{ gettext("Reset search") }}</a>
               <a href="{{ urlFor(`/bookmarks/collections/add`)}}?{{ .Filters.GetQueryString() }}"
-                class="ml-auto block max-md:w-full btn-outlined-primary font-semibold rounded text-center">{{ yield icon(name="o-plus") }}
+                class="ml-auto block max-md:w-full btn-outlined btn-primary font-semibold rounded text-center">{{ yield icon(name="o-plus") }}
                 {{ gettext("Create a collection") }}</a>
             {{- end }}
           </div>
 
         </div>
       </details>
-    </div>
-  </form>
+    </form>
   {{ end -}}
 
   {{- include "./components/bookmark_list" -}}

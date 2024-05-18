@@ -24,6 +24,7 @@ import (
 	"codeberg.org/readeck/readeck/assets"
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/email"
+	"codeberg.org/readeck/readeck/internal/profile/preferences"
 	"codeberg.org/readeck/readeck/locales"
 	"codeberg.org/readeck/readeck/pkg/glob"
 	"codeberg.org/readeck/readeck/pkg/libjet"
@@ -217,6 +218,9 @@ func (s *Server) TemplateVars(r *http.Request) jet.VarMap {
 	cspNonce, _ := r.Context().Value(ctxCSPNonceKey{}).(string)
 	tr := s.Locale(r)
 
+	user := auth.GetRequestUser(r)
+	session := s.GetSession(r)
+
 	return make(jet.VarMap).
 		Set("basePath", s.BasePath).
 		Set("canSendEmail", email.CanSendEmail()).
@@ -226,7 +230,8 @@ func (s *Server) TemplateVars(r *http.Request) jet.VarMap {
 		Set("isTurbo", s.IsTurboRequest(r)).
 		Set("request", r).
 		Set("cspNonce", cspNonce).
-		Set("user", auth.GetRequestUser(r)).
+		Set("user", user).
+		Set("preferences", preferences.New(user, session)).
 		Set("flashes", s.Flashes(r)).
 		Set("translator", tr).
 		Set("gettext", tr.Gettext).

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-04-26 05:28+0000\n"
-"PO-Revision-Date: 2024-04-26 07:29+0200\n"
+"POT-Creation-Date: 2024-05-17 18:14+0000\n"
+"PO-Revision-Date: 2024-05-17 20:14+0200\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
 "Language: fr_FR\n"
@@ -497,10 +497,6 @@ msgstr "Nom"
 msgid "Delete collection"
 msgstr "Supprimer la collection"
 
-#: assets/templates/bookmarks/collection.jet.html
-msgid "Export this collection"
-msgstr "Exporter cette collection"
-
 #: assets/templates/bookmarks/collection_create.jet.html
 msgid "New Collection"
 msgstr "Nouvelle collection"
@@ -599,6 +595,7 @@ msgid "Undo"
 msgstr "Annuler"
 
 #: assets/templates/bookmarks/components/actions.jet.html
+#: assets/templates/bookmarks/components/list_actions.jet.html
 msgid "Download EPUB"
 msgstr "Télécharger EPUB"
 
@@ -684,6 +681,14 @@ msgstr "Ajouter un label"
 #: assets/templates/bookmarks/components/labels_form.jet.html
 msgid "Add label"
 msgstr "Ajouter le label"
+
+#: assets/templates/bookmarks/components/list_actions.jet.html
+msgid "Grid view"
+msgstr "Vue en grille"
+
+#: assets/templates/bookmarks/components/list_actions.jet.html
+msgid "Compact view"
+msgstr "Vue compacte"
 
 #: assets/templates/bookmarks/components/public_share.jet.html
 msgid "You can share the following link with your friends."
@@ -947,11 +952,6 @@ msgid "Save a new link"
 msgstr "Enregistrer un lien"
 
 #: assets/templates/bookmarks/index.jet.html
-#: internal/bookmarks/routes/views_import.go
-msgid "Import"
-msgstr "Importer"
-
-#: assets/templates/bookmarks/index.jet.html
 msgctxt "button"
 msgid "Save link"
 msgstr "Sauvegarder"
@@ -997,16 +997,24 @@ msgid "Import links and articles"
 msgstr "Importer des liens et articles"
 
 #: assets/templates/bookmarks/index.jet.html
+msgctxt "action"
+msgid "Filter list"
+msgstr "Filtrer la liste"
+
+#: assets/templates/bookmarks/index.jet.html
+msgid "Import bookmarks"
+msgstr "Importer des bookmarks"
+
+#: assets/templates/bookmarks/index.jet.html
+msgid "Your search query yielded <strong>no results</strong>."
+msgstr "Votre recherche n'a retourné <strong>aucun résultat</strong>."
+
+#: assets/templates/bookmarks/index.jet.html
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
 msgstr[0] "Votre recherche a retourné <strong>%d résultat</strong>."
 msgstr[1] "Votre recherche a retourné <strong>%d résultats</strong>."
-
-#: assets/templates/bookmarks/index.jet.html
-msgctxt "action"
-msgid "Filter list"
-msgstr "Filtrer la liste"
 
 #: assets/templates/bookmarks/index.jet.html
 msgid "Filters documentation"
@@ -1026,8 +1034,8 @@ msgid "Create a collection"
 msgstr "Créer une collection"
 
 #: assets/templates/bookmarks/label.jet.html
-msgid "Delete label"
-msgstr "Supprimer ce label"
+msgid "Delete"
+msgstr "Supprimer"
 
 #: assets/templates/bookmarks/label.jet.html
 msgid "Label will be removed in a few seconds."
@@ -1591,6 +1599,10 @@ msgid "Collection updated."
 msgstr "Collection mise à jour."
 
 #: internal/bookmarks/routes/views_import.go
+msgid "Import"
+msgstr "Importer"
+
+#: internal/bookmarks/routes/views_import.go
 msgid "Progress"
 msgstr "Progression"
 
@@ -1876,3 +1888,9 @@ msgstr "%d/%m/%Y"
 msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
+
+#~ msgid "Export this collection"
+#~ msgstr "Exporter cette collection"
+
+#~ msgid "Delete label"
+#~ msgstr "Supprimer ce label"

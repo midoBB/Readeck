@@ -1,0 +1,25 @@
+/*
+ * SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+@import "tailwindcss/base.css";
+@import "tailwindcss/components.css";
+
+@import "./styles/colors";
+@import "./styles/base";
+
+@import "./styles/button";
+@import "./styles/bookmark-card";
+@import "./styles/breadcrumbs";
+@import "./styles/forms";
+@import "./styles/layout";
+@import "./styles/prose";
+@import "./styles/video";
+@import "./styles/menu";
+
+@import "./styles/bookmark";
+@import "./styles/docs";
+
+@import "tailwindcss/utilities.css";

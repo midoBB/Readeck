@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{ yield csrfField() }}
       <input type="hidden" name="cancel" value="1" />
       <input type="hidden" name="_to" value="{{ currentPath }}" />
-      <button class="btn-primary ml-2" type="submit" name="is_deleted" value="0"
+      <button class="btn btn-primary ml-2" type="submit" name="is_deleted" value="0"
        data-controller="turbo-form"
        data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
        data-turbo-form-method-value="patch">{{ yield icon(name="o-undo") }}&nbsp;{{ gettext("Undo") }}</button>
@@ -26,31 +26,31 @@ SPDX-License-Identifier: AGPL-3.0-only
     <form action="{{ urlFor(`/bookmarks`, .ID) }}" method="post"
     data-controller="turbo-form"
     data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
-    data-turbo-form-method-value="patch">
+    data-turbo-form-method-value="patch"
+    class="relative">
       {{ yield csrfField() }}
-      <div class="inline-flex relative">
-        <button class="btn-outlined-primary leading-none rounded-l-full border-r-0 h-9 pl-3" name="is_marked" value="{{ .IsMarked ? 0 : 1 }}"
+      <div class="btn-group btn-primary rounded-full">
+        <button class="btn-outlined btn-primary pl-3" name="is_marked" value="{{ .IsMarked ? 0 : 1 }}"
         title="{{ textFav }}">
           {{ yield icon(name=(.IsMarked ? "o-favorite-on" : "o-favorite-off")) }}
         </button>
-        <button class="btn-outlined-primary leading-none rounded-none border-x-0 h-9" name="is_archived" value="{{ .IsArchived ? 0 : 1 }}"
+        <button class="btn-outlined btn-primary" name="is_archived" value="{{ .IsArchived ? 0 : 1 }}"
         title="{{ textArch }}">
           {{ yield icon(name=(.IsArchived ? "o-archive-on" : "o-archive-off")) }}
         </button>
-        <details class="" data-controller="details">
-          <summary class="btn-outlined-primary leading-none border-l-0 rounded-r-full h-9 pr-3"
-           title="{{ gettext(`Export and Share`) }}">
+        <details class="menu" data-controller="menu">
+          <summary class="btn-outlined btn-primary pr-3"
+            title="{{ gettext(`Export and Share`) }}">
             {{ yield icon(name="o-share") }}
           </summary>
-          <div class="absolute z-30 top-10 left-0 w-[max-content] shadow-lg bg-gray-50 border border-gray-300 rounded-md p-4">
-            <ul class="flex flex-col gap-2 space-y-2">
-              <li><a class="link" href="{{ urlFor(`/api/bookmarks`, .ID, `article.epub`) }}">{{ yield icon(name="o-download") }} {{ gettext("Download EPUB") }}</a></li>
-              {{ if hasPermission("api:bookmarks", "export") -}}
-              <li><button class="link" form="share-form" data-details-target="closer">{{ yield icon(name="o-link") }} {{ gettext("Share by Link") }}</button></li>
-              {{- end }}
-            </ul>
-          </div>
+          <ul class="top-10 left-0">
+            <li><a class="link" href="{{ urlFor(`/api/bookmarks`, .ID, `article.epub`) }}">{{ yield icon(name="o-download") }} {{ gettext("Download EPUB") }}</a></li>
+            {{ if hasPermission("api:bookmarks", "export") -}}
+            <li><button class="link" form="share-form" data-action="menu#toggle">{{ yield icon(name="o-link") }} {{ gettext("Share by Link") }}</button></li>
+            {{- end }}
+          </ul>
         </details>
+
       </div>
     </form>
 
@@ -58,7 +58,7 @@ SPDX-License-Identifier: AGPL-3.0-only
      class="ml-auto">
       {{ yield csrfField() }}
       <input type="hidden" name="_to" value="{{ currentPath }}" />
-      <button class="btn-outlined-danger leading-none rounded-full w-9 h-9 px-2" name="is_deleted" value="1"
+      <button class="btn-outlined btn-danger leading-none rounded-full w-9 h-9 px-2" name="is_deleted" value="1"
         title="{{ gettext(`Delete this bookmark`) }}"
         data-controller="turbo-form"
         data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"

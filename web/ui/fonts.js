@@ -95,7 +95,7 @@ module.exports = {
   // that are inserted during the CSS bundle creation.
   atRules: () => {
     return Object.values(fontCatalog).reduce((acc, cur) => {
-      acc.push(...cur.css.map((x) => `@import ${path.join(cur.path, x)}`))
+      acc.push(...cur.css.map((x) => `@import "${path.join(cur.path, x)}";`))
       return acc
     }, [])
   },

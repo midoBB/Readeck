@@ -92,6 +92,7 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 	ctx["Form"] = f
 	ctx["Pagination"] = bl.Pagination
 	ctx["Bookmarks"] = bl.Items
+	ctx["Filters"] = newContextFilterForm(r.Context(), tr)
 	title := tr.Gettext("All your Bookmarks")
 
 	if filters, ok := r.Context().Value(ctxFiltersKey{}).(*filterForm); ok {

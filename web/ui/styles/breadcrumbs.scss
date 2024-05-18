@@ -1,0 +1,28 @@
+// SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
+@layer components {
+  .breadcrumbs {
+    @apply mb-5 -mt-4;
+    @apply bg-gray-100;
+    @apply p-2 rounded-md;
+
+    ol > li {
+      @apply inline font-semibold;
+
+      a {
+        @apply link;
+      }
+    }
+
+    ol > li + li::before {
+      @apply inline-block;
+      @apply mx-2;
+      @apply h-3;
+      border-right: 0.1em solid rgb(var(--color-gray-700));
+      transform: rotate(15deg);
+      content: "";
+    }
+  }
+}

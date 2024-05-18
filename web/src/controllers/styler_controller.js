@@ -4,23 +4,23 @@
 
 import {Controller} from "@hotwired/stimulus"
 
-// Controller "reader" is only an outlet for the "reader-option" controller.
+// Controller "styler" is only an outlet for the "styler-option" controller.
 export default class extends Controller {
   initialize() {
-    // only add the reader-option controller the first time
+    // only add the styler-option controller the first time
     // the controller is initialized.
     if (
       this.application.controllers.find(
-        (x) => x.context.controller.identifier == "reader-option",
+        (x) => x.context.controller.identifier == "styler-option",
       ) === undefined
     ) {
-      this.application.register("reader-option", readerOption)
+      this.application.register("styler-option", stylerOption)
     }
   }
 }
 
-class readerOption extends Controller {
-  static outlets = ["reader"]
+class stylerOption extends Controller {
+  static outlets = ["styler"]
   static values = {
     current: {
       type: String,
@@ -47,7 +47,7 @@ class readerOption extends Controller {
     })
   }
 
-  readerOutletConnected() {
+  stylerOutletConnected() {
     if (this.currentValue === null) {
       return
     }
@@ -139,7 +139,7 @@ class readerOption extends Controller {
       return
     }
 
-    this.readerOutletElements.forEach((e) => {
+    this.stylerOutletElements.forEach((e) => {
       e.classList.remove(...this.getAllClasses())
       e.classList.add(...classNames)
     })

@@ -39,7 +39,7 @@ SPDX-License-Identifier: AGPL-3.0-only
         <p class="text-lg">{{ gettext("Bookmark is loading") }}…</p>
       </div>
     {{- else -}}
-      <div class="hidden print:block font-lora" data-controller="reader"
+      <div class="hidden print:block {{ preferences.ReaderFont().Class }}" data-controller="styler"
        dir="{{ default(.Item.TextDirection, `ltr`) }}">
         <h1 class="px-6 py-4 text-3xl print:px-0">{{ .Item.Title }}</h1>
       </div>
@@ -110,8 +110,8 @@ SPDX-License-Identifier: AGPL-3.0-only
         </div>
 
         {* title and description *}
-        <div class="max-w-3xl mx-auto mt-4 print:mt-2 print:max-w-none mb-8 font-lora"
-         data-controller="reader">
+        <div class="max-w-3xl mx-auto mt-4 print:mt-2 print:max-w-none mb-8 {{ preferences.ReaderFont().Class }}"
+         data-controller="styler">
           {{ include "./components/title_form" .Item }}
 
           {{- if !empty(.Item.Description) -}}

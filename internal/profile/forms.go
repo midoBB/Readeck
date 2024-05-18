@@ -16,6 +16,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/db/types"
+	"codeberg.org/readeck/readeck/internal/sessions"
 	"codeberg.org/readeck/readeck/locales"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -216,6 +217,56 @@ func (f *passwordForm) updatePassword(u *users.User) (err error) {
 		return
 	}
 	err = u.Update(map[string]interface{}{"seed": u.SetSeed()})
+	return
+}
+
+type sessionPrefForm struct {
+	*forms.Form
+}
+
+func newSessionPrefForm(tr forms.Translator) (f *sessionPrefForm) {
+	f = &sessionPrefForm{forms.Must(
+		forms.NewChoiceField(
+			"bookmark_list_display",
+			forms.Choices{
+				{"grid", "grid"},
+				{"compact", "compact"},
+			},
+		),
+	)}
+	f.SetLocale(tr)
+
+	f.Get("bookmark_list_display").SetValidators(
+		forms.Optional(f.Get("bookmark_list_display").Validators()...),
+	)
+
+	return f
+}
+
+func (f sessionPrefForm) updateSession(payload *sessions.Payload) (res map[string]interface{}, err error) {
+	if !f.IsBound() {
+		err = errors.New("form is not bound")
+		return
+	}
+
+	res = make(map[string]interface{})
+	for _, field := range f.Fields() {
+		if !field.IsBound() || field.IsNil() {
+			continue
+		}
+
+		n := field.Name()
+		switch n { //nolint:gocritic
+		case "bookmark_list_display":
+			payload.Preferences.BookmarkListDisplay = field.String()
+			res[n] = field.String()
+		}
+	}
+
+	if len(res) > 0 {
+		payload.Preferences.LastUpdate = time.Now()
+	}
+
 	return
 }
 

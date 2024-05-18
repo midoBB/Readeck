@@ -5,8 +5,6 @@
 import {Controller} from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["closer"]
-
   connect() {
     if (this.element.tagName.toLowerCase() != "details") {
       return
@@ -21,12 +19,10 @@ export default class extends Controller {
         document.removeEventListener("keyup", this.closeDetails)
       }
     })
+  }
 
-    this.closerTargets.forEach((e) => {
-      e.addEventListener("click", () => {
-        this.element.open = false
-      })
-    })
+  toggle = () => {
+    this.element.open = !this.element.open
   }
 
   closeDetails = (evt) => {

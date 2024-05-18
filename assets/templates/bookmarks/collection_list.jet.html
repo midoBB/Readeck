@@ -12,7 +12,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 <h1 class="title text-h2">{{ yield title() }}</h1>
 
 <p class="my-4"><a href="{{ urlFor(`./add`) }}"
- class="btn-primary">{{ gettext("Create a new collection") }}</a></p>
+ class="btn btn-primary">{{ gettext("Create a new collection") }}</a></p>
 
 {{- if len(.Collections) == 0 -}}
   <div class="flex gap-4 max-w-std">
@@ -68,7 +68,7 @@ SPDX-License-Identifier: AGPL-3.0-only
             {{ yield csrfField() }}
             <input type="hidden" name="cancel" value="1" />
             <button type="submit"
-            class="btn-primary whitespace-nowrap text-sm py-1 ml-2">{{ yield icon(name="o-undo") }} Undo</button>
+            class="btn btn-primary whitespace-nowrap text-sm py-1 ml-2">{{ yield icon(name="o-undo") }} Undo</button>
           </form>
         </div>
       {{- end -}}

@@ -24,6 +24,7 @@ import (
 	"github.com/go-shiori/dom"
 	"golang.org/x/net/html"
 
+	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
@@ -45,8 +46,6 @@ type (
 	ctxFiltersKey           struct{}
 	ctxDefaultLimitKey      struct{}
 )
-
-var sharingDuration = 24 * time.Hour
 
 // bookmarkList renders a paginated list of the connected
 // user bookmarks in JSON.
@@ -744,7 +743,9 @@ func (api *apiRouter) withSharedLink(next http.Handler) http.Handler {
 			return
 		}
 
-		expires := time.Now().Round(time.Minute).Add(sharingDuration)
+		expires := time.Now().Round(time.Minute).Add(
+			time.Duration(configs.Config.Bookmarks.PublicShareTTL) * time.Hour,
+		)
 
 		rr, err := bookmarks.EncryptID(uint64(b.ID), expires)
 		if err != nil {

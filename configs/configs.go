@@ -48,6 +48,7 @@ type config struct {
 	Database     configDB        `json:"database" env:"-"`
 	Email        configEmail     `json:"email" env:"-"`
 	Extractor    configExtractor `json:"extractor" env:"-"`
+	Bookmarks    configBookmarks `json:"bookmarks" env:"-"`
 	Worker       configWorker    `json:"worker" env:"-"`
 	Metrics      configMetrics   `json:"metrics" env:"-"`
 	Commissioned bool            `json:"-" env:"-"`
@@ -79,6 +80,10 @@ type configDB struct {
 type configSession struct {
 	CookieName string `json:"cookie_name" env:"-"`
 	MaxAge     int    `json:"max_age" env:"-"` // in minutes
+}
+
+type configBookmarks struct {
+	PublicShareTTL int `json:"public_share_ttl" env:"READECK_PUBLIC_SHARE_TTL"`
 }
 
 type configEmail struct {
@@ -209,6 +214,9 @@ var Config = config{
 	Database: configDB{},
 	Email: configEmail{
 		Port: 25,
+	},
+	Bookmarks: configBookmarks{
+		PublicShareTTL: 24,
 	},
 	Worker: configWorker{
 		DSN:         "memory://",

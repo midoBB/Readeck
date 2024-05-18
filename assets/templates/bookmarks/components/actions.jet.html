@@ -38,20 +38,19 @@ SPDX-License-Identifier: AGPL-3.0-only
         title="{{ textArch }}">
           {{ yield icon(name=(.IsArchived ? "o-archive-on" : "o-archive-off")) }}
         </button>
-        <details class="" data-controller="menu">
+        <details class="menu" data-controller="menu">
           <summary class="btn-outlined btn-primary pr-3"
-           title="{{ gettext(`Export and Share`) }}">
+            title="{{ gettext(`Export and Share`) }}">
             {{ yield icon(name="o-share") }}
           </summary>
-          <div class="absolute z-30 top-10 left-0 w-[max-content] shadow-lg bg-gray-50 border border-gray-300 rounded-md p-4">
-            <ul class="flex flex-col gap-2 space-y-2">
-              <li><a class="link" href="{{ urlFor(`/api/bookmarks`, .ID, `article.epub`) }}">{{ yield icon(name="o-download") }} {{ gettext("Download EPUB") }}</a></li>
-              {{ if hasPermission("api:bookmarks", "export") -}}
-              <li><button class="link" form="share-form" data-action="menu#toggle">{{ yield icon(name="o-link") }} {{ gettext("Share by Link") }}</button></li>
-              {{- end }}
-            </ul>
-          </div>
+          <ul class="top-10 left-0">
+            <li><a class="link" href="{{ urlFor(`/api/bookmarks`, .ID, `article.epub`) }}">{{ yield icon(name="o-download") }} {{ gettext("Download EPUB") }}</a></li>
+            {{ if hasPermission("api:bookmarks", "export") -}}
+            <li><button class="link" form="share-form" data-action="menu#toggle">{{ yield icon(name="o-link") }} {{ gettext("Share by Link") }}</button></li>
+            {{- end }}
+          </ul>
         </details>
+
       </div>
     </form>
 

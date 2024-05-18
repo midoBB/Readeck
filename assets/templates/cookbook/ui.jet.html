@@ -70,7 +70,21 @@ SPDX-License-Identifier: AGPL-3.0-only
 </div>
 
 <hr class="my-8">
+<h2 class="title text-h3">Menus</h2>
 
+<details class="menu btn-group" data-controller="menu">
+  <summary class="btn-outlined py-1">
+    {{- yield icon(name="o-menu-dots") -}}
+  </summary>
+  <ul>
+    <li><button>Item A</button></li>
+    <li><button>Item B</button></li>
+    <li role="separator"></li>
+    <li><button>Item C</button></li>
+  </ul>
+</details>
+
+<hr class="my-8">
 <h2 class="title text-h3">Messages</h2>
 
 {{- yield message() content -}}
@@ -102,7 +116,6 @@ Removable message
 {{- end -}}
 
 <hr class="my-8">
-
 <h2 class="title text-h3">Form Fields</h2>
 
 {{ yield textField(
@@ -173,7 +186,6 @@ Removable message
 ) }}
 
 <hr class="my-8">
-
 <h2 class="title text-h3">Form with errors</h2>
 
 {{- yield formErrors(form=.FormErr) -}}

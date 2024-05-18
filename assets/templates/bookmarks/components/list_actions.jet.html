@@ -8,8 +8,8 @@ SPDX-License-Identifier: AGPL-3.0-only
     class="btn-group"
     data-controller="styler-option request"
     data-styler-option-styler-outlet="[data-controller='styler']"
-    data-request-url-value="{{ urlFor(`/api/profile/session`) }}"
-    data-request-method-value="patch"
+    data-request-url-value="{{ urlFor(`/profile/session`) }}"
+    data-request-method-value="post"
   >
     <button class="btn-outlined py-1 data-[current]:btn-primary"
     title="{{ gettext(`Grid view`) }}"

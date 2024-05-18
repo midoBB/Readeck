@@ -135,18 +135,6 @@ func TestAPI(t *testing.T) {
 		},
 
 		RequestTest{
-			Method: "PATCH",
-			Target: "/api/profile/session",
-			JSON: map[string]interface{}{
-				"bookmark_list_display": "grid",
-			},
-			ExpectStatus: 400,
-			ExpectJSON: `{
-					"status":400,"message":"invalid authentication provider"
-				}`,
-		},
-
-		RequestTest{
 			Method: "PUT",
 			Target: "/api/profile/password",
 			JSON: map[string]interface{}{

@@ -37,6 +37,7 @@ func newProfileViews(api *profileAPI) *profileViews {
 	r.With(api.srv.WithPermission("profile", "write")).Group(func(r chi.Router) {
 		r.Post("/", v.userProfile)
 		r.Post("/password", v.userPassword)
+		r.Post("/session", v.userSession)
 	})
 
 	r.With(api.srv.WithPermission("profile:credentials", "read")).Group(func(r chi.Router) {
@@ -132,6 +133,35 @@ func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 		{tr.Gettext("Password")},
 	})
 	v.srv.RenderTemplate(w, r, 200, "profile/password", ctx)
+}
+
+// userSession handles changes of user session preferences.
+// This returns an API response but since it only works with a SessionAuthProvider
+// it makes more sense to have it in the views.
+func (v *profileViews) userSession(w http.ResponseWriter, r *http.Request) {
+	p, ok := auth.GetRequestProvider(r).(*auth.SessionAuthProvider)
+	if !ok {
+		v.srv.TextMessage(w, r, http.StatusBadRequest, "invalid authentication provider")
+		return
+	}
+
+	f := newSessionPrefForm(v.srv.Locale(r))
+	forms.Bind(f, r)
+
+	if !f.IsValid() {
+		v.srv.Render(w, r, http.StatusUnprocessableEntity, f)
+		return
+	}
+
+	sess := p.GetSession(r)
+	updated, err := f.updateSession(sess.Payload)
+	if err != nil {
+		v.srv.Error(w, r, err)
+		return
+	}
+
+	sess.Save(r, w)
+	v.srv.Render(w, r, http.StatusOK, updated)
 }
 
 func (v *profileViews) credentialList(w http.ResponseWriter, r *http.Request) {

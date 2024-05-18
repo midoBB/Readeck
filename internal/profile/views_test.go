@@ -72,6 +72,27 @@ func TestViews(t *testing.T) {
 				},
 				ExpectStatus: 422,
 			},
+			RequestTest{Target: "/profile"},
+			RequestTest{
+				Method: "POST",
+				Target: "/profile/session",
+				Form: url.Values{
+					"bookmark_list_display": {"grid"},
+				},
+				ExpectStatus: 200,
+				ExpectJSON: `{
+					"bookmark_list_display":"grid"
+				}`,
+			},
+			RequestTest{Target: "/profile"},
+			RequestTest{
+				Method: "POST",
+				Target: "/profile/session",
+				Form: url.Values{
+					"bookmark_list_display": {"something"},
+				},
+				ExpectStatus: 422,
+			},
 		)
 	})
 

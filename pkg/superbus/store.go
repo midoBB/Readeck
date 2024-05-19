@@ -65,7 +65,7 @@ func (s *RedisStore) Del(key string) error {
 
 // MemStore is a KvStore implementation using a simple in memory map.
 type MemStore struct {
-	sync.Mutex
+	sync.RWMutex
 	data map[string]string
 }
 
@@ -79,8 +79,8 @@ func NewMemStore() *MemStore {
 // Get returns a value for the given key. Returns an empty string when the
 // value does not exist.
 func (s *MemStore) Get(key string) string {
-	s.Lock()
-	defer s.Unlock()
+	s.RLock()
+	defer s.RUnlock()
 	return s.data[key]
 }
 
@@ -92,6 +92,8 @@ func (s *MemStore) Set(key, value string, expiration time.Duration) error {
 
 	if expiration > 0 {
 		time.AfterFunc(expiration, func() {
+			s.Lock()
+			defer s.Unlock()
 			delete(s.data, key)
 		})
 	}

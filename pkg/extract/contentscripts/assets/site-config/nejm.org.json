@@ -1,0 +1,42 @@
+{
+  "title_selectors": [
+    "//div[@class='core-container']/h1"
+  ],
+  "body_selectors": [
+    "//article[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//button",
+    "//div[@class='core-container']/div[@class='meta-panel']",
+    "//div[@class='core-container']/h1",
+    "//div[@data-core-nav='header']",
+    "//aside[@data-core-aside='right-rail']"
+  ],
+  "strip_id_or_class": [
+    "to-authors-affiliations",
+    "info-panel",
+    "core-collateral",
+    "quick-take"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2401479",
+      "contains": []
+    },
+    {
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2309003",
+      "contains": []
+    }
+  ]
+}

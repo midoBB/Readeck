@@ -4,6 +4,8 @@
     "//h1[@class=\"story-header\"]"
   ],
   "body_selectors": [
+    "//main[1]//article[1]",
+    "//main[1]",
     "//article[contains(@class, \"-ArticleWrapper\")]",
     "//article[@class='article__body'] | (//div[contains(@class, 'article__body-content')])[1]",
     "(//div[@id=\"story-body\"])[1]",
@@ -20,6 +22,12 @@
     "//div[@id='headline']//span[@class='byline-name']"
   ],
   "strip_selectors": [
+    "//section[@data-component='headline-block']",
+    "//section[@data-component='byline-block']",
+    "//section[@data-component='links-block']",
+    "//section[@data-component='tags']/self::* | //section[@data-component='tags']/following-sibling::*",
+    "//main[1]//header[1]",
+    "//nav",
     "//div[contains(@class, 'MediaPlayerWrapper') and not(.//iframe)]",
     "//article//header",
     "//div[contains(@class, \"CommentsWrapper\")]",
@@ -51,6 +59,7 @@
     "//section[contains(@class, 'LinksWrapper')]"
   ],
   "strip_id_or_class": [
+    "dotcom-mpu_mid",
     "image-and-copyright-container",
     "article-body__pull-quote",
     "share-help",

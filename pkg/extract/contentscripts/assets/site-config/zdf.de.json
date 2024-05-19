@@ -1,22 +1,19 @@
 {
-  "title_selectors": [
-    "//meta[@property=\"og:title\"]/@content"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' b-post-content ')]"
+    "//main[1]"
   ],
-  "date_selectors": [
-    "//meta[@name=\"zdf:publicationDate\"]/@content"
-  ],
-  "author_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' author-wrap ')]//div//span"
-  ],
+  "date_selectors": null,
+  "author_selectors": null,
   "strip_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' content-item ') and (contains(concat(' ',normalize-space(@class),' '),' grid-x ')) and (contains(concat(' ',normalize-space(@class),' '),' m-clickarea '))]"
+    "//hr",
+    "//div[@data-testid='topic-tags']",
+    "//div[@data-testid='heute-übersichtmodul']"
   ],
   "strip_id_or_class": [
-    "b-heute-video",
-    "b-content-module"
+    "h1t4jafr",
+    "aa0wqkc",
+    "se0hen3"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -25,14 +22,21 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "\u003cbutton",
+      "\u003cdiv"
+    ],
+    [
+      "\u003c/button",
+      "\u003c/div"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.zdf.de/nachrichten/politik/coronavirus-maskenpflicht-draussen-faktencheck-100.html",
-      "contains": [
-        "Entsprechend deuteten Untersuchungen"
-      ]
+      "url": "https://www.zdf.de/nachrichten/wirtschaft/volkswagen-china-hacking-industriespionage-emobilitaet-100.html",
+      "contains": []
     }
   ]
 }

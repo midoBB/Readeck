@@ -1,52 +1,29 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//article[contains(concat(' ',normalize-space(@class),' '),' article ')]"
+    "//main/article[1]"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
+    "//address/ancestor::div[1]",
+    "//hgroup",
     "//time/parent::div",
-    "//div[@id='offer_below_article']/self::div | //div[@id='offer_below_article']/following-sibling::*",
-    "//a/strong[contains(text(), 'Newsletter')]/ancestor::aside",
-    "//h3[contains(text(), 'Mehr zum Thema')]/self::h3 | //h3[contains(text(), 'Mehr zum Thema')]/following-sibling::div",
-    "//h3[contains(text(), 'Lesen Sie auch')]/self::h3 | //h3[contains(text(), 'Lesen Sie auch')]/following-sibling::div",
-    "//div[@class='video-autoplay']/parent::figcaption",
-    "//figcaption/div[@class='rights']"
+    "//section[@aria-label='Newsletter Anmeldung']/parent::div"
   ],
-  "strip_id_or_class": [
-    "hero-img__credits",
-    "content--teaser--container",
-    "hero-img__caption-toggle",
-    "newsletter-cleverreach"
-  ],
+  "strip_id_or_class": null,
   "strip_image_src": null,
-  "native_ad_selectors": [
-    "//article[contains(@class, 'subtype-sales')]",
-    "//h2[contains(@class, 'article__header__headline') and contains(text(), 'Apotheken-Notdienst')]"
-  ],
+  "native_ad_selectors": null,
   "tidy": false,
   "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": [
-    [
-      "data-srcset=\"https",
-      "srcset=\"https"
-    ]
-  ],
-  "http_headers": {
-    "User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
-    "referer": "https://www.wp.de/"
-  },
+  "replace_strings": null,
+  "http_headers": null,
   "tests": [
     {
-      "url": "https://www.waz.de/rss",
-      "contains": []
-    },
-    {
-      "url": "https://www.waz.de/region/rhein-und-ruhr/millionen-gaense-kommen-zum-ueberwintern-an-den-niederrhein-id241450690.html",
+      "url": "https://www.waz.de/politik/article242220498/Richter-droht-Donald-Trump-unmissverstaendlich-mit-Gefaengnis.html",
       "contains": []
     }
   ]

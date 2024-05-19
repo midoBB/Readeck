@@ -1,15 +1,15 @@
 {
-  "title_selectors": [
-    "//div[@class='qp_headline']/h1"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, 'article')]//div[@class='qp_text']"
+    "//main/article[1]"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
-    "//div[@id='_DetailPortlet_WAR_queport_zgtperson']",
-    "//div[@class='qp_embedded']"
+    "//address/ancestor::div[1]",
+    "//hgroup",
+    "//time/parent::div",
+    "//section[@aria-label='Newsletter Anmeldung']/parent::div"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -23,7 +23,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://apolda.thueringer-allgemeine.de/web/apolda/startseite/detail/-/specific/Neue-Superknolle-beim-Heichelheimer-Kartoffelfest-praemiert-447764498",
+      "url": "https://www.thueringer-allgemeine.de/politik/article242220498/Richter-droht-Donald-Trump-unmissverstaendlich-mit-Gefaengnis.html",
       "contains": []
     }
   ]

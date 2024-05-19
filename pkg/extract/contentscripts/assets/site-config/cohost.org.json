@@ -1,0 +1,26 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' co-project-display-name ')]"
+  ],
+  "date_selectors": [
+    "//time"
+  ],
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "co-comment-box",
+    "co-thread-footer"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": null
+}

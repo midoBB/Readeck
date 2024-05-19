@@ -1,6 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
+    "//article[@class='page']",
     "//main"
   ],
   "date_selectors": null,

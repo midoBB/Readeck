@@ -2,7 +2,8 @@
   "title_selectors": null,
   "body_selectors": [
     "//article[contains(concat(' ',normalize-space(@class),' '),' content-view ')]",
-    "//div[contains(@class, 'article-body__content__')]",
+    "//div[contains(@class, 'article-body__container_')]",
+    "//div[contains(@class, 'article-body__content_')]",
     "//div[@id='articleImage' or @id='frame_fd1fade'] | //span[@id='article-text'] | //div[@class='pageNavigation']",
     "//article[@itemtype=\"http://schema.org/NewsArticle\"]"
   ],
@@ -15,7 +16,12 @@
     "//li[@class='next']",
     "//span[@class='articleLocation']",
     "//div[contains(@class, 'registration-prompt')]",
-    "//*[@data-testid=\"toolbar-container\"]"
+    "//*[@data-testid=\"toolbar-container\" or @data-testid=\"ArticleToolbar\" or @data-testid=\"LicenceContentButton\" or @data-testid=\"promo-box\" or @data-testid=\"ResponsiveAdSlot\"]",
+    "//svg",
+    "//a//span[contains(., 'opens new tab')]",
+    "//a[contains(@class, 'caption__license')]",
+    "//div[contains(@class, 'author-bio__')]",
+    "//p[contains(@class, '_promo-box_')]"
   ],
   "strip_id_or_class": [
     "article-meta",
@@ -30,7 +36,16 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "\u003cnoscript\u003e",
+      "\u003c!-- noscript --\u003e"
+    ],
+    [
+      "\u003c/noscript\u003e",
+      "\u003c!-- /noscript --\u003e"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {

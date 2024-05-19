@@ -34,7 +34,9 @@
     "//div[@data-print-layout=\"hide\"]",
     "//figcaption",
     "//svg",
+    "//gu-island/parent::figure",
     "//gu-island",
+    "//figure//button",
     "//article//div[contains(@class, 'content__meta-container')]",
     "//iframe[@srcdoc]"
   ],

@@ -1,0 +1,38 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' post-article ')] | //div[contains(concat(' ',normalize-space(@class),' '),' post-main ')]//div[not(contains(concat(' ',normalize-space(@class),' '),' post-article '))]//img[1]"
+  ],
+  "date_selectors": [
+    "//meta[@name='parsely-pub-date']/@content"
+  ],
+  "author_selectors": [
+    "(//meta[@name='parsely-author'])[position()\u003e1]/@content"
+  ],
+  "strip_selectors": [
+    "//div[contains(@class, '-newsletter-signup')]",
+    "//iframe"
+  ],
+  "strip_id_or_class": [
+    "wp-block-san-app-download",
+    "wp-block-san-core-content-header",
+    "wp-block-san-san-author",
+    "wp-block-san-toggle-transcript",
+    "next-video"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://san.com/cc/armed-drone-on-drone-violence-documented-in-ukraine/",
+      "contains": []
+    }
+  ]
+}

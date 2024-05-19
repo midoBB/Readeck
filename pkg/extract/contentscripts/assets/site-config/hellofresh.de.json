@@ -1,15 +1,16 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//main/article[1]"
+    "//div[@id='page']"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
-    "//address/ancestor::div[1]",
-    "//hgroup",
-    "//time/parent::div",
-    "//section[@aria-label='Newsletter Anmeldung']/parent::div"
+    "//button",
+    "//a[@data-test-id='side-banner-ad-link']/parent::div",
+    "//a[@data-test-id='recipe-cta-button']/parent::div/parent::div",
+    "//a[contains(@data-test-id, '-ad-link')]/parent::div/parent::div",
+    "//div[@data-test-id='recipe-details-breadcrumbs']"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -23,7 +24,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.nrz.de/politik/article242220498/Richter-droht-Donald-Trump-unmissverstaendlich-mit-Gefaengnis.html",
+      "url": "https://www.hellofresh.de/recipes/asiatische-hahnchenbrust-mit-edamame-609135de690cc71eea1fc4c9",
       "contains": []
     }
   ]

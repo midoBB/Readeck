@@ -11,7 +11,10 @@
   "strip_id_or_class": [
     "kg-product-card-description",
     "kg-product-card-button",
-    "kg-callout-emoji"
+    "kg-callout-emoji",
+    "outpost-pub-container",
+    "subscribe",
+    "post-author"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

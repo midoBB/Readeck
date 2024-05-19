@@ -1,0 +1,41 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//main[@id='main']"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//h1[@class='title']",
+    "//img[contains(@src, '/no_teaser_image')]",
+    "//div[contains(@class,'ce_related')]/self::div | //div[contains(@class,'ce_related')]/following-sibling::div[contains(@class, 'gridStart')]"
+  ],
+  "strip_id_or_class": [
+    "main-category",
+    "articleStats",
+    "meta-info-wrapper",
+    "ce_postinclude",
+    "adrow_post_promo_teaser",
+    "freemiumwall-container"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "srcset=\"assets/",
+      "srcset=\"https://www.automobil-produktion.de/assets/"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.automobil-produktion.de/management/global-automotive-business/die-renault-allianz-steuert-in-eine-unsichere-zukunft-639.html",
+      "contains": []
+    }
+  ]
+}

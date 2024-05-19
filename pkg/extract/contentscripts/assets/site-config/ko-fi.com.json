@@ -1,0 +1,45 @@
+{
+  "title_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' article-title ')]"
+  ],
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' article-body ')]"
+  ],
+  "date_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' feeditem-time ')]"
+  ],
+  "author_selectors": [
+    "//name[contains(concat(' ',normalize-space(@class),' '),' post-name-row ')]"
+  ],
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "comments",
+    "upgrade_panel",
+    "kfds-lyt-between",
+    "kfds-lyt-between-end",
+    "recentPostsContainerDiv",
+    "postId",
+    "lbModal",
+    "checkoutModal",
+    "checkout-modal-skeleton"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": true,
+  "prune": true,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+  },
+  "tests": [
+    {
+      "url": "https://ko-fi.com/post/Preparing-for-the-Spread-of-Avian-Influenza-H5N1-W7W4WFVW3",
+      "contains": [
+        "Ok, I know we've been here before, but let's go over the basics on preparedness for another pandemic."
+      ]
+    }
+  ]
+}

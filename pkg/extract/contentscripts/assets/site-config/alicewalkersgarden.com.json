@@ -1,0 +1,48 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@class='post-content']"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "data-src=\"https://player",
+      "src=\"https://player"
+    ],
+    [
+      "data-src=\"https://www.youtube",
+      "src=\"https://www.youtube"
+    ],
+    [
+      "data-src=\"https://youtu",
+      "src=\"https://youtu"
+    ]
+  ],
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/126.0"
+  },
+  "tests": [
+    {
+      "url": "https://alicewalkersgarden.com/2023/03/theyre-trying-to-burn-the-wrong-witch-the-witch-trials-of-j-k-rowling-redacted-news/",
+      "contains": []
+    },
+    {
+      "url": "https://alicewalkersgarden.com/2024/03/you-have-to-lead-yourself-vote-for-you-a-teaching-using-tik-tok/",
+      "contains": []
+    },
+    {
+      "url": "https://alicewalkersgarden.com/2024/04/archie-roach-eternal-brother-never-a-goodbye/",
+      "contains": []
+    }
+  ]
+}

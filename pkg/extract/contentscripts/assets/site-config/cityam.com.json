@@ -1,15 +1,16 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//main/article[1]"
+    "//article[contains(concat(' ',normalize-space(@class),' '),' content-container__single ')]",
+    "//article[contains(concat(' ',normalize-space(@class),' '),' content-container ')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
-    "//address/ancestor::div[1]",
-    "//hgroup",
-    "//time/parent::div",
-    "//section[@aria-label='Newsletter Anmeldung']/parent::div"
+    "//aside",
+    "//header",
+    "//footer",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' notice-header ')]"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -23,7 +24,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.nrz.de/politik/article242220498/Richter-droht-Donald-Trump-unmissverstaendlich-mit-Gefaengnis.html",
+      "url": "https://www.cityam.com/uk-to-reveal-social-media-ban-plans-for-under-16s-within-weeks/",
       "contains": []
     }
   ]

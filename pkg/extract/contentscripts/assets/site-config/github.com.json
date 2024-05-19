@@ -3,7 +3,8 @@
     "//article[contains(concat(' ',normalize-space(@class),' '),' markdown-body ')]//h1"
   ],
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' Box-body ')]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' Box-body ')]",
+    "//article[1]"
   ],
   "date_selectors": [
     "//div[contains(concat(' ',normalize-space(@class),' '),' Details ')]//relative-time"
@@ -22,5 +23,10 @@
   "next_page_link_selectors": null,
   "replace_strings": null,
   "http_headers": null,
-  "tests": null
+  "tests": [
+    {
+      "url": "https://github.com/wallabag/wallabag",
+      "contains": []
+    }
+  ]
 }

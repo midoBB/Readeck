@@ -8,6 +8,7 @@ import (
 	"crypto/tls"
 	"fmt"
 	"maps"
+	"math/rand/v2"
 	"net"
 	"net/http"
 	"net/http/cookiejar"
@@ -25,34 +26,27 @@ var defaultDialer = net.Dialer{
 }
 
 var cipherSuites = []uint16{
-	// AEADs w/ ECDHE
-	tls.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, tls.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
-	tls.TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, tls.TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
-	tls.TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, tls.TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,
-
-	// CBC w/ ECDHE
-	tls.TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, tls.TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,
-	tls.TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, tls.TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,
-
-	// AEADs w/o ECDHE
+	// Chrome like cipher suite
+	tls.TLS_AES_128_GCM_SHA256,
+	tls.TLS_AES_256_GCM_SHA384,
+	tls.TLS_CHACHA20_POLY1305_SHA256,
+	tls.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+	tls.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+	tls.TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
+	tls.TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
+	tls.TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256,
+	tls.TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256,
+	tls.TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,
+	tls.TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,
 	tls.TLS_RSA_WITH_AES_128_GCM_SHA256,
 	tls.TLS_RSA_WITH_AES_256_GCM_SHA384,
-
-	// CBC w/o ECDHE
 	tls.TLS_RSA_WITH_AES_128_CBC_SHA,
 	tls.TLS_RSA_WITH_AES_256_CBC_SHA,
+}
 
-	// 3DES
-	tls.TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,
-	tls.TLS_RSA_WITH_3DES_EDE_CBC_SHA,
-
-	// CBC_SHA256
-	tls.TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, tls.TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,
-	tls.TLS_RSA_WITH_AES_128_CBC_SHA256,
-
-	// RC4
-	tls.TLS_ECDHE_ECDSA_WITH_RC4_128_SHA, tls.TLS_ECDHE_RSA_WITH_RC4_128_SHA,
-	tls.TLS_RSA_WITH_RC4_128_SHA,
+var greaseCiphers = []uint16{
+	0x0a0a, 0x1a1a, 0x2a2a, 0x3a3a, 0x4a4a, 0x5a5a, 0x6a6a, 0x7a7a,
+	0x8a8a, 0x9a9a, 0xaaaa, 0xbaba, 0xcaca, 0xdada, 0xeaea, 0xfafa,
 }
 
 // defaultTransport is our http.RoundTripper with some custom settings.
@@ -63,7 +57,7 @@ var defaultTransport = &http.Transport{
 		// Note: although some ciphers and TLS version are disabled by default for good reasons,
 		// we need to enable them for some websites :/
 		CipherSuites: cipherSuites,
-		MinVersion:   tls.VersionTLS10,
+		MinVersion:   tls.VersionTLS12,
 	},
 	ForceAttemptHTTP2:     true,
 	DisableCompression:    false,
@@ -118,7 +112,19 @@ func (t *Transport) RoundTrip(req *http.Request) (*http.Response, error) {
 		}
 	}
 
+	t.setTLSGrease()
+
 	return t.tr.RoundTrip(req)
+}
+
+// setTLSGrease adds a random GREASE cipher to the cipher suite.
+// see https://www.rfc-editor.org/rfc/rfc8701
+func (t *Transport) setTLSGrease() {
+	if tr, ok := t.tr.(*http.Transport); ok {
+		tr.TLSClientConfig.CipherSuites = append([]uint16{
+			greaseCiphers[rand.IntN(len(greaseCiphers))],
+		}, cipherSuites...)
+	}
 }
 
 // setHeader lets you set a default header for any subsequent requests.

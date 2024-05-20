@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-17 18:14+0000\n"
+"POT-Creation-Date: 2024-05-20 07:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -584,6 +584,10 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html
 msgid "Saved with Readeck"
+msgstr ""
+
+#: assets/templates/bookmarks/components/card.jet.html
+msgid "Go to original page"
 msgstr ""
 
 #: assets/templates/bookmarks/components/card.jet.html
@@ -1771,10 +1775,3 @@ msgstr ""
 msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr ""
-
-#~ msgid "Export this collection"
-#~ msgstr ""
-
-#~ msgid "Delete label"
-#~ msgstr ""
-

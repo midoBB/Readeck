@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-05-17 18:14+0000\n"
+"POT-Creation-Date: 2024-05-20 07:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -102,30 +102,31 @@ msgctxt "page"
 msgid "Next"
 msgstr ""
 
+#: assets/templates/admin/user.jet.html:9
+#: assets/templates/admin/user_list.jet.html:9
+#: assets/templates/profile/base.jet.html:35 internal/admin/views.go:62
+#: internal/admin/views.go:92 internal/admin/views.go:132
+msgid "Users"
+msgstr ""
+
 #: assets/templates/admin/user.jet.html:19
 msgid "User will be removed in a few seconds"
 msgstr ""
 
-#: assets/templates/admin/user.jet.html:49
-msgid "will not change if empty"
-msgstr ""
-
-#: assets/templates/admin/user.jet.html:52
-#: assets/templates/bookmarks/collection.jet.html:64
-#: assets/templates/bookmarks/collection_create.jet.html:30
-#: assets/templates/profile/credential.jet.html:83
-#: assets/templates/profile/index.jet.html:35
-#: assets/templates/profile/password.jet.html:36
-#: assets/templates/profile/token.jet.html:67
-msgid "Save"
-msgstr ""
-
-#: assets/templates/admin/user.jet.html:55
-msgid "Delete this user"
-msgstr ""
-
-#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:93
-msgid "New User"
+#: assets/templates/admin/user.jet.html:20
+#: assets/templates/admin/user_list.jet.html:44
+#: assets/templates/bookmarks/collection.jet.html:22
+#: assets/templates/bookmarks/components/card.jet.html:90
+#: assets/templates/bookmarks/import/form-browser.jet.html:42
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
+#: assets/templates/bookmarks/import/form-text.jet.html:36
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:70
+#: assets/templates/bookmarks/label.jet.html:51
+#: assets/templates/profile/credential.jet.html:20
+#: assets/templates/profile/credential_list.jet.html:57
+#: assets/templates/profile/token.jet.html:20
+#: assets/templates/profile/token_list.jet.html:61
+msgid "Cancel"
 msgstr ""
 
 #: assets/templates/admin/user.jet.html:31
@@ -153,19 +154,34 @@ msgstr ""
 #: assets/templates/auth/login.jet.html:30
 #: assets/templates/auth/onboarding.jet.html:29
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:48
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:132
+#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:133
 msgid "Password"
+msgstr ""
+
+#: assets/templates/admin/user.jet.html:49
+msgid "will not change if empty"
+msgstr ""
+
+#: assets/templates/admin/user.jet.html:52
+#: assets/templates/bookmarks/collection.jet.html:64
+#: assets/templates/bookmarks/collection_create.jet.html:30
+#: assets/templates/profile/credential.jet.html:83
+#: assets/templates/profile/index.jet.html:35
+#: assets/templates/profile/password.jet.html:36
+#: assets/templates/profile/token.jet.html:67
+msgid "Save"
+msgstr ""
+
+#: assets/templates/admin/user.jet.html:55
+msgid "Delete this user"
+msgstr ""
+
+#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:93
+msgid "New User"
 msgstr ""
 
 #: assets/templates/admin/user_create.jet.html:42
 msgid "Create user"
-msgstr ""
-
-#: assets/templates/admin/user.jet.html:9
-#: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:35 internal/admin/views.go:62
-#: internal/admin/views.go:92 internal/admin/views.go:132
-msgid "Users"
 msgstr ""
 
 #: assets/templates/admin/user_list.jet.html:14
@@ -186,22 +202,6 @@ msgstr ""
 
 #: assets/templates/admin/user_list.jet.html:38
 msgid "This user will be removed in a few seconds."
-msgstr ""
-
-#: assets/templates/admin/user.jet.html:20
-#: assets/templates/admin/user_list.jet.html:44
-#: assets/templates/bookmarks/collection.jet.html:22
-#: assets/templates/bookmarks/components/card.jet.html:90
-#: assets/templates/bookmarks/import/form-browser.jet.html:42
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
-#: assets/templates/bookmarks/import/form-text.jet.html:36
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:70
-#: assets/templates/bookmarks/label.jet.html:51
-#: assets/templates/profile/credential.jet.html:20
-#: assets/templates/profile/credential_list.jet.html:57
-#: assets/templates/profile/token.jet.html:20
-#: assets/templates/profile/token_list.jet.html:61
-msgid "Cancel"
 msgstr ""
 
 #: assets/templates/auth/login.jet.html:9
@@ -471,18 +471,18 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
+#: assets/templates/bookmarks/collection.jet.html:58
+#: assets/templates/bookmarks/collection_create.jet.html:23
+#: assets/templates/profile/credential.jet.html:58
+msgid "Name"
+msgstr ""
+
 #: assets/templates/bookmarks/collection.jet.html:68
 msgid "Delete collection"
 msgstr ""
 
 #: assets/templates/bookmarks/collection_create.jet.html:9
 msgid "New Collection"
-msgstr ""
-
-#: assets/templates/bookmarks/collection.jet.html:58
-#: assets/templates/bookmarks/collection_create.jet.html:23
-#: assets/templates/profile/credential.jet.html:58
-msgid "Name"
 msgstr ""
 
 #: assets/templates/bookmarks/collection_list.jet.html:9
@@ -570,17 +570,21 @@ msgstr ""
 msgid "Undo"
 msgstr ""
 
-#: assets/templates/bookmarks/components/actions.jet.html:48
-#: assets/templates/bookmarks/components/list_actions.jet.html:46
+#: assets/templates/bookmarks/components/actions.jet.html:47
+#: assets/templates/bookmarks/components/list_actions.jet.html:45
 msgid "Download EPUB"
 msgstr ""
 
-#: assets/templates/bookmarks/components/actions.jet.html:50
+#: assets/templates/bookmarks/components/actions.jet.html:49
 msgid "Share by Link"
 msgstr ""
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
 msgid "Saved with Readeck"
+msgstr ""
+
+#: assets/templates/bookmarks/components/card.jet.html:1
+msgid "Go to original page"
 msgstr ""
 
 #: assets/templates/bookmarks/components/card.jet.html:26
@@ -1184,20 +1188,20 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:96
-#: internal/profile/views.go:131 internal/profile/views.go:147
-#: internal/profile/views.go:212 internal/profile/views.go:243
-#: internal/profile/views.go:303
+#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:97
+#: internal/profile/views.go:132 internal/profile/views.go:177
+#: internal/profile/views.go:242 internal/profile/views.go:273
+#: internal/profile/views.go:333
 msgid "Profile"
 msgstr ""
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:148
-#: internal/profile/views.go:213
+#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:178
+#: internal/profile/views.go:243
 msgid "Application Passwords"
 msgstr ""
 
-#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:244
-#: internal/profile/views.go:304
+#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:274
+#: internal/profile/views.go:334
 msgid "API Tokens"
 msgstr ""
 
@@ -1517,35 +1521,35 @@ msgstr ""
 msgid "invalid password"
 msgstr ""
 
-#: internal/profile/views.go:84
+#: internal/profile/views.go:85
 msgid "Profile updated."
 msgstr ""
 
-#: internal/profile/views.go:119
+#: internal/profile/views.go:120
 msgid "Your password was changed."
 msgstr ""
 
-#: internal/profile/views.go:158
+#: internal/profile/views.go:188
 msgid "Error: you can not create more credentials."
 msgstr ""
 
-#: internal/profile/views.go:166
+#: internal/profile/views.go:196
 msgid "An error occurred while creating your password."
 msgstr ""
 
-#: internal/profile/views.go:198
+#: internal/profile/views.go:228
 msgid "Password was updated."
 msgstr ""
 
-#: internal/profile/views.go:259
+#: internal/profile/views.go:289
 msgid "An error occurred while creating your token."
 msgstr ""
 
-#: internal/profile/views.go:264
+#: internal/profile/views.go:294
 msgid "New token created."
 msgstr ""
 
-#: internal/profile/views.go:283
+#: internal/profile/views.go:313
 msgid "Token was updated."
 msgstr ""
 

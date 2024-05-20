@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-05-17 18:14+0000\n"
-"PO-Revision-Date: 2024-05-17 20:14+0200\n"
+"POT-Creation-Date: 2024-05-20 07:39+0000\n"
+"PO-Revision-Date: 2024-05-20 09:40+0200\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
 "Language: fr_FR\n"
@@ -606,6 +606,10 @@ msgstr "Partager un lien"
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html
 msgid "Saved with Readeck"
 msgstr "Sauvegardé avec Readeck"
+
+#: assets/templates/bookmarks/components/card.jet.html
+msgid "Go to original page"
+msgstr "Aller à la page originale"
 
 #: assets/templates/bookmarks/components/card.jet.html
 msgctxt "bookmark"
@@ -1888,9 +1892,3 @@ msgstr "%d/%m/%Y"
 msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
-
-#~ msgid "Export this collection"
-#~ msgstr "Exporter cette collection"
-
-#~ msgid "Delete label"
-#~ msgstr "Supprimer ce label"

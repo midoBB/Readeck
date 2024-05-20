@@ -18,7 +18,6 @@ export default class extends Controller {
     try {
       url = new URL(event.target.href)
     } catch (e) {
-      console.error(e)
       return
     }
 

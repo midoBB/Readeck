@@ -21,7 +21,7 @@ const del = async (...args) => {
   const {deleteSync} = await import("del")
   return deleteSync(...args)
 }
-const mergeStream = require("merge-stream")
+const ordered = require("ordered-read-streams")
 const sass = require("sass")
 const through = require("through2")
 
@@ -128,8 +128,7 @@ function clean_manifest(done) {
 // clean delete files in the destination folder
 function clean_all(done) {
   return gulp.series(
-    // prettier-ignore
-    clean_js,
+    clean_js, //
     clean_css,
     clean_media,
     clean_vendor,
@@ -188,8 +187,7 @@ function css_bundle() {
 
   return gulp
     .src([
-      // prettier-ignore
-      "ui/index.scss",
+      "ui/index.scss", //
     ])
     .pipe(
       through.obj(function (file, _, done) {
@@ -227,8 +225,7 @@ function css_epub() {
 
   return gulp
     .src([
-      // prettier-ignore
-      "ui/epub/stylesheet.scss",
+      "ui/epub/stylesheet.scss", //
     ])
     .pipe(gulpSourcemaps.init())
     .pipe(sassCompiler().on("error", sassCompiler.logError))
@@ -277,7 +274,7 @@ function icon_sprite() {
 
 // copy_files copies some files to the destination.
 function copy_files() {
-  return mergeStream(
+  return ordered([
     gulp
       .src("media/favicons/*")
       .pipe(hashName())
@@ -303,7 +300,7 @@ function copy_files() {
       .pipe(destCompress("gz"))
       .pipe(destCompress("br"))
       .pipe(gulp.dest(path.join(DEST, "vendor"))),
-  )
+  ])
 }
 
 // write_manifest generates a manifest.json file in the destination folder.
@@ -347,11 +344,9 @@ function write_manifest(done) {
 // ------------------------------------------------------------------
 
 const full_build = gulp.series(
-  // prettier-ignore
   clean_all,
   gulp.parallel(
-    // prettier-ignore
-    js_bundle,
+    js_bundle, //
     icon_sprite,
     copy_files,
     css_bundle,
@@ -361,11 +356,10 @@ const full_build = gulp.series(
 )
 
 function watch_js() {
-  // prettier-ignore
   gulp.watch(
     ["src/**/*"],
     gulp.series(
-      clean_js,
+      clean_js, //
       js_bundle,
       write_manifest,
     ),
@@ -373,15 +367,14 @@ function watch_js() {
 }
 
 function watch_css() {
-  // prettier-ignore
-  gulp.watch( //
+  gulp.watch(
     [
-      "tailwind.config.js",
+      "tailwind.config.js", //
       "ui/**/*",
       "../assets/templates/**/*.jet.html",
     ],
     gulp.series(
-      clean_css,
+      clean_css, //
       css_bundle,
       css_epub,
       write_manifest,
@@ -390,11 +383,10 @@ function watch_css() {
 }
 
 function watch_media() {
-  // prettier-ignore
   gulp.watch(
     ["media/**/*"],
     gulp.series(
-      clean_media,
+      clean_media, //
       icon_sprite,
       copy_files,
       write_manifest,
@@ -415,8 +407,7 @@ exports["watch:js"] = watch_js
 exports.dev = gulp.series(
   full_build,
   gulp.parallel(
-    // prettier-ignore
-    watch_js,
+    watch_js, //
     watch_css,
     watch_media,
   ),

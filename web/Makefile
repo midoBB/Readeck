@@ -17,7 +17,7 @@ clean:
 # Run linter
 .PHONY: lint
 lint:
-	npm run lint
+	NODE_ENV=production npm run lint
 
 # Start watching files for changes
 .PHONY: watch

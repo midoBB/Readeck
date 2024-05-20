@@ -1,5 +1,40 @@
 # Changelog
 
+## [0.14.0] - 2024-05-20
+### Added
+- Import from other services
+  - _Text file_. A simple file with one URL per line.
+  - _Browser Bookmarks_. The file you can export from your browser menu. The title and date are retrieved from the file.
+  - _Pocket_. From Pocket, you can export a file and upload it in Readeck import tool. Title, labels and date are retrieved from the file.
+  - _Wallabag_. This uses the Wallabag API to retrieve everything, including the content the way it was initially saved.
+- Breadcrumbs on profile, admin, documentation and import
+- Keep the URL as submitted by the user in a new database column
+- cleanup command to remove all pending (loading state) bookmarks
+- Optional compact layout for bookmark lists
+- Unified bookmark list header with layout switcher and export menu
+- Publicly shared link expiration can be configured (instance wide)
+- Direct link to the original URL on every bookmark card
+
+### Changed
+- Major internal/bookmarks refactor
+- Updated site-config rules
+- Metrics and workers configuration
+  - keep only one metrics configuration (in `[metrics]`) with environment
+    overriding when needed.
+  - added environment configuration for the worker configuration
+  - adjust the default number of workers
+  - unset every `READECK_` environment variable upon startup so they won't
+    leak in case of a major security breach.
+- SQLite connection optimizations
+- `DELETE /api/bookmarks/{id}` performs an immediate deletion (unlike the web view that schedules a task)
+- Button appearance (better active state, slight change of layout)
+- HTTP client configuration (TLS 1.2 and 1.3 only), chrome like cipher list
+
+### Fixed
+- Keep namespaces during SVG files cleanup
+- Data race condition with the in-memory store
+
+
 ## [0.13.2] - 2024-03-24
 ### Fixed
 - Healthcheck command (only connect to server, don't perform any request)

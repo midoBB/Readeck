@@ -107,6 +107,9 @@ SPDX-License-Identifier: AGPL-3.0-only
             title="{{ textArch }}">
             {{ yield icon(name=(.IsArchived ? "o-archive-on" : "o-archive-off")) }}
           </button>
+          <a href="{{ .URL }}" target="_blank" title="{{ gettext(`Go to original page`) }}">
+            {{ yield icon(name="o-link-ext") }}
+          </a>
         </form>
 
         <form action="{{ urlFor(`/bookmarks`, .ID, `delete`) }}" method="post">

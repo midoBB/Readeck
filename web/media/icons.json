@@ -36,6 +36,7 @@
   "o-library":      "node_modules/boxicons/svg/regular/bx-library.svg",
   "o-license":      "node_modules/@mdi/svg/svg/scale-balance.svg",
   "o-link":         "node_modules/boxicons/svg/regular/bx-link.svg",
+  "o-link-ext":     "node_modules/boxicons/svg/regular/bx-link-external.svg",
   "o-list":         "node_modules/boxicons/svg/regular/bx-list-ul.svg",
   "o-lock":         "node_modules/boxicons/svg/regular/bx-lock.svg",
   "o-logout":       "node_modules/boxicons/svg/regular/bx-log-out.svg",

@@ -52,8 +52,8 @@ SPDX-License-Identifier: AGPL-3.0-only
               {{ gettext("By %s", join(.Item.Authors, ", ")) }}
             {{- end -}}
           {{- end -}}
-          {{- yield line_icon(icon="o-link") content -}}
-            <a href="{{ .Item.URL }}" class="link" target="top">{{ .Item.Domain }}</a>
+          {{- yield line_icon(icon="o-link-ext") content -}}
+            <a href="{{ .Item.URL }}" class="link" target="_blank">{{ .Item.Domain }}</a>
           {{- end -}}
           {{- if .Item.ReadingTime() > 0 -}}
             {{- yield line_icon(icon="o-clock") content -}}

@@ -40,6 +40,7 @@ exports.setConfig = function (config) {
 
     case $.domain == "newyorker.com":
       // 2023-12-18: the new site-config is too restrictive
+      config.replaceStrings = []
       config.bodySelectors.unshift(
         "//article[contains(@class, 'main-content')]",
         "//div[@id='articleBody']",

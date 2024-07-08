@@ -138,7 +138,9 @@ func (adapter *wallabagAdapter) Form() forms.Binder {
 func (adapter *wallabagAdapter) Params(f forms.Binder) ([]byte, error) {
 	endpoint, _ := url.Parse(f.Get("url").String())
 	endpoint.Fragment = ""
-	endpoint.Path = strings.TrimSuffix(path.Clean(endpoint.Path), "/")
+	if endpoint.Path != "" {
+		endpoint.Path = strings.TrimSuffix(path.Clean(endpoint.Path), "/")
+	}
 	adapter.Endpoint = endpoint.String()
 
 	err := adapter.authenticate(f)
@@ -223,6 +225,11 @@ func (adapter *wallabagAdapter) authenticate(f forms.Binder) error {
 		return nil
 	}
 	defer rsp.Body.Close() //nolint:errcheck
+
+	if rsp.StatusCode == http.StatusNotFound {
+		f.AddErrors("", forms.Gettext("Invalid URL"))
+		return nil
+	}
 
 	if rsp.StatusCode != http.StatusOK {
 		f.AddErrors("", forms.Gettext("Invalid credentials"))

@@ -31,10 +31,10 @@ func (api *apiRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	options := importer.NewOptionForm()
-	forms.Bind(options, r)
-
 	f := adapter.Form()
+
 	forms.Bind(f, r)
+	forms.Bind(options, r)
 
 	// If the form is valid, we can load the adapter parameters.
 	var data []byte

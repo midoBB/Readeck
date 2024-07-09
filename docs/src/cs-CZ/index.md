@@ -1,5 +1,5 @@
 ---
-Title: Table of Contents
+Title: Obsah
 TOC:
     - ""
     - bookmark-list

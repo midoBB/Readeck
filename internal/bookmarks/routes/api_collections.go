@@ -158,6 +158,10 @@ func (api *apiRouter) withCollection(next http.Handler) http.Handler {
 		ctx := context.WithValue(r.Context(), ctxCollectionKey{}, c)
 		ctx = context.WithValue(ctx, ctxBookmarkListTagerKey{}, []server.Etager{c})
 
+		if ctx.Value(ctxBookmarkOrderKey{}) == nil {
+			ctx = context.WithValue(ctx, ctxBookmarkOrderKey{}, orderExpressionList{goqu.T("b").Col("created").Desc()})
+		}
+
 		next.ServeHTTP(w, r.Clone(ctx))
 	})
 }

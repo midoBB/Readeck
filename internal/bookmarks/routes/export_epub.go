@@ -10,7 +10,6 @@ import (
 	"net/http"
 	"os"
 	"path"
-	"slices"
 	"strings"
 
 	"github.com/CloudyKit/jet/v6"
@@ -38,7 +37,6 @@ func (api *apiRouter) exportBookmarksEPUB(w http.ResponseWriter, r *http.Request
 		// In case of a collection, we give the book a title and reverse
 		// the items order.
 		title = collection.Name
-		slices.Reverse(bookmarkList)
 	} else if len(bookmarkList) == 1 {
 		title = bookmarkList[0].Title
 	}

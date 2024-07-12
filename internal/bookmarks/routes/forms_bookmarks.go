@@ -15,6 +15,7 @@ import (
 	"net/http"
 	"net/url"
 	"slices"
+	"strings"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
@@ -42,6 +43,8 @@ const (
 	filtersTitleVideos
 	filtersTitlePictures
 )
+
+type orderExpressionList []exp.OrderedExpression
 
 type createForm struct {
 	*forms.Form
@@ -389,7 +392,6 @@ type filterForm struct {
 	*forms.Form
 	title        int
 	noPagination bool
-	order        []exp.OrderedExpression
 	sq           searchstring.SearchQuery
 }
 
@@ -584,11 +586,6 @@ func (f *filterForm) toSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset
 		ds = searchstring.BuildSQL(ds, search, searchConfig[ds.Dialect().Dialect()])
 	}
 
-	// Forced ordering
-	if len(f.order) > 0 {
-		ds = ds.Order(f.order...)
-	}
-
 	// Time range
 	if f.Get("range_start").String() != "" {
 		start, _ := timetoken.New(f.Get("range_start").String())
@@ -628,6 +625,77 @@ func (f *filterForm) toSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset
 	}
 
 	return ds
+}
+
+type orderForm struct {
+	*forms.Form
+	fieldName string
+	choices   map[string]exp.Orderable
+}
+
+func newOrderForm(fieldName string, choices map[string]exp.Orderable) *orderForm {
+	field := forms.NewListField(fieldName, func(n string) forms.Field {
+		return forms.NewTextField(n)
+	}, func(values []forms.Field) interface{} {
+		res := make([]string, len(values))
+		for i, x := range values {
+			res[i] = x.Value().(string)
+		}
+		return res
+	}, forms.Trim)
+
+	// Compile a list of choices being pairs of "A" and "-A", "B", "-B",
+	fieldChoices := make(forms.Choices, len(choices)*2)
+	for k := range choices {
+		fieldChoices = append(fieldChoices, [2]string{k}, [2]string{"-" + k})
+	}
+
+	field.(*forms.ListField).SetChoices(fieldChoices)
+
+	return &orderForm{
+		Form:      forms.Must(field),
+		fieldName: fieldName,
+		choices:   choices,
+	}
+}
+
+func (f *orderForm) toOrderedExpressions() orderExpressionList {
+	if !f.IsBound() || !f.IsValid() {
+		return nil
+	}
+	field := f.Get(f.fieldName)
+	value, ok := field.Value().([]string)
+	if !ok || len(value) == 0 {
+		return nil
+	}
+
+	res := orderExpressionList{}
+	for _, x := range value {
+		identifier := f.choices[strings.TrimPrefix(x, "-")]
+		if identifier == nil {
+			continue
+		}
+		if strings.HasPrefix(x, "-") {
+			res = append(res, identifier.Desc())
+			continue
+		}
+		res = append(res, identifier.Asc())
+	}
+
+	return res
+}
+
+func newBookmarkOrderForm() *orderForm {
+	t := goqu.T("b")
+
+	return newOrderForm("sort", map[string]exp.Orderable{
+		"created":   t.Col("created"),
+		"domain":    t.Col("domain"),
+		"duration":  goqu.Case().When(goqu.L("? > 0", t.Col("duration")), t.Col("duration")).Else(goqu.L("? * 0.3", t.Col("word_count"))),
+		"published": goqu.Case().When(t.Col("published").IsNot(nil), t.Col("published")).Else(t.Col("created")),
+		"site":      t.Col("site_name"),
+		"title":     t.Col("title"),
+	})
 }
 
 func validateTimeToken(f forms.Field) error {

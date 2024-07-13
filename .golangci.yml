@@ -46,12 +46,17 @@ linters-settings:
       # We don't care about writing to buffers
       - io.Copy(*strings.Builder)
       - (*strings.Replacer).WriteString(*bytes.Buffer)
+      - fmt.Fprint(os.Stdout)
+      - fmt.Fprintln(os.Stdout)
       - golang.org/x/net/html.Render(*bytes.Buffer)
       - (*github.com/fatih/color.Color).Fprint(*bytes.Buffer)
       - (*github.com/fatih/color.Color).Fprintf(*bytes.Buffer)
 
       # It's okay not to check http writes
       - (net/http.ResponseWriter).Write
+      - fmt.Fprint(net/http.ResponseWriter)
+      - fmt.Fprintf(net/http.ResponseWriter)
+      - fmt.Fprintln(net/http.ResponseWriter)
       - io.Copy(net/http.ResponseWriter)
       - io.WriteString(net/http.ResponseWriter)
       - (*strings.Replacer).WriteString(net/http.ResponseWriter)

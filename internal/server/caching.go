@@ -54,10 +54,10 @@ func (s *Server) WriteEtag(w http.ResponseWriter, r *http.Request, taggers ...Et
 	h.Write([]byte(configs.BuildTime().String()))
 
 	if user := auth.GetRequestUser(r); user.ID != 0 {
-		fmt.Fprint(h, user.ID, user.GetLastModified()[0].Unix())
+		fmt.Fprint(h, user.ID, user.GetLastModified()[0].Unix()) //nolint:errcheck
 	}
 	if sess := s.GetSession(r); sess != nil {
-		fmt.Fprint(h, sess.Payload.Preferences.LastUpdate.Unix())
+		fmt.Fprint(h, sess.Payload.Preferences.LastUpdate.Unix()) //nolint:errcheck
 	}
 
 	w.Header().Set("Etag", fmt.Sprintf("%x", h.Sum64()))

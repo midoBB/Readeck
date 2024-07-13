@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-20 07:39+0000\n"
+"POT-Creation-Date: 2024-07-13 07:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -1419,6 +1419,10 @@ msgid "Text File"
 msgstr ""
 
 #: internal/bookmarks/importer/wallabag.go
+msgid "Invalid URL"
+msgstr ""
+
+#: internal/bookmarks/importer/wallabag.go
 msgid "Invalid credentials"
 msgstr ""
 
@@ -1436,6 +1440,56 @@ msgstr ""
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgid "Video"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Added, most recent first"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Added, oldest first"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Published, most recent first"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Published, oldest first"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Title, A to Z"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Title, Z to A"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Site Name, A to Z"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Site Name, Z to A"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Duration, shortest first"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Duration, longest first"
 msgstr ""
 
 #: internal/bookmarks/routes/opds.go
@@ -1775,3 +1829,4 @@ msgstr ""
 msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr ""
+

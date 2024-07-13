@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-05-20 07:39+0000\n"
+"POT-Creation-Date: 2024-07-13 07:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -342,7 +342,7 @@ msgid "Bookmarks"
 msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:24
-#: internal/bookmarks/routes/forms_bookmarks.go:398
+#: internal/bookmarks/routes/forms_bookmarks.go:402
 msgid "All"
 msgstr ""
 
@@ -571,7 +571,7 @@ msgid "Undo"
 msgstr ""
 
 #: assets/templates/bookmarks/components/actions.jet.html:47
-#: assets/templates/bookmarks/components/list_actions.jet.html:45
+#: assets/templates/bookmarks/components/list_actions.jet.html:61
 msgid "Download EPUB"
 msgstr ""
 
@@ -713,6 +713,11 @@ msgstr ""
 msgid "Links"
 msgstr ""
 
+#: assets/templates/bookmarks/import/form-browser.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:36
+msgid "Import your Browser's Bookmarks"
+msgstr ""
+
 #: assets/templates/bookmarks/import/form-browser.jet.html:15
 msgid ""
 "\n"
@@ -743,6 +748,11 @@ msgstr ""
 msgid "Import Bookmarks"
 msgstr ""
 
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:40
+msgid "Import your Pocket Articles"
+msgstr ""
+
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
 #, python-format
 msgid ""
@@ -771,6 +781,11 @@ msgid ""
 "  "
 msgstr ""
 
+#: assets/templates/bookmarks/import/form-text.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:32
+msgid "Import Links from a Text File"
+msgstr ""
+
 #: assets/templates/bookmarks/import/form-text.jet.html:15
 msgid ""
 "\n"
@@ -778,6 +793,11 @@ msgid ""
 "fetch\n"
 "    all of them and save them in your bookmark list.\n"
 "  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:43
+msgid "Import your Wallabag Articles"
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:15
@@ -824,26 +844,6 @@ msgid ""
 "    Here you can import your existing bookmark collection from various "
 "sources into Readeck.\n"
 "  "
-msgstr ""
-
-#: assets/templates/bookmarks/import/form-text.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:32
-msgid "Import Links from a Text File"
-msgstr ""
-
-#: assets/templates/bookmarks/import/form-browser.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:36
-msgid "Import your Browser's Bookmarks"
-msgstr ""
-
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:40
-msgid "Import your Pocket Articles"
-msgstr ""
-
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:43
-msgid "Import your Wallabag Articles"
 msgstr ""
 
 #: assets/templates/bookmarks/import/options.jet.html:7
@@ -950,16 +950,16 @@ msgstr[1] ""
 msgid "Filters documentation"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:144
+#: assets/templates/bookmarks/index.jet.html:147
 msgctxt "action"
 msgid "Search"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:146
+#: assets/templates/bookmarks/index.jet.html:149
 msgid "Reset search"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:149
+#: assets/templates/bookmarks/index.jet.html:152
 msgid "Create a collection"
 msgstr ""
 
@@ -1432,24 +1432,78 @@ msgstr ""
 msgid "Text File"
 msgstr ""
 
-#: internal/bookmarks/importer/wallabag.go:228
+#: internal/bookmarks/importer/wallabag.go:230
+msgid "Invalid URL"
+msgstr ""
+
+#: internal/bookmarks/importer/wallabag.go:235
 msgid "Invalid credentials"
 msgstr ""
 
-#: internal/bookmarks/importer/wallabag.go:239
+#: internal/bookmarks/importer/wallabag.go:246
 msgid "No access token found"
 msgstr ""
 
-#: internal/bookmarks/routes/forms_bookmarks.go:399
+#: internal/bookmarks/routes/forms_bookmarks.go:403
 msgid "Article"
 msgstr ""
 
-#: internal/bookmarks/routes/forms_bookmarks.go:400
+#: internal/bookmarks/routes/forms_bookmarks.go:404
 msgid "Picture"
 msgstr ""
 
-#: internal/bookmarks/routes/forms_bookmarks.go:401
+#: internal/bookmarks/routes/forms_bookmarks.go:405
 msgid "Video"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go:742
+msgctxt "sort"
+msgid "Added, most recent first"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go:743
+msgctxt "sort"
+msgid "Added, oldest first"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go:744
+msgctxt "sort"
+msgid "Published, most recent first"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go:745
+msgctxt "sort"
+msgid "Published, oldest first"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go:746
+msgctxt "sort"
+msgid "Title, A to Z"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go:747
+msgctxt "sort"
+msgid "Title, Z to A"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go:748
+msgctxt "sort"
+msgid "Site Name, A to Z"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go:749
+msgctxt "sort"
+msgid "Site Name, Z to A"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go:750
+msgctxt "sort"
+msgid "Duration, shortest first"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go:751
+msgctxt "sort"
+msgid "Duration, longest first"
 msgstr ""
 
 #: internal/bookmarks/routes/opds.go:57

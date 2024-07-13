@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-05-20 07:39+0000\n"
-"PO-Revision-Date: 2024-05-20 09:40+0200\n"
+"POT-Creation-Date: 2024-07-13 07:23+0000\n"
+"PO-Revision-Date: 2024-07-13 09:33+0200\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
 "Language: fr_FR\n"
@@ -1536,6 +1536,10 @@ msgid "Text File"
 msgstr "Fichier texte"
 
 #: internal/bookmarks/importer/wallabag.go
+msgid "Invalid URL"
+msgstr "URL invalide"
+
+#: internal/bookmarks/importer/wallabag.go
 msgid "Invalid credentials"
 msgstr "Identifiants invalides"
 
@@ -1554,6 +1558,58 @@ msgstr "Photo"
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgid "Video"
 msgstr "Vidéo"
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Added, most recent first"
+msgstr "Ajouté, le plus récent en premier"
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Added, oldest first"
+msgstr "Ajouté, le plus ancien en premier"
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+#, python-format
+msgctxt "sort"
+msgid "Published, most recent first"
+msgstr "Publié, le plus récent en premier"
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+#, python-format
+msgctxt "sort"
+msgid "Published, oldest first"
+msgstr "Publié, le plus ancien en premier"
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Title, A to Z"
+msgstr "Titre, de A à Z"
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Title, Z to A"
+msgstr "Titre, de Z à A"
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Site Name, A to Z"
+msgstr "Site, de A à Z"
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Site Name, Z to A"
+msgstr "Site, de Z à A"
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Duration, shortest first"
+msgstr "Durée, le plus court en premier"
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Duration, longest first"
+msgstr "Durée, le plus long en premier"
 
 #: internal/bookmarks/routes/opds.go
 msgid "Readeck Bookmarks"

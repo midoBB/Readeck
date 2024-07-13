@@ -1,0 +1,67 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@id='main']//div[contains(@id, 'article-')]"
+  ],
+  "date_selectors": [
+    "//time/@datetime"
+  ],
+  "author_selectors": null,
+  "strip_selectors": [
+    "//h1[1]",
+    "//div[@id='right']",
+    "//p[@class='info']",
+    "//ol[@class='carousel-indicators']"
+  ],
+  "strip_id_or_class": [
+    "copytxt",
+    "imgSrc",
+    "back"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": [
+    "//div[contains(@id, 'loadTreeLine')]"
+  ],
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "src=\"files/",
+      "src=\"/files/"
+    ],
+    [
+      "href=\"files/",
+      "href=\"/files/"
+    ],
+    [
+      "\u003cfigure class=\"video_container\"\u003e",
+      "\u003cdiv\u003e"
+    ],
+    [
+      "\u003cvideo",
+      "\u003cdiv"
+    ],
+    [
+      "\u003csource type=\"video/mp4\" src",
+      "\u003ca href"
+    ],
+    [
+      "\u003c/video\u003e",
+      "Link zum Video\u003c/a\u003e\u003c/div\u003e"
+    ],
+    [
+      "\u003cdiv class=\"bsc_spic\" style=\"background: url('",
+      "\u003cimg src='"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.riedbahn.de/neuigkeiten-reader/ersatzverkehr-an-der-riedbahn-busflotte-und-team-sind-komplett-2.html",
+      "contains": []
+    }
+  ]
+}

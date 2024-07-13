@@ -24,6 +24,11 @@
     "NlTitle",
     "NlSubTitle",
     "AuthorBox",
+    "txtcenter",
+    "marty-embed-card",
+    "flex-container",
+    "card__author",
+    "marty-product-card-large",
     "maillage"
   ],
   "strip_image_src": null,

@@ -3,6 +3,7 @@
     "//h1"
   ],
   "body_selectors": [
+    "//article[@id='article']//div[contains(@class, 'mediaBlock')] | //article[@id='article']//div[contains(@class, 'leadIn')] | //article[@id='article']//div[contains(@class, 'textBlock')]",
     "//div[@id='article']"
   ],
   "date_selectors": [
@@ -20,7 +21,8 @@
     "//div[@id='commentForm']",
     "//div[@id='commentSent']",
     "//div[@id='comments']",
-    "//div[@class='similarityBlock']"
+    "//div[@class='similarityBlock']",
+    "//p[@class='noads']/parent::*"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -30,11 +32,20 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "\u0026nbsp;",
+      ""
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {
       "url": "http://www.focus.de/politik/ausland/ein-jahr-nach-bombenanschlag-u-bahn-attentaeter-von-minsk-hingerichtet_aid_724958.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.focus.de/auto/gebrauchtwagen/oldtimer/immer-mehr-elektronik-die-oldtimer-von-morgen-bekommen-ein-erhebliches-ersatzteil-problem_id_260032988.html",
       "contains": []
     }
   ]

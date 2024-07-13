@@ -15,12 +15,15 @@
     "//div[@class='meta__date']",
     "//div[@class='meta__authors']",
     "//h1[@class='article__title']",
-    "//div[contains(@class, 'fm-relation')]"
+    "//div[contains(@class, 'fm-relation')]",
+    "//svg",
+    "//div[@class='vued']"
   ],
   "strip_id_or_class": [
     "skyline",
     "article__actions",
-    "article__byline"
+    "article__byline",
+    "article__breadcrumbs"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -74,7 +77,7 @@
       "contains": []
     },
     {
-      "url": "https://www.diepresse.com/6115784/omikron-ba2-wann-infizierte-hoch-ansteckend-sind",
+      "url": "https://www.diepresse.com/18570374/all-eyes-on-kate-royale-rueckkehr-bei-koenig-charles-geburtstagsparade",
       "contains": []
     },
     {

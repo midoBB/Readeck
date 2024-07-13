@@ -3,6 +3,9 @@
     "//p[@class='Content HeadlineShort']"
   ],
   "body_selectors": [
+    "//article[@class='storytelling']",
+    "//article[@class='article']//div[contains(@class,'body-elements')] | (//div[contains(@class,'header-teaser__image')])[1] | (//div[contains(concat(' ',normalize-space(@class),' '),' header-teaser ')])[last()]",
+    "//article[1]",
     "//div[@class='Artikel']"
   ],
   "date_selectors": [
@@ -19,17 +22,22 @@
     "//h2[@itemprop='headline']",
     "//span[@class='Datum']",
     "//span[@class='Autor']",
+    "//button[contains(@class,'image-toggle')]",
     "//div[@class='clear']",
     "//a[@title='Zur Homepage FAZ.NET']",
-    "//iframe",
     "//div[contains(@style, 'background-image')]",
     "//img[@width='1']",
     "//footer[@class='tsr-Base_ContentMeta']"
   ],
   "strip_id_or_class": [
     "ArticlePagerTop",
+    "header-detail",
+    "intro-text",
     "TeaserMore",
     "plista_alternativ",
+    "paywall",
+    "header-teaser__image-details",
+    "tik4-sharing",
     "invisible",
     "Anzeige",
     "billboard",
@@ -43,6 +51,7 @@
     "IndexTitel",
     "cbx-Author-is-in-article-container-info",
     "BigBox",
+    "upper-toolbar",
     "LightBoxOverlay",
     "exitLarge",
     "PagerBox",
@@ -79,7 +88,8 @@
     "js-aco-ContentPayment_Panel",
     "aco-ContentPayment_Link",
     "mm-adbox",
-    "aut-Teaser"
+    "aut-Teaser",
+    "related-articles"
   ],
   "strip_image_src": [
     "/l.gif?"
@@ -108,6 +118,14 @@
   ],
   "http_headers": null,
   "tests": [
+    {
+      "url": "https://www.faz.net/aktuell/feuilleton/bilder-und-zeiten/lord-byron-in-venedig-als-pilger-popstar-und-poet-19648440.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.faz.net/aktuell/politik/europawahl/europawahl-2024-wer-in-die-eu-einzahlt-und-wer-mittel-erhaelt-19707069.html",
+      "contains": []
+    },
     {
       "url": "http://www.faz.net/aktuell/feuilleton/zum-tod-von-margaret-thatcher-die-reizfigur-12141919.html#Drucken",
       "contains": []

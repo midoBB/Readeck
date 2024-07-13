@@ -4,10 +4,9 @@
     "//h1"
   ],
   "body_selectors": [
+    "//div[contains(@class, 'meteredContent')]",
     "//div[contains(@class, 'article-body')]",
-    "//div[contains(@class, \"article_body\")]",
-    "//body[@id='print_facet']//div[@id='content']",
-    "//div[@id='print_facet']//div[@id='body']"
+    "//body[@id='print_facet']//div[@id='content']"
   ],
   "date_selectors": [
     "substring-before(//article//div[contains(@class, 'display-date')], ' at ')",
@@ -49,7 +48,8 @@
     "tooltip",
     "powa-wrapper",
     "powa-blurb-wrapper",
-    "hide-for-print"
+    "hide-for-print",
+    "sr-only"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

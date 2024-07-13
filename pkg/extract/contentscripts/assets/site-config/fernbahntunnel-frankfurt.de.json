@@ -1,18 +1,27 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[@class='layout_full block']"
+    "//div[@id='main']//div[contains(@id, 'article-')]"
   ],
   "date_selectors": [
     "//time/@datetime"
   ],
   "author_selectors": null,
   "strip_selectors": [
-    "//p[@class='info']"
+    "//h1[1]",
+    "//div[@id='right']",
+    "//p[@class='info']",
+    "//ol[@class='carousel-indicators']"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "copytxt",
+    "imgSrc",
+    "back"
+  ],
   "strip_image_src": null,
-  "native_ad_selectors": null,
+  "native_ad_selectors": [
+    "//div[contains(@id, 'loadTreeLine')]"
+  ],
   "tidy": false,
   "prune": false,
   "autodetect_on_failure": true,
@@ -20,14 +29,38 @@
   "next_page_link_selectors": null,
   "replace_strings": [
     [
-      "tunnel-frankfurt.de/aktuell/files/img/",
-      "tunnelfrankfurt.de/files/img/"
+      "src=\"files/",
+      "src=\"/files/"
+    ],
+    [
+      "href=\"files/",
+      "href=\"/files/"
+    ],
+    [
+      "\u003cfigure class=\"video_container\"\u003e",
+      "\u003cdiv\u003e"
+    ],
+    [
+      "\u003cvideo",
+      "\u003cdiv"
+    ],
+    [
+      "\u003csource type=\"video/mp4\" src",
+      "\u003ca href"
+    ],
+    [
+      "\u003c/video\u003e",
+      "Link zum Video\u003c/a\u003e\u003c/div\u003e"
+    ],
+    [
+      "\u003cdiv class=\"bsc_spic\" style=\"background: url('",
+      "\u003cimg src='"
     ]
   ],
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.fernbahntunnel-frankfurt.de/meldungen-reader/dialog-zum-fernbahntunnel-gestartet-deutsche-bahn-informiert-ueber-stand-des-frankfurter-knotenprojektes.html",
+      "url": "https://www.fernbahntunnel-frankfurt.de/meldungen-reader/vorarbeiten-fuer-die-neuen-zugdeckungssignale-sind-gestartet.html",
       "contains": []
     }
   ]

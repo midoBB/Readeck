@@ -11,7 +11,8 @@
     "//div[contains(@class, 'id-AuthorList')]/descendant::*[contains(@class, 'id-Link')]"
   ],
   "strip_selectors": [
-    "//a[@title='Bilderzoom']"
+    "//a[@title='Bilderzoom']",
+    "//aside[contains(@class,'relatedStories')]"
   ],
   "strip_id_or_class": [
     "id-Article-dateActionboxCombo",
@@ -39,7 +40,8 @@
     "id-Article-advert.id-Article-content-item",
     "id-Article-content-item.id-Article-advert",
     "id-Article-advert--ad3",
-    "id-Article-advert"
+    "id-Article-advert",
+    "ECR-IN_ARTICLE"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -52,7 +54,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.kurierverlag.de/bayern/razzien-gegen-hasskriminalitaet-17-beschuldigte-in-bayern-zr-91426730.html",
+      "url": "https://www.kurierverlag.de/bayern/regensburg-denkmal-wuerde-vergewaltigt-kritik-an-velodrom-umbau-in-zr-92469814.html",
       "contains": []
     }
   ]

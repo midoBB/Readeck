@@ -15,15 +15,24 @@
     "//div[contains(@class, 'article-header')]/h2"
   ],
   "strip_id_or_class": [
-    "author",
+    "article-author",
+    "article-info",
     "share-bottom",
+    "reading-time-post",
     "author-info",
     "other-article",
     "aside",
     "comment-widget",
     "share-mobile",
     "paywall",
-    "list-link-internal"
+    "list-link-internal",
+    "share-button",
+    "public_categories",
+    "gift-button",
+    "go-to-comments-button",
+    "dropdown-button",
+    "dropdown-content-signalement",
+    "article-option"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -46,6 +55,10 @@
     },
     {
       "url": "https://next.ink/127657/edito-limportance-de-bien-citer-et-verifier-ses-sources/",
+      "contains": []
+    },
+    {
+      "url": "https://next.ink/136362/les-ecrans-du-temps-perdu-pour-les-enfants/",
       "contains": []
     }
   ]

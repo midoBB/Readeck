@@ -1,21 +1,27 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[@id='main']"
+    "//div[@id='main']//div[contains(@id, 'article-')]"
   ],
   "date_selectors": [
     "//time/@datetime"
   ],
   "author_selectors": null,
   "strip_selectors": [
-    "//div[contains(@class, 'ce_text')]/h3",
+    "//h1[1]",
+    "//div[@id='right']",
     "//p[@class='info']",
-    "//ol[@class='carousel-indicators']",
-    "//p[@class='back']"
+    "//ol[@class='carousel-indicators']"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "copytxt",
+    "imgSrc",
+    "back"
+  ],
   "strip_image_src": null,
-  "native_ad_selectors": null,
+  "native_ad_selectors": [
+    "//div[contains(@id, 'loadTreeLine')]"
+  ],
   "tidy": false,
   "prune": false,
   "autodetect_on_failure": true,
@@ -23,26 +29,38 @@
   "next_page_link_selectors": null,
   "replace_strings": [
     [
+      "src=\"files/",
+      "src=\"/files/"
+    ],
+    [
+      "href=\"files/",
+      "href=\"/files/"
+    ],
+    [
+      "\u003cfigure class=\"video_container\"\u003e",
+      "\u003cdiv\u003e"
+    ],
+    [
+      "\u003cvideo",
+      "\u003cdiv"
+    ],
+    [
+      "\u003csource type=\"video/mp4\" src",
+      "\u003ca href"
+    ],
+    [
+      "\u003c/video\u003e",
+      "Link zum Video\u003c/a\u003e\u003c/div\u003e"
+    ],
+    [
       "\u003cdiv class=\"bsc_spic\" style=\"background: url('",
       "\u003cimg src='"
-    ],
-    [
-      "\u0026nbsp;",
-      ""
-    ],
-    [
-      "src=\"files/img/",
-      "src=\"/files/img/"
     ]
   ],
   "http_headers": null,
   "tests": [
     {
       "url": "https://www.frmplus.de/aktuelles-reader/naechste-etappe-fuer-den-deutschlandtakt-spatenstich-fuer-zusaetzliche-gleise-und-neue-mainbruecke-im-knoten-frankfurt-stadion.html",
-      "contains": []
-    },
-    {
-      "url": "https://www.frmplus.de/aktuelles-reader/homburger-damm-in-betrieb-genommen-zusaetzliches-gleis-zum-hauptbahnhof-fertiggestellt.html",
       "contains": []
     }
   ]

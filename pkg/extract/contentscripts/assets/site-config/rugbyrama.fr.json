@@ -1,0 +1,30 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article[contains(concat(' ',normalize-space(@class),' '),' article-full ')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "article__tag",
+    "article-full__infos",
+    "btn",
+    "article-full__author"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.rugbyrama.fr/2024/06/28/finale-top-14-toulouse-en-champion-le-pronostic-de-stade-toulousain-bordeaux-begles-12046360.php",
+      "contains": []
+    }
+  ]
+}

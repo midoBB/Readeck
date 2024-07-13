@@ -17,7 +17,8 @@
   "strip_selectors": null,
   "strip_id_or_class": [
     "hydra-latest-news-page-short-news__meta",
-    "hydra-latest-news-page-short-news__a11y"
+    "hydra-latest-news-page-short-news__a11y",
+    "hydra-latest-news-page__short-news-list"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

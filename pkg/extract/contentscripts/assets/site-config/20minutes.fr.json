@@ -1,14 +1,20 @@
 {
-  "title_selectors": [
-    "//h1[contains(concat(' ',normalize-space(@class),' '),' nodeheader-title ')]"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' lt-endor-body ') and (contains(concat(' ',normalize-space(@class),' '),' content '))]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' o-lt-show__main ')]",
+    "//div[contains(concat(' ',normalize-space(@id),' '),' page-content ')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_selectors": [
+    "//aside",
+    "//address"
+  ],
+  "strip_id_or_class": [
+    "c-carousel",
+    "c-read-also",
+    "direction-column@xs"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

@@ -11,7 +11,8 @@
     "//div[contains(@class, 'id-AuthorList')]/descendant::*[contains(@class, 'id-Link')]"
   ],
   "strip_selectors": [
-    "//a[@title='Bilderzoom']"
+    "//a[@title='Bilderzoom']",
+    "//aside[contains(@class,'relatedStories')]"
   ],
   "strip_id_or_class": [
     "id-Article-dateActionboxCombo",
@@ -39,7 +40,8 @@
     "id-Article-advert.id-Article-content-item",
     "id-Article-content-item.id-Article-advert",
     "id-Article-advert--ad3",
-    "id-Article-advert"
+    "id-Article-advert",
+    "ECR-IN_ARTICLE"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -52,7 +54,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.news.bayern/nullsupermarkt-hamsterkaeufe-oel-mehl-nuernberg-zettel-notes-of-germany-frust-ukraine-mkr-91426735.html",
+      "url": "https://www.news.bayern/nachrichten/bundesregierung-lehnte-neue-hilfen-fuer-fti-ab-zr-93106823.html",
       "contains": []
     }
   ]

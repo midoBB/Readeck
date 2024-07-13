@@ -1,17 +1,24 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' width-padded-left ')]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' default__Main')]"
   ],
-  "date_selectors": [
-    "//span[@class='date']/time"
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//figcaption",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' default__OutbrainWrapper')]",
+    "//h1[contains(concat(' ',normalize-space(@class),' '),' styled__CardTitle')]",
+    "//button"
   ],
-  "author_selectors": [
-    "//div[@class='article-head-metas']/a"
-  ],
-  "strip_selectors": null,
   "strip_id_or_class": [
-    "article-rel-item"
+    "closed",
+    "display_block",
+    "tag-container",
+    "mailmunch-giftarticle",
+    "flex-chain",
+    "c2",
+    "article-dossier"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -24,10 +31,8 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.liberation.fr/elections-presidentielle-legislatives-2017/2017/04/14/pas-assez-enthousiastes-ils-se-font-virer-d-un-meeting-de-fillon_1562897",
-      "contains": [
-        "Alors comment expliquer"
-      ]
+      "url": "https://www.liberation.fr/economie/transports/le-nombre-de-francais-qui-se-deplacent-regulierement-a-velo-a-augmente-de-48-en-cinq-ans-20240514_MCTAGIHEWVC63H56OAY4NPXT4M/",
+      "contains": []
     }
   ]
 }

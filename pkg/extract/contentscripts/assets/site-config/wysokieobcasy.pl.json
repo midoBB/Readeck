@@ -1,7 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//section[@itemprop=\"articleSection\"]"
+    "//div[@id='wo_article_body'] | //section[@class='article-lead'] | //div[@role='headline'] | //div[@class='article--image']"
   ],
   "date_selectors": null,
   "author_selectors": null,
@@ -15,10 +15,12 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": null,
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
+  },
   "tests": [
     {
-      "url": "https://www.wysokieobcasy.pl/wysokie-obcasy/7,53664,25805103,milosc-w-zwiazku-to-nie-namietnosc-sprawia-ze-ludzie-czuja.html",
+      "url": "https://www.wysokieobcasy.pl/Instytut/7,186310,30887675,joanna-flis-pamietamy-zdarzenia-tak-by-stanowily.html",
       "contains": []
     }
   ]

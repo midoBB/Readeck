@@ -1,19 +1,21 @@
 {
   "title_selectors": [
-    "//h1[@class=\"post-title\"]"
+    "//div[contains(@class, 'main-article-titre')]"
   ],
   "body_selectors": [
     "//div[contains(@class, 'post-content')]"
   ],
   "date_selectors": null,
   "author_selectors": [
-    "//div[@class=\"post-informations\"]//a[@class=\"highlight\"]"
+    "//div[@class=\"post-informations\"]//a[contains(@href, 'https://www.canardpc.com/auteur/')]"
   ],
   "strip_selectors": [
-    "//div[@class=\"post-informations\"]",
-    "//div[contains(@class, 'slick-cloned')]"
+    "//div[contains(@class, 'slick-cloned')]",
+    "//div[contains(@class, \"encarts\")]//div[contains(@class, \"layout-framed\")]"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "locomotive-navigation"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -25,7 +27,11 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.canardpc.com/357/fouine-peaks-thimbleweed-park",
+      "url": "https://www.canardpc.com/jeu-video/dossier-jeu-video/comment-lucasarts-a-invente-le-pointnclick-2/",
+      "contains": []
+    },
+    {
+      "url": "https://www.canardpc.com/jeu-video/test-jeu-video/the-last-of-us-part-i/",
       "contains": []
     }
   ]

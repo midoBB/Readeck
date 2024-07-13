@@ -3,7 +3,7 @@
     "//h1"
   ],
   "body_selectors": [
-    "//div[@id='article-content']"
+    "//div[@class='article-content'] | //p[@class='article-lede']"
   ],
   "date_selectors": [
     "//time[@itemprop='datePublished']/@datetime"
@@ -12,12 +12,12 @@
     "//div[@class='author-name-short']"
   ],
   "strip_selectors": [
-    "//aside"
+    "//aside",
+    "//details"
   ],
   "strip_id_or_class": [
     "article-aside",
     "article-headlines",
-    "article-header",
     "article-subject-readmore",
     "article-secondary",
     "box-reserved-abo",

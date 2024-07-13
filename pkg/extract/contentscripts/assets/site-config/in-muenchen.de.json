@@ -1,45 +1,21 @@
 {
-  "title_selectors": null,
+  "title_selectors": [
+    "//h1[@class='entry-title']"
+  ],
   "body_selectors": [
     "//article"
   ],
-  "date_selectors": [
-    "//p[contains(@class, 'id-Story-timestamp')]/descendant::time/@datetime"
-  ],
+  "date_selectors": null,
   "author_selectors": [
-    "substring-after(//p[contains(@class, 'id-Story-authors')] , 'on:')",
-    "//div[contains(@class, 'id-AuthorList')]/descendant::*[contains(@class, 'id-Link')]"
+    "//*[@class='author']",
+    "substring-after( //div[@class='post-meta'] , '|')"
   ],
   "strip_selectors": [
-    "//a[@title='Bilderzoom']"
+    "//nav"
   ],
   "strip_id_or_class": [
-    "id-Article-dateActionboxCombo",
-    "id-Article-kicker",
-    "id-Article-headline",
-    "id-AuthorList",
-    "id-StoryElement-inArticleReco",
-    "id-Comments",
-    "id-Story-timestamp",
-    "id-Story-authors",
-    "id-Story-interactionBar",
-    "idjs-simpletab-nav-item",
-    "idjs-simpletab-content-close",
-    "id-AuthorList",
-    "id-Article-content-item-copyright",
-    "id-DonaldBreadcrumb",
-    "id-StoryElement-timestamp",
-    "id-StoryElement-authors",
-    "id-StoryElement-interactionBar",
-    "id-StoryElement-image-caption",
-    "id-Mediabox-info-el",
-    "id-Recommendation",
-    "id-js-relatedStory",
-    "id-Article-content-item.id-Article-advert.id-Article-advert--ad3",
-    "id-Article-advert.id-Article-content-item",
-    "id-Article-content-item.id-Article-advert",
-    "id-Article-advert--ad3",
-    "id-Article-advert"
+    "post-meta",
+    "entry-title"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -52,7 +28,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.in-muenchen.de/theater/75-jahre-kleines-spiel-marionettentheater-fuer-erwachsene-in-muenchen-91228706.html",
+      "url": "https://www.in-muenchen.de/raus-aus-muenchen/fruehlingserwachen.html",
       "contains": []
     }
   ]

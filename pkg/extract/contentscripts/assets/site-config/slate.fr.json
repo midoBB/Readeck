@@ -20,7 +20,11 @@
     "feed-articles-aside",
     "article-signature",
     "article-header__breadcrumb",
-    "tags-container"
+    "tags-container",
+    "newsletter-container",
+    "to-read",
+    "article-header-breadcrumb",
+    "article-infos"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

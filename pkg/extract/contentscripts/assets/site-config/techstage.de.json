@@ -2,7 +2,7 @@
   "title_selectors": null,
   "body_selectors": [
     "//section[@id=\"article_content\"]",
-    "//div[@class='article-gallery'] | //div[@id='lead'] | //div[@id='article-content-body']"
+    "//div[contains(@class, 'article-gallery')] | //div[@id='lead'] | //div[@id='article-content-body']"
   ],
   "date_selectors": [
     "//article//time[@datetime]/@datetime"
@@ -12,7 +12,8 @@
   ],
   "strip_selectors": [
     "//a-tabs",
-    "//section[contains(@class, 'teaser')]"
+    "//section[contains(@class, 'teaser')]",
+    "//div[contains(@class, 'guenstiger')]"
   ],
   "strip_id_or_class": [
     "article_tags_hl",
@@ -35,7 +36,16 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "data-pspw-image=\"https://ocdn",
+      "src=\"https://ocdn"
+    ],
+    [
+      "src=\"data:image",
+      "foo=\""
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {

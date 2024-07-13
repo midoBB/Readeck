@@ -11,7 +11,8 @@
     "//div[contains(@class, 'id-AuthorList')]/descendant::*[contains(@class, 'id-Link')]"
   ],
   "strip_selectors": [
-    "//a[@title='Bilderzoom']"
+    "//a[@title='Bilderzoom']",
+    "//aside[contains(@class,'relatedStories')]"
   ],
   "strip_id_or_class": [
     "id-Article-dateActionboxCombo",
@@ -39,7 +40,8 @@
     "id-Article-advert.id-Article-content-item",
     "id-Article-content-item.id-Article-advert",
     "id-Article-advert--ad3",
-    "id-Article-advert"
+    "id-Article-advert",
+    "ECR-IN_ARTICLE"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -52,7 +54,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.lokalo24.de/lokales/fulda/ab-montag-neue-besucherregelungen-am-klinikum-fulda-91424837.html",
+      "url": "https://www.wiesn.bayern/wiesn/news/muenchen-oktoberfest-bekannteste-fahrgeschaefte-wiesn-uebersicht-fotostrecke-92413217.html",
       "contains": []
     }
   ]

@@ -28,6 +28,8 @@ import (
 	"codeberg.org/readeck/readeck/internal/db/filters"
 	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/internal/searchstring"
+	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/locales"
 	"codeberg.org/readeck/readeck/pkg/forms"
 	"codeberg.org/readeck/readeck/pkg/timetoken"
 )
@@ -685,17 +687,69 @@ func (f *orderForm) toOrderedExpressions() orderExpressionList {
 	return res
 }
 
-func newBookmarkOrderForm() *orderForm {
+func (f *orderForm) value() []string {
+	if !f.IsBound() || !f.IsValid() {
+		return nil
+	}
+
+	if value, ok := f.Get(f.fieldName).Value().([]string); ok {
+		return value
+	}
+	return nil
+}
+
+type bookmarkOrderForm struct {
+	*orderForm
+}
+
+func newBookmarkOrderForm() *bookmarkOrderForm {
 	t := goqu.T("b")
 
-	return newOrderForm("sort", map[string]exp.Orderable{
-		"created":   t.Col("created"),
-		"domain":    t.Col("domain"),
-		"duration":  goqu.Case().When(goqu.L("? > 0", t.Col("duration")), t.Col("duration")).Else(goqu.L("? * 0.3", t.Col("word_count"))),
-		"published": goqu.Case().When(t.Col("published").IsNot(nil), t.Col("published")).Else(t.Col("created")),
-		"site":      t.Col("site_name"),
-		"title":     t.Col("title"),
-	})
+	return &bookmarkOrderForm{
+		orderForm: newOrderForm("sort", map[string]exp.Orderable{
+			"created":   t.Col("created"),
+			"domain":    t.Col("domain"),
+			"duration":  goqu.Case().When(goqu.L("? > 0", t.Col("duration")), t.Col("duration")).Else(goqu.L("? * 0.3", t.Col("word_count"))),
+			"published": goqu.Case().When(t.Col("published").IsNot(nil), t.Col("published")).Else(t.Col("created")),
+			"site":      t.Col("site_name"),
+			"title":     t.Col("title"),
+		}),
+	}
+}
+
+func (f *bookmarkOrderForm) addToTemplateContext(r *http.Request, tr *locales.Locale, c server.TC) {
+	if v := f.value(); len(v) > 0 {
+		c["CurrentOrder"] = v[0]
+	} else {
+		c["CurrentOrder"] = "-created"
+	}
+
+	qs := url.Values{}
+	for k, v := range r.URL.Query() {
+		if k == "sort" {
+			continue
+		}
+		qs[k] = v
+	}
+
+	setOption := func(name, label string) [3]string {
+		qs["sort"] = []string{name}
+		defer delete(qs, "sort")
+		return [3]string{name, r.URL.Path + "?" + qs.Encode(), label}
+	}
+
+	c["OrderOptions"] = [][3]string{
+		setOption("-created", tr.Pgettext("sort", "Added, most recent first")),
+		setOption("created", tr.Pgettext("sort", "Added, oldest first")),
+		setOption("-published", tr.Pgettext("sort", "Published, most recent first")),
+		setOption("published", tr.Pgettext("sort", "Published, oldest first")),
+		setOption("title", tr.Pgettext("sort", "Title, A to Z")),
+		setOption("-title", tr.Pgettext("sort", "Title, Z to A")),
+		setOption("site", tr.Pgettext("sort", "Site Name, A to Z")),
+		setOption("-site", tr.Pgettext("sort", "Site Name, Z to A")),
+		setOption("duration", tr.Pgettext("sort", "Duration, shortest first")),
+		setOption("-duration", tr.Pgettext("sort", "Duration, longest first")),
+	}
 }
 
 func validateTimeToken(f forms.Field) error {

@@ -19,6 +19,13 @@
           @apply hf:bg-gray-200;
         }
 
+        &[aria-current] {
+          & a,
+          & button {
+            @apply text-gray-900 font-semibold;
+          }
+        }
+
         &[role="separator"] {
           @apply border-t border-t-gray-300;
           @apply my-1;

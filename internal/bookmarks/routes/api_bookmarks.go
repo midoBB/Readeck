@@ -590,6 +590,12 @@ func (api *apiRouter) withBookmarkOrdering(next http.Handler) http.Handler {
 			ctx = context.WithValue(ctx, ctxBookmarkOrderKey{}, order)
 		}
 
+		// When we have a template context, we add the current order
+		// and ordering options
+		if c, ok := ctx.Value(ctxBaseContextKey{}).(server.TC); ok {
+			f.addToTemplateContext(r, api.srv.Locale(r), c)
+		}
+
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

@@ -19,7 +19,6 @@ import (
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
-	"github.com/doug-martin/goqu/v9/exp"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-shiori/dom"
 	"golang.org/x/net/html"
@@ -40,6 +39,7 @@ type (
 	ctxBookmarkKey          struct{}
 	ctxBookmarkListKey      struct{}
 	ctxBookmarkListTagerKey struct{}
+	ctxBookmarkOrderKey     struct{}
 	ctxLabelKey             struct{}
 	ctxLabelListKey         struct{}
 	ctxSharedInfoKey        struct{}
@@ -567,10 +567,36 @@ func (api *apiRouter) withCollectionFilters(next http.Handler) http.Handler {
 		f := newCollectionForm(api.srv.Locale(r))
 		f.Filters = newContextFilterForm(r.Context(), api.srv.Locale(r))
 		f.setCollection(c)
-		f.Filters.order = []exp.OrderedExpression{goqu.I("created").Desc()}
 		ctx = f.Filters.saveContext(ctx)
 
+		if ctx.Value(ctxBookmarkOrderKey{}) == nil {
+			ctx = context.WithValue(ctx, ctxBookmarkOrderKey{}, orderExpressionList{goqu.T("b").Col("created").Desc()})
+		}
+
 		next.ServeHTTP(w, r.Clone(ctx))
+	})
+}
+
+func (api *apiRouter) withBookmarkOrdering(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		f := newBookmarkOrderForm()
+
+		_ = r.ParseForm()
+		forms.UnmarshalValues(f, r.Form)
+
+		order := f.toOrderedExpressions()
+		ctx := r.Context()
+		if order != nil {
+			ctx = context.WithValue(ctx, ctxBookmarkOrderKey{}, order)
+		}
+
+		// When we have a template context, we add the current order
+		// and ordering options
+		if c, ok := ctx.Value(ctxBaseContextKey{}).(server.TC); ok {
+			f.addToTemplateContext(r, api.srv.Locale(r), c)
+		}
+
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
@@ -616,8 +642,16 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 			Limit(uint(pf.Limit())).
 			Offset(uint(pf.Offset()))
 
+		// Apply sorting given by a query string
+		if order, ok := r.Context().Value(ctxBookmarkOrderKey{}).(orderExpressionList); ok {
+			ds = ds.Order(order...)
+		}
+
+		// If pagination is disabled, remove all limits and force sorting by "created ASC"
+		// Note: noPagination is only used when exporting bookmarks. We may need to choose
+		// another mechanism if we use it somewhere else.
 		if filters.noPagination {
-			ds = ds.ClearLimit().ClearOffset()
+			ds = ds.ClearLimit().ClearOffset().Order(goqu.T("b").Col("created").Asc())
 		}
 
 		var count int64

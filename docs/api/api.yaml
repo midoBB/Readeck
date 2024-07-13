@@ -104,6 +104,7 @@ paths:
       $merge:
         - "traits.yaml#.authenticated"
         - "traits.yaml#.paginated"
+        - "bookmarks/traits.yaml#.sortable"
         - "bookmarks/routes.yaml#.list"
 
     post:

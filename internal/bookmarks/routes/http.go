@@ -62,8 +62,11 @@ func newAPIRouter(s *server.Server) *apiRouter {
 
 	// Bookmark API
 	r.With(api.srv.WithPermission("api:bookmarks", "read")).Group(func(r chi.Router) {
-		r.With(api.withCollectionFilters, api.withBookmarkList).
-			Get("/", api.bookmarkList)
+		r.With(
+			api.withBookmarkOrdering,
+			api.withCollectionFilters,
+			api.withBookmarkList,
+		).Get("/", api.bookmarkList)
 		r.With(api.withBookmark).Route("/{uid:[a-zA-Z0-9]{18,22}}", func(r chi.Router) {
 			r.Get("/", api.bookmarkInfo)
 			r.Get("/article", api.bookmarkArticle)
@@ -139,14 +142,20 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 	// Bookmark and label views
 	r.With(h.srv.WithPermission("bookmarks", "read")).Group(func(r chi.Router) {
 		r.With(h.withBaseContext, api.withDefaultLimit(24)).Group(func(r chi.Router) {
-			r.With(api.withBookmarkList).Get("/", h.bookmarkList)
-			r.With(api.withBookmarkFilters, api.withBookmarkList).
-				Get("/{filter:(unread|archives|favorites|articles|videos|pictures)}", h.bookmarkList)
+			r.With(
+				api.withBookmarkOrdering,
+				api.withBookmarkList,
+			).Get("/", h.bookmarkList)
+			r.With(
+				api.withBookmarkFilters,
+				api.withBookmarkOrdering,
+				api.withBookmarkList,
+			).Get("/{filter:(unread|archives|favorites|articles|videos|pictures)}", h.bookmarkList)
 			r.With(api.withBookmark).Get("/{uid:[a-zA-Z0-9]{18,22}}", h.bookmarkInfo)
 			r.With(api.withBookmark, api.withSharedLink).
 				Post("/{uid:[a-zA-Z0-9]{18,22}}/share", h.bookmarkShare)
 			r.With(api.withLabelList).Get("/labels", h.labelList)
-			r.With(api.withLabel, api.withBookmarkList).
+			r.With(api.withLabel, api.withBookmarkOrdering, api.withBookmarkList).
 				Get("/labels/{label}", h.labelInfo)
 			r.With(api.withAnnotationList).Route("/highlights", func(r chi.Router) {
 				r.Get("/", h.annotationList)
@@ -176,6 +185,7 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 				r.With(
 					api.withCollection,
 					api.withCollectionFilters,
+					api.withBookmarkOrdering,
 					api.withBookmarkList,
 				).Get("/{uid:[a-zA-Z0-9]{18,22}}", h.collectionInfo)
 			})

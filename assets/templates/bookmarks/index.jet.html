@@ -139,6 +139,9 @@ SPDX-License-Identifier: AGPL-3.0-only
           </span>
 
           {{ include("./components/filters") .Filters }}
+          {{- if isset(.CurrentOrder) -}}
+            <input type="hidden" name="sort" value="{{ .CurrentOrder }}">
+          {{- end -}}
 
           <div class="mt-4 flex gap-2 items-center max-md:flex-col">
             <button class="btn btn-primary max-md:w-full">{{ pgettext("action", "Search") }}</button>

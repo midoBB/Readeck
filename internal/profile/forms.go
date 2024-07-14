@@ -378,6 +378,7 @@ type tokenForm struct {
 // tokenForm returns a tokenForm instance.
 func newTokenForm(tr forms.Translator, user *users.User) (f *tokenForm) {
 	f = &tokenForm{forms.Must(
+		forms.NewTextField("application", forms.Trim, forms.Required),
 		forms.NewBooleanField("is_enabled", forms.RequiredOrNil),
 		forms.NewDatetimeField("expires"),
 		users.NewRolesField(tr, user),
@@ -388,6 +389,7 @@ func newTokenForm(tr forms.Translator, user *users.User) (f *tokenForm) {
 
 // setToken set the token's values from an existing token.
 func (f *tokenForm) setToken(t *tokens.Token) {
+	f.Get("application").Set(t.Application)
 	f.Get("is_enabled").Set(t.IsEnabled)
 	f.Get("expires").Set(t.Expires)
 
@@ -403,6 +405,8 @@ func (f *tokenForm) updateToken(t *tokens.Token) error {
 			continue
 		}
 		switch field.Name() {
+		case "application":
+			t.Application = field.String()
 		case "is_enabled":
 			t.IsEnabled = field.Value().(bool)
 		case "expires":
@@ -419,7 +423,6 @@ func (f *tokenForm) updateToken(t *tokens.Token) error {
 				t.Roles = nil
 			}
 		}
-
 	}
 
 	if err := t.Save(); err != nil {

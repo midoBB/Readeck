@@ -5,6 +5,7 @@
 package profile_test
 
 import (
+	"net/url"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -212,6 +213,7 @@ func TestPermissions(t *testing.T) {
 			RequestTest{
 				Method: "POST",
 				Target: "/profile/tokens/" + tokens[user],
+				Form:   url.Values{"application": {"test"}},
 				Assert: func(t *testing.T, r *Response) {
 					switch user {
 					case "admin", "staff", "user":

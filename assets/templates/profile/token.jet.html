@@ -32,10 +32,13 @@ SPDX-License-Identifier: AGPL-3.0-only
     <label>{{ gettext("Token ID") }}</label>
     <div class="control">{{ .Token.UID }}</div>
   </div>
-  <div class="field field-h">
-    <label>{{ gettext("Application") }}</label>
-    <div class="control">{{ .Token.Application }}</div>
-  </div>
+
+  {{ yield textField(
+    field=.Form.Get("application"),
+    required=true,
+    label=gettext("Application"),
+    class="field-h"
+  ) }}
 
   {{ yield checkboxField(
     field=.Form.Get("is_enabled"),

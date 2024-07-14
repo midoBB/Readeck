@@ -137,6 +137,7 @@ func TestViews(t *testing.T) {
 			RequestTest{
 				Method:         "POST",
 				Target:         "{{ (index .History 0).Path }}",
+				Form:           url.Values{"application": {"test"}},
 				ExpectStatus:   303,
 				ExpectRedirect: "/profile/tokens/.+",
 			},

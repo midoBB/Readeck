@@ -276,18 +276,22 @@ function icon_sprite() {
 function copy_files() {
   return ordered([
     gulp
-      .src("media/favicons/*")
+      .src("media/favicons/*", {encoding: false})
       .pipe(hashName())
       .pipe(gulp.dest(path.join(DEST, "img/fi"))),
     gulp
-      .src(["media/logo-text.svg", "media/logo-maskable.svg"])
+      .src(["media/logo-text.svg", "media/logo-maskable.svg"], {
+        encoding: false,
+      })
       .pipe(hashName())
       .pipe(destCompress("gz"))
       .pipe(destCompress("br"))
       .pipe(gulp.dest(path.join(DEST, "img"))),
 
     gulp
-      .src(path.join(require.resolve("hls.js/dist/hls.min.js")))
+      .src(path.join(require.resolve("hls.js/dist/hls.min.js")), {
+        encoding: false,
+      })
       .pipe(gulpRename("hls.js"))
       .pipe(hashName())
       .pipe(destCompress("gz"))
@@ -295,7 +299,7 @@ function copy_files() {
       .pipe(gulp.dest(path.join(DEST, "vendor"))),
 
     gulp
-      .src("vendor/*")
+      .src("vendor/*", {encoding: false})
       .pipe(hashName())
       .pipe(destCompress("gz"))
       .pipe(destCompress("br"))

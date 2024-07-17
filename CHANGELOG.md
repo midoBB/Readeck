@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.15.0] - 2024-07-17
+### Added
+- Bookmark list ordering options
+- Polish translation, by [@anarion](https://codeberg.org/anarion)
+- Czech translation, by [@marapa](https://codeberg.org/marapa)
+- German translation, by [@FrankDex](https://codeberg.org/FrankDex)
+
+### Improved
+- Can now change an API token name
+- Extract inline SVG as remote images
+
+### Changed
+- Updated readability
+- Updated site-config rules
+
+### Fixed
+- Fixed a bug with PostgreSQL installation on a different schema, by [@winston0410](https://codeberg.org/winston0410)
+- Fixed a bug with the Wallabag import tool. It would fail when the provided URL is missing a trailing slash.
+
+
 ## [0.14.0] - 2024-05-20
 ### Added
 - Import from other services

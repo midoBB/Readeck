@@ -75,7 +75,7 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			panic(err)
 		}
-		defer r.Body.Close()
+		defer r.Body.Close() // nolint:errcheck
 		ex.AddToCache(src, map[string]string{
 			"Content-Type": "text/html",
 		}, body)

@@ -6,6 +6,7 @@ package cookbook
 
 import (
 	"fmt"
+	"io"
 	"io/fs"
 	"net/http"
 	"path"
@@ -41,6 +42,7 @@ func newCookbookAPI(s *server.Server) *cookbookAPI {
 	r.With(api.srv.WithPermission("api:cookbook", "read")).Group(func(r chi.Router) {
 		r.Get("/urls", api.urlList)
 		r.Get("/extract", api.extract)
+		r.Post("/extract", api.extract)
 	})
 
 	return api
@@ -68,6 +70,17 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
+	if r.Method == http.MethodPost {
+		body, err := io.ReadAll(r.Body)
+		if err != nil {
+			panic(err)
+		}
+		defer r.Body.Close()
+		ex.AddToCache(src, map[string]string{
+			"Content-Type": "text/html",
+		}, body)
+	}
+
 	ex.AddProcessors(
 		contentscripts.LoadScripts(
 			bookmarks.GetContentScripts(api.srv.Log(r).Logger)...,
@@ -87,6 +100,7 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 		contentscripts.ExtractBody,
 		contentscripts.StripTags,
 		contentscripts.GoToNextPage,
+		contents.ExtractInlineSVGs,
 		contents.Readability(),
 		bookmark_tasks.CleanDomProcessor,
 		contents.Text,

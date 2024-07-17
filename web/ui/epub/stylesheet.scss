@@ -363,8 +363,9 @@ main.content {
     background-color: #ccc;
   }
 
-  // img, figure
-  //   max-width: 100%
+  img {
+    margin-bottom: $line-height * 0.5em;
+  }
 
   figure {
     padding: $line-height * 1em;

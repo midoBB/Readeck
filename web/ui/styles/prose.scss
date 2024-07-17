@@ -193,6 +193,7 @@ $line-height: 1.5;
 
     img {
       @apply rounded;
+      margin-bottom: $line-height * 0.5em;
     }
 
     figure {

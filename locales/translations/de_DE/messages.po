@@ -357,7 +357,7 @@ msgid ""
 "Read more about highlights in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Lies mehr über diese Markierung in der <a class=\"%s\"
+"Lies mehr über diese Markierung in der <a class=\"%s\" "
 "href=\"%s\">Dokumentation</a>."
 
 #: assets/templates/bookmarks/base.jet.html:9

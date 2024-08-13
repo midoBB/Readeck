@@ -224,7 +224,7 @@ msgstr "Passwort vergessen?"
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:71
 msgid "Welcome to Readeck!"
-msgstr Wilkommen bei Readeck!"
+msgstr "Wilkommen bei Readeck!"
 
 #: assets/templates/auth/onboarding.jet.html:15
 msgid "We're delighted to have you on board; one more step and you're good to go."
@@ -257,7 +257,7 @@ msgstr ""
 "  Sie wird <strong>nur</strong> verwendet, sollten Sie Ihr Passwort zurücksetzen,"
 "  oder interne Benachrichtigungen erhalten wollen.\n"
 "  "
-1
+
 #: assets/templates/auth/onboarding.jet.html:47
 msgid "Finish installation"
 msgstr "Installation beenden."
@@ -623,8 +623,7 @@ msgstr "Zur Originalseite gehen"
 #: assets/templates/bookmarks/components/card.jet.html:26
 msgctxt "bookmark"
 msgid "Loading"
-msgstr ""
-msgid "Laden"
+msgstr "Laden"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:44
 msgid "Highlight"
@@ -797,14 +796,12 @@ msgstr "Importiere deine Pocket Artikel"
 msgid ""
 "\n"
 "    You can export your articles on Pocket by visiting:<br>\n"
-"    <a class=\"%s\" href=\"%s\">%s<
-/a>.\n"
+"    <a class=\"%s\" href=\"%s\">%s</a>.\n"
 "  "
 msgstr ""
 "\n"
 "    Du kannst deine Artikel aus Pocket exportieren, indem du <br>\n"
-"    <a class=\"%s\" href=\"%s\">%s<
-/a> besuchst.\n"
+"    <a class=\"%s\" href=\"%s\">%s</a> besuchst.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:21
@@ -1993,4 +1990,3 @@ msgstr "%m/%d/%Y"
 msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
-

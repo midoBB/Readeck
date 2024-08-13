@@ -125,7 +125,7 @@ Readeck usually can save the vast majority of news or blog articles but it somet
 - Your server is blocked,
 - The content extractor fails.
 
-The most common solution to these problems is to install and use the [Browser Extension](https://codeberg.org/readeck/browser-extension). The extension sends the page's full content to Readeck, so anything can be saved. Moreover, it lets you select the exact content you want to save.
+The most common solution to these problems is to install and use the [Browser Extension](https://readeck.org/en/download/). The extension sends the page's full content to Readeck, so anything can be saved. Moreover, it lets you select the exact content you want to save.
 
 If a page really doesn't work at all, please [open an issue](https://codeberg.org/readeck/readeck/issues/new?template=.gitea%2fissue_template%2fextraction_error.yaml).
 
@@ -137,11 +137,11 @@ Yes you can, for a limited time. On each article you can generate a link that'll
 
 There isn't, for several reasons:
 
-- It's borderline illegal,
 - To safely store credentials without giving access to anyone but the user is next to impossible,
-- Such a system relies on web scrapping and is prone to break too often.
+- Such a system relies on web scrapping and is prone to break too often,
+- It might go against websites TOS.
 
-Again, the [Browser Extension](https://codeberg.org/readeck/browser-extension) will let you save any content you can access from your web browser.
+Again, the [Browser Extension](https://readeck.org/en/download/) will let you save any content you can access from your web browser.
 
 ### Is there a roadmap?
 
@@ -152,6 +152,10 @@ For longer term goals, there are [projects](https://codeberg.org/readeck/readeck
 ### Is there a Readeck twitter account?
 
 There isn't but you can follow [@readeck@mastodon.online](https://mastodon.online/@readeck) on Mastodon.
+
+### Is the a Readeck Discord server?
+
+There isn't but you can join [#readeck:matrix.org](https://matrix.to/#/#readeck:matrix.org) on Matrix.
 
 ### How can I report a security issue?
 

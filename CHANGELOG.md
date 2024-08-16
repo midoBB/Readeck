@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.15.1] - 2024-08-17
+### Added
+- Spanish translation, by [@vsc55](https://codeberg.org/vsc55)
+- Hugarian translation, by [@User240803](https://codeberg.org/User240803)
+- Chinese translation, by [@shichen437](https://codeberg.org/shichen437)
+
+### Changed
+- Updated dependencies
+- Updated site-config rules
+
+### Fixed
+- German translation errors
+- Only reset the user seed upon username or email address change.
+
 ## [0.15.0] - 2024-07-17
 ### Added
 - Bookmark list ordering options

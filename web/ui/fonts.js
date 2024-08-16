@@ -54,7 +54,7 @@ const fontCatalog = {
       require.resolve("@fontsource-variable/inter/package.json"),
     ),
     fontFiles: "files",
-    css: ["wght.css", "slnt.css"],
+    css: ["wght.css", "wght-italic.css"],
   },
   luciole: {
     name: "Luciole",

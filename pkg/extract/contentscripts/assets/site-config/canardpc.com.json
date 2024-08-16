@@ -5,7 +5,9 @@
   "body_selectors": [
     "//div[contains(@class, 'post-content')]"
   ],
-  "date_selectors": null,
+  "date_selectors": [
+    "//meta[@property=\"article:published_time\"]/@content"
+  ],
   "author_selectors": [
     "//div[@class=\"post-informations\"]//a[contains(@href, 'https://www.canardpc.com/auteur/')]"
   ],

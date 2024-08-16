@@ -32,7 +32,10 @@
     "go-to-comments-button",
     "dropdown-button",
     "dropdown-content-signalement",
-    "article-option"
+    "article-option",
+    "wp-block-video",
+    "article-info-left",
+    "article-info-right"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -59,6 +62,10 @@
     },
     {
       "url": "https://next.ink/136362/les-ecrans-du-temps-perdu-pour-les-enfants/",
+      "contains": []
+    },
+    {
+      "url": "https://next.ink/143136/planete-9-son-absence-serait-statistiquement-impossible/",
       "contains": []
     }
   ]

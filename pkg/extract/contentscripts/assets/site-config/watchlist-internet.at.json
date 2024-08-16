@@ -16,7 +16,8 @@
     "//div[contains(@class, 'alert') and contains(text(), 'Info Icon') ]/text()"
   ],
   "strip_id_or_class": [
-    "visually-hidden"
+    "visually-hidden",
+    "article-nav"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

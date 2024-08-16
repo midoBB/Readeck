@@ -39,7 +39,10 @@
     "//strong[contains(., 'Read more:')]",
     "//strong[contains(., 'More from PostEverything:')]",
     "//em[contains(., 'You might also like:')]",
-    "//svg"
+    "//div[@data-testid=\"core-carousel-container\" or @aria-roledescription=\"carousel\"]",
+    "//div[contains(@class, 'hide-for-print')]/div[@data-qa='inline-magnet']/parent::div",
+    "//svg",
+    "//button"
   ],
   "strip_id_or_class": [
     "carousel",
@@ -48,7 +51,6 @@
     "tooltip",
     "powa-wrapper",
     "powa-blurb-wrapper",
-    "hide-for-print",
     "sr-only"
   ],
   "strip_image_src": null,
@@ -64,6 +66,10 @@
     [
       ".jpg\u0026amp;w=32\"",
       ".jpg\u0026amp;w=916\""
+    ],
+    [
+      "\u003cb\u003e \u003c/b\u003e",
+      "\u003c!--b--\u003e \u003c!--/b--\u003e"
     ]
   ],
   "http_headers": {

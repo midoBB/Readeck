@@ -1,0 +1,33 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[contains(@class, 'page-scroll')]",
+    "(//img[contains(@src, '/tpt-white-trans.png')])[last()]/following-sibling::*"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//img[contains(@src, '/round-shadow.png')]",
+    "//img[contains(@src, '/gradientlayer.png')]",
+    "//div[contains(@aria-label, \"Video Player\")]",
+    "//div[contains(@class, 'shape')]"
+  ],
+  "strip_id_or_class": [
+    "mask-group"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://projects.theplayerstribune.com/dusty-baker-mlb-baseball/p/1",
+      "contains": []
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article[1]/div[1]",
+    "//article[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//a[contains(@href, '/author/')]"
+  ],
+  "strip_selectors": [
+    "//header/parent::section",
+    "//header",
+    "//form[contains(@aria-label, 'teilen')]/ancestor::section",
+    "//div[contains(@data-testid, '.Companion')]",
+    "//div[contains(@data-testid, 'ArticleBottom')]",
+    "//svg[contains(@aria-labelledby, 'embed-placeholder')]/parent::div",
+    "//label",
+    "//input"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cp class=\"font-bold",
+      "\u003cstrong class=\""
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.t-online.de/nachrichten/ausland/usa/id_100447198/supreme-court-oberster-us-richter-gastierte-wohl-in-putin-palast.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.t-online.de/region/frankfurt-am-main/id_100246402/frankfurt-dieses-unvergleichliche-naturwunder-erwartet-sie-am-stadtrand.html",
+      "contains": []
+    }
+  ]
+}

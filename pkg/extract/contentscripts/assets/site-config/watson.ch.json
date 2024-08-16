@@ -29,7 +29,8 @@
     "watson-snippet__shareBubbles",
     "watson-snippet__shareBubbles__updated",
     "watson-snippet__uppertitle",
-    "insert.side.watson-autocontext.de-DE"
+    "insert.side.watson-autocontext.de-DE",
+    "watson-contextTeaser"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

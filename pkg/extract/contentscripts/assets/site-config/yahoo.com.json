@@ -3,7 +3,8 @@
     "//meta[@property=\"og:title\"]/@content"
   ],
   "body_selectors": [
-    "//article[@itemprop=\"articleBody\"]"
+    "//article[@itemprop=\"articleBody\"]",
+    "//div[@class='caas-img-container'] | //div[@class='caas-body']"
   ],
   "date_selectors": null,
   "author_selectors": null,
@@ -12,9 +13,7 @@
   ],
   "strip_id_or_class": [
     "img-mask",
-    "StretchedBox",
-    "module-spotIm",
-    "module-moreStories"
+    "StretchedBox"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -31,6 +30,10 @@
     [
       ");\" src=\"https://s.yimg.com/g/images/spaceball.gif\"",
       "\""
+    ],
+    [
+      "data-src=http",
+      "src=http"
     ]
   ],
   "http_headers": null,

@@ -1,0 +1,44 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@id='fusion-app']/section[1]/div[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//div[contains(@class, '-ads-arc')]",
+    "//div[contains(@class, '-cta-social')]",
+    "//div[contains(@class, 'features-article-body-embeds')]",
+    "//article[contains(@id, 'related-story')]",
+    "//b[starts-with(text(), 'Lea aquí:')]/ancestor::p[1]",
+    "//strong[starts-with(text(), 'Lea aquí:')]/ancestor::p[1]",
+    "//b[starts-with(text(), 'Lea también:')]/ancestor::p[1]",
+    "//strong[starts-with(text(), 'Lea también:')]/ancestor::p[1]",
+    "//a[contains(@href, '/newsletter')]/ancestor::p[1]",
+    "//a[contains(@href, '//t.me/')]/ancestor::p[1]"
+  ],
+  "strip_id_or_class": [
+    "dmnc_generic-article-byline-byline-module__4T6-C",
+    "dmnc_features-article-author-author-module__0hBFH",
+    "dmnc_generic-share-bar-share-bar-module__C7Mzo"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.dallasnews.com/arts-entertainment/architecture/2024/07/02/a-look-inside-late-dallas-architect-ron-wommacks-aia-award-winning-shelter-near-oak-lawn/",
+      "contains": []
+    },
+    {
+      "url": "https://www.dallasnews.com/espanol/al-dia/mlb-texas-rangers/2024/07/16/juego-de-estrellas-mexicanos-mlb-isaac-paredes-andres-munoz-beisbol/",
+      "contains": []
+    }
+  ]
+}

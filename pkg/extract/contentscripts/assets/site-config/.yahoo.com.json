@@ -3,7 +3,8 @@
     "//meta[@property=\"og:title\"]/@content"
   ],
   "body_selectors": [
-    "//article[@itemprop=\"articleBody\"]"
+    "//article[@itemprop=\"articleBody\"]",
+    "//div[@class='caas-img-container'] | //div[@class='caas-body']"
   ],
   "date_selectors": null,
   "author_selectors": null,
@@ -29,15 +30,21 @@
     [
       ");\" src=\"https://s.yimg.com/g/images/spaceball.gif\"",
       "\""
+    ],
+    [
+      "data-src=http",
+      "src=http"
     ]
   ],
   "http_headers": null,
   "tests": [
     {
-      "url": "https://news.yahoo.com/most-brits-dont-know-theres-000101404.html",
-      "contains": [
-        "could have implications for the privacy"
-      ]
+      "url": "https://news.yahoo.com/disneys-new-theme-park-disability-policy-sparks-anger-231613241.html",
+      "contains": []
+    },
+    {
+      "url": "https://finance.yahoo.com/news/rivian-denies-media-report-production-203727786.html",
+      "contains": []
     }
   ]
 }

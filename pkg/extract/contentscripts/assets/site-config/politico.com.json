@@ -1,24 +1,34 @@
 {
   "title_selectors": [
-    "//div[contains(@class, \"article\")]/h1"
+    "//main//h2[@class=\"headline\"]"
   ],
   "body_selectors": [
-    "//div[contains(@class,\"story-text\")]"
+    "//main[@id=\"main\"]",
+    "//main"
   ],
   "date_selectors": [
-    "//div[contains(@class,\"story-text\")]//time[@itemprop=\"datePublished\"]/@datetime"
+    "//main//p[contains(@class, 'story-meta__timestamp')]//time/@datetime"
   ],
   "author_selectors": [
-    "//div[contains(@class,\"story-text\")]//p[contains(@class, 'story-meta__authors')]",
-    "//div[contains(@class,\"story-text\")]//p[contains(@class, 'byline')]"
+    "//main//p[contains(@class, 'story-meta__authors')]"
   ],
   "strip_selectors": [
-    "//div[contains(@class, \"breadcrumbs\")]",
-    "//a[contains(@class, \"hidden\")]",
-    "//div[contains(@class, \"story-embed\")]",
-    "//div[contains(@class, \"story-text\")]//p/a[contains(text(), \"Also on POLITICO:\")]/.."
+    "//video",
+    "//div[@aria-label=\"Advertisement\"]",
+    "//*[@aria-hidden=\"true\"]",
+    "//script",
+    "//dialog",
+    "//aside",
+    "//header[contains(@class, 'summary-header')]",
+    "//div[contains(@class, \"story-text\")]//p/a[contains(., \"Also on POLITICO:\")]/.."
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "hide-under-small",
+    "hide-under-medium",
+    "below-article-section",
+    "video-object",
+    "video-player"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -30,8 +40,10 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.politico.com/news/stories/0712/78105.html",
-      "contains": []
+      "url": "https://www.politico.com/news/2024/07/24/biden-bows-out-speech-00171046",
+      "contains": [
+        "While Biden framed his decision"
+      ]
     }
   ]
 }

@@ -12,7 +12,10 @@
     "//span[normalize-space(@class)='article-content__author']"
   ],
   "strip_selectors": [
-    "//figure[@class='article-content__cover']"
+    "//header[@class='header']",
+    "//figure[@class='article-content__cover']",
+    "//div[contains(@class, 'udn-ads')]",
+    "//footer[@class='footer']/div/section"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -21,12 +24,26 @@
   "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
-  "next_page_link_selectors": null,
+  "next_page_link_selectors": [
+    "substring-before(substring-after(//section[@class='article-content__wrapper']/p/script, 'window.location.href=\"'), '?\";')"
+  ],
   "replace_strings": null,
   "http_headers": null,
   "tests": [
     {
       "url": "https://udn.com/news/story/123475/7600512",
+      "contains": []
+    },
+    {
+      "url": "https://udn.com/news/story/7241/8064274",
+      "contains": []
+    },
+    {
+      "url": "https://udn.com/news/story/6837/8063743?",
+      "contains": []
+    },
+    {
+      "url": "https://udn.com/news/story/6809/7597673?from=udn-ch1_breaknews-1-0-news",
       "contains": []
     }
   ]

@@ -1,22 +1,23 @@
 {
   "title_selectors": [
-    "//header//h1"
+    "//meta[@name='og:title']/@content"
   ],
   "body_selectors": [
-    "//div[contains(@class, 'recipe-details') or contains(@class, 'tips-carousel')] | //section[@id='recipe-ingredients' or @id='recipe-method']"
+    "//div[contains(@class, 'post-header__container')] | //div[@class='post__content']"
   ],
   "date_selectors": null,
-  "author_selectors": null,
-  "strip_selectors": null,
+  "author_selectors": [
+    "//div[@data-feature='Author']"
+  ],
+  "strip_selectors": [
+    "//svg",
+    "//button[not(contains(@class, 'image__container'))]",
+    "//div[@data-feature='NextRead']"
+  ],
   "strip_id_or_class": [
-    "recipe-rating-wrapper",
-    "magazine-subcribe-header",
-    "hide",
-    "recipe-actions",
-    "buy-ingredients",
-    "related-content",
-    "recipe-magazine-ad",
-    "copy-right"
+    "post-header__promo",
+    "pocket",
+    "author-link"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -29,7 +30,11 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.bbcgoodfood.com/recipes/1131634/minced-beef-wellington",
+      "url": "https://www.bbcgoodfood.com/recipes/moussaka",
+      "contains": []
+    },
+    {
+      "url": "https://www.bbcgoodfood.com/howto/guide/health-benefits-coffee",
       "contains": []
     }
   ]

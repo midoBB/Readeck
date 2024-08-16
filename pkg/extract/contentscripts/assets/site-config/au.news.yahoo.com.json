@@ -1,15 +1,20 @@
 {
-  "title_selectors": null,
-  "body_selectors": null,
+  "title_selectors": [
+    "//meta[@property=\"og:title\"]/@content"
+  ],
+  "body_selectors": [
+    "//article[@itemprop=\"articleBody\"]",
+    "//div[contains(@class, 'caas-img-container')] | //div[@class='caas-body']"
+  ],
   "date_selectors": null,
-  "author_selectors": [
-    "//div[@class=\"info\"]//span[@class=\"association printer-source\"]",
-    "//div[@class=\"info\"]//span[@class=\"stamp printer-date\"]"
-  ],
+  "author_selectors": null,
   "strip_selectors": [
-    "//a[contains(text(), \"RELATED:\")]"
+    "//button"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "img-mask",
+    "StretchedBox"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -17,11 +22,28 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "itemprop=\"url\" style=\"background-image:url(",
+      "itemprop=\"url\" src=\""
+    ],
+    [
+      ");\" src=\"https://s.yimg.com/g/images/spaceball.gif\"",
+      "\""
+    ],
+    [
+      "data-src=http",
+      "src=http"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {
       "url": "https://au.news.yahoo.com/a/31334394/brave-subway-employee-fights-off-masked-robber-using-her-bare-hands/",
+      "contains": []
+    },
+    {
+      "url": "https://au.news.yahoo.com/three-aussie-photographers-celebrated-in-united-states-for-jaw-dropping-images-053812249.html",
       "contains": []
     }
   ]

@@ -1,7 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//article[@class='page']",
+    "//main/div/article[1]",
     "//main"
   ],
   "date_selectors": null,
@@ -12,8 +12,11 @@
     "//button",
     "//form",
     "//svg",
+    "//aside",
+    "//nav",
     "//aside[contains(@class, 'dontPrint')]",
     "//blockquote[contains(@class, 'dontPrint')]",
+    "//div[contains(@x-data, 'socialSharing')]",
     "//a[@href='https://whatsapp.com/channel/0029VaDcqVJAu3aJgJtKhX25']/parent::aside",
     "//a[@href='https://whatsapp.com/channel/0029VaDcqVJAu3aJgJtKhX25']/parent::blockquote"
   ],

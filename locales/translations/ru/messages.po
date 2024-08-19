@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-07-13 07:23+0000\n"
-"PO-Revision-Date: 2024-08-19 18:05+0000\n"
-"Last-Translator: liilliil <liilliil-2@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2024-08-19 19:39+0000\n"
+"Last-Translator: 0ko <0ko@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Russian <https://translate.codeberg.org/projects/readeck/"
 "application/ru/>\n"
 "Language: ru\n"
@@ -271,7 +271,7 @@ msgstr "Восстановить пароль"
 
 #: assets/templates/auth/recover.jet.html:21
 msgid "No worries, it happens to anyone."
-msgstr "Не волнуйтесь, с любым случается."
+msgstr "Ничего страшного, со всеми случается."
 
 #: assets/templates/auth/recover.jet.html:22
 msgid ""
@@ -459,7 +459,7 @@ msgstr "От %s"
 #: assets/templates/bookmarks/components/sidebar.jet.html:66
 #, python-format
 msgid "%d min"
-msgstr "%d мин"
+msgstr "%d мин"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:65
 #, python-format
@@ -941,7 +941,7 @@ msgstr "Можете пользоваться Readeck, пока идёт имп�
 
 #: assets/templates/bookmarks/import/progress.jet.html:24
 msgid "Import is finished!"
-msgstr "Импорт сделан!"
+msgstr "Импорт выполнен!"
 
 #: assets/templates/bookmarks/import/progress.jet.html:25
 #, python-format
@@ -970,7 +970,7 @@ msgstr "Добавить ссылку"
 msgid ""
 "\"%s\" is not a valid address. Did you mean to search your bookmarks for "
 "%s?"
-msgstr "\"%s\" это не адрес. Вы хотели найти %s в закладках?"
+msgstr "«%s» это не адрес. Вы хотели найти %s в закладках?"
 
 #: assets/templates/bookmarks/index.jet.html:73
 msgid ""
@@ -1072,7 +1072,7 @@ msgid ""
 msgstr ""
 "\n"
 "  Ярлыки помогут организовать закладки, как вам нужно.\n"
-"  Что угодно может быть ярлыком, даже эмоджи!\n"
+"  Что угодно может быть ярлыком, даже эмодзи!\n"
 
 #: assets/templates/docs/about.jet.html:8
 #: assets/templates/docs/base.jet.html:27 docs/http.go:232
@@ -1204,11 +1204,11 @@ msgstr ""
 "\n"
 "Привет,\n"
 "\n"
-"Кто-то (может даже Вы) ввёл этот e-mail, дабы сменить\n"
+"Кто-то (может даже вы) ввёл этот e-mail, дабы сменить\n"
 "пароль в аккаунте Readeck (%s).\n"
 "\n"
-"Если Вы ждали этого письма, бегите и меняйте\n"
-"Ваш пароль быстрее.\n"
+"Если вы ждали этого письма, бегите и меняйте\n"
+"ваш пароль быстрее.\n"
 "\n"
 "%s\n"
 
@@ -1233,17 +1233,17 @@ msgstr ""
 "\n"
 "Привет!\n"
 "\n"
-"Вы (или кто-то похожий) ввёл Ваш адрес e-mail,\n"
+"Вы (или кто-то похожий) ввёл ваш адрес e-mail,\n"
 "чтобы сменить пароль в аккаунте Readeck (%s).\n"
 "\n"
 "Однако, этот e-mail не связан ни с одним аккаунтом,\n"
 "поэтому попытка сменить пароль провалилась.\n"
 "\n"
-"Если Вы пользователь Readeck на %s и ждали этого\n"
+"Если вы пользователь Readeck на %s и ждали этого\n"
 "письма, пожалуйста, используйте правильный e-mail,\n"
-"с которым Вы создали аккаунт.\n"
+"с которым вы создали аккаунт.\n"
 "\n"
-"А если это не про Вас, просто проигнорируйте.\n"
+"А если это не про вас, просто проигнорируйте.\n"
 
 #: assets/templates/emails/recover.tmpl:38
 msgid "Kind regards"
@@ -1342,7 +1342,7 @@ msgstr "Ваш пароль:"
 
 #: assets/templates/profile/credential.jet.html:39
 msgid "Copy"
-msgstr "Копируй"
+msgstr "Копировать"
 
 #: assets/templates/profile/credential.jet.html:44
 #: assets/templates/profile/token.jet.html:25
@@ -1547,7 +1547,7 @@ msgstr "Закладки браузера"
 #: internal/bookmarks/importer/browser.go:62
 #: internal/bookmarks/importer/pocket_file.go:67
 msgid "Unabled to read HTML content"
-msgstr "Не смог прочесть HTML содержимое"
+msgstr "Не удалось прочесть HTML содержимое"
 
 #: internal/bookmarks/importer/browser.go:98
 #: internal/bookmarks/importer/pocket_file.go:122
@@ -1802,37 +1802,37 @@ msgstr "Суббота"
 #: pkg/strftime/strftime.go:33
 msgctxt "datetime_ds"
 msgid "Sun"
-msgstr "Вск"
+msgstr "Вс"
 
 #: pkg/strftime/strftime.go:34
 msgctxt "datetime_ds"
 msgid "Mon"
-msgstr "Пнд"
+msgstr "Пн"
 
 #: pkg/strftime/strftime.go:35
 msgctxt "datetime_ds"
 msgid "Tue"
-msgstr "Втр"
+msgstr "Вт"
 
 #: pkg/strftime/strftime.go:36
 msgctxt "datetime_ds"
 msgid "Wed"
-msgstr "Срд"
+msgstr "Ср"
 
 #: pkg/strftime/strftime.go:37
 msgctxt "datetime_ds"
 msgid "Thu"
-msgstr "Чтв"
+msgstr "Чт"
 
 #: pkg/strftime/strftime.go:38
 msgctxt "datetime_ds"
 msgid "Fri"
-msgstr "Птн"
+msgstr "Пт"
 
 #: pkg/strftime/strftime.go:39
 msgctxt "datetime_ds"
 msgid "Sat"
-msgstr "Суб"
+msgstr "Сб"
 
 #: pkg/strftime/strftime.go:43
 msgctxt "datetime_ml"
@@ -1974,7 +1974,7 @@ msgstr "%a %b %e %H:%M:%S %y"
 #, python-format
 msgctxt "datetime"
 msgid "%m/%d/%Y"
-msgstr "%d/%m/%Y"
+msgstr "%d.%m.%Y"
 
 #: pkg/strftime/strftime.go:77
 msgctxt "datetime"

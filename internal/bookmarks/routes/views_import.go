@@ -74,8 +74,8 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 	})
 
 	if r.Method == http.MethodPost {
-		forms.Bind(f, r)
 		forms.Bind(options, r)
+		forms.Bind(f, r)
 
 		var data []byte
 		var err error

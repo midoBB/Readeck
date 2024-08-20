@@ -17,6 +17,7 @@ import (
 	"github.com/go-shiori/dom"
 	"golang.org/x/net/html"
 
+	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -26,9 +27,10 @@ type browserAdapter struct {
 }
 
 type browserBookmarkItem struct {
-	Link    string    `json:"url"`
-	Title   string    `json:"title"`
-	Created time.Time `json:"created"`
+	Link    string        `json:"url"`
+	Title   string        `json:"title"`
+	Created time.Time     `json:"created"`
+	Labels  types.Strings `json:"labels"`
 }
 
 func (bi *browserBookmarkItem) URL() string {
@@ -39,6 +41,7 @@ func (bi *browserBookmarkItem) Meta() (*BookmarkMeta, error) {
 	return &BookmarkMeta{
 		Title:   bi.Title,
 		Created: bi.Created,
+		Labels:  bi.Labels,
 	}, nil
 }
 
@@ -83,11 +86,19 @@ func (adapter *browserAdapter) Params(form forms.Binder) ([]byte, error) {
 			Created: time.Now(),
 			Link:    uri.String(),
 			Title:   strings.TrimSpace(dom.TextContent(n)),
+			Labels:  types.Strings{},
 		}
 
 		if dom.HasAttribute(n, "add_date") {
 			if ts, err := strconv.Atoi(dom.GetAttribute(n, "add_date")); err == nil {
 				item.Created = time.Unix(int64(ts), 0)
+			}
+		}
+
+		// Fetch labels from the TAGS attribute when present (pinboard, maybe others)
+		for _, label := range strings.Split(dom.GetAttribute(n, "tags"), ",") {
+			if label = strings.TrimSpace(label); label != "" {
+				item.Labels = append(item.Labels, label)
 			}
 		}
 
@@ -108,7 +119,6 @@ func (adapter *browserAdapter) LoadData(data []byte) error {
 }
 
 func (adapter *browserAdapter) Next() (BookmarkImporter, error) {
-	// return nil, io.EOF
 	if adapter.idx+1 > len(adapter.Items) {
 		return nil, io.EOF
 	}

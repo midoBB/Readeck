@@ -1,4 +1,4 @@
-# English (United States) translations for PROJECT.
+# English (United States) translations for Readeck CN.
 # SPDX-FileCopyrightText: © 2023 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
@@ -7,11 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-07-13 07:23+0000\n"
+"POT-Creation-Date: 2024-08-20 18:27+0000\n"
 "PO-Revision-Date: 2024-07-13 07:23+0000\n"
 "Last-Translator: shichen437 <shichen437@gmail.com>\n"
 "Language: zh_CN\n"
 "Language-Team: shichen437 <shichen437@gmail.com>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -126,6 +127,7 @@ msgstr "用户将在几秒钟后被删除。"
 #: assets/templates/bookmarks/collection.jet.html
 #: assets/templates/bookmarks/components/card.jet.html
 #: assets/templates/bookmarks/import/form-browser.jet.html
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -719,7 +721,6 @@ msgid "Links"
 msgstr "链接"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
-#: assets/templates/bookmarks/import/index.jet.html
 msgid "Import your Browser's Bookmarks"
 msgstr "导入你的浏览器书签"
 
@@ -730,7 +731,9 @@ msgid ""
 "    Upload this file in the form below and Readeck will create and fetch\n"
 "    every bookmark found it the file.\n"
 "  "
-msgstr "在你的浏览器中，导出书签为 HTML 文件。<br>\n 上传这个文件到下面的表单中，Readeck 将会创建并抓取文件中的书签。"
+msgstr ""
+"在你的浏览器中，导出书签为 HTML 文件。<br>\n"
+" 上传这个文件到下面的表单中，Readeck 将会创建并抓取文件中的书签。"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
 msgid "Instructions for Firefox"
@@ -741,17 +744,30 @@ msgid "Instructions for Chrome"
 msgstr "Chrome 导入说明"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
 msgid "File"
 msgstr "文件"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
 msgid "Import Bookmarks"
 msgstr "导入书签"
+
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html
+msgid "Import Links from a GoodLinks export file"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html
+msgid ""
+"\n"
+"    Upload a JSON file obtained from your GoodLinks app.\n"
+"  "
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
@@ -765,7 +781,9 @@ msgid ""
 "    You can export your articles on Pocket by visiting:<br>\n"
 "    <a class=\"%s\" href=\"%s\">%s</a>.\n"
 "  "
-msgstr "你可以在 Pocket 上导出文章，访问：<br>\n <a class=\"%s\" href=\"%s\">%s</a>。\n"
+msgstr ""
+"你可以在 Pocket 上导出文章，访问：<br>\n"
+" <a class=\"%s\" href=\"%s\">%s</a>。\n"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 msgid ""
@@ -814,7 +832,9 @@ msgid ""
 " give you\n"
 "    a <strong>Client ID</strong> and <strong>Client secret</strong>.\n"
 "  "
-msgstr "从Wallabag 导入文章，你需要在 Wallabag 的 <strong>API 客户端管理</strong> 菜单中创建一个 API 客户端，这将给你一个 <strong>Client ID</strong> 和 <strong>Client secret</strong>。\n"
+msgstr ""
+"从Wallabag 导入文章，你需要在 Wallabag 的 <strong>API 客户端管理</strong> 菜单中创建一个 API "
+"客户端，这将给你一个 <strong>Client ID</strong> 和 <strong>Client secret</strong>。\n"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
 msgid ""
@@ -850,6 +870,14 @@ msgid ""
 "sources into Readeck.\n"
 "  "
 msgstr "你可以从各种来源导入你的书签集合到 Readeck。\n"
+
+#: assets/templates/bookmarks/import/index.jet.html
+msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
+msgstr ""
+
+#: assets/templates/bookmarks/import/index.jet.html
+msgid "Import your GoodLinks Articles"
+msgstr ""
 
 #: assets/templates/bookmarks/import/options.jet.html
 msgid "Options"
@@ -924,7 +952,9 @@ msgid ""
 "with existing bookmarks?\n"
 "          Try Readeck's import tool.\n"
 "        "
-msgstr "想从类似工具或现有书签文件中导入链接和文章？\n 请尝试 Readeck 的导入工具。"
+msgstr ""
+"想从类似工具或现有书签文件中导入链接和文章？\n"
+" 请尝试 Readeck 的导入工具。"
 
 #: assets/templates/bookmarks/index.jet.html
 msgid "Import links and articles"
@@ -949,7 +979,6 @@ msgstr "没有找到任何结果。"
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
 msgstr[0] "搜索到 <strong>%d 个结果</strong>。"
-msgstr[1] "搜索到 <strong>%d 个结果</strong>。"
 
 #: assets/templates/bookmarks/index.jet.html
 msgid "Filters documentation"
@@ -1324,7 +1353,9 @@ msgstr "你的 API token"
 msgid ""
 "You can use this token by passing it as an <strong>Authorization: "
 "Bearer</strong> HTTP header."
-msgstr "你可以通过将此 token 作为一个 <strong>Authorization: Bearer</strong> HTTP 头传递来访问 Readeck API。"
+msgstr ""
+"你可以通过将此 token 作为一个 <strong>Authorization: Bearer</strong> HTTP 头传递来访问 "
+"Readeck API。"
 
 #: assets/templates/profile/token_list.jet.html
 msgid "My API Tokens"
@@ -1400,6 +1431,7 @@ msgid "Unabled to read HTML content"
 msgstr "无法读取HTML内容"
 
 #: internal/bookmarks/importer/browser.go
+#: internal/bookmarks/importer/goodlinks.go
 #: internal/bookmarks/importer/pocket_file.go
 #: internal/bookmarks/importer/text.go
 msgid "Empty or invalid import file"
@@ -1412,6 +1444,10 @@ msgstr "必填字段"
 #: internal/bookmarks/importer/forms.go
 msgid "Invalid Content-Type"
 msgstr "无效Content-Type"
+
+#: internal/bookmarks/importer/goodlinks.go
+msgid "GoodLinks Export File"
+msgstr ""
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"

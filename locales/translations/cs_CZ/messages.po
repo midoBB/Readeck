@@ -1,278 +1,284 @@
-# Translations template for Readeck.
+# Czech (Czechia) translations for Readeck.
 # SPDX-FileCopyrightText: © 2024 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
-#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CZ 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-05-20 07:39+0000\n"
+"POT-Creation-Date: 2024-08-20 18:27+0000\n"
 "PO-Revision-Date: 2024-06-02 17:13+0200\n"
 "Last-Translator: \n"
-"Language-Team: marapa <mara.pavelka@gmail.com>\n"
 "Language: cs_CZ\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: marapa <mara.pavelka@gmail.com>\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n>=2 && n<=4 ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.12.1\n"
-"X-Generator: Poedit 3.4.4\n"
 
-#: assets/templates/_layouts/sidemenu.jet.html:18
+#: assets/templates/_layouts/sidemenu.jet.html
+#: assets/templates/bookmarks/bookmark.jet.html assets/templates/error.jet.html
+msgid "Menu"
+msgstr "Nabídka"
+
+#: assets/templates/_layouts/sidemenu.jet.html
 msgid "Secondary Menu"
 msgstr "Vedlejší nabídka"
 
-#: assets/templates/_layouts/sidemenu.jet.html:41
+#: assets/templates/_layouts/sidemenu.jet.html
+#: assets/templates/bookmarks/bookmark.jet.html assets/templates/error.jet.html
+msgid "Main content"
+msgstr "Hlavní obsah"
+
+#: assets/templates/_layouts/sidemenu.jet.html
 msgid "Open menu"
 msgstr "Otevřít nabídku"
 
-#: assets/templates/_libs/common.jet.html:1
+#: assets/templates/_libs/common.jet.html
 msgid "Quick access menu"
 msgstr "Nabídka rychlého přístupu"
 
-#: assets/templates/_libs/common.jet.html:1
+#: assets/templates/_libs/common.jet.html
 msgid "Home Page"
 msgstr "Domovská stránka"
 
-#: assets/templates/_libs/forms.jet.html:1
-#: assets/templates/_libs/forms.jet.html:33
+#: assets/templates/_libs/forms.jet.html
 msgid "Required"
 msgstr "Vyžadováno"
 
-#: assets/templates/_libs/forms.jet.html:10
+#: assets/templates/_libs/forms.jet.html
 msgid "Errors"
 msgstr "Chyby"
 
-#: assets/templates/_libs/forms.jet.html:16
+#: assets/templates/_libs/forms.jet.html
 msgid "Please check your form for errors."
 msgstr "Zkontrolujte, zda ve formuláři nejsou chyby."
 
-#: assets/templates/_libs/forms.jet.html:210
+#: assets/templates/_libs/forms.jet.html
 msgid "The previous"
 msgstr "Předchozí"
 
-#: assets/templates/_libs/forms.jet.html:219
+#: assets/templates/_libs/forms.jet.html
 msgid "Day(s)"
 msgstr "Dny"
 
-#: assets/templates/_libs/forms.jet.html:220
+#: assets/templates/_libs/forms.jet.html
 msgid "Week(s)"
 msgstr "Týdny"
 
-#: assets/templates/_libs/forms.jet.html:221
+#: assets/templates/_libs/forms.jet.html
 msgid "Month(s)"
 msgstr "Měsíce"
 
-#: assets/templates/_libs/forms.jet.html:222
+#: assets/templates/_libs/forms.jet.html
 msgid "Year(s)"
 msgstr "Roky"
 
-#: assets/templates/_libs/forms.jet.html:225
+#: assets/templates/_libs/forms.jet.html
 msgctxt "word"
 msgid "or"
 msgstr "nebo"
 
-#: assets/templates/_libs/forms.jet.html:253
+#: assets/templates/_libs/forms.jet.html
 msgid "Select or drop file"
 msgstr "Vyberte nebo přetáhněte soubor"
 
-#: assets/templates/_libs/forms.jet.html:257
+#: assets/templates/_libs/forms.jet.html
 msgid "remove"
 msgstr "odebrat"
 
-#: assets/templates/_libs/pagination.jet.html:1
+#: assets/templates/_libs/pagination.jet.html
 msgid "Go to previous page"
 msgstr "Přejít na předchozí stránku"
 
-#: assets/templates/_libs/pagination.jet.html:1
+#: assets/templates/_libs/pagination.jet.html
 #, python-format
 msgid "Go to page %d"
 msgstr "Přejít na stránku %d"
 
-#: assets/templates/_libs/pagination.jet.html:1
+#: assets/templates/_libs/pagination.jet.html
 msgid "Go to next page"
 msgstr "Přejít na další stránku"
 
-#: assets/templates/_libs/pagination.jet.html:10
+#: assets/templates/_libs/pagination.jet.html
 msgctxt "page"
 msgid "Previous"
 msgstr "Předchozí"
 
-#: assets/templates/_libs/pagination.jet.html:15
+#: assets/templates/_libs/pagination.jet.html
 msgctxt "page"
 msgid "Next"
 msgstr "Další"
 
-#: assets/templates/admin/user.jet.html:9
-#: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:35 internal/admin/views.go:62
-#: internal/admin/views.go:92 internal/admin/views.go:132
+#: assets/templates/admin/user.jet.html
+#: assets/templates/admin/user_list.jet.html
+#: assets/templates/profile/base.jet.html internal/admin/views.go
 msgid "Users"
 msgstr "Uživatelé"
 
-#: assets/templates/admin/user.jet.html:19
+#: assets/templates/admin/user.jet.html
 msgid "User will be removed in a few seconds"
 msgstr "Uživatel bude za několik sekund odebrán"
 
-#: assets/templates/admin/user.jet.html:20
-#: assets/templates/admin/user_list.jet.html:44
-#: assets/templates/bookmarks/collection.jet.html:22
-#: assets/templates/bookmarks/components/card.jet.html:90
-#: assets/templates/bookmarks/import/form-browser.jet.html:42
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
-#: assets/templates/bookmarks/import/form-text.jet.html:36
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:70
-#: assets/templates/bookmarks/label.jet.html:51
-#: assets/templates/profile/credential.jet.html:20
-#: assets/templates/profile/credential_list.jet.html:57
-#: assets/templates/profile/token.jet.html:20
-#: assets/templates/profile/token_list.jet.html:61
+#: assets/templates/admin/user.jet.html
+#: assets/templates/admin/user_list.jet.html
+#: assets/templates/bookmarks/collection.jet.html
+#: assets/templates/bookmarks/components/card.jet.html
+#: assets/templates/bookmarks/import/form-browser.jet.html
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html
+#: assets/templates/bookmarks/import/form-text.jet.html
+#: assets/templates/bookmarks/import/form-wallabag.jet.html
+#: assets/templates/bookmarks/label.jet.html
+#: assets/templates/profile/credential.jet.html
+#: assets/templates/profile/credential_list.jet.html
+#: assets/templates/profile/token.jet.html
+#: assets/templates/profile/token_list.jet.html
 msgid "Cancel"
 msgstr "Storno"
 
-#: assets/templates/admin/user.jet.html:31
-#: assets/templates/admin/user_create.jet.html:20
-#: assets/templates/auth/onboarding.jet.html:24
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:41
-#: assets/templates/profile/index.jet.html:20
+#: assets/templates/admin/user.jet.html
+#: assets/templates/admin/user_create.jet.html
+#: assets/templates/auth/onboarding.jet.html
+#: assets/templates/bookmarks/import/form-wallabag.jet.html
+#: assets/templates/profile/index.jet.html
 msgid "Username"
 msgstr "Uživatelské jméno"
 
-#: assets/templates/admin/user.jet.html:37
-#: assets/templates/admin/user_create.jet.html:26
-#: assets/templates/auth/onboarding.jet.html:37
-#: assets/templates/auth/recover.jet.html:29
+#: assets/templates/admin/user.jet.html
+#: assets/templates/admin/user_create.jet.html
+#: assets/templates/auth/onboarding.jet.html
+#: assets/templates/auth/recover.jet.html
 msgid "Email address"
 msgstr "E-mailová adresa"
 
-#: assets/templates/admin/user.jet.html:41
-#: assets/templates/admin/user_create.jet.html:31
+#: assets/templates/admin/user.jet.html
+#: assets/templates/admin/user_create.jet.html
 msgid "Group"
 msgstr "Skupina"
 
-#: assets/templates/admin/user.jet.html:46
-#: assets/templates/admin/user_create.jet.html:36
-#: assets/templates/auth/login.jet.html:30
-#: assets/templates/auth/onboarding.jet.html:29
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:48
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:133
+#: assets/templates/admin/user.jet.html
+#: assets/templates/admin/user_create.jet.html
+#: assets/templates/auth/login.jet.html
+#: assets/templates/auth/onboarding.jet.html
+#: assets/templates/bookmarks/import/form-wallabag.jet.html
+#: assets/templates/profile/base.jet.html internal/profile/views.go
 msgid "Password"
 msgstr "Heslo"
 
-#: assets/templates/admin/user.jet.html:49
+#: assets/templates/admin/user.jet.html
 msgid "will not change if empty"
 msgstr "nezmění se, pokud je prázdné"
 
-#: assets/templates/admin/user.jet.html:52
-#: assets/templates/bookmarks/collection.jet.html:64
-#: assets/templates/bookmarks/collection_create.jet.html:30
-#: assets/templates/profile/credential.jet.html:83
-#: assets/templates/profile/index.jet.html:35
-#: assets/templates/profile/password.jet.html:36
-#: assets/templates/profile/token.jet.html:67
+#: assets/templates/admin/user.jet.html
+#: assets/templates/bookmarks/collection.jet.html
+#: assets/templates/bookmarks/collection_create.jet.html
+#: assets/templates/profile/credential.jet.html
+#: assets/templates/profile/index.jet.html
+#: assets/templates/profile/password.jet.html
+#: assets/templates/profile/token.jet.html
 msgid "Save"
 msgstr "Uložit"
 
-#: assets/templates/admin/user.jet.html:55
+#: assets/templates/admin/user.jet.html
 msgid "Delete this user"
 msgstr "Odstranit tohoto uživatele"
 
-#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:93
+#: assets/templates/admin/user_create.jet.html internal/admin/views.go
 msgid "New User"
 msgstr "Nový uživatel"
 
-#: assets/templates/admin/user_create.jet.html:42
+#: assets/templates/admin/user_create.jet.html
 msgid "Create user"
 msgstr "Vytvořit uživatele"
 
-#: assets/templates/admin/user_list.jet.html:14
+#: assets/templates/admin/user_list.jet.html
 msgid "Add a new user"
 msgstr "Přidat nového uživatele"
 
-#: assets/templates/admin/user_list.jet.html:30
-#: assets/templates/profile/credential_list.jet.html:45
-#: assets/templates/profile/token_list.jet.html:47
+#: assets/templates/admin/user_list.jet.html
+#: assets/templates/profile/credential_list.jet.html
+#: assets/templates/profile/token_list.jet.html
 #, python-format
 msgid "Created on: %s"
 msgstr "Vytvořen: %s"
 
-#: assets/templates/admin/user_list.jet.html:31
+#: assets/templates/admin/user_list.jet.html
 #, python-format
 msgid "Last update: %s"
 msgstr "Poslední aktualizace: %s"
 
-#: assets/templates/admin/user_list.jet.html:38
+#: assets/templates/admin/user_list.jet.html
 msgid "This user will be removed in a few seconds."
 msgstr "Tento uživatel bude za několik sekund odebrán"
 
-#: assets/templates/auth/login.jet.html:9
-#: assets/templates/auth/login.jet.html:37
+#: assets/templates/auth/login.jet.html
 msgid "Sign in"
 msgstr "Přihlásit se"
 
-#: assets/templates/auth/login.jet.html:12
+#: assets/templates/auth/login.jet.html
 msgid "Sign in to Readeck"
 msgstr "Přihlásit se do Readecku"
 
-#: assets/templates/auth/login.jet.html:22
+#: assets/templates/auth/login.jet.html
 msgid "Username or email address"
 msgstr "Uživatelské jméno nebo e-mailová adresa"
 
-#: assets/templates/auth/login.jet.html:41
+#: assets/templates/auth/login.jet.html
 msgid "Forgot your password?"
 msgstr "Neznáte heslo?"
 
-#: assets/templates/auth/onboarding.jet.html:9
-#: assets/templates/bookmarks/index.jet.html:71
+#: assets/templates/auth/onboarding.jet.html
+#: assets/templates/bookmarks/index.jet.html
 msgid "Welcome to Readeck!"
 msgstr "Vítejte v Readecku!"
 
-#: assets/templates/auth/onboarding.jet.html:15
-msgid ""
-"We're delighted to have you on board; one more step and you're good to go."
+#: assets/templates/auth/onboarding.jet.html
+msgid "We're delighted to have you on board; one more step and you're good to go."
 msgstr "Jsme rádi, že vás máme na palubě; ještě jeden krok a můžete začít."
 
-#: assets/templates/auth/onboarding.jet.html:32
-#: assets/templates/auth/recover.jet.html:56
-#: assets/templates/profile/password.jet.html:32
+#: assets/templates/auth/onboarding.jet.html
+#: assets/templates/auth/recover.jet.html
+#: assets/templates/profile/password.jet.html
 msgid "must be at least 8 characters long"
 msgstr "musí být alespoň 8 znaků dlouhé"
 
-#: assets/templates/auth/onboarding.jet.html:39
+#: assets/templates/auth/onboarding.jet.html
 msgid "Please note:"
 msgstr "Mějte na paměti:"
 
-#: assets/templates/auth/onboarding.jet.html:40
+#: assets/templates/auth/onboarding.jet.html
 msgid ""
 "\n"
-"  Your email address is optionnal and will never leave this installation.\n"
+"  Your email address is optionnal and will never leave this installation."
+"\n"
 "  It will never be collected, transferred or sold.\n"
-"  It will <strong>only</strong> be used, should you need it, for password "
-"recovery and internal notifications.\n"
+"  It will <strong>only</strong> be used, should you need it, for password"
+" recovery and internal notifications.\n"
 "  "
 msgstr ""
 "\n"
 "  Zadání e-mailové adresy je volitelné a nikdy neopustí tuto instalaci.\n"
 "  Nikdy nebude shromažďována, předávána ani prodávána.\n"
-"  Bude použita <strong>pouze</strong> v případě potřeby pro obnovení hesla a "
-"interní oznámení.\n"
+"  Bude použita <strong>pouze</strong> v případě potřeby pro obnovení "
+"hesla a interní oznámení.\n"
 "  "
 
-#: assets/templates/auth/onboarding.jet.html:47
+#: assets/templates/auth/onboarding.jet.html
 msgid "Finish installation"
 msgstr "Dokončit instalaci"
 
-#: assets/templates/auth/recover.jet.html:9
+#: assets/templates/auth/recover.jet.html
 msgid "Password recovery"
 msgstr "Obnovení hesla"
 
-#: assets/templates/auth/recover.jet.html:21
+#: assets/templates/auth/recover.jet.html
 msgid "No worries, it happens to anyone."
 msgstr "Nic se neděje, to se stane každému."
 
-#: assets/templates/auth/recover.jet.html:22
+#: assets/templates/auth/recover.jet.html
 msgid ""
 "\n"
 "        Please provide the email address you used to create\n"
@@ -286,20 +292,19 @@ msgstr ""
 "        s odkazem na obnovení hesla.\n"
 "      "
 
-#: assets/templates/auth/recover.jet.html:32
+#: assets/templates/auth/recover.jet.html
 msgid "Send me a recovery link"
 msgstr "Pošlete mi odkaz pro obnovení"
 
-#: assets/templates/auth/recover.jet.html:33
-#: assets/templates/auth/recover.jet.html:58
+#: assets/templates/auth/recover.jet.html
 msgid "Cancel and go back to sign in"
 msgstr "Zrušit a přejít zpět na přihlášení"
 
-#: assets/templates/auth/recover.jet.html:37
+#: assets/templates/auth/recover.jet.html
 msgid "Almost there!"
 msgstr "Už to skoro je!"
 
-#: assets/templates/auth/recover.jet.html:38
+#: assets/templates/auth/recover.jet.html
 #, python-format
 msgid ""
 "\n"
@@ -314,213 +319,209 @@ msgstr ""
 "        s dalšími pokyny.\n"
 "      "
 
-#: assets/templates/auth/recover.jet.html:54
-#: assets/templates/profile/password.jet.html:29
+#: assets/templates/auth/recover.jet.html
+#: assets/templates/profile/password.jet.html
 msgid "New password"
 msgstr "Nové heslo"
 
-#: assets/templates/auth/recover.jet.html:57
+#: assets/templates/auth/recover.jet.html
 msgid "Update your password"
 msgstr "Aktualizujte své heslo"
 
-#: assets/templates/auth/recover.jet.html:62
+#: assets/templates/auth/recover.jet.html
 msgid "Your password has been changed."
 msgstr "Vaše heslo bylo změněno."
 
-#: assets/templates/auth/recover.jet.html:63
+#: assets/templates/auth/recover.jet.html
 msgid "Go to the sign in page"
 msgstr "Přejít na přihlašovací stránku"
 
-#: assets/templates/bookmarks/annotation_list.jet.html:8
+#: assets/templates/bookmarks/annotation_list.jet.html
 msgid "Bookmark Highlights"
 msgstr "Zvýraznění záložek"
 
-#: assets/templates/bookmarks/annotation_list.jet.html:17
+#: assets/templates/bookmarks/annotation_list.jet.html
 msgid "You don't have any highlights yet."
 msgstr "Nemáte zatím žádná zvýraznění."
 
-#: assets/templates/bookmarks/annotation_list.jet.html:18
+#: assets/templates/bookmarks/annotation_list.jet.html
 msgid ""
 "\n"
-"        Once you start highlighting parts of your saved articles, they will "
-"appear on this page\n"
+"        Once you start highlighting parts of your saved articles, they "
+"will appear on this page\n"
 "        for you to easily find them.\n"
 "      "
 msgstr ""
 "\n"
-"        Jakmile začnete zvýrazňovat části svých uložených článků, zobrazí se "
-"na této stránce,\n"
+"        Jakmile začnete zvýrazňovat části svých uložených článků, zobrazí"
+" se na této stránce,\n"
 "        abyste je mohli snadno najít.\n"
 "      "
 
-#: assets/templates/bookmarks/annotation_list.jet.html:23
+#: assets/templates/bookmarks/annotation_list.jet.html
 #, python-format
 msgid ""
-"Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</"
-"a>."
+"Read more about highlights in the <a class=\"%s\" "
+"href=\"%s\">documentation</a>."
 msgstr ""
-"Přečtěte si více o zvýrazňování v <a class=\"%s\" href=\"%s\">dokumentaci</"
-"a>."
+"Přečtěte si více o zvýrazňování v <a class=\"%s\" "
+"href=\"%s\">dokumentaci</a>."
 
-#: assets/templates/bookmarks/base.jet.html:9
-#: assets/templates/bookmarks/bookmark.jet.html:15
+#: assets/templates/bookmarks/base.jet.html
+#: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmarks"
 msgstr "Záložky"
 
-#: assets/templates/bookmarks/base.jet.html:24
-#: internal/bookmarks/routes/forms_bookmarks.go:398
+#: assets/templates/bookmarks/base.jet.html
+#: internal/bookmarks/routes/forms_bookmarks.go
 msgid "All"
 msgstr "Vše"
 
-#: assets/templates/bookmarks/base.jet.html:26
+#: assets/templates/bookmarks/base.jet.html
 msgid "Unread"
 msgstr "Nepřečtené"
 
-#: assets/templates/bookmarks/base.jet.html:28
+#: assets/templates/bookmarks/base.jet.html
 msgid "Archive"
 msgstr "Archivované"
 
-#: assets/templates/bookmarks/base.jet.html:30
+#: assets/templates/bookmarks/base.jet.html
 msgid "Favorites"
 msgstr "Oblíbené"
 
-#: assets/templates/bookmarks/base.jet.html:37
-#: internal/bookmarks/routes/views_bookmarks.go:111
+#: assets/templates/bookmarks/base.jet.html
+#: internal/bookmarks/routes/views_bookmarks.go
 msgid "Articles"
 msgstr "Články"
 
-#: assets/templates/bookmarks/base.jet.html:42
-#: internal/bookmarks/routes/views_bookmarks.go:115
+#: assets/templates/bookmarks/base.jet.html
+#: internal/bookmarks/routes/views_bookmarks.go
 msgid "Videos"
 msgstr "Videa"
 
-#: assets/templates/bookmarks/base.jet.html:47
-#: internal/bookmarks/routes/views_bookmarks.go:113
+#: assets/templates/bookmarks/base.jet.html
+#: internal/bookmarks/routes/views_bookmarks.go
 msgid "Pictures"
 msgstr "Obrázky"
 
-#: assets/templates/bookmarks/base.jet.html:56
-#: assets/templates/bookmarks/components/sidebar.jet.html:93
+#: assets/templates/bookmarks/base.jet.html
+#: assets/templates/bookmarks/components/sidebar.jet.html
 msgid "Labels"
 msgstr "Štítky"
 
-#: assets/templates/bookmarks/base.jet.html:58
-#: assets/templates/bookmarks/components/sidebar.jet.html:98
+#: assets/templates/bookmarks/base.jet.html
+#: assets/templates/bookmarks/components/sidebar.jet.html
 msgid "Highlights"
 msgstr "Zvýraznění"
 
-#: assets/templates/bookmarks/base.jet.html:60
-#: assets/templates/bookmarks/collection.jet.html:11
-#: assets/templates/bookmarks/collection.jet.html:33
+#: assets/templates/bookmarks/base.jet.html
+#: assets/templates/bookmarks/collection.jet.html
 msgid "Collections"
 msgstr "Sbírky"
 
-#: assets/templates/bookmarks/bookmark.jet.html:12
-msgid "Bookmark loading"
-msgstr "Načítání záložky"
-
-#: assets/templates/bookmarks/bookmark.jet.html:39
-msgid "Bookmark is loading"
-msgstr "Záložka se načítá"
-
-#: assets/templates/bookmarks/bookmark.jet.html:1
-#: assets/templates/bookmarks/bookmark.jet.html:67
+#: assets/templates/bookmarks/bookmark.jet.html
 msgid "More information"
 msgstr "Více informací"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:13
+#: assets/templates/bookmarks/bookmark.jet.html
+msgid "Bookmark loading"
+msgstr "Načítání záložky"
+
+#: assets/templates/bookmarks/bookmark.jet.html
+msgid "Bookmark is loading"
+msgstr "Záložka se načítá"
+
+#: assets/templates/bookmarks/bookmark_public.jet.html
 msgid "Shared link"
 msgstr "Sdílený odkaz"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:23
+#: assets/templates/bookmarks/bookmark_public.jet.html
 msgid "Page not found"
 msgstr "Stránka nebyla nalezena"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:25
+#: assets/templates/bookmarks/bookmark_public.jet.html
 msgid "Page has expired"
 msgstr "Stránka vypršela"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:47
-#: assets/templates/bookmarks/components/sidebar.jet.html:53
-#: assets/templates/epub/bookmark.jet.html:37
+#: assets/templates/bookmarks/bookmark_public.jet.html
+#: assets/templates/bookmarks/components/sidebar.jet.html
+#: assets/templates/epub/bookmark.jet.html
 #, python-format
 msgid "Published on %s"
 msgstr "Zveřejněno %s"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:52
-#: assets/templates/bookmarks/components/sidebar.jet.html:58
-#: assets/templates/epub/bookmark.jet.html:40
+#: assets/templates/bookmarks/bookmark_public.jet.html
+#: assets/templates/bookmarks/components/sidebar.jet.html
+#: assets/templates/epub/bookmark.jet.html
 #, python-format
 msgid "By %s"
 msgstr "Zveřejnil %s"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:60
-#: assets/templates/bookmarks/components/card.jet.html:65
-#: assets/templates/bookmarks/components/sidebar.jet.html:66
+#: assets/templates/bookmarks/bookmark_public.jet.html
+#: assets/templates/bookmarks/components/card.jet.html
+#: assets/templates/bookmarks/components/sidebar.jet.html
 #, python-format
 msgid "%d min"
 msgstr "%d min"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:65
+#: assets/templates/bookmarks/bookmark_public.jet.html
 #, python-format
 msgid "Shared by %s"
 msgstr "Sdílel %s"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:66
+#: assets/templates/bookmarks/bookmark_public.jet.html
 msgid "with"
 msgstr "s"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:115
+#: assets/templates/bookmarks/bookmark_public.jet.html
 msgid "Powered by"
 msgstr "Vytvořil"
 
-#: assets/templates/bookmarks/bookmark_shared.jet.html:8
+#: assets/templates/bookmarks/bookmark_shared.jet.html
 msgid "Share link"
 msgstr "Sdílet odkaz"
 
-#: assets/templates/bookmarks/bookmark_shared.jet.html:19
+#: assets/templates/bookmarks/bookmark_shared.jet.html
 #, python-format
 msgid "Share: %s"
 msgstr "Sdílet: %s"
 
-#: assets/templates/bookmarks/collection.jet.html:16
+#: assets/templates/bookmarks/collection.jet.html
 #, python-format
 msgid "Collection %s"
 msgstr "Sbírka %s"
 
-#: assets/templates/bookmarks/collection.jet.html:21
+#: assets/templates/bookmarks/collection.jet.html
 msgid "Collection will be removed in a few seconds."
 msgstr "Sbírka bude za několik sekund odebrána"
 
-#: assets/templates/bookmarks/collection.jet.html:40
-#: assets/templates/bookmarks/collection.jet.html:54
+#: assets/templates/bookmarks/collection.jet.html
 msgid "Edit"
 msgstr "Upravit"
 
-#: assets/templates/bookmarks/collection.jet.html:58
-#: assets/templates/bookmarks/collection_create.jet.html:23
-#: assets/templates/profile/credential.jet.html:58
+#: assets/templates/bookmarks/collection.jet.html
+#: assets/templates/bookmarks/collection_create.jet.html
+#: assets/templates/profile/credential.jet.html
 msgid "Name"
 msgstr "Název"
 
-#: assets/templates/bookmarks/collection.jet.html:68
+#: assets/templates/bookmarks/collection.jet.html
 msgid "Delete collection"
 msgstr "Odstranit sbírku"
 
-#: assets/templates/bookmarks/collection_create.jet.html:9
+#: assets/templates/bookmarks/collection_create.jet.html
 msgid "New Collection"
 msgstr "Nová sbírka"
 
-#: assets/templates/bookmarks/collection_list.jet.html:9
-#: internal/opds/http.go:74
+#: assets/templates/bookmarks/collection_list.jet.html internal/opds/http.go
 msgid "Bookmark Collections"
 msgstr "Sbírky záložek"
 
-#: assets/templates/bookmarks/collection_list.jet.html:15
+#: assets/templates/bookmarks/collection_list.jet.html
 msgid "Create a new collection"
 msgstr "Vytvořit novou sbírku"
 
-#: assets/templates/bookmarks/collection_list.jet.html:24
+#: assets/templates/bookmarks/collection_list.jet.html
 msgid ""
 "\n"
 "          Collections let you easily organize and export your bookmarks\n"
@@ -538,216 +539,222 @@ msgstr ""
 "          Zde je několik příkladů:\n"
 "        "
 
-#: assets/templates/bookmarks/collection_list.jet.html:33
+#: assets/templates/bookmarks/collection_list.jet.html
 msgid "The unread articles (no photos or videos)"
 msgstr "Nepřečtené články (žádné fotky nebo videa)"
 
-#: assets/templates/bookmarks/collection_list.jet.html:34
+#: assets/templates/bookmarks/collection_list.jet.html
 msgid "The archived articles from \"wikipedia.org\""
 msgstr "Archivované články z „wikipedia.org“"
 
-#: assets/templates/bookmarks/collection_list.jet.html:35
+#: assets/templates/bookmarks/collection_list.jet.html
 msgid "The pictures with the label \"cat\""
 msgstr "Obrázky se štítkem „kočka“"
 
-#: assets/templates/bookmarks/collection_list.jet.html:36
+#: assets/templates/bookmarks/collection_list.jet.html
 msgid "The articles that contain \"shelter\" in their title"
 msgstr "Články, které ve svém názvu obsahují „úkryt“"
 
-#: assets/templates/bookmarks/collection_list.jet.html:39
+#: assets/templates/bookmarks/collection_list.jet.html
 #, python-format
 msgid ""
 "Read more about collections in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
-msgstr ""
-"Přečtěte si více o sbírkách v <a class=\"%s\" href=\"%s\">dokumentaci</a>."
+msgstr "Přečtěte si více o sbírkách v <a class=\"%s\" href=\"%s\">dokumentaci</a>."
 
-#: assets/templates/bookmarks/components/actions.jet.html:1
+#: assets/templates/bookmarks/components/actions.jet.html
 msgid "Export and Share"
 msgstr "Exportovat a uložit"
 
-#: assets/templates/bookmarks/components/actions.jet.html:1
-#: assets/templates/bookmarks/components/card.jet.html:1
+#: assets/templates/bookmarks/components/actions.jet.html
+#: assets/templates/bookmarks/components/card.jet.html
 msgid "Delete this bookmark"
 msgstr "Odstranit tuto záložku"
 
-#: assets/templates/bookmarks/components/actions.jet.html:7
-#: assets/templates/bookmarks/components/bottom_actions.jet.html:7
-#: assets/templates/bookmarks/components/card.jet.html:9
+#: assets/templates/bookmarks/components/actions.jet.html
+#: assets/templates/bookmarks/components/bottom_actions.jet.html
+#: assets/templates/bookmarks/components/card.jet.html
 msgid "Remove from archive"
 msgstr "Odebrat z archivu"
 
-#: assets/templates/bookmarks/components/actions.jet.html:7
-#: assets/templates/bookmarks/components/bottom_actions.jet.html:7
-#: assets/templates/bookmarks/components/card.jet.html:9
+#: assets/templates/bookmarks/components/actions.jet.html
+#: assets/templates/bookmarks/components/bottom_actions.jet.html
+#: assets/templates/bookmarks/components/card.jet.html
 msgid "Move to archive"
 msgstr "Přesunout do archivu"
 
-#: assets/templates/bookmarks/components/actions.jet.html:8
-#: assets/templates/bookmarks/components/bottom_actions.jet.html:8
-#: assets/templates/bookmarks/components/card.jet.html:10
+#: assets/templates/bookmarks/components/actions.jet.html
+#: assets/templates/bookmarks/components/bottom_actions.jet.html
+#: assets/templates/bookmarks/components/card.jet.html
 msgid "Remove from favorites"
 msgstr "Odebrat z oblíbených"
 
-#: assets/templates/bookmarks/components/actions.jet.html:8
-#: assets/templates/bookmarks/components/bottom_actions.jet.html:8
-#: assets/templates/bookmarks/components/card.jet.html:10
+#: assets/templates/bookmarks/components/actions.jet.html
+#: assets/templates/bookmarks/components/bottom_actions.jet.html
+#: assets/templates/bookmarks/components/card.jet.html
 msgid "Add to favorites"
 msgstr "Přidat do oblíbených"
 
-#: assets/templates/bookmarks/components/actions.jet.html:14
-#: assets/templates/bookmarks/components/card.jet.html:81
+#: assets/templates/bookmarks/components/actions.jet.html
+#: assets/templates/bookmarks/components/card.jet.html
 msgid "This bookmark will be removed in a few seconds."
 msgstr "Tato záložka bude za několik sekund odebrána."
 
-#: assets/templates/bookmarks/components/actions.jet.html:23
+#: assets/templates/bookmarks/components/actions.jet.html
 msgid "Undo"
 msgstr "Zpět"
 
-#: assets/templates/bookmarks/components/actions.jet.html:47
-#: assets/templates/bookmarks/components/list_actions.jet.html:45
+#: assets/templates/bookmarks/components/actions.jet.html
+#: assets/templates/bookmarks/components/list_actions.jet.html
 msgid "Download EPUB"
 msgstr "Stáhnout EPUB"
 
-#: assets/templates/bookmarks/components/actions.jet.html:49
+#: assets/templates/bookmarks/components/actions.jet.html
 msgid "Share by Link"
 msgstr "Sdílet odkazem"
 
-#: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
+#: assets/templates/bookmarks/components/bookmark_qrcode.jet.html
 msgid "Saved with Readeck"
 msgstr "Uloženo Readeckem"
 
-#: assets/templates/bookmarks/components/card.jet.html:1
+#: assets/templates/bookmarks/components/card.jet.html
 msgid "Go to original page"
 msgstr "Přejít na původní stránku"
 
-#: assets/templates/bookmarks/components/card.jet.html:26
+#: assets/templates/bookmarks/components/card.jet.html
 msgctxt "bookmark"
 msgid "Loading"
 msgstr "Načítání"
 
-#: assets/templates/bookmarks/components/content_block.jet.html:44
+#: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Highlight"
 msgstr "Zvýraznění"
 
-#: assets/templates/bookmarks/components/content_block.jet.html:48
+#: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Remove Highlight(s)"
 msgstr "Odebrat zvýraznění"
 
-#: assets/templates/bookmarks/components/filters.jet.html:9
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "Search"
 msgstr "Hledat"
 
-#: assets/templates/bookmarks/components/filters.jet.html:14
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "Title"
 msgstr "Název"
 
-#: assets/templates/bookmarks/components/filters.jet.html:19
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "Author"
 msgstr "Autor"
 
-#: assets/templates/bookmarks/components/filters.jet.html:24
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "Site"
 msgstr "Stránka"
 
-#: assets/templates/bookmarks/components/filters.jet.html:36
+#: assets/templates/bookmarks/components/filters.jet.html
+#: assets/templates/bookmarks/import/options.jet.html
+#: assets/templates/bookmarks/label.jet.html
+msgid "Label"
+msgstr "Štítek"
+
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Favorite"
 msgstr "Je oblíbený"
 
-#: assets/templates/bookmarks/components/filters.jet.html:38
-#: assets/templates/bookmarks/components/filters.jet.html:43
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "yes"
 msgstr "ano"
 
-#: assets/templates/bookmarks/components/filters.jet.html:38
-#: assets/templates/bookmarks/components/filters.jet.html:43
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "no"
 msgstr "ne"
 
-#: assets/templates/bookmarks/components/filters.jet.html:41
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Archived"
 msgstr "Je archivovaný"
 
-#: assets/templates/bookmarks/components/filters.jet.html:47
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "Type"
 msgstr "Typ"
 
-#: assets/templates/bookmarks/components/filters.jet.html:55
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "From date"
 msgstr "Od data"
 
-#: assets/templates/bookmarks/components/filters.jet.html:60
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "To date"
 msgstr "Do data"
 
-#: assets/templates/bookmarks/components/labels.jet.html:1
+#: assets/templates/bookmarks/components/labels.jet.html
 msgid "Remove label"
 msgstr "Odebrat štítek"
 
-#: assets/templates/bookmarks/components/labels_form.jet.html:1
+#: assets/templates/bookmarks/components/labels_form.jet.html
 msgid "Add a label"
 msgstr "Přidat štítek"
 
-#: assets/templates/bookmarks/components/labels_form.jet.html:35
+#: assets/templates/bookmarks/components/labels_form.jet.html
 msgid "Add label"
 msgstr "Přidat štítek"
 
-#: assets/templates/bookmarks/components/list_actions.jet.html:1
+#: assets/templates/bookmarks/components/list_actions.jet.html
 msgid "Grid view"
 msgstr "Zobrazení mřížky"
 
-#: assets/templates/bookmarks/components/list_actions.jet.html:1
+#: assets/templates/bookmarks/components/list_actions.jet.html
 msgid "Compact view"
 msgstr "Kompaktní zobrazení"
 
-#: assets/templates/bookmarks/components/public_share.jet.html:9
+#: assets/templates/bookmarks/components/public_share.jet.html
 msgid "You can share the following link with your friends."
 msgstr "Následující odkaz můžete sdílet se svými přáteli."
 
-#: assets/templates/bookmarks/components/public_share.jet.html:10
+#: assets/templates/bookmarks/components/public_share.jet.html
 #, python-format
 msgid "It expires on %s"
 msgstr "Vyprší %s"
 
-#: assets/templates/bookmarks/components/public_share.jet.html:22
+#: assets/templates/bookmarks/components/public_share.jet.html
 msgid "Copy the link"
 msgstr "Kopírovat odkaz"
 
-#: assets/templates/bookmarks/components/public_share.jet.html:25
+#: assets/templates/bookmarks/components/public_share.jet.html
 msgid "Go back to the bookmark"
 msgstr "Přejít zpět na záložku"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:24
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Font"
 msgstr "Písmo"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:53
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Size"
 msgstr "Velikost"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:75
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Line height"
 msgstr "Výška řádku"
 
-#: assets/templates/bookmarks/components/sidebar.jet.html:1
-#: assets/templates/bookmarks/components/sidebar.jet.html:49
-#: assets/templates/epub/bookmark.jet.html:34
+#: assets/templates/bookmarks/components/sidebar.jet.html
+#: assets/templates/epub/bookmark.jet.html
 msgid "no site name"
 msgstr "žádný název stránky"
 
-#: assets/templates/bookmarks/components/sidebar.jet.html:13
+#: assets/templates/bookmarks/components/sidebar.jet.html
 msgid "Errors occurred during extraction."
 msgstr "Během extrahování se vyskytly chyby."
 
-#: assets/templates/bookmarks/components/sidebar.jet.html:101
+#: assets/templates/bookmarks/components/sidebar.jet.html
 msgid "Start selecting text in the article to create a new highlight."
 msgstr "Začněte vybírat text ve článku pro vytvoření nového zvýraznění."
 
-#: assets/templates/bookmarks/components/sidebar.jet.html:132
+#: assets/templates/bookmarks/components/sidebar.jet.html
 msgid "Links"
 msgstr "Odkazy"
 
-#: assets/templates/bookmarks/import/form-browser.jet.html:15
+#: assets/templates/bookmarks/import/form-browser.jet.html
+msgid "Import your Browser's Bookmarks"
+msgstr "Importovat záložky prohlížeče"
+
+#: assets/templates/bookmarks/import/form-browser.jet.html
 msgid ""
 "\n"
 "    In your web browser, export your bookmarks as an HTML file.<br>\n"
@@ -761,28 +768,46 @@ msgstr ""
 "    a načte všechny záložky, které v souboru nalezne.\n"
 "  "
 
-#: assets/templates/bookmarks/import/form-browser.jet.html:22
+#: assets/templates/bookmarks/import/form-browser.jet.html
 msgid "Instructions for Firefox"
 msgstr "Pokyny pro Firefox"
 
-#: assets/templates/bookmarks/import/form-browser.jet.html:23
+#: assets/templates/bookmarks/import/form-browser.jet.html
 msgid "Instructions for Chrome"
 msgstr "Pokyny pro Chrome"
 
-#: assets/templates/bookmarks/import/form-browser.jet.html:34
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:42
-#: assets/templates/bookmarks/import/form-text.jet.html:28
+#: assets/templates/bookmarks/import/form-browser.jet.html
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html
+#: assets/templates/bookmarks/import/form-text.jet.html
 msgid "File"
 msgstr "Soubor"
 
-#: assets/templates/bookmarks/import/form-browser.jet.html:41
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:49
-#: assets/templates/bookmarks/import/form-text.jet.html:35
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:69
+#: assets/templates/bookmarks/import/form-browser.jet.html
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html
+#: assets/templates/bookmarks/import/form-text.jet.html
+#: assets/templates/bookmarks/import/form-wallabag.jet.html
 msgid "Import Bookmarks"
 msgstr "Importovat záložky"
 
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html
+msgid "Import Links from a GoodLinks export file"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html
+msgid ""
+"\n"
+"    Upload a JSON file obtained from your GoodLinks app.\n"
+"  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html
+#: assets/templates/bookmarks/import/index.jet.html
+msgid "Import your Pocket Articles"
+msgstr "Importovat články z Pocketu"
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #, python-format
 msgid ""
 "\n"
@@ -795,7 +820,7 @@ msgstr ""
 "    <a class=\"%s\" href=\"%s\">%s</a>.\n"
 "  "
 
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:21
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html
 msgid ""
 "\n"
 "    Upload this file in the form below and Readeck will fetch and save\n"
@@ -807,12 +832,13 @@ msgstr ""
 "    a uloží všechny záložky, které v souboru nalezne.\n"
 "  "
 
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:27
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html
 msgid ""
 "\n"
 "    Please note that Pocket does not allow the article content to be "
 "exported.\n"
-"    This could lead to different results in Readeck than what you currently\n"
+"    This could lead to different results in Readeck than what you "
+"currently\n"
 "    see in Pocket.\n"
 "  "
 msgstr ""
@@ -822,7 +848,12 @@ msgstr ""
 "    vidíte v Pocketu.\n"
 "  "
 
-#: assets/templates/bookmarks/import/form-text.jet.html:15
+#: assets/templates/bookmarks/import/form-text.jet.html
+#: assets/templates/bookmarks/import/index.jet.html
+msgid "Import Links from a Text File"
+msgstr "Importovat z textového souboru"
+
+#: assets/templates/bookmarks/import/form-text.jet.html
 msgid ""
 "\n"
 "    Upload a text file that contains one link per line and Readeck will "
@@ -835,25 +866,30 @@ msgstr ""
 "    a Readeck je všechny načte a uloží do vašeho seznamu záložek.\n"
 "  "
 
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:15
+#: assets/templates/bookmarks/import/form-wallabag.jet.html
+#: assets/templates/bookmarks/import/index.jet.html
+msgid "Import your Wallabag Articles"
+msgstr "Importovat články z Wallabagu"
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html
 msgid ""
 "\n"
 "    To import your articles from Wallabag, you must first create an API "
 "client\n"
-"    in Wallabag's <strong>API clients management</strong> menu. This will "
-"give you\n"
+"    in Wallabag's <strong>API clients management</strong> menu. This will"
+" give you\n"
 "    a <strong>Client ID</strong> and <strong>Client secret</strong>.\n"
 "  "
 msgstr ""
 "\n"
-"    Pro import vašich článků z Wallabagu, musíte nejprve vytvořit klienta "
-"API\n"
-"    v nabídce <strong>Správa klientů API</strong> ve Wallabagu. Tím získáte "
-"<strong>ID klienta</strong>\n"
+"    Pro import vašich článků z Wallabagu, musíte nejprve vytvořit klienta"
+" API\n"
+"    v nabídce <strong>Správa klientů API</strong> ve Wallabagu. Tím "
+"získáte <strong>ID klienta</strong>\n"
 "    a <strong>Tajný kód klienta</strong>.\n"
 "  "
 
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:21
+#: assets/templates/bookmarks/import/form-wallabag.jet.html
 msgid ""
 "\n"
 "    You can then enter all the necessary information in the form below.\n"
@@ -864,27 +900,27 @@ msgstr ""
 "formuláře.\n"
 "  "
 
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:33
+#: assets/templates/bookmarks/import/form-wallabag.jet.html
 msgid "Wallabag URL"
 msgstr "URL Wallabagu"
 
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:35
+#: assets/templates/bookmarks/import/form-wallabag.jet.html
 msgid "URL of your Wallabag homepage"
 msgstr "URL vaší domovské stránky Wallabagu"
 
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:55
+#: assets/templates/bookmarks/import/form-wallabag.jet.html
 msgid "Client ID"
 msgstr "ID klienta"
 
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:62
+#: assets/templates/bookmarks/import/form-wallabag.jet.html
 msgid "Client Secret"
 msgstr "Tajný kód klienta"
 
-#: assets/templates/bookmarks/import/index.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html
 msgid "Import your Bookmarks"
 msgstr "Importovat záložky"
 
-#: assets/templates/bookmarks/import/index.jet.html:25
+#: assets/templates/bookmarks/import/index.jet.html
 msgid ""
 "\n"
 "    Here you can import your existing bookmark collection from various "
@@ -896,55 +932,43 @@ msgstr ""
 "různých zdrojů.\n"
 "  "
 
-#: assets/templates/bookmarks/import/form-text.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:32
-msgid "Import Links from a Text File"
-msgstr "Importovat z textového souboru"
+#: assets/templates/bookmarks/import/index.jet.html
+msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
+msgstr ""
 
-#: assets/templates/bookmarks/import/form-browser.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:36
-msgid "Import your Browser's Bookmarks"
-msgstr "Importovat záložky prohlížeče"
+#: assets/templates/bookmarks/import/index.jet.html
+msgid "Import your GoodLinks Articles"
+msgstr ""
 
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:40
-msgid "Import your Pocket Articles"
-msgstr "Importovat články z Pocketu"
-
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:43
-msgid "Import your Wallabag Articles"
-msgstr "Importovat články z Wallabagu"
-
-#: assets/templates/bookmarks/import/options.jet.html:7
+#: assets/templates/bookmarks/import/options.jet.html
 msgid "Options"
 msgstr "Možnosti"
 
-#: assets/templates/bookmarks/import/options.jet.html:12
+#: assets/templates/bookmarks/import/options.jet.html
 msgid "A label to add to all imported bookmarks"
 msgstr "Štítek pro přidání ke všem importovaným záložkám"
 
-#: assets/templates/bookmarks/import/options.jet.html:16
+#: assets/templates/bookmarks/import/options.jet.html
 msgid "Ignore links already in your bookmarks"
 msgstr "Ignorovat odkazy, které jsou již ve vašich záložkách"
 
-#: assets/templates/bookmarks/import/progress.jet.html:15
+#: assets/templates/bookmarks/import/progress.jet.html
 msgid "Import operation will launch momentarily."
 msgstr "Operace importu se spustí za okamžik."
 
-#: assets/templates/bookmarks/import/progress.jet.html:17
+#: assets/templates/bookmarks/import/progress.jet.html
 msgid "Import operation has started!"
 msgstr "Operace importu začala!"
 
-#: assets/templates/bookmarks/import/progress.jet.html:21
+#: assets/templates/bookmarks/import/progress.jet.html
 msgid "You can keep using Readeck while the import is running."
 msgstr "Během importu můžete Readeck nadále používat."
 
-#: assets/templates/bookmarks/import/progress.jet.html:24
+#: assets/templates/bookmarks/import/progress.jet.html
 msgid "Import is finished!"
 msgstr "Import je dokončen!"
 
-#: assets/templates/bookmarks/import/progress.jet.html:25
+#: assets/templates/bookmarks/import/progress.jet.html
 #, python-format
 msgid ""
 "\n"
@@ -957,42 +981,44 @@ msgstr ""
 "href=\"%s\">seznamu záložek</a>.\n"
 "      "
 
-#: assets/templates/bookmarks/index.jet.html:27
+#: assets/templates/bookmarks/index.jet.html
 msgid "Save a new link"
 msgstr "Uložit nový odkaz"
 
-#: assets/templates/bookmarks/index.jet.html:40
+#: assets/templates/bookmarks/index.jet.html
 msgctxt "button"
 msgid "Save link"
 msgstr "Uložit odkaz"
 
-#: assets/templates/bookmarks/index.jet.html:49
+#: assets/templates/bookmarks/index.jet.html
 #, python-format
 msgid ""
-"\"%s\" is not a valid address. Did you mean to search your bookmarks for %s?"
+"\"%s\" is not a valid address. Did you mean to search your bookmarks for "
+"%s?"
 msgstr "„%s“ není platná adresa. Chtěli jste vyhledat ve svých záložkách %s?"
 
-#: assets/templates/bookmarks/index.jet.html:73
+#: assets/templates/bookmarks/index.jet.html
 msgid ""
 "You don't have any bookmarks yet.<br> Copy a link in the field above and "
 "start saving."
 msgstr ""
-"Zatím nemáte žádné záložky.<br> Zkopírujte odkaz do výše uvedeného pole a "
-"začněte ukládat."
+"Zatím nemáte žádné záložky.<br> Zkopírujte odkaz do výše uvedeného pole a"
+" začněte ukládat."
 
-#: assets/templates/bookmarks/index.jet.html:75
+#: assets/templates/bookmarks/index.jet.html
 #, python-format
 msgid ""
-"Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentation</"
-"a>."
+"Read more about bookmarks in the <a class=\"%s\" "
+"href=\"%s\">documentation</a>."
 msgstr ""
-"Přečtěte si více o záložkách v <a class=\"%s\" href=\"%s\">dokumentaci</a>."
+"Přečtěte si více o záložkách v <a class=\"%s\" "
+"href=\"%s\">dokumentaci</a>."
 
-#: assets/templates/bookmarks/index.jet.html:81
+#: assets/templates/bookmarks/index.jet.html
 msgid ""
 "\n"
-"          Would you like to import from a similar tool or from a file with "
-"existing bookmarks?\n"
+"          Would you like to import from a similar tool or from a file "
+"with existing bookmarks?\n"
 "          Try Readeck's import tool.\n"
 "        "
 msgstr ""
@@ -1002,25 +1028,24 @@ msgstr ""
 "          Vyzkoušejte nástroj Readecku pro import.\n"
 "        "
 
-#: assets/templates/bookmarks/index.jet.html:88
+#: assets/templates/bookmarks/index.jet.html
 msgid "Import links and articles"
 msgstr "Importovat odkazy a články"
 
-#: assets/templates/bookmarks/index.jet.html:103
-#: assets/templates/bookmarks/index.jet.html:133
+#: assets/templates/bookmarks/index.jet.html
 msgctxt "action"
 msgid "Filter list"
 msgstr "Filtrovat seznam"
 
-#: assets/templates/bookmarks/index.jet.html:110
+#: assets/templates/bookmarks/index.jet.html
 msgid "Import bookmarks"
 msgstr "Importovat záložky"
 
-#: assets/templates/bookmarks/index.jet.html:120
+#: assets/templates/bookmarks/index.jet.html
 msgid "Your search query yielded <strong>no results</strong>."
 msgstr "Váš vyhledávací dotaz nepřinesl <strong>žádné výsledky</strong>."
 
-#: assets/templates/bookmarks/index.jet.html:122
+#: assets/templates/bookmarks/index.jet.html
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
@@ -1028,42 +1053,36 @@ msgstr[0] "Váš vyhledávací dotaz přinesl <strong>%d výsledek</strong>."
 msgstr[1] "Váš vyhledávací dotaz přinesl <strong>%d výsledky</strong>."
 msgstr[2] "Váš vyhledávací dotaz přinesl <strong>%d výsledků</strong>."
 
-#: assets/templates/bookmarks/index.jet.html:138
+#: assets/templates/bookmarks/index.jet.html
 msgid "Filters documentation"
 msgstr "Dokumentace k filtrům"
 
-#: assets/templates/bookmarks/index.jet.html:144
+#: assets/templates/bookmarks/index.jet.html
 msgctxt "action"
 msgid "Search"
 msgstr "Hledat"
 
-#: assets/templates/bookmarks/index.jet.html:146
+#: assets/templates/bookmarks/index.jet.html
 msgid "Reset search"
 msgstr "Obnovit hledání"
 
-#: assets/templates/bookmarks/index.jet.html:149
+#: assets/templates/bookmarks/index.jet.html
 msgid "Create a collection"
 msgstr "Vytvořit sbírku"
 
-#: assets/templates/bookmarks/components/filters.jet.html:30
-#: assets/templates/bookmarks/import/options.jet.html:10
-#: assets/templates/bookmarks/label.jet.html:10
-msgid "Label"
-msgstr "Štítek"
-
-#: assets/templates/bookmarks/label.jet.html:37
+#: assets/templates/bookmarks/label.jet.html
 msgid "Delete"
 msgstr "Odstranit"
 
-#: assets/templates/bookmarks/label.jet.html:50
+#: assets/templates/bookmarks/label.jet.html
 msgid "Label will be removed in a few seconds."
 msgstr "Štítek bude za několik sekund odebrán."
 
-#: assets/templates/bookmarks/labels.jet.html:8
+#: assets/templates/bookmarks/labels.jet.html
 msgid "Bookmark Labels"
 msgstr "Štítky záložek"
 
-#: assets/templates/bookmarks/labels.jet.html:14
+#: assets/templates/bookmarks/labels.jet.html
 msgid ""
 "\n"
 "  Labels let your organize your bookmarks the way you want.\n"
@@ -1073,124 +1092,123 @@ msgstr ""
 "  Štítky vám umožní uspořádat záložky podle vašich představ.\n"
 "  Do štítku můžete nastavit cokoliv, včetně emotikonů!\n"
 
-#: assets/templates/docs/about.jet.html:8
-#: assets/templates/docs/base.jet.html:27 docs/http.go:232
+#: assets/templates/docs/about.jet.html assets/templates/docs/base.jet.html
+#: docs/http.go
 msgid "About Readeck"
 msgstr "O Readecku"
 
-#: assets/templates/docs/about.jet.html:14
+#: assets/templates/docs/about.jet.html
 msgid "Version:"
 msgstr "Verze:"
 
-#: assets/templates/docs/about.jet.html:15
+#: assets/templates/docs/about.jet.html
 msgid "Built Date:"
 msgstr "Datum sestavení:"
 
-#: assets/templates/docs/about.jet.html:18
+#: assets/templates/docs/about.jet.html
 msgid "System Information"
 msgstr "Informace o systému"
 
-#: assets/templates/docs/about.jet.html:20
+#: assets/templates/docs/about.jet.html
 msgid ""
-"Here are your current system information. Please include them if you report "
-"a bug."
+"Here are your current system information. Please include them if you "
+"report a bug."
 msgstr ""
-"Zde jsou vaše aktuální informace o systému. Uveďte je prosím, pokud hlásíte "
-"chybu."
+"Zde jsou vaše aktuální informace o systému. Uveďte je prosím, pokud "
+"hlásíte chybu."
 
-#: assets/templates/docs/about.jet.html:30
+#: assets/templates/docs/about.jet.html
 msgid "License"
 msgstr "Licence"
 
-#: assets/templates/docs/about.jet.html:32
+#: assets/templates/docs/about.jet.html
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
 msgstr "Readeck je šířen podle podmínek licence „%s“."
 
-#: assets/templates/docs/about.jet.html:36
+#: assets/templates/docs/about.jet.html
 msgid "Here's a short summary of the license conditions:"
 msgstr "Zde je krátké shrnutí licenčních podmínek:"
 
-#: assets/templates/docs/about.jet.html:41
+#: assets/templates/docs/about.jet.html
 msgid "Permissions"
 msgstr "Oprávnění"
 
-#: assets/templates/docs/about.jet.html:42
+#: assets/templates/docs/about.jet.html
 msgid "Conditions"
 msgstr "Podmínky"
 
-#: assets/templates/docs/about.jet.html:43
+#: assets/templates/docs/about.jet.html
 msgid "Limitations"
 msgstr "Omezení"
 
-#: assets/templates/docs/about.jet.html:51
+#: assets/templates/docs/about.jet.html
 msgid "Commercial use"
 msgstr "Komerční využití"
 
-#: assets/templates/docs/about.jet.html:54
+#: assets/templates/docs/about.jet.html
 msgid "Distribution"
 msgstr "Šíření"
 
-#: assets/templates/docs/about.jet.html:57
+#: assets/templates/docs/about.jet.html
 msgid "Modification"
 msgstr "Úpravy"
 
-#: assets/templates/docs/about.jet.html:60
+#: assets/templates/docs/about.jet.html
 msgid "Patent use"
 msgstr "Použití patentů"
 
-#: assets/templates/docs/about.jet.html:63
+#: assets/templates/docs/about.jet.html
 msgid "Private use"
 msgstr "Soukromé používání"
 
-#: assets/templates/docs/about.jet.html:70
+#: assets/templates/docs/about.jet.html
 msgid "Disclose source"
 msgstr "Zveřejnění zdroje"
 
-#: assets/templates/docs/about.jet.html:73
+#: assets/templates/docs/about.jet.html
 msgid "License and copyright notice"
 msgstr "Upozornění na licenci a autorská práva"
 
-#: assets/templates/docs/about.jet.html:76
+#: assets/templates/docs/about.jet.html
 msgid "Network use is distribution"
 msgstr "Využití sítě je šíření"
 
-#: assets/templates/docs/about.jet.html:79
+#: assets/templates/docs/about.jet.html
 msgid "Same license"
 msgstr "Stejná licence"
 
-#: assets/templates/docs/about.jet.html:82
+#: assets/templates/docs/about.jet.html
 msgid "State changes"
 msgstr "Změny stavu"
 
-#: assets/templates/docs/about.jet.html:89
+#: assets/templates/docs/about.jet.html
 msgid "Liability"
 msgstr "Odpovědnost"
 
-#: assets/templates/docs/about.jet.html:92
+#: assets/templates/docs/about.jet.html
 msgid "Warranty"
 msgstr "Záruka"
 
-#: assets/templates/docs/about.jet.html:119
+#: assets/templates/docs/about.jet.html
 msgid "Third-Party Licenses"
 msgstr "Licence třetích stran"
 
-#: assets/templates/docs/about.jet.html:121
+#: assets/templates/docs/about.jet.html
 msgid "Readeck includes and/or uses the following open source assets:"
 msgstr ""
-"Readeck obsahuje a/nebo používá následující prostředky s otevřeným zdrojovým "
-"kódem:"
+"Readeck obsahuje a/nebo používá následující prostředky s otevřeným "
+"zdrojovým kódem:"
 
-#: assets/templates/docs/api-docs.jet.html:8
-#: assets/templates/docs/base.jet.html:21
+#: assets/templates/docs/api-docs.jet.html assets/templates/docs/base.jet.html
 msgid "API Documentation"
 msgstr "Dokumentace API"
 
-#: assets/templates/docs/base.jet.html:9
+#: assets/templates/docs/base.jet.html
 msgid "Readeck Help"
 msgstr "Nápověda Readecku"
 
-#: assets/templates/emails/recover.tmpl:8
+#: assets/templates/emails/recover.tmpl
 #, python-format
 msgid ""
 "\n"
@@ -1215,7 +1233,7 @@ msgstr ""
 "\n"
 "%s\n"
 
-#: assets/templates/emails/recover.tmpl:21
+#: assets/templates/emails/recover.tmpl
 #, python-format
 msgid ""
 "\n"
@@ -1248,89 +1266,72 @@ msgstr ""
 "\n"
 "Pokud nejste uživatelem Readecku, tuto zprávu ignorujte.\n"
 
-#: assets/templates/emails/recover.tmpl:38
+#: assets/templates/emails/recover.tmpl
 msgid "Kind regards"
 msgstr "S pozdravem"
 
-#: assets/templates/epub/bookmark.jet.html:44
+#: assets/templates/epub/bookmark.jet.html
 #, python-format
 msgid "About %d min read"
 msgstr "Asi %d min čtení"
 
-#: assets/templates/error.jet.html:8
+#: assets/templates/error.jet.html
 msgid "Error"
 msgstr "Chyba"
 
-#: assets/templates/_layouts/sidemenu.jet.html:17
-#: assets/templates/bookmarks/bookmark.jet.html:26
-#: assets/templates/error.jet.html:12
-msgid "Menu"
-msgstr "Nabídka"
-
-#: assets/templates/_layouts/sidemenu.jet.html:19
-#: assets/templates/bookmarks/bookmark.jet.html:27
-#: assets/templates/error.jet.html:13
-msgid "Main content"
-msgstr "Hlavní obsah"
-
-#: assets/templates/error.jet.html:22
+#: assets/templates/error.jet.html
 msgid "Permission denied."
 msgstr "Oprávnění bylo zamítnuto."
 
-#: assets/templates/error.jet.html:24
+#: assets/templates/error.jet.html
 msgid "Page not found."
 msgstr "Stránka nebyla nalezena."
 
-#: assets/templates/error.jet.html:26
+#: assets/templates/error.jet.html
 msgid "An error occurred."
 msgstr "Vyskytla se chyba."
 
-#: assets/templates/menu.jet.html:1
+#: assets/templates/menu.jet.html
 msgid "Change theme"
 msgstr "Změnit téma"
 
-#: assets/templates/menu.jet.html:28
+#: assets/templates/menu.jet.html
 msgid "Change color theme"
 msgstr "Změnit barevné téma"
 
-#: assets/templates/menu.jet.html:43
+#: assets/templates/menu.jet.html
 msgid "Sign out"
 msgstr "Odhlásit se"
 
-#: assets/templates/profile/base.jet.html:9
+#: assets/templates/profile/base.jet.html
 msgid "Settings"
 msgstr "Nastavení"
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:97
-#: internal/profile/views.go:132 internal/profile/views.go:177
-#: internal/profile/views.go:242 internal/profile/views.go:273
-#: internal/profile/views.go:333
+#: assets/templates/profile/base.jet.html internal/profile/views.go
 msgid "Profile"
 msgstr "Profil"
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:178
-#: internal/profile/views.go:243
+#: assets/templates/profile/base.jet.html internal/profile/views.go
 msgid "Application Passwords"
 msgstr "Hesla aplikací"
 
-#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:274
-#: internal/profile/views.go:334
+#: assets/templates/profile/base.jet.html internal/profile/views.go
 msgid "API Tokens"
 msgstr "Tokeny API"
 
-#: assets/templates/profile/credential.jet.html:9
+#: assets/templates/profile/credential.jet.html
 msgid "Application Password"
 msgstr "Heslo aplikace"
 
-#: assets/templates/profile/credential.jet.html:19
+#: assets/templates/profile/credential.jet.html
 msgid "Password will be removed in a few seconds."
 msgstr "Heslo bude za několik sekund odebráno."
 
-#: assets/templates/profile/credential.jet.html:27
+#: assets/templates/profile/credential.jet.html
 msgid ""
 "\n"
-"    Your application password was created. Please copy the password below "
-"and write it down\n"
+"    Your application password was created. Please copy the password below"
+" and write it down\n"
 "    or store it in a password manager.\n"
 "  "
 msgstr ""
@@ -1340,33 +1341,33 @@ msgstr ""
 "    nebo si ho uložte do správce hesel.\n"
 "  "
 
-#: assets/templates/profile/credential.jet.html:32
+#: assets/templates/profile/credential.jet.html
 msgid "Your password:"
 msgstr "Vaše heslo:"
 
-#: assets/templates/profile/credential.jet.html:39
+#: assets/templates/profile/credential.jet.html
 msgid "Copy"
 msgstr "Kopírovat"
 
-#: assets/templates/profile/credential.jet.html:44
-#: assets/templates/profile/token.jet.html:25
+#: assets/templates/profile/credential.jet.html
+#: assets/templates/profile/token.jet.html
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: assets/templates/profile/credential.jet.html:51
+#: assets/templates/profile/credential.jet.html
 msgid "Password ID"
 msgstr "ID hesla"
 
-#: assets/templates/profile/credential.jet.html:64
-#: assets/templates/profile/token.jet.html:42
+#: assets/templates/profile/credential.jet.html
+#: assets/templates/profile/token.jet.html
 msgid "Enabled"
 msgstr "Povoleno"
 
-#: assets/templates/profile/credential.jet.html:70
+#: assets/templates/profile/credential.jet.html
 msgid ""
 "\n"
-"    You can limit the permissions granted to this password by choosing one "
-"or more\n"
+"    You can limit the permissions granted to this password by choosing "
+"one or more\n"
 "    group of permissions below.<br>\n"
 "    Leave all the choices blank to grant all your permissions to this "
 "password.\n"
@@ -1379,109 +1380,110 @@ msgstr ""
 "prázdné.\n"
 "  "
 
-#: assets/templates/profile/credential.jet.html:78
-#: assets/templates/profile/token.jet.html:62
+#: assets/templates/profile/credential.jet.html
+#: assets/templates/profile/token.jet.html
 msgid "Roles"
 msgstr "Role"
 
-#: assets/templates/profile/credential.jet.html:86
+#: assets/templates/profile/credential.jet.html
 msgid "Delete password"
 msgstr "Odstranit heslo"
 
-#: assets/templates/profile/credential_list.jet.html:10
+#: assets/templates/profile/credential_list.jet.html
 msgid "My Application Passwords"
 msgstr "Heslo mé aplikace"
 
-#: assets/templates/profile/credential_list.jet.html:23
+#: assets/templates/profile/credential_list.jet.html
 msgid "Create a new Application Password"
 msgstr "Vytvořit nové heslo aplikace"
 
-#: assets/templates/profile/credential_list.jet.html:51
+#: assets/templates/profile/credential_list.jet.html
 msgid "This password will be removed in a few seconds."
 msgstr "Toto heslo bude za několik sekund odebráno."
 
-#: assets/templates/profile/index.jet.html:9
+#: assets/templates/profile/index.jet.html
 msgid "My profile"
 msgstr "Můj profil"
 
-#: assets/templates/profile/index.jet.html:26
+#: assets/templates/profile/index.jet.html
 msgid "Email Address"
 msgstr "E-mailová adresa"
 
-#: assets/templates/profile/index.jet.html:31
+#: assets/templates/profile/index.jet.html
 msgid "Language"
 msgstr "Jazyk"
 
-#: assets/templates/profile/password.jet.html:9
+#: assets/templates/profile/password.jet.html
 msgid "Change my password"
 msgstr "Změnit mé heslo"
 
-#: assets/templates/profile/password.jet.html:21
+#: assets/templates/profile/password.jet.html
 msgid "Current password"
 msgstr "Aktuální heslo"
 
-#: assets/templates/profile/token.jet.html:9
+#: assets/templates/profile/token.jet.html
 msgid "API Token"
 msgstr "Token API"
 
-#: assets/templates/profile/token.jet.html:19
+#: assets/templates/profile/token.jet.html
 msgid "Token will be removed in a few seconds."
 msgstr "Token bude za několik sekund odebrán."
 
-#: assets/templates/profile/token.jet.html:32
+#: assets/templates/profile/token.jet.html
 msgid "Token ID"
 msgstr "ID tokenu"
 
-#: assets/templates/profile/token.jet.html:36
+#: assets/templates/profile/token.jet.html
 msgid "Application"
 msgstr "Aplikace"
 
-#: assets/templates/profile/token.jet.html:48
+#: assets/templates/profile/token.jet.html
 msgid "Expires on"
 msgstr "Vyprší"
 
-#: assets/templates/profile/token.jet.html:54
+#: assets/templates/profile/token.jet.html
 msgid ""
 "\n"
-"    You can limit the permissions granted to this token by choosing one or "
-"more\n"
+"    You can limit the permissions granted to this token by choosing one "
+"or more\n"
 "    group of permissions below.<br>\n"
 "    Leave all the choices blank to grant all your permissions to this "
 "token.\n"
 "  "
 msgstr ""
 "\n"
-"    Oprávnění udělená tomuto tokenu můžete omezit výběrem jedné nebo více\n"
+"    Oprávnění udělená tomuto tokenu můžete omezit výběrem jedné nebo více"
+"\n"
 "    níže uvedených skupin oprávnění.\n"
 "    Pro udělení všech oprávnění tomuto tokenu, ponechte všechny volby "
 "prázdné.\n"
 "  "
 
-#: assets/templates/profile/token.jet.html:70
+#: assets/templates/profile/token.jet.html
 msgid "Delete token"
 msgstr "Odstranbit token"
 
-#: assets/templates/profile/token.jet.html:75
+#: assets/templates/profile/token.jet.html
 msgid "API authentication"
 msgstr "Ověření API"
 
-#: assets/templates/profile/token.jet.html:78
+#: assets/templates/profile/token.jet.html
 msgid "Your API token"
 msgstr "Váš token API"
 
-#: assets/templates/profile/token.jet.html:86
+#: assets/templates/profile/token.jet.html
 msgid ""
-"You can use this token by passing it as an <strong>Authorization: Bearer</"
-"strong> HTTP header."
+"You can use this token by passing it as an <strong>Authorization: "
+"Bearer</strong> HTTP header."
 msgstr ""
 "Tento token můžete použít jeho předáním jako HTTP hlavičky "
 "<strong>Autorizace: Nositel</strong>."
 
-#: assets/templates/profile/token_list.jet.html:10
+#: assets/templates/profile/token_list.jet.html
 msgid "My API Tokens"
 msgstr "Mé tokeny API"
 
-#: assets/templates/profile/token_list.jet.html:16
+#: assets/templates/profile/token_list.jet.html
 msgid ""
 "\n"
 "  An API Token is a key that grants you (or another tool like a browser "
@@ -1493,441 +1495,501 @@ msgstr ""
 "prohlížeče)\n"
 "  umožňuje přístup k API Readecku.\n"
 
-#: assets/templates/profile/token_list.jet.html:20
+#: assets/templates/profile/token_list.jet.html
 #, python-format
 msgid ""
-"Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
+"Please read the <a href=\"%s\">API Documentation</a> if you plan to use "
+"it."
 msgstr ""
-"Přečtěte si <a href=\"%s\">Dokumentaci API</a>, pokud ho plánujete používat."
+"Přečtěte si <a href=\"%s\">Dokumentaci API</a>, pokud ho plánujete "
+"používat."
 
-#: assets/templates/profile/token_list.jet.html:26
+#: assets/templates/profile/token_list.jet.html
 msgid "Create a new API token"
 msgstr "Vytvořit nový token API"
 
-#: assets/templates/profile/token_list.jet.html:48
+#: assets/templates/profile/token_list.jet.html
 #, python-format
 msgid "Expires on: %s"
 msgstr "Vyprší: %s"
 
-#: assets/templates/profile/token_list.jet.html:55
+#: assets/templates/profile/token_list.jet.html
 msgid "This token will be removed in a few seconds."
 msgstr "Tento token bude za několik sekund odebrán."
 
-#: docs/http.go:166 docs/http.go:231 docs/http.go:269
+#: docs/http.go
 msgid "Documentation"
 msgstr "Dokumentace"
 
-#: internal/admin/views.go:80
+#: internal/admin/views.go
 msgid "User created."
 msgstr "Uživatel byl vytvořen."
 
-#: internal/admin/views.go:119
+#: internal/admin/views.go
 msgid "User updated."
 msgstr "Uživatel byl aktualizován."
 
-#: internal/auth/signin/forms.go:16
+#: internal/auth/signin/forms.go
 msgid "Invalid user and/or password"
 msgstr "Neplatný uživatel a/nebo heslo"
 
-#: internal/auth/users/forms.go:198
+#: internal/auth/users/forms.go
 msgid "Bookmarks : Read Only"
 msgstr "Záložky : Pouze ke čtení"
 
-#: internal/auth/users/forms.go:199
+#: internal/auth/users/forms.go
 msgid "Bookmarks : Write Only"
 msgstr "Záložky : Pouze k zápisu"
 
-#: internal/auth/users/forms.go:200
+#: internal/auth/users/forms.go
 msgid "Admin : Read Only"
 msgstr "Administrátor : Pouze ke čtení"
 
-#: internal/auth/users/forms.go:201
+#: internal/auth/users/forms.go
 msgid "Admin : Write Only"
 msgstr "Administrátor : Pouze k zápisu"
 
-#: internal/bookmarks/importer/browser.go:46
+#: internal/bookmarks/importer/browser.go
 msgid "Browser Bookmarks"
 msgstr "Záložky prohlížeče"
 
-#: internal/bookmarks/importer/browser.go:62
-#: internal/bookmarks/importer/pocket_file.go:67
+#: internal/bookmarks/importer/browser.go
+#: internal/bookmarks/importer/pocket_file.go
 msgid "Unabled to read HTML content"
 msgstr "Nelze přečíst obsah HTML"
 
-#: internal/bookmarks/importer/browser.go:98
-#: internal/bookmarks/importer/pocket_file.go:122
-#: internal/bookmarks/importer/text.go:50
+#: internal/bookmarks/importer/browser.go
+#: internal/bookmarks/importer/goodlinks.go
+#: internal/bookmarks/importer/pocket_file.go
+#: internal/bookmarks/importer/text.go
 msgid "Empty or invalid import file"
 msgstr "Prázdný nebo neplatný importní soubor"
 
-#: internal/bookmarks/importer/forms.go:110
+#: internal/bookmarks/importer/forms.go pkg/forms/validators.go
+msgid "field is required"
+msgstr "pole je vyžadováno"
+
+#: internal/bookmarks/importer/forms.go
 msgid "Invalid Content-Type"
 msgstr "Neplatný typ obsahu"
 
-#: internal/bookmarks/importer/text.go:24
+#: internal/bookmarks/importer/goodlinks.go
+msgid "GoodLinks Export File"
+msgstr ""
+
+#: internal/bookmarks/importer/text.go
 msgid "Text File"
 msgstr "Textový soubor"
 
-#: internal/bookmarks/importer/wallabag.go:228
+#: internal/bookmarks/importer/wallabag.go
+msgid "Invalid URL"
+msgstr ""
+
+#: internal/bookmarks/importer/wallabag.go
 msgid "Invalid credentials"
 msgstr "Neplatné přihlašovací údaje"
 
-#: internal/bookmarks/importer/wallabag.go:239
+#: internal/bookmarks/importer/wallabag.go
 msgid "No access token found"
 msgstr "Nebyl nalezen žádný token pro přístup"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:399
+#: internal/bookmarks/routes/forms_bookmarks.go
 msgid "Article"
 msgstr "Článek"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:400
+#: internal/bookmarks/routes/forms_bookmarks.go
 msgid "Picture"
 msgstr "Obrázek"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:401
+#: internal/bookmarks/routes/forms_bookmarks.go
 msgid "Video"
 msgstr "Video"
 
-#: internal/bookmarks/routes/opds.go:57
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Added, most recent first"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Added, oldest first"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Published, most recent first"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Published, oldest first"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Title, A to Z"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Title, Z to A"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Site Name, A to Z"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Site Name, Z to A"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Duration, shortest first"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "sort"
+msgid "Duration, longest first"
+msgstr ""
+
+#: internal/bookmarks/routes/opds.go
 msgid "Readeck Bookmarks"
 msgstr "Záložky Readecku"
 
-#: internal/bookmarks/routes/opds.go:102
+#: internal/bookmarks/routes/opds.go
 msgid "Readeck Bookmark Collections"
 msgstr "Sbírky záložek Readecku"
 
-#: internal/bookmarks/routes/opds.go:139
+#: internal/bookmarks/routes/opds.go
 #, python-format
 msgid "Readeck Collection: %s"
 msgstr "Sbírka Readecku: %s"
 
-#: internal/bookmarks/routes/opds.go:145
+#: internal/bookmarks/routes/opds.go
 #, python-format
 msgid "Collection ebook - %s"
 msgstr "E-kniha sbírky – %s"
 
-#: internal/bookmarks/routes/opds.go:152
+#: internal/bookmarks/routes/opds.go
 #, python-format
 msgid "Browse collection: %s"
 msgstr "Procházet sbírku: %s"
 
-#: internal/bookmarks/routes/views_bookmarks.go:96
+#: internal/bookmarks/routes/views_bookmarks.go
 msgid "All your Bookmarks"
 msgstr "Všechny vaše záložky"
 
-#: internal/bookmarks/routes/views_bookmarks.go:101
+#: internal/bookmarks/routes/views_bookmarks.go
 msgid "Bookmark Search"
 msgstr "Vyhledávání záložek"
 
-#: internal/bookmarks/routes/views_bookmarks.go:105 internal/opds/http.go:58
+#: internal/bookmarks/routes/views_bookmarks.go internal/opds/http.go
 msgid "Unread Bookmarks"
 msgstr "Nepřečtené záložky"
 
-#: internal/bookmarks/routes/views_bookmarks.go:107 internal/opds/http.go:62
+#: internal/bookmarks/routes/views_bookmarks.go internal/opds/http.go
 msgid "Archived Bookmarks"
 msgstr "Archivované záložky"
 
-#: internal/bookmarks/routes/views_bookmarks.go:109 internal/opds/http.go:66
+#: internal/bookmarks/routes/views_bookmarks.go internal/opds/http.go
 msgid "Favorite Bookmarks"
 msgstr "Oblíbené záložky"
 
-#: internal/bookmarks/routes/views_collections.go:78
+#: internal/bookmarks/routes/views_collections.go
 msgid "Collection updated."
 msgstr "Sbírka byla aktualizována."
 
-#: internal/bookmarks/routes/views_import.go:28
-#: internal/bookmarks/routes/views_import.go:37
-#: internal/bookmarks/routes/views_import.go:72
+#: internal/bookmarks/routes/views_import.go
 msgid "Import"
 msgstr "Import"
 
-#: internal/bookmarks/routes/views_import.go:29
+#: internal/bookmarks/routes/views_import.go
 msgid "Progress"
 msgstr "Průběh"
 
-#: internal/opds/http.go:70
+#: internal/opds/http.go
 msgid "All Bookmarks"
 msgstr "Všechny záložky"
 
-#: internal/profile/forms.go:34
+#: internal/profile/forms.go
 msgid "invalid username and/or email"
 msgstr "neplatné uživatelské jméno a/nebo e-mail"
 
-#: internal/profile/forms.go:35
+#: internal/profile/forms.go
 msgid "invalid password"
 msgstr "neplatné heslo"
 
-#: internal/profile/views.go:85
+#: internal/profile/views.go
 msgid "Profile updated."
 msgstr "Profil byl aktualizován."
 
-#: internal/profile/views.go:120
+#: internal/profile/views.go
 msgid "Your password was changed."
 msgstr "Vaše heslo bylo změněno."
 
-#: internal/profile/views.go:188
+#: internal/profile/views.go
 msgid "Error: you can not create more credentials."
 msgstr "Chyba: nemůžete vytvořit více přihlašovacích údajů."
 
-#: internal/profile/views.go:196
+#: internal/profile/views.go
 msgid "An error occurred while creating your password."
 msgstr "Při vytváření vašeho hesla se vyskytla chyba."
 
-#: internal/profile/views.go:228
+#: internal/profile/views.go
 msgid "Password was updated."
 msgstr "Heslo bylo aktualizováno."
 
-#: internal/profile/views.go:289
+#: internal/profile/views.go
 msgid "An error occurred while creating your token."
 msgstr "Při vytváření vašeho tokenu se vyskytla chyba."
 
-#: internal/profile/views.go:294
+#: internal/profile/views.go
 msgid "New token created."
 msgstr "Nový token byl vytvořen."
 
-#: internal/profile/views.go:313
+#: internal/profile/views.go
 msgid "Token was updated."
 msgstr "Token byl aktualizován."
 
-#: pkg/forms/forms.go:22
+#: pkg/forms/forms.go
 msgid "an unexpected error has occurred"
 msgstr "vyskytla se neočekávaná chyba"
 
-#: internal/bookmarks/importer/forms.go:103 pkg/forms/validators.go:14
-msgid "field is required"
-msgstr "pole je vyžadováno"
-
-#: pkg/forms/validators.go:15
+#: pkg/forms/validators.go
 msgid "not a valid email address"
 msgstr "není platná e-mailová adresa"
 
-#: pkg/forms/validators.go:16
+#: pkg/forms/validators.go
 msgid "invalid URL"
 msgstr "neplatné URL"
 
-#: pkg/forms/validators.go:135
+#: pkg/forms/validators.go
 #, python-format
 msgid "must be greater or equal than %d"
 msgstr "musí být větší nebo rovno %d"
 
-#: pkg/forms/validators.go:147
+#: pkg/forms/validators.go
 #, python-format
 msgid "must be lower or equal than %d"
 msgstr "musí být menší nebo rovno %d"
 
-#: pkg/strftime/strftime.go:23
+#: pkg/strftime/strftime.go
 msgctxt "datetime_dl"
 msgid "Sunday"
 msgstr "Neděle"
 
-#: pkg/strftime/strftime.go:24
+#: pkg/strftime/strftime.go
 msgctxt "datetime_dl"
 msgid "Monday"
 msgstr "Pondělí"
 
-#: pkg/strftime/strftime.go:25
+#: pkg/strftime/strftime.go
 msgctxt "datetime_dl"
 msgid "Tuesday"
 msgstr "Úterý"
 
-#: pkg/strftime/strftime.go:26
+#: pkg/strftime/strftime.go
 msgctxt "datetime_dl"
 msgid "Wednesday"
 msgstr "Středa"
 
-#: pkg/strftime/strftime.go:27
+#: pkg/strftime/strftime.go
 msgctxt "datetime_dl"
 msgid "Thursday"
 msgstr "Čtvrtek"
 
-#: pkg/strftime/strftime.go:28
+#: pkg/strftime/strftime.go
 msgctxt "datetime_dl"
 msgid "Friday"
 msgstr "Pátek"
 
-#: pkg/strftime/strftime.go:29
+#: pkg/strftime/strftime.go
 msgctxt "datetime_dl"
 msgid "Saturday"
 msgstr "Sobota"
 
-#: pkg/strftime/strftime.go:33
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ds"
 msgid "Sun"
 msgstr "Ne"
 
-#: pkg/strftime/strftime.go:34
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ds"
 msgid "Mon"
 msgstr "Po"
 
-#: pkg/strftime/strftime.go:35
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ds"
 msgid "Tue"
 msgstr "Út"
 
-#: pkg/strftime/strftime.go:36
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ds"
 msgid "Wed"
 msgstr "St"
 
-#: pkg/strftime/strftime.go:37
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ds"
 msgid "Thu"
 msgstr "Čt"
 
-#: pkg/strftime/strftime.go:38
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ds"
 msgid "Fri"
 msgstr "Pá"
 
-#: pkg/strftime/strftime.go:39
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ds"
 msgid "Sat"
 msgstr "So"
 
-#: pkg/strftime/strftime.go:43
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "January"
 msgstr "Leden"
 
-#: pkg/strftime/strftime.go:44
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "February"
 msgstr "Únor"
 
-#: pkg/strftime/strftime.go:45
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "March"
 msgstr "Březen"
 
-#: pkg/strftime/strftime.go:46
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "April"
 msgstr "Duben"
 
-#: pkg/strftime/strftime.go:47
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "May"
 msgstr "Květen"
 
-#: pkg/strftime/strftime.go:48
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "June"
 msgstr "Červen"
 
-#: pkg/strftime/strftime.go:49
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "July"
 msgstr "Červenec"
 
-#: pkg/strftime/strftime.go:50
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "August"
 msgstr "Srpen"
 
-#: pkg/strftime/strftime.go:51
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "September"
 msgstr "Září"
 
-#: pkg/strftime/strftime.go:52
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "October"
 msgstr "Říjen"
 
-#: pkg/strftime/strftime.go:53
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "November"
 msgstr "Listopad"
 
-#: pkg/strftime/strftime.go:54
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "December"
 msgstr "Prosinec"
 
-#: pkg/strftime/strftime.go:58
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Jan"
 msgstr "Led"
 
-#: pkg/strftime/strftime.go:59
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Feb"
 msgstr "Úno"
 
-#: pkg/strftime/strftime.go:60
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Mar"
 msgstr "Bře"
 
-#: pkg/strftime/strftime.go:61
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Apr"
 msgstr "Dub"
 
-#: pkg/strftime/strftime.go:62
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "May"
 msgstr "Kvě"
 
-#: pkg/strftime/strftime.go:63
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Jun"
 msgstr "Čvn"
 
-#: pkg/strftime/strftime.go:64
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Jul"
 msgstr "Čvc"
 
-#: pkg/strftime/strftime.go:65
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Aug"
 msgstr "Srp"
 
-#: pkg/strftime/strftime.go:66
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Sep"
 msgstr "Zář"
 
-#: pkg/strftime/strftime.go:67
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Oct"
 msgstr "Říj"
 
-#: pkg/strftime/strftime.go:68
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Nov"
 msgstr "Lis"
 
-#: pkg/strftime/strftime.go:69
+#: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Dec"
 msgstr "Pro"
 
-#: pkg/strftime/strftime.go:73
+#: pkg/strftime/strftime.go
 msgctxt "datetime"
 msgid "a.m."
 msgstr "dop."
 
-#: pkg/strftime/strftime.go:74
+#: pkg/strftime/strftime.go
 msgctxt "datetime"
 msgid "p.m."
 msgstr "odp."
 
-#: pkg/strftime/strftime.go:75
+#: pkg/strftime/strftime.go
 #, python-format
 msgctxt "datetime"
 msgid "%a %b %e %H:%M:%S %y"
 msgstr "%a %b %e %H:%M:%S %y"
 
-#: pkg/strftime/strftime.go:76
+#: pkg/strftime/strftime.go
 #, python-format
 msgctxt "datetime"
 msgid "%m/%d/%Y"
 msgstr "%m/%d/%Y"
 
-#: pkg/strftime/strftime.go:77
+#: pkg/strftime/strftime.go
 msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
+

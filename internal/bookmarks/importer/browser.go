@@ -27,10 +27,11 @@ type browserAdapter struct {
 }
 
 type browserBookmarkItem struct {
-	Link    string        `json:"url"`
-	Title   string        `json:"title"`
-	Created time.Time     `json:"created"`
-	Labels  types.Strings `json:"labels"`
+	Link       string        `json:"url"`
+	Title      string        `json:"title"`
+	Created    time.Time     `json:"created"`
+	Labels     types.Strings `json:"labels"`
+	IsArchived bool          `json:"is_archived"`
 }
 
 func (bi *browserBookmarkItem) URL() string {
@@ -39,9 +40,10 @@ func (bi *browserBookmarkItem) URL() string {
 
 func (bi *browserBookmarkItem) Meta() (*BookmarkMeta, error) {
 	return &BookmarkMeta{
-		Title:   bi.Title,
-		Created: bi.Created,
-		Labels:  bi.Labels,
+		Title:      bi.Title,
+		Created:    bi.Created,
+		Labels:     bi.Labels,
+		IsArchived: bi.IsArchived,
 	}, nil
 }
 
@@ -100,6 +102,11 @@ func (adapter *browserAdapter) Params(form forms.Binder) ([]byte, error) {
 			if label = strings.TrimSpace(label); label != "" {
 				item.Labels = append(item.Labels, label)
 			}
+		}
+
+		// If there's a TOREAD attribute, use it to set IsArchived.
+		if dom.HasAttribute(n, "toread") && dom.GetAttribute(n, "toread") == "0" {
+			item.IsArchived = true
 		}
 
 		adapter.Items = append(adapter.Items, item)

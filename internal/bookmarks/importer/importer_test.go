@@ -90,7 +90,7 @@ func TestFileAdapters(t *testing.T) {
 				<DT><H3 ADD_DATE="1624868914" LAST_MODIFIED="0" PERSONAL_TOOLBAR_FOLDER="true">Bookmarks bar</H3>
 				<DL><p>
 					<DT><A HREF="https://www.mozilla.org/en-US/firefox/central/" ADD_DATE="1576652979" ICON="data:image/png;base64,iVBORw0KGgoAAAANSUh">Getting Started</A>
-					<DT><A HREF="http://blog.mozilla.com/" ADD_DATE="1601411565" TAGS="mozilla,blog , test ">Mozilla News</A>
+					<DT><A HREF="http://blog.mozilla.com/" ADD_DATE="1601411565" TAGS="mozilla,blog , test " TOREAD="0">Mozilla News</A>
 				</DL><p>
 				<DT><H3 ADD_DATE="1713598064" LAST_MODIFIED="0">Imported</H3>
 				<DL><p>
@@ -111,10 +111,11 @@ func TestFileAdapters(t *testing.T) {
 				require.NoError(err)
 
 				type bookmarkItem struct {
-					Link    string
-					Title   string
-					Created time.Time
-					Labels  types.Strings
+					Link       string
+					Title      string
+					Created    time.Time
+					Labels     types.Strings
+					IsArchived bool
 				}
 				items := []bookmarkItem{}
 				for {
@@ -130,15 +131,16 @@ func TestFileAdapters(t *testing.T) {
 					bi.Title = meta.Title
 					bi.Created = meta.Created
 					bi.Labels = meta.Labels
+					bi.IsArchived = meta.IsArchived
 
 					items = append(items, bi)
 				}
 
 				expected := []bookmarkItem{
-					{"https://example.org/", "Example.org", time.Date(2012, 11, 30, 11, 5, 29, 0, time.UTC), types.Strings{}},
-					{"https://example.net/", "Example.net", time.Date(2013, 11, 26, 10, 38, 19, 0, time.UTC), types.Strings{}},
-					{"http://blog.mozilla.com/", "Mozilla News", time.Date(2020, 9, 29, 20, 32, 45, 0, time.UTC), types.Strings{"mozilla", "blog", "test"}},
-					{"https://www.mozilla.org/en-US/firefox/central/", "Getting Started", time.Date(2019, 12, 18, 7, 9, 39, 0, time.UTC), types.Strings{}},
+					{"https://example.org/", "Example.org", time.Date(2012, 11, 30, 11, 5, 29, 0, time.UTC), types.Strings{}, false},
+					{"https://example.net/", "Example.net", time.Date(2013, 11, 26, 10, 38, 19, 0, time.UTC), types.Strings{}, false},
+					{"http://blog.mozilla.com/", "Mozilla News", time.Date(2020, 9, 29, 20, 32, 45, 0, time.UTC), types.Strings{"mozilla", "blog", "test"}, true},
+					{"https://www.mozilla.org/en-US/firefox/central/", "Getting Started", time.Date(2019, 12, 18, 7, 9, 39, 0, time.UTC), types.Strings{}, false},
 				}
 				require.Equal(expected, items)
 			},

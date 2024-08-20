@@ -144,6 +144,73 @@ func TestFileAdapters(t *testing.T) {
 			},
 		},
 		{
+			importer.LoadAdapter("goodlinks"),
+			``,
+			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
+				require.False(f.IsValid())
+				require.Equal("Empty or invalid import file", f.Get("data").Errors.Error())
+			},
+		},
+		{
+			importer.LoadAdapter("goodlinks"),
+			`
+			[{
+				"title": "Shodan",
+				"url": "https:\/\/www.startpage.com\/",
+				"tags": ["search"],
+				"starred": false,
+				"summary": "Search engine of the Internet.",
+				"originalURL": "https:\/\/www.startpage.com",
+				"addedAt": 1588601562
+			}, {
+				"title": "Home | LinuxServer.io",
+				"url": "https:\/\/www.linuxserver.io\/",
+				"starred": false,
+				"originalURL": "https:\/\/www.linuxserver.io",
+				"addedAt": 1589621418,
+				"tags": ["linux", "docker"],
+				"summary": "We are a group of like-minded enthusiasts from across the world who build and maintain the largest collection of Docker images on the web, and at our core are the principles behind Free and Open Source Software. Our primary goal is to provide easy-to-use and streamlined Docker images with clear and concise documentation."
+			}
+			]
+			`,
+			func(test *adapterTest, require *require.Assertions, f forms.Binder, data []byte) {
+				require.True(f.IsValid())
+				adapter := test.adapter.(importer.ImportWorker)
+				err := adapter.LoadData(data)
+				require.NoError(err)
+
+				type bookmarkItem struct {
+					Link     string
+					Created  time.Time
+					Labels   types.Strings
+					IsMarked bool
+				}
+				items := []bookmarkItem{}
+				for {
+					item, err := adapter.Next()
+					if err == io.EOF {
+						break
+					}
+					require.NoError(err)
+					bi := bookmarkItem{Link: item.URL()}
+					meta, err := item.(importer.BookmarkEnhancer).Meta()
+					require.NoError(err)
+
+					bi.Created = meta.Created
+					bi.Labels = meta.Labels
+					bi.IsMarked = meta.IsMarked
+
+					items = append(items, bi)
+				}
+
+				expected := []bookmarkItem{
+					{"https://www.startpage.com/", time.Date(2020, time.May, 4, 14, 12, 42, 0, time.UTC), types.Strings{"search"}, false},
+					{"https://www.linuxserver.io/", time.Date(2020, time.May, 16, 9, 30, 18, 0, time.UTC), types.Strings{"linux", "docker"}, false},
+				}
+				require.Equal(expected, items)
+			},
+		},
+		{
 			importer.LoadAdapter("pocket-file"),
 			``,
 			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {

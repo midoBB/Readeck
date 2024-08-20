@@ -27,6 +27,7 @@ import (
 const (
 	importText       = "text"
 	importBrowser    = "browser"
+	importGoodLinks  = "goodlinks"
 	importPocketFile = "pocket-file"
 	importWallabag   = "wallabag"
 )
@@ -122,6 +123,8 @@ func LoadAdapter(name string) ImportLoader {
 		return &textAdapter{}
 	case importBrowser:
 		return &browserAdapter{}
+	case importGoodLinks:
+		return &goodlinksAdapter{}
 	case importPocketFile:
 		return &pocketFileAdapter{}
 	case importWallabag:

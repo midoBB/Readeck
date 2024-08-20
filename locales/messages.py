@@ -335,7 +335,7 @@ def update(_):
                 domain=po_file.name,
             )
 
-        catalog.update(template)
+        catalog.update(template, no_fuzzy_matching=True)
 
         with po_file.open("wb") as fp:
             write_po(fp, catalog, sort_by_file=True, include_lineno=False)

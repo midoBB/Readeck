@@ -1036,7 +1036,7 @@ msgstr "Importovat záložky"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
 msgid "Import Links from a GoodLinks export file"
-msgstr ""
+msgstr "Importovat odkazy z exportního souboru GoodLinks"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
 msgid ""
@@ -1044,6 +1044,9 @@ msgid ""
 "    Upload a JSON file obtained from your GoodLinks app.\n"
 "  "
 msgstr ""
+"\n"
+"    Nahrajte soubor JSON získaný z Vaší GoodLinks aplikace.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
@@ -1194,11 +1197,11 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/index.jet.html
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
-msgstr ""
+msgstr "Importovat záložky prohlížeče, Pinboard, Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html
 msgid "Import your GoodLinks Articles"
-msgstr ""
+msgstr "Importování článků GoodLinks"
 
 #: assets/templates/bookmarks/import/options.jet.html
 #: assets/templates/bookmarks/import/options.jet.html:7
@@ -1909,7 +1912,7 @@ msgstr "Prázdný nebo neplatný importní soubor"
 
 #: internal/bookmarks/importer/goodlinks.go
 msgid "GoodLinks Export File"
-msgstr ""
+msgstr "Exportní soubor GoodLinks"
 
 #: internal/bookmarks/importer/text.go internal/bookmarks/importer/text.go:24
 msgid "Text File"
@@ -1917,7 +1920,7 @@ msgstr "Textový soubor"
 
 #: internal/bookmarks/importer/wallabag.go
 msgid "Invalid URL"
-msgstr ""
+msgstr "Neplatná URL"
 
 #: internal/bookmarks/importer/wallabag.go
 #: internal/bookmarks/importer/wallabag.go:228
@@ -1947,52 +1950,52 @@ msgstr "Video"
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Added, most recent first"
-msgstr ""
+msgstr "Přidané, nejnovější první"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Added, oldest first"
-msgstr ""
+msgstr "Přidané, nejstarší první"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Published, most recent first"
-msgstr ""
+msgstr "Zveřejněno, nejnovější první"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Published, oldest first"
-msgstr ""
+msgstr "Zveřejněno, nejstarší první"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Title, A to Z"
-msgstr ""
+msgstr "Nadpis, od A do Z"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Title, Z to A"
-msgstr ""
+msgstr "Nadpis, od Z do A"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Site Name, A to Z"
-msgstr ""
+msgstr "Název stránky, od A do Z"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Site Name, Z to A"
-msgstr ""
+msgstr "Název stránky, od Z do A"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Duration, shortest first"
-msgstr ""
+msgstr "Délka, nejkratší první"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Duration, longest first"
-msgstr ""
+msgstr "Délka, nejdelší první"
 
 #: internal/bookmarks/routes/opds.go internal/bookmarks/routes/opds.go:57
 msgid "Readeck Bookmarks"

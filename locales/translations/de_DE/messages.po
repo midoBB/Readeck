@@ -83,7 +83,7 @@ msgstr "oder"
 
 #: assets/templates/_libs/forms.jet.html
 msgid "Select or drop file"
-msgstr "Datei auswählen oder ablegen."
+msgstr "Datei auswählen oder ablegen"
 
 #: assets/templates/_libs/forms.jet.html
 msgid "remove"
@@ -120,7 +120,7 @@ msgstr "Benutzer"
 
 #: assets/templates/admin/user.jet.html
 msgid "User will be removed in a few seconds"
-msgstr "Der Benutzer wird in ein paar Sekunden entfernt."
+msgstr "Der Benutzer wird in ein paar Sekunden entfernt"
 
 #: assets/templates/admin/user.jet.html
 #: assets/templates/admin/user_list.jet.html
@@ -236,10 +236,11 @@ msgid "Welcome to Readeck!"
 msgstr "Wilkommen bei Readeck!"
 
 #: assets/templates/auth/onboarding.jet.html
-msgid "We're delighted to have you on board; one more step and you're good to go."
+msgid ""
+"We're delighted to have you on board; one more step and you're good to go."
 msgstr ""
-"Wir freuen uns, Sie an Bord zu haben. Nur noch ein Schritt und schon kann"
-" es losgehen."
+"Wir freuen uns, Sie an Bord zu haben. Nur noch ein Schritt und schon kann es "
+"losgehen."
 
 #: assets/templates/auth/onboarding.jet.html
 #: assets/templates/auth/recover.jet.html
@@ -254,11 +255,10 @@ msgstr "Bitte beachte:"
 #: assets/templates/auth/onboarding.jet.html
 msgid ""
 "\n"
-"  Your email address is optionnal and will never leave this installation."
-"\n"
+"  Your email address is optionnal and will never leave this installation.\n"
 "  It will never be collected, transferred or sold.\n"
-"  It will <strong>only</strong> be used, should you need it, for password"
-" recovery and internal notifications.\n"
+"  It will <strong>only</strong> be used, should you need it, for password "
+"recovery and internal notifications.\n"
 "  "
 msgstr ""
 "\n"
@@ -270,7 +270,7 @@ msgstr ""
 
 #: assets/templates/auth/onboarding.jet.html
 msgid "Finish installation"
-msgstr "Installation beenden."
+msgstr "Installation beenden"
 
 #: assets/templates/auth/recover.jet.html
 msgid "Password recovery"
@@ -350,22 +350,22 @@ msgstr "Du hast noch keine Highlights."
 #: assets/templates/bookmarks/annotation_list.jet.html
 msgid ""
 "\n"
-"        Once you start highlighting parts of your saved articles, they "
-"will appear on this page\n"
+"        Once you start highlighting parts of your saved articles, they will "
+"appear on this page\n"
 "        for you to easily find them.\n"
 "      "
 msgstr ""
 "\n"
-"       So bald du anfängst, Teile deiner Artikel zu markieren, werden Sie"
-" hier auftauchen \n"
+"       So bald du anfängst, Teile deiner Artikel zu markieren, werden Sie "
+"hier auftauchen \n"
 "        damit du sie leichter finden kannst.\n"
 "      "
 
 #: assets/templates/bookmarks/annotation_list.jet.html
 #, python-format
 msgid ""
-"Read more about highlights in the <a class=\"%s\" "
-"href=\"%s\">documentation</a>."
+"Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</"
+"a>."
 msgstr ""
 "Lies mehr über diese Markierung in der <a class=\"%s\" "
 "href=\"%s\">Dokumentation</a>."
@@ -432,7 +432,7 @@ msgstr "Lesezeichen lädt"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark is loading"
-msgstr "Lesezeichen ist am laden."
+msgstr "Lesezeichen ist am laden"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html
 msgid "Shared link"
@@ -535,10 +535,9 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          Mithilfe von Sammlungen können Sie Ihre Lesezeichen ganz "
-"einfach\n"
-"          organisieren und exportieren, indem Sie Suchanfragen Ihrer Wahl"
-" speichern.\n"
+"          Mithilfe von Sammlungen können Sie Ihre Lesezeichen ganz einfach\n"
+"          organisieren und exportieren, indem Sie Suchanfragen Ihrer Wahl "
+"speichern.\n"
 "          Wenn Sie ein neues Lesezeichen erstellen, das den Kriterien "
 "einer \n"
 "          Sammlung entspricht, wird es sofort angezeigt.\n"
@@ -567,8 +566,8 @@ msgid ""
 "Read more about collections in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Lies mehr über Sammlungen in der <a class=\"%s\" "
-"href=\"%s\">Dokumentation</a>."
+"Lies mehr über Sammlungen in der <a class=\"%s\" href=\"%s\">Dokumentation</"
+"a>."
 
 #: assets/templates/bookmarks/components/actions.jet.html
 msgid "Export and Share"
@@ -773,10 +772,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Exportiere deine Lesezeichen in deinem Webbrowser als HTML-Datei.<br>"
-"\n"
-"    Lade die Datei in dem untenstehenden Formular hoch und Readeck "
-"erstellt\n"
+"    Exportiere deine Lesezeichen in deinem Webbrowser als HTML-Datei.<br>\n"
+"    Lade die Datei in dem untenstehenden Formular hoch und Readeck erstellt\n"
 "    und holt alle darin gefundenen Lesezeichen.\n"
 "  "
 
@@ -813,7 +810,7 @@ msgstr "Lesezeichen importieren"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
 msgid "Import Links from a GoodLinks export file"
-msgstr ""
+msgstr "Importiere"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
 msgid ""
@@ -821,6 +818,9 @@ msgid ""
 "    Upload a JSON file obtained from your GoodLinks app.\n"
 "  "
 msgstr ""
+"\n"
+"    Lade eine JSON Datei die du aus der GoodLinks App erhalten hast.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
@@ -848,9 +848,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Lade die Datei in dem untenstehenden Formular hoch und und Readeck "
-"erstellt\n"
-"    und holt alle darin gefundenen Lesezeichen.\n"
+"    Lade die Datei in dem untenstehenden Formular hoch und Readeck erstellt\n"
+"\tsowie holt alle darin gefundenen Lesezeichen.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
@@ -858,18 +857,17 @@ msgid ""
 "\n"
 "    Please note that Pocket does not allow the article content to be "
 "exported.\n"
-"    This could lead to different results in Readeck than what you "
-"currently\n"
+"    This could lead to different results in Readeck than what you currently\n"
 "    see in Pocket.\n"
 "  "
 msgstr ""
 "\n"
-" Bitte beachten Sie, dass Pocket den Export des Artikelinhalts nicht "
+"    Bitte beachten Sie, dass Pocket den Export des Artikelinhalts nicht "
 "zulässt.\n"
-" Dies könnte in Readeck zu anderen Ergebnissen führen als dem, was Sie "
+"    Dies könnte in Readeck zu anderen Ergebnissen führen als dem, was Sie "
 "derzeit\n"
-" in Pocket sehen.\n"
-" "
+"    in Pocket sehen.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
@@ -885,10 +883,10 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-" Lade eine Textdatei hoch, die einen Link pro Zeile enthält. Readeck wird"
-" dann alle abrufen\n"
-" und in Ihrer Lesezeichenliste speichern.\n"
-" "
+"    Lade eine Textdatei hoch, die einen Link pro Zeile enthält. Readeck wird "
+"dann alle abrufen\n"
+"\tund in Ihrer Lesezeichenliste speichern.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
@@ -900,19 +898,19 @@ msgid ""
 "\n"
 "    To import your articles from Wallabag, you must first create an API "
 "client\n"
-"    in Wallabag's <strong>API clients management</strong> menu. This will"
-" give you\n"
+"    in Wallabag's <strong>API clients management</strong> menu. This will "
+"give you\n"
 "    a <strong>Client ID</strong> and <strong>Client secret</strong>.\n"
 "  "
 msgstr ""
 "\n"
-" Um deine Artikel aus Wallabag zu importieren, musst du zunächst einen "
+"    Um deine Artikel aus Wallabag zu importieren, musst du zunächst einen "
 "API-Client\n"
-" im Menü <strong>API-Clientverwaltung</strong> von Wallabag erstellen. "
+"\tim Menü <strong>API-Clientverwaltung</strong> von Wallabag erstellen. "
 "Dadurch erhälst du\n"
-" eine <strong>Client-ID</strong> und ein <strong>Client-"
-"Geheimnis</strong>.\n"
-" "
+"\teine <strong>Client-ID</strong> und ein <strong>Client-Geheimnis</"
+"strong>.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
 msgid ""
@@ -960,10 +958,11 @@ msgstr ""
 #: assets/templates/bookmarks/import/index.jet.html
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
 msgstr ""
+"Importiere deine Lesezeichen aus dem Browser, der Pinnwand oder Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html
 msgid "Import your GoodLinks Articles"
-msgstr ""
+msgstr "Importiere die Artikel aus GoodLinks"
 
 #: assets/templates/bookmarks/import/options.jet.html
 msgid "Options"
@@ -1002,9 +1001,9 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-" Deine Lesezeichen sind jetzt in deiner <a class=\"%s\" "
+"      Deine Lesezeichen sind jetzt in deiner <a class=\"%s\" "
 "href=\"%s\">Lesezeichenliste</a> verfügbar.\n"
-" "
+"      "
 
 #: assets/templates/bookmarks/index.jet.html
 msgid "Save a new link"
@@ -1018,42 +1017,41 @@ msgstr "Link speichern"
 #: assets/templates/bookmarks/index.jet.html
 #, python-format
 msgid ""
-"\"%s\" is not a valid address. Did you mean to search your bookmarks for "
-"%s?"
+"\"%s\" is not a valid address. Did you mean to search your bookmarks for %s?"
 msgstr ""
 "\"%s\" ist keine gültige Adresse. Wolltest du in deinen Lesezeichen nach "
-"%s\" suchen"
+"%s\" suchen?"
 
 #: assets/templates/bookmarks/index.jet.html
 msgid ""
 "You don't have any bookmarks yet.<br> Copy a link in the field above and "
 "start saving."
 msgstr ""
-"Du hast noch keine Lesezeichen.<br> Kopiere einen Link in das Feld oben "
-"und beginne mit dem Speichern."
+"Du hast noch keine Lesezeichen.<br> Kopiere einen Link in das Feld oben und "
+"beginne mit dem Speichern."
 
 #: assets/templates/bookmarks/index.jet.html
 #, python-format
 msgid ""
-"Read more about bookmarks in the <a class=\"%s\" "
-"href=\"%s\">documentation</a>."
+"Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentation</"
+"a>."
 msgstr ""
-"Lies mehr über Lesezeichen in der <a class=\"%s\" "
-"href=\"%s\">Dokumentation</a>."
+"Lies mehr über Lesezeichen in der <a class=\"%s\" href=\"%s\">Dokumentation</"
+"a>."
 
 #: assets/templates/bookmarks/index.jet.html
 msgid ""
 "\n"
-"          Would you like to import from a similar tool or from a file "
-"with existing bookmarks?\n"
+"          Would you like to import from a similar tool or from a file with "
+"existing bookmarks?\n"
 "          Try Readeck's import tool.\n"
 "        "
 msgstr ""
 "\n"
-" Möchtest du aus einem ähnlichen Tool oder aus einer Datei mit "
+"          Möchtest du aus einem ähnlichen Tool oder aus einer Datei mit "
 "vorhandenen Lesezeichen importieren?\n"
-" Probiere das Importtool von Readeck aus.\n"
-" "
+"\t\t\tProbiere das Importtool von Readeck aus.\n"
+"        "
 
 #: assets/templates/bookmarks/index.jet.html
 msgid "Import links and articles"
@@ -1076,8 +1074,8 @@ msgstr "Deine suche ergab <strong>keine Ergebnisse</strong>."
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
-msgstr[0] "Deine Suche ergab <strong>%d Ergebnis</strong>"
-msgstr[1] "Deine Suche ergab <strong>%d Ergebnisse</strong>"
+msgstr[0] "Deine Suche ergab <strong>%d Ergebnis</strong>."
+msgstr[1] "Deine Suche ergab <strong>%d Ergebnisse</strong>."
 
 #: assets/templates/bookmarks/index.jet.html
 msgid "Filters documentation"
@@ -1115,8 +1113,8 @@ msgid ""
 "  You can set anything to a label, including emojis!\n"
 msgstr ""
 "\n"
-" Etiketten ermöglichen dir die Organisation deiner Lesezeichen nach "
-"deinen Wünschen.\n"
+" Etiketten ermöglichen dir die Organisation deiner Lesezeichen nach deinen "
+"Wünschen.\n"
 " Du kannst einem Tag frei benennen, auch mit Emojis!\n"
 
 #: assets/templates/docs/about.jet.html assets/templates/docs/base.jet.html
@@ -1138,11 +1136,11 @@ msgstr "Systeminformationen"
 
 #: assets/templates/docs/about.jet.html
 msgid ""
-"Here are your current system information. Please include them if you "
-"report a bug."
+"Here are your current system information. Please include them if you report "
+"a bug."
 msgstr ""
-"Hier findest du die aktuellen Systeminformationen. Bitte gib diese "
-"an,wenn du einen Fehler meldest."
+"Hier findest du die aktuellen Systeminformationen. Bitte gib diese an,wenn "
+"du einen Fehler meldest."
 
 #: assets/templates/docs/about.jet.html
 msgid "License"
@@ -1151,7 +1149,7 @@ msgstr "Lizenz"
 #: assets/templates/docs/about.jet.html
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
-msgstr "Readeck wird unter den Bedingungen der Lizenz \"%s\" verteilt."
+msgstr "Readeck wird unter den Bedingungen der Lizenz \"%s\" verteilt"
 
 #: assets/templates/docs/about.jet.html
 msgid "Here's a short summary of the license conditions:"
@@ -1223,7 +1221,8 @@ msgstr "Lizenzen von Drittanbietern"
 
 #: assets/templates/docs/about.jet.html
 msgid "Readeck includes and/or uses the following open source assets:"
-msgstr "Readeck enthält und/oder verwendet die folgenden Open-Source-Ressourcen:"
+msgstr ""
+"Readeck enthält und/oder verwendet die folgenden Open-Source-Ressourcen:"
 
 #: assets/templates/docs/api-docs.jet.html assets/templates/docs/base.jet.html
 msgid "API Documentation"
@@ -1250,8 +1249,8 @@ msgstr ""
 "\n"
 "Hallo,\n"
 "\n"
-"du (oder jemand anderes) hat diese E-Mail-Adresse eingegeben, als "
-"versucht wurde,\n"
+"du (oder jemand anderes) hat diese E-Mail-Adresse eingegeben, als versucht "
+"wurde,\n"
 "das Passwort eines Readeck-Kontos (%s) zu ändern.\n"
 "\n"
 "Wenn du diese E-Mail erwartest, folge bitte diesem Link, um\n"
@@ -1280,8 +1279,8 @@ msgstr ""
 "\n"
 "Hallo,\n"
 "\n"
-"du (oder jemand anderes) hat diese E-Mail-Adresse eingegeben, als "
-"versucht wurde,\n"
+"du (oder jemand anderes) hat diese E-Mail-Adresse eingegeben, als versucht "
+"wurde,\n"
 "das Passwort eines Readeck-Kontos (%s) zu ändern.\n"
 "\n"
 "Diese E-Mail-Adresse ist jedoch keinem Konto zugeordnet und\n"
@@ -1357,20 +1356,20 @@ msgstr "Das Passwort wird in ein paar Sekunden entfernt."
 #: assets/templates/profile/credential.jet.html
 msgid ""
 "\n"
-"    Your application password was created. Please copy the password below"
-" and write it down\n"
+"    Your application password was created. Please copy the password below "
+"and write it down\n"
 "    or store it in a password manager.\n"
 "  "
 msgstr ""
 "\n"
-" Dein Kennwort wurde erstellt. Bitte kopiere das untenstehende Kennwort "
+"    Dein Kennwort wurde erstellt. Bitte kopiere das untenstehende Kennwort "
 "und notiere es\n"
-" oder speichere es in einem Kennwortmanager ab.\n"
-" "
+"\toder speichere es in einem Kennwortmanager ab.\n"
+"  "
 
 #: assets/templates/profile/credential.jet.html
 msgid "Your password:"
-msgstr "Dein Kennwort"
+msgstr "Dein Kennwort:"
 
 #: assets/templates/profile/credential.jet.html
 msgid "Copy"
@@ -1393,8 +1392,8 @@ msgstr "Ermöglicht"
 #: assets/templates/profile/credential.jet.html
 msgid ""
 "\n"
-"    You can limit the permissions granted to this password by choosing "
-"one or more\n"
+"    You can limit the permissions granted to this password by choosing one "
+"or more\n"
 "    group of permissions below.<br>\n"
 "    Leave all the choices blank to grant all your permissions to this "
 "password.\n"
@@ -1472,20 +1471,20 @@ msgstr "Läuft ab am"
 #: assets/templates/profile/token.jet.html
 msgid ""
 "\n"
-"    You can limit the permissions granted to this token by choosing one "
-"or more\n"
+"    You can limit the permissions granted to this token by choosing one or "
+"more\n"
 "    group of permissions below.<br>\n"
 "    Leave all the choices blank to grant all your permissions to this "
 "token.\n"
 "  "
 msgstr ""
 "\n"
-" Du kannst die diesem Token erteilten Berechtigungen einschränken, indem "
+"    Du kannst die diesem Token erteilten Berechtigungen einschränken, indem "
 "du unten eine oder mehrere\n"
-" Berechtigungsgruppen auswhälst.<br>\n"
-" Lassen alle Auswahlmöglichkeiten leer, um diesem Token alle deine "
+"\tBerechtigungsgruppen auswhälst.<br>\n"
+"\tLassen alle Auswahlmöglichkeiten leer, um diesem Token alle deine "
 "Berechtigungen zu erteilen.\n"
-" "
+"  "
 
 #: assets/templates/profile/token.jet.html
 msgid "Delete token"
@@ -1501,8 +1500,8 @@ msgstr "Dein API Token"
 
 #: assets/templates/profile/token.jet.html
 msgid ""
-"You can use this token by passing it as an <strong>Authorization: "
-"Bearer</strong> HTTP header."
+"You can use this token by passing it as an <strong>Authorization: Bearer</"
+"strong> HTTP header."
 msgstr ""
 "Du kannst dieses Token verwenden, indem du es als <strong>Authorization: "
 "Bearer</strong>-HTTP-Header übergibst."
@@ -1519,15 +1518,14 @@ msgid ""
 "  access to the Readeck API.\n"
 msgstr ""
 "\n"
-" Ein API-Token ist ein Schlüssel, der dir (oder einem anderen Tool wie "
-"einer Browser-Erweiterung)\n"
+" Ein API-Token ist ein Schlüssel, der dir (oder einem anderen Tool wie einer "
+"Browser-Erweiterung)\n"
 " Zugriff auf die Readeck-API gewährt.\n"
 
 #: assets/templates/profile/token_list.jet.html
 #, python-format
 msgid ""
-"Please read the <a href=\"%s\">API Documentation</a> if you plan to use "
-"it."
+"Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
 msgstr ""
 "Bitte lesen Sie die <a href=\"%s\">API-Dokumentation</a>, wenn Sie sie "
 "verwenden möchten."
@@ -1555,7 +1553,7 @@ msgstr "Benutzer erstellt."
 
 #: internal/admin/views.go
 msgid "User updated."
-msgstr "Benutzer aktualisiert"
+msgstr "Benutzer aktualisiert."
 
 #: internal/auth/signin/forms.go
 msgid "Invalid user and/or password"
@@ -1595,7 +1593,7 @@ msgstr "Leere oder ungültige Importdatei"
 
 #: internal/bookmarks/importer/goodlinks.go
 msgid "GoodLinks Export File"
-msgstr ""
+msgstr "GoodLinks Export Datei"
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
@@ -1778,7 +1776,7 @@ msgstr "Token aktualisiert."
 msgid "an unexpected error has occurred"
 msgstr "Ein unerwarteter Fehler ist aufgetreten"
 
-#: pkg/forms/validators.go
+#: pkg/forms/validators.go internal/bookmarks/importer/forms.go
 msgid "field is required"
 msgstr "Feld ist erforderlich"
 
@@ -2017,6 +2015,6 @@ msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
 
-#~ msgid "Invalid Content-Type"
-#~ msgstr "Ungültiger Inhaltstyp"
-
+#: internal/bookmarks/importer/forms.go
+msgid "Invalid Content-Type"
+msgstr "Ungültiger Inhaltstyp"

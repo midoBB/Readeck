@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
+// SPDX-FileCopyrightText: © 2024 Joachim Robert <joachim.robert@proton.me>
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 

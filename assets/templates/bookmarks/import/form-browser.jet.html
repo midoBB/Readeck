@@ -37,6 +37,13 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   {{ include "./options" }}
 
+  {{- yield checkboxField(
+    field=.Form.Get("labels_from_titles"),
+    label=gettext("Convert section titles to labels"),
+    class="field-h",
+    help=gettext("Adds a label on links, based on their section title"),
+  ) -}}
+
   <p class="btn-block">
     <button class="btn btn-primary" type="submit">{{ gettext("Import Bookmarks") }}</button>
     <a class="ml-auto btn btn-default rounded" href="{{ urlFor(`/bookmarks/import`) }}">{{ gettext("Cancel") }}</a>

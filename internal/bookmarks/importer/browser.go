@@ -53,6 +53,7 @@ func (adapter *browserAdapter) Name(tr forms.Translator) string {
 func (adapter *browserAdapter) Form() forms.Binder {
 	return forms.Must(
 		forms.NewFileField("data", forms.Required),
+		forms.NewBooleanField("labels_from_titles"),
 	)
 }
 
@@ -110,6 +111,11 @@ func (adapter *browserAdapter) Params(form forms.Binder) ([]byte, error) {
 			item.IsArchived = true
 		}
 
+		if v, ok := form.Get("labels_from_titles").Value().(bool); ok && v {
+			// Fetch hierarchy titles and make them labels
+			item.Labels = append(item.Labels, adapter.findNodeTitles(n))
+		}
+
 		adapter.Items = append(adapter.Items, item)
 	}
 
@@ -133,4 +139,27 @@ func (adapter *browserAdapter) Next() (BookmarkImporter, error) {
 
 	adapter.idx++
 	return &adapter.Items[adapter.idx-1], nil
+}
+
+// findNodeTitles returns a list of titles found on top of the current link node.
+func (adapter *browserAdapter) findNodeTitles(node *html.Node) string {
+	res := []string{}
+	n := node.Parent
+	for n != nil {
+		// Walk all the way back to each node's parent.
+		if dom.TagName(n) == "dl" {
+			// A title is the previous sibling with an h3 tag.
+			// The loop will get them in reverse order.
+			if ps := dom.PreviousElementSibling(n); ps != nil && dom.TagName(ps) == "h3" {
+				if title := strings.TrimSpace(dom.TextContent(ps)); title != "" {
+					res = append(res, title)
+				}
+			}
+		}
+
+		n = n.Parent
+	}
+
+	slices.Reverse(res)
+	return strings.Join(res, "/")
 }

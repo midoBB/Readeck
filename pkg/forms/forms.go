@@ -341,6 +341,56 @@ func Bind(f Binder, r *http.Request) {
 	}
 }
 
+// BindMultipart loads and validates the data from the request's body,
+// including "multipart/form-data".
+// It defaults to calling [Bind] for other content types.
+func BindMultipart(f Binder, r *http.Request) {
+	mediaType, _, err := mime.ParseMediaType(r.Header.Get("content-type"))
+	if err != nil {
+		f.AddErrors("", errors.New("Invalid content-type"))
+		return
+	}
+
+	if mediaType != "multipart/form-data" {
+		Bind(f, r)
+		return
+	}
+
+	if f.IsBound() {
+		f.AddErrors("", errors.New("Form is already bound"))
+		return
+	}
+
+	// Always finish with loading the regular values
+	defer func() {
+		// Bind regular fields (this validates the form as well)
+		UnmarshalValues(f, r.PostForm)
+	}()
+
+	if r.MultipartForm == nil {
+		if err := r.ParseMultipartForm(16 << 20); err != nil {
+			f.AddErrors("", errors.New("Error loading data"))
+			return
+		}
+	}
+
+	// Bind the file fields
+	for name, headers := range r.MultipartForm.File {
+		if len(headers) == 0 {
+			continue
+		}
+		field := f.Get(name)
+		if field == nil {
+			continue
+		}
+		if _, ok := field.Field.(*FileField); ok {
+			if !field.Set(headers[len(headers)-1]) {
+				f.AddErrors(field.Name(), ErrInvalidValue)
+			}
+		}
+	}
+}
+
 // Validate performs all the fields validation and, if the form is a
 // FormValidator, the form.Validate() method.
 func Validate(input interface{}) {

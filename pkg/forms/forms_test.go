@@ -7,7 +7,10 @@ package forms_test
 import (
 	"errors"
 	"fmt"
+	"io"
+	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -288,4 +291,86 @@ func TestCustomValidation(t *testing.T) {
 			})
 		}
 	})
+}
+
+func TestMultipart(t *testing.T) {
+	body := `
+--foo
+Content-Disposition: form-data; name="data"; filename="blob"
+Content-Type: application/octet-stream
+
+test value
+abc
+--foo
+Content-Disposition: form-data; name="test"
+
+123
+--foo--
+		`
+
+	tests := []struct {
+		formFn func() *forms.Form
+		testFn func(*require.Assertions, *forms.Form)
+	}{
+		{
+			func() *forms.Form {
+				return forms.Must(
+					forms.NewIntegerField("test"),
+					forms.NewFileField("data", forms.Required),
+				)
+			},
+			func(assert *require.Assertions, f *forms.Form) {
+				assert.True(f.IsBound())
+				assert.True(f.IsValid())
+				assert.Equal(123, f.Get("test").Value())
+
+				r, err := f.Get("data").Field.(*forms.FileField).Open()
+				assert.NoError(err)
+				data, err := io.ReadAll(r)
+				assert.NoError(err)
+				assert.Equal([]byte("test value\nabc"), data)
+			},
+		},
+		{
+			func() *forms.Form {
+				return forms.Must(
+					forms.NewFileField("data2", forms.Required),
+				)
+			},
+			func(assert *require.Assertions, f *forms.Form) {
+				assert.True(f.IsBound())
+				assert.False(f.IsValid())
+				assert.EqualError(errors.Join(f.Get("data2").Errors), "field is required")
+			},
+		},
+		{
+			func() *forms.Form {
+				return forms.Must(
+					forms.NewFileField("data2"),
+				)
+			},
+			func(assert *require.Assertions, f *forms.Form) {
+				assert.True(f.IsBound())
+				assert.True(f.IsValid())
+				assert.True(f.Get("data2").IsNil())
+			},
+		},
+	}
+
+	for i, test := range tests {
+		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
+			req := &http.Request{
+				Method: http.MethodPost,
+				Header: http.Header{
+					"Content-Type": []string{"multipart/form-data; boundary=foo"},
+				},
+			}
+			req.Body = io.NopCloser(strings.NewReader(body))
+			form := test.formFn()
+			forms.BindMultipart(form, req)
+
+			assert := require.New(t)
+			test.testFn(assert, form)
+		})
+	}
 }

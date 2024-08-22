@@ -6,7 +6,6 @@ package importer
 
 import (
 	"encoding/json"
-	"errors"
 	"io"
 	"net/url"
 	"slices"
@@ -52,17 +51,19 @@ func (adapter *browserAdapter) Name(tr forms.Translator) string {
 }
 
 func (adapter *browserAdapter) Form() forms.Binder {
-	return newMultipartForm()
+	return forms.Must(
+		forms.NewFileField("data", forms.Required),
+	)
 }
 
 func (adapter *browserAdapter) Params(form forms.Binder) ([]byte, error) {
-	f := form.(*multipartForm).dataReader()
-	if f == nil {
-		return nil, errors.New("unable to load content")
+	reader, err := form.Get("data").Field.(*forms.FileField).Open()
+	if err != nil {
+		return nil, err
 	}
-	defer f.Close() //nolint:errcheck
+	defer reader.Close() //nolint:errcheck
 
-	root, err := html.Parse(f)
+	root, err := html.Parse(reader)
 	if err != nil {
 		form.AddErrors("data", forms.Gettext("Unabled to read HTML content"), err)
 		return nil, nil

@@ -55,17 +55,12 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	options := importer.NewOptionForm()
-
-	f := adapter.Form()
-	if f, ok := f.(forms.Localized); ok {
-		f.SetLocale(h.srv.Locale(r))
-	}
+	f := importer.NewImportForm(adapter)
+	f.SetLocale(tr)
 
 	templateName := fmt.Sprintf("/bookmarks/import/form-%s", source)
 	ctx := server.TC{
-		"Form":    f,
-		"Options": options,
+		"Form": f,
 	}
 	ctx.SetBreadcrumbs([][2]string{
 		{"Bookmarks", h.srv.AbsoluteURL(r, "/bookmarks").String()},
@@ -74,8 +69,7 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 	})
 
 	if r.Method == http.MethodPost {
-		forms.Bind(options, r)
-		forms.Bind(f, r)
+		forms.BindMultipart(f, r)
 
 		var data []byte
 		var err error
@@ -93,8 +87,8 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 		}
 
 		ignoreDuplicates := true
-		if !options.Get("ignore_duplicates").IsNil() {
-			ignoreDuplicates = options.Get("ignore_duplicates").Value().(bool)
+		if !f.Get("ignore_duplicates").IsNil() {
+			ignoreDuplicates = f.Get("ignore_duplicates").Value().(bool)
 		}
 
 		// Create the import task
@@ -105,7 +99,7 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 			UserID:          auth.GetRequestUser(r).ID,
 			RequestID:       h.srv.GetReqID(r),
 			AllowDuplicates: !ignoreDuplicates,
-			Label:           options.Get("label").String(),
+			Label:           f.Get("label").String(),
 		})
 		if err != nil {
 			h.srv.Error(w, r, err)

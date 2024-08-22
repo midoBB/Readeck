@@ -6,7 +6,6 @@ package importer
 
 import (
 	"encoding/json"
-	"errors"
 	"io"
 	"time"
 
@@ -45,18 +44,20 @@ func (adapter *goodlinksAdapter) Name(tr forms.Translator) string {
 }
 
 func (adapter *goodlinksAdapter) Form() forms.Binder {
-	return newMultipartForm()
+	return forms.Must(
+		forms.NewFileField("data", forms.Required),
+	)
 }
 
 func (adapter *goodlinksAdapter) Params(form forms.Binder) ([]byte, error) {
-	f := form.(*multipartForm).dataReader()
-	if f == nil {
-		return nil, errors.New("unable to load content")
+	reader, err := form.Get("data").Field.(*forms.FileField).Open()
+	if err != nil {
+		return nil, err
 	}
-	defer f.Close() //nolint:errcheck
+	defer reader.Close() //nolint:errcheck
 
-	dec := json.NewDecoder(f)
-	err := dec.Decode(&adapter.Items)
+	dec := json.NewDecoder(reader)
+	err = dec.Decode(&adapter.Items)
 	if err != nil {
 		form.AddErrors("data", forms.Gettext("Empty or invalid import file"))
 		return nil, nil

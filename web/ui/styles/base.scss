@@ -25,6 +25,10 @@ body.js {
     }
   }
 
+  ::selection {
+    @apply bg-blue-700 text-gray-light;
+  }
+
   button {
     * {
       pointer-events: none;

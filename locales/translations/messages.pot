@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-08-20 18:27+0000\n"
+"POT-Creation-Date: 2024-08-22 19:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -117,7 +117,7 @@ msgstr ""
 #: assets/templates/admin/user_list.jet.html:44
 #: assets/templates/bookmarks/collection.jet.html:22
 #: assets/templates/bookmarks/components/card.jet.html:90
-#: assets/templates/bookmarks/import/form-browser.jet.html:42
+#: assets/templates/bookmarks/import/form-browser.jet.html:49
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:35
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
 #: assets/templates/bookmarks/import/form-text.jet.html:36
@@ -735,19 +735,12 @@ msgstr ""
 msgid "Instructions for Chrome"
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-browser.jet.html:34
-#: assets/templates/bookmarks/import/form-goodlinks.jet.html:27
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:42
-#: assets/templates/bookmarks/import/form-text.jet.html:28
-msgid "File"
+#: assets/templates/bookmarks/import/form-browser.jet.html:42
+msgid "Convert section titles to labels"
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-browser.jet.html:41
-#: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:49
-#: assets/templates/bookmarks/import/form-text.jet.html:35
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:69
-msgid "Import Bookmarks"
+#: assets/templates/bookmarks/import/form-browser.jet.html:44
+msgid "Adds a label on links, based on their section title"
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
@@ -792,6 +785,21 @@ msgid ""
 "currently\n"
 "    see in Pocket.\n"
 "  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:34
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:27
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:42
+#: assets/templates/bookmarks/import/form-text.jet.html:28
+msgid "File"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:48
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:49
+#: assets/templates/bookmarks/import/form-text.jet.html:35
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:69
+msgid "Import Bookmarks"
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
@@ -1430,31 +1438,27 @@ msgstr ""
 msgid "Admin : Write Only"
 msgstr ""
 
-#: internal/bookmarks/importer/browser.go:49
+#: internal/bookmarks/importer/browser.go:50
 msgid "Browser Bookmarks"
 msgstr ""
 
-#: internal/bookmarks/importer/browser.go:65
-#: internal/bookmarks/importer/pocket_file.go:67
-msgid "Unabled to read HTML content"
-msgstr ""
-
-#: internal/bookmarks/importer/browser.go:109
-#: internal/bookmarks/importer/goodlinks.go:61
-#: internal/bookmarks/importer/pocket_file.go:122
-#: internal/bookmarks/importer/text.go:50
-msgid "Empty or invalid import file"
-msgstr ""
-
-#: internal/bookmarks/importer/forms.go:110
-msgid "Invalid Content-Type"
-msgstr ""
-
-#: internal/bookmarks/importer/goodlinks.go:44
+#: internal/bookmarks/importer/goodlinks.go:43
 msgid "GoodLinks Export File"
 msgstr ""
 
-#: internal/bookmarks/importer/text.go:24
+#: internal/bookmarks/importer/browser.go:123
+#: internal/bookmarks/importer/goodlinks.go:62
+#: internal/bookmarks/importer/pocket_file.go:124
+#: internal/bookmarks/importer/text.go:52
+msgid "Empty or invalid import file"
+msgstr ""
+
+#: internal/bookmarks/importer/browser.go:69
+#: internal/bookmarks/importer/pocket_file.go:69
+msgid "Unabled to read HTML content"
+msgstr ""
+
+#: internal/bookmarks/importer/text.go:23
 msgid "Text File"
 msgstr ""
 
@@ -1581,7 +1585,7 @@ msgstr ""
 
 #: internal/bookmarks/routes/views_import.go:28
 #: internal/bookmarks/routes/views_import.go:37
-#: internal/bookmarks/routes/views_import.go:72
+#: internal/bookmarks/routes/views_import.go:66
 msgid "Import"
 msgstr ""
 
@@ -1637,7 +1641,7 @@ msgstr ""
 msgid "an unexpected error has occurred"
 msgstr ""
 
-#: internal/bookmarks/importer/forms.go:103 pkg/forms/validators.go:14
+#: pkg/forms/validators.go:14
 msgid "field is required"
 msgstr ""
 

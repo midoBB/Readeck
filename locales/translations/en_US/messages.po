@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-08-20 18:27+0000\n"
+"POT-Creation-Date: 2024-08-22 19:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -749,6 +749,14 @@ msgid "File"
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
+msgid "Convert section titles to labels"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-browser.jet.html
+msgid "Adds a label on links, based on their section title"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-browser.jet.html
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
@@ -1428,14 +1436,6 @@ msgstr ""
 msgid "Empty or invalid import file"
 msgstr ""
 
-#: internal/bookmarks/importer/forms.go pkg/forms/validators.go
-msgid "field is required"
-msgstr ""
-
-#: internal/bookmarks/importer/forms.go
-msgid "Invalid Content-Type"
-msgstr ""
-
 #: internal/bookmarks/importer/goodlinks.go
 msgid "GoodLinks Export File"
 msgstr ""
@@ -1619,6 +1619,10 @@ msgstr ""
 
 #: pkg/forms/forms.go
 msgid "an unexpected error has occurred"
+msgstr ""
+
+#: pkg/forms/validators.go
+msgid "field is required"
 msgstr ""
 
 #: pkg/forms/validators.go
@@ -1855,4 +1859,7 @@ msgstr ""
 msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr ""
+
+#~ msgid "Invalid Content-Type"
+#~ msgstr ""
 

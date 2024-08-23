@@ -1139,7 +1139,7 @@ msgid ""
 "Here are your current system information. Please include them if you report "
 "a bug."
 msgstr ""
-"Hier findest du die aktuellen Systeminformationen. Bitte gib diese an,wenn "
+"Hier findest du die aktuellen Systeminformationen. Bitte gib diese an, wenn "
 "du einen Fehler meldest."
 
 #: assets/templates/docs/about.jet.html
@@ -1698,7 +1698,7 @@ msgstr "Sammlung durchsuchen: %s"
 
 #: internal/bookmarks/routes/views_bookmarks.go
 msgid "All your Bookmarks"
-msgstr "All deine Lesezeichen"
+msgstr "Alle Lesezeichen"
 
 #: internal/bookmarks/routes/views_bookmarks.go
 msgid "Bookmark Search"

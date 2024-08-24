@@ -25,6 +25,10 @@ exports.setConfig = function (config) {
       config.stripIdOrClass = ["tagline", "tagline_hr"]
       break
 
+    case $.domain == "fastcompany.com":
+      config.replaceStrings = []
+      break
+
     case $.domain == "longform.org":
       config.singlePageLinkSelectors.push(
         "//a[@href][@class='post__link']/@href",

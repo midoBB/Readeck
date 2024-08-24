@@ -2,20 +2,21 @@
 # SPDX-FileCopyrightText: © 2024 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CZ 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-08-24 10:52+0000\n"
-"PO-Revision-Date: 2024-06-02 17:13+0200\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2024-08-25 15:18+0000\n"
+"Last-Translator: Joedmin <Joedmin@users.noreply.translate.codeberg.org>\n"
+"Language-Team: Czech <https://translate.codeberg.org/projects/readeck/"
+"application/cs/>\n"
 "Language: cs_CZ\n"
-"Language-Team: marapa <mara.pavelka@gmail.com>\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n>=2 && n<=4 ? 1 : 2);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 5.7\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -785,11 +786,11 @@ msgstr "Soubor"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
 msgid "Convert section titles to labels"
-msgstr ""
+msgstr "Převést názvy sekcí na štítky"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
 msgid "Adds a label on links, based on their section title"
-msgstr ""
+msgstr "Přidá popisek k odkazům na základě jejich nadpisu sekce"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
@@ -2002,4 +2003,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Invalid Content-Type"
 #~ msgstr "Neplatný typ obsahu"
-

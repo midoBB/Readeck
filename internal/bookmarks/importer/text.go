@@ -7,7 +7,6 @@ package importer
 import (
 	"bufio"
 	"encoding/json"
-	"errors"
 	"io"
 	"slices"
 	"strings"
@@ -25,17 +24,20 @@ func (adapter *textAdapter) Name(tr forms.Translator) string {
 }
 
 func (adapter *textAdapter) Form() forms.Binder {
-	return newMultipartForm()
+	return forms.Must(
+		forms.NewFileField("data", forms.Required),
+		forms.NewBooleanField("labels_from_titles"),
+	)
 }
 
 func (adapter *textAdapter) Params(form forms.Binder) ([]byte, error) {
-	f := form.(*multipartForm).dataReader()
-	if f == nil {
-		return nil, errors.New("unable to load content")
+	reader, err := form.Get("data").Field.(*forms.FileField).Open()
+	if err != nil {
+		return nil, err
 	}
-	defer f.Close() //nolint:errcheck
+	defer reader.Close() //nolint:errcheck
 
-	scanner := bufio.NewScanner(f)
+	scanner := bufio.NewScanner(reader)
 	for scanner.Scan() {
 		b, err := newURLBookmark(strings.TrimSpace(scanner.Text()))
 		if err == nil && b.URL() != "" && !slices.Contains(adapter.URLs, b.URL()) {

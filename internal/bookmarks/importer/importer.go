@@ -134,6 +134,27 @@ func LoadAdapter(name string) ImportLoader {
 	}
 }
 
+// NewImportForm returns a [forms.Form] combining common fields
+// and fields defined by the import adapter.
+func NewImportForm(adapter ImportLoader) *forms.Form {
+	allFields := []forms.Field{}
+	for _, f := range adapter.Form().Fields() {
+		allFields = append(allFields, f.Field)
+	}
+
+	// f := &ImportForm{
+	f := forms.Must(
+		append([]forms.Field{
+			forms.NewTextField("label", forms.Trim),
+			forms.NewBooleanField("ignore_duplicates", forms.RequiredOrNil),
+		}, allFields...)...,
+	)
+
+	f.Get("ignore_duplicates").Set(true)
+
+	return f
+}
+
 // Import performs the iteration on its adapter and import every item.
 func (imp importer) Import(f func([]int)) {
 	ids := []int{}

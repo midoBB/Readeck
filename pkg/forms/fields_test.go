@@ -8,7 +8,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
+	"mime/multipart"
 	"net/url"
+	"strings"
 	"testing"
 	"time"
 
@@ -471,6 +474,72 @@ func TestDatetimeField(t *testing.T) {
 				testField(t, test, field, field.UnmarshalText)
 			})
 		}
+	})
+}
+
+func TestMultipartField(t *testing.T) {
+	t.Run("multipart", func(t *testing.T) {
+		assert := require.New(t)
+
+		txt := `
+--foo
+Content-Disposition: form-data; name="data"; filename="blob"
+Content-Type: application/octet-stream
+
+test value
+abc
+--foo--
+		`
+		mr := multipart.NewReader(strings.NewReader(txt), "foo")
+		f, err := mr.ReadForm(2 << 20)
+		assert.NoError(err)
+		part := f.File["data"][0]
+
+		field := forms.NewFileField("data")
+		assert.True(field.Set(part))
+
+		r, err := field.Open()
+		assert.NoError(err)
+		defer assert.NoError(r.Close())
+
+		value, err := io.ReadAll(r)
+		assert.NoError(err)
+		assert.Equal("test value\nabc", string(value))
+	})
+
+	t.Run("reader", func(t *testing.T) {
+		assert := require.New(t)
+		txt := "test value\nabc"
+
+		field := forms.NewFileField("data")
+		assert.True(field.Set(strings.NewReader(txt)))
+
+		r, err := field.Open()
+		assert.NoError(err)
+		defer assert.NoError(r.Close())
+
+		value, err := io.ReadAll(r)
+		assert.NoError(err)
+		assert.Equal("test value\nabc", string(value))
+	})
+
+	t.Run("unset", func(t *testing.T) {
+		assert := require.New(t)
+		field := forms.NewFileField("data")
+
+		r, err := field.Open()
+		assert.ErrorIs(err, forms.ErrInvalidValue)
+		assert.Nil(r)
+	})
+
+	t.Run("invalid", func(t *testing.T) {
+		assert := require.New(t)
+		field := forms.NewFileField("data")
+		assert.False(field.Set(0))
+
+		r, err := field.Open()
+		assert.ErrorIs(err, forms.ErrInvalidValue)
+		assert.Nil(r)
 	})
 }
 

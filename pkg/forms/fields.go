@@ -9,6 +9,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
+	"mime/multipart"
 	"strconv"
 	"strings"
 	"time"
@@ -467,6 +469,112 @@ func (f *DatetimeField) String() string {
 	}
 
 	return f.value.Format("2006-01-02")
+}
+
+/* File field
+   --------------------------------------------------------------- */
+
+// FileOpener describes an opener interface. Its [Open] function must return an [io.ReadCloser].
+type FileOpener interface {
+	Open() (io.ReadCloser, error)
+}
+
+// multipartFileOpener is a [FileOpener] implementation wrapping [multipart.FileHeader].
+type multipartFileOpener struct {
+	*multipart.FileHeader
+}
+
+// Open implements [FileOpener].
+func (o *multipartFileOpener) Open() (io.ReadCloser, error) {
+	return o.FileHeader.Open()
+}
+
+// readerOpener is a [FileOpener] implementation wrapping an [io.Reader].
+type readerOpener struct {
+	io.Reader
+}
+
+// Open implements [FileOpener].
+func (o *readerOpener) Open() (io.ReadCloser, error) {
+	if r, ok := o.Reader.(io.ReadCloser); ok {
+		return r, nil
+	}
+
+	return io.NopCloser(o.Reader), nil
+}
+
+// FileField is a file field. It receives a [FileOpener] as a value and thus, wont't be deserialize
+// by classic unmarshal functions but it can be open with its [FileField.Open] function.
+type FileField struct {
+	*BaseField
+	value FileOpener
+}
+
+// NewFileField returns a new [FileField] instance.
+func NewFileField(name string, validators ...FieldValidator) *FileField {
+	return &FileField{
+		BaseField: NewBaseField(name, validators...),
+	}
+}
+
+// Set sets the field value. It can receive a [*multipart.FileHeader] or a [io.Reader].
+// The value is set to a [FileOpener].
+func (f *FileField) Set(value interface{}) bool {
+	f.BaseField.SetNil(value)
+	if f.IsNil() {
+		f.value = nil
+		f.SetBind()
+		return true
+	}
+
+	switch t := value.(type) {
+	case *multipart.FileHeader:
+		f.value = &multipartFileOpener{t}
+	case io.Reader:
+		f.value = &readerOpener{t}
+	}
+
+	if f.value != nil {
+		f.SetBind()
+		return true
+	}
+
+	f.SetNil(nil)
+	return false
+}
+
+// Value returns nil if the value's null or "(file reader)" when there's a [readerOpener] attached.
+func (f *FileField) Value() interface{} {
+	if f.value == nil {
+		return nil
+	}
+	return "(file reader)"
+}
+
+// String always returns an empty string.
+func (f *FileField) String() string {
+	if f.IsNil() {
+		return ""
+	}
+	return "\u0000"
+}
+
+// UnmarshalJSON is not implemented.
+func (f *FileField) UnmarshalJSON(_ []byte) error {
+	return nil
+}
+
+// UnmarshalText is not implemented.
+func (f *FileField) UnmarshalText(_ []byte) error {
+	return nil
+}
+
+// Open implements [FileOpener] on the field.
+func (f *FileField) Open() (io.ReadCloser, error) {
+	if f.value == nil {
+		return nil, ErrInvalidValue
+	}
+	return f.value.Open()
 }
 
 // Choices is a list of valid values (value and name).

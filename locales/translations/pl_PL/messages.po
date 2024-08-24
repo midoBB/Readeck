@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-08-20 18:27+0000\n"
+"POT-Creation-Date: 2024-08-22 19:24+0000\n"
 "PO-Revision-Date: 2024-05-25 19:41+0200\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language: pl_PL\n"
@@ -792,6 +792,14 @@ msgstr "Instrukcje dla Chrome"
 #: assets/templates/bookmarks/import/form-text.jet.html
 msgid "File"
 msgstr "Plik"
+
+#: assets/templates/bookmarks/import/form-browser.jet.html
+msgid "Convert section titles to labels"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-browser.jet.html
+msgid "Adds a label on links, based on their section title"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
@@ -1579,14 +1587,6 @@ msgstr "Nie można przeczytać zawartości HTML"
 msgid "Empty or invalid import file"
 msgstr "Pusty lub niepoprawny plik tekstowy"
 
-#: internal/bookmarks/importer/forms.go pkg/forms/validators.go
-msgid "field is required"
-msgstr "pole jest wymagane"
-
-#: internal/bookmarks/importer/forms.go
-msgid "Invalid Content-Type"
-msgstr "Niepoprawny Content-Type"
-
 #: internal/bookmarks/importer/goodlinks.go
 msgid "GoodLinks Export File"
 msgstr ""
@@ -1771,6 +1771,10 @@ msgstr "Token został zaktualizowany."
 #: pkg/forms/forms.go
 msgid "an unexpected error has occurred"
 msgstr "wystąpił nieoczekiwany błąd"
+
+#: pkg/forms/validators.go
+msgid "field is required"
+msgstr "pole jest wymagane"
 
 #: pkg/forms/validators.go
 msgid "not a valid email address"
@@ -2006,4 +2010,7 @@ msgstr "%m/%d/%Y"
 msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
+
+#~ msgid "Invalid Content-Type"
+#~ msgstr "Niepoprawny Content-Type"
 

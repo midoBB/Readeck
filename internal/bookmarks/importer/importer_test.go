@@ -289,7 +289,8 @@ func TestFileAdapters(t *testing.T) {
 
 	for i, test := range tests {
 		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
-			f := test.adapter.Form()
+			f := importer.NewImportForm(test.adapter)
+
 			f.Get("data").Set(strings.NewReader(test.data))
 			f.Bind()
 			data, err := test.adapter.Params(f)
@@ -301,7 +302,7 @@ func TestFileAdapters(t *testing.T) {
 
 func TestWallabagImporter(t *testing.T) {
 	adapter := importer.LoadAdapter("wallabag")
-	f := adapter.Form()
+	f := importer.NewImportForm(adapter)
 	f.Get("url").Set("https://wallabag/")
 	f.Get("username").Set("user")
 	f.Get("password").Set("pass")

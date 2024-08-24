@@ -6,13 +6,13 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <h2 class="title text-h3">{{ gettext("Options") }}</h2>
 {{- yield textField(
-  field=.Options.Get("label"),
+  field=.Form.Get("label"),
   label=gettext("Label"),
   class="field-h",
   help=gettext("A label to add to all imported bookmarks"),
 ) -}}
 {{- yield checkboxField(
-  field=.Options.Get("ignore_duplicates"),
+  field=.Form.Get("ignore_duplicates"),
   label=gettext("Ignore links already in your bookmarks"),
   class="field-h",
 ) -}}

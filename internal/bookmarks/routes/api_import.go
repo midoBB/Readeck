@@ -30,11 +30,9 @@ func (api *apiRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 		api.srv.TextMessage(w, r, http.StatusNotFound, fmt.Sprintf(`Import from "%s" does not exist.`, source))
 		return
 	}
-	options := importer.NewOptionForm()
-	f := adapter.Form()
 
-	forms.Bind(options, r)
-	forms.Bind(f, r)
+	f := importer.NewImportForm(adapter)
+	forms.BindMultipart(f, r)
 
 	// If the form is valid, we can load the adapter parameters.
 	var data []byte
@@ -56,8 +54,8 @@ func (api *apiRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ignoreDuplicates := true
-	if !options.Get("ignore_duplicates").IsNil() {
-		ignoreDuplicates = options.Get("ignore_duplicates").Value().(bool)
+	if !f.Get("ignore_duplicates").IsNil() {
+		ignoreDuplicates = f.Get("ignore_duplicates").Value().(bool)
 	}
 
 	// Create the import task
@@ -68,7 +66,7 @@ func (api *apiRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 		UserID:          auth.GetRequestUser(r).ID,
 		RequestID:       api.srv.GetReqID(r),
 		AllowDuplicates: !ignoreDuplicates,
-		Label:           options.Get("label").String(),
+		Label:           f.Get("label").String(),
 	})
 	if err != nil {
 		api.srv.Error(w, r, err)

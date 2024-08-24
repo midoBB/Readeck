@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-08-22 19:24+0000\n"
+"POT-Creation-Date: 2024-08-24 10:52+0000\n"
 "PO-Revision-Date: 2024-07-13 07:23+0000\n"
 "Last-Translator: shichen437 <shichen437@gmail.com>\n"
 "Language: zh_CN\n"
@@ -236,8 +236,7 @@ msgid "Welcome to Readeck!"
 msgstr "欢迎使用 Readeck!"
 
 #: assets/templates/auth/onboarding.jet.html
-msgid ""
-"We're delighted to have you on board; one more step and you're good to go."
+msgid "We're delighted to have you on board; one more step and you're good to go."
 msgstr "我们很高兴见到您，还有一步就完成了。"
 
 #: assets/templates/auth/onboarding.jet.html
@@ -253,10 +252,11 @@ msgstr "请注意："
 #: assets/templates/auth/onboarding.jet.html
 msgid ""
 "\n"
-"  Your email address is optionnal and will never leave this installation.\n"
+"  Your email address is optionnal and will never leave this installation."
+"\n"
 "  It will never be collected, transferred or sold.\n"
-"  It will <strong>only</strong> be used, should you need it, for password "
-"recovery and internal notifications.\n"
+"  It will <strong>only</strong> be used, should you need it, for password"
+" recovery and internal notifications.\n"
 "  "
 msgstr ""
 "\n"
@@ -340,8 +340,8 @@ msgstr "你还没有任何高亮。"
 #: assets/templates/bookmarks/annotation_list.jet.html
 msgid ""
 "\n"
-"        Once you start highlighting parts of your saved articles, they will "
-"appear on this page\n"
+"        Once you start highlighting parts of your saved articles, they "
+"will appear on this page\n"
 "        for you to easily find them.\n"
 "      "
 msgstr "你可以在保存的页面上高亮部分，它们将出现在此页面上，方便你找到它们。"
@@ -349,8 +349,8 @@ msgstr "你可以在保存的页面上高亮部分，它们将出现在此页面
 #: assets/templates/bookmarks/annotation_list.jet.html
 #, python-format
 msgid ""
-"Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</"
-"a>."
+"Read more about highlights in the <a class=\"%s\" "
+"href=\"%s\">documentation</a>."
 msgstr "阅读<a class=\"%s\" href=\"%s\">文档</a>了解更多关于高亮的信息。"
 
 #: assets/templates/bookmarks/base.jet.html
@@ -516,9 +516,7 @@ msgid ""
 "          criteria, it will appear immediately.\n"
 "          Here are some examples:\n"
 "        "
-msgstr ""
-"集合让你轻松地组织并导出你的书签，通过保存你选择的搜索请求。当你创建一个新的"
-"书签，它与集合的搜索请求匹配，它将立即出现。以下是一些示例："
+msgstr "集合让你轻松地组织并导出你的书签，通过保存你选择的搜索请求。当你创建一个新的书签，它与集合的搜索请求匹配，它将立即出现。以下是一些示例："
 
 #: assets/templates/bookmarks/collection_list.jet.html
 msgid "The unread articles (no photos or videos)"
@@ -820,12 +818,11 @@ msgid ""
 "\n"
 "    Please note that Pocket does not allow the article content to be "
 "exported.\n"
-"    This could lead to different results in Readeck than what you currently\n"
+"    This could lead to different results in Readeck than what you "
+"currently\n"
 "    see in Pocket.\n"
 "  "
-msgstr ""
-"请注意，Pocket 不允许导出文章内容。这可能会导致在 Readeck 中显示的链接与 "
-"Pocket 中显示的链接不同。\n"
+msgstr "请注意，Pocket 不允许导出文章内容。这可能会导致在 Readeck 中显示的链接与 Pocket 中显示的链接不同。\n"
 
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
@@ -839,9 +836,7 @@ msgid ""
 "fetch\n"
 "    all of them and save them in your bookmark list.\n"
 "  "
-msgstr ""
-"上传一个文本文件，其中每行一个链接，Readeck 将抓取所有链接并保存到书签列表"
-"中。\n"
+msgstr "上传一个文本文件，其中每行一个链接，Readeck 将抓取所有链接并保存到书签列表中。\n"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
@@ -853,14 +848,13 @@ msgid ""
 "\n"
 "    To import your articles from Wallabag, you must first create an API "
 "client\n"
-"    in Wallabag's <strong>API clients management</strong> menu. This will "
-"give you\n"
+"    in Wallabag's <strong>API clients management</strong> menu. This will"
+" give you\n"
 "    a <strong>Client ID</strong> and <strong>Client secret</strong>.\n"
 "  "
 msgstr ""
-"从Wallabag 导入文章，你需要在 Wallabag 的 <strong>API 客户端管理</strong> 菜"
-"单中创建一个 API 客户端，这将给你一个 <strong>Client ID</strong> 和 "
-"<strong>Client secret</strong>。\n"
+"从Wallabag 导入文章，你需要在 Wallabag 的 <strong>API 客户端管理</strong> 菜单中创建一个 API "
+"客户端，这将给你一个 <strong>Client ID</strong> 和 <strong>Client secret</strong>。\n"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
 msgid ""
@@ -954,7 +948,8 @@ msgstr "保存链接"
 #: assets/templates/bookmarks/index.jet.html
 #, python-format
 msgid ""
-"\"%s\" is not a valid address. Did you mean to search your bookmarks for %s?"
+"\"%s\" is not a valid address. Did you mean to search your bookmarks for "
+"%s?"
 msgstr "\"%s\" 不是一个有效的地址。 你想搜索书签中的 %s 吗？"
 
 #: assets/templates/bookmarks/index.jet.html
@@ -966,15 +961,15 @@ msgstr "你还没有书签。<br> 复制一个链接到上面的字段中，开�
 #: assets/templates/bookmarks/index.jet.html
 #, python-format
 msgid ""
-"Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentation</"
-"a>."
+"Read more about bookmarks in the <a class=\"%s\" "
+"href=\"%s\">documentation</a>."
 msgstr "阅读<a class=\"%s\" href=\"%s\">文档</a>了解更多关于书签的信息。"
 
 #: assets/templates/bookmarks/index.jet.html
 msgid ""
 "\n"
-"          Would you like to import from a similar tool or from a file with "
-"existing bookmarks?\n"
+"          Would you like to import from a similar tool or from a file "
+"with existing bookmarks?\n"
 "          Try Readeck's import tool.\n"
 "        "
 msgstr ""
@@ -1038,8 +1033,7 @@ msgid ""
 "\n"
 "  Labels let your organize your bookmarks the way you want.\n"
 "  You can set anything to a label, including emojis!\n"
-msgstr ""
-"标签让你按照自己的方式组织书签。你可以设置任何内容到标签，包括表情符号！"
+msgstr "标签让你按照自己的方式组织书签。你可以设置任何内容到标签，包括表情符号！"
 
 #: assets/templates/docs/about.jet.html assets/templates/docs/base.jet.html
 #: docs/http.go
@@ -1060,8 +1054,8 @@ msgstr "系统信息"
 
 #: assets/templates/docs/about.jet.html
 msgid ""
-"Here are your current system information. Please include them if you report "
-"a bug."
+"Here are your current system information. Please include them if you "
+"report a bug."
 msgstr "你的系统信息如下。如果你反馈了一个问题，请包含它们。"
 
 #: assets/templates/docs/about.jet.html
@@ -1166,9 +1160,7 @@ msgid ""
 "a new password for your readeck account.\n"
 "\n"
 "%s\n"
-msgstr ""
-"你好，你（或者其他人）在尝试更改 Readeck 账户的密码时输入了这个电子邮件地址"
-"（%s）。"
+msgstr "你好，你（或者其他人）在尝试更改 Readeck 账户的密码时输入了这个电子邮件地址（%s）。"
 
 #: assets/templates/emails/recover.tmpl
 #, python-format
@@ -1187,9 +1179,7 @@ msgid ""
 "you used when creating your account.\n"
 "\n"
 "If you are not a Readeck user, please ignore this message.\n"
-msgstr ""
-"你好，你（或者其他人）在尝试更改 Readeck 账户的密码时输入了这个电子邮件地址"
-"（%s）。"
+msgstr "你好，你（或者其他人）在尝试更改 Readeck 账户的密码时输入了这个电子邮件地址（%s）。"
 
 #: assets/templates/emails/recover.tmpl
 msgid "Kind regards"
@@ -1255,13 +1245,11 @@ msgstr "密码将在几秒钟后删除。"
 #: assets/templates/profile/credential.jet.html
 msgid ""
 "\n"
-"    Your application password was created. Please copy the password below "
-"and write it down\n"
+"    Your application password was created. Please copy the password below"
+" and write it down\n"
 "    or store it in a password manager.\n"
 "  "
-msgstr ""
-"你的应用程序密码已创建。请复制下面的密码，并将其写下来或将其存储在密码管理器"
-"中。"
+msgstr "你的应用程序密码已创建。请复制下面的密码，并将其写下来或将其存储在密码管理器中。"
 
 #: assets/templates/profile/credential.jet.html
 msgid "Your password:"
@@ -1288,8 +1276,8 @@ msgstr "启用"
 #: assets/templates/profile/credential.jet.html
 msgid ""
 "\n"
-"    You can limit the permissions granted to this password by choosing one "
-"or more\n"
+"    You can limit the permissions granted to this password by choosing "
+"one or more\n"
 "    group of permissions below.<br>\n"
 "    Leave all the choices blank to grant all your permissions to this "
 "password.\n"
@@ -1360,8 +1348,8 @@ msgstr "过期时间"
 #: assets/templates/profile/token.jet.html
 msgid ""
 "\n"
-"    You can limit the permissions granted to this token by choosing one or "
-"more\n"
+"    You can limit the permissions granted to this token by choosing one "
+"or more\n"
 "    group of permissions below.<br>\n"
 "    Leave all the choices blank to grant all your permissions to this "
 "token.\n"
@@ -1382,11 +1370,11 @@ msgstr "你的 API token"
 
 #: assets/templates/profile/token.jet.html
 msgid ""
-"You can use this token by passing it as an <strong>Authorization: Bearer</"
-"strong> HTTP header."
+"You can use this token by passing it as an <strong>Authorization: "
+"Bearer</strong> HTTP header."
 msgstr ""
-"你可以通过将此 token 作为一个 <strong>Authorization: Bearer</strong> HTTP 头"
-"传递来访问 Readeck API。"
+"你可以通过将此 token 作为一个 <strong>Authorization: Bearer</strong> HTTP 头传递来访问 "
+"Readeck API。"
 
 #: assets/templates/profile/token_list.jet.html
 msgid "My API Tokens"
@@ -1398,14 +1386,13 @@ msgid ""
 "  An API Token is a key that grants you (or another tool like a browser "
 "extension)\n"
 "  access to the Readeck API.\n"
-msgstr ""
-"API Token 是一个密钥，它允许你（或者另一个工具，如浏览器扩展）访问 Readeck "
-"API。"
+msgstr "API Token 是一个密钥，它允许你（或者另一个工具，如浏览器扩展）访问 Readeck API。"
 
 #: assets/templates/profile/token_list.jet.html
 #, python-format
 msgid ""
-"Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
+"Please read the <a href=\"%s\">API Documentation</a> if you plan to use "
+"it."
 msgstr "请阅读 <a href=\"%s\">API 文档</a>，了解如何使用它。"
 
 #: assets/templates/profile/token_list.jet.html
@@ -1654,7 +1641,7 @@ msgstr "Token 已修改。"
 msgid "an unexpected error has occurred"
 msgstr "发生了未预期的错误。"
 
-#: pkg/forms/validators.go internal/bookmarks/importer/forms.go
+#: pkg/forms/validators.go
 msgid "field is required"
 msgstr "必填字段"
 
@@ -1893,6 +1880,6 @@ msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
 
-#: internal/bookmarks/importer/forms.go
-msgid "Invalid Content-Type"
-msgstr "无效Content-Type"
+#~ msgid "Invalid Content-Type"
+#~ msgstr "无效Content-Type"
+

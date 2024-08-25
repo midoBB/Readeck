@@ -2,20 +2,22 @@
 # SPDX-FileCopyrightText: © 2023 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-08-24 10:52+0000\n"
-"PO-Revision-Date: 2024-07-13 07:23+0000\n"
-"Last-Translator: shichen437 <shichen437@gmail.com>\n"
+"PO-Revision-Date: 2024-08-25 15:18+0000\n"
+"Last-Translator: Outbreak2096 <Outbreak2096@users.noreply.translate.codeberg."
+"org>\n"
+"Language-Team: Chinese (Simplified) <https://translate.codeberg.org/projects/"
+"readeck/application/zh_Hans/>\n"
 "Language: zh_CN\n"
-"Language-Team: shichen437 <shichen437@gmail.com>\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.7\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -761,11 +763,11 @@ msgstr "文件"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
 msgid "Convert section titles to labels"
-msgstr ""
+msgstr "将章节标题转换为标签"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
 msgid "Adds a label on links, based on their section title"
-msgstr ""
+msgstr "根据链接的章节标题添加标签"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
@@ -1882,4 +1884,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Invalid Content-Type"
 #~ msgstr "无效Content-Type"
-

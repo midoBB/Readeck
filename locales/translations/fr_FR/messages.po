@@ -2,20 +2,21 @@
 # SPDX-FileCopyrightText: © 2023 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-09-07 08:26+0000\n"
-"PO-Revision-Date: 2024-08-22 21:27+0200\n"
-"Last-Translator: Readeck <translate@readeck.com>\n"
+"PO-Revision-Date: 2024-09-07 08:32+0000\n"
+"Last-Translator: olivier <olivier@users.noreply.translate.codeberg.org>\n"
+"Language-Team: French <https://translate.codeberg.org/projects/readeck/"
+"application/fr/>\n"
 "Language: fr_FR\n"
-"Language-Team: Readeck <translate@readeck.com>\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.7\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -433,7 +434,7 @@ msgstr "Le bookmark est en cours de chargement"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html
 msgid "Bookmark not found"
-msgstr ""
+msgstr "Bookmark non trouvé"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html
 msgid "Shared link"
@@ -1143,27 +1144,27 @@ msgstr ""
 
 #: assets/templates/docs/about.jet.html
 msgid "Project"
-msgstr ""
+msgstr "Projet"
 
 #: assets/templates/docs/about.jet.html
 msgid "Main website"
-msgstr ""
+msgstr "Site principal"
 
 #: assets/templates/docs/about.jet.html
 msgid "Sources and issues"
-msgstr ""
+msgstr "Sources et rapports"
 
 #: assets/templates/docs/about.jet.html
 msgid "How to contribute"
-msgstr ""
+msgstr "Comment contribuer"
 
 #: assets/templates/docs/about.jet.html
 msgid "Community Forum"
-msgstr ""
+msgstr "Forum communautaire"
 
 #: assets/templates/docs/about.jet.html
 msgid "Matrix Chat"
-msgstr ""
+msgstr "Discussions sur Matrix"
 
 #: assets/templates/docs/about.jet.html
 msgid "License"
@@ -2040,4 +2041,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Invalid Content-Type"
 #~ msgstr "Type de contenu invalide"
-

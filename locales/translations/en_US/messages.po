@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-08-24 10:52+0000\n"
+"POT-Creation-Date: 2024-09-07 08:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -406,6 +406,10 @@ msgstr ""
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark is loading"
+msgstr ""
+
+#: assets/templates/bookmarks/bookmark_missing.jet.html
+msgid "Bookmark not found"
 msgstr ""
 
 #: assets/templates/bookmarks/bookmark_public.jet.html
@@ -1038,6 +1042,30 @@ msgstr ""
 msgid ""
 "Here are your current system information. Please include them if you "
 "report a bug."
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "Project"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "Main website"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "Sources and issues"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "How to contribute"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "Community Forum"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "Matrix Chat"
 msgstr ""
 
 #: assets/templates/docs/about.jet.html

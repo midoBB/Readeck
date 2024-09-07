@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-08-24 10:52+0000\n"
+"POT-Creation-Date: 2024-09-07 08:26+0000\n"
 "PO-Revision-Date: 2024-08-22 21:27+0200\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language: fr_FR\n"
@@ -430,6 +430,10 @@ msgstr "Bookmark en cours de chargement"
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark is loading"
 msgstr "Le bookmark est en cours de chargement"
+
+#: assets/templates/bookmarks/bookmark_missing.jet.html
+msgid "Bookmark not found"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark_public.jet.html
 msgid "Shared link"
@@ -1136,6 +1140,30 @@ msgid ""
 msgstr ""
 "Voici vos informations système. Merci de les inclure si vous signalez un "
 "problem."
+
+#: assets/templates/docs/about.jet.html
+msgid "Project"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "Main website"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "Sources and issues"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "How to contribute"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "Community Forum"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "Matrix Chat"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html
 msgid "License"

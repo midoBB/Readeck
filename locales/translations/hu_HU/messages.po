@@ -6,18 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-08-24 10:52+0000\n"
+"POT-Creation-Date: 2024-09-07 08:26+0000\n"
 "PO-Revision-Date: 2024-08-27 03:18+0000\n"
-"Last-Translator: User240803 <User240803@users.noreply.translate.codeberg.org>"
-"\n"
-"Language-Team: Hungarian <https://translate.codeberg.org/projects/readeck/"
-"application/hu/>\n"
+"Last-Translator: User240803 "
+"<User240803@users.noreply.translate.codeberg.org>\n"
 "Language: hu_HU\n"
+"Language-Team: Hungarian "
+"<https://translate.codeberg.org/projects/readeck/application/hu/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -432,6 +431,10 @@ msgstr "Könyvjelző betöltése"
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark is loading"
 msgstr "Könyvjelző töltődik"
+
+#: assets/templates/bookmarks/bookmark_missing.jet.html
+msgid "Bookmark not found"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark_public.jet.html
 msgid "Shared link"
@@ -1137,6 +1140,30 @@ msgid ""
 msgstr ""
 "Itt vannak az Ön jelenlegi rendszeradatai. Kérjük, adja meg ezeket, ha "
 "hibát jelent."
+
+#: assets/templates/docs/about.jet.html
+msgid "Project"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "Main website"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "Sources and issues"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "How to contribute"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "Community Forum"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "Matrix Chat"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html
 msgid "License"
@@ -2013,3 +2040,4 @@ msgstr "%a %b %e %H:%M:%S %y"
 
 #~ msgid "Invalid Content-Type"
 #~ msgstr "Érvénytelen Tartalom-Típus"
+

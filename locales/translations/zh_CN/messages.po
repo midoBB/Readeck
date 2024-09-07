@@ -6,18 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-08-24 10:52+0000\n"
+"POT-Creation-Date: 2024-09-07 08:26+0000\n"
 "PO-Revision-Date: 2024-08-27 03:18+0000\n"
-"Last-Translator: Outbreak2096 <Outbreak2096@users.noreply.translate.codeberg."
-"org>\n"
-"Language-Team: Chinese (Simplified) <https://translate.codeberg.org/projects/"
-"readeck/application/zh_Hans/>\n"
+"Last-Translator: Outbreak2096 "
+"<Outbreak2096@users.noreply.translate.codeberg.org>\n"
 "Language: zh_CN\n"
+"Language-Team: Chinese (Simplified) "
+"<https://translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.7\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -428,6 +427,10 @@ msgstr "加载书签"
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark is loading"
 msgstr "书签正在加载"
+
+#: assets/templates/bookmarks/bookmark_missing.jet.html
+msgid "Bookmark not found"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark_public.jet.html
 msgid "Shared link"
@@ -982,8 +985,7 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"      您的书签现在可以在您的<a class=\"%s\" href=\"%s\">书签列表</a>中找到。"
-"\n"
+"      您的书签现在可以在您的<a class=\"%s\" href=\"%s\">书签列表</a>中找到。\n"
 "      "
 
 #: assets/templates/bookmarks/index.jet.html
@@ -1112,6 +1114,30 @@ msgid ""
 "Here are your current system information. Please include them if you "
 "report a bug."
 msgstr "这是您当前的系统信息。如果您报告错误，请将其包括在内。"
+
+#: assets/templates/docs/about.jet.html
+msgid "Project"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "Main website"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "Sources and issues"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "How to contribute"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "Community Forum"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html
+msgid "Matrix Chat"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html
 msgid "License"
@@ -1976,3 +2002,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Invalid Content-Type"
 #~ msgstr "无效Content-Type"
+

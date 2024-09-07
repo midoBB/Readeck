@@ -157,6 +157,7 @@ func (s *Server) ErrorPages(next http.Handler) http.Handler {
 			r:              r,
 			srv:            s,
 			accept:         accept.NegotiateContentType(r.Header, acceptOffers, "text/html"),
+			errorTemplates: make(map[int]string),
 		}
 
 		next.ServeHTTP(wi, r)
@@ -165,11 +166,12 @@ func (s *Server) ErrorPages(next http.Handler) http.Handler {
 
 type responseWriterInterceptor struct {
 	http.ResponseWriter
-	r           *http.Request
-	srv         *Server
-	accept      string
-	contentType string
-	statusCode  int
+	r              *http.Request
+	srv            *Server
+	accept         string
+	contentType    string
+	statusCode     int
+	errorTemplates map[int]string
 }
 
 // needsOverride returns true when a content-type is text/plain and status >= 400.
@@ -218,10 +220,28 @@ func (w *responseWriterInterceptor) Write(c []byte) (int, error) {
 		return w.ResponseWriter.Write(b)
 	case "text/html":
 		ctx := TC{"Status": w.statusCode}
-		w.srv.RenderTemplate(w.ResponseWriter, w.r, 0, "error", ctx)
+		tpl, ok := w.errorTemplates[w.statusCode]
+		if !ok {
+			tpl = "/error"
+		}
+
+		w.srv.RenderTemplate(w.ResponseWriter, w.r, 0, tpl, ctx)
 	default:
 		return w.ResponseWriter.Write([]byte(http.StatusText(w.statusCode)))
 	}
 
 	return 0, nil
+}
+
+// WithCustomErrorTemplate registers a custom template for an error rendered as HTML.
+// It must be set before any middleware that would trigger an HTTP error.
+func (s *Server) WithCustomErrorTemplate(status int, template string) func(next http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			if w, ok := w.(*responseWriterInterceptor); ok {
+				w.errorTemplates[status] = template
+			}
+			next.ServeHTTP(w, r)
+		})
+	}
 }

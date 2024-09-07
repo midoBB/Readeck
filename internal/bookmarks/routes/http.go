@@ -151,7 +151,10 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 				api.withBookmarkOrdering,
 				api.withBookmarkList,
 			).Get("/{filter:(unread|archives|favorites|articles|videos|pictures)}", h.bookmarkList)
-			r.With(api.withBookmark).Get("/{uid:[a-zA-Z0-9]{18,22}}", h.bookmarkInfo)
+			r.With(
+				api.srv.WithCustomErrorTemplate(404, "/bookmarks/bookmark_missing"),
+				api.withBookmark,
+			).Get("/{uid:[a-zA-Z0-9]{18,22}}", h.bookmarkInfo)
 			r.With(api.withBookmark, api.withSharedLink).
 				Post("/{uid:[a-zA-Z0-9]{18,22}}/share", h.bookmarkShare)
 			r.With(api.withLabelList).Get("/labels", h.labelList)

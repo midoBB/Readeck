@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.15.3] - 2024-09-7
+### Fixed
+- Goodlinks date format in JSON file
+
 ## [0.15.2] - 2024-09-7
 ### Added
 - Documentation in German, by [@FrankDex](https://codeberg.org/FrankDex)

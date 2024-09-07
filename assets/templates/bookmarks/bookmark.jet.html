@@ -29,7 +29,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 <div class="layout layout--bookmark">
   {{ include "/menu" }}
 
-  <turbo-frame id="bookmark-{{ .Item.ID }}" data-controller="turbo-refresh"
+  <turbo-frame id="bookmark-info" data-controller="turbo-refresh"
   data-turbo-refresh-on-value="[data-deleted]"
   data-turbo-refresh-interval-value="3"
   class="bookmark-grid">

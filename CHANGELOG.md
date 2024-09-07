@@ -8,11 +8,11 @@
 - Support for "toread" attribute in browser bookmarks import files (pinboard format)
 - Import from Goodlinks
 
-## Changed
+### Improved
 - Custom error page when a bookmark doesn't exist
-
-## Fixed
 - Improved selected text color in dark mode
+
+### Fixed
 - Support for t.co links, by [@joachimesque](https://codeberg.org/joachimesque)
 - Fixed extraction error with fastcompany.com
 - Stop emptying the resource cache when closing its entry io.Reader

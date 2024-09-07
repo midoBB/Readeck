@@ -21,7 +21,7 @@ type goodlinksAdapter struct {
 type goodlinksItem struct {
 	Link    string        `json:"url"`
 	Title   string        `json:"title"`
-	AddedAt int64         `json:"addedAt"`
+	AddedAt float64       `json:"addedAt"`
 	Tags    types.Strings `json:"tags"`
 	Starred bool          `json:"starred"`
 }
@@ -33,7 +33,7 @@ func (bi *goodlinksItem) URL() string {
 func (bi *goodlinksItem) Meta() (*BookmarkMeta, error) {
 	return &BookmarkMeta{
 		Title:    bi.Title,
-		Created:  time.Unix(bi.AddedAt, 0).UTC(),
+		Created:  time.Unix(int64(bi.AddedAt), 0).UTC(),
 		Labels:   bi.Tags,
 		IsMarked: bi.Starred,
 	}, nil

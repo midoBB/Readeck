@@ -86,7 +86,7 @@ func (api *adminAPI) withUserList(next http.Handler) http.Handler {
 		res.Pagination = api.srv.NewPagination(r, int(count), pf.Limit(), pf.Offset())
 
 		ctx := context.WithValue(r.Context(), ctxUserListKey{}, res)
-		next.ServeHTTP(w, r.Clone(ctx))
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
@@ -103,7 +103,7 @@ func (api *adminAPI) withUser(next http.Handler) http.Handler {
 		}
 
 		ctx := context.WithValue(r.Context(), ctxUserKey{}, u)
-		next.ServeHTTP(w, r.Clone(ctx))
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 

@@ -498,7 +498,7 @@ func (api *apiRouter) withBookmarkFilters(next http.Handler) http.Handler {
 			filters.setType("video")
 		}
 
-		next.ServeHTTP(w, r.Clone(filters.saveContext(r.Context())))
+		next.ServeHTTP(w, r.WithContext(filters.saveContext(r.Context())))
 	})
 }
 
@@ -516,7 +516,7 @@ func (api *apiRouter) withLabel(next http.Handler) http.Handler {
 		filters.Get("labels").Set(fmt.Sprintf(`"%s"`, label))
 		ctx = filters.saveContext(ctx)
 
-		next.ServeHTTP(w, r.Clone(ctx))
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
@@ -524,7 +524,7 @@ func (api *apiRouter) withDefaultLimit(limit int) func(next http.Handler) http.H
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			ctx := context.WithValue(r.Context(), ctxDefaultLimitKey{}, limit)
-			next.ServeHTTP(w, r.Clone(ctx))
+			next.ServeHTTP(w, r.WithContext(ctx))
 		})
 	}
 }
@@ -533,7 +533,7 @@ func (api *apiRouter) withoutPagination(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		f := newContextFilterForm(r.Context(), api.srv.Locale(r))
 		f.noPagination = true
-		next.ServeHTTP(w, r.Clone(f.saveContext(r.Context())))
+		next.ServeHTTP(w, r.WithContext(f.saveContext(r.Context())))
 	})
 }
 
@@ -573,7 +573,7 @@ func (api *apiRouter) withCollectionFilters(next http.Handler) http.Handler {
 			ctx = context.WithValue(ctx, ctxBookmarkOrderKey{}, orderExpressionList{goqu.T("b").Col("created").Desc()})
 		}
 
-		next.ServeHTTP(w, r.Clone(ctx))
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
@@ -685,7 +685,7 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 		if r.Method == http.MethodGet {
 			api.srv.WriteEtag(w, r, tagers...)
 		}
-		api.srv.WithCaching(next).ServeHTTP(w, r.Clone(ctx))
+		api.srv.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
@@ -761,7 +761,7 @@ func (api *apiRouter) withLabelList(next http.Handler) http.Handler {
 		}
 
 		ctx := context.WithValue(r.Context(), ctxLabelListKey{}, res)
-		next.ServeHTTP(w, r.Clone(ctx))
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 

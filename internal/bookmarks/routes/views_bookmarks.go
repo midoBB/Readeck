@@ -42,7 +42,7 @@ func (h *viewsRouter) withBaseContext(next http.Handler) http.Handler {
 
 		ctx := context.WithValue(r.Context(), ctxBaseContextKey{}, c)
 
-		next.ServeHTTP(w, r.Clone(ctx))
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 

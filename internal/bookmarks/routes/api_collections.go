@@ -138,7 +138,7 @@ func (api *apiRouter) withColletionList(next http.Handler) http.Handler {
 
 		ctx := context.WithValue(r.Context(), ctxCollectionListKey{}, res)
 
-		next.ServeHTTP(w, r.Clone(ctx))
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
@@ -162,7 +162,7 @@ func (api *apiRouter) withCollection(next http.Handler) http.Handler {
 			ctx = context.WithValue(ctx, ctxBookmarkOrderKey{}, orderExpressionList{goqu.T("b").Col("created").Desc()})
 		}
 
-		next.ServeHTTP(w, r.Clone(ctx))
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 

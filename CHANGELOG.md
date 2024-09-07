@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.15.2] - 2024-09-7
+### Added
+- Documentation in German, by [@FrankDex](https://codeberg.org/FrankDex)
+- Convert sections from browser bookmarks to labels
+- Support for "tag" attribute in browser bookmarks import files (pinboard format)
+- Support for "toread" attribute in browser bookmarks import files (pinboard format)
+- Import from Goodlinks
+
+## Changed
+- Custom error page when a bookmark doesn't exist
+
+## Fixed
+- Improved selected text color in dark mode
+- Support for t.co links, by [@joachimesque](https://codeberg.org/joachimesque)
+- Fixed extraction error with fastcompany.com
+- Stop emptying the resource cache when closing its entry io.Reader
+
 ## [0.15.1] - 2024-08-17
 ### Added
 - Spanish translation, by [@vsc55](https://codeberg.org/vsc55)
@@ -32,7 +49,6 @@
 ### Fixed
 - Fixed a bug with PostgreSQL installation on a different schema, by [@winston0410](https://codeberg.org/winston0410)
 - Fixed a bug with the Wallabag import tool. It would fail when the provided URL is missing a trailing slash.
-
 
 ## [0.14.0] - 2024-05-20
 ### Added
@@ -67,7 +83,6 @@
 ### Fixed
 - Keep namespaces during SVG files cleanup
 - Data race condition with the in-memory store
-
 
 ## [0.13.2] - 2024-03-24
 ### Fixed

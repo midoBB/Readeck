@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-08-24 10:52+0000\n"
+"POT-Creation-Date: 2024-09-07 08:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -401,6 +401,11 @@ msgstr ""
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:67
 msgid "More information"
+msgstr ""
+
+#: assets/templates/bookmarks/bookmark_missing.jet.html:9
+#: assets/templates/bookmarks/bookmark_missing.jet.html:14
+msgid "Bookmark not found"
 msgstr ""
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:13
@@ -1017,11 +1022,6 @@ msgid ""
 "  You can set anything to a label, including emojis!\n"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:8
-#: assets/templates/docs/base.jet.html:27 docs/http.go:232
-msgid "About Readeck"
-msgstr ""
-
 #: assets/templates/docs/about.jet.html:14
 msgid "Version:"
 msgstr ""
@@ -1041,83 +1041,107 @@ msgid ""
 msgstr ""
 
 #: assets/templates/docs/about.jet.html:30
+msgid "Project"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html:33
+msgid "Main website"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html:34
+msgid "Sources and issues"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html:35
+msgid "How to contribute"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html:36
+msgid "Community Forum"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html:37
+msgid "Matrix Chat"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html:40
 msgid "License"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:32
+#: assets/templates/docs/about.jet.html:42
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:36
+#: assets/templates/docs/about.jet.html:46
 msgid "Here's a short summary of the license conditions:"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:41
+#: assets/templates/docs/about.jet.html:51
 msgid "Permissions"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:42
+#: assets/templates/docs/about.jet.html:52
 msgid "Conditions"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:43
+#: assets/templates/docs/about.jet.html:53
 msgid "Limitations"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:51
+#: assets/templates/docs/about.jet.html:61
 msgid "Commercial use"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:54
+#: assets/templates/docs/about.jet.html:64
 msgid "Distribution"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:57
+#: assets/templates/docs/about.jet.html:67
 msgid "Modification"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:60
+#: assets/templates/docs/about.jet.html:70
 msgid "Patent use"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:63
+#: assets/templates/docs/about.jet.html:73
 msgid "Private use"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:70
+#: assets/templates/docs/about.jet.html:80
 msgid "Disclose source"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:73
+#: assets/templates/docs/about.jet.html:83
 msgid "License and copyright notice"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:76
+#: assets/templates/docs/about.jet.html:86
 msgid "Network use is distribution"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:79
+#: assets/templates/docs/about.jet.html:89
 msgid "Same license"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:82
+#: assets/templates/docs/about.jet.html:92
 msgid "State changes"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:89
+#: assets/templates/docs/about.jet.html:99
 msgid "Liability"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:92
+#: assets/templates/docs/about.jet.html:102
 msgid "Warranty"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:119
+#: assets/templates/docs/about.jet.html:129
 msgid "Third-Party Licenses"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:121
+#: assets/templates/docs/about.jet.html:131
 msgid "Readeck includes and/or uses the following open source assets:"
 msgstr ""
 
@@ -1128,6 +1152,11 @@ msgstr ""
 
 #: assets/templates/docs/base.jet.html:9
 msgid "Readeck Help"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html:8
+#: assets/templates/docs/base.jet.html:27 docs/http.go:232
+msgid "About Readeck"
 msgstr ""
 
 #: assets/templates/emails/recover.tmpl:8

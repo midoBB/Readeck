@@ -8,110 +8,113 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-09-07 08:26+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2024-09-11 12:24+0000\n"
+"Last-Translator: Vistaus <Vistaus@users.noreply.translate.codeberg.org>\n"
+"Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/"
+"application/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.7\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:18
 msgid "Secondary Menu"
-msgstr ""
+msgstr "Onderliggend menu"
 
 #: assets/templates/_layouts/sidemenu.jet.html:41
 msgid "Open menu"
-msgstr ""
+msgstr "Menu openen"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Quick access menu"
-msgstr ""
+msgstr "Snelmenu"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Home Page"
-msgstr ""
+msgstr "Startpagina"
 
 #: assets/templates/_libs/forms.jet.html:1
 #: assets/templates/_libs/forms.jet.html:33
 msgid "Required"
-msgstr ""
+msgstr "Vereist"
 
 #: assets/templates/_libs/forms.jet.html:10
 msgid "Errors"
-msgstr ""
+msgstr "Foutmeldingen"
 
 #: assets/templates/_libs/forms.jet.html:16
 msgid "Please check your form for errors."
-msgstr ""
+msgstr "Los de foutmeldingen op."
 
 #: assets/templates/_libs/forms.jet.html:210
 msgid "The previous"
-msgstr ""
+msgstr "Afgelopen"
 
 #: assets/templates/_libs/forms.jet.html:219
 msgid "Day(s)"
-msgstr ""
+msgstr "dag(en)"
 
 #: assets/templates/_libs/forms.jet.html:220
 msgid "Week(s)"
-msgstr ""
+msgstr "week/weken"
 
 #: assets/templates/_libs/forms.jet.html:221
 msgid "Month(s)"
-msgstr ""
+msgstr "maand(en)"
 
 #: assets/templates/_libs/forms.jet.html:222
 msgid "Year(s)"
-msgstr ""
+msgstr "jaar"
 
 #: assets/templates/_libs/forms.jet.html:225
 msgctxt "word"
 msgid "or"
-msgstr ""
+msgstr "of"
 
 #: assets/templates/_libs/forms.jet.html:253
 msgid "Select or drop file"
-msgstr ""
+msgstr "Kies een bestand/Sleep een bestand hierheen"
 
 #: assets/templates/_libs/forms.jet.html:257
 msgid "remove"
-msgstr ""
+msgstr "verwijderen"
 
 #: assets/templates/_libs/pagination.jet.html:1
 msgid "Go to previous page"
-msgstr ""
+msgstr "Ga naar vorige pagina"
 
 #: assets/templates/_libs/pagination.jet.html:1
 #, python-format
 msgid "Go to page %d"
-msgstr ""
+msgstr "Ga naar pagina %d"
 
 #: assets/templates/_libs/pagination.jet.html:1
 msgid "Go to next page"
-msgstr ""
+msgstr "Ga naar volgende pagina"
 
 #: assets/templates/_libs/pagination.jet.html:10
 msgctxt "page"
 msgid "Previous"
-msgstr ""
+msgstr "Vorige"
 
 #: assets/templates/_libs/pagination.jet.html:15
 msgctxt "page"
 msgid "Next"
-msgstr ""
+msgstr "Volgende"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
 #: assets/templates/profile/base.jet.html:35 internal/admin/views.go:62
 #: internal/admin/views.go:92 internal/admin/views.go:132
 msgid "Users"
-msgstr ""
+msgstr "Gebruikers"
 
 #: assets/templates/admin/user.jet.html:19
 msgid "User will be removed in a few seconds"
-msgstr ""
+msgstr "De gebruiker wordt over enkele seconden verwijderd"
 
 #: assets/templates/admin/user.jet.html:20
 #: assets/templates/admin/user_list.jet.html:44
@@ -128,7 +131,7 @@ msgstr ""
 #: assets/templates/profile/token.jet.html:20
 #: assets/templates/profile/token_list.jet.html:61
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleren"
 
 #: assets/templates/admin/user.jet.html:31
 #: assets/templates/admin/user_create.jet.html:20
@@ -136,19 +139,19 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:41
 #: assets/templates/profile/index.jet.html:20
 msgid "Username"
-msgstr ""
+msgstr "Gebruikersnaam"
 
 #: assets/templates/admin/user.jet.html:37
 #: assets/templates/admin/user_create.jet.html:26
 #: assets/templates/auth/onboarding.jet.html:37
 #: assets/templates/auth/recover.jet.html:29
 msgid "Email address"
-msgstr ""
+msgstr "E-mailadres"
 
 #: assets/templates/admin/user.jet.html:41
 #: assets/templates/admin/user_create.jet.html:31
 msgid "Group"
-msgstr ""
+msgstr "Groep"
 
 #: assets/templates/admin/user.jet.html:46
 #: assets/templates/admin/user_create.jet.html:36
@@ -157,11 +160,11 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:48
 #: assets/templates/profile/base.jet.html:17 internal/profile/views.go:133
 msgid "Password"
-msgstr ""
+msgstr "Wachtwoord"
 
 #: assets/templates/admin/user.jet.html:49
 msgid "will not change if empty"
-msgstr ""
+msgstr "Laat leeg om niet te wĳzigen"
 
 #: assets/templates/admin/user.jet.html:52
 #: assets/templates/bookmarks/collection.jet.html:64
@@ -171,61 +174,61 @@ msgstr ""
 #: assets/templates/profile/password.jet.html:36
 #: assets/templates/profile/token.jet.html:70
 msgid "Save"
-msgstr ""
+msgstr "Opslaan"
 
 #: assets/templates/admin/user.jet.html:55
 msgid "Delete this user"
-msgstr ""
+msgstr "Gebruiker verwijderen"
 
 #: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:93
 msgid "New User"
-msgstr ""
+msgstr "Nieuwe gebruiker"
 
 #: assets/templates/admin/user_create.jet.html:42
 msgid "Create user"
-msgstr ""
+msgstr "Gebruiker aanmaken"
 
 #: assets/templates/admin/user_list.jet.html:14
 msgid "Add a new user"
-msgstr ""
+msgstr "Gebruiker toevoegen"
 
 #: assets/templates/admin/user_list.jet.html:30
 #: assets/templates/profile/credential_list.jet.html:45
 #: assets/templates/profile/token_list.jet.html:47
 #, python-format
 msgid "Created on: %s"
-msgstr ""
+msgstr "Aangemaakt op %s"
 
 #: assets/templates/admin/user_list.jet.html:31
 #, python-format
 msgid "Last update: %s"
-msgstr ""
+msgstr "Bijgewerkt op %s"
 
 #: assets/templates/admin/user_list.jet.html:38
 msgid "This user will be removed in a few seconds."
-msgstr ""
+msgstr "De gebruiker wordt over enkele seconden verwijderd."
 
 #: assets/templates/auth/login.jet.html:9
 #: assets/templates/auth/login.jet.html:37
 msgid "Sign in"
-msgstr ""
+msgstr "Inloggen"
 
 #: assets/templates/auth/login.jet.html:12
 msgid "Sign in to Readeck"
-msgstr ""
+msgstr "Inloggen op Readeck"
 
 #: assets/templates/auth/login.jet.html:22
 msgid "Username or email address"
-msgstr ""
+msgstr "Gebruikersnaam of e-mailadres"
 
 #: assets/templates/auth/login.jet.html:41
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Wachtwoord vergeten?"
 
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:71
 msgid "Welcome to Readeck!"
-msgstr ""
+msgstr "Welkom in Readeck!"
 
 #: assets/templates/auth/onboarding.jet.html:15
 msgid "We're delighted to have you on board; one more step and you're good to go."

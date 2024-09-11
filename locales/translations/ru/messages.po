@@ -7,17 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-09-07 08:26+0000\n"
-"PO-Revision-Date: 2024-08-27 03:18+0000\n"
-"Last-Translator: liilliil <liilliil@users.noreply.translate.codeberg.org>"
-"\n"
+"PO-Revision-Date: 2024-09-11 08:36+0000\n"
+"Last-Translator: liilliil <liilliil@users.noreply.translate.codeberg.org>\n"
+"Language-Team: Russian <https://translate.codeberg.org/projects/readeck/"
+"application/ru/>\n"
 "Language: ru\n"
-"Language-Team: Russian "
-"<https://translate.codeberg.org/projects/readeck/application/ru/>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.7\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -435,7 +435,7 @@ msgstr "Закладка грузится"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html
 msgid "Bookmark not found"
-msgstr ""
+msgstr "Закладка потерялась"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html
 msgid "Shared link"
@@ -1134,27 +1134,27 @@ msgstr "Вот системная информация. Пожалуйста, в
 
 #: assets/templates/docs/about.jet.html
 msgid "Project"
-msgstr ""
+msgstr "Проект"
 
 #: assets/templates/docs/about.jet.html
 msgid "Main website"
-msgstr ""
+msgstr "Главный сайт"
 
 #: assets/templates/docs/about.jet.html
 msgid "Sources and issues"
-msgstr ""
+msgstr "Источники и издания"
 
 #: assets/templates/docs/about.jet.html
 msgid "How to contribute"
-msgstr ""
+msgstr "Как помочь"
 
 #: assets/templates/docs/about.jet.html
 msgid "Community Forum"
-msgstr ""
+msgstr "Форум сообщества"
 
 #: assets/templates/docs/about.jet.html
 msgid "Matrix Chat"
-msgstr ""
+msgstr "Чат в Matrix"
 
 #: assets/templates/docs/about.jet.html
 msgid "License"
@@ -2023,4 +2023,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Invalid Content-Type"
 #~ msgstr "Неверный тип содержимого"
-

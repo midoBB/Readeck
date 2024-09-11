@@ -7,15 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck CZ 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-09-07 08:26+0000\n"
-"PO-Revision-Date: 2024-08-25 15:18+0000\n"
+"PO-Revision-Date: 2024-09-11 12:24+0000\n"
 "Last-Translator: Joedmin <Joedmin@users.noreply.translate.codeberg.org>\n"
+"Language-Team: Czech <https://translate.codeberg.org/projects/readeck/"
+"application/cs/>\n"
 "Language: cs_CZ\n"
-"Language-Team: Czech "
-"<https://translate.codeberg.org/projects/readeck/application/cs/>\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 5.7\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -433,7 +434,7 @@ msgstr "Záložka se načítá"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html
 msgid "Bookmark not found"
-msgstr ""
+msgstr "Záložka nenalezena"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html
 msgid "Shared link"
@@ -1134,27 +1135,27 @@ msgstr ""
 
 #: assets/templates/docs/about.jet.html
 msgid "Project"
-msgstr ""
+msgstr "Projekt"
 
 #: assets/templates/docs/about.jet.html
 msgid "Main website"
-msgstr ""
+msgstr "Hlavní stránka"
 
 #: assets/templates/docs/about.jet.html
 msgid "Sources and issues"
-msgstr ""
+msgstr "Zdroje a problémy"
 
 #: assets/templates/docs/about.jet.html
 msgid "How to contribute"
-msgstr ""
+msgstr "Jak přispět"
 
 #: assets/templates/docs/about.jet.html
 msgid "Community Forum"
-msgstr ""
+msgstr "Komunitní fórum"
 
 #: assets/templates/docs/about.jet.html
 msgid "Matrix Chat"
-msgstr ""
+msgstr "Chat Matrix"
 
 #: assets/templates/docs/about.jet.html
 msgid "License"
@@ -2030,4 +2031,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Invalid Content-Type"
 #~ msgstr "Neplatný typ obsahu"
-

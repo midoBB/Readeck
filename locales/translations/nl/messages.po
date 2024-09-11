@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-09-07 08:26+0000\n"
-"PO-Revision-Date: 2024-09-11 12:24+0000\n"
+"PO-Revision-Date: 2024-09-11 16:21+0000\n"
 "Last-Translator: Vistaus <Vistaus@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/"
 "application/nl/>\n"
@@ -233,16 +233,17 @@ msgstr "Welkom in Readeck!"
 #: assets/templates/auth/onboarding.jet.html:15
 msgid "We're delighted to have you on board; one more step and you're good to go."
 msgstr ""
+"We zijn blij met je komst! Nog één stap te gaan en dan kun je aan de slag."
 
 #: assets/templates/auth/onboarding.jet.html:32
 #: assets/templates/auth/recover.jet.html:56
 #: assets/templates/profile/password.jet.html:32
 msgid "must be at least 8 characters long"
-msgstr ""
+msgstr "dient minimaal 8 tekens te bevatten"
 
 #: assets/templates/auth/onboarding.jet.html:39
 msgid "Please note:"
-msgstr ""
+msgstr "Let op:"
 
 #: assets/templates/auth/onboarding.jet.html:40
 msgid ""

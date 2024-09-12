@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-09-07 08:26+0000\n"
-"PO-Revision-Date: 2024-09-11 16:21+0000\n"
+"PO-Revision-Date: 2024-09-13 12:18+0000\n"
 "Last-Translator: Vistaus <Vistaus@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/"
 "application/nl/>\n"
@@ -255,18 +255,25 @@ msgid ""
 " recovery and internal notifications.\n"
 "  "
 msgstr ""
+"\n"
+"  Je e-mailadres is optioneel en wordt alléén binnen deze instantie bewaard."
+"\n"
+"  Er is dus geen sprake van extern bewaren, overdragen of verkoop ervan.\n"
+"  Het wordt <strong>slechts</strong> gebruikt voor wachtwoordherstel en "
+"interne meldingen.\n"
+"  "
 
 #: assets/templates/auth/onboarding.jet.html:47
 msgid "Finish installation"
-msgstr ""
+msgstr "Installatie afronden"
 
 #: assets/templates/auth/recover.jet.html:9
 msgid "Password recovery"
-msgstr ""
+msgstr "Wachtwoordherstel"
 
 #: assets/templates/auth/recover.jet.html:21
 msgid "No worries, it happens to anyone."
-msgstr ""
+msgstr "Geen zorgen: dit kan een ieder overkomen."
 
 #: assets/templates/auth/recover.jet.html:22
 msgid ""
@@ -276,19 +283,24 @@ msgid ""
 "        to recover your password.\n"
 "      "
 msgstr ""
+"\n"
+"        Voer het e-mailadres in dat je hebt gebruikt om je\n"
+"        account aan te maken. We sturen je een e-mail met link\n"
+"        waarmee je je wachtwoord kunt herstellen.\n"
+"      "
 
 #: assets/templates/auth/recover.jet.html:32
 msgid "Send me a recovery link"
-msgstr ""
+msgstr "Herstellink versturen"
 
 #: assets/templates/auth/recover.jet.html:33
 #: assets/templates/auth/recover.jet.html:58
 msgid "Cancel and go back to sign in"
-msgstr ""
+msgstr "Annuleren en terug naar inlogpagina"
 
 #: assets/templates/auth/recover.jet.html:37
 msgid "Almost there!"
-msgstr ""
+msgstr "Bijna klaar!"
 
 #: assets/templates/auth/recover.jet.html:38
 #, python-format
@@ -299,31 +311,36 @@ msgid ""
 "        with further instructions.\n"
 "      "
 msgstr ""
+"\n"
+"        We hebben een e-mail gestuurd naar\n"
+"        <strong>%s</strong>\n"
+"        met instructies.\n"
+"      "
 
 #: assets/templates/auth/recover.jet.html:54
 #: assets/templates/profile/password.jet.html:29
 msgid "New password"
-msgstr ""
+msgstr "Nieuw wachtwoord"
 
 #: assets/templates/auth/recover.jet.html:57
 msgid "Update your password"
-msgstr ""
+msgstr "Wachtwoord bijwerken"
 
 #: assets/templates/auth/recover.jet.html:62
 msgid "Your password has been changed."
-msgstr ""
+msgstr "Je wachtwoord is gewijzigd."
 
 #: assets/templates/auth/recover.jet.html:63
 msgid "Go to the sign in page"
-msgstr ""
+msgstr "Ga naar inlogpagina"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
-msgstr ""
+msgstr "Bladwijzermarkeringen"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:17
 msgid "You don't have any highlights yet."
-msgstr ""
+msgstr "Je hebt nog niets gemarkeerd."
 
 #: assets/templates/bookmarks/annotation_list.jet.html:18
 msgid ""
@@ -333,6 +350,11 @@ msgid ""
 "        for you to easily find them.\n"
 "      "
 msgstr ""
+"\n"
+"        Zodra je delen van opgeslagen artikelen markeert, worden ze hier "
+"getoond,\n"
+"        zodat je ze makkelijk kunt terugvinden.\n"
+"      "
 
 #: assets/templates/bookmarks/annotation_list.jet.html:23
 #, python-format
@@ -340,72 +362,74 @@ msgid ""
 "Read more about highlights in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
+"Meer informatie hierover is te vinden in de <a class=\"%s\" href=\"%s\""
+">documentatie</a>."
 
 #: assets/templates/bookmarks/base.jet.html:9
 #: assets/templates/bookmarks/bookmark.jet.html:15
 msgid "Bookmarks"
-msgstr ""
+msgstr "Bladwijzers"
 
 #: assets/templates/bookmarks/base.jet.html:24
 #: internal/bookmarks/routes/forms_bookmarks.go:402
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: assets/templates/bookmarks/base.jet.html:26
 msgid "Unread"
-msgstr ""
+msgstr "Ongelezen"
 
 #: assets/templates/bookmarks/base.jet.html:28
 msgid "Archive"
-msgstr ""
+msgstr "Archiveren"
 
 #: assets/templates/bookmarks/base.jet.html:30
 msgid "Favorites"
-msgstr ""
+msgstr "Favorieten"
 
 #: assets/templates/bookmarks/base.jet.html:37
 #: internal/bookmarks/routes/views_bookmarks.go:111
 msgid "Articles"
-msgstr ""
+msgstr "Artikelen"
 
 #: assets/templates/bookmarks/base.jet.html:42
 #: internal/bookmarks/routes/views_bookmarks.go:115
 msgid "Videos"
-msgstr ""
+msgstr "Video's"
 
 #: assets/templates/bookmarks/base.jet.html:47
 #: internal/bookmarks/routes/views_bookmarks.go:113
 msgid "Pictures"
-msgstr ""
+msgstr "Afbeeldingen"
 
 #: assets/templates/bookmarks/base.jet.html:56
 #: assets/templates/bookmarks/components/sidebar.jet.html:93
 msgid "Labels"
-msgstr ""
+msgstr "Labels"
 
 #: assets/templates/bookmarks/base.jet.html:58
 #: assets/templates/bookmarks/components/sidebar.jet.html:98
 msgid "Highlights"
-msgstr ""
+msgstr "Markeringen"
 
 #: assets/templates/bookmarks/base.jet.html:60
 #: assets/templates/bookmarks/collection.jet.html:11
 #: assets/templates/bookmarks/collection.jet.html:33
 msgid "Collections"
-msgstr ""
+msgstr "Verzamelingen"
 
 #: assets/templates/bookmarks/bookmark.jet.html:12
 msgid "Bookmark loading"
-msgstr ""
+msgstr "Bezig met laden…"
 
 #: assets/templates/bookmarks/bookmark.jet.html:39
 msgid "Bookmark is loading"
-msgstr ""
+msgstr "Bezig met laden…"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:67
 msgid "More information"
-msgstr ""
+msgstr "Meer informatie"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html:9
 #: assets/templates/bookmarks/bookmark_missing.jet.html:14

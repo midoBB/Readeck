@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-09-07 08:26+0000\n"
-"PO-Revision-Date: 2024-09-13 12:18+0000\n"
+"PO-Revision-Date: 2024-09-15 18:18+0000\n"
 "Last-Translator: Vistaus <Vistaus@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/"
 "application/nl/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7\n"
+"X-Generator: Weblate 5.7.2\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:18
@@ -434,99 +434,99 @@ msgstr "Meer informatie"
 #: assets/templates/bookmarks/bookmark_missing.jet.html:9
 #: assets/templates/bookmarks/bookmark_missing.jet.html:14
 msgid "Bookmark not found"
-msgstr ""
+msgstr "De bladwijzer is niet aangetroffen"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:13
 msgid "Shared link"
-msgstr ""
+msgstr "Gedeelde link"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:23
 msgid "Page not found"
-msgstr ""
+msgstr "De pagina kan niet worden gevonden"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:25
 msgid "Page has expired"
-msgstr ""
+msgstr "De pagina is verlopen"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:47
 #: assets/templates/bookmarks/components/sidebar.jet.html:53
 #: assets/templates/epub/bookmark.jet.html:37
 #, python-format
 msgid "Published on %s"
-msgstr ""
+msgstr "Gepubliceerd op %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:52
 #: assets/templates/bookmarks/components/sidebar.jet.html:58
 #: assets/templates/epub/bookmark.jet.html:40
 #, python-format
 msgid "By %s"
-msgstr ""
+msgstr "Door %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:60
 #: assets/templates/bookmarks/components/card.jet.html:65
 #: assets/templates/bookmarks/components/sidebar.jet.html:66
 #, python-format
 msgid "%d min"
-msgstr ""
+msgstr "%d min."
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:65
 #, python-format
 msgid "Shared by %s"
-msgstr ""
+msgstr "Gedeeld door %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:66
 msgid "with"
-msgstr ""
+msgstr "met"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
 msgid "Powered by"
-msgstr ""
+msgstr "Aangedreven door"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:8
 msgid "Share link"
-msgstr ""
+msgstr "Link delen"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:19
 #, python-format
 msgid "Share: %s"
-msgstr ""
+msgstr "Delen: %s"
 
 #: assets/templates/bookmarks/collection.jet.html:16
 #, python-format
 msgid "Collection %s"
-msgstr ""
+msgstr "Verzameling: %s"
 
 #: assets/templates/bookmarks/collection.jet.html:21
 msgid "Collection will be removed in a few seconds."
-msgstr ""
+msgstr "De verzameling wordt over enkele seconden verwijderd."
 
 #: assets/templates/bookmarks/collection.jet.html:40
 #: assets/templates/bookmarks/collection.jet.html:54
 msgid "Edit"
-msgstr ""
+msgstr "Bewerken"
 
 #: assets/templates/bookmarks/collection.jet.html:58
 #: assets/templates/bookmarks/collection_create.jet.html:23
 #: assets/templates/profile/credential.jet.html:58
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: assets/templates/bookmarks/collection.jet.html:68
 msgid "Delete collection"
-msgstr ""
+msgstr "Verzameling verwijderen"
 
 #: assets/templates/bookmarks/collection_create.jet.html:9
 msgid "New Collection"
-msgstr ""
+msgstr "Nieuwe verzameling"
 
 #: assets/templates/bookmarks/collection_list.jet.html:9
 #: internal/opds/http.go:74
 msgid "Bookmark Collections"
-msgstr ""
+msgstr "Verzamelingen toevoegen aan bladwijzers"
 
 #: assets/templates/bookmarks/collection_list.jet.html:15
 msgid "Create a new collection"
-msgstr ""
+msgstr "Verzameling samenstellen"
 
 #: assets/templates/bookmarks/collection_list.jet.html:24
 msgid ""

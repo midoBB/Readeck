@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-09-07 08:26+0000\n"
-"PO-Revision-Date: 2024-09-15 18:18+0000\n"
+"PO-Revision-Date: 2024-09-15 21:34+0000\n"
 "Last-Translator: Vistaus <Vistaus@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/"
 "application/nl/>\n"
@@ -538,22 +538,31 @@ msgid ""
 "          Here are some examples:\n"
 "        "
 msgstr ""
+"\n"
+"          Met behulp van verzamelingen kun je je bladwijzers op een "
+"eenvoudige manier\n"
+"          ordenen en exporteren, door ze te bewaren als zoekopdrachten.\n"
+"          Zodra je een bladwijzer toevoegt die overeenkomt met een bepaalde "
+"verzameling,\n"
+"          wordt deze daar getoond.\n"
+"          Hieronder vind je enkele voorbeelden:\n"
+"        "
 
 #: assets/templates/bookmarks/collection_list.jet.html:33
 msgid "The unread articles (no photos or videos)"
-msgstr ""
+msgstr "Ongelezen artikelen (geen foto's of video's)"
 
 #: assets/templates/bookmarks/collection_list.jet.html:34
 msgid "The archived articles from \"wikipedia.org\""
-msgstr ""
+msgstr "Gearchiveerde artikelen van wikipedia.org"
 
 #: assets/templates/bookmarks/collection_list.jet.html:35
 msgid "The pictures with the label \"cat\""
-msgstr ""
+msgstr "Foto's met het label ‘cat’"
 
 #: assets/templates/bookmarks/collection_list.jet.html:36
 msgid "The articles that contain \"shelter\" in their title"
-msgstr ""
+msgstr "Artikelen met de term ‘shelter’ in de naam"
 
 #: assets/templates/bookmarks/collection_list.jet.html:39
 #, python-format
@@ -561,195 +570,197 @@ msgid ""
 "Read more about collections in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
+"Meer informatie is te vinden in de <a class=\"%s\" href=\"%s\""
+">documentatie</a>."
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
 msgid "Export and Share"
-msgstr ""
+msgstr "Exporteren en delen"
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Delete this bookmark"
-msgstr ""
+msgstr "Bladwijzer verwijderen"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Remove from archive"
-msgstr ""
+msgstr "Verwijderen uit archief"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Move to archive"
-msgstr ""
+msgstr "Verplaatsen naar archief"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
 #: assets/templates/bookmarks/components/card.jet.html:10
 msgid "Remove from favorites"
-msgstr ""
+msgstr "Verwijderen uit favorieten"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
 #: assets/templates/bookmarks/components/card.jet.html:10
 msgid "Add to favorites"
-msgstr ""
+msgstr "Toevoegen aan favorieten"
 
 #: assets/templates/bookmarks/components/actions.jet.html:14
 #: assets/templates/bookmarks/components/card.jet.html:81
 msgid "This bookmark will be removed in a few seconds."
-msgstr ""
+msgstr "De bladwijzer wordt over enkele seconden verwijderd."
 
 #: assets/templates/bookmarks/components/actions.jet.html:23
 msgid "Undo"
-msgstr ""
+msgstr "Ongedaan maken"
 
 #: assets/templates/bookmarks/components/actions.jet.html:47
 #: assets/templates/bookmarks/components/list_actions.jet.html:61
 msgid "Download EPUB"
-msgstr ""
+msgstr "Epub-bestand downloaden"
 
 #: assets/templates/bookmarks/components/actions.jet.html:49
 msgid "Share by Link"
-msgstr ""
+msgstr "Delen via link"
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
 msgid "Saved with Readeck"
-msgstr ""
+msgstr "Bewaard met Readeck"
 
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Go to original page"
-msgstr ""
+msgstr "Oorspronkelijke pagina openen"
 
 #: assets/templates/bookmarks/components/card.jet.html:26
 msgctxt "bookmark"
 msgid "Loading"
-msgstr ""
+msgstr "Bezig met laden…"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:44
 msgid "Highlight"
-msgstr ""
+msgstr "Markeren"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:48
 msgid "Remove Highlight(s)"
-msgstr ""
+msgstr "Markering(en) verwijderen"
 
 #: assets/templates/bookmarks/components/filters.jet.html:9
 msgid "Search"
-msgstr ""
+msgstr "Zoeken"
 
 #: assets/templates/bookmarks/components/filters.jet.html:14
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: assets/templates/bookmarks/components/filters.jet.html:19
 msgid "Author"
-msgstr ""
+msgstr "Auteur"
 
 #: assets/templates/bookmarks/components/filters.jet.html:24
 msgid "Site"
-msgstr ""
+msgstr "Website"
 
 #: assets/templates/bookmarks/components/filters.jet.html:36
 msgid "Is Favorite"
-msgstr ""
+msgstr "Favoriet (ja/nee)"
 
 #: assets/templates/bookmarks/components/filters.jet.html:38
 #: assets/templates/bookmarks/components/filters.jet.html:43
 msgid "yes"
-msgstr ""
+msgstr "ja"
 
 #: assets/templates/bookmarks/components/filters.jet.html:38
 #: assets/templates/bookmarks/components/filters.jet.html:43
 msgid "no"
-msgstr ""
+msgstr "nee"
 
 #: assets/templates/bookmarks/components/filters.jet.html:41
 msgid "Is Archived"
-msgstr ""
+msgstr "Gearchiveerd (ja/nee)"
 
 #: assets/templates/bookmarks/components/filters.jet.html:47
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: assets/templates/bookmarks/components/filters.jet.html:55
 msgid "From date"
-msgstr ""
+msgstr "Vanaf datum"
 
 #: assets/templates/bookmarks/components/filters.jet.html:60
 msgid "To date"
-msgstr ""
+msgstr "Tot datum"
 
 #: assets/templates/bookmarks/components/labels.jet.html:1
 msgid "Remove label"
-msgstr ""
+msgstr "Label wissen"
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:1
 msgid "Add a label"
-msgstr ""
+msgstr "Label toekennen"
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:35
 msgid "Add label"
-msgstr ""
+msgstr "Label toekennen"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Grid view"
-msgstr ""
+msgstr "Roosterweergave"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Compact view"
-msgstr ""
+msgstr "Compacte weergave"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:9
 msgid "You can share the following link with your friends."
-msgstr ""
+msgstr "Je kunt de volgende link met je vrienden delen."
 
 #: assets/templates/bookmarks/components/public_share.jet.html:10
 #, python-format
 msgid "It expires on %s"
-msgstr ""
+msgstr "De link vervalt op %s"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:22
 msgid "Copy the link"
-msgstr ""
+msgstr "Link kopiëren"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:25
 msgid "Go back to the bookmark"
-msgstr ""
+msgstr "Ga terug naar bladwijzer"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
-msgstr ""
+msgstr "Lettertype"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:53
 msgid "Size"
-msgstr ""
+msgstr "Grootte"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:75
 msgid "Line height"
-msgstr ""
+msgstr "Regelhoogte"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:1
 #: assets/templates/bookmarks/components/sidebar.jet.html:49
 #: assets/templates/epub/bookmark.jet.html:34
 msgid "no site name"
-msgstr ""
+msgstr "Geen websitenaam"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:13
 msgid "Errors occurred during extraction."
-msgstr ""
+msgstr "Er zijn fouten opgetreden tijdens het extraheren."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:101
 msgid "Start selecting text in the article to create a new highlight."
-msgstr ""
+msgstr "Selecteer tekst in een artikel om een markering toe te voegen."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:132
 msgid "Links"
-msgstr ""
+msgstr "Links"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:9
 msgid "Import your Browser's Bookmarks"
-msgstr ""
+msgstr "Bladwijzers uit webbrowser importeren"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:15
 msgid ""
@@ -759,26 +770,31 @@ msgid ""
 "    every bookmark found it the file.\n"
 "  "
 msgstr ""
+"\n"
+"    Exporteer de bladwijzers van je webbrowser naar een html-bestand.<br>\n"
+"    Upload het bestand hieronder om Readeck alle bladwijzers uit\n"
+"    het bestand te laten importeren.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:22
 msgid "Instructions for Firefox"
-msgstr ""
+msgstr "Uitleg voor Firefox"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:23
 msgid "Instructions for Chrome"
-msgstr ""
+msgstr "Uitleg voor Chrome"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:42
 msgid "Convert section titles to labels"
-msgstr ""
+msgstr "Sectietitels omzetten in labels"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:44
 msgid "Adds a label on links, based on their section title"
-msgstr ""
+msgstr "Kent een label aan links toe op basis van de sectietitel"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
 msgid "Import Links from a GoodLinks export file"
-msgstr ""
+msgstr "Links importeren uit GoodLinks-bestand"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:15
 msgid ""
@@ -786,11 +802,14 @@ msgid ""
 "    Upload a JSON file obtained from your GoodLinks app.\n"
 "  "
 msgstr ""
+"\n"
+"    Upload een door de GoodLinks-app samengesteld json-bestand.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:40
 msgid "Import your Pocket Articles"
-msgstr ""
+msgstr "Pocket-artikelen importeren"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
 #, python-format
@@ -800,6 +819,11 @@ msgid ""
 "    <a class=\"%s\" href=\"%s\">%s</a>.\n"
 "  "
 msgstr ""
+"\n"
+"    Je kunt Pocket-artikelen importeren door middel van onderstaande "
+"link:<br>\n"
+"    <a class=\"%s\" href=\"%s\">%s</a>.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:21
 msgid ""
@@ -808,6 +832,10 @@ msgid ""
 "    every link found it the file.\n"
 "  "
 msgstr ""
+"\n"
+"    Upload het bestand hieronder om Readeck alle links uit het bestand\n"
+"    te laten importeren.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:27
 msgid ""
@@ -819,13 +847,19 @@ msgid ""
 "    see in Pocket.\n"
 "  "
 msgstr ""
+"\n"
+"    Let op: Pocket heeft geen ondersteuning voor het exporteren van "
+"artikelinhoud.\n"
+"    Hierdoor kunnen zoekresultaten in Readeck afwijken van die\n"
+"    van Pocket.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:34
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:27
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:42
 #: assets/templates/bookmarks/import/form-text.jet.html:28
 msgid "File"
-msgstr ""
+msgstr "Bestand"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:48
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
@@ -833,12 +867,12 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-text.jet.html:35
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:69
 msgid "Import Bookmarks"
-msgstr ""
+msgstr "Bladwijzers importeren"
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32
 msgid "Import Links from a Text File"
-msgstr ""
+msgstr "Links importeren uit tekstbestand"
 
 #: assets/templates/bookmarks/import/form-text.jet.html:15
 msgid ""
@@ -848,11 +882,15 @@ msgid ""
 "    all of them and save them in your bookmark list.\n"
 "  "
 msgstr ""
+"\n"
+"    Upload een tekstbestand met één link per regel om Readeck alle links\n"
+"    uit het bestand te laten importeren naar je bladwijzerlijst.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:43
 msgid "Import your Wallabag Articles"
-msgstr ""
+msgstr "Wallabag-artikelen importeren"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:15
 msgid ""
@@ -864,6 +902,13 @@ msgid ""
 "    a <strong>Client ID</strong> and <strong>Client secret</strong>.\n"
 "  "
 msgstr ""
+"\n"
+"    Voor het importeren van Wallabag-artikelen is een api-client vereist.\n"
+"    Deze kan worden aangemaakt via het Wallabag-menuitem <strong>API clients "
+"management</strong>.\n"
+"    Dit hulpmiddel geeft een  <strong>Client ID</strong> en <strong>Client "
+"secret</strong>.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:21
 msgid ""
@@ -871,26 +916,29 @@ msgid ""
 "    You can then enter all the necessary information in the form below.\n"
 "  "
 msgstr ""
+"\n"
+"    Voer nadien alle benodigde informatie hieronder in.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:33
 msgid "Wallabag URL"
-msgstr ""
+msgstr "Wallabag-url"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:35
 msgid "URL of your Wallabag homepage"
-msgstr ""
+msgstr "Url van je Wallabag-site"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:55
 msgid "Client ID"
-msgstr ""
+msgstr "Client-id"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:62
 msgid "Client Secret"
-msgstr ""
+msgstr "Clientgeheim"
 
 #: assets/templates/bookmarks/import/index.jet.html:9
 msgid "Import your Bookmarks"
-msgstr ""
+msgstr "Bladwijzers importeren"
 
 #: assets/templates/bookmarks/import/index.jet.html:25
 msgid ""
@@ -899,42 +947,46 @@ msgid ""
 "sources into Readeck.\n"
 "  "
 msgstr ""
+"\n"
+"    Hier kun je je bladwijzers vanuit verschillende diensten importeren naar "
+"Readeck.\n"
+"  "
 
 #: assets/templates/bookmarks/import/index.jet.html:36
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
-msgstr ""
+msgstr "Importeer de bladwijzers van je webbrowser, Pinboard of Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html:46
 msgid "Import your GoodLinks Articles"
-msgstr ""
+msgstr "Importeer je GoodLinks-artikelen"
 
 #: assets/templates/bookmarks/import/options.jet.html:7
 msgid "Options"
-msgstr ""
+msgstr "Opties"
 
 #: assets/templates/bookmarks/import/options.jet.html:12
 msgid "A label to add to all imported bookmarks"
-msgstr ""
+msgstr "Label voor alle geïmporteerde bladwijzers"
 
 #: assets/templates/bookmarks/import/options.jet.html:16
 msgid "Ignore links already in your bookmarks"
-msgstr ""
+msgstr "Reeds toegevoegde links negeren"
 
 #: assets/templates/bookmarks/import/progress.jet.html:15
 msgid "Import operation will launch momentarily."
-msgstr ""
+msgstr "Het importeren begint zo spoedig mogelijk."
 
 #: assets/templates/bookmarks/import/progress.jet.html:17
 msgid "Import operation has started!"
-msgstr ""
+msgstr "Het importeren is begonnen!"
 
 #: assets/templates/bookmarks/import/progress.jet.html:21
 msgid "You can keep using Readeck while the import is running."
-msgstr ""
+msgstr "Je kunt Readeck tijdens het importeren gewoon blijven gebruiken."
 
 #: assets/templates/bookmarks/import/progress.jet.html:24
 msgid "Import is finished!"
-msgstr ""
+msgstr "Het importeren is voltooid!"
 
 #: assets/templates/bookmarks/import/progress.jet.html:25
 #, python-format
@@ -944,28 +996,34 @@ msgid ""
 "href=\"%s\">bookmark list</a>.\n"
 "      "
 msgstr ""
+"\n"
+"      De bladwijzers zijn toegevoegd aan je <a class=\"%s\" href=\"%s\""
+">bladwijzerlijst</a>.\n"
+"      "
 
 #: assets/templates/bookmarks/index.jet.html:27
 msgid "Save a new link"
-msgstr ""
+msgstr "Link bewaren"
 
 #: assets/templates/bookmarks/index.jet.html:40
 msgctxt "button"
 msgid "Save link"
-msgstr ""
+msgstr "Link bewaren"
 
 #: assets/templates/bookmarks/index.jet.html:49
 #, python-format
 msgid ""
 "\"%s\" is not a valid address. Did you mean to search your bookmarks for "
 "%s?"
-msgstr ""
+msgstr "“%s” is geen geldig adres. Bedoelde je “%s”?"
 
 #: assets/templates/bookmarks/index.jet.html:73
 msgid ""
 "You don't have any bookmarks yet.<br> Copy a link in the field above and "
 "start saving."
 msgstr ""
+"Je hebt nog geen bladwijzers.<br>Plak een link in bovenstaand veld om te "
+"beginnen."
 
 #: assets/templates/bookmarks/index.jet.html:75
 #, python-format
@@ -973,6 +1031,8 @@ msgid ""
 "Read more about bookmarks in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
+"Meer informatie is te vinden in de <a class=\"%s\" href=\"%s\""
+">documentatie</a>."
 
 #: assets/templates/bookmarks/index.jet.html:81
 msgid ""
@@ -982,66 +1042,71 @@ msgid ""
 "          Try Readeck's import tool.\n"
 "        "
 msgstr ""
+"\n"
+"          Wil je bladwijzers importeren uit een vergelijkbare dienst of een "
+"bestand?\n"
+"          Maak dan gebruik van Readecks importhulpmiddel.\n"
+"        "
 
 #: assets/templates/bookmarks/index.jet.html:88
 msgid "Import links and articles"
-msgstr ""
+msgstr "Links en artikelen importeren"
 
 #: assets/templates/bookmarks/index.jet.html:103
 #: assets/templates/bookmarks/index.jet.html:133
 msgctxt "action"
 msgid "Filter list"
-msgstr ""
+msgstr "Lijst filteren"
 
 #: assets/templates/bookmarks/index.jet.html:110
 msgid "Import bookmarks"
-msgstr ""
+msgstr "Bladwijzers importeren"
 
 #: assets/templates/bookmarks/index.jet.html:120
 msgid "Your search query yielded <strong>no results</strong>."
-msgstr ""
+msgstr "Er zijn geen <strong>zoekresultaten</strong>."
 
 #: assets/templates/bookmarks/index.jet.html:122
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Er is <strong>%d zoekresultaat</strong>."
+msgstr[1] "Er zijn <strong>%d zoekresultaten</strong>."
 
 #: assets/templates/bookmarks/index.jet.html:138
 msgid "Filters documentation"
-msgstr ""
+msgstr "Filterdocumentatie"
 
 #: assets/templates/bookmarks/index.jet.html:147
 msgctxt "action"
 msgid "Search"
-msgstr ""
+msgstr "Zoeken"
 
 #: assets/templates/bookmarks/index.jet.html:149
 msgid "Reset search"
-msgstr ""
+msgstr "Zoekopdracht wissen"
 
 #: assets/templates/bookmarks/index.jet.html:152
 msgid "Create a collection"
-msgstr ""
+msgstr "Verzameling aanmaken"
 
 #: assets/templates/bookmarks/components/filters.jet.html:30
 #: assets/templates/bookmarks/import/options.jet.html:10
 #: assets/templates/bookmarks/label.jet.html:10
 msgid "Label"
-msgstr ""
+msgstr "Label"
 
 #: assets/templates/bookmarks/label.jet.html:37
 msgid "Delete"
-msgstr ""
+msgstr "Verwijderen"
 
 #: assets/templates/bookmarks/label.jet.html:50
 msgid "Label will be removed in a few seconds."
-msgstr ""
+msgstr "Het label wordt over enkele seconden verwijderd."
 
 #: assets/templates/bookmarks/labels.jet.html:8
 msgid "Bookmark Labels"
-msgstr ""
+msgstr "Bladwijzerlabels"
 
 #: assets/templates/bookmarks/labels.jet.html:14
 msgid ""
@@ -1049,18 +1114,21 @@ msgid ""
 "  Labels let your organize your bookmarks the way you want.\n"
 "  You can set anything to a label, including emojis!\n"
 msgstr ""
+"\n"
+"  Je kunt je bladwijzers ordenen met behulp van labels.\n"
+"  Alles kan een label zijn, zelfs emoji's!\n"
 
 #: assets/templates/docs/about.jet.html:14
 msgid "Version:"
-msgstr ""
+msgstr "Versie:"
 
 #: assets/templates/docs/about.jet.html:15
 msgid "Built Date:"
-msgstr ""
+msgstr "Bouwdatum:"
 
 #: assets/templates/docs/about.jet.html:18
 msgid "System Information"
-msgstr ""
+msgstr "Systeeminformatie"
 
 #: assets/templates/docs/about.jet.html:20
 msgid ""

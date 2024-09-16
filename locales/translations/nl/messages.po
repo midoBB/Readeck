@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-09-07 08:26+0000\n"
-"PO-Revision-Date: 2024-09-15 21:34+0000\n"
+"PO-Revision-Date: 2024-09-17 10:18+0000\n"
 "Last-Translator: Vistaus <Vistaus@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/"
 "application/nl/>\n"
@@ -1135,125 +1135,126 @@ msgid ""
 "Here are your current system information. Please include them if you "
 "report a bug."
 msgstr ""
+"Hier vind je de systeeminformatie. Stuur deze mee bij het melden van een bug."
 
 #: assets/templates/docs/about.jet.html:30
 msgid "Project"
-msgstr ""
+msgstr "Project"
 
 #: assets/templates/docs/about.jet.html:33
 msgid "Main website"
-msgstr ""
+msgstr "Officiële website"
 
 #: assets/templates/docs/about.jet.html:34
 msgid "Sources and issues"
-msgstr ""
+msgstr "Broncode en problemen"
 
 #: assets/templates/docs/about.jet.html:35
 msgid "How to contribute"
-msgstr ""
+msgstr "Bijdragen"
 
 #: assets/templates/docs/about.jet.html:36
 msgid "Community Forum"
-msgstr ""
+msgstr "Gemeenschapsforum"
 
 #: assets/templates/docs/about.jet.html:37
 msgid "Matrix Chat"
-msgstr ""
+msgstr "Matrix-chat"
 
 #: assets/templates/docs/about.jet.html:40
 msgid "License"
-msgstr ""
+msgstr "Licentie"
 
 #: assets/templates/docs/about.jet.html:42
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
-msgstr ""
+msgstr "Readeck wordt verspreid onder de voorwaarden van de %s-licentie"
 
 #: assets/templates/docs/about.jet.html:46
 msgid "Here's a short summary of the license conditions:"
-msgstr ""
+msgstr "Hieronder vind je een korte samenvatting van de voorwaarden:"
 
 #: assets/templates/docs/about.jet.html:51
 msgid "Permissions"
-msgstr ""
+msgstr "Rechten"
 
 #: assets/templates/docs/about.jet.html:52
 msgid "Conditions"
-msgstr ""
+msgstr "Voorwaarden"
 
 #: assets/templates/docs/about.jet.html:53
 msgid "Limitations"
-msgstr ""
+msgstr "Beperkingen"
 
 #: assets/templates/docs/about.jet.html:61
 msgid "Commercial use"
-msgstr ""
+msgstr "Commercieel gebruik"
 
 #: assets/templates/docs/about.jet.html:64
 msgid "Distribution"
-msgstr ""
+msgstr "Verspreiding"
 
 #: assets/templates/docs/about.jet.html:67
 msgid "Modification"
-msgstr ""
+msgstr "Aanpassing"
 
 #: assets/templates/docs/about.jet.html:70
 msgid "Patent use"
-msgstr ""
+msgstr "Patentgebruik"
 
 #: assets/templates/docs/about.jet.html:73
 msgid "Private use"
-msgstr ""
+msgstr "Privégebruik"
 
 #: assets/templates/docs/about.jet.html:80
 msgid "Disclose source"
-msgstr ""
+msgstr "Bron benoemen"
 
 #: assets/templates/docs/about.jet.html:83
 msgid "License and copyright notice"
-msgstr ""
+msgstr "Licentie- en auteursrechtvermelding"
 
 #: assets/templates/docs/about.jet.html:86
 msgid "Network use is distribution"
-msgstr ""
+msgstr "Netwerkgebruik is verspreiding"
 
 #: assets/templates/docs/about.jet.html:89
 msgid "Same license"
-msgstr ""
+msgstr "Dezelfde licentie"
 
 #: assets/templates/docs/about.jet.html:92
 msgid "State changes"
-msgstr ""
+msgstr "Statuswijzigingen"
 
 #: assets/templates/docs/about.jet.html:99
 msgid "Liability"
-msgstr ""
+msgstr "Aansprakelijkheid"
 
 #: assets/templates/docs/about.jet.html:102
 msgid "Warranty"
-msgstr ""
+msgstr "Garantie"
 
 #: assets/templates/docs/about.jet.html:129
 msgid "Third-Party Licenses"
-msgstr ""
+msgstr "Licenties van externe partijen"
 
 #: assets/templates/docs/about.jet.html:131
 msgid "Readeck includes and/or uses the following open source assets:"
-msgstr ""
+msgstr "Readeck bevat en/of maakt gebruik van de volgende opensourceitems:"
 
 #: assets/templates/docs/api-docs.jet.html:8
 #: assets/templates/docs/base.jet.html:21
 msgid "API Documentation"
-msgstr ""
+msgstr "Api-documentatie"
 
 #: assets/templates/docs/base.jet.html:9
 msgid "Readeck Help"
-msgstr ""
+msgstr "Hulp"
 
 #: assets/templates/docs/about.jet.html:8
 #: assets/templates/docs/base.jet.html:27 docs/http.go:232
 msgid "About Readeck"
-msgstr ""
+msgstr "Over Readeck"
 
 #: assets/templates/emails/recover.tmpl:8
 #, python-format
@@ -1269,6 +1270,16 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"\n"
+"Hallo,\n"
+"\n"
+"Je (of iemand anders) heeft dit e-mailadres ingevoerd in een poging\n"
+"het wachtwoord van een Readeck-account (‘%s’) te wijzigen.\n"
+"\n"
+"Als je deze e-mail verwachtte, klik dan op de link om een nieuw\n"
+"wachtwoord in te stellen.\n"
+"\n"
+"%s\n"
 
 #: assets/templates/emails/recover.tmpl:21
 #, python-format
@@ -1288,84 +1299,98 @@ msgid ""
 "\n"
 "If you are not a Readeck user, please ignore this message.\n"
 msgstr ""
+"\n"
+"Hallo,\n"
+"\n"
+"Je (of iemand anders) heeft dit e-mailadres ingevoerd in een poging\n"
+"het wachtwoord van een Readeck-account (‘%s’) te wijzigen.\n"
+"\n"
+"Dit e-mailadres lijkt echter niet gekoppeld aan een account - de\n"
+"wachtwoordwijziging is daarom mislukt.\n"
+"\n"
+"Als je een Readeck-account op %s hebt en deze e-mail verwachtte,\n"
+"probeer het dan opnieuw met het e-mailadres dat je bij het\n"
+"registreren gebruikt hebt.\n"
+"\n"
+"Als je geen gebruikmaakt van Readeck, kun je dit bericht negeren.\n"
 
 #: assets/templates/emails/recover.tmpl:38
 msgid "Kind regards"
-msgstr ""
+msgstr "Met vriendelijke groet"
 
 #: assets/templates/epub/bookmark.jet.html:44
 #, python-format
 msgid "About %d min read"
-msgstr ""
+msgstr "Ongeveer %d min. leestijd"
 
 #: assets/templates/error.jet.html:8
 msgid "Error"
-msgstr ""
+msgstr "Foutmelding"
 
 #: assets/templates/_layouts/sidemenu.jet.html:17
 #: assets/templates/bookmarks/bookmark.jet.html:26
 #: assets/templates/error.jet.html:12
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: assets/templates/_layouts/sidemenu.jet.html:19
 #: assets/templates/bookmarks/bookmark.jet.html:27
 #: assets/templates/error.jet.html:13
 msgid "Main content"
-msgstr ""
+msgstr "Hoofdinhoud"
 
 #: assets/templates/error.jet.html:22
 msgid "Permission denied."
-msgstr ""
+msgstr "De toegang is geweigerd."
 
 #: assets/templates/error.jet.html:24
 msgid "Page not found."
-msgstr ""
+msgstr "De pagina kan niet worden gevonden."
 
 #: assets/templates/error.jet.html:26
 msgid "An error occurred."
-msgstr ""
+msgstr "Er is een fout opgetreden."
 
 #: assets/templates/menu.jet.html:1
 msgid "Change theme"
-msgstr ""
+msgstr "Thema wĳzigen"
 
 #: assets/templates/menu.jet.html:28
 msgid "Change color theme"
-msgstr ""
+msgstr "Kleurenschema wĳzigen"
 
 #: assets/templates/menu.jet.html:43
 msgid "Sign out"
-msgstr ""
+msgstr "Uitloggen"
 
 #: assets/templates/profile/base.jet.html:9
 msgid "Settings"
-msgstr ""
+msgstr "Instellingen"
 
 #: assets/templates/profile/base.jet.html:14 internal/profile/views.go:97
 #: internal/profile/views.go:132 internal/profile/views.go:177
 #: internal/profile/views.go:242 internal/profile/views.go:273
 #: internal/profile/views.go:333
 msgid "Profile"
-msgstr ""
+msgstr "Profiel"
 
 #: assets/templates/profile/base.jet.html:21 internal/profile/views.go:178
 #: internal/profile/views.go:243
 msgid "Application Passwords"
-msgstr ""
+msgstr "Appwachtwoorden"
 
 #: assets/templates/profile/base.jet.html:26 internal/profile/views.go:274
 #: internal/profile/views.go:334
 msgid "API Tokens"
-msgstr ""
+msgstr "Api-toegangssleutels"
 
 #: assets/templates/profile/credential.jet.html:9
 msgid "Application Password"
-msgstr ""
+msgstr "Appwachtwoord"
 
 #: assets/templates/profile/credential.jet.html:19
 msgid "Password will be removed in a few seconds."
-msgstr ""
+msgstr "Het wachtwoord wordt over enkele seconden verwijderd."
 
 #: assets/templates/profile/credential.jet.html:27
 msgid ""
@@ -1375,28 +1400,33 @@ msgid ""
 "    or store it in a password manager.\n"
 "  "
 msgstr ""
+"\n"
+"    Het appwachtwoord is aangemaakt. Kopieer onderstaand wachtwoord naar een "
+"wachtwoordbeheerder of\n"
+"    noteer en bewaar op een veilige plek.\n"
+"  "
 
 #: assets/templates/profile/credential.jet.html:32
 msgid "Your password:"
-msgstr ""
+msgstr "Mijn wachtwoord:"
 
 #: assets/templates/profile/credential.jet.html:39
 msgid "Copy"
-msgstr ""
+msgstr "Kopiëren"
 
 #: assets/templates/profile/credential.jet.html:44
 #: assets/templates/profile/token.jet.html:25
 msgid "Properties"
-msgstr ""
+msgstr "Eigenschappen"
 
 #: assets/templates/profile/credential.jet.html:51
 msgid "Password ID"
-msgstr ""
+msgstr "Wachtwoord-id"
 
 #: assets/templates/profile/credential.jet.html:64
 #: assets/templates/profile/token.jet.html:45
 msgid "Enabled"
-msgstr ""
+msgstr "Ingeschakeld"
 
 #: assets/templates/profile/credential.jet.html:70
 msgid ""
@@ -1408,67 +1438,72 @@ msgid ""
 "password.\n"
 "  "
 msgstr ""
+"\n"
+"    Met behulp van onderstaande opties kun je beperkingen op dit wachtwoord\n"
+"    instellen.<br>\n"
+"    Als je niets instelt, worden alle rechten toegekend.\n"
+"  "
 
 #: assets/templates/profile/credential.jet.html:78
 #: assets/templates/profile/token.jet.html:65
 msgid "Roles"
-msgstr ""
+msgstr "Functies"
 
 #: assets/templates/profile/credential.jet.html:86
 msgid "Delete password"
-msgstr ""
+msgstr "Wachtwoord wissen"
 
 #: assets/templates/profile/credential_list.jet.html:10
 msgid "My Application Passwords"
-msgstr ""
+msgstr "Mijn appwachtwoorden"
 
 #: assets/templates/profile/credential_list.jet.html:23
 msgid "Create a new Application Password"
-msgstr ""
+msgstr "Nieuw appwachtwoord"
 
 #: assets/templates/profile/credential_list.jet.html:51
 msgid "This password will be removed in a few seconds."
-msgstr ""
+msgstr "Het wachtwoord wordt over enkele seconden gewist."
 
 #: assets/templates/profile/index.jet.html:9
 msgid "My profile"
-msgstr ""
+msgstr "Mijn profiel"
 
 #: assets/templates/profile/index.jet.html:26
 msgid "Email Address"
-msgstr ""
+msgstr "E-mailadres"
 
 #: assets/templates/profile/index.jet.html:31
 msgid "Language"
-msgstr ""
+msgstr "Taal"
 
 #: assets/templates/profile/password.jet.html:9
 msgid "Change my password"
-msgstr ""
+msgstr "Wachtwoord wĳzigen"
 
 #: assets/templates/profile/password.jet.html:21
 msgid "Current password"
-msgstr ""
+msgstr "Huidig wachtwoord"
 
 #: assets/templates/profile/token.jet.html:9
 msgid "API Token"
-msgstr ""
+msgstr "Api-toegangssleutel"
 
 #: assets/templates/profile/token.jet.html:19
 msgid "Token will be removed in a few seconds."
-msgstr ""
+msgstr "De toegangssleutel wordt over enkele seconden gewist."
 
 #: assets/templates/profile/token.jet.html:32
 msgid "Token ID"
-msgstr ""
+msgstr "Toegangssleutel"
 
 #: assets/templates/profile/token.jet.html:39
 msgid "Application"
-msgstr ""
+msgstr "App"
 
 #: assets/templates/profile/token.jet.html:51
 msgid "Expires on"
-msgstr ""
+msgstr "Vervalt op"
 
 #: assets/templates/profile/token.jet.html:57
 msgid ""
@@ -1480,28 +1515,36 @@ msgid ""
 "token.\n"
 "  "
 msgstr ""
+"\n"
+"    Met behulp van onderstaande opties kun je beperkingen op deze "
+"toegangssleutel\n"
+"    instellen.<br>\n"
+"    Als je niets instelt, worden alle rechten toegekend.\n"
+"  "
 
 #: assets/templates/profile/token.jet.html:73
 msgid "Delete token"
-msgstr ""
+msgstr "Toegangssleutel wissen"
 
 #: assets/templates/profile/token.jet.html:78
 msgid "API authentication"
-msgstr ""
+msgstr "Api-verificatie"
 
 #: assets/templates/profile/token.jet.html:81
 msgid "Your API token"
-msgstr ""
+msgstr "Mijn api-sleutel"
 
 #: assets/templates/profile/token.jet.html:89
 msgid ""
 "You can use this token by passing it as an <strong>Authorization: "
 "Bearer</strong> HTTP header."
 msgstr ""
+"Je kunt deze toegangssleutel gebruiken met behulp van de http-kop "
+"<strong>Authorization: Bearer</strong>."
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
-msgstr ""
+msgstr "Mijn api-sleutels"
 
 #: assets/templates/profile/token_list.jet.html:16
 msgid ""
@@ -1510,6 +1553,10 @@ msgid ""
 "extension)\n"
 "  access to the Readeck API.\n"
 msgstr ""
+"\n"
+"  Een api-sleutel geeft je (of een hulpmiddel, zoals een browserextensie) "
+"toegang\n"
+"  tot de Readeck-api.\n"
 
 #: assets/templates/profile/token_list.jet.html:20
 #, python-format
@@ -1517,210 +1564,212 @@ msgid ""
 "Please read the <a href=\"%s\">API Documentation</a> if you plan to use "
 "it."
 msgstr ""
+"Neem de <a href=\"%s\">api-documentatie</a> door als je hiervan gebruik wilt "
+"maken."
 
 #: assets/templates/profile/token_list.jet.html:26
 msgid "Create a new API token"
-msgstr ""
+msgstr "Api-sleutel genereren"
 
 #: assets/templates/profile/token_list.jet.html:48
 #, python-format
 msgid "Expires on: %s"
-msgstr ""
+msgstr "Vervalt op %s"
 
 #: assets/templates/profile/token_list.jet.html:55
 msgid "This token will be removed in a few seconds."
-msgstr ""
+msgstr "Deze sleutel wordt over enkele seconden verwijderd."
 
 #: docs/http.go:166 docs/http.go:231 docs/http.go:269
 msgid "Documentation"
-msgstr ""
+msgstr "Documentatie"
 
 #: internal/admin/views.go:80
 msgid "User created."
-msgstr ""
+msgstr "De gebruiker is aangemaakt."
 
 #: internal/admin/views.go:119
 msgid "User updated."
-msgstr ""
+msgstr "De gebruiker is bijgewerkt."
 
 #: internal/auth/signin/forms.go:16
 msgid "Invalid user and/or password"
-msgstr ""
+msgstr "Ongeldige gebruikersnaam en/of wachtwoord"
 
 #: internal/auth/users/forms.go:198
 msgid "Bookmarks : Read Only"
-msgstr ""
+msgstr "Bladwijzers: alleen-lezen"
 
 #: internal/auth/users/forms.go:199
 msgid "Bookmarks : Write Only"
-msgstr ""
+msgstr "Bladwijzers: alleen-schrijven"
 
 #: internal/auth/users/forms.go:200
 msgid "Admin : Read Only"
-msgstr ""
+msgstr "Beheerder: alleen-lezen"
 
 #: internal/auth/users/forms.go:201
 msgid "Admin : Write Only"
-msgstr ""
+msgstr "Beheerder: alleen-schrijven"
 
 #: internal/bookmarks/importer/browser.go:50
 msgid "Browser Bookmarks"
-msgstr ""
+msgstr "Browserbladwijzers"
 
 #: internal/bookmarks/importer/browser.go:69
 #: internal/bookmarks/importer/pocket_file.go:69
 msgid "Unabled to read HTML content"
-msgstr ""
+msgstr "De html-inhoud kan niet worden uitgelezen"
 
 #: internal/bookmarks/importer/browser.go:123
 #: internal/bookmarks/importer/goodlinks.go:62
 #: internal/bookmarks/importer/pocket_file.go:124
 #: internal/bookmarks/importer/text.go:52
 msgid "Empty or invalid import file"
-msgstr ""
+msgstr "Het bestand is blanco of ongeldig"
 
 #: internal/bookmarks/importer/goodlinks.go:43
 msgid "GoodLinks Export File"
-msgstr ""
+msgstr "GoodLink-exportbestand"
 
 #: internal/bookmarks/importer/text.go:23
 msgid "Text File"
-msgstr ""
+msgstr "Tekstbestand"
 
 #: internal/bookmarks/importer/wallabag.go:230
 msgid "Invalid URL"
-msgstr ""
+msgstr "De url is ongeldig"
 
 #: internal/bookmarks/importer/wallabag.go:235
 msgid "Invalid credentials"
-msgstr ""
+msgstr "De inloggegevens zijn onjuist"
 
 #: internal/bookmarks/importer/wallabag.go:246
 msgid "No access token found"
-msgstr ""
+msgstr "Er is geen toegangssleutel gevonden"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:403
 msgid "Article"
-msgstr ""
+msgstr "Artikel"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:404
 msgid "Picture"
-msgstr ""
+msgstr "Afbeelding"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:405
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:742
 msgctxt "sort"
 msgid "Added, most recent first"
-msgstr ""
+msgstr "Toevoegdatum - nieuwste bovenaan"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:743
 msgctxt "sort"
 msgid "Added, oldest first"
-msgstr ""
+msgstr "Toevoegdatum - oudste bovenaan"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:744
 msgctxt "sort"
 msgid "Published, most recent first"
-msgstr ""
+msgstr "Publicatiedatum - nieuwste bovenaan"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:745
 msgctxt "sort"
 msgid "Published, oldest first"
-msgstr ""
+msgstr "Publicatiedatum - oudste bovenaan"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:746
 msgctxt "sort"
 msgid "Title, A to Z"
-msgstr ""
+msgstr "Titel - A–Z"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:747
 msgctxt "sort"
 msgid "Title, Z to A"
-msgstr ""
+msgstr "Titel - Z–A"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:748
 msgctxt "sort"
 msgid "Site Name, A to Z"
-msgstr ""
+msgstr "Websitenaam - A–Z"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:749
 msgctxt "sort"
 msgid "Site Name, Z to A"
-msgstr ""
+msgstr "Websitenaam - Z–A"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:750
 msgctxt "sort"
 msgid "Duration, shortest first"
-msgstr ""
+msgstr "Duur - kortste eerst"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:751
 msgctxt "sort"
 msgid "Duration, longest first"
-msgstr ""
+msgstr "Duur - langste eerst"
 
 #: internal/bookmarks/routes/opds.go:57
 msgid "Readeck Bookmarks"
-msgstr ""
+msgstr "Readeck-bladwijzers"
 
 #: internal/bookmarks/routes/opds.go:102
 msgid "Readeck Bookmark Collections"
-msgstr ""
+msgstr "Readeck-bladwijzerverzamelingen"
 
 #: internal/bookmarks/routes/opds.go:139
 #, python-format
 msgid "Readeck Collection: %s"
-msgstr ""
+msgstr "Readeck-verzameling: %s"
 
 #: internal/bookmarks/routes/opds.go:145
 #, python-format
 msgid "Collection ebook - %s"
-msgstr ""
+msgstr "E-boekverzameling: %s"
 
 #: internal/bookmarks/routes/opds.go:152
 #, python-format
 msgid "Browse collection: %s"
-msgstr ""
+msgstr "Surfverzameling: %s"
 
 #: internal/bookmarks/routes/views_bookmarks.go:96
 msgid "All your Bookmarks"
-msgstr ""
+msgstr "Alle bladwijzers"
 
 #: internal/bookmarks/routes/views_bookmarks.go:101
 msgid "Bookmark Search"
-msgstr ""
+msgstr "Bladwijzers doorzoeken"
 
 #: internal/bookmarks/routes/views_bookmarks.go:105 internal/opds/http.go:58
 msgid "Unread Bookmarks"
-msgstr ""
+msgstr "Ongelezen bladwijzers"
 
 #: internal/bookmarks/routes/views_bookmarks.go:107 internal/opds/http.go:62
 msgid "Archived Bookmarks"
-msgstr ""
+msgstr "Gearchiveerde bladwijzers"
 
 #: internal/bookmarks/routes/views_bookmarks.go:109 internal/opds/http.go:66
 msgid "Favorite Bookmarks"
-msgstr ""
+msgstr "Favoriete bladwijzers"
 
 #: internal/bookmarks/routes/views_collections.go:78
 msgid "Collection updated."
-msgstr ""
+msgstr "De verzameling is bijgewerkt."
 
 #: internal/bookmarks/routes/views_import.go:28
 #: internal/bookmarks/routes/views_import.go:37
 #: internal/bookmarks/routes/views_import.go:67
 msgid "Import"
-msgstr ""
+msgstr "Importeren"
 
 #: internal/bookmarks/routes/views_import.go:29
 msgid "Progress"
-msgstr ""
+msgstr "Voortgang"
 
 #: internal/opds/http.go:70
 msgid "All Bookmarks"
-msgstr ""
+msgstr "Alle bladwijzers"
 
 #: internal/profile/forms.go:34
 msgid "invalid username and/or email"

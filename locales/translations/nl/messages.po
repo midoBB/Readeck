@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-09-07 08:26+0000\n"
-"PO-Revision-Date: 2024-09-17 10:18+0000\n"
+"PO-Revision-Date: 2024-09-18 11:18+0000\n"
 "Last-Translator: Vistaus <Vistaus@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/"
 "application/nl/>\n"
@@ -1773,283 +1773,283 @@ msgstr "Alle bladwijzers"
 
 #: internal/profile/forms.go:34
 msgid "invalid username and/or email"
-msgstr ""
+msgstr "Ongeldige gebruikersnaam en/of e-mailadres"
 
 #: internal/profile/forms.go:35
 msgid "invalid password"
-msgstr ""
+msgstr "Ongeldig wachtwoord"
 
 #: internal/profile/views.go:85
 msgid "Profile updated."
-msgstr ""
+msgstr "Het profiel is bijgewerkt."
 
 #: internal/profile/views.go:120
 msgid "Your password was changed."
-msgstr ""
+msgstr "Het wachtwoord is gewijzigd."
 
 #: internal/profile/views.go:188
 msgid "Error: you can not create more credentials."
-msgstr ""
+msgstr "Foutmelding: je kunt geen inloggegevens meer aanmaken."
 
 #: internal/profile/views.go:196
 msgid "An error occurred while creating your password."
-msgstr ""
+msgstr "Er is een fout opgetreden tijdens het aanmaken van je wachtwoord."
 
 #: internal/profile/views.go:228
 msgid "Password was updated."
-msgstr ""
+msgstr "Het wachtwoord is bijgewerkt."
 
 #: internal/profile/views.go:289
 msgid "An error occurred while creating your token."
-msgstr ""
+msgstr "Er is een fout opgetreden tijdens het genereren van de sleutel."
 
 #: internal/profile/views.go:294
 msgid "New token created."
-msgstr ""
+msgstr "Er is een nieuwe sleutel gegenereerd."
 
 #: internal/profile/views.go:313
 msgid "Token was updated."
-msgstr ""
+msgstr "De sleutel is bijgewerkt."
 
 #: pkg/forms/forms.go:22
 msgid "an unexpected error has occurred"
-msgstr ""
+msgstr "Er is een onverwachte fout opgetreden"
 
 #: pkg/forms/validators.go:14
 msgid "field is required"
-msgstr ""
+msgstr "Veld is vereist"
 
 #: pkg/forms/validators.go:15
 msgid "not a valid email address"
-msgstr ""
+msgstr "Ongeldig e-mailadres"
 
 #: pkg/forms/validators.go:16
 msgid "invalid URL"
-msgstr ""
+msgstr "Ongeldige url"
 
 #: pkg/forms/validators.go:135
 #, python-format
 msgid "must be greater or equal than %d"
-msgstr ""
+msgstr "Moet meer zijn dan of gelijk aan %d"
 
 #: pkg/forms/validators.go:147
 #, python-format
 msgid "must be lower or equal than %d"
-msgstr ""
+msgstr "Moet minder zijn dan of gelijk aan %d"
 
 #: pkg/strftime/strftime.go:23
 msgctxt "datetime_dl"
 msgid "Sunday"
-msgstr ""
+msgstr "Zondag"
 
 #: pkg/strftime/strftime.go:24
 msgctxt "datetime_dl"
 msgid "Monday"
-msgstr ""
+msgstr "Maandag"
 
 #: pkg/strftime/strftime.go:25
 msgctxt "datetime_dl"
 msgid "Tuesday"
-msgstr ""
+msgstr "Dinsdag"
 
 #: pkg/strftime/strftime.go:26
 msgctxt "datetime_dl"
 msgid "Wednesday"
-msgstr ""
+msgstr "Woensdag"
 
 #: pkg/strftime/strftime.go:27
 msgctxt "datetime_dl"
 msgid "Thursday"
-msgstr ""
+msgstr "Donderdag"
 
 #: pkg/strftime/strftime.go:28
 msgctxt "datetime_dl"
 msgid "Friday"
-msgstr ""
+msgstr "Vrijdag"
 
 #: pkg/strftime/strftime.go:29
 msgctxt "datetime_dl"
 msgid "Saturday"
-msgstr ""
+msgstr "Zaterdag"
 
 #: pkg/strftime/strftime.go:33
 msgctxt "datetime_ds"
 msgid "Sun"
-msgstr ""
+msgstr "Zo"
 
 #: pkg/strftime/strftime.go:34
 msgctxt "datetime_ds"
 msgid "Mon"
-msgstr ""
+msgstr "Ma"
 
 #: pkg/strftime/strftime.go:35
 msgctxt "datetime_ds"
 msgid "Tue"
-msgstr ""
+msgstr "Di"
 
 #: pkg/strftime/strftime.go:36
 msgctxt "datetime_ds"
 msgid "Wed"
-msgstr ""
+msgstr "Woe"
 
 #: pkg/strftime/strftime.go:37
 msgctxt "datetime_ds"
 msgid "Thu"
-msgstr ""
+msgstr "Do"
 
 #: pkg/strftime/strftime.go:38
 msgctxt "datetime_ds"
 msgid "Fri"
-msgstr ""
+msgstr "Vrij"
 
 #: pkg/strftime/strftime.go:39
 msgctxt "datetime_ds"
 msgid "Sat"
-msgstr ""
+msgstr "Za"
 
 #: pkg/strftime/strftime.go:43
 msgctxt "datetime_ml"
 msgid "January"
-msgstr ""
+msgstr "januari"
 
 #: pkg/strftime/strftime.go:44
 msgctxt "datetime_ml"
 msgid "February"
-msgstr ""
+msgstr "februari"
 
 #: pkg/strftime/strftime.go:45
 msgctxt "datetime_ml"
 msgid "March"
-msgstr ""
+msgstr "maart"
 
 #: pkg/strftime/strftime.go:46
 msgctxt "datetime_ml"
 msgid "April"
-msgstr ""
+msgstr "april"
 
 #: pkg/strftime/strftime.go:47
 msgctxt "datetime_ml"
 msgid "May"
-msgstr ""
+msgstr "mei"
 
 #: pkg/strftime/strftime.go:48
 msgctxt "datetime_ml"
 msgid "June"
-msgstr ""
+msgstr "juni"
 
 #: pkg/strftime/strftime.go:49
 msgctxt "datetime_ml"
 msgid "July"
-msgstr ""
+msgstr "juli"
 
 #: pkg/strftime/strftime.go:50
 msgctxt "datetime_ml"
 msgid "August"
-msgstr ""
+msgstr "augustus"
 
 #: pkg/strftime/strftime.go:51
 msgctxt "datetime_ml"
 msgid "September"
-msgstr ""
+msgstr "september"
 
 #: pkg/strftime/strftime.go:52
 msgctxt "datetime_ml"
 msgid "October"
-msgstr ""
+msgstr "oktober"
 
 #: pkg/strftime/strftime.go:53
 msgctxt "datetime_ml"
 msgid "November"
-msgstr ""
+msgstr "november"
 
 #: pkg/strftime/strftime.go:54
 msgctxt "datetime_ml"
 msgid "December"
-msgstr ""
+msgstr "december"
 
 #: pkg/strftime/strftime.go:58
 msgctxt "datetime_ms"
 msgid "Jan"
-msgstr ""
+msgstr "jan"
 
 #: pkg/strftime/strftime.go:59
 msgctxt "datetime_ms"
 msgid "Feb"
-msgstr ""
+msgstr "feb"
 
 #: pkg/strftime/strftime.go:60
 msgctxt "datetime_ms"
 msgid "Mar"
-msgstr ""
+msgstr "mrt"
 
 #: pkg/strftime/strftime.go:61
 msgctxt "datetime_ms"
 msgid "Apr"
-msgstr ""
+msgstr "apr"
 
 #: pkg/strftime/strftime.go:62
 msgctxt "datetime_ms"
 msgid "May"
-msgstr ""
+msgstr "mei"
 
 #: pkg/strftime/strftime.go:63
 msgctxt "datetime_ms"
 msgid "Jun"
-msgstr ""
+msgstr "jun"
 
 #: pkg/strftime/strftime.go:64
 msgctxt "datetime_ms"
 msgid "Jul"
-msgstr ""
+msgstr "jul"
 
 #: pkg/strftime/strftime.go:65
 msgctxt "datetime_ms"
 msgid "Aug"
-msgstr ""
+msgstr "aug"
 
 #: pkg/strftime/strftime.go:66
 msgctxt "datetime_ms"
 msgid "Sep"
-msgstr ""
+msgstr "sep"
 
 #: pkg/strftime/strftime.go:67
 msgctxt "datetime_ms"
 msgid "Oct"
-msgstr ""
+msgstr "okt"
 
 #: pkg/strftime/strftime.go:68
 msgctxt "datetime_ms"
 msgid "Nov"
-msgstr ""
+msgstr "nov"
 
 #: pkg/strftime/strftime.go:69
 msgctxt "datetime_ms"
 msgid "Dec"
-msgstr ""
+msgstr "dec"
 
 #: pkg/strftime/strftime.go:73
 msgctxt "datetime"
 msgid "a.m."
-msgstr ""
+msgstr "a.m."
 
 #: pkg/strftime/strftime.go:74
 msgctxt "datetime"
 msgid "p.m."
-msgstr ""
+msgstr "p.m."
 
 #: pkg/strftime/strftime.go:75
 #, python-format
 msgctxt "datetime"
 msgid "%a %b %e %H:%M:%S %y"
-msgstr ""
+msgstr "%a %e %b %H:%M:%S %y"
 
 #: pkg/strftime/strftime.go:76
 #, python-format
 msgctxt "datetime"
 msgid "%m/%d/%Y"
-msgstr ""
+msgstr "%m %d %Y"
 
 #: pkg/strftime/strftime.go:77
 msgctxt "datetime"
 msgid "%H:%M:%S"
-msgstr ""
+msgstr "%H:%M:%S"

@@ -7,22 +7,22 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-09-07 08:26+0000\n"
-"PO-Revision-Date: 2024-08-25 15:18+0000\n"
-"Last-Translator: FrankDex <FrankDex@users.noreply.translate.codeberg.org>"
-"\n"
+"PO-Revision-Date: 2024-09-15 18:18+0000\n"
+"Last-Translator: bttr <bttr@users.noreply.translate.codeberg.org>\n"
+"Language-Team: German <https://translate.codeberg.org/projects/readeck/"
+"application/de/>\n"
 "Language: de_DE\n"
-"Language-Team: German "
-"<https://translate.codeberg.org/projects/readeck/application/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.7.2\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
 #: assets/templates/bookmarks/bookmark.jet.html assets/templates/error.jet.html
 msgid "Menu"
-msgstr "Menu"
+msgstr "Menü"
 
 #: assets/templates/_layouts/sidemenu.jet.html
 msgid "Secondary Menu"
@@ -35,11 +35,11 @@ msgstr "Hauptinhalt"
 
 #: assets/templates/_layouts/sidemenu.jet.html
 msgid "Open menu"
-msgstr "Menu öffnen"
+msgstr "Menü öffnen"
 
 #: assets/templates/_libs/common.jet.html
 msgid "Quick access menu"
-msgstr "Schnellzugriff Menu"
+msgstr "Schnellzugriff Menü"
 
 #: assets/templates/_libs/common.jet.html
 msgid "Home Page"
@@ -47,7 +47,7 @@ msgstr "Homepage"
 
 #: assets/templates/_libs/forms.jet.html
 msgid "Required"
-msgstr "Benlötigt"
+msgstr "Benötigt"
 
 #: assets/templates/_libs/forms.jet.html
 msgid "Errors"
@@ -437,7 +437,7 @@ msgstr "Lesezeichen ist am laden"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html
 msgid "Bookmark not found"
-msgstr ""
+msgstr "Lesezeichen nicht gefunden"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html
 msgid "Shared link"
@@ -1078,7 +1078,7 @@ msgstr "Lesezeichen importieren"
 
 #: assets/templates/bookmarks/index.jet.html
 msgid "Your search query yielded <strong>no results</strong>."
-msgstr "Deine suche ergab <strong>keine Ergebnisse</strong>."
+msgstr "Deine Suche ergab <strong>keine Ergebnisse</strong>."
 
 #: assets/templates/bookmarks/index.jet.html
 #, python-format
@@ -1098,7 +1098,7 @@ msgstr "Suche"
 
 #: assets/templates/bookmarks/index.jet.html
 msgid "Reset search"
-msgstr "Suche zurücksetzten"
+msgstr "Suche zurücksetzen"
 
 #: assets/templates/bookmarks/index.jet.html
 msgid "Create a collection"
@@ -1154,27 +1154,29 @@ msgstr ""
 
 #: assets/templates/docs/about.jet.html
 msgid "Project"
-msgstr ""
+msgstr "Projekt"
 
 #: assets/templates/docs/about.jet.html
 msgid "Main website"
-msgstr ""
+msgstr "Hauptseite"
 
 #: assets/templates/docs/about.jet.html
+#, fuzzy
 msgid "Sources and issues"
-msgstr ""
+msgstr "Quellen und Fehlermeldungen"
 
 #: assets/templates/docs/about.jet.html
 msgid "How to contribute"
-msgstr ""
+msgstr "Wie Sie beitragen können"
 
 #: assets/templates/docs/about.jet.html
 msgid "Community Forum"
-msgstr ""
+msgstr "Community-Forum"
 
 #: assets/templates/docs/about.jet.html
+#, fuzzy
 msgid "Matrix Chat"
-msgstr ""
+msgstr "Matrix Chat"
 
 #: assets/templates/docs/about.jet.html
 msgid "License"
@@ -2051,4 +2053,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Invalid Content-Type"
 #~ msgstr "Ungültiger Inhaltstyp"
-

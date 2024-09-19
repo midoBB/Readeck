@@ -7,16 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-09-07 08:26+0000\n"
-"PO-Revision-Date: 2024-08-27 03:18+0000\n"
-"Last-Translator: Outbreak2096 "
-"<Outbreak2096@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2024-09-08 09:18+0000\n"
+"Last-Translator: Outbreak2096 <Outbreak2096@users.noreply.translate.codeberg."
+"org>\n"
+"Language-Team: Chinese (Simplified) <https://translate.codeberg.org/projects/"
+"readeck/application/zh_Hans/>\n"
 "Language: zh_CN\n"
-"Language-Team: Chinese (Simplified) "
-"<https://translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.7\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -430,7 +431,7 @@ msgstr "书签正在加载"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html
 msgid "Bookmark not found"
-msgstr ""
+msgstr "书签未找到"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html
 msgid "Shared link"
@@ -1117,27 +1118,27 @@ msgstr "这是您当前的系统信息。如果您报告错误，请将其包括
 
 #: assets/templates/docs/about.jet.html
 msgid "Project"
-msgstr ""
+msgstr "项目"
 
 #: assets/templates/docs/about.jet.html
 msgid "Main website"
-msgstr ""
+msgstr "主网站"
 
 #: assets/templates/docs/about.jet.html
 msgid "Sources and issues"
-msgstr ""
+msgstr "来源和问题"
 
 #: assets/templates/docs/about.jet.html
 msgid "How to contribute"
-msgstr ""
+msgstr "如何做出贡献"
 
 #: assets/templates/docs/about.jet.html
 msgid "Community Forum"
-msgstr ""
+msgstr "社区论坛"
 
 #: assets/templates/docs/about.jet.html
 msgid "Matrix Chat"
-msgstr ""
+msgstr "Matrix 聊天"
 
 #: assets/templates/docs/about.jet.html
 msgid "License"
@@ -2002,4 +2003,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Invalid Content-Type"
 #~ msgstr "无效Content-Type"
-

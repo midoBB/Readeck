@@ -1035,6 +1035,9 @@ func (bi *bookmarkItem) setEmbed() error {
 		bi.Embed = dom.OuterHTML(embed)
 		bi.EmbedHostname = src.Hostname()
 	case "hls":
+		if bi.Resources["image"] == nil {
+			return nil
+		}
 		playerURL := bi.baseURL.JoinPath("/videoplayer")
 		playerURL.RawQuery = url.Values{
 			"type": {"hls"},
@@ -1049,6 +1052,9 @@ func (bi *bookmarkItem) setEmbed() error {
 			bi.Resources["image"].Height,
 		)
 	case "video":
+		if bi.Resources["image"] == nil {
+			return nil
+		}
 		playerURL := bi.baseURL.JoinPath("/videoplayer")
 		playerURL.RawQuery = url.Values{
 			"src": {src.String()},

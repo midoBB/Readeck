@@ -11,6 +11,7 @@ import (
 	"mime"
 	"net/http"
 	"net/url"
+	"path"
 	"regexp"
 	"slices"
 	"sort"
@@ -27,8 +28,9 @@ import (
 )
 
 var (
-	rxAuthor = regexp.MustCompile(`^(?i)by(\s*:)?\s+`)
-	rxSpaces = regexp.MustCompile(`\s+`)
+	rxAuthor      = regexp.MustCompile(`^(?i)by(\s*:)?\s+`)
+	rxSpaces      = regexp.MustCompile(`\s+`)
+	rxTitleSpaces = regexp.MustCompile(`[_-]+`)
 
 	mediaTypes = []string{"photo", "video", "audio", "music"}
 )
@@ -130,11 +132,16 @@ func (d *Drop) Load(client *http.Client) error {
 		return fmt.Errorf("Invalid status code (%d)", rsp.StatusCode)
 	}
 
-	if !d.IsHTML() {
-		return nil
+	switch {
+	case d.IsHTML():
+		return d.loadBody(rsp)
+	case d.ContentType == "text/plain":
+		return d.loadTextPlain(rsp)
+	case strings.HasPrefix(d.ContentType, "image/"):
+		return d.loadImage(rsp)
 	}
 
-	return d.loadHTMLBody(rsp)
+	return nil
 }
 
 // IsHTML returns true when the resource is of type HTML.
@@ -186,9 +193,9 @@ func (d *Drop) AddAuthors(values ...string) {
 	d.Authors = res
 }
 
-// loadHTMLBody will load the document body and try to convert
+// loadBody loads the document body and try to convert
 // it to UTF-8 when encoding is different.
-func (d *Drop) loadHTMLBody(rsp *http.Response) error {
+func (d *Drop) loadBody(rsp *http.Response) error {
 	var err error
 	var body []byte
 
@@ -219,6 +226,38 @@ func (d *Drop) loadHTMLBody(rsp *http.Response) error {
 	// Eventually set the original charset and UTF8 body
 	d.Charset = encName
 	d.Body = []byte(bleach.SanitizeString(string(body)))
+
+	return nil
+}
+
+// loadTextPlain loads a plain text content and wraps it in an HTML document with
+// a title.
+func (d *Drop) loadTextPlain(rsp *http.Response) error {
+	err := d.loadBody(rsp)
+	if err != nil {
+		return err
+	}
+
+	title := strings.TrimSuffix(path.Base(d.URL.Path), path.Ext(d.URL.Path))
+	title = rxTitleSpaces.ReplaceAllLiteralString(title, " ")
+	d.Body = []byte(
+		fmt.Sprintf("<html><head><title>%s</title><body><pre>%s",
+			title,
+			string(d.Body),
+		),
+	)
+	d.ContentType = "text/html"
+
+	return nil
+}
+
+// loadImage sets the type to "photo", try to get a title and set the picture URL
+// to the drop's URL.
+func (d *Drop) loadImage(_ *http.Response) error {
+	d.Meta.Add("x.picture_url", d.URL.String())
+	d.Title = strings.TrimSuffix(path.Base(d.URL.Path), path.Ext(d.URL.Path))
+	d.Title = rxTitleSpaces.ReplaceAllLiteralString(d.Title, " ")
+	d.DocumentType = "photo"
 
 	return nil
 }

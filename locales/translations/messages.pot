@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-09-07 08:26+0000\n"
+"POT-Creation-Date: 2024-10-21 18:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -231,12 +231,6 @@ msgstr ""
 msgid "We're delighted to have you on board; one more step and you're good to go."
 msgstr ""
 
-#: assets/templates/auth/onboarding.jet.html:32
-#: assets/templates/auth/recover.jet.html:56
-#: assets/templates/profile/password.jet.html:32
-msgid "must be at least 8 characters long"
-msgstr ""
-
 #: assets/templates/auth/onboarding.jet.html:39
 msgid "Please note:"
 msgstr ""
@@ -244,8 +238,7 @@ msgstr ""
 #: assets/templates/auth/onboarding.jet.html:40
 msgid ""
 "\n"
-"  Your email address is optional and will never leave this installation."
-"\n"
+"  Your email address is optional and will never leave this installation.\n"
 "  It will never be collected, transferred or sold.\n"
 "  It will <strong>only</strong> be used, should you need it, for password"
 " recovery and internal notifications.\n"
@@ -299,6 +292,12 @@ msgstr ""
 #: assets/templates/auth/recover.jet.html:54
 #: assets/templates/profile/password.jet.html:29
 msgid "New password"
+msgstr ""
+
+#: assets/templates/auth/onboarding.jet.html:32
+#: assets/templates/auth/recover.jet.html:56
+#: assets/templates/profile/password.jet.html:32
+msgid "must be at least 8 characters long"
 msgstr ""
 
 #: assets/templates/auth/recover.jet.html:57

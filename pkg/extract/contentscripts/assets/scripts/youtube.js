@@ -19,6 +19,16 @@ exports.processMeta = function () {
   const videoID = $.meta["schema.identifier"][0]
 
   const info = getVideoInfo(videoID)
+  let html = ""
+
+  // Get a better description
+  const description = (info.videoDetails?.shortDescription || "").trim()
+  if (description) {
+    $.description = description.split("\n")[0]
+    if (description.length > $.description.length) {
+      html += convertDescription(description)
+    }
+  }
 
   // Get more information
   const lengthSeconds = info.videoDetails?.lengthSeconds
@@ -29,10 +39,14 @@ exports.processMeta = function () {
   // Get transcript
   const transcript = getTranscript(info)
   if (transcript) {
-    $.html = `<section id="main"><p>${transcript.join("<br>\n")}</p></section>`
+    html += `<h2>Transcript</h2>\n<p>${transcript.join("<br>\n")}</p>`
+  }
+
+  if (html) {
+    $.html = `<section id="main">${html}</section>`
     // we must force readability here for it to pick up the content
     // (it normally won't with a video)
-    $.readability = true
+    $.readability = false
   }
 }
 
@@ -109,4 +123,16 @@ function getTranscript(info) {
       return x["#text"]
     })
     .filter((x) => x)
+}
+
+function convertDescription(text) {
+  text = text.replace(/\n\n/g, "</p><p>")
+  text = text.replace(/\n/g, "<br>\n")
+  text = text.replace("</p>", "</p>\n")
+  text = text.replace(
+    /(https?:\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi,
+    '<a href="$1">$1</a>',
+  )
+
+  return `<p class="main">${text}</p>`
 }

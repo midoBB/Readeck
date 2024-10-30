@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-10-21 18:26+0000\n"
+"POT-Creation-Date: 2024-10-30 16:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -119,6 +119,7 @@ msgstr ""
 #: assets/templates/bookmarks/components/card.jet.html:90
 #: assets/templates/bookmarks/import/form-browser.jet.html:49
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:35
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:44
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
 #: assets/templates/bookmarks/import/form-text.jet.html:36
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:70
@@ -758,8 +759,34 @@ msgid ""
 "  "
 msgstr ""
 
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:43
+msgid "Import your Omnivore Articles"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:15
+msgid ""
+"\n"
+"    To import your articles from Omnivore, you must first create an API "
+"Key in your\n"
+"    Omnivore's settings and enter it in the the form below.\n"
+"  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:28
+msgid "Omnivore URL"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:30
+msgid "URL of your Omnivore homepage"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:36
+msgid "API Key"
+msgstr ""
+
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:40
+#: assets/templates/bookmarks/import/index.jet.html:46
 msgid "Import your Pocket Articles"
 msgstr ""
 
@@ -800,6 +827,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:48
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:43
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:49
 #: assets/templates/bookmarks/import/form-text.jet.html:35
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:69
@@ -821,7 +849,7 @@ msgid ""
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:43
+#: assets/templates/bookmarks/import/index.jet.html:49
 msgid "Import your Wallabag Articles"
 msgstr ""
 
@@ -875,7 +903,7 @@ msgstr ""
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
 msgstr ""
 
-#: assets/templates/bookmarks/import/index.jet.html:46
+#: assets/templates/bookmarks/import/index.jet.html:40
 msgid "Import your GoodLinks Articles"
 msgstr ""
 
@@ -1486,19 +1514,23 @@ msgstr ""
 msgid "GoodLinks Export File"
 msgstr ""
 
+#: internal/bookmarks/importer/omnivore.go:239
+msgid "Invalid API Key"
+msgstr ""
+
 #: internal/bookmarks/importer/text.go:23
 msgid "Text File"
 msgstr ""
 
-#: internal/bookmarks/importer/wallabag.go:230
+#: internal/bookmarks/importer/wallabag.go:231
 msgid "Invalid URL"
 msgstr ""
 
-#: internal/bookmarks/importer/wallabag.go:235
+#: internal/bookmarks/importer/wallabag.go:236
 msgid "Invalid credentials"
 msgstr ""
 
-#: internal/bookmarks/importer/wallabag.go:246
+#: internal/bookmarks/importer/wallabag.go:247
 msgid "No access token found"
 msgstr ""
 

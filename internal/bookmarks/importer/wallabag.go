@@ -161,6 +161,7 @@ func (adapter *wallabagAdapter) LoadData(data []byte) (err error) {
 
 	if adapter.Token == "" {
 		err = errors.New("no token provided")
+		return
 	}
 
 	// Initialize an empty article list with the first "next" URL to fetch

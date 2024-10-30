@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.15.4] - 2024-10-30
+### Added
+- Import from Omnivore
+- Improved Youtube video descriptions
+- Support for text/plain extraction
+
+### Fixed
+- Fixed a bug with video bookmarks without an actual video content
+- Fixed a typo on the onboarding page, by [@ggtr1138](https://codeberg.org/ggtr1138)
+
 ## [0.15.3] - 2024-09-7
 ### Fixed
 - Goodlinks date format in JSON file

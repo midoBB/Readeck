@@ -5,6 +5,7 @@
 package importer_test
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -406,4 +407,178 @@ func TestWallabagImporter(t *testing.T) {
 			string(resources[0].Data),
 		)
 	}
+}
+
+func TestOmnivoreImporter(t *testing.T) {
+	httpmock.Activate()
+	defer httpmock.DeactivateAndReset()
+
+	httpmock.RegisterResponder(
+		"POST",
+		"/api/graphql",
+		func(r *http.Request) (*http.Response, error) {
+			token := r.Header.Get("Authorization")
+
+			var payload struct {
+				Query         string         `json:"query"`
+				OperationName string         `json:"operationName"`
+				Variables     map[string]any `json:"variables"`
+			}
+			if err := json.NewDecoder(r.Body).Decode(&payload); err != nil {
+				return nil, err
+			}
+
+			switch {
+			case payload.OperationName == "" && strings.HasPrefix(payload.Query, "query Viewer{me"):
+				if token == "failed" {
+					return httpmock.NewJsonResponse(500, map[string]any{
+						"errors": []any{},
+					})
+				}
+				return httpmock.NewJsonResponse(200, map[string]any{
+					"data": map[string]any{
+						"me": map[string]any{
+							"id":   "abc",
+							"name": "alice",
+						},
+					},
+				})
+			case payload.OperationName == "Search":
+				after, _ := strconv.Atoi(payload.Variables["after"].(string))
+				first := int(payload.Variables["first"].(float64))
+
+				items := []map[string]any{}
+				for x := range 25 {
+					node := map[string]any{
+						"id":          strconv.Itoa(after + x),
+						"title":       fmt.Sprintf("Article %d", after+x),
+						"url":         fmt.Sprintf("https://example.net/article-%d", after+x),
+						"createdAt":   "2024-01-02 12:23:43",
+						"publishedAt": "2022-01-02 12:23:43",
+						"content":     fmt.Sprintf("<p>Some content %d</p>", after+x),
+						"pageType":    "ARTICLE",
+						"author":      "",
+						"image":       fmt.Sprintf("https://example.net/picture-%d.webp", after+x),
+						"siteIcon":    "https://example.net/icon.png",
+						"description": fmt.Sprintf("Description %d", after+x),
+						"labels":      []any{},
+						"state":       "SUCCEEDED",
+					}
+					if after+x == 0 {
+						node["author"] = "Someone"
+						node["state"] = "ARCHIVED"
+						node["labels"] = []map[string]string{
+							{"name": "label 1"}, {"name": "label 2"},
+						}
+					}
+
+					items = append(items, map[string]any{
+						"cursor": strconv.Itoa(after + first),
+						"node":   node,
+					})
+				}
+				response := map[string]any{
+					"data": map[string]any{
+						"search": map[string]any{
+							"edges": items,
+							"pageInfo": map[string]any{
+								"hasNextPage": after < 60,
+								"startCursor": strconv.Itoa(after),
+								"endCursor":   strconv.Itoa(after + first),
+							},
+						},
+					},
+				}
+
+				return httpmock.NewJsonResponse(200, response)
+			}
+
+			return httpmock.NewJsonResponse(200, nil)
+		},
+	)
+
+	t.Run("auth failed", func(t *testing.T) {
+		adapter := importer.LoadAdapter("omnivore")
+		f := importer.NewImportForm(adapter)
+		f.Get("url").Set("https://omnivore.app/")
+		f.Get("token").Set("failed")
+		f.Bind()
+
+		require := require.New(t)
+
+		_, err := adapter.Params(f)
+		require.NoError(err)
+		require.False(f.IsValid())
+		require.Equal("Invalid API Key", f.Get("token").Errors.Error())
+	})
+
+	t.Run("auth ok", func(t *testing.T) {
+		adapter := importer.LoadAdapter("omnivore")
+		f := importer.NewImportForm(adapter)
+		f.Get("url").Set("https://omnivore.app/")
+		f.Get("token").Set("abcd")
+		f.Bind()
+
+		require := require.New(t)
+
+		_, err := adapter.Params(f)
+		require.NoError(err)
+		require.True(f.IsValid())
+	})
+
+	t.Run("import", func(t *testing.T) {
+		adapter := importer.LoadAdapter("omnivore")
+		f := importer.NewImportForm(adapter)
+		f.Get("url").Set("https://omnivore.app/")
+		f.Get("token").Set("abcd")
+		f.Bind()
+
+		require := require.New(t)
+
+		data, err := adapter.Params(f)
+		require.NoError(err)
+		require.True(f.IsValid())
+
+		worker := adapter.(importer.ImportWorker)
+		err = worker.LoadData(data)
+		require.NoError(err)
+
+		i := -1
+		for {
+			i++
+			item, err := worker.Next()
+			if err == io.EOF {
+				break
+			}
+			require.NoError(err)
+
+			require.Equal(fmt.Sprintf("https://example.net/article-%d", i), item.URL())
+			bi, err := item.(importer.BookmarkEnhancer).Meta()
+			require.NoError(err)
+
+			require.Equal(fmt.Sprintf("Article %d", i), bi.Title)
+			require.Equal(fmt.Sprintf("Description %d", i), bi.Description)
+			require.Equal(time.Date(2024, time.January, 2, 12, 23, 43, 0, time.UTC), bi.Created)
+			require.Equal(time.Date(2022, time.January, 2, 12, 23, 43, 0, time.UTC), bi.Published)
+
+			if i == 0 {
+				fmt.Printf(">>>>\n%#v\n", bi)
+				require.Equal(types.Strings{"Someone"}, bi.Authors)
+				require.Equal(types.Strings{"label 1", "label 2"}, bi.Labels)
+				require.True(bi.IsArchived)
+			} else {
+				require.False(bi.IsArchived)
+			}
+
+			resources := item.(importer.BookmarkResourceProvider).Resources()
+			require.Len(resources, 1)
+			require.Equal(
+				fmt.Sprintf(
+					`<html><head><meta property="og:image" content="https://example.net/picture-%d.webp"/><link rel="icon" href="https://example.net/icon.png"/></head><body><p>Some content %d</p></body></html>`,
+					i, i,
+				),
+				string(resources[0].Data),
+			)
+		}
+	})
 }

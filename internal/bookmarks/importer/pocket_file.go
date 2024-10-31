@@ -5,6 +5,8 @@
 package importer
 
 import (
+	"archive/zip"
+	"encoding/csv"
 	"encoding/json"
 	"io"
 	"net/url"
@@ -12,9 +14,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
-	"github.com/go-shiori/dom"
-	"golang.org/x/net/html"
 
 	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/pkg/forms"
@@ -53,71 +52,31 @@ func (adapter *pocketFileAdapter) Name(_ forms.Translator) string {
 func (adapter *pocketFileAdapter) Form() forms.Binder {
 	return forms.Must(
 		forms.NewFileField("data", forms.Required),
-		forms.NewBooleanField("labels_from_titles"),
 	)
 }
 
 func (adapter *pocketFileAdapter) Params(form forms.Binder) ([]byte, error) {
-	reader, err := form.Get("data").Field.(*forms.FileField).Open()
+	f := form.Get("data").Field.(*forms.FileField)
+	header, ok := f.Header()
+	if !ok {
+		form.AddErrors("data", forms.Gettext("Invalid upload format"))
+		return nil, nil
+	}
+
+	reader, err := f.Open()
 	if err != nil {
 		return nil, err
 	}
 	defer reader.Close() //nolint:errcheck
 
-	root, err := html.Parse(reader)
+	zr, err := zip.NewReader(reader.(io.ReaderAt), header.Size)
 	if err != nil {
-		form.AddErrors("data", forms.Gettext("Unabled to read HTML content"), err)
+		form.AddErrors("data", forms.Gettext("Unabled to open zip file"))
 		return nil, nil
 	}
 
-	section := ""
-	for _, node := range dom.QuerySelectorAll(root, "body>h1, body>ul") {
-		if dom.TagName(node) == "h1" {
-			section = strings.ToLower(strings.TrimSpace(dom.TextContent(node)))
-			continue
-		}
-
-		for _, n := range dom.QuerySelectorAll(node, "li>a[href]") {
-			uri, err := url.Parse(dom.GetAttribute(n, "href"))
-			if err != nil {
-				continue
-			}
-			uri.Fragment = ""
-			if !slices.Contains(allowedSchemes, uri.Scheme) {
-				continue
-			}
-
-			if slices.ContainsFunc(adapter.Items, func(bi pocketBookmarkItem) bool {
-				return bi.Link == uri.String()
-			}) {
-				continue
-			}
-
-			item := pocketBookmarkItem{
-				Created:    time.Now(),
-				Link:       uri.String(),
-				IsArchived: section == "read archive",
-				Labels:     types.Strings{},
-			}
-
-			title := strings.TrimSpace(dom.TextContent(n))
-			if title != item.Link {
-				item.Title = title
-			}
-
-			for _, label := range strings.Split(dom.GetAttribute(n, "tags"), ",") {
-				if label = strings.TrimSpace(label); label != "" {
-					item.Labels = append(item.Labels, label)
-				}
-			}
-
-			ts, err := strconv.Atoi(dom.GetAttribute(n, "time_added"))
-			if err == nil {
-				item.Created = time.Unix(int64(ts), 0)
-			}
-
-			adapter.Items = append(adapter.Items, item)
-		}
+	if err := adapter.loadBookmarks(zr); err != nil {
+		form.AddErrors("data", err)
 	}
 
 	if len(adapter.Items) == 0 {
@@ -143,4 +102,85 @@ func (adapter *pocketFileAdapter) Next() (BookmarkImporter, error) {
 
 	adapter.idx++
 	return &adapter.Items[adapter.idx-1], nil
+}
+
+func (adapter *pocketFileAdapter) loadBookmarks(zr *zip.Reader) error {
+	// In the absence of any specification, we'll consider that any CSV file contains bookmarks.
+	for _, file := range zr.File {
+		if !strings.HasSuffix(file.Name, ".csv") {
+			continue
+		}
+		if err := adapter.loadBookmarkRows(file); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (adapter *pocketFileAdapter) loadBookmarkRows(f *zip.File) error {
+	r, err := f.Open()
+	if err != nil {
+		return err
+	}
+	defer r.Close() //nolint:errcheck
+
+	cr := csv.NewReader(r)
+	if _, err := cr.Read(); err != nil {
+		return err
+	}
+
+	for {
+		record, err := cr.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			continue
+		}
+		if len(record) < 6 {
+			continue
+		}
+
+		uri, err := url.Parse(record[1])
+		if err != nil {
+			continue
+		}
+		if !slices.Contains(allowedSchemes, uri.Scheme) {
+			continue
+		}
+		uri.Fragment = ""
+		if slices.ContainsFunc(adapter.Items, func(bi pocketBookmarkItem) bool {
+			return bi.Link == uri.String()
+		}) {
+			continue
+		}
+
+		item := pocketBookmarkItem{
+			Created:    time.Now(),
+			Link:       uri.String(),
+			IsArchived: record[5] == "archive",
+			Labels:     types.Strings{},
+		}
+
+		title := strings.TrimSpace(record[0])
+		if title != item.Link {
+			item.Title = title
+		}
+
+		for _, label := range strings.Split(record[4], ",") {
+			if label = strings.TrimSpace(label); label != "" {
+				item.Labels = append(item.Labels, label)
+			}
+		}
+
+		ts, err := strconv.Atoi(record[2])
+		if err == nil {
+			item.Created = time.Unix(int64(ts), 0)
+		}
+
+		adapter.Items = append(adapter.Items, item)
+	}
+
+	return nil
 }

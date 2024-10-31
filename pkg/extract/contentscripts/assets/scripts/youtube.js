@@ -95,9 +95,11 @@ function getTranscript(info) {
   if (trackIdx !== null) {
     // If we have a default track, we take this one.
     track = captions[trackIdx]
-  } else {
-    // If we don't have a caption index, we sort the list by automatic
-    // caption last and language code priorities.
+  }
+
+  if (track === undefined && captions.length > 0) {
+    // If we couldn't find a transcript by index,
+    // we sort the list by automatic caption last and language code priorities.
     captions.sort((a, b) => {
       return (
         a.auto - b.auto ||

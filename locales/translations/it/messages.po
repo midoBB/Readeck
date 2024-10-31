@@ -8,110 +8,113 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-10-30 16:50+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2024-10-31 18:52+0000\n"
+"Last-Translator: Tommi <tommi@users.noreply.translate.codeberg.org>\n"
+"Language-Team: Italian <https://translate.codeberg.org/projects/readeck/"
+"application/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.8.1\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:18
 msgid "Secondary Menu"
-msgstr ""
+msgstr "Menu secondario"
 
 #: assets/templates/_layouts/sidemenu.jet.html:41
 msgid "Open menu"
-msgstr ""
+msgstr "Apri il menu"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Quick access menu"
-msgstr ""
+msgstr "Menu di accesso rapido"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Home Page"
-msgstr ""
+msgstr "Pagina principale"
 
 #: assets/templates/_libs/forms.jet.html:1
 #: assets/templates/_libs/forms.jet.html:33
 msgid "Required"
-msgstr ""
+msgstr "Necessario"
 
 #: assets/templates/_libs/forms.jet.html:10
 msgid "Errors"
-msgstr ""
+msgstr "Errori"
 
 #: assets/templates/_libs/forms.jet.html:16
 msgid "Please check your form for errors."
-msgstr ""
+msgstr "Controlla il tuo form per vedere gli errori."
 
 #: assets/templates/_libs/forms.jet.html:210
 msgid "The previous"
-msgstr ""
+msgstr "I(l) precedente/i"
 
 #: assets/templates/_libs/forms.jet.html:219
 msgid "Day(s)"
-msgstr ""
+msgstr "Giorno/i"
 
 #: assets/templates/_libs/forms.jet.html:220
 msgid "Week(s)"
-msgstr ""
+msgstr "Settimana/e"
 
 #: assets/templates/_libs/forms.jet.html:221
 msgid "Month(s)"
-msgstr ""
+msgstr "Mese/i"
 
 #: assets/templates/_libs/forms.jet.html:222
 msgid "Year(s)"
-msgstr ""
+msgstr "Anno/i"
 
 #: assets/templates/_libs/forms.jet.html:225
 msgctxt "word"
 msgid "or"
-msgstr ""
+msgstr "o"
 
 #: assets/templates/_libs/forms.jet.html:253
 msgid "Select or drop file"
-msgstr ""
+msgstr "Seleziona o trascina un file"
 
 #: assets/templates/_libs/forms.jet.html:257
 msgid "remove"
-msgstr ""
+msgstr "rimuovi"
 
 #: assets/templates/_libs/pagination.jet.html:1
 msgid "Go to previous page"
-msgstr ""
+msgstr "Vai alla pagina precedente"
 
 #: assets/templates/_libs/pagination.jet.html:1
 #, python-format
 msgid "Go to page %d"
-msgstr ""
+msgstr "Vai alla pagina %d"
 
 #: assets/templates/_libs/pagination.jet.html:1
 msgid "Go to next page"
-msgstr ""
+msgstr "Vai alla pagina successiva"
 
 #: assets/templates/_libs/pagination.jet.html:10
 msgctxt "page"
 msgid "Previous"
-msgstr ""
+msgstr "Precedente"
 
 #: assets/templates/_libs/pagination.jet.html:15
 msgctxt "page"
 msgid "Next"
-msgstr ""
+msgstr "Successivo"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
 #: assets/templates/profile/base.jet.html:35 internal/admin/views.go:62
 #: internal/admin/views.go:92 internal/admin/views.go:132
 msgid "Users"
-msgstr ""
+msgstr "Utenti"
 
 #: assets/templates/admin/user.jet.html:19
 msgid "User will be removed in a few seconds"
-msgstr ""
+msgstr "L’utente sarà rimossə in alcuni secondi"
 
 #: assets/templates/admin/user.jet.html:20
 #: assets/templates/admin/user_list.jet.html:44
@@ -129,7 +132,7 @@ msgstr ""
 #: assets/templates/profile/token.jet.html:20
 #: assets/templates/profile/token_list.jet.html:61
 msgid "Cancel"
-msgstr ""
+msgstr "Annulla"
 
 #: assets/templates/admin/user.jet.html:31
 #: assets/templates/admin/user_create.jet.html:20
@@ -137,19 +140,19 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:41
 #: assets/templates/profile/index.jet.html:20
 msgid "Username"
-msgstr ""
+msgstr "Nome utente"
 
 #: assets/templates/admin/user.jet.html:37
 #: assets/templates/admin/user_create.jet.html:26
 #: assets/templates/auth/onboarding.jet.html:37
 #: assets/templates/auth/recover.jet.html:29
 msgid "Email address"
-msgstr ""
+msgstr "Indirizzo email"
 
 #: assets/templates/admin/user.jet.html:41
 #: assets/templates/admin/user_create.jet.html:31
 msgid "Group"
-msgstr ""
+msgstr "Gruppo"
 
 #: assets/templates/admin/user.jet.html:46
 #: assets/templates/admin/user_create.jet.html:36
@@ -158,11 +161,12 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:48
 #: assets/templates/profile/base.jet.html:17 internal/profile/views.go:133
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: assets/templates/admin/user.jet.html:49
+#, fuzzy
 msgid "will not change if empty"
-msgstr ""
+msgstr "non cambierà se lasciato vuoto"
 
 #: assets/templates/admin/user.jet.html:52
 #: assets/templates/bookmarks/collection.jet.html:64
@@ -172,69 +176,69 @@ msgstr ""
 #: assets/templates/profile/password.jet.html:36
 #: assets/templates/profile/token.jet.html:70
 msgid "Save"
-msgstr ""
+msgstr "Salva"
 
 #: assets/templates/admin/user.jet.html:55
 msgid "Delete this user"
-msgstr ""
+msgstr "Rimuovi questə utente"
 
 #: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:93
 msgid "New User"
-msgstr ""
+msgstr "Nuovə utente"
 
 #: assets/templates/admin/user_create.jet.html:42
 msgid "Create user"
-msgstr ""
+msgstr "Crea un utente"
 
 #: assets/templates/admin/user_list.jet.html:14
 msgid "Add a new user"
-msgstr ""
+msgstr "Aggiungi unə nuovə utente"
 
 #: assets/templates/admin/user_list.jet.html:30
 #: assets/templates/profile/credential_list.jet.html:45
 #: assets/templates/profile/token_list.jet.html:47
 #, python-format
 msgid "Created on: %s"
-msgstr ""
+msgstr "Creato il: %s"
 
 #: assets/templates/admin/user_list.jet.html:31
 #, python-format
 msgid "Last update: %s"
-msgstr ""
+msgstr "Ultimo aggiornamento: %s"
 
 #: assets/templates/admin/user_list.jet.html:38
 msgid "This user will be removed in a few seconds."
-msgstr ""
+msgstr "Questə utente sarà rimosso fra pochi secondi."
 
 #: assets/templates/auth/login.jet.html:9
 #: assets/templates/auth/login.jet.html:37
 msgid "Sign in"
-msgstr ""
+msgstr "Accedi"
 
 #: assets/templates/auth/login.jet.html:12
 msgid "Sign in to Readeck"
-msgstr ""
+msgstr "Accedi a Readeck"
 
 #: assets/templates/auth/login.jet.html:22
 msgid "Username or email address"
-msgstr ""
+msgstr "Nome utente o indirizzo email"
 
 #: assets/templates/auth/login.jet.html:41
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Hai dimenticato la password?"
 
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:71
 msgid "Welcome to Readeck!"
-msgstr ""
+msgstr "Benvenutə su Readeck!"
 
 #: assets/templates/auth/onboarding.jet.html:15
 msgid "We're delighted to have you on board; one more step and you're good to go."
-msgstr ""
+msgstr "Siamo felici di averti a bordo; un ultimo passaggio e siamo a posto."
 
 #: assets/templates/auth/onboarding.jet.html:39
 msgid "Please note:"
-msgstr ""
+msgstr "Nota bene:"
 
 #: assets/templates/auth/onboarding.jet.html:40
 msgid ""
@@ -245,18 +249,24 @@ msgid ""
 " recovery and internal notifications.\n"
 "  "
 msgstr ""
+"\n"
+"  Il tuo indirizzo email è opzionale e non lascerà mai quest’installazione.\n"
+"  Non sarà mai raccolto, trasferito o venduto.\n"
+"  Sarà usato <strong>unicamente</strong> per il recupero della password e "
+"notifiche interne, se necessario.\n"
+"  "
 
 #: assets/templates/auth/onboarding.jet.html:47
 msgid "Finish installation"
-msgstr ""
+msgstr "Termina l’installazione"
 
 #: assets/templates/auth/recover.jet.html:9
 msgid "Password recovery"
-msgstr ""
+msgstr "Recupero della password"
 
 #: assets/templates/auth/recover.jet.html:21
 msgid "No worries, it happens to anyone."
-msgstr ""
+msgstr "Nessun problema, capita a tuttз."
 
 #: assets/templates/auth/recover.jet.html:22
 msgid ""
@@ -266,19 +276,24 @@ msgid ""
 "        to recover your password.\n"
 "      "
 msgstr ""
+"\n"
+"        Per favore, fornisci l’indirizzo email usato per creare\n"
+"        il tuo account e noi ti invieremo un messaggio\n"
+"        con il link per recuperare la tua password.\n"
+"      "
 
 #: assets/templates/auth/recover.jet.html:32
 msgid "Send me a recovery link"
-msgstr ""
+msgstr "Inviami un link di recupero"
 
 #: assets/templates/auth/recover.jet.html:33
 #: assets/templates/auth/recover.jet.html:58
 msgid "Cancel and go back to sign in"
-msgstr ""
+msgstr "Annulla e torna alla pagina di accesso"
 
 #: assets/templates/auth/recover.jet.html:37
 msgid "Almost there!"
-msgstr ""
+msgstr "Ci siamo quasi!"
 
 #: assets/templates/auth/recover.jet.html:38
 #, python-format
@@ -289,29 +304,34 @@ msgid ""
 "        with further instructions.\n"
 "      "
 msgstr ""
+"\n"
+"        Abbiamo inviato un’email a\n"
+"        <strong>%s</strong>\n"
+"        con ulteriori istruzioni.\n"
+"      "
 
 #: assets/templates/auth/recover.jet.html:54
 #: assets/templates/profile/password.jet.html:29
 msgid "New password"
-msgstr ""
+msgstr "Nuova password"
 
 #: assets/templates/auth/onboarding.jet.html:32
 #: assets/templates/auth/recover.jet.html:56
 #: assets/templates/profile/password.jet.html:32
 msgid "must be at least 8 characters long"
-msgstr ""
+msgstr "dev’essere lunga almeno 8 caratteri"
 
 #: assets/templates/auth/recover.jet.html:57
 msgid "Update your password"
-msgstr ""
+msgstr "Aggiorna la tua password"
 
 #: assets/templates/auth/recover.jet.html:62
 msgid "Your password has been changed."
-msgstr ""
+msgstr "La tua password è stata modificata."
 
 #: assets/templates/auth/recover.jet.html:63
 msgid "Go to the sign in page"
-msgstr ""
+msgstr "Vai alla pagina di accesso"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
@@ -319,7 +339,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/annotation_list.jet.html:17
 msgid "You don't have any highlights yet."
-msgstr ""
+msgstr "Non hai ancora evidenziato nulla."
 
 #: assets/templates/bookmarks/annotation_list.jet.html:18
 msgid ""
@@ -329,6 +349,12 @@ msgid ""
 "        for you to easily find them.\n"
 "      "
 msgstr ""
+"\n"
+"        Una volta che avrai cominciato a evidenziare parte dei tuoi articoli "
+"salvati,\n"
+"        appariranno in questa pagina, così potrai ritrovare facilmente le "
+"parti evidenziate.\n"
+"      "
 
 #: assets/templates/bookmarks/annotation_list.jet.html:23
 #, python-format
@@ -336,119 +362,123 @@ msgid ""
 "Read more about highlights in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
+"Leggi di più riguardo le parti evidenziate nella <a class=\"%s\" href=\"%s\""
+">documentazione</a>."
 
 #: assets/templates/bookmarks/base.jet.html:9
 #: assets/templates/bookmarks/bookmark.jet.html:15
+#, fuzzy
 msgid "Bookmarks"
-msgstr ""
+msgstr "Bookmarks"
 
 #: assets/templates/bookmarks/base.jet.html:24
 #: internal/bookmarks/routes/forms_bookmarks.go:402
 msgid "All"
-msgstr ""
+msgstr "Tutti"
 
 #: assets/templates/bookmarks/base.jet.html:26
 msgid "Unread"
-msgstr ""
+msgstr "Non letti"
 
 #: assets/templates/bookmarks/base.jet.html:28
 msgid "Archive"
-msgstr ""
+msgstr "Archivio"
 
 #: assets/templates/bookmarks/base.jet.html:30
 msgid "Favorites"
-msgstr ""
+msgstr "Preferiti"
 
 #: assets/templates/bookmarks/base.jet.html:37
 #: internal/bookmarks/routes/views_bookmarks.go:111
 msgid "Articles"
-msgstr ""
+msgstr "Articoli"
 
 #: assets/templates/bookmarks/base.jet.html:42
 #: internal/bookmarks/routes/views_bookmarks.go:115
 msgid "Videos"
-msgstr ""
+msgstr "Video"
 
 #: assets/templates/bookmarks/base.jet.html:47
 #: internal/bookmarks/routes/views_bookmarks.go:113
 msgid "Pictures"
-msgstr ""
+msgstr "Immagini"
 
 #: assets/templates/bookmarks/base.jet.html:56
 #: assets/templates/bookmarks/components/sidebar.jet.html:93
 msgid "Labels"
-msgstr ""
+msgstr "Etichette"
 
 #: assets/templates/bookmarks/base.jet.html:58
 #: assets/templates/bookmarks/components/sidebar.jet.html:98
+#, fuzzy
 msgid "Highlights"
-msgstr ""
+msgstr "Parti evidenziate"
 
 #: assets/templates/bookmarks/base.jet.html:60
 #: assets/templates/bookmarks/collection.jet.html:11
 #: assets/templates/bookmarks/collection.jet.html:33
 msgid "Collections"
-msgstr ""
+msgstr "Collezioni"
 
 #: assets/templates/bookmarks/bookmark.jet.html:12
 msgid "Bookmark loading"
-msgstr ""
+msgstr "Bookmark in caricamento"
 
 #: assets/templates/bookmarks/bookmark.jet.html:39
 msgid "Bookmark is loading"
-msgstr ""
+msgstr "Il bookmark si sta caricando"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:67
 msgid "More information"
-msgstr ""
+msgstr "Maggiori informazioni"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html:9
 #: assets/templates/bookmarks/bookmark_missing.jet.html:14
 msgid "Bookmark not found"
-msgstr ""
+msgstr "Bookmark non trovato"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:13
 msgid "Shared link"
-msgstr ""
+msgstr "Link condiviso"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:23
 msgid "Page not found"
-msgstr ""
+msgstr "Pagina non trovata"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:25
 msgid "Page has expired"
-msgstr ""
+msgstr "La pagina è scaduta"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:47
 #: assets/templates/bookmarks/components/sidebar.jet.html:53
 #: assets/templates/epub/bookmark.jet.html:37
 #, python-format
 msgid "Published on %s"
-msgstr ""
+msgstr "Pubblicato il %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:52
 #: assets/templates/bookmarks/components/sidebar.jet.html:58
 #: assets/templates/epub/bookmark.jet.html:40
 #, python-format
 msgid "By %s"
-msgstr ""
+msgstr "Di %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:60
 #: assets/templates/bookmarks/components/card.jet.html:65
 #: assets/templates/bookmarks/components/sidebar.jet.html:66
 #, python-format
 msgid "%d min"
-msgstr ""
+msgstr "%d minuti"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:65
 #, python-format
 msgid "Shared by %s"
-msgstr ""
+msgstr "Condiviso da %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:66
 msgid "with"
-msgstr ""
+msgstr "con"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
 msgid "Powered by"
@@ -456,49 +486,49 @@ msgstr ""
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:8
 msgid "Share link"
-msgstr ""
+msgstr "Condividi link"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:19
 #, python-format
 msgid "Share: %s"
-msgstr ""
+msgstr "Condividi: %s"
 
 #: assets/templates/bookmarks/collection.jet.html:16
 #, python-format
 msgid "Collection %s"
-msgstr ""
+msgstr "Collezione %s"
 
 #: assets/templates/bookmarks/collection.jet.html:21
 msgid "Collection will be removed in a few seconds."
-msgstr ""
+msgstr "La collezione sarà rimossa fra pochi secondi."
 
 #: assets/templates/bookmarks/collection.jet.html:40
 #: assets/templates/bookmarks/collection.jet.html:54
 msgid "Edit"
-msgstr ""
+msgstr "Modifica"
 
 #: assets/templates/bookmarks/collection.jet.html:58
 #: assets/templates/bookmarks/collection_create.jet.html:23
 #: assets/templates/profile/credential.jet.html:58
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: assets/templates/bookmarks/collection.jet.html:68
 msgid "Delete collection"
-msgstr ""
+msgstr "Elimina collezione"
 
 #: assets/templates/bookmarks/collection_create.jet.html:9
 msgid "New Collection"
-msgstr ""
+msgstr "Nuova collezione"
 
 #: assets/templates/bookmarks/collection_list.jet.html:9
 #: internal/opds/http.go:74
 msgid "Bookmark Collections"
-msgstr ""
+msgstr "Collezioni di bookmark"
 
 #: assets/templates/bookmarks/collection_list.jet.html:15
 msgid "Create a new collection"
-msgstr ""
+msgstr "Crea una nuova collezione"
 
 #: assets/templates/bookmarks/collection_list.jet.html:24
 msgid ""

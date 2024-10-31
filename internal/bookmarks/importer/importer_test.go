@@ -5,9 +5,13 @@
 package importer_test
 
 import (
+	"archive/zip"
+	"bytes"
+	"encoding/csv"
 	"encoding/json"
 	"fmt"
 	"io"
+	"mime/multipart"
 	"net/http"
 	"regexp"
 	"strconv"
@@ -24,7 +28,7 @@ import (
 
 type adapterTest struct {
 	adapter importer.ImportLoader
-	data    string
+	data    func() []byte
 	assert  func(test *adapterTest, require *require.Assertions, f forms.Binder, data []byte)
 }
 
@@ -32,7 +36,9 @@ func TestFileAdapters(t *testing.T) {
 	tests := []adapterTest{
 		{
 			importer.LoadAdapter("text"),
-			"foo\n",
+			func() []byte {
+				return []byte("foo\n")
+			},
 			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
 				require.False(f.IsValid())
 				require.Equal("Empty or invalid import file", f.Get("data").Errors.Error())
@@ -40,14 +46,16 @@ func TestFileAdapters(t *testing.T) {
 		},
 		{
 			importer.LoadAdapter("text"),
-			`
-			https://example.org/#test
-			https://example.net/
-			test
-			####
-			ftp://example.net/
-			https://example.net/#foo
-			`,
+			func() []byte {
+				return []byte(`
+				https://example.org/#test
+				https://example.net/
+				test
+				####
+				ftp://example.net/
+				https://example.net/#foo
+				`)
+			},
 			func(test *adapterTest, require *require.Assertions, f forms.Binder, data []byte) {
 				require.True(f.IsValid())
 				adapter := test.adapter.(importer.ImportWorker)
@@ -71,7 +79,9 @@ func TestFileAdapters(t *testing.T) {
 		},
 		{
 			importer.LoadAdapter("browser"),
-			``,
+			func() []byte {
+				return []byte{}
+			},
 			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
 				require.False(f.IsValid())
 				require.Equal("Empty or invalid import file", f.Get("data").Errors.Error())
@@ -79,32 +89,34 @@ func TestFileAdapters(t *testing.T) {
 		},
 		{
 			importer.LoadAdapter("browser"),
-			`
-			<!DOCTYPE NETSCAPE-Bookmark-file-1>
-			<!-- This is an automatically generated file.
-				It will be read and overwritten.
-				DO NOT EDIT! -->
-			<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
-			<TITLE>Bookmarks</TITLE>
-			<H1>Bookmarks</H1>
-			<DL><p>
-				<DT><H3 ADD_DATE="1624868914" LAST_MODIFIED="0" PERSONAL_TOOLBAR_FOLDER="true">Bookmarks bar</H3>
+			func() []byte {
+				return []byte(`
+				<!DOCTYPE NETSCAPE-Bookmark-file-1>
+				<!-- This is an automatically generated file.
+					It will be read and overwritten.
+					DO NOT EDIT! -->
+				<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+				<TITLE>Bookmarks</TITLE>
+				<H1>Bookmarks</H1>
 				<DL><p>
-					<DT><A HREF="https://www.mozilla.org/en-US/firefox/central/" ADD_DATE="1576652979" ICON="data:image/png;base64,iVBORw0KGgoAAAANSUh">Getting Started</A>
-					<DT><A HREF="http://blog.mozilla.com/" ADD_DATE="1601411565" TAGS="mozilla,blog , test " TOREAD="0">Mozilla News</A>
-				</DL><p>
-				<DT><H3 ADD_DATE="1713598064" LAST_MODIFIED="0">Imported</H3>
-				<DL><p>
-					<DT><H3 ADD_DATE="1713598064" LAST_MODIFIED="0">Misc</H3>
+					<DT><H3 ADD_DATE="1624868914" LAST_MODIFIED="0" PERSONAL_TOOLBAR_FOLDER="true">Bookmarks bar</H3>
 					<DL><p>
-						<DT><A HREF="https://example.net/#test" ADD_DATE="1385462299">Example.net</A>
-						<DT><A HREF="https://example.org/" ADD_DATE="1354273529">Example.org</A>
-						<DT><A HREF="ftp://example.net/" ADD_DATE="1361299010">FTP</A>
-						<DT><A HREF="https://example.org/#test" ADD_DATE="1354273529">Example.org</A>
-					</DL>
+						<DT><A HREF="https://www.mozilla.org/en-US/firefox/central/" ADD_DATE="1576652979" ICON="data:image/png;base64,iVBORw0KGgoAAAANSUh">Getting Started</A>
+						<DT><A HREF="http://blog.mozilla.com/" ADD_DATE="1601411565" TAGS="mozilla,blog , test " TOREAD="0">Mozilla News</A>
+					</DL><p>
+					<DT><H3 ADD_DATE="1713598064" LAST_MODIFIED="0">Imported</H3>
+					<DL><p>
+						<DT><H3 ADD_DATE="1713598064" LAST_MODIFIED="0">Misc</H3>
+						<DL><p>
+							<DT><A HREF="https://example.net/#test" ADD_DATE="1385462299">Example.net</A>
+							<DT><A HREF="https://example.org/" ADD_DATE="1354273529">Example.org</A>
+							<DT><A HREF="ftp://example.net/" ADD_DATE="1361299010">FTP</A>
+							<DT><A HREF="https://example.org/#test" ADD_DATE="1354273529">Example.org</A>
+						</DL>
+					</DL><p>
 				</DL><p>
-			</DL><p>
-			`,
+				`)
+			},
 			func(test *adapterTest, require *require.Assertions, f forms.Binder, data []byte) {
 				require.True(f.IsValid())
 				adapter := test.adapter.(importer.ImportWorker)
@@ -148,7 +160,9 @@ func TestFileAdapters(t *testing.T) {
 		},
 		{
 			importer.LoadAdapter("goodlinks"),
-			``,
+			func() []byte {
+				return []byte{}
+			},
 			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
 				require.False(f.IsValid())
 				require.Equal("Empty or invalid import file", f.Get("data").Errors.Error())
@@ -156,26 +170,28 @@ func TestFileAdapters(t *testing.T) {
 		},
 		{
 			importer.LoadAdapter("goodlinks"),
-			`
-			[{
-				"title": "Shodan",
-				"url": "https:\/\/www.startpage.com\/",
-				"tags": ["search"],
-				"starred": false,
-				"summary": "Search engine of the Internet.",
-				"originalURL": "https:\/\/www.startpage.com",
-				"addedAt": 1588601562
-			}, {
-				"title": "Home | LinuxServer.io",
-				"url": "https:\/\/www.linuxserver.io\/",
-				"starred": false,
-				"originalURL": "https:\/\/www.linuxserver.io",
-				"addedAt": 1589621418,
-				"tags": ["linux", "docker"],
-				"summary": "We are a group of like-minded enthusiasts from across the world who build and maintain the largest collection of Docker images on the web, and at our core are the principles behind Free and Open Source Software. Our primary goal is to provide easy-to-use and streamlined Docker images with clear and concise documentation."
-			}
-			]
-			`,
+			func() []byte {
+				return []byte(`
+				[{
+					"title": "Shodan",
+					"url": "https:\/\/www.startpage.com\/",
+					"tags": ["search"],
+					"starred": false,
+					"summary": "Search engine of the Internet.",
+					"originalURL": "https:\/\/www.startpage.com",
+					"addedAt": 1588601562
+				}, {
+					"title": "Home | LinuxServer.io",
+					"url": "https:\/\/www.linuxserver.io\/",
+					"starred": false,
+					"originalURL": "https:\/\/www.linuxserver.io",
+					"addedAt": 1589621418,
+					"tags": ["linux", "docker"],
+					"summary": "We are a group of like-minded enthusiasts from across the world who build and maintain the largest collection of Docker images on the web, and at our core are the principles behind Free and Open Source Software. Our primary goal is to provide easy-to-use and streamlined Docker images with clear and concise documentation."
+				}
+				]
+				`)
+			},
 			func(test *adapterTest, require *require.Assertions, f forms.Binder, data []byte) {
 				require.True(f.IsValid())
 				adapter := test.adapter.(importer.ImportWorker)
@@ -215,37 +231,33 @@ func TestFileAdapters(t *testing.T) {
 		},
 		{
 			importer.LoadAdapter("pocket-file"),
-			``,
+			func() []byte {
+				return []byte{}
+			},
 			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
 				require.False(f.IsValid())
-				require.Equal("Empty or invalid import file", f.Get("data").Errors.Error())
+				require.Equal("Unabled to open zip file", f.Get("data").Errors.Error())
 			},
 		},
 		{
 			importer.LoadAdapter("pocket-file"),
-			`
-			<!DOCTYPE html>
-			<html>
-				<!--So long and thanks for all the fish-->
-				<head>
-					<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-					<title>Pocket Export</title>
-				</head>
-				<body>
-					<h1>Unread</h1>
-					<ul>
-						<li><a href="https://example.net/" time_added="1684913522" tags="">Example.net</a></li>
-			<li><a href="https://example.org/#test" time_added="1684913346" tags="tag1,tag2">Example.net</a></li>
-			<li><a href="ftp://example.net/" time_added="1684913346" tags="tag2"></a></li>
-			<li><a href="https://example.net/#foo" time_added="1684913522" tags="">Example.net</a></li>
-					</ul>
-					<h1>Read Archive</h1>
-					<ul>
-						<li><a href="https://example.org/read" time_added="1712037544" tags="">Read article</a></li>
-					</ul>
-				</body>
-			</html>
-			`,
+			func() []byte {
+				b := &bytes.Buffer{}
+				w := zip.NewWriter(b)
+				f, _ := w.Create("part_000000.csv")
+				cw := csv.NewWriter(f)
+				_ = cw.Write([]string{"title", "url", "time_added", "cursor", "tags", "status"})
+				_ = cw.Write([]string{"Example.net", "https://example.net/", "1684913522", "", "", "unread"})
+				_ = cw.Write([]string{"Example.net", "https://example.org/#test", "1684913346", "", "tag1,tag2", "unread"})
+				_ = cw.Write([]string{"", "ftp://example.net/", "1684913346", "", "tag2", "unread"})
+				_ = cw.Write([]string{"Example.net", "https://example.net/#foo", "1684913522", "", "", "unread"})
+				_ = cw.Write([]string{"Read article", "https://example.org/read", "1712037544", "", "", "archive"})
+				cw.Flush()
+
+				_ = w.Close()
+
+				return b.Bytes()
+			},
 			func(test *adapterTest, require *require.Assertions, f forms.Binder, data []byte) {
 				require.True(f.IsValid())
 				adapter := test.adapter.(importer.ImportWorker)
@@ -290,10 +302,18 @@ func TestFileAdapters(t *testing.T) {
 
 	for i, test := range tests {
 		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
-			f := importer.NewImportForm(test.adapter)
+			body := &bytes.Buffer{}
+			writer := multipart.NewWriter(body)
+			part, _ := writer.CreateFormFile("data", "data")
+			_, _ = part.Write(test.data())
+			writer.Close() //nolint:errcheck
 
-			f.Get("data").Set(strings.NewReader(test.data))
-			f.Bind()
+			r, _ := http.NewRequest(http.MethodPost, "/", body)
+			r.Header.Set("Content-Type", writer.FormDataContentType())
+
+			f := importer.NewImportForm(test.adapter)
+			forms.BindMultipart(f, r)
+
 			data, err := test.adapter.Params(f)
 			require.NoError(t, err)
 			test.assert(&test, require.New(t), f, data)

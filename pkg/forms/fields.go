@@ -577,6 +577,15 @@ func (f *FileField) Open() (io.ReadCloser, error) {
 	return f.value.Open()
 }
 
+// Header returns a [*multipart.FileHeader] and boolean when the
+// inner value is a [multipartFileOpener].
+func (f *FileField) Header() (*multipart.FileHeader, bool) {
+	if t, ok := f.value.(*multipartFileOpener); ok {
+		return t.FileHeader, ok
+	}
+	return nil, false
+}
+
 // Choices is a list of valid values (value and name).
 type Choices [][2]string
 

@@ -119,6 +119,12 @@ func TestCollectionAPI(t *testing.T) {
 						"is_bound": false,
 						"value": null,
 						"errors": null
+					},
+					"updated_since": {
+						"is_null": true,
+						"is_bound": false,
+						"value": null,
+						"errors": null
 					}
 				}
 			}`,

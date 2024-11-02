@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.15.6] - 2024-11-02
+### Fixed
+- Fixed label extraction from Pocket export file
+
 ## [0.15.5] - 2024-11-02
 ### Added
 - Added Literata, by [@diginaut](https://codeberg.org/diginaut)

@@ -6,7 +6,7 @@ linters:
     - bodyclose
     - dupl
     - errcheck
-    - exportloopref
+    - copyloopvar
     - gocognit
     - gocritic
     - gocyclo

@@ -28,7 +28,7 @@ export GOOS?=
 export GOARCH?=
 export CGO_CFLAGS ?= -D_LARGEFILE64_SOURCE
 export CC?=
-export XGO_VERSION ?= go-1.22.x
+export XGO_VERSION ?= go-1.23.x
 export XGO_PACKAGE ?= src.techknowlogick.com/xgo@latest
 export XGO_FLAGS ?= ""
 
@@ -37,9 +37,9 @@ SITECONFIG_DEST=pkg/extract/contentscripts/assets/site-config
 
 
 FILE_COMPOSE_PKG ?= codeberg.org/readeck/file-compose@latest
-GOLANGCI_PKG ?= github.com/golangci/golangci-lint/cmd/golangci-lint@v1.59.1
-AIR_PKG ?= github.com/cosmtrek/air@v1.52.0
-SLOC_PKG ?= github.com/boyter/scc/v3@v3.3.3
+GOLANGCI_PKG ?= github.com/golangci/golangci-lint/cmd/golangci-lint@v1.61.0
+AIR_PKG ?= github.com/air-verse/air@v1.61.1
+SLOC_PKG ?= github.com/boyter/scc/v3@v3.4.0
 
 # -------------------------------------------------------------------
 # Base targets

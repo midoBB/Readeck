@@ -168,7 +168,7 @@ func (adapter *pocketFileAdapter) loadBookmarkRows(f *zip.File) error {
 			item.Title = title
 		}
 
-		for _, label := range strings.Split(record[4], ",") {
+		for _, label := range strings.Split(record[4], "|") {
 			if label = strings.TrimSpace(label); label != "" {
 				item.Labels = append(item.Labels, label)
 			}

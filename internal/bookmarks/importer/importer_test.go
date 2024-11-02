@@ -248,7 +248,7 @@ func TestFileAdapters(t *testing.T) {
 				cw := csv.NewWriter(f)
 				_ = cw.Write([]string{"title", "url", "time_added", "cursor", "tags", "status"})
 				_ = cw.Write([]string{"Example.net", "https://example.net/", "1684913522", "", "", "unread"})
-				_ = cw.Write([]string{"Example.net", "https://example.org/#test", "1684913346", "", "tag1,tag2", "unread"})
+				_ = cw.Write([]string{"Example.net", "https://example.org/#test", "1684913346", "", "tag1|tag2", "unread"})
 				_ = cw.Write([]string{"", "ftp://example.net/", "1684913346", "", "tag2", "unread"})
 				_ = cw.Write([]string{"Example.net", "https://example.net/#foo", "1684913522", "", "", "unread"})
 				_ = cw.Write([]string{"Read article", "https://example.org/read", "1712037544", "", "", "archive"})

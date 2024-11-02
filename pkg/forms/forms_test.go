@@ -36,7 +36,7 @@ func testForm(t *testing.T, test formTest, f formMarshaler) {
 	if err != nil {
 		panic(err)
 	}
-	jsonassert.New(t).Assertf(string(data), test.result)
+	jsonassert.New(t).Assertf(string(data), test.result) //nolint:govet
 	if t.Failed() {
 		t.Errorf("Received JSON: %s\n", string(data))
 		t.FailNow()

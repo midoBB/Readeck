@@ -16,7 +16,7 @@ import (
 	"codeberg.org/readeck/readeck/pkg/extract"
 )
 
-var ctxExtractLinksKey struct{}
+type ctxExtractLinksKey struct{}
 
 // CleanDomProcessor is a last pass of cleaning on the resulting DOM node.
 // It removes unwanted attributes, empty tags and set some defaults.
@@ -80,14 +80,14 @@ func extractLinksProcessor(m *extract.ProcessMessage, next extract.Processor) ex
 		return a.URL == b.URL
 	})
 
-	m.Extractor.Context = context.WithValue(m.Extractor.Context, ctxExtractLinksKey, links)
+	m.Extractor.Context = context.WithValue(m.Extractor.Context, ctxExtractLinksKey{}, links)
 	return next
 }
 
 // GetExtractedLinks returns the extracted link list previously
 // stored in the extractor context.
 func GetExtractedLinks(ctx context.Context) bookmarks.BookmarkLinks {
-	if links, ok := ctx.Value(ctxExtractLinksKey).(bookmarks.BookmarkLinks); ok {
+	if links, ok := ctx.Value(ctxExtractLinksKey{}).(bookmarks.BookmarkLinks); ok {
 		return links
 	}
 	return bookmarks.BookmarkLinks{}

@@ -441,7 +441,7 @@ func (e *Extractor) getFromCache(req *http.Request) (*http.Response, error) {
 }
 
 func (e *Extractor) runProcessors(m *ProcessMessage) {
-	if e.processors == nil || len(e.processors) == 0 {
+	if len(e.processors) == 0 {
 		return
 	}
 

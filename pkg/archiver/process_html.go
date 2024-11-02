@@ -82,7 +82,6 @@ func (arc *Archiver) processHTML(ctx context.Context, input io.Reader, baseURL *
 	// Process each node concurrently
 	g, ctx := errgroup.WithContext(ctx)
 	for node := range resourceNodes {
-		node := node
 		g.Go(func() error {
 			// Update style attribute
 			if dom.HasAttribute(node, "style") {
@@ -609,7 +608,7 @@ func (arc *Archiver) processEmbedNode(ctx context.Context, node *html.Node, base
 }
 
 func (arc *Archiver) processMediaNode(ctx context.Context, node *html.Node, baseURL *url.URL) error {
-	ctx = context.WithValue(ctx, ctxNodeKey, node)
+	ctx = context.WithValue(ctx, ctxNodeKey{}, node)
 
 	err := arc.processURLNode(ctx, node, "src", baseURL)
 	if err != nil {

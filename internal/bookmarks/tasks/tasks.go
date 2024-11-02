@@ -425,7 +425,7 @@ func fetchLinksProcessor(b *bookmarks.Bookmark) extract.Processor {
 			return next
 		}
 
-		links, ok := m.Extractor.Context.Value(ctxExtractLinksKey).(bookmarks.BookmarkLinks)
+		links, ok := m.Extractor.Context.Value(ctxExtractLinksKey{}).(bookmarks.BookmarkLinks)
 		if !ok {
 			return next
 		}
@@ -433,7 +433,6 @@ func fetchLinksProcessor(b *bookmarks.Bookmark) extract.Processor {
 		g, _ := errgroup.WithContext(context.TODO())
 		g.SetLimit(10)
 		for i := range links {
-			i := i
 			g.Go(func() error {
 				log.WithField("url", links[i].URL).Debug("extract link")
 				URL, err := url.Parse(links[i].URL)

@@ -19,7 +19,7 @@ import (
 	"golang.org/x/sync/semaphore"
 )
 
-var ctxNodeKey struct{}
+type ctxNodeKey struct{}
 
 // ArchiveFlag is an archiver feature to enable.
 type ArchiveFlag uint8
@@ -156,6 +156,6 @@ func (arc *Archiver) downloadFile(url string, parentURL string, headers http.Hea
 
 // GetContextNode returns the html node stored in the context.
 func GetContextNode(ctx context.Context) (node *html.Node, ok bool) {
-	node, ok = ctx.Value(ctxNodeKey).(*html.Node)
+	node, ok = ctx.Value(ctxNodeKey{}).(*html.Node)
 	return
 }

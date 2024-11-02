@@ -48,7 +48,6 @@ func (arc *Archiver) processCSS(ctx context.Context, input io.Reader, baseURL *u
 
 	g, ctx := errgroup.WithContext(ctx)
 	for uri := range urls {
-		uri := uri
 		g.Go(func() error {
 			cssURL := sanitizeStyleURL(uri)
 			cssURL = createAbsoluteURL(cssURL, baseURL)

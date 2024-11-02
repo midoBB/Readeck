@@ -3,10 +3,10 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 
 const fs = require("fs")
-const glob = require("glob")
 const path = require("path")
 const zlib = require("zlib")
 
+const {glob} = require("glob")
 const gulp = require("gulp")
 const gulpCheerio = require("gulp-cheerio")
 const gulpHash = require("gulp-hash-filename")
@@ -310,37 +310,33 @@ function copy_files() {
 // write_manifest generates a manifest.json file in the destination folder.
 // It's a very naive process that lists all the files in the destination
 // folder and creates a mapping for all the files having a hash suffix.
-function write_manifest(done) {
+async function write_manifest(done) {
   const rxFilename = new RegExp(/^(.+)(\.[a-f0-9]{8}\.)(.+)$/)
   const excluded = [".br", ".gz", ".map"]
 
-  glob(path.join(DEST, "**/*"), {}, async (err, files) => {
-    if (err) {
-      done(err)
-      return
+  const files = await glob(path.join(DEST, "**/*"))
+
+  let manifest = {}
+  for (let f of files) {
+    let st = await fs.promises.stat(f)
+    if (!st.isFile()) {
+      continue
     }
-    let manifest = {}
-    for (let f of files) {
-      let st = await fs.promises.stat(f)
-      if (!st.isFile()) {
-        continue
-      }
-      f = path.relative(DEST, f)
-      if (f == "manifest.json" || excluded.includes(path.extname(f))) {
-        continue
-      }
-
-      let m = f.match(rxFilename)
-      if (!m) {
-        continue
-      }
-
-      manifest[`${m[1]}.${m[3]}`] = f
+    f = path.relative(DEST, f)
+    if (f == "manifest.json" || excluded.includes(path.extname(f))) {
+      continue
     }
 
-    let dest = path.join(DEST, "manifest.json")
-    fs.writeFile(dest, JSON.stringify(manifest, null, "  ") + "\n", done)
-  })
+    let m = f.match(rxFilename)
+    if (!m) {
+      continue
+    }
+
+    manifest[`${m[1]}.${m[3]}`] = f
+  }
+
+  let dest = path.join(DEST, "manifest.json")
+  fs.writeFile(dest, JSON.stringify(manifest, null, "  ") + "\n", done)
 }
 
 // ------------------------------------------------------------------

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.15.5] - 2024-11-02
+### Added
+- Added Literata, by [@diginaut](https://codeberg.org/diginaut)
+
+### Fixed
+- Support of new Pocket export format
+
 ## [0.15.4] - 2024-10-30
 ### Added
 - Import from Omnivore

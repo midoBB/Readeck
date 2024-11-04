@@ -1,22 +1,15 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//section[contains(concat(' ',normalize-space(@class),' '),' corps ')]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' print:shadow-none ')]//article"
   ],
-  "date_selectors": [
-    "//time[@itemprop=\"datePublished\"]/@datetime"
-  ],
+  "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' plusLoin ')]",
-    "//select"
+    "//footer"
   ],
   "strip_id_or_class": [
-    "comments",
-    "smart-paging-pager",
-    "megaUne",
-    "pas",
-    "field-name-field-pour-aller-plus-loin"
+    "comments"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -24,14 +17,12 @@
   "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
-  "next_page_link_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' smart-paging-pager ')]//a[@title='Aller à la page suivante']"
-  ],
+  "next_page_link_selectors": null,
   "replace_strings": null,
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.macg.co/aapl/2015/09/tim-cook-rassure-sur-lavenir-du-mac-90957",
+      "url": "https://www.macg.co/ailleurs/2024/10/microsoft-donne-des-yeux-et-une-voix-lia-de-copilot-146279",
       "contains": []
     }
   ]

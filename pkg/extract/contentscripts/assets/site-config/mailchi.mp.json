@@ -1,12 +1,16 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[@id=\"bodyTable\"]"
+    "//div[@id=\"bodyTable\"]",
+    "//body[1]"
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
+  "strip_selectors": [
+    "(//div[contains(@class, 'mj-outlook-group-fix')])[1]"
+  ],
   "strip_id_or_class": [
+    "awesomewrap",
     "templatePreheader",
     "mcnShareBlock",
     "templateFooter",

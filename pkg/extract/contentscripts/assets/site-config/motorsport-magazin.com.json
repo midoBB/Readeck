@@ -8,10 +8,15 @@
   "strip_selectors": [
     "//ins",
     "//aside",
-    "//footer"
+    "//footer",
+    "//a[text()='Startseite']"
   ],
   "strip_id_or_class": [
-    "twitter-tweet"
+    "twitter-tweet",
+    "content-infos",
+    "autor-info-card",
+    "topic-links",
+    "additionals"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

@@ -1,5 +1,6 @@
 {
   "title_selectors": [
+    "//article/h1[1]",
     "//div[@class='article']/h1"
   ],
   "body_selectors": [
@@ -9,15 +10,17 @@
     "substring-before(//p[@class='articletime'],'|')"
   ],
   "author_selectors": [
+    "//meta[@name='cXenseParse:author']/@content",
     "//div[@class='author']/descendant::a"
   ],
   "strip_selectors": [
     "//div[@class='meta__date']",
     "//div[@class='meta__authors']",
-    "//h1[@class='article__title']",
+    "//article/h1[1]",
     "//div[contains(@class, 'fm-relation')]",
+    "//div[@class='vued']",
     "//svg",
-    "//div[@class='vued']"
+    "//button"
   ],
   "strip_id_or_class": [
     "skyline",

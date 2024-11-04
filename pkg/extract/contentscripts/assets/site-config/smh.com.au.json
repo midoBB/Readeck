@@ -3,7 +3,7 @@
     "//h1[@class='cN-headingPage']"
   ],
   "body_selectors": [
-    "//article"
+    "//article[1]"
   ],
   "date_selectors": [
     "//dd[@class='updated dtstamp']"
@@ -12,17 +12,21 @@
     "//h3[@class='authorName']"
   ],
   "strip_selectors": [
+    "//aside",
+    "//header",
     "//ul[@class='social sponsored cfix']",
     "//div[contains(@class, 'hiddenVisually')]",
     "//dd[@class='updated dtstamp']",
     "//h3[@class='authorName']",
     "//ul[@class='social  cfix']",
     "//div[contains(@id, 'adspot')]",
-    "//aside",
     "//div[contains(@class, 'overlayPlayCountdown')]",
-    "//div[@class='fdVideoWof']//span[@class='gone']"
+    "//div[@class='fdVideoWof']//span[@class='gone']",
+    "//button[contains(text(), 'Normal text size')]/ancestor::section"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "noPrint"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

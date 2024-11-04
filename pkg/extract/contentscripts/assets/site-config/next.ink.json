@@ -1,6 +1,6 @@
 {
   "title_selectors": [
-    "//h1"
+    "//h1[@id='single-article-title']"
   ],
   "body_selectors": [
     "//div[@id='article-single']"

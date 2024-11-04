@@ -37,6 +37,14 @@
       "href=\"/files/"
     ],
     [
+      "src=\"assets/",
+      "src=\"/assets/"
+    ],
+    [
+      "href=\"assets/",
+      "href=\"/assets/"
+    ],
+    [
       "\u003cfigure class=\"video_container\"\u003e",
       "\u003cdiv\u003e"
     ],

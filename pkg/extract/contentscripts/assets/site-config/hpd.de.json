@@ -1,0 +1,37 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article[1]/div/div[@class='content'] | //figure[contains(@class, 'file-image')]"
+  ],
+  "date_selectors": [
+    "//article[1]//time/@datetime"
+  ],
+  "author_selectors": [
+    "//p[@class='authors']/i"
+  ],
+  "strip_selectors": [
+    "//a[contains(@href, 'https://steadyhq.com/')]/parent::*"
+  ],
+  "strip_id_or_class": [
+    "element-invisible"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://hpd.de/artikel/mythos-thule-22499",
+      "contains": []
+    },
+    {
+      "url": "https://hpd.de/artikel/schaffen-affengehirne-auch-links-17728",
+      "contains": []
+    }
+  ]
+}

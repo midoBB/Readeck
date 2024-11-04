@@ -12,6 +12,7 @@
   ],
   "strip_selectors": [
     "//a[@title='Bilderzoom']",
+    "//a[contains(@href, '/newsletter-anmeldung')]/ancestor::section[1]",
     "//aside[contains(@class,'relatedStories')]"
   ],
   "strip_id_or_class": [
@@ -29,6 +30,7 @@
     "id-AuthorList",
     "id-Article-content-item-copyright",
     "id-DonaldBreadcrumb",
+    "id-StoryElement-factBox",
     "id-StoryElement-timestamp",
     "id-StoryElement-authors",
     "id-StoryElement-interactionBar",
@@ -41,6 +43,7 @@
     "id-Article-content-item.id-Article-advert",
     "id-Article-advert--ad3",
     "id-Article-advert",
+    "id-TBeepSlot",
     "ECR-IN_ARTICLE"
   ],
   "strip_image_src": null,

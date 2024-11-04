@@ -9,7 +9,8 @@
     "//div[@id=\"article\"]",
     "//*[@itemprop=\"articleBody\"]",
     "//div[contains(concat(' ',normalize-space(@class),' '),' g-body-article-container ')]",
-    "//article[@id='story']"
+    "//article[@id='story']",
+    "//article[1]"
   ],
   "date_selectors": [
     "//meta[@property=\"article:published\"]/@content",
@@ -19,6 +20,7 @@
     "//meta[@name=\"byl\"]/@content"
   ],
   "strip_selectors": [
+    "//*[@data-scp=\"removed\"]",
     "//div[contains(@class, \"doubleRule\")]",
     "//div[contains(@class, \"articleInline\")]//h6",
     "//a[contains(@href, 'nytimes.com/adx/')]",

@@ -37,6 +37,14 @@
       "href=\"/files/"
     ],
     [
+      "src=\"assets/",
+      "src=\"/assets/"
+    ],
+    [
+      "href=\"assets/",
+      "href=\"/assets/"
+    ],
+    [
       "\u003cfigure class=\"video_container\"\u003e",
       "\u003cdiv\u003e"
     ],
@@ -59,10 +67,6 @@
   ],
   "http_headers": null,
   "tests": [
-    {
-      "url": "https://www.regionaltangente-west.de/baustellenblog-reader/vollsperrung-des-forstwegs-an-der-gehespitz.html",
-      "contains": []
-    },
     {
       "url": "https://www.regionaltangente-west.de/baustellenblog-reader/bauarbeiten-im-pfa-sued-1-schreiten-voran.html",
       "contains": []

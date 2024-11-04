@@ -17,11 +17,14 @@
     "//svg",
     "//ul[contains(@class, 'scrollbar-hide')]/parent::div",
     "//button[contains(text(), 'Cookie Einstellungen')]/ancestor::div[1]",
+    "//a[contains(@href, 'mailto:feedback@')]/ancestor::section[1]/self::section | //a[contains(@href, 'mailto:feedback@')]/ancestor::section[1]/preceding-sibling::hr[1] | //a[contains(@href, 'mailto:feedback@')]/ancestor::section[1]/following-sibling::hr[1]",
     "//a[substring(@href, string-length(@href) - string-length('/transparenz') + 1)  = '/transparenz']",
     "//h2[text()='Andere Inhalte']/parent::section",
     "//a[contains(@href, '/newsletter')]/parent::div"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "not-prose"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -31,8 +34,19 @@
   "next_page_link_selectors": [
     "//a[substring(@href, string-length(@href) - string-length('/transparenz') + 1)  = '/transparenz']"
   ],
-  "replace_strings": null,
-  "http_headers": null,
+  "replace_strings": [
+    [
+      "\u003c!--astro:end--\u003e\u003c/astro-island\u003e",
+      "\u003c/article\u003e\u003cblockquote\u003e\u003cstrong\u003e\u0026rArr; Externer inhalt \u003c/strong\u003ekonnte nicht geladen werden!\u003c/blockquote\u003e\u003c!--foo:bar--\u003e\u003c/astro-island\u003e"
+    ],
+    [
+      "\u003ciframe title=\"",
+      "\u003ciframe width=\"700\" height=\"525\" title=\""
+    ]
+  ],
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/130.0"
+  },
   "tests": [
     {
       "url": "https://www.wienerzeitung.at/a/die-moeglichkeit-einer-wiese",
@@ -40,6 +54,10 @@
     },
     {
       "url": "https://www.wienerzeitung.at/a/immer-weniger-schulreisen-warum-das-ein-problem-ist",
+      "contains": []
+    },
+    {
+      "url": "https://www.wienerzeitung.at/a/die-entwicklung-des-wahlvolkes",
       "contains": []
     }
   ]

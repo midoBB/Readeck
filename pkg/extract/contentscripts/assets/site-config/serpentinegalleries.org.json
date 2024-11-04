@@ -1,0 +1,55 @@
+{
+  "title_selectors": [
+    "//h1[@class='heading__title']"
+  ],
+  "body_selectors": [
+    "//article[1] | //main[1]/div[contains(@class, 'simple-banner')] | //section[contains(@class, 'feed--gallery')] | //main[1]/div[2]/div[contains(@class, 'grid-container')]"
+  ],
+  "date_selectors": [
+    "//div[@class='content__author-date']/p/span[2]"
+  ],
+  "author_selectors": [
+    "//div[@class='content__author-date']/p/span[1]"
+  ],
+  "strip_selectors": [
+    "//svg"
+  ],
+  "strip_id_or_class": [
+    "block--heading",
+    "content__author-date",
+    "banner__content",
+    "controls__nav"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cbutton",
+      "\u003cdiv"
+    ],
+    [
+      "\u003c/button",
+      "\u003c/div"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.serpentinegalleries.org/art-and-ideas/a-mapping-of-the-bottom-dimension-on-the-agents-ethical-question/",
+      "contains": []
+    },
+    {
+      "url": "https://www.serpentinegalleries.org/whats-on/yayoi-kusama/",
+      "contains": []
+    },
+    {
+      "url": "https://www.serpentinegalleries.org/whats-on/atta-kwami-maria-lassnig-prize-mural/",
+      "contains": []
+    }
+  ]
+}

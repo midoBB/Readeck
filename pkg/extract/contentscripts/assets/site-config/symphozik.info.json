@@ -1,0 +1,29 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@id='contenu']"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//div[@id='contenu']/h1[1]",
+    "//form",
+    "//div[@id='div_load_aff_comm']/ancestor::div[@id='blocommentaires']"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": true,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.symphozik.info/schumann-analyse-des-dichterliebe-les-amours-du-poete,107,dossier.html",
+      "contains": []
+    }
+  ]
+}

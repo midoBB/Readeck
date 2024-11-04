@@ -1,12 +1,14 @@
 {
   "title_selectors": null,
   "body_selectors": [
+    "//div[@id='post-content-body']",
     "//div[contains(@class, 'post__body')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
-    "//section[@class='article__infopanel']"
+    "//section[@class='article__infopanel']",
+    "//script"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -16,7 +18,16 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "\u003cdetails",
+      "\u003cdiv"
+    ],
+    [
+      "\u003c/details\u003e",
+      "\u003c/div\u003e"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {

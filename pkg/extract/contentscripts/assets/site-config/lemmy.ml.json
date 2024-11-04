@@ -1,0 +1,59 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article[@id='postContent'] | //article[contains(@id, 'comment-')] | (//a[contains(@class, 'person-listing')]/parent::div)[1] | //div[not(contains(@class, 'mobile-thumbnail'))]/button[contains(@class, 'thumbnail')]/picture"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "(//a[contains(@class, 'person-listing')])[1]"
+  ],
+  "strip_selectors": [
+    "//svg",
+    "//a[contains((concat(' ',normalize-space(@class),' '),' btn ')]",
+    "//a[contains(@class, 'person-listing')]/following-sibling::text() | //a[contains(@class, 'person-listing')]/following-sibling::*",
+    "//button[contains(concat(' ',normalize-space(@class),' '),' btn ')]"
+  ],
+  "strip_id_or_class": [
+    "me-lg-5"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "pictrs-image object-fit-cover img-icon",
+      "foo\" height=\"50\" width=\"50\" bar=\""
+    ],
+    [
+      "?format=webp",
+      "\" foo=\""
+    ],
+    [
+      "?format=img",
+      "\" foo=\""
+    ],
+    [
+      "srcSet=\"/static/",
+      "srcset=\"https://lemmy.ml/static/"
+    ],
+    [
+      "\u003c/picture\u003e",
+      "\u003c/picture\u003e\u0026nbsp;"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://lemmy.ml/post/20354434",
+      "contains": []
+    },
+    {
+      "url": "https://lemmy.ml/post/20439215",
+      "contains": []
+    }
+  ]
+}

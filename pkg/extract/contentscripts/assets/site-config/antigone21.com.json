@@ -1,0 +1,32 @@
+{
+  "title_selectors": [
+    "substring-before( //meta[@property='og:title']/@content , ' | Antigone XXI')"
+  ],
+  "body_selectors": [
+    "//div[contains(@class, 'post-entry')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//span[text()='*']",
+    "//p[text()='*']"
+  ],
+  "strip_id_or_class": [
+    "post-tags"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://antigone21.com/2014/04/03/falafels-hummus-maison-vegan-sans-gluten/",
+      "contains": []
+    }
+  ]
+}

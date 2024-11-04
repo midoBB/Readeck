@@ -1,0 +1,48 @@
+{
+  "title_selectors": [
+    "normalize-space(//h1[@class='title-primary'])"
+  ],
+  "body_selectors": [
+    "//div[@class='articleBody'] | //div[contains(@class, 'featured-media')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "collection",
+    "post-tags",
+    "keystone-voep-widget-3",
+    "hidden-md",
+    "hidden-lg"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "data-processed src=\"https://",
+      "foo=\"\" bar=\"https://"
+    ],
+    [
+      "data-src=\"https://",
+      "dummy=\"\" src=\"https://"
+    ]
+  ],
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0"
+  },
+  "tests": [
+    {
+      "url": "https://www.countrylife.co.uk/food-drink/curious-questions-how-did-the-tea-bag-take-over-from-loose-leaf-tea-219407",
+      "contains": []
+    },
+    {
+      "url": "https://www.countrylife.co.uk/architecture/ptolemy-dean-the-magic-that-happens-when-you-stop-to-draw-a-place-instead-of-just-taking-a-photograph-274700",
+      "contains": []
+    }
+  ]
+}

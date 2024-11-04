@@ -3,6 +3,7 @@
     "//meta[@property=\"og:title\"]/@content"
   ],
   "body_selectors": [
+    "//article[1]/div[1]/header[1] | //article[1]/div[1]/div[1]/section[1] | //div[@data-test=\"articleBody\"]",
     "//div[@data-test=\"articleBody\"]"
   ],
   "date_selectors": [
@@ -12,11 +13,21 @@
     "//section[@data-test=\"articleLayoutRow\"]//address//a[contains(@href, '/misc/writers/')]"
   ],
   "strip_selectors": [
+    "//nav",
+    "//button",
+    "//svg",
+    "//header//h1",
+    "//div[@data-test='shareBar']",
+    "//div[@data-display-dates='true']/parent::div",
+    "//div[@data-test='tags']",
+    "//a[contains(@href, 'mailto:')]",
     "//ul[@data-test=\"relatedArticles\"]",
     "//div[contains(@id, 'newsletter')]",
     "//button"
   ],
   "strip_id_or_class": [
+    "trinity-iframe",
+    "undefined",
     "trinity-player-iframe-wrapper"
   ],
   "strip_image_src": null,
@@ -32,7 +43,9 @@
       "src=\"https://"
     ]
   ],
-  "http_headers": null,
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0"
+  },
   "tests": [
     {
       "url": "https://www.haaretz.com/israel-news/.premium-with-israel-s-encouragement-nso-sold-spyware-to-uae-and-other-gulf-states-1.9093465",

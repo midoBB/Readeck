@@ -1,6 +1,8 @@
 {
   "title_selectors": null,
-  "body_selectors": null,
+  "body_selectors": [
+    "//div[contains(@id, 'post_')]"
+  ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": null,
@@ -15,7 +17,9 @@
     "//link[@rel='next']/@href"
   ],
   "replace_strings": null,
-  "http_headers": null,
+  "http_headers": {
+    "user-agent": "curl/7.83.1"
+  },
   "tests": [
     {
       "url": "https://community.openstreetmap.org/t/lidar-mapping-of-roads/97100",

@@ -9,14 +9,17 @@
     "//meta[@property=\"article:published_time\"]/@content"
   ],
   "author_selectors": [
-    "//div[@class=\"post-informations\"]//a[contains(@href, 'https://www.canardpc.com/auteur/')]"
+    "//div[contains(@class, \"post-informations\")]//a[contains(@href, 'https://www.canardpc.com/auteur/')]"
   ],
   "strip_selectors": [
     "//div[contains(@class, 'slick-cloned')]",
-    "//div[contains(@class, \"encarts\")]//div[contains(@class, \"layout-framed\")]"
+    "//div[contains(@class, \"encarts\")]//div[contains(@class, \"layout-framed\")]",
+    "//div[contains(@class, \"post-row mobile\")]",
+    "//div[contains(@class, 'post-informations')]/span"
   ],
   "strip_id_or_class": [
-    "locomotive-navigation"
+    "locomotive-navigation",
+    "main-cartouche"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

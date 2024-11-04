@@ -1,56 +1,33 @@
 {
-  "title_selectors": [
-    "//div[@id='story']//h2[@class='title']"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class,'article-content')]"
+    "//article[1]"
   ],
-  "date_selectors": [
-    "//div[@class='byline']/span[@class='posted']//abbr/@original-title",
-    "//div[@class='byline']/span[@class='posted']//abbr",
-    "//*[@class='byline']//time[@class='date']"
-  ],
+  "date_selectors": null,
   "author_selectors": [
-    "//p[@class='byline']/span[@class='author']",
-    "//p[@class='byline']/a"
+    "//div[@class='author-mini-bio']//a",
+    "//a[contains(@href, '/author/')]"
   ],
   "strip_selectors": [
-    "//h2[@class='title']",
-    "//div[contains(@class, 'pullbox')]",
-    "//div[@class='pager']",
-    "//aside"
+    "//header//h1 | //header//h1/following-sibling::div[contains(@class, 'md:')] | //header//h1/preceding-sibling::div",
+    "//div[@class='author-mini-bio']/self::* | //div[@class='author-mini-bio']/following-sibling::*",
+    "//div[contains(@class, 'story-tools')]/self::* | //div[contains(@class, 'story-tools')]/following-sibling::*",
+    "//svg"
   ],
   "strip_id_or_class": [
-    "byline",
-    "story-sidebar"
+    "view-comments",
+    "pswp-caption-content",
+    "related-stories",
+    "text-settings-dropdown-story"
   ],
   "strip_image_src": null,
-  "native_ad_selectors": [
-    "//meta[@property=\"og:url\" and contains(@content, '/sponsored/')]"
-  ],
+  "native_ad_selectors": null,
   "tidy": false,
   "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
-  "next_page_link_selectors": [
-    "//nav//a[contains(text(), 'Next')]/@href",
-    "//span[@class='numbers']//a/span[@class='next']/..",
-    "//nav//a/span[contains(text(), 'Next')]/../@href"
-  ],
-  "replace_strings": [
-    [
-      "\" data-src=\"",
-      "\"\u003e\u003cimg src=\""
-    ],
-    [
-      "\" data-responsive=\"",
-      "\" /\u003e\u003cspan \""
-    ],
-    [
-      "\u003cfigure style=\"",
-      "\u003c/span\u003e\u003cfigure style=\""
-    ]
-  ],
+  "next_page_link_selectors": null,
+  "replace_strings": null,
   "http_headers": null,
   "tests": [
     {
@@ -67,6 +44,14 @@
     },
     {
       "url": "https://arstechnica.com/gaming/2021/02/coders-reverse-engineer-grand-theft-autos-raw-pc-source-code/",
+      "contains": []
+    },
+    {
+      "url": "http://arstechnica.co.uk/science/2016/06/what-is-open-access-free-sharing-of-all-human-knowledge/",
+      "contains": []
+    },
+    {
+      "url": "http://arstechnica.co.uk/information-technology/2016/05/eben-moglen-gpl-online-advertising-is-becoming-a-perfect-despotism/",
       "contains": []
     }
   ]

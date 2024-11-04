@@ -1,0 +1,37 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article[1]/div[contains(@class, 'td-post-content')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "(//meta[@name='author']/@content)[1]"
+  ],
+  "strip_selectors": [
+    "//a[contains(text(), '(Promoted)')]/ancestor::p[1]",
+    "//div[contains(@id, 'mab-')]",
+    "//a[contains(@href, 'marktechpost-newsletter.beehiiv.com')]/parent::*",
+    "//hr[last()]"
+  ],
+  "strip_id_or_class": [
+    "swp_social_panel",
+    "td-a-rec-id-content_bottom"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0"
+  },
+  "tests": [
+    {
+      "url": "https://www.marktechpost.com/2024/10/12/lightrag-a-dual-level-retrieval-system-integrating-graph-based-text-indexing-to-tackle-complex-queries-and-achieve-superior-performance-in-retrieval-augmented-generation-systems/",
+      "contains": []
+    }
+  ]
+}

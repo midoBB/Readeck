@@ -76,6 +76,9 @@ func newCollectionForm(tr forms.Translator) (f *collectionForm) {
 		"labels":      {},
 		"is_marked":   {},
 		"is_archived": {},
+		"is_loaded":   {},
+		"has_errors":  {},
+		"has_labels":  {},
 		"range_start": {},
 		"range_end":   {},
 	}
@@ -186,6 +189,24 @@ func (f *collectionForm) setCollection(c *bookmarks.Collection) {
 				continue
 			}
 			field.Set(*c.Filters.IsArchived)
+		case "is_loaded":
+			if c.Filters.IsLoaded == nil {
+				field.Set(nil)
+				continue
+			}
+			field.Set(*c.Filters.IsLoaded)
+		case "has_errors":
+			if c.Filters.HasErrors == nil {
+				field.Set(nil)
+				continue
+			}
+			field.Set(*c.Filters.HasErrors)
+		case "has_labels":
+			if c.Filters.HasLabels == nil {
+				field.Set(nil)
+				continue
+			}
+			field.Set(*c.Filters.HasLabels)
 		case "range_start":
 			field.Set(c.Filters.RangeStart)
 		case "range_end":
@@ -211,6 +232,9 @@ func (f *collectionForm) createCollection(userID int) (*bookmarks.Collection, er
 			Type:       f.Get("type").String(),
 			IsMarked:   nil,
 			IsArchived: nil,
+			IsLoaded:   nil,
+			HasErrors:  nil,
+			HasLabels:  nil,
 			RangeStart: f.Get("range_start").String(),
 			RangeEnd:   f.Get("range_end").String(),
 		},
@@ -224,6 +248,19 @@ func (f *collectionForm) createCollection(userID int) (*bookmarks.Collection, er
 	if !f.Get("is_archived").IsNil() {
 		v := f.Get("is_archived").Value().(bool)
 		c.Filters.IsArchived = &v
+	}
+
+	if !f.Get("is_loaded").IsNil() {
+		v := f.Get("is_loaded").Value().(bool)
+		c.Filters.IsLoaded = &v
+	}
+	if !f.Get("has_errors").IsNil() {
+		v := f.Get("has_errors").Value().(bool)
+		c.Filters.HasErrors = &v
+	}
+	if !f.Get("has_labels").IsNil() {
+		v := f.Get("has_labels").Value().(bool)
+		c.Filters.HasLabels = &v
 	}
 
 	err := bookmarks.Collections.Create(c)

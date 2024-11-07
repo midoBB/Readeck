@@ -413,6 +413,9 @@ func newFilterForm(tr forms.Translator) (f *filterForm) {
 			forms.NewTextField("author", forms.Trim),
 			forms.NewTextField("site", forms.Trim),
 			forms.NewChoiceField("type", availableTypes, forms.Trim),
+			forms.NewBooleanField("is_loaded"),
+			forms.NewBooleanField("has_errors"),
+			forms.NewBooleanField("has_labels"),
 			forms.NewTextField("labels", forms.Trim),
 			forms.NewBooleanField("is_marked"),
 			forms.NewBooleanField("is_archived"),
@@ -590,8 +593,13 @@ func (f *filterForm) toSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset
 	}
 
 	// Time range
-	if f.Get("range_start").String() != "" {
+	if f.Get("range_start").String() != "" || f.Get("range_end").String() != "" {
 		start, _ := timetoken.New(f.Get("range_start").String())
+		if f.Get("range_start").String() == "" {
+			// If start is empty, it's an empty time (0001-01-01 00:00:00)
+			start.Absolute = &time.Time{}
+		}
+
 		end, _ := timetoken.New(f.Get("range_end").String())
 		ds = ds.Where(goqu.C("created").Between(
 			goqu.Range(start.RelativeTo(nil),
@@ -609,6 +617,32 @@ func (f *filterForm) toSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset
 		case "is_marked", "is_archived":
 			if !field.IsNil() {
 				ds = ds.Where(goqu.C(n).Table("b").Eq(goqu.V(field.Value())))
+			}
+		case "is_loaded":
+			if !field.IsNil() {
+				ds = ds.Where(db.BooleanExpresion(
+					goqu.C("state").Table("b").Neq(bookmarks.StateLoading),
+					field.Value().(bool),
+				))
+			}
+		case "has_errors":
+			if !field.IsNil() {
+				// This one's a bit special. Having errors could be the errors field
+				// not being empty or the state being [bookmarks.StateError]
+				ds = ds.Where(db.BooleanExpresion(
+					goqu.Or(
+						goqu.C("state").Table("b").Eq(bookmarks.StateError),
+						db.JSONArrayLength(goqu.C("errors").Table("b")).Gt(0),
+					),
+					field.Value().(bool),
+				))
+			}
+		case "has_labels":
+			if !field.IsNil() {
+				ds = ds.Where(db.BooleanExpresion(
+					db.JSONArrayLength(goqu.C("labels").Table("b")).Gt(0),
+					field.Value().(bool),
+				))
 			}
 		case "type":
 			if field.String() != "" {

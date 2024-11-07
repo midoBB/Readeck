@@ -80,6 +80,21 @@ list:
       description: One or several labels
       schema:
         type: string
+    - name: is_loaded
+      in: query
+      description: Filter by loaded state
+      schema:
+        type: boolean
+    - name: has_errors
+      in: query
+      description: Filter bookmarks with or without errors
+      schema:
+        type: boolean
+    - name: has_labels
+      in: query
+      description: Filter bookmarks with or without labels
+      schema:
+        type: boolean
     - name: is_marked
       in: query
       description: Filter by marked (favorite) status

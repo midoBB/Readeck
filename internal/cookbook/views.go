@@ -25,19 +25,30 @@ func newCookbookViews(api *cookbookAPI) *cookbookViews {
 	v := &cookbookViews{r, api}
 
 	r.With(api.srv.WithPermission("cookbook", "read")).Group(func(r chi.Router) {
-		r.Get("/", v.templateView("prose"))
-		r.Get("/colors", v.templateView("colors"))
+		r.Get("/", v.namedTemplateView("prose"))
 		r.Get("/ui", v.uiView)
+		r.Get("/{name}", v.templateView)
 	})
 
 	return v
 }
 
-func (v *cookbookViews) templateView(name string) func(w http.ResponseWriter, r *http.Request) {
-	template := fmt.Sprintf("cookbook/%s", name)
+func (v *cookbookViews) templateView(w http.ResponseWriter, r *http.Request) {
+	template := fmt.Sprintf("cookbook/%s", chi.URLParam(r, "name"))
+	_, err := server.GetTemplate(template)
+	if err != nil {
+		v.srv.Log(r).WithError(err).Error("can't load template")
+		v.srv.Status(w, r, http.StatusNotFound)
+		return
+	}
 
+	v.srv.RenderTemplate(w, r, 200, template, nil)
+}
+
+func (v *cookbookViews) namedTemplateView(name string) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		v.srv.RenderTemplate(w, r, 200, template, nil)
+		chi.RouteContext(r.Context()).URLParams.Add("name", name)
+		v.templateView(w, r)
 	}
 }
 

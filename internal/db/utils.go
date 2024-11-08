@@ -5,10 +5,17 @@
 package db
 
 import (
-	"github.com/doug-martin/goqu/v9"
 	"golang.org/x/text/collate"
 	"golang.org/x/text/language"
+
+	"github.com/doug-martin/goqu/v9"
+	"github.com/doug-martin/goqu/v9/exp"
 )
+
+var unicodeCollate = collate.New(language.Und, collate.Loose, collate.Numeric)
+
+// UnaccentCompare performs a string comparison after removing accents.
+var UnaccentCompare = unicodeCollate.CompareString
 
 // InsertWithID executes an insert statement and returns the value
 // of the field given by "r".
@@ -29,7 +36,33 @@ func InsertWithID(stmt *goqu.InsertDataset, r string) (id int, err error) {
 	return
 }
 
-var unicodeCollate = collate.New(language.Und, collate.Loose, collate.Numeric)
+// BooleanExpresion returns the provided [exp.Expression] or its negation when
+// "value" is false.
+func BooleanExpresion(expr exp.Expression, value bool) exp.Expression {
+	if value {
+		return expr
+	}
+	return goqu.Func("NOT", expr)
+}
 
-// UnaccentCompare performs a string comparison after removing accents.
-var UnaccentCompare = unicodeCollate.CompareString
+// JSONArrayLength returns a json(b)_array_length statement of the given identifier.
+func JSONArrayLength(identifier exp.IdentifierExpression) exp.SQLFunctionExpression {
+	switch Driver().Dialect() {
+	case "postgres":
+		return goqu.Func(
+			"jsonb_array_length",
+			goqu.Case().
+				When(goqu.Func("jsonb_typeof", identifier).Eq("array"), identifier).
+				Else(goqu.V("[]")),
+		)
+	case "sqlite3":
+		return goqu.Func(
+			"json_array_length",
+			goqu.Case().
+				When(goqu.Func("json_valid", identifier), identifier).
+				Else(goqu.V("[]")),
+		)
+	}
+
+	return nil
+}

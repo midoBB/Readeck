@@ -125,6 +125,9 @@ func (c *Collection) Flatten() map[string]interface{} {
 		"labels":      c.Filters.Labels,
 		"is_archived": nil,
 		"is_marked":   nil,
+		"is_loaded":   nil,
+		"has_errors":  nil,
+		"has_labels":  nil,
 		"range_start": c.Filters.RangeStart,
 		"range_end":   c.Filters.RangeEnd,
 	}
@@ -133,6 +136,15 @@ func (c *Collection) Flatten() map[string]interface{} {
 	}
 	if c.Filters.IsMarked != nil {
 		res["is_marked"] = *c.Filters.IsMarked
+	}
+	if c.Filters.IsLoaded != nil {
+		res["is_loaded"] = *c.Filters.IsLoaded
+	}
+	if c.Filters.HasErrors != nil {
+		res["has_errors"] = *c.Filters.HasErrors
+	}
+	if c.Filters.HasLabels != nil {
+		res["has_labels"] = *c.Filters.HasLabels
 	}
 
 	return res
@@ -169,6 +181,9 @@ type CollectionFilters struct {
 	Labels     string `json:"labels"`
 	IsMarked   *bool  `json:"is_marked"`
 	IsArchived *bool  `json:"is_archived"`
+	IsLoaded   *bool  `json:"is_loaded"`
+	HasErrors  *bool  `json:"has_errors"`
+	HasLabels  *bool  `json:"has_labels"`
 	RangeStart string `json:"range_start"`
 	RangeEnd   string `json:"range_end"`
 }

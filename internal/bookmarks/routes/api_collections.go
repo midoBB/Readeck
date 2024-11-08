@@ -192,6 +192,9 @@ type collectionItem struct {
 	Labels     string `json:"labels"`
 	IsMarked   *bool  `json:"is_marked"`
 	IsArchived *bool  `json:"is_archived"`
+	IsLoaded   *bool  `json:"is_loaded"`
+	HasErrors  *bool  `json:"has_errors"`
+	HasLabels  *bool  `json:"has_labels"`
 	RangeStart string `json:"range_start"`
 	RangeEnd   string `json:"range_end"`
 }
@@ -216,6 +219,9 @@ func newCollectionItem(s *server.Server, r *http.Request, c *bookmarks.Collectio
 		Labels:     c.Filters.Labels,
 		IsMarked:   c.Filters.IsMarked,
 		IsArchived: c.Filters.IsArchived,
+		IsLoaded:   c.Filters.IsLoaded,
+		HasErrors:  c.Filters.HasErrors,
+		HasLabels:  c.Filters.HasLabels,
 		RangeStart: c.Filters.RangeStart,
 		RangeEnd:   c.Filters.RangeEnd,
 	}

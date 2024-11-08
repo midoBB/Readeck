@@ -46,6 +46,18 @@ func TestCollectionAPI(t *testing.T) {
 						"value": null,
 						"errors": null
 					},
+					"has_errors": {
+						"is_null": true,
+						"is_bound": false,
+						"value": null,
+						"errors": null
+					},
+					"has_labels": {
+						"is_null": true,
+						"is_bound": false,
+						"value": null,
+						"errors": null
+					},
 					"id": {
 						"is_null": true,
 						"is_bound": false,
@@ -53,6 +65,12 @@ func TestCollectionAPI(t *testing.T) {
 						"errors": null
 					},
 					"is_archived": {
+						"is_null": true,
+						"is_bound": false,
+						"value": null,
+						"errors": null
+					},
+					"is_loaded": {
 						"is_null": true,
 						"is_bound": false,
 						"value": null,
@@ -162,6 +180,9 @@ func TestCollectionAPI(t *testing.T) {
 				"labels":"test 🥳",
 				"is_marked": true,
 				"is_archived": null,
+				"is_loaded": null,
+				"has_errors": null,
+				"has_labels": null,
 				"range_start": "",
 				"range_end": ""
 			}`,
@@ -202,6 +223,9 @@ func TestCollectionAPI(t *testing.T) {
 					"labels":"test 🥳",
 					"is_marked": true,
 					"is_archived": null,
+					"is_loaded": null,
+					"has_errors": null,
+					"has_labels": null,
 					"range_start": "",
 					"range_end": ""
 				}
@@ -242,6 +266,9 @@ func TestCollectionAPI(t *testing.T) {
 				"labels":"test 🥳",
 				"is_marked": false,
 				"is_archived": null,
+				"is_loaded": null,
+				"has_errors": null,
+				"has_labels": null,
 				"range_start": "",
 				"range_end": ""
 			}`,
@@ -281,6 +308,9 @@ func TestCollectionAPI(t *testing.T) {
 				"labels":"test 🥳",
 				"is_marked": null,
 				"is_archived": null,
+				"is_loaded": null,
+				"has_errors": null,
+				"has_labels": null,
 				"range_start": "",
 				"range_end": ""
 			}`,
@@ -322,6 +352,9 @@ func TestCollectionAPI(t *testing.T) {
 				"labels":"label1 label2 test 🥳",
 				"is_marked": null,
 				"is_archived": null,
+				"is_loaded": null,
+				"has_errors": null,
+				"has_labels": null,
 				"range_start": "",
 				"range_end": ""
 			}`,

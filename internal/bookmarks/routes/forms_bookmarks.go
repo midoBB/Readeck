@@ -418,6 +418,7 @@ func newFilterForm(tr forms.Translator) (f *filterForm) {
 			forms.NewBooleanField("is_archived"),
 			forms.NewTextField("range_start", forms.Trim, validateTimeToken),
 			forms.NewTextField("range_end", forms.Trim, validateTimeToken),
+			forms.NewDatetimeField("updated_since"),
 			forms.NewListField("id", func(n string) forms.Field {
 				return forms.NewTextField(n)
 			}, func(values []forms.Field) interface{} {
@@ -597,6 +598,10 @@ func (f *filterForm) toSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset
 				end.RelativeTo(nil),
 			),
 		))
+	}
+
+	if !f.Get("updated_since").IsNil() {
+		ds = ds.Where(goqu.C("updated").Gt(f.Get("updated_since").Value()))
 	}
 
 	for _, field := range f.Fields() {

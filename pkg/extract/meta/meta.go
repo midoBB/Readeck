@@ -93,6 +93,11 @@ func SetDropProperties(m *extract.ProcessMessage, next extract.Processor) extrac
 	// Set publication date
 	d.Date, _ = dateparse.ParseLocal(d.Meta.LookupGet("html.date"))
 
+	// We might have a picture here
+	if d.Meta.LookupGet("dc.type") == "image" {
+		d.DocumentType = "photo"
+	}
+
 	// Set document type from opengraph value
 	if d.DocumentType == "" {
 		ogt := d.Meta.LookupGet("graph.type")

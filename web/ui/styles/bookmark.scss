@@ -80,6 +80,23 @@
     }
   }
 
+  .bookmark-topbar {
+    @apply sticky top-0 z-20 h-topnav;
+    @apply flex flex-col;
+    @apply border-b border-b-gray-200;
+    @apply bg-app-bg bg-opacity-95 text-gray-400 hfw:text-gray-700;
+    @apply print:hidden;
+
+    // When scrolling down, adapt to the topnav disapearing
+    @screen max-sm {
+      @apply top-topnav transition-all delay-100;
+
+      @at-root body.scrolled-down & {
+        @apply top-0;
+      }
+    }
+  }
+
   .bookmark-sidebar {
     @apply col-start-2;
     @apply row-start-1;

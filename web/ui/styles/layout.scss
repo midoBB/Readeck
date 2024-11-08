@@ -36,6 +36,12 @@
 
     @screen max-sm {
       @apply flex-row w-full h-topnav px-2;
+      @apply translate-y-0 transition-transform delay-100;
+
+      // When scrolling down, hide the topnav menu
+      @at-root body.scrolled-down & {
+        @apply -translate-y-topnav;
+      }
     }
 
     @media print {
@@ -48,6 +54,10 @@
 
       @screen max-sm {
         @apply h-auto;
+
+        svg {
+          @apply w-9 h-9;
+        }
       }
     }
 
@@ -79,8 +89,8 @@
             @apply data-current:text-white data-current:bg-yellow-400;
           }
 
-          @screen max-xs {
-            @apply px-2;
+          @screen max-sm {
+            @apply p-2;
           }
 
           .svgicon svg {

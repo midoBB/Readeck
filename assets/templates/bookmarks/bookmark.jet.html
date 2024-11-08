@@ -82,14 +82,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
       <div class="bookmark-content" id="content">
         {* top bar *}
-        <div class="
-          sticky top-0 z-20 h-topnav
-          flex flex-col
-          border-b border-b-gray-200
-          bg-app-bg bg-opacity-95 text-gray-400 hfw:text-gray-700
-          max-sm:top-topnav
-          print:hidden
-        ">
+        <div class="bookmark-topbar">
           <div class="flex-grow flex items-center">
             <div>
               <a href="{{ urlFor(`/bookmarks/unread`) }}" data-controller="history" data-action="history#back"

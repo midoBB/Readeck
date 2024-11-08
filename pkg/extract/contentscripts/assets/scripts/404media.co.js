@@ -1,7 +1,11 @@
-exports.isActive = function() {
+// SPDX-FileCopyrightText: © 2024 Taniki [https://11d.im/]
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
+exports.isActive = function () {
   return $.domain == "404media.co"
 }
 
-exports.processMeta = function(){
-  $.authors = [ $.meta['twitter.data1']  ]
+exports.processMeta = function () {
+  $.authors = [$.meta["twitter.data1"]]
 }

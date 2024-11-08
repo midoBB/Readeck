@@ -98,6 +98,12 @@ list:
       in: query
       schema:
         type: string
+    - name: updated_since
+      in: query
+      description: Retrieve bookmarks created after this date
+      schema:
+        type: string
+        format: date-time
     - name: id
       in: query
       description: One or more bookmark ID

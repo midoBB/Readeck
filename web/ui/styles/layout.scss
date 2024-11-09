@@ -149,8 +149,9 @@
 
     button.sidemenu--button {
       @apply fixed z-40 top-2 right-4;
-      @apply p-1 border rounded text-gray-dark;
+      @apply p-1 border rounded text-gray-400;
       @apply cursor-pointer;
+      @apply hf:text-gray-700;
 
       @screen sm {
         @apply hidden;
@@ -184,9 +185,5 @@
 
   .layout-content {
     @apply bg-transparent mx-6 my-8;
-
-    @screen max-sm {
-      @apply mb-16;
-    }
   }
 }

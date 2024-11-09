@@ -15,7 +15,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- block menuButton(name) -}}
 <button type="button" title="{{ name }}"
   class="sidemenu--button"
-  data-action="click->panel#toggleMenu"
+  data-action="click->panel#toggle"
   data-panel-target="button"
   aria-expanded="false"
   aria-controls="sidemenu">
@@ -40,7 +40,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       tabindex="-1"
       data-panel-target="panel"
       aria-labelledby="sidemenu-title"
-      data-action="keydown.esc->panel#toggleMenu"
+      data-action="keydown.esc->panel#toggle"
       class="sidemenu sidemenu--hidden"
     >
       {{- yield menuButton(name=gettext("Close menu")) content -}}

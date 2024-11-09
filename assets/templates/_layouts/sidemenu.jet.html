@@ -12,6 +12,18 @@ SPDX-License-Identifier: AGPL-3.0-only
   </main>
 {{- end -}}
 
+{{- block menuButton(name) -}}
+<button type="button" title="{{ name }}"
+  class="sidemenu--button"
+  data-action="click->panel#toggleMenu"
+  data-panel-target="button"
+  aria-expanded="false"
+  aria-controls="sidemenu">
+    {{- yield content -}}
+  <span class="sr-only">{{ name }}</span>
+</button>
+{{- end -}}
+
 {{ block body() -}}
   {{- yield quickAccessMenu(items=slice(
     slice("menu", gettext("Menu")),
@@ -23,24 +35,6 @@ SPDX-License-Identifier: AGPL-3.0-only
     data-panel-body-class="max-sm:overflow-hidden"
   >
     {{ include "/menu" }}
-
-    <button
-      data-action="click->panel#toggleMenu"
-      data-panel-target="button"
-      aria-expanded="false"
-      aria-controls="sidemenu"
-      class="hidden max-sm:flex
-        fixed z-40 w-12 h-12 bottom-2 left-2
-        items-center justify-center py-2
-        select-none rounded-2xl ring-1 ring-offset-1 ring-white cursor-pointer
-        bg-gray-800 text-white
-        dark:bg-gray-100
-        "
-    >
-      {{- yield icon(name="o-menu", class="inline-block", svgClass="w-6 h-6") -}}
-      <span class="sr-only">{{ gettext("Open menu") }}</span>
-    </button>
-
     <nav
       id="sidemenu"
       tabindex="-1"
@@ -49,6 +43,9 @@ SPDX-License-Identifier: AGPL-3.0-only
       data-action="keydown.esc->panel#toggleMenu"
       class="sidemenu sidemenu--hidden"
     >
+      {{- yield menuButton(name=gettext("Close menu")) content -}}
+        {{- yield icon(name="o-close", class="inline-block", svgClass="w-8 h-8") -}}
+      {{- end -}}
       {{ try }}{{- yield sideMenu() -}}{{ end }}
     </nav>
     {{- yield _main() -}}

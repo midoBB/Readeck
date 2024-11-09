@@ -6,6 +6,11 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- import "./_libs/common" -}}
 
 <div class="layout-topnav" id="menu">
+  {{- try -}}
+    {{- yield menuButton(name=gettext("Open menu")) content -}}
+      {{- yield icon(name="o-menu") -}}
+    {{- end -}}
+  {{- end -}}
   <div class="logo">
     <a href="{{ urlFor(`/`) }}" title="Home page">{{ yield icon(name="o-logo-square", class="", svgClass="h-11 w-11") }}</a>
   </div>
@@ -39,7 +44,7 @@ SPDX-License-Identifier: AGPL-3.0-only
                             current=pathIs(`/docs/*`)) }}
       <li>
         <form action="{{ urlFor(`/logout`)}}" method="post">
-          <button type="submit">{{ yield icon(name="o-logout") }}
+          <button type="submit" title="{{ gettext(`Sign out`) }}">{{ yield icon(name="o-logout") }}
           <span class="sr-only">{{ gettext("Sign out") }}</span></button>
         </form>
       </li>

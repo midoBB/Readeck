@@ -11,6 +11,7 @@
   "o-chevron-u":    "node_modules/boxicons/svg/regular/bx-chevron-up.svg",
   "o-circle":       "node_modules/boxicons/svg/solid/bxs-circle.svg",
   "o-clock":        "node_modules/boxicons/svg/regular/bx-stopwatch.svg",
+  "o-close":        "node_modules/boxicons/svg/regular/bx-x.svg",
   "o-collection":   "node_modules/boxicons/svg/regular/bx-collection.svg",
   "o-copy":         "node_modules/boxicons/svg/solid/bxs-copy.svg",
   "o-copyright":    "node_modules/boxicons/svg/regular/bx-copyright.svg",

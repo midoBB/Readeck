@@ -29,7 +29,7 @@
   }
 
   .layout-topnav {
-    @apply flex flex-col flex-shrink-0 gap-2;
+    @apply flex flex-col flex-shrink-0 gap-2 items-center;
     @apply box-border py-2 w-col-1 h-screen;
     @apply sticky top-0 z-40;
     @apply bg-gray-200 text-black;
@@ -68,35 +68,42 @@
       @screen max-sm {
         @apply flex-row;
       }
+    }
 
-      menu {
-        @apply flex flex-col gap-3;
+    menu {
+      @apply flex flex-col gap-3;
 
-        @screen max-sm {
-          @apply flex-row gap-2;
-        }
+      @screen max-sm {
+        @apply flex-row gap-2;
+      }
+    }
 
-        a,
-        button {
-          @apply block;
-          @apply rounded;
-          @apply p-3;
-          @apply text-gray-800 bg-gray-dark bg-opacity-5;
-          @apply hf:bg-opacity-15;
-          @apply data-current:bg-yellow-600 data-current:text-yellow-900;
+    menu a,
+    menu button,
+    button.sidemenu--button {
+      @apply block;
+      @apply rounded;
+      @apply p-3;
+      @apply text-gray-800 bg-gray-dark bg-opacity-5;
+      @apply hf:bg-opacity-15;
+      @apply data-current:bg-yellow-600 data-current:text-yellow-900;
 
-          :is(.dark &) {
-            @apply data-current:text-white data-current:bg-yellow-400;
-          }
+      :is(.dark &) {
+        @apply data-current:text-white data-current:bg-yellow-400;
+      }
 
-          @screen max-sm {
-            @apply p-2;
-          }
+      @screen max-sm {
+        @apply p-2;
+      }
 
-          .svgicon svg {
-            @apply w-5 h-5;
-          }
-        }
+      .svgicon svg {
+        @apply w-5 h-5;
+      }
+    }
+
+    button[aria-controls="sidemenu"] {
+      @screen sm {
+        @apply hidden;
       }
     }
   }
@@ -120,7 +127,7 @@
     }
 
     @screen max-sm {
-      @apply w-full;
+      @apply w-full to-gray-50;
     }
 
     @media print {
@@ -139,17 +146,29 @@
         @apply w-5 h-5;
       }
     }
+
+    button.sidemenu--button {
+      @apply fixed z-40 top-2 right-4;
+      @apply p-1 border rounded text-gray-dark;
+      @apply cursor-pointer;
+
+      @screen sm {
+        @apply hidden;
+      }
+    }
   }
 
   body.js .sidemenu {
     @screen max-sm {
-      @apply fixed bottom-0 left-0 top-auto;
+      @apply fixed visible bottom-0 left-0 top-0 z-50;
+      @apply transition-transform delay-100;
+      @apply translate-x-0;
     }
   }
 
   body.js .sidemenu--hidden {
     @screen max-sm {
-      @apply hidden;
+      @apply invisible -translate-x-[105%];
     }
   }
 
@@ -159,7 +178,7 @@
     }
   }
 
-  body.no-js button[aria-controls="sidemenu"] {
+  body.no-js button.sidemenu--button {
     @apply hidden;
   }
 

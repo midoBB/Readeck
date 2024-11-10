@@ -26,10 +26,6 @@ class stylerOption extends Controller {
       type: String,
       default: "",
     },
-    choices: {
-      type: Object,
-      default: {},
-    },
     values: {
       type: Array,
       default: [],
@@ -37,13 +33,18 @@ class stylerOption extends Controller {
   }
   static targets = ["choices", "value"]
 
+  constructor() {
+    super(...arguments)
+    this.choices = {}
+  }
+
   connect() {
     this.valueTargets.forEach((e) => {
       this.currentValue = e.value
     })
 
     this.choicesTargets.forEach((e) => {
-      this.choicesValue[e.value] = e.dataset.choiceValue
+      this.choices[e.value] = e.dataset.choiceValue
     })
   }
 
@@ -111,7 +112,7 @@ class stylerOption extends Controller {
     if (this.valuesValue.length > 0) {
       res = this.valuesValue
     } else {
-      res = Object.values(this.choicesValue)
+      res = Object.values(this.choices)
     }
     return res.reduce((acc, cur) => {
       return acc.concat(cur.split(/\s+/))
@@ -124,7 +125,7 @@ class stylerOption extends Controller {
     if (this.valuesValue.length > 0 && !isNaN(idx)) {
       res = this.valuesValue[idx - 1]
     } else {
-      res = this.choicesValue[this.currentValue]
+      res = this.choices[this.currentValue]
     }
 
     if (!!res) {

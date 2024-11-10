@@ -3,30 +3,28 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 
 @layer components {
-  .bookmark-grid {
-    @apply grid;
-    grid-template-columns: minmax(auto, theme("spacing.col-22")) theme("spacing.col-6");
+  .bookmark-container {
+    @apply col-start-2 col-span-2;
+    @apply flex;
 
-    @screen max-md {
-      @apply flex flex-col;
-      @apply min-h-screen;
+    @at-root body & {
+      @media print {
+        @apply block max-w-none w-full h-auto overflow-visible;
+        @apply mb-8 border-b border-l-0;
+      }
     }
 
-    @screen max-sm {
-      min-height: calc(100vh - theme("spacing.topnav"));
-    }
-
-    @media print {
-      @apply block;
+    @at-root body.no-js & {
+      @screen max-md {
+        @apply flex-col;
+      }
     }
   }
 
   .bookmark-content {
-    @apply col-start-1;
-    @apply row-start-1;
-
+    @apply grow order-first;
+    @apply px-6 pb-8;
     @apply bg-transparent;
-    @apply max-w-col-22 px-6 pb-8;
 
     @screen md {
       @apply min-h-screen;
@@ -80,10 +78,24 @@
     }
   }
 
-  .bookmark-sidebar {
-    @apply col-start-2;
-    @apply row-start-1;
+  .bookmark-topbar {
+    @apply sticky top-0 z-20 h-topnav;
+    @apply flex flex-col;
+    @apply border-b border-b-gray-200;
+    @apply bg-app-bg bg-opacity-95 text-gray-400 hfw:text-gray-600;
+    @apply print:hidden;
 
+    // When scrolling down, adapt to the topnav disapearing
+    @screen max-sm {
+      @apply top-topnav transition-all delay-100;
+
+      @at-root body.scrolled-down & {
+        @apply top-0;
+      }
+    }
+  }
+
+  .bookmark-sidebar {
     @apply w-col-6 h-screen sticky overflow-y-auto z-30;
     @apply border-l border-l-gray-200;
 
@@ -92,13 +104,8 @@
     }
 
     @screen max-md {
-      @apply order-last;
-      @apply bottom-0 bg-app-bg;
-      @apply w-full h-auto;
-      @apply overflow-y-hidden;
-      @apply flex flex-col;
-      @apply shadow-panel-t;
-      @apply transition-all ease-in-out;
+      @apply fixed top-0 right-0 w-full max-w-col-10 z-50;
+      @apply bg-app-bg shadow-panel-r;
     }
 
     @media print {
@@ -107,23 +114,11 @@
     }
   }
 
-  body.js .bookmark-sidebar {
-    @screen max-md {
-      max-height: 60vh;
-
-      .panel--hidden {
-        @apply hidden;
-      }
-    }
-
-    [aria-expanded="true"][aria-controls="bookmark-panel"] svg {
-      @apply rotate-180;
-    }
-  }
-
   body.no-js .bookmark-sidebar {
     @screen max-md {
-      @apply relative;
+      & {
+        @apply block static shadow-none w-auto max-w-none h-auto;
+      }
     }
   }
 }
@@ -193,5 +188,21 @@
   }
   &--font-jetbrains-mono {
     @apply font-jetbrains-mono;
+  }
+
+  &--align-justify {
+    p,
+    li,
+    dd {
+      text-align: justify;
+    }
+  }
+
+  &--hyphen-auto {
+    p,
+    li,
+    dd {
+      hyphens: auto;
+    }
   }
 }

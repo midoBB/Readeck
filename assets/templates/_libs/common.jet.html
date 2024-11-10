@@ -90,7 +90,7 @@ href="{{ assetURL(`img/icons.svg`) }}#{{ name }}"></use></svg></span>
 {{- end -}}
 
 {{- block mainMenuItem(name, path, icon, current=false) -}}
-<li><a href="{{ urlFor(path) }}" data-current="{{ current }}">{{ yield icon(name=icon) }}
+<li><a href="{{ urlFor(path) }}" title="{{ name }}" data-current="{{ current }}">{{ yield icon(name=icon) }}
 <span class="sr-only">{{ name }}</span></a></li>
 {{- end -}}
 

@@ -8,18 +8,26 @@ export default class extends Controller {
   static targets = ["panel", "button"]
   static classes = ["hidden", "body"]
 
-  toggleMenu() {
+  toggle() {
     if (this.isVisible()) {
-      document.body.classList.remove(...this.bodyClasses)
-      this.panelTarget.classList.add(...this.hiddenClasses)
-      this.buttonTarget.focus()
+      this.close()
     } else {
-      document.body.classList.add(...this.bodyClasses)
-      this.panelTarget.classList.remove(...this.hiddenClasses)
-      this.panelTarget.focus()
+      this.open()
     }
 
     this.buttonTarget.setAttribute("aria-expanded", this.isVisible())
+  }
+
+  open() {
+    document.body.classList.add(...this.bodyClasses)
+    this.panelTarget.classList.remove(...this.hiddenClasses)
+    this.panelTarget.focus()
+  }
+
+  close() {
+    document.body.classList.remove(...this.bodyClasses)
+    this.panelTarget.classList.add(...this.hiddenClasses)
+    this.buttonTarget.focus()
   }
 
   /**
@@ -28,6 +36,7 @@ export default class extends Controller {
    * @returns boolean
    */
   isVisible() {
-    return !this.panelTarget.classList.contains(this.hiddenClass)
+    const cs = getComputedStyle(this.panelTarget)
+    return !(cs.visibility == "hidden" || cs.display == "none")
   }
 }

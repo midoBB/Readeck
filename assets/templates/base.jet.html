@@ -41,7 +41,10 @@ SPDX-License-Identifier: AGPL-3.0-only
   relative
   print:text-black print:bg-white
   overscroll-none
- ">
+ "
+ data-controller="scroll-tracker"
+ data-scroll-tracker-down-class="scrolled-down"
+ >
 <script nonce="{{ cspNonce }}">
 if ('noModule' in HTMLScriptElement.prototype) {
   document.body.classList.remove("no-js")

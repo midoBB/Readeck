@@ -92,7 +92,7 @@ var config = {
     extend: {
       boxShadow: {
         "sidebar-l": "5px 0 10px -5px var(--default-shadow)",
-        "panel-t": "0 4px 6px 6px var(--default-shadow)",
+        "panel-r": "0 4px 6px 6px var(--default-shadow)",
       },
       boxShadowColor: {
         DEFAULT: "var(--default-shadow)",

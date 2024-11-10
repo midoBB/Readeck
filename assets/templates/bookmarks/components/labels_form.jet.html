@@ -13,7 +13,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   <button type="submit" class="hidden"></button>
   <div>
     {{- include "./labels" . -}}
-    <div class="flex gap-2 text-sm items-center mt-2 print:hidden">
+    <div class="flex gap-2 items-center mt-2 print:hidden">
       <div class="relative flex-grow"
        data-controller="autocomplete"
        data-autocomplete-url-value="{{ urlFor(`/api/bookmarks/labels`) }}"

@@ -43,6 +43,14 @@ var (
 		"bookmark-display--leading-5",
 		"bookmark-display--leading-6",
 	}
+	readerJustify = [2]string{
+		"bookmark-display--align-none",
+		"bookmark-display--align-justify",
+	}
+	readerHyphenation = [2]string{
+		"bookmark-display--hyphen-none",
+		"bookmark-display--hyphen-auto",
+	}
 	bookmarkListLayouts = []string{
 		"grid",
 		"compact",
@@ -62,6 +70,8 @@ type Preferences struct {
 	idxReaderFont         int
 	idxReaderFontSize     int
 	idxReaderLineHeight   int
+	idxReaderJustify      int
+	idxReaderHyphenation  int
 	idxRookmarkListLayout int
 }
 
@@ -74,6 +84,8 @@ func New(user *users.User, session *sessions.Session) *Preferences {
 		idxReaderFont:         0,
 		idxReaderFontSize:     2,
 		idxReaderLineHeight:   2,
+		idxReaderJustify:      0,
+		idxReaderHyphenation:  0,
 		idxRookmarkListLayout: 0,
 	}
 
@@ -90,6 +102,13 @@ func New(user *users.User, session *sessions.Session) *Preferences {
 
 		if idx := user.Settings.ReaderSettings.LineHeight - 1; idx >= 0 && idx < len(readerLineHeights) {
 			p.idxReaderLineHeight = idx
+		}
+
+		if user.Settings.ReaderSettings.Justify > 0 {
+			p.idxReaderJustify = 1
+		}
+		if user.Settings.ReaderSettings.Hyphenation > 0 {
+			p.idxReaderHyphenation = 1
 		}
 	}
 
@@ -117,6 +136,16 @@ func (p *Preferences) LineHeights() []string {
 	return readerLineHeights
 }
 
+// Justify returns the available justify values.
+func (p *Preferences) Justify() [2]string {
+	return readerJustify
+}
+
+// Hyphenation returns the available hyphenation values.
+func (p *Preferences) Hyphenation() [2]string {
+	return readerHyphenation
+}
+
 // ReaderFont returns the user's reader font.
 func (p *Preferences) ReaderFont() Pair {
 	return Pair{
@@ -138,6 +167,22 @@ func (p *Preferences) ReaderLineHeight() Pair {
 	return Pair{
 		strconv.Itoa(p.idxReaderLineHeight + 1),
 		readerLineHeights[p.idxReaderLineHeight],
+	}
+}
+
+// ReaderJustify returns the user's reader justify flag.
+func (p *Preferences) ReaderJustify() (res Pair) {
+	return Pair{
+		strconv.Itoa(p.idxReaderJustify),
+		readerJustify[p.idxReaderJustify],
+	}
+}
+
+// ReaderHyphenation returns the reader's hyphenation flag.
+func (p *Preferences) ReaderHyphenation() (res Pair) {
+	return Pair{
+		strconv.Itoa(p.idxReaderHyphenation),
+		readerHyphenation[p.idxReaderHyphenation],
 	}
 }
 

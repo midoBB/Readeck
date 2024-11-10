@@ -56,6 +56,8 @@ func newProfileForm(tr forms.Translator) (f *profileForm) {
 			forms.NewIntegerField("settings_reader_line_height",
 				forms.RequiredOrNil, forms.Gte(1), forms.Lte(6),
 			),
+			forms.NewIntegerField("settings_reader_justify"),
+			forms.NewIntegerField("settings_reader_hyphenation"),
 		),
 	}
 	f.SetLocale(tr)
@@ -129,6 +131,10 @@ func (f *profileForm) updateUser(u *users.User) (res map[string]interface{}, err
 				u.Settings.ReaderSettings.FontSize = field.Value().(int)
 			case "line_height":
 				u.Settings.ReaderSettings.LineHeight = field.Value().(int)
+			case "justify":
+				u.Settings.ReaderSettings.Justify = field.Value().(int)
+			case "hyphenation":
+				u.Settings.ReaderSettings.Hyphenation = field.Value().(int)
 			}
 			res["settings"] = u.Settings
 		case n == "settings_lang":

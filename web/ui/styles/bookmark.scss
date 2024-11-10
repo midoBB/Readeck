@@ -189,4 +189,20 @@
   &--font-jetbrains-mono {
     @apply font-jetbrains-mono;
   }
+
+  &--align-justify {
+    p,
+    li,
+    dd {
+      text-align: justify;
+    }
+  }
+
+  &--hyphen-auto {
+    p,
+    li,
+    dd {
+      hyphens: auto;
+    }
+  }
 }

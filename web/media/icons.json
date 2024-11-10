@@ -70,7 +70,9 @@
   "o-big-arrow":    "media/img/big-arrow.svg",
   "o-spinner":      "media/img/spinner.svg",
   "o-font-size":    "node_modules/boxicons/svg/regular/bx-font-size.svg",
-  "o-line-height":  "node_modules/boxicons/svg/regular/bx-align-left.svg",
+  "o-line-height":  "node_modules/@mdi/svg/svg/format-line-height.svg",
+  "o-text-justify": "node_modules/@mdi/svg/svg/format-align-justify.svg",
+  "o-text-hyphen":  "node_modules/@mdi/svg/svg/minus-thick.svg",
 
   "o-logo":         "media/logo.svg",
   "o-logo-square":  "media/logo-square.svg"

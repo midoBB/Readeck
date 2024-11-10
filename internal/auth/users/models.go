@@ -232,9 +232,11 @@ type UserSettings struct {
 
 // ReaderSettings contains the reader settings.
 type ReaderSettings struct {
-	Font       string `json:"font"`
-	FontSize   int    `json:"font_size"`
-	LineHeight int    `json:"line_height"`
+	Font        string `json:"font"`
+	FontSize    int    `json:"font_size"`
+	LineHeight  int    `json:"line_height"`
+	Justify     int    `json:"justify"`
+	Hyphenation int    `json:"hyphenation"`
 }
 
 func (rs *ReaderSettings) setDefaults() {

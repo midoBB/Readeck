@@ -88,5 +88,53 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{- yield icon(name="o-plus") -}}
       </button>
     </div>
+
+    <div class="mt-4 flex items-center gap-2"
+     data-controller="styler-option"
+     data-styler-option-styler-outlet="[data-controller='styler']"
+    >
+      {{- yield icon(name="o-text-justify") -}} <span class="flex-grow">{{ gettext("Justify") }}</span>
+      <div class="btn-group">
+        {{ _l := preferences.Justify() }}
+        {{- range i := _l -}}
+          {{ i = len(_l) - 1 - i }}
+          {{ x := _l[i] }}
+          <button class="btn-outlined data-[current]:bg-gray-200 data-[current]:text-app-fg"
+           value="{{ i }}" data-choice-value="{{ x }}"
+           data-styler-option-target="choices"
+           data-action="styler-option#setChoice"
+           {{ x == preferences.ReaderJustify().Value ? "data-current" : "" }}
+          >{{ i ? gettext("yes") : gettext("no") }}</button>
+        {{- end -}}
+      </div>
+      <input type="hidden" value="{{ preferences.ReaderJustify().Value }}"
+       data-styler-option-target="value"
+       data-action="styler-option:setValue->request#fetch"
+       data-request-name-param="settings_reader_justify">
+    </div>
+
+    <div class="mt-4 flex items-center gap-2"
+     data-controller="styler-option"
+     data-styler-option-styler-outlet="[data-controller='styler']"
+    >
+      {{- yield icon(name="o-text-hyphen") -}} <span class="flex-grow">{{ gettext("Hyphenation") }}</span>
+      <div class="btn-group">
+        {{ _l := preferences.Hyphenation() }}
+        {{- range i := _l -}}
+          {{ i = len(_l) - 1 - i }}
+          {{ x := _l[i] }}
+          <button class="btn-outlined data-[current]:bg-gray-200 data-[current]:text-app-fg"
+           value="{{ i }}" data-choice-value="{{ x }}"
+           data-styler-option-target="choices"
+           data-action="styler-option#setChoice"
+           {{ x == preferences.ReaderHyphenation().Value ? "data-current" : "" }}
+          >{{ i ? gettext("yes") : gettext("no") }}</button>
+        {{- end -}}
+      </div>
+      <input type="hidden" value="{{ preferences.ReaderHyphenation().Value }}"
+       data-styler-option-target="value"
+       data-action="styler-option:setValue->request#fetch"
+       data-request-name-param="settings_reader_hyphenation">
+    </div>
   </div>
 </details>

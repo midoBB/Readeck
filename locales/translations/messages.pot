@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-10-30 16:50+0000\n"
+"POT-Creation-Date: 2024-11-10 11:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.12.1\n"
 
-#: assets/templates/_layouts/sidemenu.jet.html:18
+#: assets/templates/_layouts/sidemenu.jet.html:30
 msgid "Secondary Menu"
 msgstr ""
 
-#: assets/templates/_layouts/sidemenu.jet.html:41
-msgid "Open menu"
+#: assets/templates/_layouts/sidemenu.jet.html:46
+msgid "Close menu"
 msgstr ""
 
 #: assets/templates/_libs/common.jet.html:1
@@ -116,7 +116,7 @@ msgstr ""
 #: assets/templates/admin/user.jet.html:20
 #: assets/templates/admin/user_list.jet.html:44
 #: assets/templates/bookmarks/collection.jet.html:22
-#: assets/templates/bookmarks/components/card.jet.html:90
+#: assets/templates/bookmarks/components/card.jet.html:94
 #: assets/templates/bookmarks/import/form-browser.jet.html:49
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:35
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:44
@@ -390,17 +390,22 @@ msgstr ""
 msgid "Collections"
 msgstr ""
 
+#: assets/templates/bookmarks/bookmark.jet.html:1
+#: assets/templates/bookmarks/bookmark.jet.html:62
+msgid "Close panel"
+msgstr ""
+
+#: assets/templates/bookmarks/bookmark.jet.html:1
+#: assets/templates/bookmarks/bookmark.jet.html:93
+msgid "Bookmark information"
+msgstr ""
+
 #: assets/templates/bookmarks/bookmark.jet.html:12
 msgid "Bookmark loading"
 msgstr ""
 
-#: assets/templates/bookmarks/bookmark.jet.html:39
+#: assets/templates/bookmarks/bookmark.jet.html:41
 msgid "Bookmark is loading"
-msgstr ""
-
-#: assets/templates/bookmarks/bookmark.jet.html:1
-#: assets/templates/bookmarks/bookmark.jet.html:67
-msgid "More information"
 msgstr ""
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html:9
@@ -435,7 +440,7 @@ msgid "By %s"
 msgstr ""
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:60
-#: assets/templates/bookmarks/components/card.jet.html:65
+#: assets/templates/bookmarks/components/card.jet.html:68
 #: assets/templates/bookmarks/components/sidebar.jet.html:66
 #, python-format
 msgid "%d min"
@@ -568,7 +573,7 @@ msgid "Add to favorites"
 msgstr ""
 
 #: assets/templates/bookmarks/components/actions.jet.html:14
-#: assets/templates/bookmarks/components/card.jet.html:81
+#: assets/templates/bookmarks/components/card.jet.html:85
 msgid "This bookmark will be removed in a few seconds."
 msgstr ""
 
@@ -577,7 +582,7 @@ msgid "Undo"
 msgstr ""
 
 #: assets/templates/bookmarks/components/actions.jet.html:47
-#: assets/templates/bookmarks/components/list_actions.jet.html:61
+#: assets/templates/bookmarks/components/list_actions.jet.html:65
 msgid "Download EPUB"
 msgstr ""
 
@@ -593,7 +598,7 @@ msgstr ""
 msgid "Go to original page"
 msgstr ""
 
-#: assets/templates/bookmarks/components/card.jet.html:26
+#: assets/templates/bookmarks/components/card.jet.html:33
 msgctxt "bookmark"
 msgid "Loading"
 msgstr ""
@@ -623,33 +628,55 @@ msgid "Site"
 msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:36
-msgid "Is Favorite"
-msgstr ""
-
-#: assets/templates/bookmarks/components/filters.jet.html:38
-#: assets/templates/bookmarks/components/filters.jet.html:43
-msgid "yes"
-msgstr ""
-
-#: assets/templates/bookmarks/components/filters.jet.html:38
-#: assets/templates/bookmarks/components/filters.jet.html:43
-msgid "no"
+msgid "From date"
 msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:41
-msgid "Is Archived"
+msgid "To date"
 msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:47
 msgid "Type"
 msgstr ""
 
-#: assets/templates/bookmarks/components/filters.jet.html:55
-msgid "From date"
+#: assets/templates/bookmarks/components/filters.jet.html:51
+msgid "Is Favorite"
 msgstr ""
 
-#: assets/templates/bookmarks/components/filters.jet.html:60
-msgid "To date"
+#: assets/templates/bookmarks/components/filters.jet.html:53
+#: assets/templates/bookmarks/components/filters.jet.html:61
+#: assets/templates/bookmarks/components/filters.jet.html:66
+#: assets/templates/bookmarks/components/filters.jet.html:74
+#: assets/templates/bookmarks/components/filters.jet.html:79
+#: assets/templates/bookmarks/components/reader_control.jet.html:107
+#: assets/templates/bookmarks/components/reader_control.jet.html:131
+msgid "yes"
+msgstr ""
+
+#: assets/templates/bookmarks/components/filters.jet.html:53
+#: assets/templates/bookmarks/components/filters.jet.html:61
+#: assets/templates/bookmarks/components/filters.jet.html:66
+#: assets/templates/bookmarks/components/filters.jet.html:74
+#: assets/templates/bookmarks/components/filters.jet.html:79
+#: assets/templates/bookmarks/components/reader_control.jet.html:107
+#: assets/templates/bookmarks/components/reader_control.jet.html:131
+msgid "no"
+msgstr ""
+
+#: assets/templates/bookmarks/components/filters.jet.html:59
+msgid "Is Archived"
+msgstr ""
+
+#: assets/templates/bookmarks/components/filters.jet.html:64
+msgid "Is Loaded"
+msgstr ""
+
+#: assets/templates/bookmarks/components/filters.jet.html:72
+msgid "With Labels"
+msgstr ""
+
+#: assets/templates/bookmarks/components/filters.jet.html:77
+msgid "With Errors"
 msgstr ""
 
 #: assets/templates/bookmarks/components/labels.jet.html:1
@@ -699,6 +726,14 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:75
 msgid "Line height"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:96
+msgid "Justify"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:120
+msgid "Hyphenation"
 msgstr ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:1
@@ -1233,13 +1268,13 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: assets/templates/_layouts/sidemenu.jet.html:17
+#: assets/templates/_layouts/sidemenu.jet.html:29
 #: assets/templates/bookmarks/bookmark.jet.html:26
 #: assets/templates/error.jet.html:12
 msgid "Menu"
 msgstr ""
 
-#: assets/templates/_layouts/sidemenu.jet.html:19
+#: assets/templates/_layouts/sidemenu.jet.html:31
 #: assets/templates/bookmarks/bookmark.jet.html:27
 #: assets/templates/error.jet.html:13
 msgid "Main content"
@@ -1261,12 +1296,16 @@ msgstr ""
 msgid "Change theme"
 msgstr ""
 
-#: assets/templates/menu.jet.html:28
-msgid "Change color theme"
+#: assets/templates/menu.jet.html:1 assets/templates/menu.jet.html:48
+msgid "Sign out"
 msgstr ""
 
-#: assets/templates/menu.jet.html:43
-msgid "Sign out"
+#: assets/templates/menu.jet.html:10
+msgid "Open menu"
+msgstr ""
+
+#: assets/templates/menu.jet.html:33
+msgid "Change color theme"
 msgstr ""
 
 #: assets/templates/profile/base.jet.html:9
@@ -1499,13 +1538,12 @@ msgid "Browser Bookmarks"
 msgstr ""
 
 #: internal/bookmarks/importer/browser.go:69
-#: internal/bookmarks/importer/pocket_file.go:69
 msgid "Unabled to read HTML content"
 msgstr ""
 
 #: internal/bookmarks/importer/browser.go:123
 #: internal/bookmarks/importer/goodlinks.go:62
-#: internal/bookmarks/importer/pocket_file.go:124
+#: internal/bookmarks/importer/pocket_file.go:83
 #: internal/bookmarks/importer/text.go:52
 msgid "Empty or invalid import file"
 msgstr ""
@@ -1516,6 +1554,14 @@ msgstr ""
 
 #: internal/bookmarks/importer/omnivore.go:239
 msgid "Invalid API Key"
+msgstr ""
+
+#: internal/bookmarks/importer/pocket_file.go:62
+msgid "Invalid upload format"
+msgstr ""
+
+#: internal/bookmarks/importer/pocket_file.go:74
+msgid "Unabled to open zip file"
 msgstr ""
 
 #: internal/bookmarks/importer/text.go:23
@@ -1546,52 +1592,52 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: internal/bookmarks/routes/forms_bookmarks.go:742
+#: internal/bookmarks/routes/forms_bookmarks.go:781
 msgctxt "sort"
 msgid "Added, most recent first"
 msgstr ""
 
-#: internal/bookmarks/routes/forms_bookmarks.go:743
+#: internal/bookmarks/routes/forms_bookmarks.go:782
 msgctxt "sort"
 msgid "Added, oldest first"
 msgstr ""
 
-#: internal/bookmarks/routes/forms_bookmarks.go:744
+#: internal/bookmarks/routes/forms_bookmarks.go:783
 msgctxt "sort"
 msgid "Published, most recent first"
 msgstr ""
 
-#: internal/bookmarks/routes/forms_bookmarks.go:745
+#: internal/bookmarks/routes/forms_bookmarks.go:784
 msgctxt "sort"
 msgid "Published, oldest first"
 msgstr ""
 
-#: internal/bookmarks/routes/forms_bookmarks.go:746
+#: internal/bookmarks/routes/forms_bookmarks.go:785
 msgctxt "sort"
 msgid "Title, A to Z"
 msgstr ""
 
-#: internal/bookmarks/routes/forms_bookmarks.go:747
+#: internal/bookmarks/routes/forms_bookmarks.go:786
 msgctxt "sort"
 msgid "Title, Z to A"
 msgstr ""
 
-#: internal/bookmarks/routes/forms_bookmarks.go:748
+#: internal/bookmarks/routes/forms_bookmarks.go:787
 msgctxt "sort"
 msgid "Site Name, A to Z"
 msgstr ""
 
-#: internal/bookmarks/routes/forms_bookmarks.go:749
+#: internal/bookmarks/routes/forms_bookmarks.go:788
 msgctxt "sort"
 msgid "Site Name, Z to A"
 msgstr ""
 
-#: internal/bookmarks/routes/forms_bookmarks.go:750
+#: internal/bookmarks/routes/forms_bookmarks.go:789
 msgctxt "sort"
 msgid "Duration, shortest first"
 msgstr ""
 
-#: internal/bookmarks/routes/forms_bookmarks.go:751
+#: internal/bookmarks/routes/forms_bookmarks.go:790
 msgctxt "sort"
 msgid "Duration, longest first"
 msgstr ""

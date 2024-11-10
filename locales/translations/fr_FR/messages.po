@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-10-30 16:50+0000\n"
-"PO-Revision-Date: 2024-10-30 17:52+0100\n"
+"POT-Creation-Date: 2024-11-10 11:10+0000\n"
+"PO-Revision-Date: 2024-11-10 12:12+0100\n"
 "Last-Translator: olivier <olivier@users.noreply.translate.codeberg.org>\n"
 "Language-Team: French <https://translate.codeberg.org/projects/readeck/"
 "application/fr/>\n"
@@ -34,8 +34,8 @@ msgid "Main content"
 msgstr "Contenu principal"
 
 #: assets/templates/_layouts/sidemenu.jet.html
-msgid "Open menu"
-msgstr "Ouvrir le menu"
+msgid "Close menu"
+msgstr "Fermer le menu"
 
 #: assets/templates/_libs/common.jet.html
 msgid "Quick access menu"
@@ -410,8 +410,12 @@ msgid "Collections"
 msgstr "Collections"
 
 #: assets/templates/bookmarks/bookmark.jet.html
-msgid "More information"
-msgstr "Plus d'information"
+msgid "Close panel"
+msgstr "Fermer le panneau"
+
+#: assets/templates/bookmarks/bookmark.jet.html
+msgid "Bookmark information"
+msgstr "Informations sur le bookmark"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark loading"
@@ -653,14 +657,28 @@ msgid "Label"
 msgstr "Label"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+msgid "From date"
+msgstr "Depuis"
+
+#: assets/templates/bookmarks/components/filters.jet.html
+msgid "To date"
+msgstr "Jusqu'à"
+
+#: assets/templates/bookmarks/components/filters.jet.html
+msgid "Type"
+msgstr "Type"
+
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Favorite"
 msgstr "Favori"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "yes"
 msgstr "oui"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "no"
 msgstr "non"
 
@@ -669,16 +687,16 @@ msgid "Is Archived"
 msgstr "Archivé"
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "Type"
-msgstr "Type"
+msgid "Is Loaded"
+msgstr "Chargé"
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "From date"
-msgstr "Depuis"
+msgid "With Labels"
+msgstr "Avec des labels"
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "To date"
-msgstr "Jusqu'à"
+msgid "With Errors"
+msgstr "Avec des erreurs"
 
 #: assets/templates/bookmarks/components/labels.jet.html
 msgid "Remove label"
@@ -728,6 +746,14 @@ msgstr "Taille"
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Line height"
 msgstr "Interligne"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html
+msgid "Justify"
+msgstr "Justifié"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html
+msgid "Hyphenation"
+msgstr "Césure"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html
 #: assets/templates/epub/bookmark.jet.html
@@ -1355,12 +1381,16 @@ msgid "Change theme"
 msgstr "Changer le thème"
 
 #: assets/templates/menu.jet.html
-msgid "Change color theme"
-msgstr "Changer le thème de couleurs"
-
-#: assets/templates/menu.jet.html
 msgid "Sign out"
 msgstr "Déconnexion"
+
+#: assets/templates/menu.jet.html
+msgid "Open menu"
+msgstr "Ouvrir le menu"
+
+#: assets/templates/menu.jet.html
+msgid "Change color theme"
+msgstr "Changer le thème de couleurs"
 
 #: assets/templates/profile/base.jet.html
 msgid "Settings"
@@ -1606,7 +1636,6 @@ msgid "Browser Bookmarks"
 msgstr "Signets de navigateur"
 
 #: internal/bookmarks/importer/browser.go
-#: internal/bookmarks/importer/pocket_file.go
 msgid "Unabled to read HTML content"
 msgstr "Impossible d'extraire le contenu HTML"
 
@@ -1622,6 +1651,14 @@ msgstr "Fichier d'export GoodLinks"
 #: internal/bookmarks/importer/omnivore.go
 msgid "Invalid API Key"
 msgstr "Clé API invalide"
+
+#: internal/bookmarks/importer/pocket_file.go
+msgid "Invalid upload format"
+msgstr "Format d'envoi invalide"
+
+#: internal/bookmarks/importer/pocket_file.go
+msgid "Unabled to open zip file"
+msgstr "Impossible d'ouvrir le fichier zip"
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
@@ -2045,3 +2082,6 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Invalid Content-Type"
 #~ msgstr "Type de contenu invalide"
+
+#~ msgid "More information"
+#~ msgstr "Plus d'information"

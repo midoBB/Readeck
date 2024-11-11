@@ -90,7 +90,8 @@
       @apply top-topnav transition-all delay-100;
 
       @at-root body.scrolled-down & {
-        @apply top-0;
+        @apply -top-topnav;
+        top: calc(0 - theme("space.topnav") + theme("space[1]"));
       }
     }
   }

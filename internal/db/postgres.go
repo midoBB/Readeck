@@ -37,6 +37,14 @@ func (c *pgConnector) Open(dsn *url.URL) (*sql.DB, error) {
 	return db, nil
 }
 
+func (c *pgConnector) Version() string {
+	var res string
+	if _, err := Q().Select(goqu.Func("current_setting", "server_version")).ScanVal(&res); err != nil {
+		panic(err)
+	}
+	return res
+}
+
 func (c *pgConnector) HasTable(name string) (bool, error) {
 	ds := Q().Select(goqu.Func("to_regclass", name))
 

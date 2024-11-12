@@ -21,14 +21,17 @@ import (
 
 // Connector is an interface for a database connector.
 type Connector interface {
-	// Name returns the connector's name
+	// Name returns the connector's name.
 	Name() string
 
-	// Dialect returns the connector's dialect
+	// Dialect returns the connector's dialect.
 	Dialect() string
 
 	// Open creates a new db connection.
 	Open(*url.URL) (*sql.DB, error)
+
+	// Version returns the database version.
+	Version() string
 
 	// HasTable checks if a given table exists in the
 	// database. It's used by the migration system.

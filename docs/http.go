@@ -226,6 +226,7 @@ func (h *helpHandlers) serveAbout(w http.ResponseWriter, r *http.Request) {
 		"Arch":        runtime.GOARCH,
 		"GoVersion":   runtime.Version(),
 		"DBConnecter": db.Driver().Name(),
+		"DBVersion":   db.Driver().Version(),
 	}
 	ctx.SetBreadcrumbs([][2]string{
 		{tr.Gettext("Documentation"), h.srv.AbsoluteURL(r, "/docs", tag, "/").String()},

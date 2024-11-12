@@ -67,6 +67,14 @@ func (c *sqliteConnector) Open(dsn *url.URL) (*sql.DB, error) {
 	return db, nil
 }
 
+func (c *sqliteConnector) Version() string {
+	var res string
+	if _, err := Q().Select(goqu.Func("sqlite_version")).ScanVal(&res); err != nil {
+		panic(err)
+	}
+	return res
+}
+
 func (c *sqliteConnector) HasTable(name string) (bool, error) {
 	ds := Q().Select(goqu.C("name")).
 		From(goqu.T("sqlite_master")).

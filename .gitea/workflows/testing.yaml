@@ -30,7 +30,7 @@ jobs:
           make -C web setup
       - name: Check licenses
         run: |
-          uvx reuse lint
+          uvx -q reuse lint
       - name: Lint sources
         run: |
           make lint

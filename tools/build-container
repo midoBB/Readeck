@@ -1,62 +1,152 @@
-#!/bin/bash
+#!/usr/bin/python3
 
-# SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
+# SPDX-FileCopyrightText: © 2024 Olivier Meunier <olivier@neokraft.net>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 
-# This script builds the container image for Readeck.
-# It uses the release files in the dist folder.
+import json
+import sys
+from argparse import ArgumentParser
+from contextlib import contextmanager
+from pathlib import Path
+from subprocess import check_call, check_output
 
-set -u
-set -e
+BASE_IMAGE = "docker.io/library/busybox:uclibc"
+ALPINE_IMAGE = "docker.io/library/alpine:edge"
 
-work_container=""
+BUILDAH = "/usr/bin/buildah"
+SKOPEO = "/usr/bin/skopeo"
+ARCHS = ["amd64", "arm64"]
+IMAGE_NAME = "localhost/readeck/release"
 
-cleanup() {
-    if [[ "$work_container" != "" ]]; then
-        buildah rm $work_container > /dev/null
-        echo "> ${work_container} removed"
-    fi
-}
 
-build_image() {
-    local arch=$1
-    trap cleanup ERR RETURN
+@contextmanager
+def work_container(image: str, arch: str):
+    container = check_output(
+        [
+            BUILDAH,
+            "from",
+            f"--arch={arch}",
+            image,
+        ]
+    )
+    container = container.decode().strip()
+    yield container
 
-    # Prepare a scratch image
-    work_container=$(buildah from --arch=${arch} busybox:uclibc)
+    check_call(
+        [
+            BUILDAH,
+            "rm",
+            container,
+        ]
+    )
 
-    # Copy CA certificates from alpine
-    buildah copy --from alpine:edge \
-        $work_container \
-        /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 
-    # Copy Readeck binary
-    buildah copy $work_container dist/readeck-${VERSION}-linux-${arch} /bin/readeck
+@contextmanager
+def work_manifest(name: str, images: list[str]):
+    check_call([BUILDAH, "manifest", "create", name] + images)
+    yield name
 
-    # Set image configuration
-    buildah config \
-        --workingdir /readeck \
-        --volume /readeck \
-        --cmd "/bin/readeck serve -config config.toml" \
-        --port 8000/tcp \
-        --env READECK_SERVER_HOST=0.0.0.0 \
-        --env READECK_SERVER_PORT=8000 \
-        --label org.opencontainers.image.authors="olivier@readeck.com" \
-        --label version=${VERSION} \
-        $work_container
+    check_call([BUILDAH, "manifest", "rm", name])
 
-    # Create image
-    buildah commit $work_container readeck/release/${arch}:${VERSION}
-    echo "> Image created: readeck/release/${arch}:${VERSION}"
-}
 
-echo "> Version: ${VERSION}"
-echo "> Image:   readeck/release/{arch}:${VERSION}"
+def build_image(version: str, arch: str):
+    """
+    This builds an image using Readeck binary file for the given architecture.
+    """
 
-buildah pull --policy=always alpine:edge
+    # Start with a busybox container
+    with work_container(BASE_IMAGE, arch) as container:
+        # Copy CA certificates
+        check_call(
+            [
+                BUILDAH,
+                "copy",
+                "--from",
+                ALPINE_IMAGE,
+                container,
+                "/etc/ssl/certs/ca-certificates.crt",
+                "/etc/ssl/certs/ca-certificates.crt",
+            ]
+        )
 
-for arch in amd64 arm64; do
-    build_image ${arch}
-    echo
-done
+        # Copy readeck binary
+        check_call(
+            [
+                BUILDAH,
+                "copy",
+                container,
+                f"dist/readeck-{version}-linux-{arch}",
+                "/bin/readeck",
+            ]
+        )
+
+        # Configure image
+        check_call(
+            [
+                BUILDAH,
+                "config",
+                "--workingdir=/readeck",
+                "--volume=/readeck",
+                "--cmd=/bin/readeck serve -config config.toml",
+                "--port=8000/tcp",
+                "--env=READECK_SERVER_HOST=0.0.0.0",
+                "--env=READECK_SERVER_PORT=8000",
+                "--label=org.opencontainers.image.authors=olivier@readeck.com",
+                f"--label=version={version}",
+                container,
+            ]
+        )
+
+        # Commit the image
+        image = f"{IMAGE_NAME}/{arch}:{version}"
+        check_call([BUILDAH, "commit", container, image])
+        return image
+
+
+def main():
+    parser = ArgumentParser(description="Build a Readeck OCI image")
+    parser.add_argument("version", help="Readeck version")
+    parser.add_argument("dest", help="Destination file")
+    parser.add_argument("--rm", action="store_true", help="Remove containers when done")
+    args = parser.parse_args()
+
+    dest = Path(args.dest).resolve()
+
+    check_call([BUILDAH, "pull", "--policy=always", ALPINE_IMAGE])
+
+    images = []
+    for arch in ARCHS:
+        images.append(
+            build_image(args.version, arch),
+        )
+
+    manifest = f"{IMAGE_NAME}:{args.version}"
+    with work_manifest(manifest, images):
+        # Create a multi-arch OCI archive
+        check_call(
+            [
+                BUILDAH,
+                "manifest",
+                "push",
+                "--all",
+                manifest,
+                f"oci-archive:{dest}",
+            ]
+        )
+
+    if args.rm:
+        # Remove the temporary images when needed
+        for arch in ARCHS:
+            check_call([BUILDAH, "rmi", f"{IMAGE_NAME}/{arch}:{args.version}"])
+
+    print(f">> {dest} created")
+
+    data = check_output([SKOPEO, "inspect", "--raw", f"oci-archive:{dest}"])
+    r = json.loads(data)
+    json.dump(r, sys.stdout, indent=2)
+    sys.stdout.write("\n")
+
+
+if __name__ == "__main__":
+    main()

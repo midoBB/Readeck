@@ -285,4 +285,4 @@ release-checksums:
 .PHONY: release-container
 release-container: TAG?=readeck-release:$(VERSION)
 release-container: | $(DIST)/.release-linux
-	VERSION=$(VERSION) ./tools/build-container
+	./tools/build-container $(VERSION) $(DIST)/container-$(VERSION).tar --rm

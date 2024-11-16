@@ -267,10 +267,20 @@ main.content {
     padding: 0;
   }
 
-  p,
-  li,
-  dd {
-    text-align: justify;
+  &.bookmark-display--align-justify {
+    p,
+    li,
+    dd {
+      text-align: justify;
+    }
+  }
+
+  &.bookmark-display--hyphen-auto {
+    p,
+    li,
+    dd {
+      hyphens: auto;
+    }
   }
 
   strong,

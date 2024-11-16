@@ -56,7 +56,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- end -}}
 
 {{- if .Item.HasArticle -}}
-  <main class="content">
+  <main class="content {{ preferences.ReaderJustify().Class }} {{ preferences.ReaderHyphenation().Class }}">
   {{ raw(.Content) }}
   </main>
 {{- end -}}

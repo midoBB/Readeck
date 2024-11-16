@@ -214,6 +214,8 @@ release-all:
 	${MAKE} release-freebsd
 	${MAKE} release-windows
 	${MAKE} release-checksums
+	echo $(VERSION) > $(DIST)/VERSION
+	cp CHANGELOG.md $(DIST)
 	touch $(DIST)/.release
 
 

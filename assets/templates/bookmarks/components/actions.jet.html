@@ -44,7 +44,8 @@ SPDX-License-Identifier: AGPL-3.0-only
             {{ yield icon(name="o-share") }}
           </summary>
           <ul class="top-10 left-0">
-            <li><a class="link" href="{{ urlFor(`/api/bookmarks`, .ID, `article.epub`) }}">{{ yield icon(name="o-download") }} {{ gettext("Download EPUB") }}</a></li>
+            <li><a class="link" href="{{ urlFor(`/api/bookmarks`, .ID, `article.epub`) }}"
+             data-turbo="false">{{ yield icon(name="o-download") }} {{ gettext("Download EPUB") }}</a></li>
             {{ if hasPermission("api:bookmarks", "export") -}}
             <li><button class="link" form="share-form" data-action="menu#toggle">{{ yield icon(name="o-link") }} {{ gettext("Share by Link") }}</button></li>
             {{- end }}

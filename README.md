@@ -143,6 +143,15 @@ There isn't, for several reasons:
 
 Again, the [Browser Extension](https://readeck.org/en/download/) will let you save any content you can access from your web browser.
 
+### Is there a smartphone application?
+
+Not yet but it might come at some point. Meanwhile, you can use Readeck on any mobile browser and even install as a mobile application.
+
+If you'd like to save links using the "share" feature of your phone, you can use the following:
+
+- iOS: [iOS shortcut](https://www.icloud.com/shortcuts/226bafabbbfd47708f3bea69dbf24ef0),
+- Android: Use [HTTP Shortcuts](https://http-shortcuts.rmy.ch/) and create a new shortcut as described on [this issue](https://codeberg.org/readeck/readeck/issues/112#issuecomment-2082710).
+
 ### Is there a roadmap?
 
 There are [milestones](https://codeberg.org/readeck/readeck/milestones), where you can see what's planned for the future releases.

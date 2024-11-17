@@ -185,5 +185,6 @@
 
   .layout-content {
     @apply bg-transparent mx-6 my-8;
+    @apply relative;
   }
 }

@@ -168,6 +168,25 @@
     }
   }
 
+  .field-h--compact {
+    @apply flex gap-2 items-baseline max-w-std;
+
+    & > label:first-child,
+    & > .field-spacer:first-child {
+      flex-shrink: 1;
+    }
+
+    & > div {
+      flex-grow: 0;
+      @apply min-w-32 ml-auto;
+
+      & > input,
+      & > select {
+        flex-grow: 0;
+      }
+    }
+  }
+
   // Field with an error
   .field-err {
     @apply box-content p-2 -mx-2 rounded bg-red-100;

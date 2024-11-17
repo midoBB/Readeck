@@ -60,7 +60,7 @@ href="{{ assetURL(`img/icons.svg`) }}#{{ name }}"></use></svg></span>
 
 {{- block flashes() -}}
 {{- if len(flashes) > 0 -}}
-  <div class="js:absolute js:top-2 js:z-50 w-full max-w-std">
+  <div class="js:absolute js:-top-0 js:left-0 js:right-0 js:z-50">
   {{- range flashes -}}
       {{- if !hasPrefix(.Type, "_") -}}
         <div class="drop-shadow-sm mb-1">

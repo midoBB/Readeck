@@ -33,12 +33,15 @@ SPDX-License-Identifier: AGPL-3.0-only
         <span class="font-normal"><a href="{{ urlFor(`/bookmarks/collections`) }}" class="link">{{ gettext("Collections") }}</a> /</span>
         {{ .Item.Name }}</h1>
       {{- yield list_actions() content -}}
-        <button type="button" class="btn-outlined btn-primary py-1"
-          data-controller="remote"
-          data-action="remote#toggleDetails"
-          data-remote-selector-param="#filters"
-          >{{- yield icon(name="o-pencil") }} {{ gettext("Edit") }}
-        </button>
+        <form action="{{ urlFor() }}" method="get">
+          <input type="hidden" name="edit" value="{{ .Editing ? 0 : 1 }}">
+          <button type="submit" class="btn-outlined btn-primary py-1"
+            data-controller="remote"
+            data-action="remote#toggleDetails:prevent"
+            data-remote-selector-param="#filters"
+            >{{- yield icon(name="o-pencil") }} {{ gettext("Edit") }}
+          </button>
+        </form>
 
         {{- if hasPermission("api:bookmarks", "export") -}}
           {{- yield export_menu(url=urlFor(`/api/bookmarks/export.epub`) + `?collection=` + .Item.ID) -}}
@@ -46,31 +49,37 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{- end -}}
     </div>
 
-    <form action="{{ urlFor() }}?edit=1" method="post">
-      {{ yield formErrors(form=.Form) }}
-      {{ yield csrfField() }}
-      <details id="filters" {{- if .Editing }} open{{- end -}}>
-        <summary class="hidden no-js:block"
-        >{{- yield icon(name="o-pencil") }} {{ gettext("Edit") }}</summary>
-        <div class="my-4 p-2 bg-gray-100 border rounded text-sm mt-2">
-          {{ yield textField(
-            field=.Form.Get("name"),
-            label=gettext("Name"),
-            class="mb-2",
-          ) }}
-          {{ include("./components/filters") .Form }}
-          <div class="mt-4 flex">
-            <p class="flex-grow">
-              <button class="btn btn-primary">{{ gettext("Save") }}</button>
-            </p>
-            <p>
-              <button class="btn-outlined btn-danger" formaction="{{ urlFor(`./delete`) }}" formmethod="post"
-              >{{ yield icon(name="o-trash") }} {{ gettext("Delete collection") }}</button>
-            </p>
-          </div>
+    <div class="bookmark-list-container mt-2">
+    <details id="filters" class="bookmark-filters" {{- if .Editing }} open{{- end -}}>
+      <summary>{{ gettext("Edit") }}</summary>
+      <p class="mb-4 flex gap-2">
+        <strong>{{ gettext("Filters") }}</strong>
+        <a href="{{ urlFor(`/docs/bookmark-list`) }}#filters"
+         class="link ml-auto">{{ yield icon(name="o-help") }}
+        {{ gettext("Documentation") }}</a>
+      </p>
+      <form action="{{ urlFor() }}?edit=1" method="post">
+        {{ yield formErrors(form=.Form) }}
+        {{ yield csrfField() }}
+
+        {{ yield textField(
+          field=.Form.Get("name"),
+          label=gettext("Name"),
+        ) }}
+
+        {{ include("./components/filters") .Form }}
+        {{- if isset(.CurrentOrder) -}}
+          <input type="hidden" name="sort" value="{{ .CurrentOrder }}">
+        {{- end -}}
+
+        <input type="hidden" name="bf" value="1" />
+        <div class="bookmark-filters--actions">
+            <button class="btn btn-primary">{{ gettext("Save") }}</button>
+            <button class="btn-outlined btn-danger" formaction="{{ urlFor(`./delete`) }}" formmethod="post"
+            >{{ yield icon(name="o-trash") }} {{ gettext("Delete collection") }}</button>
         </div>
-      </details>
-    </form>
+      </form>
+    </details>
 
     {{- include "./components/bookmark_list" -}}
   </turbo-frame>

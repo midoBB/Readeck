@@ -95,14 +95,17 @@ SPDX-License-Identifier: AGPL-3.0-only
     <div class="flex flex-wrap items-center gap-2 -mx-6 px-6 py-2">
       <h1 class="flex-grow title mb-0 text-h2 max-md:w-full">{{ .PageTitle }}</h1>
       {{- yield list_actions() content -}}
-        <div class="btn-group">
-          <button type="button" class="btn-outlined py-1"
-          data-controller="remote"
-          data-action="remote#toggleDetails"
-          data-remote-selector-param="#filters"
-          >{{- yield icon(name="o-filter") }} {{ pgettext("action", "Filter list") }}
+        {* <div class="btn-group"> *}
+        <form action="{{ urlFor() }}" method="get">
+          <input type="hidden" name="bf" value="{{ .Filters.IsActive() ? 0 : 1 }}">
+          <button type="submit" class="btn-outlined py-1"
+           data-controller="remote"
+           data-action="remote#toggleDetails:prevent"
+           data-remote-selector-param="#filters"
+          >{{- yield icon(name="o-filter") }} {{ pgettext("action", "Filters") }}
           </button>
-        </div>
+        </form>
+        {* </div> *}
 
         {{- if hasPermission("api:bookmarks", "export") && hasPermission("api:bookmarks:import", "write") -}}
           {{- yield export_menu(url=urlFor(`/api/bookmarks/export.epub`) + `?` + .Filters.GetQueryString()) content -}}
@@ -113,51 +116,54 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{- end -}}
     </div>
 
-    <form action="{{ urlFor(`/bookmarks`) }}" method="get">
-      {{- if .Filters.IsActive() -}}
-        <p class="mb-2">
-        {{- if .Pagination.TotalCount == 0 -}}
-          {{ gettext(`Your search query yielded <strong>no results</strong>.`)|raw }}
-        {{- else -}}
-          {{ ngettext(
-            `Your search query yielded <strong>%d result</strong>.`,
-            `Your search query yielded <strong>%d results</strong>.`,
-            .Pagination.TotalCount,
-            .Pagination.TotalCount,
-          )|raw }}
-        {{- end -}}
-        </p>
+    {{- if .Filters.IsActive() -}}
+      <p class="mb-2">
+      {{- if .Pagination.TotalCount == 0 -}}
+        {{ gettext(`Your search query yielded <strong>no results</strong>.`)|raw }}
+      {{- else -}}
+        {{ ngettext(
+          `Your search query yielded <strong>%d result</strong>.`,
+          `Your search query yielded <strong>%d results</strong>.`,
+          .Pagination.TotalCount,
+          .Pagination.TotalCount,
+        )|raw }}
       {{- end -}}
-      <details id="filters" class="print:hidden" {{- if .Filters.IsActive() }} open{{- end -}}>
-        <summary class="hidden no-js:block">{{ yield icon(name="o-filter") }}
-          {{ pgettext("action", "Filter list") }}</summary>
-        <input type="hidden" name="bf" value="1" />
-        <div class="bg-gray-100 border rounded p-2 text-sm max-md:mt-2 relative">
-          <span class="absolute top-1 right-4">
-            <a href="{{ urlFor(`/docs/bookmark-list`) }}#filters" class="link">{{ yield icon(name="o-help") }}
-            {{ gettext("Filters documentation") }}</a>
-          </span>
-
-          {{ include("./components/filters") .Filters }}
-          {{- if isset(.CurrentOrder) -}}
-            <input type="hidden" name="sort" value="{{ .CurrentOrder }}">
-          {{- end -}}
-
-          <div class="mt-4 flex gap-2 items-center max-md:flex-col">
-            <button class="btn btn-primary max-md:w-full">{{ pgettext("action", "Search") }}</button>
-            {{ if .Filters.IsActive() -}}
-              <a href="{{ urlFor() }}?bf=1" class="block max-md:w-full btn btn-default rounded text-center">{{ gettext("Reset search") }}</a>
-              <a href="{{ urlFor(`/bookmarks/collections/add`)}}?{{ .Filters.GetQueryString() }}"
-                class="ml-auto block max-md:w-full btn-outlined btn-primary font-semibold rounded text-center">{{ yield icon(name="o-plus") }}
-                {{ gettext("Create a collection") }}</a>
-            {{- end }}
-          </div>
-
-        </div>
-      </details>
-    </form>
+      </p>
+    {{- end -}}
   {{ end -}}
 
-  {{- include "./components/bookmark_list" -}}
+  <div class="bookmark-list-container">
+    <details id="filters" class="bookmark-filters" {{- if .Filters.IsActive() }} open{{- end -}}>
+      <summary>
+        {{- yield icon(name="o-filter") }}
+        {{ pgettext("action", "Filter list") -}}
+      </summary>
+      <p class="mb-4 flex gap-2">
+        <strong>{{ gettext("Filters") }}</strong>
+        <a href="{{ urlFor(`/docs/bookmark-list`) }}#filters"
+         class="link ml-auto">{{ yield icon(name="o-help") }}
+        {{ gettext("Documentation") }}</a>
+      </p>
+      <form action="{{ urlFor(`/bookmarks`) }}" method="get">
+        {{ include("./components/filters") .Filters }}
+        {{- if isset(.CurrentOrder) -}}
+          <input type="hidden" name="sort" value="{{ .CurrentOrder }}">
+        {{- end -}}
+
+        <input type="hidden" name="bf" value="1" />
+        <div class="bookmark-filters--actions mt-4">
+          <button class="btn btn-primary">{{ pgettext("action", "Search") }}</button>
+          {{ if .Filters.IsActive() -}}
+            <a href="{{ urlFor() }}?bf=1" class="btn btn-default rounded text-center">{{ gettext("Reset search") }}</a>
+            <a href="{{ urlFor(`/bookmarks/collections/add`)}}?{{ .Filters.GetQueryString() }}"
+              class="col-span-2 btn-outlined btn-primary font-semibold rounded text-center">{{ yield icon(name="o-plus") }}
+              {{ gettext("Create a collection") }}</a>
+          {{- end }}
+        </div>
+      </form>
+    </details>
+
+    {{- include "./components/bookmark_list" -}}
+  </div>
 </turbo-frame>
 {{- end }}

@@ -2,6 +2,59 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+.bookmark-list-container {
+  @apply flex gap-4;
+
+  @screen max-md {
+    @apply flex-col;
+  }
+
+  .bookmark-list {
+    @apply flex-grow;
+  }
+
+  .bookmark-filters {
+    @apply bg-gradient-to-b from-gray-100 to-10% to-app-bg;
+    @apply p-2;
+
+    @screen md {
+      @apply border-l border-l-gray-200;
+      @apply shrink-0;
+      @apply order-last;
+      width: calc(theme("spacing.col-5") - 1rem); // leaves 3 bookmarks in 1280px width
+    }
+
+    @media print {
+      @apply hidden;
+    }
+
+    &--actions {
+      @apply sticky bottom-0;
+      @apply -mx-2 my-4 px-2 py-4 border-t;
+      @apply bg-gradient-to-b from-gray-100 to-app-bg;
+      @apply flex flex-wrap gap-2;
+
+      & > * {
+        @apply flex-grow;
+      }
+    }
+  }
+
+  details.bookmark-filters {
+    & > summary {
+      @apply hidden;
+    }
+
+    @at-root body.js &:not([open]) {
+      display: none;
+    }
+    @at-root body.no-js &:not([open]) {
+      @apply relative w-auto;
+      @apply border-none p-0;
+    }
+  }
+}
+
 // Common styles
 .bookmark-card {
   &:hover,

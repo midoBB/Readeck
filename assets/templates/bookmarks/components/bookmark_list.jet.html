@@ -5,12 +5,15 @@ SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{ import "/_libs/common" }}
 
-{{- include "/_libs/pagination" .Pagination -}}
-<div class="my-4 {{ preferences.BookmarkListLayout().Class }}"
- data-controller="styler">
-{{- range .Bookmarks -}}
-  {{- include "./card" . -}}
-{{- end -}}
-</div>
+<div class="bookmark-list">
+  {{- include "/_libs/pagination" .Pagination -}}
 
-{{- include "/_libs/pagination" .Pagination -}}
+  <div class="my-4 {{ preferences.BookmarkListLayout().Class }}"
+   data-controller="styler">
+    {{- range .Bookmarks -}}
+      {{- include "./card" . -}}
+    {{- end -}}
+  </div>
+
+  {{- include "/_libs/pagination" .Pagination -}}
+</div>

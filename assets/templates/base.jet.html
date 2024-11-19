@@ -35,13 +35,15 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{ yield head() }}
 </head>
 
-<body data-turbo="false"
+<body
  class="
   no-js bg-app-bg text-app-fg font-sans leading-tight tracking-normal
   relative
   print:text-black print:bg-white
   overscroll-none
  "
+ data-turbo="false"
+ data-turbo-prefetch="false"
  data-controller="scroll-tracker"
  data-scroll-tracker-down-class="scrolled-down"
  >

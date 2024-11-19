@@ -48,7 +48,7 @@
     "postcss-preset-env": "^10.0.9",
     "postcss-value-parser": "^4.2.0",
     "prettier": "^3.3.3",
-    "sass": "^1.77.8",
+    "sass": "~1.77.8",
     "tailwindcss": "^3.4.14",
     "through2": "^4.0.2"
   },

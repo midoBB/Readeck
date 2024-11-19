@@ -102,7 +102,7 @@ SPDX-License-Identifier: AGPL-3.0-only
            data-controller="remote"
            data-action="remote#toggleDetails:prevent"
            data-remote-selector-param="#filters"
-          >{{- yield icon(name="o-filter") }} {{ pgettext("action", "Filters") }}
+          >{{- yield icon(name="o-filter") }} {{ gettext("Filters") }}
           </button>
         </form>
         {* </div> *}
@@ -136,7 +136,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     <details id="filters" class="bookmark-filters" {{- if .Filters.IsActive() }} open{{- end -}}>
       <summary>
         {{- yield icon(name="o-filter") }}
-        {{ pgettext("action", "Filter list") -}}
+        {{ gettext("Filters") -}}
       </summary>
       <p class="mb-4 flex gap-2">
         <strong>{{ gettext("Filters") }}</strong>

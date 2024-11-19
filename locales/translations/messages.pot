@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-11-10 11:10+0000\n"
+"POT-Creation-Date: 2024-11-19 11:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -165,7 +165,7 @@ msgid "will not change if empty"
 msgstr ""
 
 #: assets/templates/admin/user.jet.html:52
-#: assets/templates/bookmarks/collection.jet.html:64
+#: assets/templates/bookmarks/collection.jet.html:77
 #: assets/templates/bookmarks/collection_create.jet.html:30
 #: assets/templates/profile/credential.jet.html:83
 #: assets/templates/profile/index.jet.html:35
@@ -477,18 +477,31 @@ msgstr ""
 msgid "Collection will be removed in a few seconds."
 msgstr ""
 
-#: assets/templates/bookmarks/collection.jet.html:40
+#: assets/templates/bookmarks/collection.jet.html:42
 #: assets/templates/bookmarks/collection.jet.html:54
 msgid "Edit"
 msgstr ""
 
-#: assets/templates/bookmarks/collection.jet.html:58
+#: assets/templates/bookmarks/collection.jet.html:56
+#: assets/templates/bookmarks/index.jet.html:105
+#: assets/templates/bookmarks/index.jet.html:139
+#: assets/templates/bookmarks/index.jet.html:142
+msgid "Filters"
+msgstr ""
+
+#: assets/templates/bookmarks/collection.jet.html:59
+#: assets/templates/bookmarks/index.jet.html:145 docs/http.go:166
+#: docs/http.go:232 docs/http.go:270
+msgid "Documentation"
+msgstr ""
+
+#: assets/templates/bookmarks/collection.jet.html:67
 #: assets/templates/bookmarks/collection_create.jet.html:23
 #: assets/templates/profile/credential.jet.html:58
 msgid "Name"
 msgstr ""
 
-#: assets/templates/bookmarks/collection.jet.html:68
+#: assets/templates/bookmarks/collection.jet.html:79
 msgid "Delete collection"
 msgstr ""
 
@@ -543,9 +556,21 @@ msgstr ""
 msgid "Export and Share"
 msgstr ""
 
-#: assets/templates/bookmarks/components/actions.jet.html:1
-#: assets/templates/bookmarks/components/card.jet.html:1
-msgid "Delete this bookmark"
+#: assets/templates/bookmarks/components/actions.jet.html:23
+msgid "Undo"
+msgstr ""
+
+#: assets/templates/bookmarks/components/actions.jet.html:48
+#: assets/templates/bookmarks/components/list_actions.jet.html:65
+msgid "Download EPUB"
+msgstr ""
+
+#: assets/templates/bookmarks/components/actions.jet.html:50
+msgid "Share by Link"
+msgstr ""
+
+#: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
+msgid "Saved with Readeck"
 msgstr ""
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
@@ -572,35 +597,23 @@ msgstr ""
 msgid "Add to favorites"
 msgstr ""
 
-#: assets/templates/bookmarks/components/actions.jet.html:14
-#: assets/templates/bookmarks/components/card.jet.html:85
-msgid "This bookmark will be removed in a few seconds."
-msgstr ""
-
-#: assets/templates/bookmarks/components/actions.jet.html:23
-msgid "Undo"
-msgstr ""
-
-#: assets/templates/bookmarks/components/actions.jet.html:47
-#: assets/templates/bookmarks/components/list_actions.jet.html:65
-msgid "Download EPUB"
-msgstr ""
-
-#: assets/templates/bookmarks/components/actions.jet.html:49
-msgid "Share by Link"
-msgstr ""
-
-#: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
-msgid "Saved with Readeck"
-msgstr ""
-
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Go to original page"
+msgstr ""
+
+#: assets/templates/bookmarks/components/actions.jet.html:1
+#: assets/templates/bookmarks/components/card.jet.html:1
+msgid "Delete this bookmark"
 msgstr ""
 
 #: assets/templates/bookmarks/components/card.jet.html:33
 msgctxt "bookmark"
 msgid "Loading"
+msgstr ""
+
+#: assets/templates/bookmarks/components/actions.jet.html:14
+#: assets/templates/bookmarks/components/card.jet.html:85
+msgid "This bookmark will be removed in a few seconds."
 msgstr ""
 
 #: assets/templates/bookmarks/components/content_block.jet.html:44
@@ -627,55 +640,35 @@ msgstr ""
 msgid "Site"
 msgstr ""
 
-#: assets/templates/bookmarks/components/filters.jet.html:36
+#: assets/templates/bookmarks/components/filters.jet.html:34
 msgid "From date"
 msgstr ""
 
-#: assets/templates/bookmarks/components/filters.jet.html:41
+#: assets/templates/bookmarks/components/filters.jet.html:40
 msgid "To date"
 msgstr ""
 
-#: assets/templates/bookmarks/components/filters.jet.html:47
+#: assets/templates/bookmarks/components/filters.jet.html:45
 msgid "Type"
 msgstr ""
 
-#: assets/templates/bookmarks/components/filters.jet.html:51
+#: assets/templates/bookmarks/components/filters.jet.html:50
 msgid "Is Favorite"
 msgstr ""
 
-#: assets/templates/bookmarks/components/filters.jet.html:53
-#: assets/templates/bookmarks/components/filters.jet.html:61
-#: assets/templates/bookmarks/components/filters.jet.html:66
-#: assets/templates/bookmarks/components/filters.jet.html:74
-#: assets/templates/bookmarks/components/filters.jet.html:79
-#: assets/templates/bookmarks/components/reader_control.jet.html:107
-#: assets/templates/bookmarks/components/reader_control.jet.html:131
-msgid "yes"
-msgstr ""
-
-#: assets/templates/bookmarks/components/filters.jet.html:53
-#: assets/templates/bookmarks/components/filters.jet.html:61
-#: assets/templates/bookmarks/components/filters.jet.html:66
-#: assets/templates/bookmarks/components/filters.jet.html:74
-#: assets/templates/bookmarks/components/filters.jet.html:79
-#: assets/templates/bookmarks/components/reader_control.jet.html:107
-#: assets/templates/bookmarks/components/reader_control.jet.html:131
-msgid "no"
-msgstr ""
-
-#: assets/templates/bookmarks/components/filters.jet.html:59
+#: assets/templates/bookmarks/components/filters.jet.html:56
 msgid "Is Archived"
 msgstr ""
 
-#: assets/templates/bookmarks/components/filters.jet.html:64
+#: assets/templates/bookmarks/components/filters.jet.html:62
 msgid "Is Loaded"
 msgstr ""
 
-#: assets/templates/bookmarks/components/filters.jet.html:72
+#: assets/templates/bookmarks/components/filters.jet.html:68
 msgid "With Labels"
 msgstr ""
 
-#: assets/templates/bookmarks/components/filters.jet.html:77
+#: assets/templates/bookmarks/components/filters.jet.html:74
 msgid "With Errors"
 msgstr ""
 
@@ -730,6 +723,26 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:96
 msgid "Justify"
+msgstr ""
+
+#: assets/templates/bookmarks/components/filters.jet.html:52
+#: assets/templates/bookmarks/components/filters.jet.html:58
+#: assets/templates/bookmarks/components/filters.jet.html:64
+#: assets/templates/bookmarks/components/filters.jet.html:70
+#: assets/templates/bookmarks/components/filters.jet.html:76
+#: assets/templates/bookmarks/components/reader_control.jet.html:107
+#: assets/templates/bookmarks/components/reader_control.jet.html:131
+msgid "yes"
+msgstr ""
+
+#: assets/templates/bookmarks/components/filters.jet.html:52
+#: assets/templates/bookmarks/components/filters.jet.html:58
+#: assets/templates/bookmarks/components/filters.jet.html:64
+#: assets/templates/bookmarks/components/filters.jet.html:70
+#: assets/templates/bookmarks/components/filters.jet.html:76
+#: assets/templates/bookmarks/components/reader_control.jet.html:107
+#: assets/templates/bookmarks/components/reader_control.jet.html:131
+msgid "no"
 msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:120
@@ -1021,45 +1034,35 @@ msgstr ""
 msgid "Import links and articles"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:103
-#: assets/templates/bookmarks/index.jet.html:133
-msgctxt "action"
-msgid "Filter list"
-msgstr ""
-
-#: assets/templates/bookmarks/index.jet.html:110
+#: assets/templates/bookmarks/index.jet.html:113
 msgid "Import bookmarks"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:120
+#: assets/templates/bookmarks/index.jet.html:122
 msgid "Your search query yielded <strong>no results</strong>."
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:122
+#: assets/templates/bookmarks/index.jet.html:124
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/templates/bookmarks/index.jet.html:138
-msgid "Filters documentation"
-msgstr ""
-
-#: assets/templates/bookmarks/index.jet.html:147
+#: assets/templates/bookmarks/index.jet.html:155
 msgctxt "action"
 msgid "Search"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:149
+#: assets/templates/bookmarks/index.jet.html:157
 msgid "Reset search"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:152
+#: assets/templates/bookmarks/index.jet.html:160
 msgid "Create a collection"
 msgstr ""
 
-#: assets/templates/bookmarks/components/filters.jet.html:30
+#: assets/templates/bookmarks/components/filters.jet.html:29
 #: assets/templates/bookmarks/import/options.jet.html:10
 #: assets/templates/bookmarks/label.jet.html:10
 msgid "Label"
@@ -1102,108 +1105,108 @@ msgid ""
 "report a bug."
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:30
+#: assets/templates/docs/about.jet.html:31
 msgid "Project"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:33
+#: assets/templates/docs/about.jet.html:34
 msgid "Main website"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:34
+#: assets/templates/docs/about.jet.html:35
 msgid "Sources and issues"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:35
+#: assets/templates/docs/about.jet.html:36
 msgid "How to contribute"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:36
+#: assets/templates/docs/about.jet.html:37
 msgid "Community Forum"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:37
+#: assets/templates/docs/about.jet.html:38
 msgid "Matrix Chat"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:40
+#: assets/templates/docs/about.jet.html:41
 msgid "License"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:42
+#: assets/templates/docs/about.jet.html:43
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:46
+#: assets/templates/docs/about.jet.html:47
 msgid "Here's a short summary of the license conditions:"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:51
+#: assets/templates/docs/about.jet.html:52
 msgid "Permissions"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:52
+#: assets/templates/docs/about.jet.html:53
 msgid "Conditions"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:53
+#: assets/templates/docs/about.jet.html:54
 msgid "Limitations"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:61
+#: assets/templates/docs/about.jet.html:62
 msgid "Commercial use"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:64
+#: assets/templates/docs/about.jet.html:65
 msgid "Distribution"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:67
+#: assets/templates/docs/about.jet.html:68
 msgid "Modification"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:70
+#: assets/templates/docs/about.jet.html:71
 msgid "Patent use"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:73
+#: assets/templates/docs/about.jet.html:74
 msgid "Private use"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:80
+#: assets/templates/docs/about.jet.html:81
 msgid "Disclose source"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:83
+#: assets/templates/docs/about.jet.html:84
 msgid "License and copyright notice"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:86
+#: assets/templates/docs/about.jet.html:87
 msgid "Network use is distribution"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:89
+#: assets/templates/docs/about.jet.html:90
 msgid "Same license"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:92
+#: assets/templates/docs/about.jet.html:93
 msgid "State changes"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:99
+#: assets/templates/docs/about.jet.html:100
 msgid "Liability"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:102
+#: assets/templates/docs/about.jet.html:103
 msgid "Warranty"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:129
+#: assets/templates/docs/about.jet.html:130
 msgid "Third-Party Licenses"
 msgstr ""
 
-#: assets/templates/docs/about.jet.html:131
+#: assets/templates/docs/about.jet.html:132
 msgid "Readeck includes and/or uses the following open source assets:"
 msgstr ""
 
@@ -1217,7 +1220,7 @@ msgid "Readeck Help"
 msgstr ""
 
 #: assets/templates/docs/about.jet.html:8
-#: assets/templates/docs/base.jet.html:27 docs/http.go:232
+#: assets/templates/docs/base.jet.html:27 docs/http.go:233
 msgid "About Readeck"
 msgstr ""
 
@@ -1499,10 +1502,6 @@ msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:55
 msgid "This token will be removed in a few seconds."
-msgstr ""
-
-#: docs/http.go:166 docs/http.go:231 docs/http.go:269
-msgid "Documentation"
 msgstr ""
 
 #: internal/admin/views.go:80

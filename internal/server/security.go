@@ -7,16 +7,17 @@ package server
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"net"
 	"net/http"
+	"slices"
 	"strconv"
 	"strings"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/pkg/csp"
+	"codeberg.org/readeck/readeck/pkg/http/forwarded"
 )
 
 type (
@@ -31,7 +32,7 @@ const (
 )
 
 func setHost(r *http.Request) error {
-	xfh := r.Header.Get("X-Forwarded-Host")
+	xfh := forwarded.ParseXForwardedHost(r.Header)
 	if xfh == "" {
 		return nil
 	}
@@ -66,40 +67,33 @@ func checkHost(r *http.Request) error {
 	}
 	host = strings.TrimSuffix(host, ".")
 
-	for _, x := range configs.Config.Server.AllowedHosts {
-		if x == host {
-			return nil
-		}
+	if slices.Contains(configs.Config.Server.AllowedHosts, host) {
+		return nil
 	}
 	return fmt.Errorf("host is not allowed: %s", host)
 }
 
-func setProto(r *http.Request) error {
-	proto := r.Header.Get("X-Forwarded-Proto")
-	if proto == "" {
-		return nil
+func setProto(r *http.Request) {
+	proto := forwarded.ParseXForwardedProto(r.Header)
+	if proto != "" {
+		r.URL.Scheme = proto
 	}
-	if proto != "http" && proto != "https" {
-		return fmt.Errorf("invalid x-forwarded-proto %s", proto)
-	}
-	r.URL.Scheme = proto
-	return nil
 }
 
-func setIP(r *http.Request) error {
-	// We want the first value of the first header. We can then call Get()
-	// that will return the first header.
-	ip := r.Header.Get("X-Forwarded-For")
-	if ip == "" {
-		return nil
+func setIP(r *http.Request, knownProxies []*net.IPNet) {
+	// The IPs or IP ranges of the trusted reverse proxies are configured.
+	// The X-Forwarded-For IP list is searched from the rightmost, skipping all addresses that are
+	// on the trusted proxy list. The first non-matching address is the target address.
+	// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For
+	for _, ip := range forwarded.ParseXForwardedFor(r.Header) {
+		if slices.ContainsFunc(knownProxies, func(x *net.IPNet) bool {
+			return x.Contains(ip)
+		}) {
+			continue
+		}
+		r.RemoteAddr = ip.String()
+		break
 	}
-	// Get the first value
-	ip = strings.TrimSpace(strings.Split(ip, ",")[0])
-	if net.ParseIP(ip) == nil {
-		return errors.New("invalid IP address in X-Forwarded-For header")
-	}
-	r.RemoteAddr = ip
-	return nil
 }
 
 // InitRequest update the scheme and host on the incoming
@@ -110,8 +104,15 @@ func setIP(r *http.Request) error {
 // is not running in dev mode.
 func (s *Server) InitRequest(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// First, always remove the port from RenoteAddr
+		r.RemoteAddr, _, _ = net.SplitHostPort(r.RemoteAddr)
+		remoteIP := net.ParseIP(r.RemoteAddr)
+		trusted := slices.ContainsFunc(configs.TrustedProxies(), func(ip *net.IPNet) bool {
+			return ip.Contains(remoteIP)
+		})
+
 		// Set host
-		if configs.Config.Server.UseXForwardedHost {
+		if trusted {
 			if err := setHost(r); err != nil {
 				s.Log(r).WithError(err).Error("server error")
 				s.Status(w, r, http.StatusBadRequest)
@@ -131,26 +132,16 @@ func (s *Server) InitRequest(next http.Handler) http.Handler {
 
 		// Set scheme
 		r.URL.Scheme = "http"
-		if configs.Config.Server.UseXForwardedProto {
-			if err := setProto(r); err != nil {
-				s.Log(r).WithError(err).Error("server error")
-				s.Status(w, r, http.StatusBadRequest)
-				return
-			}
+		if trusted {
+			setProto(r)
 		} else if r.TLS != nil {
 			r.URL.Scheme = "https"
 		}
 
 		// Set real IP
-		if configs.Config.Server.UseXForwardedFor {
-			if err := setIP(r); err != nil {
-				s.Log(r).WithError(err).Error("server error")
-				s.Status(w, r, http.StatusBadRequest)
-				return
-			}
+		if trusted {
+			setIP(r, configs.TrustedProxies())
 		}
-		// Always remove the port from
-		r.RemoteAddr = strings.Split(r.RemoteAddr, ":")[0]
 
 		next.ServeHTTP(w, r)
 	})

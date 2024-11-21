@@ -29,6 +29,9 @@ var (
 	buildTime    time.Time
 	startTime    = time.Now().UTC()
 
+	trustedProxies     []*net.IPNet
+	extractorDeniedIPs []*net.IPNet
+
 	cookieHk []byte
 	cookieBk []byte
 	csrfKey  []byte
@@ -63,14 +66,12 @@ type configMain struct {
 }
 
 type configServer struct {
-	Host               string        `json:"host" env:"READECK_SERVER_HOST"`
-	Port               int           `json:"port" env:"READECK_SERVER_PORT"`
-	Prefix             string        `json:"prefix" env:"READECK_SERVER_PREFIX"`
-	AllowedHosts       []string      `json:"allowed_hosts" env:"READECK_ALLOWED_HOSTS"`
-	UseXForwardedFor   bool          `json:"use_x_forwarded_for" env:"READECK_USE_X_FORWARDED"`
-	UseXForwardedHost  bool          `json:"use_x_forwarded_host" env:"READECK_USE_X_FORWARDED"`
-	UseXForwardedProto bool          `json:"use_x_forwarded_proto" env:"READECK_USE_X_FORWARDED"`
-	Session            configSession `json:"session" env:"-"`
+	Host           string        `json:"host" env:"READECK_SERVER_HOST"`
+	Port           int           `json:"port" env:"READECK_SERVER_PORT"`
+	Prefix         string        `json:"prefix" env:"READECK_SERVER_PREFIX"`
+	TrustedProxies []configIPNet `json:"trusted_proxies" env:"READECK_TRUSTED_PROXIES"`
+	AllowedHosts   []string      `json:"allowed_hosts" env:"READECK_ALLOWED_HOSTS"`
+	Session        configSession `json:"session" env:"-"`
 }
 
 type configDB struct {
@@ -210,6 +211,14 @@ var Config = config{
 			CookieName: "sxid",
 			MaxAge:     86400 * 30, // 60 days
 		},
+		TrustedProxies: []configIPNet{
+			newConfigIPNet("127.0.0.0/8"),
+			newConfigIPNet("10.0.0.0/8"),
+			newConfigIPNet("172.16.0.0/12"),
+			newConfigIPNet("192.168.0.0/16"),
+			newConfigIPNet("fd00::/8"),
+			newConfigIPNet("::1/128"),
+		},
 	},
 	Database: configDB{},
 	Email: configEmail{
@@ -287,6 +296,17 @@ func InitConfiguration() {
 	Config.secretKey = append([]byte(Config.Main.SecretKey), h[:]...)
 
 	loadKeys()
+
+	// Load the IP ranges
+	trustedProxies = make([]*net.IPNet, len(Config.Server.TrustedProxies))
+	for i, x := range Config.Server.TrustedProxies {
+		trustedProxies[i] = x.IPNet
+	}
+
+	extractorDeniedIPs = make([]*net.IPNet, len(Config.Extractor.DeniedIPs))
+	for i, x := range Config.Extractor.DeniedIPs {
+		extractorDeniedIPs[i] = x.IPNet
+	}
 }
 
 // loadKeys prepares all the keys derivated from the configuration's
@@ -333,14 +353,16 @@ func JwtPk() ed25519.PublicKey {
 	return jwtPk
 }
 
+// TrustedProxies returns the value of Config.Server.TrustedProxies
+// as a slice of [*net.IPNet].
+func TrustedProxies() []*net.IPNet {
+	return trustedProxies
+}
+
 // ExtractorDeniedIPs returns the value of Config.Extractor.DeniedIPs
-// as a slice of *net.IPNet.
+// as a slice of [*net.IPNet].
 func ExtractorDeniedIPs() []*net.IPNet {
-	res := make([]*net.IPNet, len(Config.Extractor.DeniedIPs))
-	for i, x := range Config.Extractor.DeniedIPs {
-		res[i] = x.IPNet
-	}
-	return res
+	return extractorDeniedIPs
 }
 
 // Version returns the current readeck version.

@@ -11,14 +11,14 @@ require (
 	github.com/antchfx/xmlquery v1.4.2
 	github.com/anthonynsimon/bild v0.14.0
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
-	github.com/casbin/casbin/v2 v2.100.0
+	github.com/casbin/casbin/v2 v2.101.0
 	github.com/cristalhq/acmd v0.12.0
 	github.com/cristalhq/jwt/v3 v3.1.0
 	github.com/dop251/goja v0.0.0-20241024094426-79f3a7efcdbd
 	github.com/dop251/goja_nodejs v0.0.0-20240728170619-29b559befffc
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/fatih/color v1.18.0
-	github.com/gabriel-vasile/mimetype v1.4.6
+	github.com/gabriel-vasile/mimetype v1.4.7
 	github.com/go-chi/chi/v5 v5.1.0
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-shiori/dom v0.0.0-20230515143342-73569d674e1c
@@ -46,11 +46,11 @@ require (
 	github.com/xhit/go-simple-mail/v2 v2.16.0
 	github.com/yuin/goldmark v1.7.1
 	github.com/yuin/goldmark-meta v1.1.0
-	golang.org/x/image v0.21.0
-	golang.org/x/net v0.30.0
-	golang.org/x/sync v0.8.0
-	golang.org/x/text v0.19.0
-	modernc.org/sqlite v1.33.1
+	golang.org/x/image v0.22.0
+	golang.org/x/net v0.31.0
+	golang.org/x/sync v0.9.0
+	golang.org/x/text v0.20.0
+	modernc.org/sqlite v1.34.1
 )
 
 require (
@@ -88,17 +88,17 @@ require (
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/toorop/go-dkim v0.0.0-20240103092955-90b7d1423f92 // indirect
-	golang.org/x/crypto v0.28.0 // indirect
-	golang.org/x/exp v0.0.0-20241009180824-f66d83c29e7c // indirect
-	golang.org/x/sys v0.26.0 // indirect
-	google.golang.org/protobuf v1.35.1 // indirect
+	golang.org/x/crypto v0.29.0 // indirect
+	golang.org/x/exp v0.0.0-20241108190413-2d47ceb2692f // indirect
+	golang.org/x/sys v0.27.0 // indirect
+	google.golang.org/protobuf v1.35.2 // indirect
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect
 	gopkg.in/hlandau/measurable.v1 v1.0.1 // indirect
 	gopkg.in/hlandau/passlib.v1 v1.0.11 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	modernc.org/gc/v3 v3.0.0-20241004144649-1aea3fae8852 // indirect
-	modernc.org/libc v1.61.0 // indirect
+	modernc.org/libc v1.61.2 // indirect
 	modernc.org/mathutil v1.6.0 // indirect
 	modernc.org/memory v1.8.0 // indirect
 	modernc.org/strutil v1.2.0 // indirect

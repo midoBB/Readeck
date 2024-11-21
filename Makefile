@@ -28,7 +28,7 @@ export GOOS?=
 export GOARCH?=
 export CGO_CFLAGS ?= -D_LARGEFILE64_SOURCE
 export CC?=
-export XGO_VERSION ?= go-1.23.x
+export XGO_IMAGE ?= docker.io/techknowlogick/xgo:go-1.21.x
 export XGO_PACKAGE ?= src.techknowlogick.com/xgo@latest
 export XGO_FLAGS ?= ""
 
@@ -224,7 +224,7 @@ xgo-build: | $(DIST)/.generate
 	@echo "CC: $(CC)"
 	@echo "CGO_ENABLED": $$CGO_ENABLED
 	@echo "CGO_CFLAGS": $$CGO_CFLAGS
-	@echo "XGO_VERSION": $(XGO_VERSION)
+	@echo "XGO_IMAGE:" $(XGO_IMAGE)
 	@echo "XGO_PACKAGE": $(XGO_PACKAGE)
 	@echo "XGO_FLAGS": $(XGO_FLAGS)
 	@echo "LDFLAGS": $(LDFLAGS)
@@ -232,7 +232,7 @@ xgo-build: | $(DIST)/.generate
 	test -d $(DIST) || mkdir $(DIST)
 	$(GO) run $(XGO_PACKAGE) \
 		-v \
-		-go $(XGO_VERSION) \
+		-image $(XGO_IMAGE) \
 		-dest $(DIST) \
 		-tags "$(BUILD_TAGS)" \
 		-targets "$(XGO_TARGET)" \

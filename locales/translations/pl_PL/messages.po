@@ -7,16 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-11-22 18:25+0000\n"
+"PO-Revision-Date: 2024-11-23 20:07+0000\n"
 "Last-Translator: Eryk Michalak <gnu.ewm@protonmail.com>\n"
+"Language-Team: Polish <https://translate.codeberg.org/projects/readeck/"
+"application/pl/>\n"
 "Language: pl_PL\n"
-"Language-Team: Polish "
-"<https://translate.codeberg.org/projects/readeck/application/pl/>\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && "
-"(n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.8.1\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -35,7 +36,7 @@ msgstr "Treść główna"
 
 #: assets/templates/_layouts/sidemenu.jet.html
 msgid "Close menu"
-msgstr ""
+msgstr "Zamknij menu"
 
 #: assets/templates/_libs/common.jet.html
 msgid "Quick access menu"
@@ -425,11 +426,11 @@ msgstr "Kolekcje"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Close panel"
-msgstr ""
+msgstr "Zamknij panel"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark information"
-msgstr ""
+msgstr "Informacje o zakładce"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark loading"
@@ -441,7 +442,7 @@ msgstr "Zakładka jest wczytywana"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html
 msgid "Bookmark not found"
-msgstr ""
+msgstr "Nie znaleziono żadnych zakładek"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html
 msgid "Shared link"
@@ -514,7 +515,7 @@ msgstr "Edytuj"
 #: assets/templates/bookmarks/collection.jet.html
 #: assets/templates/bookmarks/index.jet.html
 msgid "Filters"
-msgstr ""
+msgstr "Filtry"
 
 #: assets/templates/bookmarks/collection.jet.html
 #: assets/templates/bookmarks/index.jet.html docs/http.go
@@ -714,15 +715,15 @@ msgstr "Czy jest zarchiwizowana"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Loaded"
-msgstr ""
+msgstr "Jest załadowana"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "With Labels"
-msgstr ""
+msgstr "Z etykietami"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "With Errors"
-msgstr ""
+msgstr "Z błędami"
 
 #: assets/templates/bookmarks/components/labels.jet.html
 msgid "Remove label"
@@ -775,7 +776,7 @@ msgstr "Wysokość linii"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Justify"
-msgstr ""
+msgstr "Wyjustuj"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Hyphenation"
@@ -833,7 +834,7 @@ msgstr "Plik"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
 msgid "Convert section titles to labels"
-msgstr ""
+msgstr "Zamień tytuły sekcji na etykiety"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
 msgid "Adds a label on links, based on their section title"
@@ -875,7 +876,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid "Omnivore URL"
-msgstr ""
+msgstr "Adres URL Omnivore"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid "URL of your Omnivore homepage"
@@ -883,7 +884,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid "API Key"
-msgstr ""
+msgstr "Klucz API"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
@@ -1196,11 +1197,11 @@ msgstr ""
 
 #: assets/templates/docs/about.jet.html
 msgid "Project"
-msgstr ""
+msgstr "Projekt"
 
 #: assets/templates/docs/about.jet.html
 msgid "Main website"
-msgstr ""
+msgstr "Główna strona internetowa"
 
 #: assets/templates/docs/about.jet.html
 msgid "Sources and issues"
@@ -1208,15 +1209,15 @@ msgstr ""
 
 #: assets/templates/docs/about.jet.html
 msgid "How to contribute"
-msgstr ""
+msgstr "Jak można pomóc"
 
 #: assets/templates/docs/about.jet.html
 msgid "Community Forum"
-msgstr ""
+msgstr "Forum społeczności"
 
 #: assets/templates/docs/about.jet.html
 msgid "Matrix Chat"
-msgstr ""
+msgstr "Czat Matrix"
 
 #: assets/templates/docs/about.jet.html
 msgid "License"
@@ -1311,7 +1312,7 @@ msgstr "Pomoc Readeck"
 
 #: assets/templates/docs/base.jet.html
 msgid "Changelog"
-msgstr ""
+msgstr "Dziennik zmian"
 
 #: assets/templates/emails/recover.tmpl
 #, python-format
@@ -1675,7 +1676,7 @@ msgstr "Eksportuj plik GoodLinks"
 
 #: internal/bookmarks/importer/omnivore.go
 msgid "Invalid API Key"
-msgstr ""
+msgstr "Nieprawidłowy klucz API"
 
 #: internal/bookmarks/importer/pocket_file.go
 msgid "Invalid upload format"
@@ -2117,4 +2118,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Filters documentation"
 #~ msgstr "Dokumentacja filtrów"
-

@@ -385,6 +385,16 @@ Copyright (c) 2016 The Inter Project Authors
 """
 
 [[licenses]]
+name = "literata font"
+license = "OFL-1.1"
+author = "The Literata Project Authors"
+url = "https://www.type-together.com/literata-font"
+copyright = """
+Copyright 2017 The Literata Project Authors
+(https://github.com/googlefonts/literata)
+"""
+
+[[licenses]]
 name = "luciole font"
 license = "CC-BY-4.0"
 author = "Laurent Bourcellier & Jonathan Perez"

@@ -68,6 +68,7 @@
   "o-wallabag":     "media/img/logo-wallabag.svg",
 
   "o-big-arrow":    "media/img/big-arrow.svg",
+  "o-sidebar":      "media/img/sidebar.svg",
   "o-spinner":      "media/img/spinner.svg",
   "o-font-size":    "node_modules/boxicons/svg/regular/bx-font-size.svg",
   "o-line-height":  "node_modules/@mdi/svg/svg/format-line-height.svg",

@@ -33,6 +33,7 @@ SPDX-License-Identifier: AGPL-3.0-only
    data-turbo-refresh-on-value="[data-deleted]"
    data-turbo-refresh-interval-value="3"
    data-panel-hidden-class="max-md:hidden hidden"
+   data-panel-force-hidden-class="max-md:hidden"
    data-panel-body-class="max-md:overflow-hidden"
    class="bookmark-container">
     {{- if !.Item.Loaded -}}
@@ -89,7 +90,7 @@ SPDX-License-Identifier: AGPL-3.0-only
              aria-controls="bookmark-panel"
              class="no-js:hidden hf:text-gray-700"
             >
-              {{- yield icon(name="o-info", class="inline-block", svgClass="w-6 h-6") -}}
+              {{- yield icon(name="o-sidebar", class="inline-block", svgClass="w-6 h-6") -}}
               <span class="sr-only">{{ gettext("Bookmark information") }}</span></button>
             </button>
           </div>

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-09-07 08:26+0000\n"
+"POT-Creation-Date: 2024-11-22 19:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.15.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
 #: assets/templates/bookmarks/bookmark.jet.html assets/templates/error.jet.html
@@ -33,7 +33,7 @@ msgid "Main content"
 msgstr ""
 
 #: assets/templates/_layouts/sidemenu.jet.html
-msgid "Open menu"
+msgid "Close menu"
 msgstr ""
 
 #: assets/templates/_libs/common.jet.html
@@ -128,6 +128,7 @@ msgstr ""
 #: assets/templates/bookmarks/components/card.jet.html
 #: assets/templates/bookmarks/import/form-browser.jet.html
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -252,8 +253,7 @@ msgstr ""
 #: assets/templates/auth/onboarding.jet.html
 msgid ""
 "\n"
-"  Your email address is optional and will never leave this installation."
-"\n"
+"  Your email address is optional and will never leave this installation.\n"
 "  It will never be collected, transferred or sold.\n"
 "  It will <strong>only</strong> be used, should you need it, for password"
 " recovery and internal notifications.\n"
@@ -397,7 +397,11 @@ msgid "Collections"
 msgstr ""
 
 #: assets/templates/bookmarks/bookmark.jet.html
-msgid "More information"
+msgid "Close panel"
+msgstr ""
+
+#: assets/templates/bookmarks/bookmark.jet.html
+msgid "Bookmark information"
 msgstr ""
 
 #: assets/templates/bookmarks/bookmark.jet.html
@@ -478,6 +482,16 @@ msgstr ""
 
 #: assets/templates/bookmarks/collection.jet.html
 msgid "Edit"
+msgstr ""
+
+#: assets/templates/bookmarks/collection.jet.html
+#: assets/templates/bookmarks/index.jet.html
+msgid "Filters"
+msgstr ""
+
+#: assets/templates/bookmarks/collection.jet.html
+#: assets/templates/bookmarks/index.jet.html docs/http.go
+msgid "Documentation"
 msgstr ""
 
 #: assets/templates/bookmarks/collection.jet.html
@@ -631,14 +645,28 @@ msgid "Label"
 msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
+msgid "From date"
+msgstr ""
+
+#: assets/templates/bookmarks/components/filters.jet.html
+msgid "To date"
+msgstr ""
+
+#: assets/templates/bookmarks/components/filters.jet.html
+msgid "Type"
+msgstr ""
+
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Favorite"
 msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "yes"
 msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "no"
 msgstr ""
 
@@ -647,15 +675,15 @@ msgid "Is Archived"
 msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "Type"
+msgid "Is Loaded"
 msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "From date"
+msgid "With Labels"
 msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "To date"
+msgid "With Errors"
 msgstr ""
 
 #: assets/templates/bookmarks/components/labels.jet.html
@@ -705,6 +733,14 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Line height"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html
+msgid "Justify"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html
+msgid "Hyphenation"
 msgstr ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html
@@ -762,6 +798,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -777,6 +814,32 @@ msgid ""
 "\n"
 "    Upload a JSON file obtained from your GoodLinks app.\n"
 "  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+#: assets/templates/bookmarks/import/index.jet.html
+msgid "Import your Omnivore Articles"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid ""
+"\n"
+"    To import your articles from Omnivore, you must first create an API "
+"Key in your\n"
+"    Omnivore's settings and enter it in the the form below.\n"
+"  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "Omnivore URL"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "URL of your Omnivore homepage"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "API Key"
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
@@ -965,11 +1028,6 @@ msgid "Import links and articles"
 msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html
-msgctxt "action"
-msgid "Filter list"
-msgstr ""
-
-#: assets/templates/bookmarks/index.jet.html
 msgid "Import bookmarks"
 msgstr ""
 
@@ -984,10 +1042,6 @@ msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
 msgstr[0] ""
 msgstr[1] ""
-
-#: assets/templates/bookmarks/index.jet.html
-msgid "Filters documentation"
-msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html
 msgctxt "action"
@@ -1157,6 +1211,10 @@ msgstr ""
 msgid "Readeck Help"
 msgstr ""
 
+#: assets/templates/docs/base.jet.html
+msgid "Changelog"
+msgstr ""
+
 #: assets/templates/emails/recover.tmpl
 #, python-format
 msgid ""
@@ -1221,11 +1279,15 @@ msgid "Change theme"
 msgstr ""
 
 #: assets/templates/menu.jet.html
-msgid "Change color theme"
+msgid "Sign out"
 msgstr ""
 
 #: assets/templates/menu.jet.html
-msgid "Sign out"
+msgid "Open menu"
+msgstr ""
+
+#: assets/templates/menu.jet.html
+msgid "Change color theme"
 msgstr ""
 
 #: assets/templates/profile/base.jet.html
@@ -1416,10 +1478,6 @@ msgstr ""
 msgid "This token will be removed in a few seconds."
 msgstr ""
 
-#: docs/http.go
-msgid "Documentation"
-msgstr ""
-
 #: internal/admin/views.go
 msgid "User created."
 msgstr ""
@@ -1453,7 +1511,6 @@ msgid "Browser Bookmarks"
 msgstr ""
 
 #: internal/bookmarks/importer/browser.go
-#: internal/bookmarks/importer/pocket_file.go
 msgid "Unabled to read HTML content"
 msgstr ""
 
@@ -1466,6 +1523,18 @@ msgstr ""
 
 #: internal/bookmarks/importer/goodlinks.go
 msgid "GoodLinks Export File"
+msgstr ""
+
+#: internal/bookmarks/importer/omnivore.go
+msgid "Invalid API Key"
+msgstr ""
+
+#: internal/bookmarks/importer/pocket_file.go
+msgid "Invalid upload format"
+msgstr ""
+
+#: internal/bookmarks/importer/pocket_file.go
+msgid "Unabled to open zip file"
 msgstr ""
 
 #: internal/bookmarks/importer/text.go
@@ -1889,5 +1958,15 @@ msgid "%H:%M:%S"
 msgstr ""
 
 #~ msgid "Invalid Content-Type"
+#~ msgstr ""
+
+#~ msgid "More information"
+#~ msgstr ""
+
+#~ msgctxt "action"
+#~ msgid "Filter list"
+#~ msgstr ""
+
+#~ msgid "Filters documentation"
 #~ msgstr ""
 

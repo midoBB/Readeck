@@ -6,18 +6,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-10-21 18:24+0000\n"
+"POT-Creation-Date: 2024-11-22 19:37+0100\n"
 "PO-Revision-Date: 2024-11-22 18:25+0000\n"
-"Last-Translator: Anonymous <anonymous@users.noreply.translate.codeberg.org>\n"
-"Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/"
-"application/nl/>\n"
+"Last-Translator: Anonymous "
+"<anonymous@users.noreply.translate.codeberg.org>\n"
 "Language: nl_NL\n"
+"Language-Team: Dutch "
+"<https://translate.codeberg.org/projects/readeck/application/nl/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8.1\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.15.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
 #: assets/templates/bookmarks/bookmark.jet.html assets/templates/error.jet.html
@@ -34,8 +34,8 @@ msgid "Main content"
 msgstr "Hoofdinhoud"
 
 #: assets/templates/_layouts/sidemenu.jet.html
-msgid "Open menu"
-msgstr "Menu openen"
+msgid "Close menu"
+msgstr ""
 
 #: assets/templates/_libs/common.jet.html
 msgid "Quick access menu"
@@ -129,6 +129,7 @@ msgstr "De gebruiker wordt over enkele seconden verwijderd"
 #: assets/templates/bookmarks/components/card.jet.html
 #: assets/templates/bookmarks/import/form-browser.jet.html
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -238,8 +239,7 @@ msgstr "Welkom in Readeck!"
 
 #: assets/templates/auth/onboarding.jet.html
 msgid "We're delighted to have you on board; one more step and you're good to go."
-msgstr ""
-"We zijn blij met je komst! Nog één stap te gaan en dan kun je aan de slag."
+msgstr "We zijn blij met je komst! Nog één stap te gaan en dan kun je aan de slag."
 
 #: assets/templates/auth/onboarding.jet.html
 #: assets/templates/auth/recover.jet.html
@@ -261,8 +261,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"  Je e-mailadres is optioneel en wordt alléén binnen deze instantie bewaard."
-"\n"
+"  Je e-mailadres is optioneel en wordt alléén binnen deze instantie "
+"bewaard.\n"
 "  Er is dus geen sprake van extern bewaren, overdragen of verkoop ervan.\n"
 "  Het wordt <strong>slechts</strong> gebruikt voor wachtwoordherstel en "
 "interne meldingen.\n"
@@ -366,8 +366,8 @@ msgid ""
 "Read more about highlights in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Meer informatie hierover is te vinden in de <a class=\"%s\" href=\"%s\""
-">documentatie</a>."
+"Meer informatie hierover is te vinden in de <a class=\"%s\" "
+"href=\"%s\">documentatie</a>."
 
 #: assets/templates/bookmarks/base.jet.html
 #: assets/templates/bookmarks/bookmark.jet.html
@@ -422,8 +422,12 @@ msgid "Collections"
 msgstr "Verzamelingen"
 
 #: assets/templates/bookmarks/bookmark.jet.html
-msgid "More information"
-msgstr "Meer informatie"
+msgid "Close panel"
+msgstr ""
+
+#: assets/templates/bookmarks/bookmark.jet.html
+msgid "Bookmark information"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark loading"
@@ -506,6 +510,16 @@ msgid "Edit"
 msgstr "Bewerken"
 
 #: assets/templates/bookmarks/collection.jet.html
+#: assets/templates/bookmarks/index.jet.html
+msgid "Filters"
+msgstr ""
+
+#: assets/templates/bookmarks/collection.jet.html
+#: assets/templates/bookmarks/index.jet.html docs/http.go
+msgid "Documentation"
+msgstr "Documentatie"
+
+#: assets/templates/bookmarks/collection.jet.html
 #: assets/templates/bookmarks/collection_create.jet.html
 #: assets/templates/profile/credential.jet.html
 msgid "Name"
@@ -541,8 +555,8 @@ msgstr ""
 "          Met behulp van verzamelingen kun je je bladwijzers op een "
 "eenvoudige manier\n"
 "          ordenen en exporteren, door ze te bewaren als zoekopdrachten.\n"
-"          Zodra je een bladwijzer toevoegt die overeenkomt met een bepaalde "
-"verzameling,\n"
+"          Zodra je een bladwijzer toevoegt die overeenkomt met een "
+"bepaalde verzameling,\n"
 "          wordt deze daar getoond.\n"
 "          Hieronder vind je enkele voorbeelden:\n"
 "        "
@@ -569,8 +583,8 @@ msgid ""
 "Read more about collections in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Meer informatie is te vinden in de <a class=\"%s\" href=\"%s\""
-">documentatie</a>."
+"Meer informatie is te vinden in de <a class=\"%s\" "
+"href=\"%s\">documentatie</a>."
 
 #: assets/templates/bookmarks/components/actions.jet.html
 msgid "Export and Share"
@@ -667,14 +681,28 @@ msgid "Label"
 msgstr "Label"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+msgid "From date"
+msgstr "Vanaf datum"
+
+#: assets/templates/bookmarks/components/filters.jet.html
+msgid "To date"
+msgstr "Tot datum"
+
+#: assets/templates/bookmarks/components/filters.jet.html
+msgid "Type"
+msgstr "Type"
+
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Favorite"
 msgstr "Favoriet (ja/nee)"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "yes"
 msgstr "ja"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "no"
 msgstr "nee"
 
@@ -683,16 +711,16 @@ msgid "Is Archived"
 msgstr "Gearchiveerd (ja/nee)"
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "Type"
-msgstr "Type"
+msgid "Is Loaded"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "From date"
-msgstr "Vanaf datum"
+msgid "With Labels"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "To date"
-msgstr "Tot datum"
+msgid "With Errors"
+msgstr ""
 
 #: assets/templates/bookmarks/components/labels.jet.html
 msgid "Remove label"
@@ -743,6 +771,14 @@ msgstr "Grootte"
 msgid "Line height"
 msgstr "Regelhoogte"
 
+#: assets/templates/bookmarks/components/reader_control.jet.html
+msgid "Justify"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html
+msgid "Hyphenation"
+msgstr ""
+
 #: assets/templates/bookmarks/components/sidebar.jet.html
 #: assets/templates/epub/bookmark.jet.html
 msgid "no site name"
@@ -773,7 +809,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Exporteer de bladwijzers van je webbrowser naar een html-bestand.<br>\n"
+"    Exporteer de bladwijzers van je webbrowser naar een html-bestand.<br>"
+"\n"
 "    Upload het bestand hieronder om Readeck alle bladwijzers uit\n"
 "    het bestand te laten importeren.\n"
 "  "
@@ -803,6 +840,7 @@ msgstr "Kent een label aan links toe op basis van de sectietitel"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -822,6 +860,32 @@ msgstr ""
 "\n"
 "    Upload een door de GoodLinks-app samengesteld json-bestand.\n"
 "  "
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+#: assets/templates/bookmarks/import/index.jet.html
+msgid "Import your Omnivore Articles"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid ""
+"\n"
+"    To import your articles from Omnivore, you must first create an API "
+"Key in your\n"
+"    Omnivore's settings and enter it in the the form below.\n"
+"  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "Omnivore URL"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "URL of your Omnivore homepage"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "API Key"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
@@ -905,11 +969,12 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Voor het importeren van Wallabag-artikelen is een api-client vereist.\n"
-"    Deze kan worden aangemaakt via het Wallabag-menuitem <strong>API clients "
-"management</strong>.\n"
-"    Dit hulpmiddel geeft een  <strong>Client ID</strong> en <strong>Client "
-"secret</strong>.\n"
+"    Voor het importeren van Wallabag-artikelen is een api-client vereist."
+"\n"
+"    Deze kan worden aangemaakt via het Wallabag-menuitem <strong>API "
+"clients management</strong>.\n"
+"    Dit hulpmiddel geeft een  <strong>Client ID</strong> en "
+"<strong>Client secret</strong>.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -950,8 +1015,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Hier kun je je bladwijzers vanuit verschillende diensten importeren naar "
-"Readeck.\n"
+"    Hier kun je je bladwijzers vanuit verschillende diensten importeren "
+"naar Readeck.\n"
 "  "
 
 #: assets/templates/bookmarks/import/index.jet.html
@@ -999,8 +1064,8 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"      De bladwijzers zijn toegevoegd aan je <a class=\"%s\" href=\"%s\""
-">bladwijzerlijst</a>.\n"
+"      De bladwijzers zijn toegevoegd aan je <a class=\"%s\" "
+"href=\"%s\">bladwijzerlijst</a>.\n"
 "      "
 
 #: assets/templates/bookmarks/index.jet.html
@@ -1033,8 +1098,8 @@ msgid ""
 "Read more about bookmarks in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Meer informatie is te vinden in de <a class=\"%s\" href=\"%s\""
-">documentatie</a>."
+"Meer informatie is te vinden in de <a class=\"%s\" "
+"href=\"%s\">documentatie</a>."
 
 #: assets/templates/bookmarks/index.jet.html
 msgid ""
@@ -1045,19 +1110,14 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          Wil je bladwijzers importeren uit een vergelijkbare dienst of een "
-"bestand?\n"
+"          Wil je bladwijzers importeren uit een vergelijkbare dienst of "
+"een bestand?\n"
 "          Maak dan gebruik van Readecks importhulpmiddel.\n"
 "        "
 
 #: assets/templates/bookmarks/index.jet.html
 msgid "Import links and articles"
 msgstr "Links en artikelen importeren"
-
-#: assets/templates/bookmarks/index.jet.html
-msgctxt "action"
-msgid "Filter list"
-msgstr "Lijst filteren"
 
 #: assets/templates/bookmarks/index.jet.html
 msgid "Import bookmarks"
@@ -1073,10 +1133,6 @@ msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
 msgstr[0] "Er is <strong>%d zoekresultaat</strong>."
 msgstr[1] "Er zijn <strong>%d zoekresultaten</strong>."
-
-#: assets/templates/bookmarks/index.jet.html
-msgid "Filters documentation"
-msgstr "Filterdocumentatie"
 
 #: assets/templates/bookmarks/index.jet.html
 msgctxt "action"
@@ -1135,7 +1191,8 @@ msgid ""
 "Here are your current system information. Please include them if you "
 "report a bug."
 msgstr ""
-"Hier vind je de systeeminformatie. Stuur deze mee bij het melden van een bug."
+"Hier vind je de systeeminformatie. Stuur deze mee bij het melden van een "
+"bug."
 
 #: assets/templates/docs/about.jet.html
 msgid "Project"
@@ -1250,6 +1307,10 @@ msgstr "Api-documentatie"
 msgid "Readeck Help"
 msgstr "Hulp"
 
+#: assets/templates/docs/base.jet.html
+msgid "Changelog"
+msgstr ""
+
 #: assets/templates/emails/recover.tmpl
 #, python-format
 msgid ""
@@ -1338,12 +1399,16 @@ msgid "Change theme"
 msgstr "Thema wĳzigen"
 
 #: assets/templates/menu.jet.html
-msgid "Change color theme"
-msgstr "Kleurenschema wĳzigen"
-
-#: assets/templates/menu.jet.html
 msgid "Sign out"
 msgstr "Uitloggen"
+
+#: assets/templates/menu.jet.html
+msgid "Open menu"
+msgstr "Menu openen"
+
+#: assets/templates/menu.jet.html
+msgid "Change color theme"
+msgstr "Kleurenschema wĳzigen"
 
 #: assets/templates/profile/base.jet.html
 msgid "Settings"
@@ -1378,8 +1443,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Het appwachtwoord is aangemaakt. Kopieer onderstaand wachtwoord naar een "
-"wachtwoordbeheerder of\n"
+"    Het appwachtwoord is aangemaakt. Kopieer onderstaand wachtwoord naar "
+"een wachtwoordbeheerder of\n"
 "    noteer en bewaar op een veilige plek.\n"
 "  "
 
@@ -1416,7 +1481,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Met behulp van onderstaande opties kun je beperkingen op dit wachtwoord\n"
+"    Met behulp van onderstaande opties kun je beperkingen op dit "
+"wachtwoord\n"
 "    instellen.<br>\n"
 "    Als je niets instelt, worden alle rechten toegekend.\n"
 "  "
@@ -1531,8 +1597,8 @@ msgid ""
 "  access to the Readeck API.\n"
 msgstr ""
 "\n"
-"  Een api-sleutel geeft je (of een hulpmiddel, zoals een browserextensie) "
-"toegang\n"
+"  Een api-sleutel geeft je (of een hulpmiddel, zoals een browserextensie)"
+" toegang\n"
 "  tot de Readeck-api.\n"
 
 #: assets/templates/profile/token_list.jet.html
@@ -1541,8 +1607,8 @@ msgid ""
 "Please read the <a href=\"%s\">API Documentation</a> if you plan to use "
 "it."
 msgstr ""
-"Neem de <a href=\"%s\">api-documentatie</a> door als je hiervan gebruik wilt "
-"maken."
+"Neem de <a href=\"%s\">api-documentatie</a> door als je hiervan gebruik "
+"wilt maken."
 
 #: assets/templates/profile/token_list.jet.html
 msgid "Create a new API token"
@@ -1556,10 +1622,6 @@ msgstr "Vervalt op %s"
 #: assets/templates/profile/token_list.jet.html
 msgid "This token will be removed in a few seconds."
 msgstr "Deze sleutel wordt over enkele seconden verwijderd."
-
-#: docs/http.go
-msgid "Documentation"
-msgstr "Documentatie"
 
 #: internal/admin/views.go
 msgid "User created."
@@ -1594,7 +1656,6 @@ msgid "Browser Bookmarks"
 msgstr "Browserbladwijzers"
 
 #: internal/bookmarks/importer/browser.go
-#: internal/bookmarks/importer/pocket_file.go
 msgid "Unabled to read HTML content"
 msgstr "De html-inhoud kan niet worden uitgelezen"
 
@@ -1608,6 +1669,18 @@ msgstr "Het bestand is blanco of ongeldig"
 #: internal/bookmarks/importer/goodlinks.go
 msgid "GoodLinks Export File"
 msgstr "GoodLink-exportbestand"
+
+#: internal/bookmarks/importer/omnivore.go
+msgid "Invalid API Key"
+msgstr ""
+
+#: internal/bookmarks/importer/pocket_file.go
+msgid "Invalid upload format"
+msgstr ""
+
+#: internal/bookmarks/importer/pocket_file.go
+msgid "Unabled to open zip file"
+msgstr ""
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
@@ -2028,3 +2101,14 @@ msgstr "%m %d %Y"
 msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
+
+#~ msgid "More information"
+#~ msgstr "Meer informatie"
+
+#~ msgctxt "action"
+#~ msgid "Filter list"
+#~ msgstr "Lijst filteren"
+
+#~ msgid "Filters documentation"
+#~ msgstr "Filterdocumentatie"
+

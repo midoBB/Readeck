@@ -6,18 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-09-07 08:26+0000\n"
+"POT-Creation-Date: 2024-11-22 19:37+0100\n"
 "PO-Revision-Date: 2024-11-22 18:25+0000\n"
 "Last-Translator: Peaksol <Peaksol@users.noreply.translate.codeberg.org>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translate.codeberg."
-"org/projects/readeck/application/zh_Hans/>\n"
 "Language: zh_CN\n"
+"Language-Team: Chinese (Simplified Han script) "
+"<https://translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.1\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.15.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
 #: assets/templates/bookmarks/bookmark.jet.html assets/templates/error.jet.html
@@ -34,8 +33,8 @@ msgid "Main content"
 msgstr "主要内容"
 
 #: assets/templates/_layouts/sidemenu.jet.html
-msgid "Open menu"
-msgstr "打开菜单"
+msgid "Close menu"
+msgstr ""
 
 #: assets/templates/_libs/common.jet.html
 msgid "Quick access menu"
@@ -129,6 +128,7 @@ msgstr "将在几秒钟内移除用户"
 #: assets/templates/bookmarks/components/card.jet.html
 #: assets/templates/bookmarks/import/form-browser.jet.html
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -253,8 +253,7 @@ msgstr "请注意："
 #: assets/templates/auth/onboarding.jet.html
 msgid ""
 "\n"
-"  Your email address is optional and will never leave this installation."
-"\n"
+"  Your email address is optional and will never leave this installation.\n"
 "  It will never be collected, transferred or sold.\n"
 "  It will <strong>only</strong> be used, should you need it, for password"
 " recovery and internal notifications.\n"
@@ -417,8 +416,12 @@ msgid "Collections"
 msgstr "收藏集"
 
 #: assets/templates/bookmarks/bookmark.jet.html
-msgid "More information"
-msgstr "更多信息"
+msgid "Close panel"
+msgstr ""
+
+#: assets/templates/bookmarks/bookmark.jet.html
+msgid "Bookmark information"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark loading"
@@ -499,6 +502,16 @@ msgstr "将在几秒钟内移除收藏集。"
 #: assets/templates/bookmarks/collection.jet.html
 msgid "Edit"
 msgstr "编辑"
+
+#: assets/templates/bookmarks/collection.jet.html
+#: assets/templates/bookmarks/index.jet.html
+msgid "Filters"
+msgstr ""
+
+#: assets/templates/bookmarks/collection.jet.html
+#: assets/templates/bookmarks/index.jet.html docs/http.go
+msgid "Documentation"
+msgstr "文档"
 
 #: assets/templates/bookmarks/collection.jet.html
 #: assets/templates/bookmarks/collection_create.jet.html
@@ -658,14 +671,28 @@ msgid "Label"
 msgstr "标签"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+msgid "From date"
+msgstr "起始日期"
+
+#: assets/templates/bookmarks/components/filters.jet.html
+msgid "To date"
+msgstr "结束日期"
+
+#: assets/templates/bookmarks/components/filters.jet.html
+msgid "Type"
+msgstr "类型"
+
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Favorite"
 msgstr "是否收藏"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "yes"
 msgstr "是"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "no"
 msgstr "否"
 
@@ -674,16 +701,16 @@ msgid "Is Archived"
 msgstr "已存档"
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "Type"
-msgstr "类型"
+msgid "Is Loaded"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "From date"
-msgstr "起始日期"
+msgid "With Labels"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "To date"
-msgstr "结束日期"
+msgid "With Errors"
+msgstr ""
 
 #: assets/templates/bookmarks/components/labels.jet.html
 msgid "Remove label"
@@ -733,6 +760,14 @@ msgstr "大小"
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Line height"
 msgstr "行高"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html
+msgid "Justify"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html
+msgid "Hyphenation"
+msgstr ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html
 #: assets/templates/epub/bookmark.jet.html
@@ -794,6 +829,7 @@ msgstr "根据链接的章节标题添加标签"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -813,6 +849,32 @@ msgstr ""
 "\n"
 "    上传从 GoodLinks 应用获得的 JSON 文件。\n"
 "  "
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+#: assets/templates/bookmarks/import/index.jet.html
+msgid "Import your Omnivore Articles"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid ""
+"\n"
+"    To import your articles from Omnivore, you must first create an API "
+"Key in your\n"
+"    Omnivore's settings and enter it in the the form below.\n"
+"  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "Omnivore URL"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "URL of your Omnivore homepage"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "API Key"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
@@ -985,8 +1047,7 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"      您的书签现在可以在您的<a class=\"%s\" href=\"%s\">书签列表</a>中找到。"
-"\n"
+"      您的书签现在可以在您的<a class=\"%s\" href=\"%s\">书签列表</a>中找到。\n"
 "      "
 
 #: assets/templates/bookmarks/index.jet.html
@@ -1036,11 +1097,6 @@ msgid "Import links and articles"
 msgstr "导入链接和文章"
 
 #: assets/templates/bookmarks/index.jet.html
-msgctxt "action"
-msgid "Filter list"
-msgstr "筛选列表"
-
-#: assets/templates/bookmarks/index.jet.html
 msgid "Import bookmarks"
 msgstr "导入书签"
 
@@ -1053,10 +1109,6 @@ msgstr "您的搜索查询<strong>没有结果</strong>。"
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
 msgstr[0] "您的搜索查询得到 <strong>%d 个结果</strong>。"
-
-#: assets/templates/bookmarks/index.jet.html
-msgid "Filters documentation"
-msgstr "筛选文档"
 
 #: assets/templates/bookmarks/index.jet.html
 msgctxt "action"
@@ -1229,6 +1281,10 @@ msgstr "API 文档"
 msgid "Readeck Help"
 msgstr "Readeck 帮助"
 
+#: assets/templates/docs/base.jet.html
+msgid "Changelog"
+msgstr ""
+
 #: assets/templates/emails/recover.tmpl
 #, python-format
 msgid ""
@@ -1317,12 +1373,16 @@ msgid "Change theme"
 msgstr "更改主题"
 
 #: assets/templates/menu.jet.html
-msgid "Change color theme"
-msgstr "更改主题颜色"
-
-#: assets/templates/menu.jet.html
 msgid "Sign out"
 msgstr "登出"
+
+#: assets/templates/menu.jet.html
+msgid "Open menu"
+msgstr "打开菜单"
+
+#: assets/templates/menu.jet.html
+msgid "Change color theme"
+msgstr "更改主题颜色"
 
 #: assets/templates/profile/base.jet.html
 msgid "Settings"
@@ -1529,10 +1589,6 @@ msgstr "过期时间：%s"
 msgid "This token will be removed in a few seconds."
 msgstr "将在几秒钟内移除此令牌。"
 
-#: docs/http.go
-msgid "Documentation"
-msgstr "文档"
-
 #: internal/admin/views.go
 msgid "User created."
 msgstr "用户已创建。"
@@ -1566,7 +1622,6 @@ msgid "Browser Bookmarks"
 msgstr "浏览器书签"
 
 #: internal/bookmarks/importer/browser.go
-#: internal/bookmarks/importer/pocket_file.go
 msgid "Unabled to read HTML content"
 msgstr "无法读取 HTML 内容"
 
@@ -1580,6 +1635,18 @@ msgstr "导入文件为空或无效"
 #: internal/bookmarks/importer/goodlinks.go
 msgid "GoodLinks Export File"
 msgstr "GoodLinks 导出文件"
+
+#: internal/bookmarks/importer/omnivore.go
+msgid "Invalid API Key"
+msgstr ""
+
+#: internal/bookmarks/importer/pocket_file.go
+msgid "Invalid upload format"
+msgstr ""
+
+#: internal/bookmarks/importer/pocket_file.go
+msgid "Unabled to open zip file"
+msgstr ""
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
@@ -2003,3 +2070,14 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Invalid Content-Type"
 #~ msgstr "无效Content-Type"
+
+#~ msgid "More information"
+#~ msgstr "更多信息"
+
+#~ msgctxt "action"
+#~ msgid "Filter list"
+#~ msgstr "筛选列表"
+
+#~ msgid "Filters documentation"
+#~ msgstr "筛选文档"
+

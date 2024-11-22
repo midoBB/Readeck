@@ -6,18 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CZ 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-09-07 08:26+0000\n"
+"POT-Creation-Date: 2024-11-22 19:37+0100\n"
 "PO-Revision-Date: 2024-11-22 18:25+0000\n"
 "Last-Translator: Joedmin <Joedmin@users.noreply.translate.codeberg.org>\n"
-"Language-Team: Czech <https://translate.codeberg.org/projects/readeck/"
-"application/cs/>\n"
 "Language: cs_CZ\n"
+"Language-Team: Czech "
+"<https://translate.codeberg.org/projects/readeck/application/cs/>\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 5.8.1\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.15.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
 #: assets/templates/bookmarks/bookmark.jet.html assets/templates/error.jet.html
@@ -34,8 +33,8 @@ msgid "Main content"
 msgstr "Hlavní obsah"
 
 #: assets/templates/_layouts/sidemenu.jet.html
-msgid "Open menu"
-msgstr "Otevřít nabídku"
+msgid "Close menu"
+msgstr ""
 
 #: assets/templates/_libs/common.jet.html
 msgid "Quick access menu"
@@ -129,6 +128,7 @@ msgstr "Uživatel bude za několik sekund odebrán"
 #: assets/templates/bookmarks/components/card.jet.html
 #: assets/templates/bookmarks/import/form-browser.jet.html
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -253,8 +253,7 @@ msgstr "Mějte na paměti:"
 #: assets/templates/auth/onboarding.jet.html
 msgid ""
 "\n"
-"  Your email address is optional and will never leave this installation."
-"\n"
+"  Your email address is optional and will never leave this installation.\n"
 "  It will never be collected, transferred or sold.\n"
 "  It will <strong>only</strong> be used, should you need it, for password"
 " recovery and internal notifications.\n"
@@ -263,8 +262,8 @@ msgstr ""
 "\n"
 "  Zadání e-mailové adresy je volitelné a nikdy neopustí tuto instalaci.\n"
 "  Nikdy nebude shromažďována, předávána ani prodávána.\n"
-"  Bude použita <strong>pouze</strong> v případě potřeby pro obnovení hesla a "
-"interní oznámení.\n"
+"  Bude použita <strong>pouze</strong> v případě potřeby pro obnovení "
+"hesla a interní oznámení.\n"
 "  "
 
 #: assets/templates/auth/onboarding.jet.html
@@ -354,8 +353,8 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"        Jakmile začnete zvýrazňovat části svých uložených článků, zobrazí se "
-"na této stránce,\n"
+"        Jakmile začnete zvýrazňovat části svých uložených článků, zobrazí"
+" se na této stránce,\n"
 "        abyste je mohli snadno najít.\n"
 "      "
 
@@ -365,8 +364,8 @@ msgid ""
 "Read more about highlights in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Přečtěte si více o zvýrazňování v <a class=\"%s\" href=\"%s\""
-">dokumentaci</a>."
+"Přečtěte si více o zvýrazňování v <a class=\"%s\" "
+"href=\"%s\">dokumentaci</a>."
 
 #: assets/templates/bookmarks/base.jet.html
 #: assets/templates/bookmarks/bookmark.jet.html
@@ -421,8 +420,12 @@ msgid "Collections"
 msgstr "Sbírky"
 
 #: assets/templates/bookmarks/bookmark.jet.html
-msgid "More information"
-msgstr "Více informací"
+msgid "Close panel"
+msgstr ""
+
+#: assets/templates/bookmarks/bookmark.jet.html
+msgid "Bookmark information"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark loading"
@@ -505,6 +508,16 @@ msgid "Edit"
 msgstr "Upravit"
 
 #: assets/templates/bookmarks/collection.jet.html
+#: assets/templates/bookmarks/index.jet.html
+msgid "Filters"
+msgstr ""
+
+#: assets/templates/bookmarks/collection.jet.html
+#: assets/templates/bookmarks/index.jet.html docs/http.go
+msgid "Documentation"
+msgstr "Dokumentace"
+
+#: assets/templates/bookmarks/collection.jet.html
 #: assets/templates/bookmarks/collection_create.jet.html
 #: assets/templates/profile/credential.jet.html
 msgid "Name"
@@ -565,8 +578,7 @@ msgstr "Články, které ve svém názvu obsahují „úkryt“"
 msgid ""
 "Read more about collections in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
-msgstr ""
-"Přečtěte si více o sbírkách v <a class=\"%s\" href=\"%s\">dokumentaci</a>."
+msgstr "Přečtěte si více o sbírkách v <a class=\"%s\" href=\"%s\">dokumentaci</a>."
 
 #: assets/templates/bookmarks/components/actions.jet.html
 msgid "Export and Share"
@@ -663,14 +675,28 @@ msgid "Label"
 msgstr "Štítek"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+msgid "From date"
+msgstr "Od data"
+
+#: assets/templates/bookmarks/components/filters.jet.html
+msgid "To date"
+msgstr "Do data"
+
+#: assets/templates/bookmarks/components/filters.jet.html
+msgid "Type"
+msgstr "Typ"
+
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Favorite"
 msgstr "Je oblíbený"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "yes"
 msgstr "ano"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "no"
 msgstr "ne"
 
@@ -679,16 +705,16 @@ msgid "Is Archived"
 msgstr "Je archivovaný"
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "Type"
-msgstr "Typ"
+msgid "Is Loaded"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "From date"
-msgstr "Od data"
+msgid "With Labels"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "To date"
-msgstr "Do data"
+msgid "With Errors"
+msgstr ""
 
 #: assets/templates/bookmarks/components/labels.jet.html
 msgid "Remove label"
@@ -738,6 +764,14 @@ msgstr "Velikost"
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Line height"
 msgstr "Výška řádku"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html
+msgid "Justify"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html
+msgid "Hyphenation"
+msgstr ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html
 #: assets/templates/epub/bookmark.jet.html
@@ -799,6 +833,7 @@ msgstr "Přidá popisek k odkazům na základě jejich nadpisu sekce"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -818,6 +853,32 @@ msgstr ""
 "\n"
 "    Nahrajte soubor JSON získaný z Vaší GoodLinks aplikace.\n"
 "  "
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+#: assets/templates/bookmarks/import/index.jet.html
+msgid "Import your Omnivore Articles"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid ""
+"\n"
+"    To import your articles from Omnivore, you must first create an API "
+"Key in your\n"
+"    Omnivore's settings and enter it in the the form below.\n"
+"  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "Omnivore URL"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "URL of your Omnivore homepage"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "API Key"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
@@ -899,10 +960,10 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Pro import vašich článků z Wallabagu, musíte nejprve vytvořit klienta "
-"API\n"
-"    v nabídce <strong>Správa klientů API</strong> ve Wallabagu. Tím získáte "
-"<strong>ID klienta</strong>\n"
+"    Pro import vašich článků z Wallabagu, musíte nejprve vytvořit klienta"
+" API\n"
+"    v nabídce <strong>Správa klientů API</strong> ve Wallabagu. Tím "
+"získáte <strong>ID klienta</strong>\n"
 "    a <strong>Tajný kód klienta</strong>.\n"
 "  "
 
@@ -913,8 +974,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Všechny potřebné informace pak můžete zadat do níže uvedeného formuláře."
-"\n"
+"    Všechny potřebné informace pak můžete zadat do níže uvedeného "
+"formuláře.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -994,8 +1055,8 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"      Vaše záložky jsou nyní dostupné ve vašem <a class=\"%s\" href=\"%s\""
-">seznamu záložek</a>.\n"
+"      Vaše záložky jsou nyní dostupné ve vašem <a class=\"%s\" "
+"href=\"%s\">seznamu záložek</a>.\n"
 "      "
 
 #: assets/templates/bookmarks/index.jet.html
@@ -1019,8 +1080,8 @@ msgid ""
 "You don't have any bookmarks yet.<br> Copy a link in the field above and "
 "start saving."
 msgstr ""
-"Zatím nemáte žádné záložky.<br> Zkopírujte odkaz do výše uvedeného pole a "
-"začněte ukládat."
+"Zatím nemáte žádné záložky.<br> Zkopírujte odkaz do výše uvedeného pole a"
+" začněte ukládat."
 
 #: assets/templates/bookmarks/index.jet.html
 #, python-format
@@ -1028,7 +1089,8 @@ msgid ""
 "Read more about bookmarks in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Přečtěte si více o záložkách v <a class=\"%s\" href=\"%s\">dokumentaci</a>."
+"Přečtěte si více o záložkách v <a class=\"%s\" "
+"href=\"%s\">dokumentaci</a>."
 
 #: assets/templates/bookmarks/index.jet.html
 msgid ""
@@ -1049,11 +1111,6 @@ msgid "Import links and articles"
 msgstr "Importovat odkazy a články"
 
 #: assets/templates/bookmarks/index.jet.html
-msgctxt "action"
-msgid "Filter list"
-msgstr "Filtrovat seznam"
-
-#: assets/templates/bookmarks/index.jet.html
 msgid "Import bookmarks"
 msgstr "Importovat záložky"
 
@@ -1068,10 +1125,6 @@ msgid_plural "Your search query yielded <strong>%d results</strong>."
 msgstr[0] "Váš vyhledávací dotaz přinesl <strong>%d výsledek</strong>."
 msgstr[1] "Váš vyhledávací dotaz přinesl <strong>%d výsledky</strong>."
 msgstr[2] "Váš vyhledávací dotaz přinesl <strong>%d výsledků</strong>."
-
-#: assets/templates/bookmarks/index.jet.html
-msgid "Filters documentation"
-msgstr "Dokumentace k filtrům"
 
 #: assets/templates/bookmarks/index.jet.html
 msgctxt "action"
@@ -1130,8 +1183,8 @@ msgid ""
 "Here are your current system information. Please include them if you "
 "report a bug."
 msgstr ""
-"Zde jsou vaše aktuální informace o systému. Uveďte je prosím, pokud hlásíte "
-"chybu."
+"Zde jsou vaše aktuální informace o systému. Uveďte je prosím, pokud "
+"hlásíte chybu."
 
 #: assets/templates/docs/about.jet.html
 msgid "Project"
@@ -1237,8 +1290,8 @@ msgstr "Licence třetích stran"
 #: assets/templates/docs/about.jet.html
 msgid "Readeck includes and/or uses the following open source assets:"
 msgstr ""
-"Readeck obsahuje a/nebo používá následující prostředky s otevřeným zdrojovým "
-"kódem:"
+"Readeck obsahuje a/nebo používá následující prostředky s otevřeným "
+"zdrojovým kódem:"
 
 #: assets/templates/docs/api-docs.jet.html assets/templates/docs/base.jet.html
 msgid "API Documentation"
@@ -1247,6 +1300,10 @@ msgstr "Dokumentace API"
 #: assets/templates/docs/base.jet.html
 msgid "Readeck Help"
 msgstr "Nápověda Readecku"
+
+#: assets/templates/docs/base.jet.html
+msgid "Changelog"
+msgstr ""
 
 #: assets/templates/emails/recover.tmpl
 #, python-format
@@ -1336,12 +1393,16 @@ msgid "Change theme"
 msgstr "Změnit téma"
 
 #: assets/templates/menu.jet.html
-msgid "Change color theme"
-msgstr "Změnit barevné téma"
-
-#: assets/templates/menu.jet.html
 msgid "Sign out"
 msgstr "Odhlásit se"
+
+#: assets/templates/menu.jet.html
+msgid "Open menu"
+msgstr "Otevřít nabídku"
+
+#: assets/templates/menu.jet.html
+msgid "Change color theme"
+msgstr "Změnit barevné téma"
 
 #: assets/templates/profile/base.jet.html
 msgid "Settings"
@@ -1416,8 +1477,8 @@ msgstr ""
 "\n"
 "    Oprávnění udělená tomuto heslu můžete omezit výběrem jedné nebo více\n"
 "    níže uvedených skupin oprávnění.\n"
-"    Pro udělení všech oprávnění tomuto heslu, ponechte všechny volby prázdné."
-"\n"
+"    Pro udělení všech oprávnění tomuto heslu, ponechte všechny volby "
+"prázdné.\n"
 "  "
 
 #: assets/templates/profile/credential.jet.html
@@ -1492,7 +1553,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Oprávnění udělená tomuto tokenu můžete omezit výběrem jedné nebo více\n"
+"    Oprávnění udělená tomuto tokenu můžete omezit výběrem jedné nebo více"
+"\n"
 "    níže uvedených skupin oprávnění.\n"
 "    Pro udělení všech oprávnění tomuto tokenu, ponechte všechny volby "
 "prázdné.\n"
@@ -1540,7 +1602,8 @@ msgid ""
 "Please read the <a href=\"%s\">API Documentation</a> if you plan to use "
 "it."
 msgstr ""
-"Přečtěte si <a href=\"%s\">Dokumentaci API</a>, pokud ho plánujete používat."
+"Přečtěte si <a href=\"%s\">Dokumentaci API</a>, pokud ho plánujete "
+"používat."
 
 #: assets/templates/profile/token_list.jet.html
 msgid "Create a new API token"
@@ -1554,10 +1617,6 @@ msgstr "Vyprší: %s"
 #: assets/templates/profile/token_list.jet.html
 msgid "This token will be removed in a few seconds."
 msgstr "Tento token bude za několik sekund odebrán."
-
-#: docs/http.go
-msgid "Documentation"
-msgstr "Dokumentace"
 
 #: internal/admin/views.go
 msgid "User created."
@@ -1592,7 +1651,6 @@ msgid "Browser Bookmarks"
 msgstr "Záložky prohlížeče"
 
 #: internal/bookmarks/importer/browser.go
-#: internal/bookmarks/importer/pocket_file.go
 msgid "Unabled to read HTML content"
 msgstr "Nelze přečíst obsah HTML"
 
@@ -1606,6 +1664,18 @@ msgstr "Prázdný nebo neplatný importní soubor"
 #: internal/bookmarks/importer/goodlinks.go
 msgid "GoodLinks Export File"
 msgstr "Exportní soubor GoodLinks"
+
+#: internal/bookmarks/importer/omnivore.go
+msgid "Invalid API Key"
+msgstr ""
+
+#: internal/bookmarks/importer/pocket_file.go
+msgid "Invalid upload format"
+msgstr ""
+
+#: internal/bookmarks/importer/pocket_file.go
+msgid "Unabled to open zip file"
+msgstr ""
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
@@ -2029,3 +2099,14 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Invalid Content-Type"
 #~ msgstr "Neplatný typ obsahu"
+
+#~ msgid "More information"
+#~ msgstr "Více informací"
+
+#~ msgctxt "action"
+#~ msgid "Filter list"
+#~ msgstr "Filtrovat seznam"
+
+#~ msgid "Filters documentation"
+#~ msgstr "Dokumentace k filtrům"
+

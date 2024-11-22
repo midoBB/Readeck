@@ -6,18 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-09-07 08:26+0000\n"
+"POT-Creation-Date: 2024-11-22 19:37+0100\n"
 "PO-Revision-Date: 2024-11-22 18:25+0000\n"
 "Last-Translator: bttr <bttr@users.noreply.translate.codeberg.org>\n"
-"Language-Team: German <https://translate.codeberg.org/projects/readeck/"
-"application/de/>\n"
 "Language: de_DE\n"
+"Language-Team: German "
+"<https://translate.codeberg.org/projects/readeck/application/de/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8.1\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.15.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
 #: assets/templates/bookmarks/bookmark.jet.html assets/templates/error.jet.html
@@ -34,8 +33,8 @@ msgid "Main content"
 msgstr "Hauptinhalt"
 
 #: assets/templates/_layouts/sidemenu.jet.html
-msgid "Open menu"
-msgstr "Menü öffnen"
+msgid "Close menu"
+msgstr ""
 
 #: assets/templates/_libs/common.jet.html
 msgid "Quick access menu"
@@ -129,6 +128,7 @@ msgstr "Der Benutzer wird in ein paar Sekunden entfernt"
 #: assets/templates/bookmarks/components/card.jet.html
 #: assets/templates/bookmarks/import/form-browser.jet.html
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -239,8 +239,8 @@ msgstr "Wilkommen bei Readeck!"
 #: assets/templates/auth/onboarding.jet.html
 msgid "We're delighted to have you on board; one more step and you're good to go."
 msgstr ""
-"Wir freuen uns, Sie an Bord zu haben. Nur noch ein Schritt und schon kann es "
-"losgehen."
+"Wir freuen uns, Sie an Bord zu haben. Nur noch ein Schritt und schon kann"
+" es losgehen."
 
 #: assets/templates/auth/onboarding.jet.html
 #: assets/templates/auth/recover.jet.html
@@ -255,8 +255,7 @@ msgstr "Bitte beachte:"
 #: assets/templates/auth/onboarding.jet.html
 msgid ""
 "\n"
-"  Your email address is optional and will never leave this installation."
-"\n"
+"  Your email address is optional and will never leave this installation.\n"
 "  It will never be collected, transferred or sold.\n"
 "  It will <strong>only</strong> be used, should you need it, for password"
 " recovery and internal notifications.\n"
@@ -357,8 +356,8 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"       So bald du anfängst, Teile deiner Artikel zu markieren, werden Sie "
-"hier auftauchen \n"
+"       So bald du anfängst, Teile deiner Artikel zu markieren, werden Sie"
+" hier auftauchen \n"
 "        damit du sie leichter finden kannst.\n"
 "      "
 
@@ -368,8 +367,8 @@ msgid ""
 "Read more about highlights in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Lies mehr über diese Markierung in der <a class=\"%s\" href=\"%s\""
-">Dokumentation</a>."
+"Lies mehr über diese Markierung in der <a class=\"%s\" "
+"href=\"%s\">Dokumentation</a>."
 
 #: assets/templates/bookmarks/base.jet.html
 #: assets/templates/bookmarks/bookmark.jet.html
@@ -424,8 +423,12 @@ msgid "Collections"
 msgstr "Sammlungen"
 
 #: assets/templates/bookmarks/bookmark.jet.html
-msgid "More information"
-msgstr "Mehr Informationen"
+msgid "Close panel"
+msgstr ""
+
+#: assets/templates/bookmarks/bookmark.jet.html
+msgid "Bookmark information"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark loading"
@@ -508,6 +511,16 @@ msgid "Edit"
 msgstr "Bearbeiten"
 
 #: assets/templates/bookmarks/collection.jet.html
+#: assets/templates/bookmarks/index.jet.html
+msgid "Filters"
+msgstr ""
+
+#: assets/templates/bookmarks/collection.jet.html
+#: assets/templates/bookmarks/index.jet.html docs/http.go
+msgid "Documentation"
+msgstr "Dokumentation"
+
+#: assets/templates/bookmarks/collection.jet.html
 #: assets/templates/bookmarks/collection_create.jet.html
 #: assets/templates/profile/credential.jet.html
 msgid "Name"
@@ -540,11 +553,12 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          Mithilfe von Sammlungen können Sie Ihre Lesezeichen ganz einfach\n"
-"          organisieren und exportieren, indem Sie Suchanfragen Ihrer Wahl "
-"speichern.\n"
-"          Wenn Sie ein neues Lesezeichen erstellen, das den Kriterien einer "
-"\n"
+"          Mithilfe von Sammlungen können Sie Ihre Lesezeichen ganz "
+"einfach\n"
+"          organisieren und exportieren, indem Sie Suchanfragen Ihrer Wahl"
+" speichern.\n"
+"          Wenn Sie ein neues Lesezeichen erstellen, das den Kriterien "
+"einer \n"
 "          Sammlung entspricht, wird es sofort angezeigt.\n"
 "          Hier einige Beispiele:\n"
 "        "
@@ -571,8 +585,8 @@ msgid ""
 "Read more about collections in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Lies mehr über Sammlungen in der <a class=\"%s\" href=\"%s\""
-">Dokumentation</a>."
+"Lies mehr über Sammlungen in der <a class=\"%s\" "
+"href=\"%s\">Dokumentation</a>."
 
 #: assets/templates/bookmarks/components/actions.jet.html
 msgid "Export and Share"
@@ -669,14 +683,28 @@ msgid "Label"
 msgstr "Tag"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+msgid "From date"
+msgstr "Ab Datum"
+
+#: assets/templates/bookmarks/components/filters.jet.html
+msgid "To date"
+msgstr "Bis Datum"
+
+#: assets/templates/bookmarks/components/filters.jet.html
+msgid "Type"
+msgstr "Typ"
+
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Favorite"
 msgstr "Ist Favorit"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "yes"
 msgstr "Ja"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "no"
 msgstr "Nein"
 
@@ -685,16 +713,16 @@ msgid "Is Archived"
 msgstr "Ist archiviert"
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "Type"
-msgstr "Typ"
+msgid "Is Loaded"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "From date"
-msgstr "Ab Datum"
+msgid "With Labels"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "To date"
-msgstr "Bis Datum"
+msgid "With Errors"
+msgstr ""
 
 #: assets/templates/bookmarks/components/labels.jet.html
 msgid "Remove label"
@@ -745,6 +773,14 @@ msgstr "Größe"
 msgid "Line height"
 msgstr "Zeilenhöhe"
 
+#: assets/templates/bookmarks/components/reader_control.jet.html
+msgid "Justify"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html
+msgid "Hyphenation"
+msgstr ""
+
 #: assets/templates/bookmarks/components/sidebar.jet.html
 #: assets/templates/epub/bookmark.jet.html
 msgid "no site name"
@@ -777,8 +813,10 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Exportiere deine Lesezeichen in deinem Webbrowser als HTML-Datei.<br>\n"
-"    Lade die Datei in dem untenstehenden Formular hoch und Readeck erstellt\n"
+"    Exportiere deine Lesezeichen in deinem Webbrowser als HTML-Datei.<br>"
+"\n"
+"    Lade die Datei in dem untenstehenden Formular hoch und Readeck "
+"erstellt\n"
 "    und holt alle darin gefundenen Lesezeichen.\n"
 "  "
 
@@ -807,6 +845,7 @@ msgstr "Fügt ein Tag auf Links hinzu, basierend auf ihrem Abschnittstitel"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -826,6 +865,32 @@ msgstr ""
 "\n"
 "    Lade eine JSON Datei die du aus der GoodLinks App erhalten hast.\n"
 "  "
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+#: assets/templates/bookmarks/import/index.jet.html
+msgid "Import your Omnivore Articles"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid ""
+"\n"
+"    To import your articles from Omnivore, you must first create an API "
+"Key in your\n"
+"    Omnivore's settings and enter it in the the form below.\n"
+"  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "Omnivore URL"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "URL of your Omnivore homepage"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "API Key"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
@@ -853,7 +918,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Lade die Datei in dem untenstehenden Formular hoch und Readeck erstellt\n"
+"    Lade die Datei in dem untenstehenden Formular hoch und Readeck "
+"erstellt\n"
 "\tsowie holt alle darin gefundenen Lesezeichen.\n"
 "  "
 
@@ -870,8 +936,8 @@ msgstr ""
 "\n"
 "    Bitte beachten Sie, dass Pocket den Export des Artikelinhalts nicht "
 "zulässt.\n"
-"    Dies könnte in Readeck zu anderen Ergebnissen führen als dem, was Sie "
-"derzeit\n"
+"    Dies könnte in Readeck zu anderen Ergebnissen führen als dem, was Sie"
+" derzeit\n"
 "    in Pocket sehen.\n"
 "  "
 
@@ -889,8 +955,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Lade eine Textdatei hoch, die einen Link pro Zeile enthält. Readeck wird "
-"dann alle abrufen\n"
+"    Lade eine Textdatei hoch, die einen Link pro Zeile enthält. Readeck "
+"wird dann alle abrufen\n"
 "\tund in Ihrer Lesezeichenliste speichern.\n"
 "  "
 
@@ -910,12 +976,12 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Um deine Artikel aus Wallabag zu importieren, musst du zunächst einen "
-"API-Client\n"
+"    Um deine Artikel aus Wallabag zu importieren, musst du zunächst einen"
+" API-Client\n"
 "\tim Menü <strong>API-Clientverwaltung</strong> von Wallabag erstellen. "
 "Dadurch erhälst du\n"
-"\teine <strong>Client-ID</strong> und ein <strong>Client-Geheimnis</strong>."
-"\n"
+"\teine <strong>Client-ID</strong> und ein <strong>Client-"
+"Geheimnis</strong>.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -963,8 +1029,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/index.jet.html
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
-msgstr ""
-"Importiere deine Lesezeichen aus dem Browser, der Pinnwand oder Instapaper"
+msgstr "Importiere deine Lesezeichen aus dem Browser, der Pinnwand oder Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html
 msgid "Import your GoodLinks Articles"
@@ -1007,8 +1072,8 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"      Deine Lesezeichen sind jetzt in deiner <a class=\"%s\" href=\"%s\""
-">Lesezeichenliste</a> verfügbar.\n"
+"      Deine Lesezeichen sind jetzt in deiner <a class=\"%s\" "
+"href=\"%s\">Lesezeichenliste</a> verfügbar.\n"
 "      "
 
 #: assets/templates/bookmarks/index.jet.html
@@ -1026,16 +1091,16 @@ msgid ""
 "\"%s\" is not a valid address. Did you mean to search your bookmarks for "
 "%s?"
 msgstr ""
-"\"%s\" ist keine gültige Adresse. Wolltest du in deinen Lesezeichen nach %s\""
-" suchen?"
+"\"%s\" ist keine gültige Adresse. Wolltest du in deinen Lesezeichen nach "
+"%s\" suchen?"
 
 #: assets/templates/bookmarks/index.jet.html
 msgid ""
 "You don't have any bookmarks yet.<br> Copy a link in the field above and "
 "start saving."
 msgstr ""
-"Du hast noch keine Lesezeichen.<br> Kopiere einen Link in das Feld oben und "
-"beginne mit dem Speichern."
+"Du hast noch keine Lesezeichen.<br> Kopiere einen Link in das Feld oben "
+"und beginne mit dem Speichern."
 
 #: assets/templates/bookmarks/index.jet.html
 #, python-format
@@ -1043,8 +1108,8 @@ msgid ""
 "Read more about bookmarks in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Lies mehr über Lesezeichen in der <a class=\"%s\" href=\"%s\""
-">Dokumentation</a>."
+"Lies mehr über Lesezeichen in der <a class=\"%s\" "
+"href=\"%s\">Dokumentation</a>."
 
 #: assets/templates/bookmarks/index.jet.html
 msgid ""
@@ -1065,11 +1130,6 @@ msgid "Import links and articles"
 msgstr "Importiere Links und Artikel"
 
 #: assets/templates/bookmarks/index.jet.html
-msgctxt "action"
-msgid "Filter list"
-msgstr "Liste filtern"
-
-#: assets/templates/bookmarks/index.jet.html
 msgid "Import bookmarks"
 msgstr "Lesezeichen importieren"
 
@@ -1083,10 +1143,6 @@ msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
 msgstr[0] "Deine Suche ergab <strong>%d Ergebnis</strong>."
 msgstr[1] "Deine Suche ergab <strong>%d Ergebnisse</strong>."
-
-#: assets/templates/bookmarks/index.jet.html
-msgid "Filters documentation"
-msgstr "Filter Dokumentation"
 
 #: assets/templates/bookmarks/index.jet.html
 msgctxt "action"
@@ -1120,8 +1176,8 @@ msgid ""
 "  You can set anything to a label, including emojis!\n"
 msgstr ""
 "\n"
-"  Etiketten ermöglichen dir die Organisation deiner Lesezeichen nach deinen "
-"Wünschen.\n"
+"  Etiketten ermöglichen dir die Organisation deiner Lesezeichen nach "
+"deinen Wünschen.\n"
 " Du kannst ein Etikett frei benennen, auch mit Emojis!\n"
 
 #: assets/templates/docs/about.jet.html assets/templates/docs/base.jet.html
@@ -1146,8 +1202,8 @@ msgid ""
 "Here are your current system information. Please include them if you "
 "report a bug."
 msgstr ""
-"Hier findest du die aktuellen Systeminformationen. Bitte gib diese an, wenn "
-"du einen Fehler meldest."
+"Hier findest du die aktuellen Systeminformationen. Bitte gib diese an, "
+"wenn du einen Fehler meldest."
 
 #: assets/templates/docs/about.jet.html
 msgid "Project"
@@ -1252,8 +1308,7 @@ msgstr "Lizenzen von Drittanbietern"
 
 #: assets/templates/docs/about.jet.html
 msgid "Readeck includes and/or uses the following open source assets:"
-msgstr ""
-"Readeck enthält und/oder verwendet die folgenden Open-Source-Ressourcen:"
+msgstr "Readeck enthält und/oder verwendet die folgenden Open-Source-Ressourcen:"
 
 #: assets/templates/docs/api-docs.jet.html assets/templates/docs/base.jet.html
 msgid "API Documentation"
@@ -1262,6 +1317,10 @@ msgstr "API Dokumentation"
 #: assets/templates/docs/base.jet.html
 msgid "Readeck Help"
 msgstr "Readeck Hilfe"
+
+#: assets/templates/docs/base.jet.html
+msgid "Changelog"
+msgstr ""
 
 #: assets/templates/emails/recover.tmpl
 #, python-format
@@ -1280,8 +1339,8 @@ msgstr ""
 "\n"
 "Hallo,\n"
 "\n"
-"du (oder jemand anderes) hat diese E-Mail-Adresse eingegeben, als versucht "
-"wurde,\n"
+"du (oder jemand anderes) hat diese E-Mail-Adresse eingegeben, als "
+"versucht wurde,\n"
 "das Passwort eines Readeck-Kontos (%s) zu ändern.\n"
 "\n"
 "Wenn du diese E-Mail erwartest, folge bitte diesem Link, um\n"
@@ -1310,8 +1369,8 @@ msgstr ""
 "\n"
 "Hallo,\n"
 "\n"
-"du (oder jemand anderes) hat diese E-Mail-Adresse eingegeben, als versucht "
-"wurde,\n"
+"du (oder jemand anderes) hat diese E-Mail-Adresse eingegeben, als "
+"versucht wurde,\n"
 "das Passwort eines Readeck-Kontos (%s) zu ändern.\n"
 "\n"
 "Diese E-Mail-Adresse ist jedoch keinem Konto zugeordnet und\n"
@@ -1353,12 +1412,16 @@ msgid "Change theme"
 msgstr "Theme verändern"
 
 #: assets/templates/menu.jet.html
-msgid "Change color theme"
-msgstr "Theme Farbe verändern"
-
-#: assets/templates/menu.jet.html
 msgid "Sign out"
 msgstr "Abmelden"
+
+#: assets/templates/menu.jet.html
+msgid "Open menu"
+msgstr "Menü öffnen"
+
+#: assets/templates/menu.jet.html
+msgid "Change color theme"
+msgstr "Theme Farbe verändern"
 
 #: assets/templates/profile/base.jet.html
 msgid "Settings"
@@ -1393,8 +1456,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Dein Kennwort wurde erstellt. Bitte kopiere das untenstehende Kennwort "
-"und notiere es\n"
+"    Dein Kennwort wurde erstellt. Bitte kopiere das untenstehende "
+"Kennwort und notiere es\n"
 "\toder speichere es in einem Kennwortmanager ab.\n"
 "  "
 
@@ -1510,8 +1573,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Du kannst die diesem Token erteilten Berechtigungen einschränken, indem "
-"du unten eine oder mehrere\n"
+"    Du kannst die diesem Token erteilten Berechtigungen einschränken, "
+"indem du unten eine oder mehrere\n"
 "\tBerechtigungsgruppen auswhälst.<br>\n"
 "\tLassen alle Auswahlmöglichkeiten leer, um diesem Token alle deine "
 "Berechtigungen zu erteilen.\n"
@@ -1549,8 +1612,8 @@ msgid ""
 "  access to the Readeck API.\n"
 msgstr ""
 "\n"
-" Ein API-Token ist ein Schlüssel, der dir (oder einem anderen Tool wie einer "
-"Browser-Erweiterung)\n"
+" Ein API-Token ist ein Schlüssel, der dir (oder einem anderen Tool wie "
+"einer Browser-Erweiterung)\n"
 " Zugriff auf die Readeck-API gewährt.\n"
 
 #: assets/templates/profile/token_list.jet.html
@@ -1574,10 +1637,6 @@ msgstr "Läuft ab am: %s"
 #: assets/templates/profile/token_list.jet.html
 msgid "This token will be removed in a few seconds."
 msgstr "Dieses Token wird in ein paar Sekunden entfernt."
-
-#: docs/http.go
-msgid "Documentation"
-msgstr "Dokumentation"
 
 #: internal/admin/views.go
 msgid "User created."
@@ -1612,7 +1671,6 @@ msgid "Browser Bookmarks"
 msgstr "Browser Lesezeichen"
 
 #: internal/bookmarks/importer/browser.go
-#: internal/bookmarks/importer/pocket_file.go
 msgid "Unabled to read HTML content"
 msgstr "HTML-Inhalt kann nicht gelesen werden"
 
@@ -1626,6 +1684,18 @@ msgstr "Leere oder ungültige Importdatei"
 #: internal/bookmarks/importer/goodlinks.go
 msgid "GoodLinks Export File"
 msgstr "GoodLinks Export Datei"
+
+#: internal/bookmarks/importer/omnivore.go
+msgid "Invalid API Key"
+msgstr ""
+
+#: internal/bookmarks/importer/pocket_file.go
+msgid "Invalid upload format"
+msgstr ""
+
+#: internal/bookmarks/importer/pocket_file.go
+msgid "Unabled to open zip file"
+msgstr ""
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
@@ -2049,3 +2119,14 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Invalid Content-Type"
 #~ msgstr "Ungültiger Inhaltstyp"
+
+#~ msgid "More information"
+#~ msgstr "Mehr Informationen"
+
+#~ msgctxt "action"
+#~ msgid "Filter list"
+#~ msgstr "Liste filtern"
+
+#~ msgid "Filters documentation"
+#~ msgstr "Filter Dokumentation"
+

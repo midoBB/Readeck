@@ -6,19 +6,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-09-07 08:26+0000\n"
+"POT-Creation-Date: 2024-11-22 19:37+0100\n"
 "PO-Revision-Date: 2024-11-22 18:25+0000\n"
-"Last-Translator: User240803 <User240803@users.noreply.translate.codeberg.org>"
-"\n"
-"Language-Team: Hungarian <https://translate.codeberg.org/projects/readeck/"
-"application/hu/>\n"
+"Last-Translator: User240803 "
+"<User240803@users.noreply.translate.codeberg.org>\n"
 "Language: hu_HU\n"
+"Language-Team: Hungarian "
+"<https://translate.codeberg.org/projects/readeck/application/hu/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8.1\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.15.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
 #: assets/templates/bookmarks/bookmark.jet.html assets/templates/error.jet.html
@@ -35,8 +34,8 @@ msgid "Main content"
 msgstr "Tartalom"
 
 #: assets/templates/_layouts/sidemenu.jet.html
-msgid "Open menu"
-msgstr "Menü megnyitása"
+msgid "Close menu"
+msgstr ""
 
 #: assets/templates/_libs/common.jet.html
 msgid "Quick access menu"
@@ -130,6 +129,7 @@ msgstr "A felhasználó néhány másodpercen belül eltávolításra kerül"
 #: assets/templates/bookmarks/components/card.jet.html
 #: assets/templates/bookmarks/import/form-browser.jet.html
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -239,8 +239,7 @@ msgstr "Üdvözli a Readeck!"
 
 #: assets/templates/auth/onboarding.jet.html
 msgid "We're delighted to have you on board; one more step and you're good to go."
-msgstr ""
-"Örülünk, hogy a fedélzeten van; csak még egy lépés, és már készen is áll."
+msgstr "Örülünk, hogy a fedélzeten van; csak még egy lépés, és már készen is áll."
 
 #: assets/templates/auth/onboarding.jet.html
 #: assets/templates/auth/recover.jet.html
@@ -255,8 +254,7 @@ msgstr "Felhívjuk a figyelmét:"
 #: assets/templates/auth/onboarding.jet.html
 msgid ""
 "\n"
-"  Your email address is optional and will never leave this installation."
-"\n"
+"  Your email address is optional and will never leave this installation.\n"
 "  It will never be collected, transferred or sold.\n"
 "  It will <strong>only</strong> be used, should you need it, for password"
 " recovery and internal notifications.\n"
@@ -367,8 +365,8 @@ msgid ""
 "Read more about highlights in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"A kiemelésekről bővebben a <a class=\"%s\" href=\"%s\">dokumentációban</a> "
-"olvashat."
+"A kiemelésekről bővebben a <a class=\"%s\" "
+"href=\"%s\">dokumentációban</a> olvashat."
 
 #: assets/templates/bookmarks/base.jet.html
 #: assets/templates/bookmarks/bookmark.jet.html
@@ -423,8 +421,12 @@ msgid "Collections"
 msgstr "Gyűjtemények"
 
 #: assets/templates/bookmarks/bookmark.jet.html
-msgid "More information"
-msgstr "Több információ"
+msgid "Close panel"
+msgstr ""
+
+#: assets/templates/bookmarks/bookmark.jet.html
+msgid "Bookmark information"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark loading"
@@ -507,6 +509,16 @@ msgid "Edit"
 msgstr "Szerkesztés"
 
 #: assets/templates/bookmarks/collection.jet.html
+#: assets/templates/bookmarks/index.jet.html
+msgid "Filters"
+msgstr ""
+
+#: assets/templates/bookmarks/collection.jet.html
+#: assets/templates/bookmarks/index.jet.html docs/http.go
+msgid "Documentation"
+msgstr "Dokumentáció"
+
+#: assets/templates/bookmarks/collection.jet.html
 #: assets/templates/bookmarks/collection_create.jet.html
 #: assets/templates/profile/credential.jet.html
 msgid "Name"
@@ -570,8 +582,8 @@ msgid ""
 "Read more about collections in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Tudjon meg többet a gyűjteményekről a <a class=\"%s\" href=\"%s\""
-">dokumentációban</a>."
+"Tudjon meg többet a gyűjteményekről a <a class=\"%s\" "
+"href=\"%s\">dokumentációban</a>."
 
 #: assets/templates/bookmarks/components/actions.jet.html
 msgid "Export and Share"
@@ -668,14 +680,28 @@ msgid "Label"
 msgstr "Címke"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+msgid "From date"
+msgstr "Dátumtól"
+
+#: assets/templates/bookmarks/components/filters.jet.html
+msgid "To date"
+msgstr "Dátumig"
+
+#: assets/templates/bookmarks/components/filters.jet.html
+msgid "Type"
+msgstr "Típus"
+
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Favorite"
 msgstr "Kedvenc"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "yes"
 msgstr "igen"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "no"
 msgstr "nem"
 
@@ -684,16 +710,16 @@ msgid "Is Archived"
 msgstr "Archivált"
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "Type"
-msgstr "Típus"
+msgid "Is Loaded"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "From date"
-msgstr "Dátumtól"
+msgid "With Labels"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "To date"
-msgstr "Dátumig"
+msgid "With Errors"
+msgstr ""
 
 #: assets/templates/bookmarks/components/labels.jet.html
 msgid "Remove label"
@@ -744,6 +770,14 @@ msgstr "Nagyság"
 msgid "Line height"
 msgstr "Sormagassság"
 
+#: assets/templates/bookmarks/components/reader_control.jet.html
+msgid "Justify"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html
+msgid "Hyphenation"
+msgstr ""
+
 #: assets/templates/bookmarks/components/sidebar.jet.html
 #: assets/templates/epub/bookmark.jet.html
 msgid "no site name"
@@ -755,8 +789,7 @@ msgstr "A kivonatolás során hibák léptek fel."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html
 msgid "Start selecting text in the article to create a new highlight."
-msgstr ""
-"Kezdje el kijelölni a szöveget a cikkben, hogy új kiemelést hozzon létre."
+msgstr "Kezdje el kijelölni a szöveget a cikkben, hogy új kiemelést hozzon létre."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html
 msgid "Links"
@@ -806,6 +839,7 @@ msgstr "Címkék hivatkozásokhoz adása a szakaszcímek alapján"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -825,6 +859,32 @@ msgstr ""
 "\n"
 "    Az Ön GoodLinks alkalmazásából származó JSON fájl feltöltése\n"
 "  "
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+#: assets/templates/bookmarks/import/index.jet.html
+msgid "Import your Omnivore Articles"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid ""
+"\n"
+"    To import your articles from Omnivore, you must first create an API "
+"Key in your\n"
+"    Omnivore's settings and enter it in the the form below.\n"
+"  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "Omnivore URL"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "URL of your Omnivore homepage"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "API Key"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
@@ -909,8 +969,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    A cikkek Wallabagból történő importálásához először létre kell hoznia "
-"egy API klienst\n"
+"    A cikkek Wallabagból történő importálásához először létre kell hoznia"
+" egy API klienst\n"
 "    a Wallabag <strong>API kliens menedzsment</strong> menüjében. Ez "
 "létrehoz Önnek egy\n"
 "    <strong>Kliens ID-t</strong> és <strong>Kliens titkot</strong>.\n"
@@ -954,14 +1014,15 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Itt importálhatja meglévő könyvjelzőgyűjteményét különböző forrásokból a "
-"Readeckbe.\n"
+"    Itt importálhatja meglévő könyvjelzőgyűjteményét különböző "
+"forrásokból a Readeckbe.\n"
 "  "
 
 #: assets/templates/bookmarks/import/index.jet.html
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
 msgstr ""
-"Importálja a Bönégszője Könyvjelzőit, Pinboard vagy Instapaper bejegyzéseit"
+"Importálja a Bönégszője Könyvjelzőit, Pinboard vagy Instapaper "
+"bejegyzéseit"
 
 #: assets/templates/bookmarks/import/index.jet.html
 msgid "Import your GoodLinks Articles"
@@ -1004,8 +1065,8 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"      A könyvjelzői most már elérhetők a <a class=\"%s\" href=\"%s\""
-">könyvjelzőlistában</a>.\n"
+"      A könyvjelzői most már elérhetők a <a class=\"%s\" "
+"href=\"%s\">könyvjelzőlistában</a>.\n"
 "      "
 
 #: assets/templates/bookmarks/index.jet.html
@@ -1022,16 +1083,15 @@ msgstr "Link mentése"
 msgid ""
 "\"%s\" is not a valid address. Did you mean to search your bookmarks for "
 "%s?"
-msgstr ""
-"\"%s\" nem érvényes cím. Úgy értette, hogy a könyvjelzőiben a %s-t keresi?"
+msgstr "\"%s\" nem érvényes cím. Úgy értette, hogy a könyvjelzőiben a %s-t keresi?"
 
 #: assets/templates/bookmarks/index.jet.html
 msgid ""
 "You don't have any bookmarks yet.<br> Copy a link in the field above and "
 "start saving."
 msgstr ""
-"Még nincsenek könyvjelzői.<br> Másoljon egy hivatkzosát a fenti mezőbe, és "
-"kezdje el a mentést."
+"Még nincsenek könyvjelzői.<br> Másoljon egy hivatkzosát a fenti mezőbe, "
+"és kezdje el a mentést."
 
 #: assets/templates/bookmarks/index.jet.html
 #, python-format
@@ -1039,8 +1099,8 @@ msgid ""
 "Read more about bookmarks in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"A könyvjelzőkről bővebben a <a class=\"%s\" href=\"%s\">dokumentációban</a> "
-"olvashat."
+"A könyvjelzőkről bővebben a <a class=\"%s\" "
+"href=\"%s\">dokumentációban</a> olvashat."
 
 #: assets/templates/bookmarks/index.jet.html
 msgid ""
@@ -1061,11 +1121,6 @@ msgid "Import links and articles"
 msgstr "Hivatkozások és cikkek importálása"
 
 #: assets/templates/bookmarks/index.jet.html
-msgctxt "action"
-msgid "Filter list"
-msgstr "Lista szűrése"
-
-#: assets/templates/bookmarks/index.jet.html
 msgid "Import bookmarks"
 msgstr "Könyvjelzők importálása"
 
@@ -1079,10 +1134,6 @@ msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
 msgstr[0] "Az Ön keresési lekérdezése <strong>%d eredményt</strong> eredményezett."
 msgstr[1] "Az Ön keresési lekérdezése <strong>%d eredményt</strong> eredményezett."
-
-#: assets/templates/bookmarks/index.jet.html
-msgid "Filters documentation"
-msgstr "Szűrők dokumentációja"
 
 #: assets/templates/bookmarks/index.jet.html
 msgctxt "action"
@@ -1141,8 +1192,8 @@ msgid ""
 "Here are your current system information. Please include them if you "
 "report a bug."
 msgstr ""
-"Itt vannak az Ön jelenlegi rendszeradatai. Kérjük, adja meg ezeket, ha hibát "
-"jelent."
+"Itt vannak az Ön jelenlegi rendszeradatai. Kérjük, adja meg ezeket, ha "
+"hibát jelent."
 
 #: assets/templates/docs/about.jet.html
 msgid "Project"
@@ -1259,6 +1310,10 @@ msgstr "API Dokumentációs"
 msgid "Readeck Help"
 msgstr "Readeck Súgó"
 
+#: assets/templates/docs/base.jet.html
+msgid "Changelog"
+msgstr ""
+
 #: assets/templates/emails/recover.tmpl
 #, python-format
 msgid ""
@@ -1312,7 +1367,8 @@ msgstr ""
 "ezért a jelszóváltoztatási kísérlet sikertelen volt.\n"
 "\n"
 "Ha Ön a Readeck felhasználója a %s oldalon, és Ön\n"
-"ezt az e-mailt várja, kérjük, próbálja meg újra a következő e-mail címmel\n"
+"ezt az e-mailt várja, kérjük, próbálja meg újra a következő e-mail címmel"
+"\n"
 "amelyet a fiókja létrehozásakor használt.\n"
 "\n"
 "Ha Ön nem Readeck-felhasználó, kérjük, hagyja figyelmen kívül ezt az "
@@ -1348,12 +1404,16 @@ msgid "Change theme"
 msgstr "Téma váltása"
 
 #: assets/templates/menu.jet.html
-msgid "Change color theme"
-msgstr "Színtéma módosítása"
-
-#: assets/templates/menu.jet.html
 msgid "Sign out"
 msgstr "Kijelentkezés"
+
+#: assets/templates/menu.jet.html
+msgid "Open menu"
+msgstr "Menü megnyitása"
+
+#: assets/templates/menu.jet.html
+msgid "Change color theme"
+msgstr "Színtéma módosítása"
 
 #: assets/templates/profile/base.jet.html
 msgid "Settings"
@@ -1428,8 +1488,8 @@ msgstr ""
 "\n"
 "    A jelszóhoz megadott engedélyeket korlátozhatja az alábbi\n"
 "    engedélyek egy vagy több csoportjának kiválasztásával.<br>\n"
-"     Hagyja üresen az összes lehetőséget, ha minden engedélyt megad ehhez a "
-"jelszóhoz.\n"
+"     Hagyja üresen az összes lehetőséget, ha minden engedélyt megad ehhez"
+" a jelszóhoz.\n"
 "  "
 
 #: assets/templates/profile/credential.jet.html
@@ -1542,8 +1602,8 @@ msgid ""
 "  access to the Readeck API.\n"
 msgstr ""
 "\n"
-"  Az API token egy olyan kulcs, amely lehetővé teszi az Ön (vagy egy másik "
-"eszköz, például egy böngészőbővítmény) számára, hogy\n"
+"  Az API token egy olyan kulcs, amely lehetővé teszi az Ön (vagy egy "
+"másik eszköz, például egy böngészőbővítmény) számára, hogy\n"
 "  hozzáférést biztosít a Readeck API-hoz.\n"
 
 #: assets/templates/profile/token_list.jet.html
@@ -1567,10 +1627,6 @@ msgstr "Lejár ekkor: : %s"
 #: assets/templates/profile/token_list.jet.html
 msgid "This token will be removed in a few seconds."
 msgstr "Ez a token néhány másodpercen belül eltávolításra kerül."
-
-#: docs/http.go
-msgid "Documentation"
-msgstr "Dokumentáció"
 
 #: internal/admin/views.go
 msgid "User created."
@@ -1605,7 +1661,6 @@ msgid "Browser Bookmarks"
 msgstr "Böngésző Könyvjelzők"
 
 #: internal/bookmarks/importer/browser.go
-#: internal/bookmarks/importer/pocket_file.go
 msgid "Unabled to read HTML content"
 msgstr "HTML tartalom olvasása nem engedélyezett"
 
@@ -1619,6 +1674,18 @@ msgstr "Üres vagy érvénytelen importfájl"
 #: internal/bookmarks/importer/goodlinks.go
 msgid "GoodLinks Export File"
 msgstr "GoodLinks Export Fájl"
+
+#: internal/bookmarks/importer/omnivore.go
+msgid "Invalid API Key"
+msgstr ""
+
+#: internal/bookmarks/importer/pocket_file.go
+msgid "Invalid upload format"
+msgstr ""
+
+#: internal/bookmarks/importer/pocket_file.go
+msgid "Unabled to open zip file"
+msgstr ""
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
@@ -2042,3 +2109,14 @@ msgstr "%a %b %e %H:%M:%S %y"
 
 #~ msgid "Invalid Content-Type"
 #~ msgstr "Érvénytelen Tartalom-Típus"
+
+#~ msgid "More information"
+#~ msgstr "Több információ"
+
+#~ msgctxt "action"
+#~ msgid "Filter list"
+#~ msgstr "Lista szűrése"
+
+#~ msgid "Filters documentation"
+#~ msgstr "Szűrők dokumentációja"
+

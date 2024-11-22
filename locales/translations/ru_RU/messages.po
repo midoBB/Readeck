@@ -6,19 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-09-07 08:26+0000\n"
+"POT-Creation-Date: 2024-11-22 19:37+0100\n"
 "PO-Revision-Date: 2024-11-22 18:25+0000\n"
-"Last-Translator: Anonymous <anonymous@users.noreply.translate.codeberg.org>\n"
-"Language-Team: Russian <https://translate.codeberg.org/projects/readeck/"
-"application/ru/>\n"
+"Last-Translator: Anonymous "
+"<anonymous@users.noreply.translate.codeberg.org>\n"
 "Language: ru_RU\n"
+"Language-Team: Russian "
+"<https://translate.codeberg.org/projects/readeck/application/ru/>\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.8.1\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.15.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
 #: assets/templates/bookmarks/bookmark.jet.html assets/templates/error.jet.html
@@ -35,8 +35,8 @@ msgid "Main content"
 msgstr "Главное содержание"
 
 #: assets/templates/_layouts/sidemenu.jet.html
-msgid "Open menu"
-msgstr "Открыть меню"
+msgid "Close menu"
+msgstr ""
 
 #: assets/templates/_libs/common.jet.html
 msgid "Quick access menu"
@@ -130,6 +130,7 @@ msgstr "Через пару секунд пользователя не стан�
 #: assets/templates/bookmarks/components/card.jet.html
 #: assets/templates/bookmarks/import/form-browser.jet.html
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -254,8 +255,7 @@ msgstr "Внимание:"
 #: assets/templates/auth/onboarding.jet.html
 msgid ""
 "\n"
-"  Your email address is optional and will never leave this installation."
-"\n"
+"  Your email address is optional and will never leave this installation.\n"
 "  It will never be collected, transferred or sold.\n"
 "  It will <strong>only</strong> be used, should you need it, for password"
 " recovery and internal notifications.\n"
@@ -355,8 +355,8 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"        Вы можете выделять интересные места в закладках, и они появятся тут,"
-"\n"
+"        Вы можете выделять интересные места в закладках, и они появятся "
+"тут,\n"
 "        чтобы Вы их легко нашли.\n"
 "      "
 
@@ -366,7 +366,8 @@ msgid ""
 "Read more about highlights in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Про выделения можно прочесть в <a class=\"%s\" href=\"%s\">документации</a>."
+"Про выделения можно прочесть в <a class=\"%s\" "
+"href=\"%s\">документации</a>."
 
 #: assets/templates/bookmarks/base.jet.html
 #: assets/templates/bookmarks/bookmark.jet.html
@@ -421,8 +422,12 @@ msgid "Collections"
 msgstr "Собрания"
 
 #: assets/templates/bookmarks/bookmark.jet.html
-msgid "More information"
-msgstr "Подробнее"
+msgid "Close panel"
+msgstr ""
+
+#: assets/templates/bookmarks/bookmark.jet.html
+msgid "Bookmark information"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark loading"
@@ -505,6 +510,16 @@ msgid "Edit"
 msgstr "Править"
 
 #: assets/templates/bookmarks/collection.jet.html
+#: assets/templates/bookmarks/index.jet.html
+msgid "Filters"
+msgstr ""
+
+#: assets/templates/bookmarks/collection.jet.html
+#: assets/templates/bookmarks/index.jet.html docs/http.go
+msgid "Documentation"
+msgstr "Документация"
+
+#: assets/templates/bookmarks/collection.jet.html
 #: assets/templates/bookmarks/collection_create.jet.html
 #: assets/templates/profile/credential.jet.html
 msgid "Name"
@@ -566,8 +581,8 @@ msgid ""
 "Read more about collections in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Про собрания ссылок можно прочесть в <a class=\"%s\" href=\"%s\""
-">документации</a>."
+"Про собрания ссылок можно прочесть в <a class=\"%s\" "
+"href=\"%s\">документации</a>."
 
 #: assets/templates/bookmarks/components/actions.jet.html
 msgid "Export and Share"
@@ -664,14 +679,28 @@ msgid "Label"
 msgstr "Ярлык"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+msgid "From date"
+msgstr "С даты"
+
+#: assets/templates/bookmarks/components/filters.jet.html
+msgid "To date"
+msgstr "По дату"
+
+#: assets/templates/bookmarks/components/filters.jet.html
+msgid "Type"
+msgstr "Тип"
+
+#: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Favorite"
 msgstr "В избранном"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "yes"
 msgstr "да"
 
 #: assets/templates/bookmarks/components/filters.jet.html
+#: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "no"
 msgstr "нет"
 
@@ -680,16 +709,16 @@ msgid "Is Archived"
 msgstr "Архивирован"
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "Type"
-msgstr "Тип"
+msgid "Is Loaded"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "From date"
-msgstr "С даты"
+msgid "With Labels"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
-msgid "To date"
-msgstr "По дату"
+msgid "With Errors"
+msgstr ""
 
 #: assets/templates/bookmarks/components/labels.jet.html
 msgid "Remove label"
@@ -739,6 +768,14 @@ msgstr "Размер"
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Line height"
 msgstr "Высота строки"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html
+msgid "Justify"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html
+msgid "Hyphenation"
+msgstr ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html
 #: assets/templates/epub/bookmark.jet.html
@@ -800,6 +837,7 @@ msgstr "Добавить ярлыки к ссылкам, согласно заг
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -819,6 +857,32 @@ msgstr ""
 "\n"
 "    Загрузить JSON-файл из приложения GoodLinks.\n"
 "  "
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+#: assets/templates/bookmarks/import/index.jet.html
+msgid "Import your Omnivore Articles"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid ""
+"\n"
+"    To import your articles from Omnivore, you must first create an API "
+"Key in your\n"
+"    Omnivore's settings and enter it in the the form below.\n"
+"  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "Omnivore URL"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "URL of your Omnivore homepage"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html
+msgid "API Key"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
@@ -944,7 +1008,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Тут можно импортировать в Readeck существующие закладки из других мест.\n"
+"    Тут можно импортировать в Readeck существующие закладки из других "
+"мест.\n"
 "  "
 
 #: assets/templates/bookmarks/import/index.jet.html
@@ -1017,8 +1082,8 @@ msgid ""
 "You don't have any bookmarks yet.<br> Copy a link in the field above and "
 "start saving."
 msgstr ""
-"У Вас ещё нет закладок.<br> Скопируйте ссылку в поле выше, чтобы сохранить "
-"первую."
+"У Вас ещё нет закладок.<br> Скопируйте ссылку в поле выше, чтобы "
+"сохранить первую."
 
 #: assets/templates/bookmarks/index.jet.html
 #, python-format
@@ -1026,8 +1091,8 @@ msgid ""
 "Read more about bookmarks in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"О закладках можно ещё прочесть в <a class=\"%s\" href=\"%s\""
-">документации</a>."
+"О закладках можно ещё прочесть в <a class=\"%s\" "
+"href=\"%s\">документации</a>."
 
 #: assets/templates/bookmarks/index.jet.html
 msgid ""
@@ -1038,19 +1103,14 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          Хотите импортировать уже сохранёные закладки из другого места или "
-"файла?\n"
+"          Хотите импортировать уже сохранёные закладки из другого места "
+"или файла?\n"
 "          Используйте импорт Readeck.\n"
 "        "
 
 #: assets/templates/bookmarks/index.jet.html
 msgid "Import links and articles"
 msgstr "Импортировать ссылки и статьи"
-
-#: assets/templates/bookmarks/index.jet.html
-msgctxt "action"
-msgid "Filter list"
-msgstr "Фильтровать список"
 
 #: assets/templates/bookmarks/index.jet.html
 msgid "Import bookmarks"
@@ -1067,10 +1127,6 @@ msgid_plural "Your search query yielded <strong>%d results</strong>."
 msgstr[0] "Ваш поиск дал <strong>%d результат</strong>."
 msgstr[1] "Ваш поиск дал <strong>%d результата</strong>."
 msgstr[2] "Ваш поиск дал <strong>%d результатов</strong>."
-
-#: assets/templates/bookmarks/index.jet.html
-msgid "Filters documentation"
-msgstr "Документация по фильтрам"
 
 #: assets/templates/bookmarks/index.jet.html
 msgctxt "action"
@@ -1243,6 +1299,10 @@ msgstr "Документация по API"
 msgid "Readeck Help"
 msgstr "Помощь Readeck"
 
+#: assets/templates/docs/base.jet.html
+msgid "Changelog"
+msgstr ""
+
 #: assets/templates/emails/recover.tmpl
 #, python-format
 msgid ""
@@ -1331,12 +1391,16 @@ msgid "Change theme"
 msgstr "Сменить оформление"
 
 #: assets/templates/menu.jet.html
-msgid "Change color theme"
-msgstr "Сменить цвет"
-
-#: assets/templates/menu.jet.html
 msgid "Sign out"
 msgstr "Выйти"
+
+#: assets/templates/menu.jet.html
+msgid "Open menu"
+msgstr "Открыть меню"
+
+#: assets/templates/menu.jet.html
+msgid "Change color theme"
+msgstr "Сменить цвет"
 
 #: assets/templates/profile/base.jet.html
 msgid "Settings"
@@ -1547,10 +1611,6 @@ msgstr "Истекает: %s"
 msgid "This token will be removed in a few seconds."
 msgstr "Этот токен удалится через пару секунд."
 
-#: docs/http.go
-msgid "Documentation"
-msgstr "Документация"
-
 #: internal/admin/views.go
 msgid "User created."
 msgstr "Пользователь создан."
@@ -1584,7 +1644,6 @@ msgid "Browser Bookmarks"
 msgstr "Закладки браузера"
 
 #: internal/bookmarks/importer/browser.go
-#: internal/bookmarks/importer/pocket_file.go
 msgid "Unabled to read HTML content"
 msgstr "Не удалось прочесть HTML содержимое"
 
@@ -1598,6 +1657,18 @@ msgstr "Импортируется пустой или битый файл"
 #: internal/bookmarks/importer/goodlinks.go
 msgid "GoodLinks Export File"
 msgstr "Файл GoodLinks"
+
+#: internal/bookmarks/importer/omnivore.go
+msgid "Invalid API Key"
+msgstr ""
+
+#: internal/bookmarks/importer/pocket_file.go
+msgid "Invalid upload format"
+msgstr ""
+
+#: internal/bookmarks/importer/pocket_file.go
+msgid "Unabled to open zip file"
+msgstr ""
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
@@ -2021,3 +2092,14 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Invalid Content-Type"
 #~ msgstr "Неверный тип содержимого"
+
+#~ msgid "More information"
+#~ msgstr "Подробнее"
+
+#~ msgctxt "action"
+#~ msgid "Filter list"
+#~ msgstr "Фильтровать список"
+
+#~ msgid "Filters documentation"
+#~ msgstr "Документация по фильтрам"
+

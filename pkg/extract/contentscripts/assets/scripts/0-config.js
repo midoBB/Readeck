@@ -61,9 +61,14 @@ exports.setConfig = function (config) {
       ]
       break
 
+    case $.domain == "nytimes.com":
+      config.httpHeaders["User-Agent"] =
+        "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+
     case $.domain == "slate.fr":
       config.stripIdOrClass.push("newsletter-container")
       config.stripIdOrClass.push("to-read")
+
     case $.domain == "slate.com":
       // The original replaceStrings replaces noscript by divs,
       // not the best idea.

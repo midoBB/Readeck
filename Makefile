@@ -188,6 +188,7 @@ docs-watch:
 		--build.cmd "${MAKE} docs-build" \
 		--build.bin "" \
 		--build.exclude_dir "" \
+		--build.include_file "CHANGELOG.md" \
 		--build.include_dir "docs/src,docs/api" \
 		--build.include_ext "md,png,svg,json,yaml" \
 		--build.delay 200

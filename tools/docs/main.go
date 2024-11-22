@@ -346,6 +346,19 @@ func main() {
 		log.Fatal(err)
 	}
 
+	// Copy changelog
+	cf, err := mdToHTML(
+		filepath.Join(srcDir, "../../CHANGELOG.md"),
+		filepath.Join(destDir, "changelog.html"),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	cf.File, _ = filepath.Rel(destDir, cf.File)
+	cf.Route = "changelog"
+	manifest.Files["changelog"] = cf
+
+	// Create manifest
 	fd, err := os.Create(path.Join(destDir, "manifest.json"))
 	if err != nil {
 		log.Fatal(err)

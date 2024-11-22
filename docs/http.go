@@ -55,6 +55,9 @@ func SetupRoutes(s *server.Server) {
 
 	// File routes
 	for _, f := range manifest.Files {
+		if f.IsDocument {
+			continue
+		}
 		handler.With(handler.withFile(f)).Get("/"+f.Route, handler.serveStatic)
 	}
 
@@ -78,6 +81,14 @@ func SetupRoutes(s *server.Server) {
 			}
 		}
 	}
+
+	// Changelog route
+	f := manifest.Files["changelog"]
+	docHandler.With(
+		s.WithPermission("system", "read"),
+		handler.withFile(f),
+	).Get("/changelog", handler.serveDocument)
+
 	// About page
 	docHandler.With(
 		s.WithPermission("system", "read"),

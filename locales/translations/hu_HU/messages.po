@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-09-07 08:26+0000\n"
-"PO-Revision-Date: 2024-08-27 03:18+0000\n"
-"Last-Translator: User240803 "
-"<User240803@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2024-11-22 18:25+0000\n"
+"Last-Translator: Anonymous <anonymous@users.noreply.translate.codeberg.org>\n"
+"Language-Team: Hungarian <https://translate.codeberg.org/projects/readeck/"
+"application/hu/>\n"
 "Language: hu_HU\n"
-"Language-Team: Hungarian "
-"<https://translate.codeberg.org/projects/readeck/application/hu/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.8.1\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -238,7 +238,8 @@ msgstr "Üdvözli a Readeck!"
 
 #: assets/templates/auth/onboarding.jet.html
 msgid "We're delighted to have you on board; one more step and you're good to go."
-msgstr "Örülünk, hogy a fedélzeten van; csak még egy lépés, és már készen is áll."
+msgstr ""
+"Örülünk, hogy a fedélzeten van; csak még egy lépés, és már készen is áll."
 
 #: assets/templates/auth/onboarding.jet.html
 #: assets/templates/auth/recover.jet.html
@@ -365,8 +366,8 @@ msgid ""
 "Read more about highlights in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"A kiemelésekről bővebben a <a class=\"%s\" "
-"href=\"%s\">dokumentációban</a> olvashat."
+"A kiemelésekről bővebben a <a class=\"%s\" href=\"%s\">dokumentációban</a> "
+"olvashat."
 
 #: assets/templates/bookmarks/base.jet.html
 #: assets/templates/bookmarks/bookmark.jet.html
@@ -568,8 +569,8 @@ msgid ""
 "Read more about collections in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Tudjon meg többet a gyűjteményekről a <a class=\"%s\" "
-"href=\"%s\">dokumentációban</a>."
+"Tudjon meg többet a gyűjteményekről a <a class=\"%s\" href=\"%s\""
+">dokumentációban</a>."
 
 #: assets/templates/bookmarks/components/actions.jet.html
 msgid "Export and Share"
@@ -753,7 +754,8 @@ msgstr "A kivonatolás során hibák léptek fel."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html
 msgid "Start selecting text in the article to create a new highlight."
-msgstr "Kezdje el kijelölni a szöveget a cikkben, hogy új kiemelést hozzon létre."
+msgstr ""
+"Kezdje el kijelölni a szöveget a cikkben, hogy új kiemelést hozzon létre."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html
 msgid "Links"
@@ -906,8 +908,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    A cikkek Wallabagból történő importálásához először létre kell hoznia"
-" egy API klienst\n"
+"    A cikkek Wallabagból történő importálásához először létre kell hoznia "
+"egy API klienst\n"
 "    a Wallabag <strong>API kliens menedzsment</strong> menüjében. Ez "
 "létrehoz Önnek egy\n"
 "    <strong>Kliens ID-t</strong> és <strong>Kliens titkot</strong>.\n"
@@ -951,8 +953,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Itt importálhatja meglévő könyvjelzőgyűjteményét különböző "
-"forrásokból a Readeckbe.\n"
+"    Itt importálhatja meglévő könyvjelzőgyűjteményét különböző forrásokból a "
+"Readeckbe.\n"
 "  "
 
 #: assets/templates/bookmarks/import/index.jet.html
@@ -1002,8 +1004,8 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"      A könyvjelzői most már elérhetők a <a class=\"%s\" "
-"href=\"%s\">könyvjelzőlistában</a>.\n"
+"      A könyvjelzői most már elérhetők a <a class=\"%s\" href=\"%s\""
+">könyvjelzőlistában</a>.\n"
 "      "
 
 #: assets/templates/bookmarks/index.jet.html
@@ -1020,15 +1022,16 @@ msgstr "Link mentése"
 msgid ""
 "\"%s\" is not a valid address. Did you mean to search your bookmarks for "
 "%s?"
-msgstr "\"%s\" nem érvényes cím. Úgy értette, hogy a könyvjelzőiben a %s-t keresi?"
+msgstr ""
+"\"%s\" nem érvényes cím. Úgy értette, hogy a könyvjelzőiben a %s-t keresi?"
 
 #: assets/templates/bookmarks/index.jet.html
 msgid ""
 "You don't have any bookmarks yet.<br> Copy a link in the field above and "
 "start saving."
 msgstr ""
-"Még nincsenek könyvjelzői.<br> Másoljon egy hivatkzosát a fenti mezőbe, "
-"és kezdje el a mentést."
+"Még nincsenek könyvjelzői.<br> Másoljon egy hivatkzosát a fenti mezőbe, és "
+"kezdje el a mentést."
 
 #: assets/templates/bookmarks/index.jet.html
 #, python-format
@@ -1036,8 +1039,8 @@ msgid ""
 "Read more about bookmarks in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"A könyvjelzőkről bővebben a <a class=\"%s\" "
-"href=\"%s\">dokumentációban</a> olvashat."
+"A könyvjelzőkről bővebben a <a class=\"%s\" href=\"%s\">dokumentációban</a> "
+"olvashat."
 
 #: assets/templates/bookmarks/index.jet.html
 msgid ""
@@ -1138,8 +1141,8 @@ msgid ""
 "Here are your current system information. Please include them if you "
 "report a bug."
 msgstr ""
-"Itt vannak az Ön jelenlegi rendszeradatai. Kérjük, adja meg ezeket, ha "
-"hibát jelent."
+"Itt vannak az Ön jelenlegi rendszeradatai. Kérjük, adja meg ezeket, ha hibát "
+"jelent."
 
 #: assets/templates/docs/about.jet.html
 msgid "Project"
@@ -1309,8 +1312,7 @@ msgstr ""
 "ezért a jelszóváltoztatási kísérlet sikertelen volt.\n"
 "\n"
 "Ha Ön a Readeck felhasználója a %s oldalon, és Ön\n"
-"ezt az e-mailt várja, kérjük, próbálja meg újra a következő e-mail címmel"
-"\n"
+"ezt az e-mailt várja, kérjük, próbálja meg újra a következő e-mail címmel\n"
 "amelyet a fiókja létrehozásakor használt.\n"
 "\n"
 "Ha Ön nem Readeck-felhasználó, kérjük, hagyja figyelmen kívül ezt az "
@@ -1426,8 +1428,8 @@ msgstr ""
 "\n"
 "    A jelszóhoz megadott engedélyeket korlátozhatja az alábbi\n"
 "    engedélyek egy vagy több csoportjának kiválasztásával.<br>\n"
-"     Hagyja üresen az összes lehetőséget, ha minden engedélyt megad ehhez"
-" a jelszóhoz.\n"
+"     Hagyja üresen az összes lehetőséget, ha minden engedélyt megad ehhez a "
+"jelszóhoz.\n"
 "  "
 
 #: assets/templates/profile/credential.jet.html
@@ -1540,8 +1542,8 @@ msgid ""
 "  access to the Readeck API.\n"
 msgstr ""
 "\n"
-"  Az API token egy olyan kulcs, amely lehetővé teszi az Ön (vagy egy "
-"másik eszköz, például egy böngészőbővítmény) számára, hogy\n"
+"  Az API token egy olyan kulcs, amely lehetővé teszi az Ön (vagy egy másik "
+"eszköz, például egy böngészőbővítmény) számára, hogy\n"
 "  hozzáférést biztosít a Readeck API-hoz.\n"
 
 #: assets/templates/profile/token_list.jet.html
@@ -2040,4 +2042,3 @@ msgstr "%a %b %e %H:%M:%S %y"
 
 #~ msgid "Invalid Content-Type"
 #~ msgstr "Érvénytelen Tartalom-Típus"
-

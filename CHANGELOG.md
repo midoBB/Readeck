@@ -1,5 +1,29 @@
 # Changelog
 
+## [Unreleased]
+### Added
+- Content Script for 404media.co
+- Permit removal of a loading bookmark
+- Filter bookmarks with labels, with errors and by loading state
+- Alignment and hyphenation reader settings
+- Use alignment and hyphenation settings in EPUB export, by [@bramaudi](https://codeberg.org/bramaudi)
+
+### Fixed
+- Prevent the sort menu to go offscreen on mobile
+- Identify a photo type by using the DCMI type value
+
+### Improved
+- Hide top navigation when scrolling down
+- Sliding menu on mobile
+- Bookmark sidebar can be hidden on all screen size
+- Normal size of label input field, by [@lilymara](https://codeberg.org/lilymara)
+- Better User-Agent for nytimes.com retrieval
+
+### Changed
+- `trusted_proxies` setting. This list the proxy that are authorized to set `X-Forwarded-...` headers. The default list provides sensible defaults so it's not a major breaking change.
+- Updated site-config rules
+
+
 ## [0.15.6] - 2024-11-02
 ### Fixed
 - Fixed label extraction from Pocket export file

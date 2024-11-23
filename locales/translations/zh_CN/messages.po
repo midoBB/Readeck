@@ -7,15 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-11-22 18:25+0000\n"
-"Last-Translator: Peaksol <Peaksol@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2024-11-23 20:07+0000\n"
+"Last-Translator: Outbreak2096 <Outbreak2096@users.noreply.translate.codeberg."
+"org>\n"
+"Language-Team: Chinese (Simplified Han script) <https://translate.codeberg."
+"org/projects/readeck/application/zh_Hans/>\n"
 "Language: zh_CN\n"
-"Language-Team: Chinese (Simplified Han script) "
-"<https://translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.8.1\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -34,7 +36,7 @@ msgstr "主要内容"
 
 #: assets/templates/_layouts/sidemenu.jet.html
 msgid "Close menu"
-msgstr ""
+msgstr "关闭菜单"
 
 #: assets/templates/_libs/common.jet.html
 msgid "Quick access menu"
@@ -417,11 +419,11 @@ msgstr "收藏集"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Close panel"
-msgstr ""
+msgstr "关闭面板"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark information"
-msgstr ""
+msgstr "书签信息"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark loading"
@@ -506,7 +508,7 @@ msgstr "编辑"
 #: assets/templates/bookmarks/collection.jet.html
 #: assets/templates/bookmarks/index.jet.html
 msgid "Filters"
-msgstr ""
+msgstr "筛选器"
 
 #: assets/templates/bookmarks/collection.jet.html
 #: assets/templates/bookmarks/index.jet.html docs/http.go
@@ -702,15 +704,15 @@ msgstr "已存档"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Loaded"
-msgstr ""
+msgstr "已加载"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "With Labels"
-msgstr ""
+msgstr "有标签"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "With Errors"
-msgstr ""
+msgstr "有错误"
 
 #: assets/templates/bookmarks/components/labels.jet.html
 msgid "Remove label"
@@ -763,11 +765,11 @@ msgstr "行高"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Justify"
-msgstr ""
+msgstr "对齐"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Hyphenation"
-msgstr ""
+msgstr "连字符"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html
 #: assets/templates/epub/bookmark.jet.html
@@ -853,7 +855,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
 msgid "Import your Omnivore Articles"
-msgstr ""
+msgstr "导入您的 Omnivore 文章"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid ""
@@ -863,18 +865,22 @@ msgid ""
 "    Omnivore's settings and enter it in the the form below.\n"
 "  "
 msgstr ""
+"\n"
+"    要从 Omnivore 导入您的文章，您必须首先在 Omnivore\n"
+"    的设置中创建一个 API 密钥，然后在下表中输入。\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid "Omnivore URL"
-msgstr ""
+msgstr "Omnivore URL"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid "URL of your Omnivore homepage"
-msgstr ""
+msgstr "您的 Omnivore 主页的 URL"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid "API Key"
-msgstr ""
+msgstr "API 密钥"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
@@ -1283,7 +1289,7 @@ msgstr "Readeck 帮助"
 
 #: assets/templates/docs/base.jet.html
 msgid "Changelog"
-msgstr ""
+msgstr "更新日志"
 
 #: assets/templates/emails/recover.tmpl
 #, python-format
@@ -1638,15 +1644,15 @@ msgstr "GoodLinks 导出文件"
 
 #: internal/bookmarks/importer/omnivore.go
 msgid "Invalid API Key"
-msgstr ""
+msgstr "无效的 API 密钥"
 
 #: internal/bookmarks/importer/pocket_file.go
 msgid "Invalid upload format"
-msgstr ""
+msgstr "无效的上传格式"
 
 #: internal/bookmarks/importer/pocket_file.go
 msgid "Unabled to open zip file"
-msgstr ""
+msgstr "无法打开 zip 文件"
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
@@ -2080,4 +2086,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Filters documentation"
 #~ msgstr "筛选文档"
-

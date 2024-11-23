@@ -7,15 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-11-22 18:25+0000\n"
-"Last-Translator: bttr <bttr@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2024-11-23 20:07+0000\n"
+"Last-Translator: FrankDex <FrankDex@users.noreply.translate.codeberg.org>\n"
+"Language-Team: German <https://translate.codeberg.org/projects/readeck/"
+"application/de/>\n"
 "Language: de_DE\n"
-"Language-Team: German "
-"<https://translate.codeberg.org/projects/readeck/application/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.8.1\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -34,7 +35,7 @@ msgstr "Hauptinhalt"
 
 #: assets/templates/_layouts/sidemenu.jet.html
 msgid "Close menu"
-msgstr ""
+msgstr "Menu schliessen"
 
 #: assets/templates/_libs/common.jet.html
 msgid "Quick access menu"
@@ -424,11 +425,11 @@ msgstr "Sammlungen"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Close panel"
-msgstr ""
+msgstr "Panel schliessen"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark information"
-msgstr ""
+msgstr "Information zum Lesezeichen"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark loading"
@@ -513,7 +514,7 @@ msgstr "Bearbeiten"
 #: assets/templates/bookmarks/collection.jet.html
 #: assets/templates/bookmarks/index.jet.html
 msgid "Filters"
-msgstr ""
+msgstr "Filter"
 
 #: assets/templates/bookmarks/collection.jet.html
 #: assets/templates/bookmarks/index.jet.html docs/http.go
@@ -714,15 +715,15 @@ msgstr "Ist archiviert"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Loaded"
-msgstr ""
+msgstr "Ist geladen"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "With Labels"
-msgstr ""
+msgstr "Mit Tags"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "With Errors"
-msgstr ""
+msgstr "Mit Fehlern"
 
 #: assets/templates/bookmarks/components/labels.jet.html
 msgid "Remove label"
@@ -775,11 +776,11 @@ msgstr "Zeilenhöhe"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Justify"
-msgstr ""
+msgstr "Zentrieren"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Hyphenation"
-msgstr ""
+msgstr "Silbentrennung"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html
 #: assets/templates/epub/bookmark.jet.html
@@ -869,7 +870,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
 msgid "Import your Omnivore Articles"
-msgstr ""
+msgstr "Importiere deine Omnivore Artikel"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid ""
@@ -879,18 +880,23 @@ msgid ""
 "    Omnivore's settings and enter it in the the form below.\n"
 "  "
 msgstr ""
+"\n"
+"    Um deine Artikel aus Omnivore zu importieren, musst du zu erst einen API "
+"Schlüssel\n"
+"    in den Omnivore Einstellungen erstellen und unten eintragen.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid "Omnivore URL"
-msgstr ""
+msgstr "Omnivore URL"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid "URL of your Omnivore homepage"
-msgstr ""
+msgstr "URL deiner Omnivore Startseite"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid "API Key"
-msgstr ""
+msgstr "API Schlüssel"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
@@ -1320,7 +1326,7 @@ msgstr "Readeck Hilfe"
 
 #: assets/templates/docs/base.jet.html
 msgid "Changelog"
-msgstr ""
+msgstr "Änderungshistorie"
 
 #: assets/templates/emails/recover.tmpl
 #, python-format
@@ -1687,15 +1693,15 @@ msgstr "GoodLinks Export Datei"
 
 #: internal/bookmarks/importer/omnivore.go
 msgid "Invalid API Key"
-msgstr ""
+msgstr "Falscher API Schlüssel"
 
 #: internal/bookmarks/importer/pocket_file.go
 msgid "Invalid upload format"
-msgstr ""
+msgstr "Ungültiges Format"
 
 #: internal/bookmarks/importer/pocket_file.go
 msgid "Unabled to open zip file"
-msgstr ""
+msgstr "Zip Datei nicht öffenbar"
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
@@ -2129,4 +2135,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Filters documentation"
 #~ msgstr "Filter Dokumentation"
-

@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-11-22 18:25+0000\n"
-"Last-Translator: Anonymous "
-"<anonymous@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2024-11-25 08:02+0000\n"
+"Last-Translator: Tommi <tommi@users.noreply.translate.codeberg.org>\n"
+"Language-Team: Italian <https://translate.codeberg.org/projects/readeck/"
+"application/it/>\n"
 "Language: it\n"
-"Language-Team: Italian "
-"<https://translate.codeberg.org/projects/readeck/application/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.8.1\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -35,7 +35,7 @@ msgstr "Contenuto principale"
 
 #: assets/templates/_layouts/sidemenu.jet.html
 msgid "Close menu"
-msgstr ""
+msgstr "Chiudi menu"
 
 #: assets/templates/_libs/common.jet.html
 msgid "Quick access menu"
@@ -424,11 +424,11 @@ msgstr "Collezioni"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Close panel"
-msgstr ""
+msgstr "Chiudi pannello"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark information"
-msgstr ""
+msgstr "Informazioni sul bookmark"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark loading"
@@ -513,7 +513,7 @@ msgstr "Modifica"
 #: assets/templates/bookmarks/collection.jet.html
 #: assets/templates/bookmarks/index.jet.html
 msgid "Filters"
-msgstr ""
+msgstr "Filtri"
 
 #: assets/templates/bookmarks/collection.jet.html
 #: assets/templates/bookmarks/index.jet.html docs/http.go
@@ -712,15 +712,15 @@ msgstr "È archiviato"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Loaded"
-msgstr ""
+msgstr "È caricato"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "With Labels"
-msgstr ""
+msgstr "Con etichette"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "With Errors"
-msgstr ""
+msgstr "Con errori"
 
 #: assets/templates/bookmarks/components/labels.jet.html
 msgid "Remove label"
@@ -773,11 +773,12 @@ msgstr "Interlinea"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Justify"
-msgstr ""
+msgstr "Giustifica"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
+#, fuzzy
 msgid "Hyphenation"
-msgstr ""
+msgstr "Andare a capo"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html
 #: assets/templates/epub/bookmark.jet.html
@@ -1316,7 +1317,7 @@ msgstr "Aiuto riguardo a Readeck"
 
 #: assets/templates/docs/base.jet.html
 msgid "Changelog"
-msgstr ""
+msgstr "Changelog"
 
 #: assets/templates/emails/recover.tmpl
 #, python-format
@@ -1685,11 +1686,11 @@ msgstr "Chiave API non valida"
 
 #: internal/bookmarks/importer/pocket_file.go
 msgid "Invalid upload format"
-msgstr ""
+msgstr "Formato di caricamento non valido"
 
 #: internal/bookmarks/importer/pocket_file.go
 msgid "Unabled to open zip file"
-msgstr ""
+msgstr "Impossibile aprire file zip"
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
@@ -2120,4 +2121,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Filters documentation"
 #~ msgstr "Documentazione sui filtri"
-

@@ -148,6 +148,10 @@
       font-weight: theme("fontWeight.medium");
     }
 
+    &::part(section-navbar-tag) {
+      padding: theme("spacing.3") theme("spacing.2");
+    }
+
     &::part(section-navbar-active-item) {
       border-left-color: rgb(var(--color-primary-dark));
       border-radius: 0;

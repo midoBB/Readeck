@@ -48,6 +48,9 @@ SPDX-License-Identifier: AGPL-3.0-only
       <strong class="overflow-hidden text-ellipsis" title="{{ default(.Item.SiteName, gettext(`no site name`)) }}"
        dir="{{ default(.Item.TextDirection, `ltr`) }}">{{ default(.Item.SiteName, gettext(`no site name`)) }}</strong>
       </li>
+      {{- yield line_icon(icon="o-download") content -}}
+        <span class="text-gray-700" title="{{ date(.Item.Created, `%c`) }}">{{ date(.Item.Created, "%e %B %Y") }}</span>
+      {{- end -}}
       {{- if !empty(.Item.Published) -}}
         {{- yield line_icon(icon="o-calendar") content -}}
           {{ gettext("Published on %s", date(.Item.Published, "%e %B %Y")) }}

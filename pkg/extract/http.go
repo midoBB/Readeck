@@ -19,6 +19,8 @@ import (
 	"golang.org/x/net/publicsuffix"
 )
 
+const uaString = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.3"
+
 // defaultDialer is our own default net.Dialer with shorter timeout and keepalive.
 var defaultDialer = net.Dialer{
 	Timeout:   15 * time.Second,
@@ -73,7 +75,7 @@ var defaultTransport = &http.Transport{
 // They're attached to the transport and can be overridden and/or modified
 // while using the associated client.
 var defaultHeaders = http.Header{
-	"User-Agent":                []string{"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"},
+	"User-Agent":                []string{uaString},
 	"Accept":                    []string{"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"},
 	"Accept-Language":           []string{"en-US,en;q=0.8"},
 	"Cache-Control":             []string{"max-age=0"},

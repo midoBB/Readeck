@@ -14,8 +14,50 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: ./.forgejo/actions/build
+      #
+      # Setup Env
+      #
+      - uses: actions/setup-go@v5
         with:
-          lint: true
-          tests: true
-          build: false
+          go-version-file: 'go.mod'
+          cache: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "18.x"
+
+      - name: Setup UV
+        uses: https://github.com/astral-sh/setup-uv@v3
+
+      - name: Setup project
+        shell: bash
+        run: |
+          make setup
+
+      #
+      # Linters
+      #
+      - name: Check licenses
+        shell: bash
+        run: |
+          uvx -q reuse lint
+
+      - name: Lint sources
+        shell: bash
+        run: |
+          make lint
+
+      - name: Lint web
+        shell: bash
+        run: |
+          make -C web lint
+
+      #
+      # Tests
+      #
+      - name: Run tests
+        env:
+          CGO_ENABLED: 1
+        shell: bash
+        run: |
+          make test

@@ -208,6 +208,10 @@ web-watch:
 # Please note that they don't work from a container because xgo itself
 # runs in a container and needs to mount the workspace.
 
+.PHONY: stamp-version
+stamp-version:
+	echo $(VERSION) > $(DIST)/VERSION
+
 .PHONY: release-all
 release-all:
 	${MAKE} release-linux

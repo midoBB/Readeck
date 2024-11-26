@@ -1,0 +1,32 @@
+---
+
+name: Readeck Nightly Build
+run-name: ${{ gitea.actor }} nightly build
+on:
+  schedule:
+    - cron: '12 1 * * *'
+
+env:
+  FORCE_BUILD: false
+
+jobs:
+  build:
+    runs-on: self-hosted
+    defaults:
+      run:
+        working-directory: ${{ gitea.workspace }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Time since last commit
+        run: |
+          echo LAST_COMMIT_SINCE=$(($(date +%s) - $(git log -n 1 --pretty=format:"%ct"))) >> $GITHUB_ENV
+
+      - name: Build Readeck
+        if: ${{ fromJson(env.LAST_COMMIT_SINCE) < 86400 || fromJson(env.FORCE_BUILD) }}
+        uses: ./.forgejo/actions/build
+        with:
+          lint: true
+          tests: true
+          build: true
+          release: false

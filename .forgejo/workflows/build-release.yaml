@@ -1,0 +1,26 @@
+---
+
+name: Readeck Release Build
+run-name: ${{ gitea.actor }} release build
+on:
+  push:
+    tags:
+      - '/^[0-9.]+$/'
+
+jobs:
+  build:
+    runs-on: self-hosted
+    defaults:
+      run:
+        working-directory: ${{ gitea.workspace }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start build Readeck
+        uses: ./.forgejo/actions/build
+        with:
+          go_clean: true
+          lint: true
+          tests: true
+          build: true
+          release: true

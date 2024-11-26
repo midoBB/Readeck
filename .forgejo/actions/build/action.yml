@@ -1,0 +1,123 @@
+---
+
+name: Build Readeck
+description: |
+  Builds Readeck and copies artifacts in a dedicated folder.
+
+inputs:
+  go_clean:
+    description: Clean Go Cache
+    default: "false"
+
+  lint:
+    description: Run linters?
+    default: "true"
+
+  tests:
+    description: Run tests?
+    default: "true"
+
+  build:
+    description: Build binaries
+    default: "false"
+
+  release:
+    description: Is this a release?
+    default: "false"
+
+
+runs:
+  using: "composite"
+  steps:
+    #
+    # Setup Env
+    #
+    - uses: actions/setup-go@v5
+      with:
+        go-version-file: 'go.mod'
+        cache: false
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: "18.x"
+
+    - name: Setup UV
+      if: ${{ fromJson(inputs.lint) }}
+      uses: https://github.com/astral-sh/setup-uv@v3
+
+    - name: Clean Go cache
+      if: ${{ fromJson(inputs.go_clean) }}
+      shell: bash
+      run: |
+        go clean -cache
+        rm -rf ${HOME}/.xgo-cache
+
+    - name: Setup project
+      shell: bash
+      run: |
+        make setup generate
+
+    #
+    # Linters
+    #
+    - name: Check licenses
+      if: ${{ fromJson(inputs.lint) }}
+      shell: bash
+      run: |
+        uvx -q reuse lint
+
+    - name: Lint sources
+      if: ${{ fromJson(inputs.lint) }}
+      shell: bash
+      run: |
+        make lint
+
+    - name: Lint web
+      if: ${{ fromJson(inputs.lint) }}
+      shell: bash
+      run: |
+        make -C web lint
+
+    #
+    # Tests
+    #
+    - name: Run tests
+      if: ${{ fromJson(inputs.tests) }}
+      env:
+        CGO_ENABLED: 1
+      shell: bash
+      run: |
+        make test
+
+    #
+    # Build
+    #
+    - name: Build nightly
+      if: ${{ fromJson(inputs.build) && !fromJson(inputs.release) }}
+      shell: bash
+      run: |
+        make XGO_TARGET="linux/amd64,linux/arm64" release-linux
+        make release-darwin
+        make release-freebsd
+        make XGO_TARGET="windows/amd64" release-windows
+
+    - name: Build release
+      if: ${{ fromJson(inputs.build) && fromJson(inputs.release) }}
+      shell: bash
+      run: |
+        make release-all
+
+    - name: Build container image
+      if: ${{ fromJson(inputs.build) }}
+      shell: bash
+      run: |
+        make release-container
+
+    - name: Copy artifacts
+      if: ${{ fromJson(inputs.build) }}
+      shell: bash
+      run: |
+        make stamp-version
+        ls -l dist/
+        rm -f ${HOME}/artifacts/*
+        cp -p dist/* ${HOME}/artifacts/

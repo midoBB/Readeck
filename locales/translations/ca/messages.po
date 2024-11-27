@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-11-27 17:37+0000\n"
+"PO-Revision-Date: 2024-11-27 23:31+0000\n"
 "Last-Translator: enricpineda <enricpineda@users.noreply.translate.codeberg."
 "org>\n"
 "Language-Team: Catalan <https://translate.codeberg.org/projects/readeck/"
@@ -425,53 +425,53 @@ msgstr "Tanca el panell"
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:94
 msgid "Bookmark information"
-msgstr ""
+msgstr "Informació del marcador"
 
 #: assets/templates/bookmarks/bookmark.jet.html:12
 msgid "Bookmark loading"
-msgstr ""
+msgstr "Càrrega de marcadors"
 
 #: assets/templates/bookmarks/bookmark.jet.html:42
 msgid "Bookmark is loading"
-msgstr ""
+msgstr "El marcador s'està carregant"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html:9
 #: assets/templates/bookmarks/bookmark_missing.jet.html:14
 msgid "Bookmark not found"
-msgstr ""
+msgstr "Marcador no trobat"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:13
 msgid "Shared link"
-msgstr ""
+msgstr "Enllaç compartit"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:23
 msgid "Page not found"
-msgstr ""
+msgstr "Pàgina no trobada"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:25
 msgid "Page has expired"
-msgstr ""
+msgstr "La pàgina ha caducat"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:47
 #: assets/templates/bookmarks/components/sidebar.jet.html:53
 #: assets/templates/epub/bookmark.jet.html:37
 #, python-format
 msgid "Published on %s"
-msgstr ""
+msgstr "Publicat el %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:52
 #: assets/templates/bookmarks/components/sidebar.jet.html:58
 #: assets/templates/epub/bookmark.jet.html:40
 #, python-format
 msgid "By %s"
-msgstr ""
+msgstr "Per %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:60
 #: assets/templates/bookmarks/components/card.jet.html:68
 #: assets/templates/bookmarks/components/sidebar.jet.html:66
 #, python-format
 msgid "%d min"
-msgstr ""
+msgstr "%d min"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:65
 #, python-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-11-27 23:31+0000\n"
+"PO-Revision-Date: 2024-11-28 11:39+0000\n"
 "Last-Translator: enricpineda <enricpineda@users.noreply.translate.codeberg."
 "org>\n"
 "Language-Team: Catalan <https://translate.codeberg.org/projects/readeck/"
@@ -476,68 +476,68 @@ msgstr "%d min"
 #: assets/templates/bookmarks/bookmark_public.jet.html:65
 #, python-format
 msgid "Shared by %s"
-msgstr ""
+msgstr "Compartit per %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:66
 msgid "with"
-msgstr ""
+msgstr "amb"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
 msgid "Powered by"
-msgstr ""
+msgstr "Desenvolupat per"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:8
 msgid "Share link"
-msgstr ""
+msgstr "Compartir enllaç"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:19
 #, python-format
 msgid "Share: %s"
-msgstr ""
+msgstr "Compartir: %s"
 
 #: assets/templates/bookmarks/collection.jet.html:16
 #, python-format
 msgid "Collection %s"
-msgstr ""
+msgstr "Col·lecció %s"
 
 #: assets/templates/bookmarks/collection.jet.html:21
 msgid "Collection will be removed in a few seconds."
-msgstr ""
+msgstr "La col·lecció s'eliminarà en breus segons."
 
 #: assets/templates/bookmarks/collection.jet.html:42
 #: assets/templates/bookmarks/collection.jet.html:54
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: assets/templates/bookmarks/collection.jet.html:56
 #: assets/templates/bookmarks/index.jet.html:105
 #: assets/templates/bookmarks/index.jet.html:139
 #: assets/templates/bookmarks/index.jet.html:142
 msgid "Filters"
-msgstr ""
+msgstr "Filtres"
 
 #: assets/templates/bookmarks/collection.jet.html:67
 #: assets/templates/bookmarks/collection_create.jet.html:23
 #: assets/templates/profile/credential.jet.html:58
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: assets/templates/bookmarks/collection.jet.html:79
 msgid "Delete collection"
-msgstr ""
+msgstr "Esborrar col·lecció"
 
 #: assets/templates/bookmarks/collection_create.jet.html:9
 msgid "New Collection"
-msgstr ""
+msgstr "Nova Col·lecció"
 
 #: assets/templates/bookmarks/collection_list.jet.html:9
 #: internal/opds/http.go:74
 msgid "Bookmark Collections"
-msgstr ""
+msgstr "Col·leccions de marcadors"
 
 #: assets/templates/bookmarks/collection_list.jet.html:15
 msgid "Create a new collection"
-msgstr ""
+msgstr "Crear una nova col·lecció"
 
 #: assets/templates/bookmarks/collection_list.jet.html:24
 msgid ""
@@ -549,22 +549,29 @@ msgid ""
 "          Here are some examples:\n"
 "        "
 msgstr ""
+"\n"
+"          Les col·leccions et permeten organitzar i exportar els marcadors\n"
+"          fàcilment guardant cerques escollides per tu.\n"
+"          Quan crees un marcador que coincideix amb el criteri d'una\n"
+"          col·lecció, apareixerà inmediatament.\n"
+"          Heus aquí alguns exemples:\n"
+"        "
 
 #: assets/templates/bookmarks/collection_list.jet.html:33
 msgid "The unread articles (no photos or videos)"
-msgstr ""
+msgstr "Articles no llegits (sense fotos ni vídeos)"
 
 #: assets/templates/bookmarks/collection_list.jet.html:34
 msgid "The archived articles from \"wikipedia.org\""
-msgstr ""
+msgstr "El articles arxivats de \"wikipedia.org\""
 
 #: assets/templates/bookmarks/collection_list.jet.html:35
 msgid "The pictures with the label \"cat\""
-msgstr ""
+msgstr "Les fotografies amb etiqueta \"gat\""
 
 #: assets/templates/bookmarks/collection_list.jet.html:36
 msgid "The articles that contain \"shelter\" in their title"
-msgstr ""
+msgstr "Els articles que contenen el mot \"refugi\" al seu títol"
 
 #: assets/templates/bookmarks/collection_list.jet.html:39
 #, python-format
@@ -572,150 +579,152 @@ msgid ""
 "Read more about collections in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
+"Llegeix més sobre les col·leccions a la <a class=\"%s\" href=\"%s\""
+">documentació</a>."
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
 msgid "Export and Share"
-msgstr ""
+msgstr "Exporta i comparteix"
 
 #: assets/templates/bookmarks/components/actions.jet.html:23
 msgid "Undo"
-msgstr ""
+msgstr "Desfer"
 
 #: assets/templates/bookmarks/components/actions.jet.html:48
 #: assets/templates/bookmarks/components/list_actions.jet.html:65
 msgid "Download EPUB"
-msgstr ""
+msgstr "Descarrega EPUB"
 
 #: assets/templates/bookmarks/components/actions.jet.html:50
 msgid "Share by Link"
-msgstr ""
+msgstr "Comparteix mitjançant enllaç"
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
 msgid "Saved with Readeck"
-msgstr ""
+msgstr "Gravat amb Readeck"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Remove from archive"
-msgstr ""
+msgstr "Eliminar de l'arxiu"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Move to archive"
-msgstr ""
+msgstr "Moure a l'arxiu"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
 #: assets/templates/bookmarks/components/card.jet.html:10
 msgid "Remove from favorites"
-msgstr ""
+msgstr "Eliminar dels favorits"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
 #: assets/templates/bookmarks/components/card.jet.html:10
 msgid "Add to favorites"
-msgstr ""
+msgstr "Afegir als favorits"
 
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Go to original page"
-msgstr ""
+msgstr "Ves a la pàgina original"
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Delete this bookmark"
-msgstr ""
+msgstr "Esborra aquest marcador"
 
 #: assets/templates/bookmarks/components/card.jet.html:33
 msgctxt "bookmark"
 msgid "Loading"
-msgstr ""
+msgstr "Carregant"
 
 #: assets/templates/bookmarks/components/actions.jet.html:14
 #: assets/templates/bookmarks/components/card.jet.html:85
 msgid "This bookmark will be removed in a few seconds."
-msgstr ""
+msgstr "Aquest marcador s'esborrarà en breus segons."
 
 #: assets/templates/bookmarks/components/content_block.jet.html:44
 msgid "Highlight"
-msgstr ""
+msgstr "Destacar"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:48
 msgid "Remove Highlight(s)"
-msgstr ""
+msgstr "Treure destacat/s"
 
 #: assets/templates/bookmarks/components/filters.jet.html:9
 msgid "Search"
-msgstr ""
+msgstr "Cercar"
 
 #: assets/templates/bookmarks/components/filters.jet.html:14
 msgid "Title"
-msgstr ""
+msgstr "Títol"
 
 #: assets/templates/bookmarks/components/filters.jet.html:19
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
 #: assets/templates/bookmarks/components/filters.jet.html:24
 msgid "Site"
-msgstr ""
+msgstr "Lloc web"
 
 #: assets/templates/bookmarks/components/filters.jet.html:34
 msgid "From date"
-msgstr ""
+msgstr "Data d'inici"
 
 #: assets/templates/bookmarks/components/filters.jet.html:40
 msgid "To date"
-msgstr ""
+msgstr "Data final"
 
 #: assets/templates/bookmarks/components/filters.jet.html:45
 msgid "Type"
-msgstr ""
+msgstr "Tipus"
 
 #: assets/templates/bookmarks/components/filters.jet.html:50
 msgid "Is Favorite"
-msgstr ""
+msgstr "és Favorit"
 
 #: assets/templates/bookmarks/components/filters.jet.html:56
 msgid "Is Archived"
-msgstr ""
+msgstr "Està arxivat"
 
 #: assets/templates/bookmarks/components/filters.jet.html:62
 msgid "Is Loaded"
-msgstr ""
+msgstr "Està carregat"
 
 #: assets/templates/bookmarks/components/filters.jet.html:68
 msgid "With Labels"
-msgstr ""
+msgstr "Amb etiquetes"
 
 #: assets/templates/bookmarks/components/filters.jet.html:74
 msgid "With Errors"
-msgstr ""
+msgstr "Amb errors"
 
 #: assets/templates/bookmarks/components/labels.jet.html:1
 msgid "Remove label"
-msgstr ""
+msgstr "Eliminar etiqueta"
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:1
 msgid "Add a label"
-msgstr ""
+msgstr "Afegir una etiqueta"
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:35
 msgid "Add label"
-msgstr ""
+msgstr "Afegir etiqueta"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Grid view"
-msgstr ""
+msgstr "Vista de quadrícula"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Compact view"
-msgstr ""
+msgstr "Vista compacta"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:9
 msgid "You can share the following link with your friends."
-msgstr ""
+msgstr "Pots compartir l'enllaç següent amb els teus amics."
 
 #: assets/templates/bookmarks/components/public_share.jet.html:10
 #, python-format

@@ -29,6 +29,12 @@ var (
 	available [][2]string
 )
 
+// disabledTranslations contains translation that are disabled
+// for some reasons (incomplete, faulty, etc.)
+var disabledTranslations = map[string]struct{}{
+	"da-DK": {},
+}
+
 // Locale combines a gotext.Translator instance for a given language
 // identified by a language.Tag.
 type Locale struct {
@@ -71,7 +77,11 @@ func Load() {
 	}
 
 	for _, filename := range files {
+
 		tag := language.Make(path.Dir(filename))
+		if _, exists := disabledTranslations[tag.String()]; exists {
+			continue
+		}
 		var r io.Reader
 		if r, err = localFilesFS().Open(filename); err != nil {
 			panic(err)

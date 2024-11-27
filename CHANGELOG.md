@@ -1,10 +1,11 @@
 # Changelog
 
-## [Unreleased]
+## [0.16.0] - 2024-11-27
 ### Added
 - Content Script for 404media.co
 - Permit removal of a loading bookmark
 - Filter bookmarks with labels, with errors and by loading state
+- Show bookmark creation date on the sidebar
 - Alignment and hyphenation reader settings
 - Use alignment and hyphenation settings in EPUB export, by [@bramaudi](https://codeberg.org/bramaudi)
 

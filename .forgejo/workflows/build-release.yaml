@@ -3,6 +3,7 @@
 name: Readeck Release Build
 run-name: ${{ gitea.actor }} release build
 on:
+  workflow_dispatch:
   push:
     tags:
       - '/^[0-9.]+$/'

@@ -10,23 +10,60 @@ env:
   FORCE_BUILD: false
 
 jobs:
-  build:
+  env:
     runs-on: self-hosted
     defaults:
       run:
+        shell: bash
+        working-directory: ${{ gitea.workspace }}
+    outputs:
+      is_fresh: ${{ fromJson(steps.last_commit_since.outputs.last_commit_since) < 86400 }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: last_commit_since
+        run: |
+          echo last_commit_since=$(($(date +%s) - $(git log -n 1 --pretty=format:"%ct"))) >> $GITHUB_OUTPUT
+
+  tests:
+    needs:
+      - env
+    if: ${{ fromJson(needs.env.outputs.is_fresh) || fromJson(env.FORCE_BUILD) }}
+    uses: ./.forgejo/workflows/run-tests.yaml
+
+  build:
+    needs:
+      - env
+      - tests
+    if: ${{ fromJson(needs.env.outputs.is_fresh) || fromJson(env.FORCE_BUILD) }}
+    runs-on: self-hosted
+    defaults:
+      run:
+        shell: bash
         working-directory: ${{ gitea.workspace }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Time since last commit
-        run: |
-          echo LAST_COMMIT_SINCE=$(($(date +%s) - $(git log -n 1 --pretty=format:"%ct"))) >> $GITHUB_ENV
+      - uses: ./.forgejo/actions/setup
 
-      - name: Build Readeck
-        if: ${{ fromJson(env.LAST_COMMIT_SINCE) < 86400 || fromJson(env.FORCE_BUILD) }}
-        uses: ./.forgejo/actions/build
-        with:
-          lint: true
-          tests: true
-          build: true
-          release: false
+      - name: Generate assets
+        run: |
+          make generate
+
+      - name: Build nightly
+        run: |
+          make XGO_TARGET="linux/amd64,linux/arm64" release-linux
+          make release-darwin
+          make release-freebsd
+          make XGO_TARGET="windows/amd64" release-windows
+
+      - name: Build container image
+        run: |
+          make release-container
+
+      - name: Copy artifacts
+        run: |
+          make stamp-version
+          ls -l dist/
+          rm -f ${HOME}/artifacts/*
+          cp -p dist/* ${HOME}/artifacts/

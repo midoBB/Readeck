@@ -8,19 +8,37 @@ on:
       - '/^[0-9.]+$/'
 
 jobs:
+  tests:
+    uses: ./.forgejo/workflows/run-tests.yaml
+
   build:
+    needs:
+      - tests
     runs-on: self-hosted
     defaults:
       run:
+        shell: bash
         working-directory: ${{ gitea.workspace }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Start build Readeck
-        uses: ./.forgejo/actions/build
-        with:
-          go_clean: true
-          lint: true
-          tests: true
-          build: true
-          release: true
+      - uses: ./.forgejo/actions/setup
+
+      - name: Generate assets
+        run: |
+          make generate
+
+      - name: Build release
+        run: |
+          make release-all
+
+      - name: Build container image
+        run: |
+          make release-container
+
+      - name: Copy artifacts
+        run: |
+          make stamp-version
+          ls -l dist/
+          rm -f ${HOME}/artifacts/*
+          cp -p dist/* ${HOME}/artifacts/

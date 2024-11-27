@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-11-27 23:01+0000\n"
+"PO-Revision-Date: 2024-11-27 23:31+0000\n"
 "Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
@@ -31,7 +31,7 @@ msgstr "Закрити меню"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Quick access menu"
-msgstr ""
+msgstr "Меню швидкого доступу"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Home Page"
@@ -40,19 +40,19 @@ msgstr "Головна"
 #: assets/templates/_libs/forms.jet.html:1
 #: assets/templates/_libs/forms.jet.html:33
 msgid "Required"
-msgstr ""
+msgstr "Обов'язково"
 
 #: assets/templates/_libs/forms.jet.html:10
 msgid "Errors"
-msgstr ""
+msgstr "Помилки"
 
 #: assets/templates/_libs/forms.jet.html:16
 msgid "Please check your form for errors."
-msgstr ""
+msgstr "Перевірте, будь ласка, вашу форму на наявність помилок."
 
 #: assets/templates/_libs/forms.jet.html:210
 msgid "The previous"
-msgstr ""
+msgstr "Попередні"
 
 #: assets/templates/_libs/forms.jet.html:219
 msgid "Day(s)"
@@ -63,9 +63,8 @@ msgid "Week(s)"
 msgstr ""
 
 #: assets/templates/_libs/forms.jet.html:221
-#, fuzzy
 msgid "Month(s)"
-msgstr "Місяць(і)"
+msgstr ""
 
 #: assets/templates/_libs/forms.jet.html:222
 msgid "Year(s)"
@@ -203,7 +202,7 @@ msgstr "Додати нового користувача"
 #: assets/templates/profile/token_list.jet.html:47
 #, python-format
 msgid "Created on: %s"
-msgstr ""
+msgstr "Створено: %s"
 
 #: assets/templates/admin/user_list.jet.html:31
 #, python-format
@@ -212,33 +211,34 @@ msgstr "Останнє оновлення: %s"
 
 #: assets/templates/admin/user_list.jet.html:38
 msgid "This user will be removed in a few seconds."
-msgstr ""
+msgstr "Користувач буде видалений через декілька секунд."
 
 #: assets/templates/auth/login.jet.html:9
 #: assets/templates/auth/login.jet.html:37
 msgid "Sign in"
-msgstr ""
+msgstr "Увійти"
 
 #: assets/templates/auth/login.jet.html:12
 msgid "Sign in to Readeck"
-msgstr ""
+msgstr "Увійти до Readeck"
 
 #: assets/templates/auth/login.jet.html:22
 msgid "Username or email address"
-msgstr ""
+msgstr "Ім'я користувача або електорнна адреса"
 
 #: assets/templates/auth/login.jet.html:41
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Забули пароль?"
 
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:71
 msgid "Welcome to Readeck!"
-msgstr ""
+msgstr "Вітаємо в Readeck!"
 
 #: assets/templates/auth/onboarding.jet.html:15
+#, fuzzy
 msgid "We're delighted to have you on board; one more step and you're good to go."
-msgstr ""
+msgstr "Ми раді бачити вас на борту; ще один крок і ви готові."
 
 #: assets/templates/auth/onboarding.jet.html:39
 msgid "Please note:"

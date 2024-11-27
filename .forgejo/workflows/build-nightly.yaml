@@ -3,6 +3,7 @@
 name: Readeck Nightly Build
 run-name: ${{ gitea.actor }} nightly build
 on:
+  workflow_dispatch:
   schedule:
     - cron: '12 1 * * *'
 

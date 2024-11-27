@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
 "PO-Revision-Date: 2024-11-28 11:39+0000\n"
-"Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
+"Last-Translator: SomeTr <SomeTr@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
 "Language: uk\n"
@@ -224,7 +224,7 @@ msgstr "Увійти до Readeck"
 
 #: assets/templates/auth/login.jet.html:22
 msgid "Username or email address"
-msgstr "Ім'я користувача або електорнна адреса"
+msgstr "Ім'я користувача або електронна адреса"
 
 #: assets/templates/auth/login.jet.html:41
 msgid "Forgot your password?"

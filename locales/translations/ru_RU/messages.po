@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-11-23 20:07+0000\n"
+"PO-Revision-Date: 2024-11-28 11:39+0000\n"
 "Last-Translator: liilliil <liilliil@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Russian <https://translate.codeberg.org/projects/readeck/"
 "application/ru/>\n"
@@ -565,7 +565,7 @@ msgstr "Непрочитанные статьи (без фото и видео)"
 
 #: assets/templates/bookmarks/collection_list.jet.html
 msgid "The archived articles from \"wikipedia.org\""
-msgstr "Архивированная статья с «wikipedia.org»"
+msgstr "Архивированные статьи с «wikipedia.org»"
 
 #: assets/templates/bookmarks/collection_list.jet.html
 msgid "The pictures with the label \"cat\""
@@ -1200,7 +1200,7 @@ msgstr "Главный сайт"
 
 #: assets/templates/docs/about.jet.html
 msgid "Sources and issues"
-msgstr "Источники и издания"
+msgstr "Исходники и релизы"
 
 #: assets/templates/docs/about.jet.html
 msgid "How to contribute"
@@ -1225,19 +1225,19 @@ msgstr "Readeck распространяется по условиям лице�
 
 #: assets/templates/docs/about.jet.html
 msgid "Here's a short summary of the license conditions:"
-msgstr "Тут краткое изложение условий лицензии:"
+msgstr "Вот краткое изложение условий лицензии:"
 
 #: assets/templates/docs/about.jet.html
 msgid "Permissions"
-msgstr "Разрешения"
+msgstr "Разрешено"
 
 #: assets/templates/docs/about.jet.html
 msgid "Conditions"
-msgstr "Условия"
+msgstr "При условии"
 
 #: assets/templates/docs/about.jet.html
 msgid "Limitations"
-msgstr "Ограничения"
+msgstr "Ограничены"
 
 #: assets/templates/docs/about.jet.html
 msgid "Commercial use"

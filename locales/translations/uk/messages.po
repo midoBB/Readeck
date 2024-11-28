@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-11-27 23:31+0000\n"
-"Last-Translator: SomeTr <SomeTr@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2024-11-28 11:39+0000\n"
+"Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
 "Language: uk\n"
@@ -236,13 +236,12 @@ msgid "Welcome to Readeck!"
 msgstr "Вітаємо в Readeck!"
 
 #: assets/templates/auth/onboarding.jet.html:15
-#, fuzzy
 msgid "We're delighted to have you on board; one more step and you're good to go."
-msgstr "Ми раді бачити вас на борту; ще один крок і ви готові."
+msgstr "Ми раді бачити вас на борту; ще один крок і все готово."
 
 #: assets/templates/auth/onboarding.jet.html:39
 msgid "Please note:"
-msgstr ""
+msgstr "Увага:"
 
 #: assets/templates/auth/onboarding.jet.html:40
 msgid ""
@@ -256,15 +255,15 @@ msgstr ""
 
 #: assets/templates/auth/onboarding.jet.html:47
 msgid "Finish installation"
-msgstr ""
+msgstr "Завершити встановлення"
 
 #: assets/templates/auth/recover.jet.html:9
 msgid "Password recovery"
-msgstr ""
+msgstr "Відновлення паролю"
 
 #: assets/templates/auth/recover.jet.html:21
 msgid "No worries, it happens to anyone."
-msgstr ""
+msgstr "Без паніки, це з усіма трапляється."
 
 #: assets/templates/auth/recover.jet.html:22
 msgid ""
@@ -277,16 +276,16 @@ msgstr ""
 
 #: assets/templates/auth/recover.jet.html:32
 msgid "Send me a recovery link"
-msgstr ""
+msgstr "Відправте мені посилання для відновлення"
 
 #: assets/templates/auth/recover.jet.html:33
 #: assets/templates/auth/recover.jet.html:58
 msgid "Cancel and go back to sign in"
-msgstr ""
+msgstr "Скасувати і повернутися до входу"
 
 #: assets/templates/auth/recover.jet.html:37
 msgid "Almost there!"
-msgstr ""
+msgstr "Майже готово!"
 
 #: assets/templates/auth/recover.jet.html:38
 #, python-format
@@ -301,33 +300,35 @@ msgstr ""
 #: assets/templates/auth/recover.jet.html:54
 #: assets/templates/profile/password.jet.html:29
 msgid "New password"
-msgstr ""
+msgstr "Новий пароль"
 
 #: assets/templates/auth/onboarding.jet.html:32
 #: assets/templates/auth/recover.jet.html:56
 #: assets/templates/profile/password.jet.html:32
 msgid "must be at least 8 characters long"
-msgstr ""
+msgstr "повинен містити мінімум 8 символів"
 
 #: assets/templates/auth/recover.jet.html:57
+#, fuzzy
 msgid "Update your password"
-msgstr ""
+msgstr "Оновити пароль"
 
 #: assets/templates/auth/recover.jet.html:62
 msgid "Your password has been changed."
-msgstr ""
+msgstr "Ваш пароль змінений."
 
 #: assets/templates/auth/recover.jet.html:63
 msgid "Go to the sign in page"
-msgstr ""
+msgstr "Перейти на сторінку входу"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
 msgstr ""
 
 #: assets/templates/bookmarks/annotation_list.jet.html:17
+#, fuzzy
 msgid "You don't have any highlights yet."
-msgstr ""
+msgstr "У вас поки що немає виділень."
 
 #: assets/templates/bookmarks/annotation_list.jet.html:18
 msgid ""
@@ -339,106 +340,111 @@ msgid ""
 msgstr ""
 
 #: assets/templates/bookmarks/annotation_list.jet.html:23
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Read more about highlights in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
+"Прочитайте більше про виділення в<a class=\"%s\" href=\"%s\""
+">документації</a>."
 
 #: assets/templates/bookmarks/base.jet.html:9
 #: assets/templates/bookmarks/bookmark.jet.html:15
 msgid "Bookmarks"
-msgstr ""
+msgstr "Закладки"
 
 #: assets/templates/bookmarks/base.jet.html:24
 #: internal/bookmarks/routes/forms_bookmarks.go:402
 msgid "All"
-msgstr ""
+msgstr "Все"
 
 #: assets/templates/bookmarks/base.jet.html:26
 msgid "Unread"
-msgstr ""
+msgstr "Непрочитані"
 
 #: assets/templates/bookmarks/base.jet.html:28
 msgid "Archive"
-msgstr ""
+msgstr "Архів"
 
 #: assets/templates/bookmarks/base.jet.html:30
 msgid "Favorites"
-msgstr ""
+msgstr "Обране"
 
 #: assets/templates/bookmarks/base.jet.html:37
 #: internal/bookmarks/routes/views_bookmarks.go:111
 msgid "Articles"
-msgstr ""
+msgstr "Статті"
 
 #: assets/templates/bookmarks/base.jet.html:42
 #: internal/bookmarks/routes/views_bookmarks.go:115
 msgid "Videos"
-msgstr ""
+msgstr "Відео"
 
 #: assets/templates/bookmarks/base.jet.html:47
 #: internal/bookmarks/routes/views_bookmarks.go:113
 msgid "Pictures"
-msgstr ""
+msgstr "Зображення"
 
 #: assets/templates/bookmarks/base.jet.html:56
 #: assets/templates/bookmarks/components/sidebar.jet.html:93
 msgid "Labels"
-msgstr ""
+msgstr "Мітки"
 
 #: assets/templates/bookmarks/base.jet.html:58
 #: assets/templates/bookmarks/components/sidebar.jet.html:98
+#, fuzzy
 msgid "Highlights"
-msgstr ""
+msgstr "Виділення"
 
 #: assets/templates/bookmarks/base.jet.html:60
 #: assets/templates/bookmarks/collection.jet.html:11
 #: assets/templates/bookmarks/collection.jet.html:33
 msgid "Collections"
-msgstr ""
+msgstr "Колекції"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:63
 msgid "Close panel"
-msgstr ""
+msgstr "Закрити панель"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:94
 msgid "Bookmark information"
-msgstr ""
+msgstr "Інформація про закладку"
 
 #: assets/templates/bookmarks/bookmark.jet.html:12
+#, fuzzy
 msgid "Bookmark loading"
-msgstr ""
+msgstr "Завантаження закладки"
 
 #: assets/templates/bookmarks/bookmark.jet.html:42
 msgid "Bookmark is loading"
-msgstr ""
+msgstr "Закладка завантажується"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html:9
 #: assets/templates/bookmarks/bookmark_missing.jet.html:14
 msgid "Bookmark not found"
-msgstr ""
+msgstr "Закладку не знайдено"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:13
 msgid "Shared link"
-msgstr ""
+msgstr "Спільне посилання"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:23
 msgid "Page not found"
-msgstr ""
+msgstr "Сторінку не знайдено"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:25
+#, fuzzy
 msgid "Page has expired"
-msgstr ""
+msgstr "Термін дії сторінки закінчився"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:47
 #: assets/templates/bookmarks/components/sidebar.jet.html:53
 #: assets/templates/epub/bookmark.jet.html:37
 #, python-format
 msgid "Published on %s"
-msgstr ""
+msgstr "Опубліковано %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:52
 #: assets/templates/bookmarks/components/sidebar.jet.html:58

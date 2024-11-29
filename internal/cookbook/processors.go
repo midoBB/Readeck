@@ -28,7 +28,7 @@ func archiveProcessor(m *extract.ProcessMessage, next extract.Processor) extract
 		return next
 	}
 
-	m.Log.Debug("create archive")
+	m.Log().Debug("create archive")
 
 	req := &archiver.Request{
 		Client: m.Extractor.Client(),
@@ -37,7 +37,7 @@ func archiveProcessor(m *extract.ProcessMessage, next extract.Processor) extract
 	}
 	arc, err := archiver.New(req)
 	if err != nil {
-		m.Log.Error("archive error", slog.Any("err", err))
+		m.Log().Error("archive error", slog.Any("err", err))
 		return next
 	}
 
@@ -46,10 +46,10 @@ func archiveProcessor(m *extract.ProcessMessage, next extract.Processor) extract
 	arc.RequestTimeout = 45 * time.Second
 	arc.EventHandler = eventHandler
 
-	ctx := context.WithValue(context.Background(), ctxLogger{}, m.Log)
+	ctx := context.WithValue(context.Background(), ctxLogger{}, m.Log())
 
 	if err := arc.Archive(ctx); err != nil {
-		m.Log.Error("archive error", slog.Any("err", err))
+		m.Log().Error("archive error", slog.Any("err", err))
 		return next
 	}
 

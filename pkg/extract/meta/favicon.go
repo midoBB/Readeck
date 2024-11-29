@@ -38,7 +38,7 @@ func ExtractFavicon(m *extract.ProcessMessage, next extract.Processor) extract.P
 		return next
 	}
 
-	m.Log.Debug("loading icon")
+	m.Log().Debug("loading icon")
 	list := newFaviconList(m.Dom, m.Extractor.Drop().URL)
 
 	// Load icons until we find a suitable one
@@ -47,7 +47,7 @@ func ExtractFavicon(m *extract.ProcessMessage, next extract.Processor) extract.P
 			continue
 		}
 		m.Extractor.Drop().Pictures["icon"] = icon
-		m.Log.Debug("icon loaded",
+		m.Log().Debug("icon loaded",
 			slog.String("href", icon.Href),
 			slog.Any("size", icon.Size[:]),
 		)

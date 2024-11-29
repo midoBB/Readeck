@@ -386,7 +386,7 @@ func saveBookmark(b *bookmarks.Bookmark, saved *bool, resourceCount *int) extrac
 		if len(ex.HTML) > 0 && ex.Drop().IsHTML() {
 			arc, err = bookmarks.NewArchive(context.TODO(), ex)
 			if err != nil {
-				m.Log.Error("archiver error", slog.Any("err", err))
+				m.Log().Error("archiver error", slog.Any("err", err))
 			}
 		}
 
@@ -406,7 +406,7 @@ func saveBookmark(b *bookmarks.Bookmark, saved *bool, resourceCount *int) extrac
 
 		// All good? Save now
 		if err := b.Save(); err != nil {
-			m.Log.Error("", slog.Any("err", err))
+			m.Log().Error("", slog.Any("err", err))
 			return next
 		}
 		*saved = true
@@ -433,7 +433,7 @@ func fetchLinksProcessor(b *bookmarks.Bookmark) extract.Processor {
 		g.SetLimit(10)
 		for i := range links {
 			g.Go(func() error {
-				m.Log.Debug("extract link", slog.String("url", links[i].URL))
+				m.Log().Debug("extract link", slog.String("url", links[i].URL))
 				URL, err := url.Parse(links[i].URL)
 				if err != nil {
 					return err
@@ -441,7 +441,7 @@ func fetchLinksProcessor(b *bookmarks.Bookmark) extract.Processor {
 				d := extract.NewDrop(URL)
 				err = d.Load(m.Extractor.Client())
 				if err != nil {
-					m.Log.Warn("extract link error",
+					m.Log().Warn("extract link error",
 						slog.String("url", d.URL.String()),
 						slog.Any("err", err),
 					)
@@ -456,7 +456,7 @@ func fetchLinksProcessor(b *bookmarks.Bookmark) extract.Processor {
 
 				node, err := html.Parse(bytes.NewReader(d.Body))
 				if err != nil {
-					m.Log.Warn("extract link error",
+					m.Log().Warn("extract link error",
 						slog.String("url", d.URL.String()),
 						slog.Any("err", err),
 					)
@@ -464,7 +464,7 @@ func fetchLinksProcessor(b *bookmarks.Bookmark) extract.Processor {
 				}
 				meta := meta.ParseMeta(node)
 				title := meta.LookupGet("graph.title", "tiwtter.title", "html.title")
-				m.Log.Debug("link",
+				m.Log().Debug("link",
 					slog.String("url", d.URL.String()),
 					slog.String("title", title),
 				)
@@ -475,7 +475,7 @@ func fetchLinksProcessor(b *bookmarks.Bookmark) extract.Processor {
 		}
 
 		if err := g.Wait(); err != nil {
-			m.Log.Error("extract links", slog.Any("err", err))
+			m.Log().Error("extract links", slog.Any("err", err))
 		}
 
 		links = slices.CompactFunc(links, func(a, b bookmarks.BookmarkLink) bool {
@@ -487,7 +487,7 @@ func fetchLinksProcessor(b *bookmarks.Bookmark) extract.Processor {
 		}
 
 		if err := b.Update(map[string]any{"links": links}); err != nil {
-			m.Log.Error("", slog.Any("err", err))
+			m.Log().Error("", slog.Any("err", err))
 		}
 
 		return next

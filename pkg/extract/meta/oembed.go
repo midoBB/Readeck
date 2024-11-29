@@ -31,10 +31,10 @@ func ExtractOembed(m *extract.ProcessMessage, next extract.Processor) extract.Pr
 	if d.Meta == nil {
 		return next
 	}
-	m.Log.Debug("looking for oembed URL")
+	m.Log().Debug("looking for oembed URL")
 	o, err := newOembed(m.Dom, d.URL, m.Extractor.Client())
 	if err != nil {
-		m.Log.Warn("oembed error", slog.Any("err", err))
+		m.Log().Warn("oembed error", slog.Any("err", err))
 		return next
 	}
 
@@ -44,7 +44,7 @@ func ExtractOembed(m *extract.ProcessMessage, next extract.Processor) extract.Pr
 		return next
 	}
 
-	m.Log.Debug("found oembed", slog.String("url", o._url.String()))
+	m.Log().Debug("found oembed", slog.String("url", o._url.String()))
 
 	setOembedMeta(d, "type", o.Type)
 	setOembedMeta(d, "version", o.Version)

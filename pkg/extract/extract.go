@@ -19,6 +19,7 @@ import (
 	"net"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"golang.org/x/net/html"
@@ -41,9 +42,9 @@ type (
 	// by the subsequent processes.
 	ProcessMessage struct {
 		Extractor *Extractor
-		Log       *slog.Logger
 		Dom       *html.Node
 
+		logger       *slog.Logger
 		position     int
 		resetCounter int
 		maxReset     int
@@ -81,6 +82,23 @@ const (
 	StepDone
 )
 
+func (s ProcessStep) String() string {
+	switch s {
+	case 1:
+		return "start"
+	case 2:
+		return "body"
+	case 3:
+		return "dom"
+	case 4:
+		return "finish"
+	case 5:
+		return "done"
+	}
+
+	return strconv.Itoa(int(s))
+}
+
 // Step returns the current process step.
 func (m *ProcessMessage) Step() ProcessStep {
 	return m.step
@@ -109,8 +127,13 @@ func (m *ProcessMessage) ResetContent() {
 
 // Cancel fully cancel the extract process.
 func (m *ProcessMessage) Cancel(reason string, args ...interface{}) {
-	m.Log.Error("operation canceled", slog.Any("err", fmt.Errorf(reason, args...)))
+	m.Log().Error("operation canceled", slog.Any("err", fmt.Errorf(reason, args...)))
 	m.canceled = true
+}
+
+// Log returns the message's [slog.Logger].
+func (m *ProcessMessage) Log() *slog.Logger {
+	return m.logger.With(slog.Int("step", int(m.step)))
 }
 
 // Error holds all the non-fatal errors that were
@@ -301,7 +324,7 @@ func (e *Extractor) AddProcessors(p ...Processor) {
 func (e *Extractor) NewProcessMessage(step ProcessStep) *ProcessMessage {
 	return &ProcessMessage{
 		Extractor:    e,
-		Log:          e.logger,
+		logger:       e.logger,
 		step:         step,
 		resetCounter: 0,
 		maxReset:     10,
@@ -341,7 +364,7 @@ func (e *Extractor) Run() {
 		m.position = i
 
 		// Start extraction
-		m.Log.Info("start",
+		m.Log().Info("start",
 			slog.Int("idx", i),
 			slog.String("url", d.URL.String()),
 		)
@@ -353,12 +376,12 @@ func (e *Extractor) Run() {
 
 		err := d.Load(e.client)
 		if err != nil {
-			m.Log.Error("cannot load resource", slog.Any("err", err))
+			m.Log().Error("cannot load resource", slog.Any("err", err))
 			return
 		}
 
 		// First process pass
-		m.Log.Debug("step body")
+		m.Log().Debug("step body")
 		m.step = StepBody
 		e.runProcessors(m)
 		if m.canceled {
@@ -374,11 +397,11 @@ func (e *Extractor) Run() {
 				}()
 
 				if err != nil {
-					m.Log.Error("cannot parse resource", slog.Any("err", err))
+					m.Log().Error("cannot parse resource", slog.Any("err", err))
 					return
 				}
 
-				m.Log.Debug("step DOM")
+				m.Log().Debug("step DOM")
 				m.Dom = doc
 				m.step = StepDom
 				e.runProcessors(m)
@@ -396,7 +419,7 @@ func (e *Extractor) Run() {
 		}
 
 		// Final processes
-		m.Log.Debug("step finish")
+		m.Log().Debug("step finish")
 		m.step = StepFinish
 		e.runProcessors(m)
 		if m.canceled {
@@ -408,7 +431,7 @@ func (e *Extractor) Run() {
 	}
 
 	// Postprocess
-	m.Log.Debug("postprocess")
+	m.Log().Debug("postprocess")
 	m.step = StepPostProcess
 	e.setFinalHTML()
 	e.runProcessors(m)

@@ -44,14 +44,14 @@ func LoadScripts(programs ...*Program) extract.Processor {
 
 		vm, err := New(append(preloadedScripts, programs...)...)
 		if err != nil {
-			m.Log.Error("loading scripts", slog.Any("err", err))
+			m.Log().Error("loading scripts", slog.Any("err", err))
 			return next
 		}
-		vm.SetLogger(m.Log)
+		vm.SetLogger(m.Log())
 		vm.SetProcessMessage(m)
 
 		m.Extractor.Context = context.WithValue(m.Extractor.Context, runtimeCtxKey, vm)
-		m.Log.Debug("content script runtime ready", slog.Any("step", m.Step()))
+		m.Log().Debug("content script runtime ready", slog.Any("step", m.Step()))
 
 		return next
 	}
@@ -71,20 +71,20 @@ func LoadSiteConfig(m *extract.ProcessMessage, next extract.Processor) extract.P
 
 	cfg, err := NewConfigForURL(SiteConfigFiles, m.Extractor.Drop().URL)
 	if err != nil {
-		m.Log.Warn("site configuration", slog.Any("err", err))
+		m.Log().Warn("site configuration", slog.Any("err", err))
 		return next
 	}
 
 	if cfg != nil {
-		m.Log.Debug("site configuration loaded", slog.Any("files", cfg.files))
+		m.Log().Debug("site configuration loaded", slog.Any("files", cfg.files))
 	} else {
-		m.Log.Debug("no site configuration found")
+		m.Log().Debug("no site configuration found")
 		cfg = &SiteConfig{}
 	}
 
 	// Apply scripts "setConfig" function
 	if err := getRuntime(m.Extractor.Context).SetConfig(cfg); err != nil {
-		m.Log.Warn("setConfig", slog.Any("err", err))
+		m.Log().Warn("setConfig", slog.Any("err", err))
 	}
 
 	// Add config to context
@@ -103,7 +103,7 @@ func ProcessMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 	}
 
 	if err := getRuntime(m.Extractor.Context).ProcessMeta(); err != nil {
-		m.Log.Warn("processMeta", slog.Any("err", err))
+		m.Log().Warn("processMeta", slog.Any("err", err))
 	}
 	return next
 }
@@ -118,7 +118,7 @@ func prepareHeaders(m *extract.ProcessMessage, cfg *SiteConfig) {
 		extract.SetHeader(m.Extractor.Client(), k, v)
 		attrs = append(attrs, slog.String(k, v))
 	}
-	m.Log.WithGroup("header").LogAttrs(
+	m.Log().WithGroup("header").LogAttrs(
 		context.Background(),
 		slog.LevelDebug,
 		"site config custom headers",
@@ -141,7 +141,7 @@ func ReplaceStrings(m *extract.ProcessMessage, next extract.Processor) extract.P
 	d := m.Extractor.Drop()
 	for _, r := range cfg.ReplaceStrings {
 		d.Body = []byte(strings.ReplaceAll(string(d.Body), r[0], r[1]))
-		m.Log.Debug("site config replace_string", slog.Any("replace", r[:]))
+		m.Log().Debug("site config replace_string", slog.Any("replace", r[:]))
 	}
 
 	return next
@@ -175,7 +175,7 @@ func ExtractBody(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 		}
 
 		// First match, replace the root node and stop
-		m.Log.Debug("site config body found", slog.Int("nodes", len(dom.Children(node))))
+		m.Log().Debug("site config body found", slog.Int("nodes", len(dom.Children(node))))
 
 		newBody := dom.CreateElement("body")
 		section := dom.CreateElement("section")
@@ -210,7 +210,7 @@ func ExtractAuthor(m *extract.ProcessMessage, next extract.Processor) extract.Pr
 			if value == "" {
 				continue
 			}
-			m.Log.Debug("site config author", slog.String("author", value))
+			m.Log().Debug("site config author", slog.String("author", value))
 			m.Extractor.Drop().AddAuthors(value)
 		}
 	}
@@ -239,7 +239,7 @@ func ExtractDate(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 		for _, n := range nodes {
 			date, err := dateparse.ParseLocal(dom.TextContent(n))
 			if err == nil && !date.IsZero() {
-				m.Log.Debug("site config date", slog.String("date", date.String()))
+				m.Log().Debug("site config date", slog.String("date", date.String()))
 				m.Extractor.Drop().Date = date
 				return next
 			}
@@ -266,7 +266,7 @@ func StripTags(m *extract.ProcessMessage, next extract.Processor) extract.Proces
 	for _, value = range cfg.StripSelectors {
 		nodes, _ := htmlquery.QueryAll(m.Dom, value)
 		dom.RemoveNodes(nodes, nil)
-		m.Log.Debug("site config strip_tags",
+		m.Log().Debug("site config strip_tags",
 			slog.String("value", value),
 			slog.Int("nodes", len(nodes)),
 		)
@@ -280,7 +280,7 @@ func StripTags(m *extract.ProcessMessage, next extract.Processor) extract.Proces
 
 		nodes, _ := htmlquery.QueryAll(m.Dom, selector)
 		dom.RemoveNodes(nodes, nil)
-		m.Log.Debug("site config strip_id_or_class",
+		m.Log().Debug("site config strip_id_or_class",
 			slog.String("value", value),
 			slog.Int("nodes", len(nodes)),
 		)
@@ -291,7 +291,7 @@ func StripTags(m *extract.ProcessMessage, next extract.Processor) extract.Proces
 
 		nodes, _ := htmlquery.QueryAll(m.Dom, selector)
 		dom.RemoveNodes(nodes, nil)
-		m.Log.Debug("site config strip_image_src",
+		m.Log().Debug("site config strip_image_src",
 			slog.String("value", value),
 			slog.Int("nodes", len(nodes)),
 		)
@@ -339,13 +339,13 @@ func FindContentPage(m *extract.ProcessMessage, next extract.Processor) extract.
 		u.Fragment = ""
 
 		if m.Extractor.Visited.IsPresent(u) {
-			m.Log.Debug("single page already visited", slog.String("url", u.String()))
+			m.Log().Debug("single page already visited", slog.String("url", u.String()))
 			continue
 		}
 
-		m.Log.Info("site config found single page link", slog.String("url", u.String()))
+		m.Log().Info("site config found single page link", slog.String("url", u.String()))
 		if err = m.Extractor.ReplaceDrop(u); err != nil {
-			m.Log.Error("cannot replace page", slog.Any("err", err))
+			m.Log().Error("cannot replace page", slog.Any("err", err))
 			return nil
 		}
 
@@ -388,7 +388,7 @@ func FindNextPage(m *extract.ProcessMessage, next extract.Processor) extract.Pro
 		}
 		u.Fragment = ""
 
-		m.Log.Debug("site config found next page", slog.String("url", u.String()))
+		m.Log().Debug("site config found next page", slog.String("url", u.String()))
 		m.Extractor.Context = context.WithValue(m.Extractor.Context, nextPageCtxKey, u)
 	}
 
@@ -409,11 +409,11 @@ func GoToNextPage(m *extract.ProcessMessage, next extract.Processor) extract.Pro
 
 	// Avoid crazy loops
 	if m.Extractor.Visited.IsPresent(u) {
-		m.Log.Debug("next page already visited", slog.String("url", u.String()))
+		m.Log().Debug("next page already visited", slog.String("url", u.String()))
 		return next
 	}
 
-	m.Log.Info("go to next page", slog.String("url", u.String()))
+	m.Log().Info("go to next page", slog.String("url", u.String()))
 	m.Extractor.AddDrop(u)
 	m.Extractor.Context = context.WithValue(m.Extractor.Context, nextPageCtxKey, nil)
 

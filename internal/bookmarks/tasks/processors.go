@@ -29,7 +29,7 @@ func CleanDomProcessor(m *extract.ProcessMessage, next extract.Processor) extrac
 		return next
 	}
 
-	m.Log.Debug("cleaning resulting DOM")
+	m.Log().Debug("cleaning resulting DOM")
 
 	bleach.DefaultPolicy.Clean(m.Dom)
 	bleach.DefaultPolicy.RemoveEmptyNodes(m.Dom)
@@ -49,7 +49,7 @@ func extractLinksProcessor(m *extract.ProcessMessage, next extract.Processor) ex
 		return next
 	}
 
-	m.Log.Debug("extract links from content")
+	m.Log().Debug("extract links from content")
 	links := bookmarks.BookmarkLinks{}
 	seen := map[string]*extract.Drop{}
 

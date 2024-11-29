@@ -228,7 +228,7 @@ func TestExtractorRun(t *testing.T) {
 		assert.Len(ex.Errors(), 1)
 		assert.Equal("operation canceled", ex.Errors().Error())
 		assert.Equal(
-			`[ERRO] operation canceled err="too many redirects"`,
+			`[ERRO] operation canceled step="3" err="too many redirects"`,
 			ex.Logs[len(ex.Logs)-2],
 		)
 	})
@@ -241,7 +241,7 @@ func TestExtractorRun(t *testing.T) {
 		assert.Len(ex.Errors(), 1)
 		assert.Equal("operation canceled", ex.Errors().Error())
 		assert.Equal(
-			`[ERRO] operation canceled err="too many pages"`,
+			`[ERRO] operation canceled step="4" err="too many pages"`,
 			ex.Logs[len(ex.Logs)-2],
 		)
 	})

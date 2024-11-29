@@ -62,7 +62,9 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 
 	ex, err := extract.New(
 		src,
-		extract.SetLogAttrs(slog.String("@id", api.srv.GetReqID(r))),
+		extract.SetLogger(slog.Default(),
+			slog.String("@id", api.srv.GetReqID(r)),
+		),
 		extract.SetDeniedIPs(configs.ExtractorDeniedIPs()),
 		extract.SetProxyList(proxyList),
 	)

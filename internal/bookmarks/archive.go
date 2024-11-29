@@ -114,8 +114,6 @@ var mimeTypes = map[string]string{
 }
 
 func eventHandler(ex *extract.Extractor) func(ctx context.Context, arc *archiver.Archiver, evt archiver.Event) {
-	logger := ex.GetLogger().With(ex.LogAttrs...)
-
 	return func(_ context.Context, _ *archiver.Archiver, evt archiver.Event) {
 		attrs := []slog.Attr{}
 		for k, v := range evt.Fields() {
@@ -135,7 +133,7 @@ func eventHandler(ex *extract.Extractor) func(ctx context.Context, arc *archiver
 			msg = "load archive resource"
 		}
 
-		logger.LogAttrs(context.Background(), level, msg, attrs...)
+		ex.Log().LogAttrs(context.Background(), level, msg, attrs...)
 	}
 }
 

@@ -144,15 +144,15 @@ func (l URLList) IsPresent(v *url.URL) bool {
 
 // Extractor is a page extractor.
 type Extractor struct {
-	URL      *url.URL
-	HTML     []byte
-	Text     string
-	Visited  URLList
-	Logs     []string
-	Context  context.Context
-	LogAttrs []any
+	URL     *url.URL
+	HTML    []byte
+	Text    string
+	Visited URLList
+	Logs    []string
+	Context context.Context
 
 	client          *http.Client
+	logger          *slog.Logger
 	processors      ProcessList
 	errors          Error
 	drops           []*Drop
@@ -187,16 +187,20 @@ func New(src string, options ...func(e *Extractor)) (*Extractor, error) {
 		}
 	}
 
+	if res.logger == nil {
+		res.logger = slog.New(newLogRecorder(slog.Default().Handler(), res))
+	}
+
 	return res, nil
 }
 
-// SetLogAttrs sets the default log fields for the extractor.
-func SetLogAttrs(attrs ...slog.Attr) func(e *Extractor) {
+// SetLogger sets the extractor logger.
+// This logger will copy everything to the extractor internal log and error list.
+// Arguments are [slog.With] arguments and are shared between the parent logger
+// and the log recorder.
+func SetLogger(logger *slog.Logger, args ...any) func(e *Extractor) {
 	return func(e *Extractor) {
-		e.LogAttrs = make([]any, len(attrs))
-		for i := range attrs {
-			e.LogAttrs[i] = attrs[i]
-		}
+		e.logger = slog.New(newLogRecorder(logger.Handler(), e)).With(args...)
 	}
 }
 
@@ -218,7 +222,7 @@ func SetProxyList(list []ProxyMatcher) func(e *Extractor) {
 		htr.Proxy = func(r *http.Request) (*url.URL, error) {
 			for _, p := range list {
 				if glob.Glob(p.Host(), r.URL.Host) {
-					e.GetLogger().Debug("using proxy", slog.String("proxy", p.URL().String()))
+					e.Log().Debug("using proxy", slog.String("proxy", p.URL().String()))
 					return p.URL(), nil
 				}
 			}
@@ -230,6 +234,11 @@ func SetProxyList(list []ProxyMatcher) func(e *Extractor) {
 // Client returns the extractor's HTTP client.
 func (e *Extractor) Client() *http.Client {
 	return e.client
+}
+
+// Log returns the extractor's logger.
+func (e *Extractor) Log() *slog.Logger {
+	return e.logger
 }
 
 // AddToCache adds a resource to the extractor's resource cache.
@@ -292,23 +301,12 @@ func (e *Extractor) AddProcessors(p ...Processor) {
 func (e *Extractor) NewProcessMessage(step ProcessStep) *ProcessMessage {
 	return &ProcessMessage{
 		Extractor:    e,
-		Log:          e.GetLogger().With(e.LogAttrs...),
+		Log:          e.logger,
 		step:         step,
 		resetCounter: 0,
 		maxReset:     10,
 		maxDrops:     100,
 	}
-}
-
-// GetLogger returns a logger for the extractor.
-// This standard logger will copy everything to the
-// extractor Log slice.
-func (e *Extractor) GetLogger() *slog.Logger {
-	logger := slog.New(
-		newLogRecorder(slog.Default().Handler(), e),
-	)
-
-	return logger
 }
 
 // Run start the extraction process.
@@ -423,7 +421,7 @@ func (e *Extractor) getFromCache(req *http.Request) (*http.Response, error) {
 		return nil, nil
 	}
 
-	e.GetLogger().Debug("cache hit", slog.String("url", u))
+	e.Log().Debug("cache hit", slog.String("url", u))
 	headers := make(http.Header)
 	for k, v := range entry.headers {
 		headers.Set(k, v)

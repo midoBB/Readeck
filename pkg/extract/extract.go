@@ -133,7 +133,10 @@ func (m *ProcessMessage) Cancel(reason string, args ...interface{}) {
 
 // Log returns the message's [slog.Logger].
 func (m *ProcessMessage) Log() *slog.Logger {
-	return m.logger.With(slog.Int("step", int(m.step)))
+	return m.logger.With(slog.Group("step",
+		slog.Int("id", int(m.step)),
+		slog.String("name", m.step.String()),
+	))
 }
 
 // Error holds all the non-fatal errors that were

@@ -39,7 +39,7 @@ func (h *logRecorder) Handle(ctx context.Context, r slog.Record) error {
 	h.mu.Lock()
 	defer h.mu.Unlock()
 
-	b := &strings.Builder{}
+	b := new(strings.Builder)
 	fmt.Fprintf(b, "[%s] ", r.Level.String()[0:4])
 	fmt.Fprintf(b, "%s ", strings.TrimSpace(r.Message))
 
@@ -58,12 +58,12 @@ func (h *logRecorder) Handle(ctx context.Context, r slog.Record) error {
 		}
 
 		for _, a := range goa.attrs {
-			fmt.Fprintf(b, `%s%s="%s" `, prefix, a.Key, a.Value)
+			h.renderAttr(b, prefix, a)
 		}
 	}
 
 	r.Attrs(func(a slog.Attr) bool {
-		fmt.Fprintf(b, `%s%s="%v" `, prefix, a.Key, a.Value)
+		h.renderAttr(b, prefix, a)
 		return true
 	})
 
@@ -97,4 +97,14 @@ func (h *logRecorder) withGroupOrAttrs(goa groupOrAttrs) *logRecorder {
 	copy(h2.goas, h.goas)
 	h2.goas[len(h2.goas)-1] = goa
 	return &h2
+}
+
+func (h *logRecorder) renderAttr(w *strings.Builder, prefix string, attr slog.Attr) {
+	if attr.Value.Kind() == slog.KindGroup {
+		for _, a := range attr.Value.Group() {
+			h.renderAttr(w, prefix+attr.Key+".", a)
+		}
+		return
+	}
+	fmt.Fprintf(w, `%s%s="%v" `, prefix, attr.Key, attr.Value)
 }

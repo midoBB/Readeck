@@ -10,6 +10,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"log/slog"
 	"math/rand"
 	"regexp"
 	"sort"
@@ -82,7 +83,7 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 
 			article, err := parser.ParseDocument(m.Dom, m.Extractor.Drop().URL)
 			if err != nil {
-				m.Log.WithError(err).Error("readability error")
+				m.Log.Error("readability error", slog.Any("err", err))
 				m.ResetContent()
 				return next
 			}
@@ -374,7 +375,7 @@ func fixImages(top *html.Node, m *extract.ProcessMessage) {
 	m.Log.Debug("fixing images")
 	nodes, err := htmlquery.QueryAll(top, "//*[@srcset]")
 	if err != nil {
-		m.Log.WithError(err).Warn()
+		m.Log.Warn("", slog.Any("err", err))
 	}
 
 	dom.ForEachNode(nodes, func(node *html.Node, _ int) {

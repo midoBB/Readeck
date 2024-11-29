@@ -7,6 +7,7 @@ package contents
 import (
 	"bytes"
 	"fmt"
+	"log/slog"
 
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"github.com/go-shiori/dom"
@@ -30,7 +31,7 @@ func ExtractInlineSVGs(m *extract.ProcessMessage, next extract.Processor) extrac
 		buf.WriteString("\n")
 		err := html.Render(buf, n)
 		if err != nil {
-			m.Log.Error(err)
+			m.Log.Error("", slog.Any("err", err))
 			return
 		}
 

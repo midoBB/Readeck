@@ -8,6 +8,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"net/url"
 	"os"
@@ -56,7 +57,7 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 		forms.Bind(f, r)
 		if f.IsValid() {
 			if b, err := f.createBookmark(); err != nil {
-				h.srv.Log(r).Error(err)
+				h.srv.Log(r).Error("", slog.Any("err", err))
 			} else {
 				redir := []string{"/bookmarks"}
 				if h.srv.IsTurboRequest(r) {
@@ -126,7 +127,7 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	user := auth.GetRequestUser(r)
 	item := newBookmarkItem(h.srv, r, b, "../bookmarks")
 	if err := item.setEmbed(); err != nil {
-		h.srv.Log(r).Error(err)
+		h.srv.Log(r).Error("", slog.Any("err", err))
 	}
 	item.Errors = b.Errors
 
@@ -136,7 +137,7 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	var err error
 	ctx["HTML"], err = item.getArticle()
 	if err != nil {
-		h.srv.Log(r).Error(err)
+		h.srv.Log(r).Error("", slog.Any("err", err))
 	}
 
 	// Load bookmark debug information if the user needs them.

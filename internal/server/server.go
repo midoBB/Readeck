@@ -7,6 +7,7 @@
 package server
 
 import (
+	"log/slog"
 	"net/http"
 	"net/url"
 	"os"
@@ -17,7 +18,6 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/assets"
 	"codeberg.org/readeck/readeck/configs"
@@ -191,8 +191,8 @@ func (s *Server) Redirect(w http.ResponseWriter, r *http.Request, ref ...string)
 }
 
 // Log returns a log entry including the request ID.
-func (s *Server) Log(r *http.Request) *log.Entry {
-	return log.WithField("@id", s.GetReqID(r))
+func (s *Server) Log(r *http.Request) *slog.Logger {
+	return slog.With(slog.String("@id", s.GetReqID(r)))
 }
 
 // sysRoutes returns the route returning some system

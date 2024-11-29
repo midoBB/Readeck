@@ -8,12 +8,12 @@ import (
 	"context"
 	"errors"
 	"flag"
+	"log/slog"
 	"os"
 	"os/signal"
 	"syscall"
 
 	"github.com/cristalhq/acmd"
-	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/bus"
@@ -46,16 +46,16 @@ func runWorker(_ context.Context, args []string) error {
 	// Start the metrics HTTP server
 	startMetrics := configs.Config.Metrics.Port > 0
 	if startMetrics {
-		log.WithField("host", configs.Config.Metrics.Host).
-			WithField("port", configs.Config.Metrics.Port).
-			Info("metrics endpoint")
+		slog.Info("metrics endpoint",
+			slog.String("host", configs.Config.Metrics.Host),
+			slog.Int("port", configs.Config.Metrics.Port),
+		)
 		go func() {
 			if err := metrics.ListenAndServe(
 				configs.Config.Metrics.Host,
 				configs.Config.Metrics.Port,
 			); err != nil {
-				log.WithError(err).Error("cannot start the metrics server")
-				os.Exit(1)
+				fatal("cannot start the metrics server", err)
 			}
 		}()
 	}
@@ -73,14 +73,14 @@ func runWorker(_ context.Context, args []string) error {
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
 
 	bus.Tasks().Start()
-	log.Info("workers started")
+	slog.Info("workers started")
 
 	// Shutdown
 	<-stop
-	log.Info("shutting down...")
+	slog.Info("shutting down...")
 
-	log.Info("stopping workers...")
+	slog.Info("stopping workers...")
 	bus.Tasks().Stop()
-	log.Info("workers stopped")
+	slog.Info("workers stopped")
 	return nil
 }

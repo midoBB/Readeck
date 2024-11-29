@@ -5,6 +5,8 @@
 package meta
 
 import (
+	"log/slog"
+
 	"codeberg.org/readeck/readeck/pkg/extract"
 )
 
@@ -36,25 +38,28 @@ func ExtractPicture(m *extract.ProcessMessage, next extract.Processor) extract.P
 		size = 1280
 	}
 
-	m.Log.WithField("href", href).Debug("loading picture")
+	m.Log.Debug("loading picture", slog.String("href", href))
 
 	picture, err := extract.NewPicture(href, d.URL)
 	if err != nil {
-		m.Log.WithError(err).Warn()
+		m.Log.Warn("", slog.Any("err", err))
 		return next
 	}
 
 	if err = picture.Load(m.Extractor.Client(), size, ""); err != nil {
-		m.Log.WithError(err).WithField("url", href).Warn("cannot load picture")
+		m.Log.Warn("cannot load picture",
+			slog.Any("err", err),
+			slog.String("url", href),
+		)
 		return next
 	}
 
 	d.Pictures["image"] = picture
-	m.Log.WithField("size", picture.Size[:]).Debug("picture loaded")
+	m.Log.Debug("picture loaded", slog.Any("size", picture.Size[:]))
 
 	thumbnail, err := picture.Copy(380, "")
 	if err != nil {
-		m.Log.WithError(err).Warn()
+		m.Log.Warn("", slog.Any("err", err))
 		return next
 	}
 	d.Pictures["thumbnail"] = thumbnail

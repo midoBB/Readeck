@@ -7,6 +7,7 @@ package meta
 import (
 	// "fmt".
 
+	"log/slog"
 	"net/url"
 	"path"
 	"regexp"
@@ -46,7 +47,10 @@ func ExtractFavicon(m *extract.ProcessMessage, next extract.Processor) extract.P
 			continue
 		}
 		m.Extractor.Drop().Pictures["icon"] = icon
-		m.Log.WithField("href", icon.Href).WithField("size", icon.Size[:]).Debug("icon loaded")
+		m.Log.Debug("icon loaded",
+			slog.String("href", icon.Href),
+			slog.Any("size", icon.Size[:]),
+		)
 		break
 	}
 

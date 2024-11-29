@@ -5,6 +5,7 @@
 package profile
 
 import (
+	"log/slog"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -76,7 +77,7 @@ func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
 		forms.Bind(f, r)
 		if f.IsValid() {
 			if _, err := f.updateUser(user); err != nil {
-				v.srv.Log(r).Error(err)
+				v.srv.Log(r).Error("", slog.Any("err", err))
 			} else {
 				// Set the new seed in the session.
 				// We needn't save the session since AddFlash does that already.
@@ -111,7 +112,7 @@ func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 		forms.Bind(f, r)
 		if f.IsValid() {
 			if err := f.updatePassword(user); err != nil {
-				v.srv.Log(r).Error(err)
+				v.srv.Log(r).Error("", slog.Any("err", err))
 			} else {
 				// Set the new seed in the session.
 				// We needn't save the session since AddFlash does it already.
@@ -192,7 +193,7 @@ func (v *profileViews) credentialCreate(w http.ResponseWriter, r *http.Request) 
 
 	c, passphrase, err := credentials.Credentials.GenerateCredential(auth.GetRequestUser(r).ID)
 	if err != nil {
-		v.srv.Log(r).WithError(err).Error("server error")
+		v.srv.Log(r).Error("server error", slog.Any("err", err))
 		v.srv.AddFlash(w, r, "error", tr.Gettext("An error occurred while creating your password."))
 		v.srv.Redirect(w, r, "credentials")
 		return
@@ -223,7 +224,7 @@ func (v *profileViews) credentialInfo(w http.ResponseWriter, r *http.Request) {
 		forms.Bind(f, r)
 		if f.IsValid() {
 			if err := f.updateCredential(ci.Credential); err != nil {
-				v.srv.Log(r).Error(err)
+				v.srv.Log(r).Error("", slog.Any("err", err))
 			} else {
 				v.srv.AddFlash(w, r, "success", tr.Gettext("Password was updated."))
 				v.srv.Redirect(w, r, ci.UID)
@@ -285,7 +286,7 @@ func (v *profileViews) tokenCreate(w http.ResponseWriter, r *http.Request) {
 	}
 	tr := v.srv.Locale(r)
 	if err := tokens.Tokens.Create(t); err != nil {
-		v.srv.Log(r).WithError(err).Error("server error")
+		v.srv.Log(r).Error("server error", slog.Any("err", err))
 		v.srv.AddFlash(w, r, "error", tr.Gettext("An error occurred while creating your token."))
 		v.srv.Redirect(w, r, "tokens")
 		return
@@ -308,7 +309,7 @@ func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 		forms.Bind(f, r)
 		if f.IsValid() {
 			if err := f.updateToken(ti.Token); err != nil {
-				v.srv.Log(r).Error(err)
+				v.srv.Log(r).Error("", slog.Any("err", err))
 			} else {
 				v.srv.AddFlash(w, r, "success", tr.Gettext("Token was updated."))
 				v.srv.Redirect(w, r, ti.UID)

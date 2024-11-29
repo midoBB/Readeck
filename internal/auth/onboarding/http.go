@@ -7,6 +7,7 @@
 package onboarding
 
 import (
+	"log/slog"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -60,7 +61,7 @@ func (h *viewHandler) onboarding(w http.ResponseWriter, r *http.Request) {
 		if f.IsValid() {
 			user, err := f.createUser(h.srv.Locale(r).Tag.String())
 			if err != nil {
-				h.srv.Log(r).Error(err)
+				h.srv.Log(r).Error("", slog.Any("err", err))
 			} else {
 				// All good, create a new session for the user
 				configs.Config.Commissioned = true

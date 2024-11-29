@@ -11,6 +11,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log/slog"
 	"net/http"
 	"net/http/cookiejar"
 	"net/http/httptest"
@@ -241,7 +242,7 @@ func NewTestApp(t *testing.T) *TestApp {
 	configs.Config.Main.DataDirectory = tmpDir
 	configs.Config.Extractor.ContentScripts = []string{path.Join(tmpDir, "content-scripts")}
 	configs.Config.Main.DevMode = false
-	configs.Config.Main.LogLevel = "error"
+	configs.Config.Main.LogLevel = slog.LevelError
 	configs.Config.Database.Source = "sqlite3::memory:"
 	configs.Config.Server.AllowedHosts = []string{"readeck.example.org"}
 

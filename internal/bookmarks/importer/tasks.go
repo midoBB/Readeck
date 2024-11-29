@@ -7,11 +7,11 @@ package importer
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/google/uuid"
 	"github.com/lithammer/shortuuid/v4"
-	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
@@ -94,7 +94,10 @@ func importBookmarksHandler(data interface{}) {
 		panic(err)
 	}
 
-	imp.log = log.WithFields(log.Fields{"user": imp.user.ID, "@id": imp.requestID})
+	imp.log = slog.With(
+		slog.Int("user", imp.user.ID),
+		slog.String("@id", imp.requestID),
+	)
 
 	trackID := GetTrackID(imp.requestID)
 	imp.Import(func(ids []int) {
@@ -106,20 +109,20 @@ func importExtractHandler(data interface{}) {
 	params := data.(tasks.ExtractParams)
 	trackID := GetTrackID(params.RequestID)
 
-	logger := log.WithFields(log.Fields{
-		"@id":         params.RequestID,
-		"bookmark_id": params.BookmarkID,
-	})
+	logger := slog.With(
+		slog.String("@id", params.RequestID),
+		slog.Int("bookmark_id", params.BookmarkID),
+	)
 
 	defer func() {
 		p, err := NewImportProgress(trackID)
 		if err != nil {
-			logger.WithError(err).Error("fetching progress")
+			logger.Error("fetching progress", slog.Any("err", err))
 		}
 
 		if p.Status == 1 {
 			if err = clearStoreProgressList(trackID); err != nil {
-				logger.WithError(err).Error("clearing progress")
+				logger.Error("clearing progress", slog.Any("err", err))
 			}
 			logger.Info("import finished")
 		}

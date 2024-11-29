@@ -7,9 +7,8 @@ package cookbook
 import (
 	"bytes"
 	"context"
+	"log/slog"
 	"time"
-
-	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/pkg/archiver"
 	"codeberg.org/readeck/readeck/pkg/extract"
@@ -38,7 +37,7 @@ func archiveProcessor(m *extract.ProcessMessage, next extract.Processor) extract
 	}
 	arc, err := archiver.New(req)
 	if err != nil {
-		m.Log.WithError(err).Error("archive error")
+		m.Log.Error("archive error", slog.Any("err", err))
 		return next
 	}
 
@@ -50,7 +49,7 @@ func archiveProcessor(m *extract.ProcessMessage, next extract.Processor) extract
 	ctx := context.WithValue(context.Background(), ctxLogger{}, m.Log)
 
 	if err := arc.Archive(ctx); err != nil {
-		m.Log.WithError(err).Error("archive error")
+		m.Log.Error("archive error", slog.Any("err", err))
 		return next
 	}
 
@@ -60,15 +59,25 @@ func archiveProcessor(m *extract.ProcessMessage, next extract.Processor) extract
 }
 
 func eventHandler(ctx context.Context, _ *archiver.Archiver, evt archiver.Event) {
-	log := ctx.Value(ctxLogger{}).(*log.Entry)
+	logger := ctx.Value(ctxLogger{}).(*slog.Logger)
+
+	attrs := []slog.Attr{}
+	for k, v := range evt.Fields() {
+		attrs = append(attrs, slog.Any(k, v))
+	}
+	msg := "archiver"
+	level := slog.LevelDebug
+
 	switch evt.(type) {
 	case *archiver.EventError:
-		log.WithFields(evt.Fields()).Warn("archive error")
+		msg = "archive error"
+		level = slog.LevelError
 	case archiver.EventStartHTML:
-		log.WithFields(evt.Fields()).Info("start archive")
+		msg = "start archive"
+		level = slog.LevelInfo
 	case *archiver.EventFetchURL:
-		log.WithFields(evt.Fields()).Debug("load archive resource")
-	default:
-		log.WithFields(evt.Fields()).Debug("archiver")
+		msg = "load archive resource"
 	}
+
+	logger.LogAttrs(context.Background(), level, msg, attrs...)
 }

@@ -8,11 +8,11 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"log/slog"
 	"sync"
 	"time"
 
 	"github.com/go-redis/redis/v8"
-	log "github.com/sirupsen/logrus"
 )
 
 // Event is an event sent to the wire. It contains a name and a value that can be unmarshalled later.
@@ -124,7 +124,7 @@ func (m *RedisEventManager) Listen() {
 				evt := result[1]
 				e := Event{}
 				if err := json.Unmarshal([]byte(evt), &e); err != nil {
-					log.WithError(err).Error("loading event")
+					slog.Error("loading event", slog.Any("err", err))
 					continue
 				}
 

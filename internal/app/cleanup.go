@@ -8,10 +8,10 @@ import (
 	"context"
 	"errors"
 	"flag"
+	"log/slog"
 
 	"github.com/cristalhq/acmd"
 	"github.com/doug-martin/goqu/v9"
-	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 )
@@ -53,9 +53,12 @@ func runCleanup(_ context.Context, args []string) error {
 	}
 
 	for _, b := range items {
-		l := log.WithField("id", b.UID).WithField("title", b.Title)
+		l := slog.With(
+			slog.String("id", b.UID),
+			slog.String("title", b.Title),
+		)
 		if err := b.Delete(); err != nil {
-			l.WithError(err).Error("deleting bookmarks")
+			l.Error("deleting bookmarks", slog.Any("err", err))
 			continue
 		}
 		l.Info("bookmark deleted")

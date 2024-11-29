@@ -11,6 +11,7 @@ import (
 	"context"
 	"errors"
 	"io"
+	"log/slog"
 	"slices"
 	"strings"
 	"time"
@@ -220,9 +221,7 @@ func (vm *Runtime) execEach(fn execFunc) error {
 			// A failing script only logs its error
 			// and let the other scripts carry on.
 			errList = append(errList, err)
-			vm.GetLogger().
-				WithError(err).
-				Error("content script error")
+			vm.GetLogger().Error("content script error", slog.Any("err", err))
 		}
 	}
 
@@ -258,9 +257,7 @@ func (vm *Runtime) SetConfig(cf *SiteConfig) error {
 		if err := vm.ExportTo(f, &fn); err != nil {
 			return err
 		}
-		vm.GetLogger().
-			WithField("function", "setConfig").
-			Debug("content script")
+		vm.GetLogger().Debug("content script", slog.String("function", "setConfig"))
 		return fn(cf)
 	})
 }
@@ -279,9 +276,7 @@ func (vm *Runtime) ProcessMeta() error {
 		if err := vm.ExportTo(f, &fn); err != nil {
 			return err
 		}
-		vm.GetLogger().
-			WithField("function", "processMeta").
-			Debug("content script")
+		vm.GetLogger().Debug("content script", slog.String("function", "processMeta"))
 		return fn()
 	})
 }

@@ -6,10 +6,9 @@ package auth
 
 import (
 	"errors"
+	"log/slog"
 	"net/http"
 	"strings"
-
-	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/internal/acls"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
@@ -72,7 +71,7 @@ func (p *TokenAuthProvider) HasPermission(r *http.Request, obj, act string) bool
 
 	for _, scope := range GetRequestAuthInfo(r).Provider.Roles {
 		if ok, err := acls.Check(scope, obj, act); err != nil {
-			log.WithError(err).Error("ACL check error")
+			slog.Error("ACL check error", slog.Any("err", err))
 		} else if ok {
 			return true
 		}

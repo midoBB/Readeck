@@ -6,32 +6,33 @@ package contentscripts
 
 import (
 	"context"
-
-	"github.com/sirupsen/logrus"
+	"fmt"
+	"log/slog"
+	"strings"
 )
 
 var loggerCtxKey = &contextKey{"logger"}
 
 // SetLogger sets the runtime's log entry.
-func (vm *Runtime) SetLogger(entry *logrus.Entry) {
-	vm.ctx = context.WithValue(vm.ctx, loggerCtxKey, entry)
+func (vm *Runtime) SetLogger(logger *slog.Logger) {
+	vm.ctx = context.WithValue(vm.ctx, loggerCtxKey, logger)
 }
 
 // GetLogger returns the runtime's log entry or a default one
 // when not set.
-func (vm *Runtime) GetLogger() *logrus.Entry {
-	var entry *logrus.Entry
+func (vm *Runtime) GetLogger() *slog.Logger {
+	var logger *slog.Logger
 	var ok bool
-	if entry, ok = vm.ctx.Value(loggerCtxKey).(*logrus.Entry); !ok {
-		entry = logrus.NewEntry(logrus.StandardLogger())
+	if logger, ok = vm.ctx.Value(loggerCtxKey).(*slog.Logger); !ok {
+		logger = slog.Default()
 	}
 
 	// Add the script field when present
 	if scriptName := vm.Get("__name__"); scriptName != nil {
-		entry = entry.WithField("script", scriptName.String())
+		logger = logger.With(slog.String("script", scriptName.String()))
 	}
 
-	return entry
+	return logger
 }
 
 func (vm *Runtime) startConsole() error {
@@ -55,30 +56,30 @@ func (vm *Runtime) startConsole() error {
 	return vm.Set("console", console)
 }
 
-func logFunc(level string, getLogger func() *logrus.Entry) func(...any) {
+func logFunc(level string, getLogger func() *slog.Logger) func(...any) {
 	return func(args ...any) {
-		msg := []any{}
-		fields := logrus.Fields{}
+		msg := []string{}
+		fields := []slog.Attr{}
 
 		for _, x := range args {
 			if f, ok := x.(map[string]any); ok {
 				for k, v := range f {
-					fields[k] = v
+					fields = append(fields, slog.Any(k, v))
 				}
 			} else {
-				msg = append(msg, x)
+				msg = append(msg, fmt.Sprintf("%s", x))
 			}
 		}
 
+		lv := slog.LevelInfo
 		switch level {
 		case "debug":
-			getLogger().WithFields(fields).Debug(msg...)
+			lv = slog.LevelDebug
 		case "error":
-			getLogger().WithFields(fields).Error(msg...)
+			lv = slog.LevelError
 		case "warn":
-			getLogger().WithFields(fields).Warn(msg...)
-		default:
-			getLogger().WithFields(fields).Info(msg...)
+			lv = slog.LevelWarn
 		}
+		getLogger().LogAttrs(context.Background(), lv, strings.Join(msg, " "), fields...)
 	}
 }

@@ -9,6 +9,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"log/slog"
 	"net"
 	"net/http"
 	"net/url"
@@ -18,7 +19,6 @@ import (
 	"time"
 
 	"github.com/cristalhq/acmd"
-	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/docs"
@@ -105,16 +105,16 @@ func runServer(_ context.Context, args []string) error {
 	// Start the metrics HTTP server
 	startMetrics := configs.Config.Metrics.Port > 0
 	if startMetrics {
-		log.WithField("host", configs.Config.Metrics.Host).
-			WithField("port", configs.Config.Metrics.Port).
-			Info("metrics endpoint")
+		slog.Info("metrics endpoint",
+			slog.String("host", configs.Config.Metrics.Host),
+			slog.Int("port", configs.Config.Metrics.Port),
+		)
 		go func() {
 			if err := metrics.ListenAndServe(
 				configs.Config.Metrics.Host,
 				configs.Config.Metrics.Port,
 			); err != nil {
-				log.WithError(err).Error("cannot start the metrics server")
-				os.Exit(1)
+				fatal("cannot start the metrics server", err)
 			}
 		}()
 	}
@@ -124,7 +124,7 @@ func runServer(_ context.Context, args []string) error {
 	if startBus {
 		go func() {
 			bus.Tasks().Start()
-			log.Info("workers started")
+			slog.Info("workers started")
 		}()
 	}
 
@@ -132,17 +132,16 @@ func runServer(_ context.Context, args []string) error {
 	go func() {
 		ln, err := net.Listen("tcp", srv.Addr)
 		if err != nil {
-			log.WithError(err).Error("cannot start the server")
-			os.Exit(1)
+			fatal("cannot start the server", err)
 		}
 
 		ready <- true
 		if err = srv.Serve(ln); err != nil {
 			if err == http.ErrServerClosed {
-				log.Info("stopping server...")
+				slog.Info("stopping server...")
 				return
 			}
-			log.WithError(err).Error("server error")
+			slog.Error("server error", slog.Any("err", err))
 		}
 	}()
 
@@ -156,25 +155,25 @@ func runServer(_ context.Context, args []string) error {
 	if listenURL.Hostname() == "0.0.0.0" || listenURL.Hostname() == "127.0.0.1" {
 		listenURL.Host = fmt.Sprintf("localhost:%d", configs.Config.Server.Port)
 	}
-	log.WithField("url", listenURL.String()).Info("server started")
+	slog.Info("server started", slog.String("url", listenURL.String()))
 
 	// Server shutdown
 	<-stop
-	log.Info("shutting down...")
+	slog.Info("shutting down...")
 
 	// Graceful http shutdown
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
 	if err := srv.Shutdown(ctx); err != nil {
-		log.WithError(err).Error("shutdown error")
+		slog.Error("shutdown error", slog.Any("err", err))
 	}
-	log.Info("server stopped")
+	slog.Info("server stopped")
 
 	if startBus {
-		log.Info("stopping workers...")
+		slog.Info("stopping workers...")
 		bus.Tasks().Stop()
-		log.Info("workers stopped")
+		slog.Info("workers stopped")
 	}
 
 	return nil

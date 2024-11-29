@@ -6,6 +6,7 @@ package cookbook
 
 import (
 	"fmt"
+	"log/slog"
 	"net/http"
 	"net/url"
 
@@ -37,7 +38,7 @@ func (v *cookbookViews) templateView(w http.ResponseWriter, r *http.Request) {
 	template := fmt.Sprintf("cookbook/%s", chi.URLParam(r, "name"))
 	_, err := server.GetTemplate(template)
 	if err != nil {
-		v.srv.Log(r).WithError(err).Error("can't load template")
+		v.srv.Log(r).Error("can't load template", slog.Any("err", err))
 		v.srv.Status(w, r, http.StatusNotFound)
 		return
 	}

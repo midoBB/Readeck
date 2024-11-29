@@ -17,7 +17,6 @@ require (
 	github.com/dop251/goja v0.0.0-20241024094426-79f3a7efcdbd
 	github.com/dop251/goja_nodejs v0.0.0-20240728170619-29b559befffc
 	github.com/doug-martin/goqu/v9 v9.19.0
-	github.com/fatih/color v1.18.0
 	github.com/gabriel-vasile/mimetype v1.4.7
 	github.com/go-chi/chi/v5 v5.1.0
 	github.com/go-redis/redis/v8 v8.11.5
@@ -38,8 +37,8 @@ require (
 	github.com/lithammer/shortuuid/v4 v4.0.0
 	github.com/mangoumbrella/goldmark-figure v1.0.0
 	github.com/mattn/go-sqlite3 v1.14.24
+	github.com/phsym/console-slog v0.3.1
 	github.com/prometheus/client_golang v1.20.5
-	github.com/sirupsen/logrus v1.9.3
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/stretchr/testify v1.9.0
 	github.com/tdewolff/parse/v2 v2.7.19
@@ -77,7 +76,6 @@ require (
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
 	github.com/lib/pq v1.10.9 // indirect
-	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/ncruces/go-strftime v0.1.9 // indirect

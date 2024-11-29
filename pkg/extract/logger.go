@@ -5,68 +5,96 @@
 package extract
 
 import (
-	"bytes"
+	"context"
 	"errors"
 	"fmt"
+	"log/slog"
 	"strings"
-
-	log "github.com/sirupsen/logrus"
+	"sync"
 )
 
-type messageFormatter struct {
-	withPrefix bool
+type groupOrAttrs struct {
+	group string      // group name if non-empty
+	attrs []slog.Attr // attrs if non-empty
 }
 
-func (f *messageFormatter) Format(entry *log.Entry) ([]byte, error) {
-	data := make(log.Fields)
-	for k, v := range entry.Data {
-		data[k] = v
-	}
-
-	var b *bytes.Buffer
-	if entry.Buffer != nil {
-		b = entry.Buffer
-	} else {
-		b = &bytes.Buffer{}
-	}
-
-	if f.withPrefix {
-		fmt.Fprintf(b, "[%s] ", strings.ToUpper(entry.Level.String())[0:4])
-	}
-
-	if entry.Message != "" {
-		fmt.Fprintf(b, "%s ", entry.Message)
-	}
-	for k, v := range data {
-		fmt.Fprintf(b, `%s="%v" `, k, v)
-	}
-
-	return b.Bytes(), nil
+type logRecorder struct {
+	slog.Handler
+	extractor *Extractor
+	mu        *sync.Mutex
+	goas      []groupOrAttrs
 }
 
-var messageLogFormat = messageFormatter{withPrefix: true}
-
-type messageLogHook struct {
-	e *Extractor
-}
-
-func (h *messageLogHook) Levels() []log.Level {
-	return log.AllLevels
-}
-
-func (h *messageLogHook) Fire(entry *log.Entry) error {
-	b, _ := messageLogFormat.Format(entry)
-	h.e.Logs = append(h.e.Logs, strings.TrimSpace(string(b)))
-	if entry.Level <= log.ErrorLevel {
-		h.e.errors = append(h.e.errors, errors.New(entry.Message))
+func newLogRecorder(handler slog.Handler, extractor *Extractor) *logRecorder {
+	return &logRecorder{
+		handler, extractor, &sync.Mutex{}, []groupOrAttrs{},
 	}
+}
 
-	if entry.Level <= log.StandardLogger().Level {
-		msg, _ := entry.Logger.Formatter.Format(entry)
-		if _, err := log.StandardLogger().Out.Write(msg); err != nil {
-			return err
+func (h *logRecorder) Enabled(_ context.Context, _ slog.Level) bool {
+	return true
+}
+
+func (h *logRecorder) Handle(ctx context.Context, r slog.Record) error {
+	h.mu.Lock()
+	defer h.mu.Unlock()
+
+	b := &strings.Builder{}
+	fmt.Fprintf(b, "[%s] ", r.Level.String()[0:4])
+	fmt.Fprintf(b, "%s ", strings.TrimSpace(r.Message))
+
+	goas := h.goas
+	if r.NumAttrs() == 0 {
+		// If the record has no Attrs, remove groups at the end of the list; they are empty.
+		for len(goas) > 0 && goas[len(goas)-1].group != "" {
+			goas = goas[:len(goas)-1]
 		}
 	}
 
+	prefix := ""
+	for _, goa := range goas {
+		if goa.group != "" {
+			prefix += goa.group + "."
+		}
+
+		for _, a := range goa.attrs {
+			fmt.Fprintf(b, `%s%s="%s" `, prefix, a.Key, a.Value)
+		}
+	}
+
+	r.Attrs(func(a slog.Attr) bool {
+		fmt.Fprintf(b, `%s%s="%v" `, prefix, a.Key, a.Value)
+		return true
+	})
+
+	h.extractor.Logs = append(h.extractor.Logs, strings.TrimSpace(b.String()))
+
+	if r.Level >= slog.LevelError {
+		h.extractor.errors = append(h.extractor.errors, errors.New(r.Message))
+	}
+
+	if h.Handler.Enabled(ctx, r.Level) {
+		return h.Handler.Handle(ctx, r)
+	}
 	return nil
+}
+
+func (h *logRecorder) WithAttrs(attrs []slog.Attr) slog.Handler {
+	h2 := h.withGroupOrAttrs(groupOrAttrs{attrs: attrs})
+	h2.Handler = h2.Handler.WithAttrs(attrs)
+	return h2
+}
+
+func (h *logRecorder) WithGroup(name string) slog.Handler {
+	h2 := h.withGroupOrAttrs(groupOrAttrs{group: name})
+	h2.Handler = h2.Handler.WithGroup(name)
+	return h2
+}
+
+func (h *logRecorder) withGroupOrAttrs(goa groupOrAttrs) *logRecorder {
+	h2 := *h
+	h2.goas = make([]groupOrAttrs, len(h.goas)+1)
+	copy(h2.goas, h.goas)
+	h2.goas[len(h2.goas)-1] = goa
+	return &h2
 }

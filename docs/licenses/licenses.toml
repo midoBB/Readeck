@@ -76,15 +76,6 @@ Copyright (c) 2017 Doug Martin
 """
 
 [[licenses]]
-name = "color"
-license = "MIT"
-author = "Fatih Arslan"
-url = "https://github.com/fatih/color"
-copyright = """
-Copyright (c) 2013 Fatih Arslan
-"""
-
-[[licenses]]
 name = "chi"
 license = "MIT"
 author = "Peter Kieltyka"
@@ -217,15 +208,6 @@ All rights reserved.
 """
 
 [[licenses]]
-name = "logrus"
-license = "MIT"
-author = "Simon Eskildsen"
-url = "https://github.com/sirupsen/logrus"
-copyright = """
-Copyright (c) 2014 Simon Eskildsen
-"""
-
-[[licenses]]
 name = "acmd"
 license = "MIT"
 author = " Oleg Kovalov"
@@ -259,6 +241,15 @@ author = "Leonel Quinteros"
 url = "https://github.com/leonelquinteros/gotext"
 copyright = """
 Copyright (c) 2016 Leonel Quinteros
+"""
+
+[[licenses]]
+name = "console-slog"
+license = "MIT"
+author = "Pierre-Henri Symoneaux"
+url = "https://github.com/phsym/console-slog"
+copyright = """
+Copyright (c) 2023 Pierre-Henri Symoneaux
 """
 
 [[licenses]]

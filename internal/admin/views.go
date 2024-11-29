@@ -6,6 +6,7 @@ package admin
 
 import (
 	"fmt"
+	"log/slog"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -75,7 +76,7 @@ func (h *adminViews) userCreate(w http.ResponseWriter, r *http.Request) {
 		if f.IsValid() {
 			u, err := f.CreateUser()
 			if err != nil {
-				h.srv.Log(r).Error(err)
+				h.srv.Log(r).Error("", slog.Any("err", err))
 			} else {
 				h.srv.AddFlash(w, r, "success", tr.Gettext("User created."))
 				h.srv.Redirect(w, r, "./..", fmt.Sprint(u.ID))
@@ -108,7 +109,7 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 
 		if f.IsValid() {
 			if _, err := f.UpdateUser(u); err != nil {
-				h.srv.Log(r).Error(err)
+				h.srv.Log(r).Error("", slog.Any("err", err))
 			} else {
 				// Refresh session if same user
 				if auth.GetRequestUser(r).ID == u.ID {

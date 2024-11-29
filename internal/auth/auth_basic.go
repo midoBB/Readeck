@@ -6,10 +6,9 @@ package auth
 
 import (
 	"errors"
+	"log/slog"
 	"net/http"
 	"strings"
-
-	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/internal/acls"
 	"codeberg.org/readeck/readeck/internal/auth/credentials"
@@ -43,7 +42,7 @@ func (p *BasicAuthProvider) Authenticate(w http.ResponseWriter, r *http.Request)
 	uc, err := credentials.Credentials.GetUser(username, password)
 	if err != nil {
 		if err != credentials.ErrNotFound {
-			log.WithError(err).Error("fetching credentials")
+			slog.Error("fetching credentials", slog.Any("err", err))
 		}
 		p.denyAccess(w)
 		return r, err
@@ -69,7 +68,7 @@ func (p *BasicAuthProvider) HasPermission(r *http.Request, obj, act string) bool
 
 	for _, scope := range GetRequestAuthInfo(r).Provider.Roles {
 		if ok, err := acls.Check(scope, obj, act); err != nil {
-			log.WithError(err).Error("ACL check error")
+			slog.Error("ACL check error", slog.Any("err", err))
 		} else if ok {
 			return true
 		}

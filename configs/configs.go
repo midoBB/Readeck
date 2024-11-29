@@ -11,6 +11,7 @@ import (
 	"crypto/sha512"
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"net"
 	"net/url"
 	"os"
@@ -59,10 +60,10 @@ type config struct {
 }
 
 type configMain struct {
-	LogLevel      string `json:"log_level" env:"READECK_LOG_LEVEL"`
-	DevMode       bool   `json:"dev_mode" env:"READECK_DEV_MODE"`
-	SecretKey     string `json:"secret_key" env:"-"`
-	DataDirectory string `json:"data_directory" env:"-"`
+	LogLevel      slog.Level `json:"log_level" env:"READECK_LOG_LEVEL"`
+	DevMode       bool       `json:"dev_mode" env:"READECK_DEV_MODE"`
+	SecretKey     string     `json:"secret_key" env:"-"`
+	DataDirectory string     `json:"data_directory" env:"-"`
 }
 
 type configServer struct {
@@ -200,7 +201,7 @@ func (pm configProxyMatch) URL() *url.URL {
 // by a configuration file.
 var Config = config{
 	Main: configMain{
-		LogLevel:      "info",
+		LogLevel:      slog.LevelInfo,
 		DevMode:       false,
 		DataDirectory: "data",
 	},

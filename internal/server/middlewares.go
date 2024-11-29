@@ -5,8 +5,10 @@
 package server
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"path"
 	"strings"
@@ -14,7 +16,6 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/gorilla/csrf"
 	"github.com/klauspost/compress/gzhttp"
-	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth"
@@ -69,16 +70,16 @@ func (s *Server) WithPermission(obj, act string) func(next http.Handler) http.Ha
 			u := auth.GetRequestUser(r)
 			ok := auth.HasPermission(r, obj, act)
 
-			logger := s.Log(r).WithFields(log.Fields{
-				"user":    u.Username,
-				"sub":     u.Group,
-				"obj":     obj,
-				"act":     act,
-				"granted": ok,
-			})
+			logger := s.Log(r).With(
+				slog.String("user", u.Username),
+				slog.String("sub", u.Group),
+				slog.String("obj", obj),
+				slog.String("act", act),
+				slog.Bool("granted", ok),
+			)
 
-			if s.Log(r).Logger.IsLevelEnabled(log.DebugLevel) {
-				logger.WithField("permissions", auth.GetPermissions(r)).Debug("access control")
+			if logger.Enabled(context.Background(), slog.LevelDebug) {
+				logger.Debug("access control", slog.Any("permissions", auth.GetPermissions(r)))
 			}
 
 			if !ok {

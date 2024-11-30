@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-11-29 03:06+0000\n"
-"Last-Translator: SomeTr <SomeTr@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2024-11-30 07:09+0000\n"
+"Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
 "Language: uk\n"
@@ -84,7 +84,6 @@ msgid "remove"
 msgstr "видалити"
 
 #: assets/templates/_libs/pagination.jet.html:1
-#, fuzzy
 msgid "Go to previous page"
 msgstr "Перейти до попередньої сторінки"
 
@@ -94,7 +93,6 @@ msgid "Go to page %d"
 msgstr "Перейти до сторінки %d"
 
 #: assets/templates/_libs/pagination.jet.html:1
-#, fuzzy
 msgid "Go to next page"
 msgstr "Перейти до наступної сторінки"
 
@@ -181,7 +179,6 @@ msgid "Save"
 msgstr "Зберегти"
 
 #: assets/templates/admin/user.jet.html:55
-#, fuzzy
 msgid "Delete this user"
 msgstr "Видалити цього користувача"
 
@@ -309,9 +306,8 @@ msgid "must be at least 8 characters long"
 msgstr "повинен містити мінімум 8 символів"
 
 #: assets/templates/auth/recover.jet.html:57
-#, fuzzy
 msgid "Update your password"
-msgstr "Оновити пароль"
+msgstr "Оновити ваш пароль"
 
 #: assets/templates/auth/recover.jet.html:62
 msgid "Your password has been changed."
@@ -322,8 +318,9 @@ msgid "Go to the sign in page"
 msgstr "Перейти на сторінку входу"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
+#, fuzzy
 msgid "Bookmark Highlights"
-msgstr ""
+msgstr "Закладки з виділеннями"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:17
 #, fuzzy
@@ -449,9 +446,9 @@ msgstr "Опубліковано %s"
 #: assets/templates/bookmarks/bookmark_public.jet.html:52
 #: assets/templates/bookmarks/components/sidebar.jet.html:58
 #: assets/templates/epub/bookmark.jet.html:40
-#, python-format
+#, fuzzy, python-format
 msgid "By %s"
-msgstr ""
+msgstr "Автор %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:60
 #: assets/templates/bookmarks/components/card.jet.html:68
@@ -470,9 +467,8 @@ msgid "with"
 msgstr "з"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
-#, fuzzy
 msgid "Powered by"
-msgstr "Створено за підтримки"
+msgstr "Працює на"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:8
 msgid "Share link"
@@ -577,12 +573,13 @@ msgid "Download EPUB"
 msgstr "Завантажити EPUB"
 
 #: assets/templates/bookmarks/components/actions.jet.html:50
+#, fuzzy
 msgid "Share by Link"
-msgstr ""
+msgstr "Поділитися посиланням"
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
 msgid "Saved with Readeck"
-msgstr ""
+msgstr "Збережено Readeck"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
@@ -609,9 +606,8 @@ msgid "Add to favorites"
 msgstr "Додати в обране"
 
 #: assets/templates/bookmarks/components/card.jet.html:1
-#, fuzzy
 msgid "Go to original page"
-msgstr "Перейти до оригінальної сторінки"
+msgstr "Перейти до оригіналу сторінки"
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
 #: assets/templates/bookmarks/components/card.jet.html:1
@@ -655,47 +651,49 @@ msgstr "Сайт"
 
 #: assets/templates/bookmarks/components/filters.jet.html:34
 msgid "From date"
-msgstr ""
+msgstr "З дати"
 
 #: assets/templates/bookmarks/components/filters.jet.html:40
 msgid "To date"
-msgstr ""
+msgstr "До дати"
 
 #: assets/templates/bookmarks/components/filters.jet.html:45
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: assets/templates/bookmarks/components/filters.jet.html:50
+#, fuzzy
 msgid "Is Favorite"
-msgstr ""
+msgstr "Обране"
 
 #: assets/templates/bookmarks/components/filters.jet.html:56
 msgid "Is Archived"
-msgstr ""
+msgstr "Архівовано"
 
 #: assets/templates/bookmarks/components/filters.jet.html:62
 msgid "Is Loaded"
-msgstr ""
+msgstr "Завантажено"
 
 #: assets/templates/bookmarks/components/filters.jet.html:68
 msgid "With Labels"
-msgstr ""
+msgstr "З мітками"
 
 #: assets/templates/bookmarks/components/filters.jet.html:74
 msgid "With Errors"
-msgstr ""
+msgstr "З помилками"
 
 #: assets/templates/bookmarks/components/labels.jet.html:1
 msgid "Remove label"
-msgstr ""
+msgstr "Видалити мітку"
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:1
 msgid "Add a label"
-msgstr ""
+msgstr "Додати мітку"
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:35
+#, fuzzy
 msgid "Add label"
-msgstr ""
+msgstr "Помітити"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Grid view"
@@ -1102,25 +1100,27 @@ msgstr ""
 
 #: assets/templates/docs/about.jet.html:15
 msgid "Built Date:"
-msgstr ""
+msgstr "Дата складання:"
 
 #: assets/templates/docs/about.jet.html:18
 msgid "System Information"
-msgstr ""
+msgstr "Інформація про систему"
 
 #: assets/templates/docs/about.jet.html:20
 msgid ""
 "Here are your current system information. Please include them if you "
 "report a bug."
 msgstr ""
+"Тут знаходиться поточна інформація про вашу систему. Будь ласка, вкажіть її, "
+"якщо повідомляєте про помилку."
 
 #: assets/templates/docs/about.jet.html:31
 msgid "Project"
-msgstr ""
+msgstr "Проєкт"
 
 #: assets/templates/docs/about.jet.html:34
 msgid "Main website"
-msgstr ""
+msgstr "Головний вебсайт"
 
 #: assets/templates/docs/about.jet.html:35
 msgid "Sources and issues"

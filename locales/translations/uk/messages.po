@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-11-30 07:09+0000\n"
+"PO-Revision-Date: 2024-11-30 15:49+0000\n"
 "Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: assets/templates/_layouts/sidemenu.jet.html:30
 msgid "Secondary Menu"
-msgstr ""
+msgstr "Додаткове меню"
 
 #: assets/templates/_layouts/sidemenu.jet.html:46
 msgid "Close menu"
@@ -56,19 +56,19 @@ msgstr "Попередні"
 
 #: assets/templates/_libs/forms.jet.html:219
 msgid "Day(s)"
-msgstr ""
+msgstr "Дні"
 
 #: assets/templates/_libs/forms.jet.html:220
 msgid "Week(s)"
-msgstr ""
+msgstr "Тижні"
 
 #: assets/templates/_libs/forms.jet.html:221
 msgid "Month(s)"
-msgstr ""
+msgstr "Місяці"
 
 #: assets/templates/_libs/forms.jet.html:222
 msgid "Year(s)"
-msgstr ""
+msgstr "Роки"
 
 #: assets/templates/_libs/forms.jet.html:225
 msgctxt "word"
@@ -166,7 +166,7 @@ msgstr "Пароль"
 
 #: assets/templates/admin/user.jet.html:49
 msgid "will not change if empty"
-msgstr ""
+msgstr "не зміниться, якщо пусте"
 
 #: assets/templates/admin/user.jet.html:52
 #: assets/templates/bookmarks/collection.jet.html:77
@@ -241,6 +241,7 @@ msgid "Please note:"
 msgstr "Увага:"
 
 #: assets/templates/auth/onboarding.jet.html:40
+#, fuzzy
 msgid ""
 "\n"
 "  Your email address is optional and will never leave this installation.\n"
@@ -249,6 +250,13 @@ msgid ""
 " recovery and internal notifications.\n"
 "  "
 msgstr ""
+"\n"
+"  Ваша електронна адреса не обов'язкова і залишиться тільки в цій інсталяції."
+"\n"
+"  Вона ніколи не буде зібрана, перенесена чи продана.\n"
+"  Її буде використано <strong>тільки</strong> у разі вашої потреби "
+"відновлення паролю або для внутрішніх сповіщень.\n"
+"  "
 
 #: assets/templates/auth/onboarding.jet.html:47
 msgid "Finish installation"
@@ -263,6 +271,7 @@ msgid "No worries, it happens to anyone."
 msgstr "Без паніки, це з усіма трапляється."
 
 #: assets/templates/auth/recover.jet.html:22
+#, fuzzy
 msgid ""
 "\n"
 "        Please provide the email address you used to create\n"
@@ -270,6 +279,12 @@ msgid ""
 "        to recover your password.\n"
 "      "
 msgstr ""
+"\n"
+"        Будь ласка, вкажіть електорнну адресу яку ви використовували при "
+"створенні\n"
+"        акаунту і ми надішлемо вам повідомлення з посиланням\n"
+"        для відновелння паролю.\n"
+"      "
 
 #: assets/templates/auth/recover.jet.html:32
 msgid "Send me a recovery link"
@@ -453,7 +468,7 @@ msgstr "Автор %s"
 #: assets/templates/bookmarks/bookmark_public.jet.html:60
 #: assets/templates/bookmarks/components/card.jet.html:68
 #: assets/templates/bookmarks/components/sidebar.jet.html:66
-#, fuzzy, python-format
+#, python-format
 msgid "%d min"
 msgstr "%d хв"
 

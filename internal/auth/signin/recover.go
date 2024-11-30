@@ -7,6 +7,7 @@ package signin
 import (
 	"errors"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"strconv"
 	"time"
@@ -99,7 +100,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 
 		defer func() {
 			if err != nil {
-				h.srv.Log(r).WithError(err).Error("recover step 0")
+				h.srv.Log(r).Error("recover step 0", slog.Any("err", err))
 				f.AddErrors("", forms.ErrUnexpected)
 			}
 		}()
@@ -147,7 +148,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 		user, err = users.Users.GetOne(goqu.C("id").Eq(userID))
 		if err != nil {
 			tc["Error"] = "Invalid recovery code"
-			h.srv.Log(r).WithError(err).Error("get user")
+			h.srv.Log(r).Error("get user", slog.Any("err", err))
 			return
 		}
 
@@ -162,7 +163,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 
 		defer func() {
 			if err != nil {
-				h.srv.Log(r).WithError(err).Error("password update")
+				h.srv.Log(r).Error("password update", slog.Any("err", err))
 				f.AddErrors("", forms.ErrUnexpected)
 			}
 		}()

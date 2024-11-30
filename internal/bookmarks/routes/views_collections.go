@@ -5,6 +5,7 @@
 package routes
 
 import (
+	"log/slog"
 	"net/http"
 
 	"codeberg.org/readeck/readeck/internal/auth"
@@ -38,7 +39,7 @@ func (h *viewsRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
 		if f.IsValid() {
 			c, err := f.createCollection(auth.GetRequestUser(r).ID)
 			if err != nil {
-				h.srv.Log(r).Error(err)
+				h.srv.Log(r).Error("", slog.Any("err", err))
 			} else {
 				h.srv.Redirect(w, r, "./..", c.UID)
 				return
@@ -72,7 +73,7 @@ func (h *viewsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 		forms.Bind(f, r)
 		if f.IsValid() {
 			if _, err := f.updateCollection(c); err != nil {
-				h.srv.Log(r).Error(err)
+				h.srv.Log(r).Error("", slog.Any("err", err))
 			} else {
 				tr := h.srv.Locale(r)
 				h.srv.AddFlash(w, r, "success", tr.Gettext("Collection updated."))

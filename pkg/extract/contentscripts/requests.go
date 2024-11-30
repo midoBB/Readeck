@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log/slog"
 	"net/http"
 	"strings"
 
@@ -42,10 +43,10 @@ func NewHTTPClient(vm *Runtime, client *http.Client) (*goja.Object, error) {
 }
 
 func (c *httpClient) Do(req *http.Request, args ...goja.Value) (*goja.Object, error) {
-	c.vm.GetLogger().
-		WithField("method", req.Method).
-		WithField("url", req.URL.String()).
-		Debug("request")
+	c.vm.GetLogger().Debug("request",
+		slog.String("method", req.Method),
+		slog.String("url", req.URL.String()),
+	)
 
 	if len(args) > 0 {
 		var headers map[string]string

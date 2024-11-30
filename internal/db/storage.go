@@ -6,15 +6,16 @@
 package db
 
 import (
+	"context"
 	"database/sql"
 	"errors"
 	"fmt"
 	"io/fs"
+	"log/slog"
 	"net/url"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
-	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/internal/db/migrations"
 )
@@ -47,8 +48,8 @@ var (
 
 type logger struct{}
 
-func (l logger) Printf(format string, v ...interface{}) {
-	log.Debugf(format, v...)
+func (l logger) Printf(_ string, v ...interface{}) {
+	slog.Debug("goqu", slog.Any("q", v))
 }
 
 // Driver returns the SQL driver in use.
@@ -86,7 +87,7 @@ func Open(dsn string) error {
 	}
 
 	qdb = goqu.New(Driver().Dialect(), db)
-	if log.IsLevelEnabled(log.DebugLevel) {
+	if slog.Default().Enabled(context.Background(), slog.LevelDebug) {
 		qdb.Logger(logger{})
 	}
 
@@ -155,7 +156,7 @@ func applyMigrations() error {
 			if err != nil {
 				return err
 			}
-			log.Debug("initial schema")
+			slog.Debug("initial schema")
 			if _, err = tx.Exec(string(sql)); err != nil {
 				return err
 			}
@@ -167,7 +168,10 @@ func applyMigrations() error {
 			}
 
 			if last.ID >= 0 { // Only apply migrations when there is a schema already
-				log.WithFields(log.Fields{"id": m.id, "name": m.name}).Info("applying migration")
+				slog.Info("applying migration",
+					slog.Int("id", m.id),
+					slog.String("name", m.name),
+				)
 				for _, fn := range m.funcList {
 					if err := fn(tx, sfs); err != nil {
 						return err

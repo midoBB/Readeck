@@ -10,6 +10,7 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"errors"
+	"log/slog"
 	"os"
 	"path"
 	"path/filepath"
@@ -19,7 +20,6 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/lithammer/shortuuid/v4"
-	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth/users"
@@ -445,9 +445,9 @@ func (b *Bookmark) RemoveFiles() {
 		return
 	}
 
-	l := log.WithField("path", filename)
+	l := slog.With(slog.String("path", filename))
 	if err := os.Remove(filename); err != nil {
-		l.WithError(err).Error()
+		l.Error("", slog.Any("err", err))
 	} else {
 		l.Debug("file removed")
 	}
@@ -463,7 +463,7 @@ func (b *Bookmark) RemoveFiles() {
 		if err := os.Remove(d); err != nil {
 			break
 		}
-		log.WithField("dir", dirname).Debug("directory removed")
+		slog.Debug("directory removed", slog.String("dir", dirname))
 		dirname = path.Dir(dirname)
 	}
 }

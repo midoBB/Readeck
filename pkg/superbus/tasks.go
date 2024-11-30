@@ -9,11 +9,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log/slog"
 	"sync"
 	"time"
 
 	"github.com/google/uuid"
-	log "github.com/sirupsen/logrus"
 )
 
 type (
@@ -103,16 +103,19 @@ func WithOperationPrefix(p string) TaskManagerOption {
 func (tm *TaskManager) onTask(e Event) {
 	var op Operation
 	if err := json.Unmarshal(e.Value, &op); err != nil {
-		log.WithError(err).Error()
+		slog.Error("", slog.Any("err", err))
 		return
 	}
-	l := log.WithField("operation", op).WithField("event", e.Name)
+	l := slog.With(
+		slog.Any("operation", op),
+		slog.String("event", e.Name),
+	)
 	l.Debug("received event")
 
 	// Find the task's payload
 	p0, err := tm.getPayload(&op)
 	if err != nil {
-		l.WithError(err).Debug()
+		l.Debug("", slog.Any("err", err))
 		return
 	}
 
@@ -121,7 +124,7 @@ func (tm *TaskManager) onTask(e Event) {
 	if !ok {
 		l.Error("no handler")
 		if err = tm.delPayload(&op); err != nil {
-			l.WithError(err).Error("removing payload")
+			l.Error("removing payload", slog.Any("err", err))
 		}
 		return
 	}
@@ -135,7 +138,7 @@ func (tm *TaskManager) onTask(e Event) {
 		// If the payload is gone, the task was canceled
 		p1, err := tm.getPayload(&op)
 		if err != nil {
-			l.WithError(err).Error()
+			l.Error("", slog.Any("err", err))
 			return
 		}
 
@@ -151,11 +154,11 @@ func (tm *TaskManager) onTask(e Event) {
 		tm.queue <- func() {
 			defer func() {
 				if r := recover(); r != nil {
-					l.Errorf("task error: %v", r)
+					l.Error("task error", slog.Any("err", err))
 				}
 				// The payload can be removed when we're done.
 				if err := tm.delPayload(&op); err != nil {
-					l.WithError(err).Error("removing payload")
+					l.Error("removing payload", slog.Any("err", err))
 				}
 			}()
 			f(&op, &p1)
@@ -295,13 +298,13 @@ func WithTaskDelay(d int) TaskOption {
 
 // Run launches the task.
 func (t Task) Run(id interface{}, data interface{}) error {
-	t.Log().WithField("id", id).Info("starting task")
+	t.Log().Info("starting task", slog.Any("id", id))
 	return t.tm.Launch(t.name, id, t.delay, data)
 }
 
 // Cancel removes the task's payload, effectively canceling it.
 func (t Task) Cancel(id interface{}) error {
-	t.Log().WithField("id", id).Info("canceling task")
+	t.Log().Info("canceling task", slog.Any("id", id))
 	return t.tm.store.Del(t.tm.getOperationKey(t.name, id))
 }
 
@@ -311,6 +314,6 @@ func (t Task) IsRunning(id interface{}) bool {
 }
 
 // Log returns a log entry for the task.
-func (t Task) Log() *log.Entry {
-	return log.WithField("name", t.name)
+func (t Task) Log() *slog.Logger {
+	return slog.With(slog.String("name", t.name))
 }

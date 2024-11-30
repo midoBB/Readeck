@@ -10,6 +10,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"log/slog"
 	"math/rand"
 	"regexp"
 	"sort"
@@ -82,25 +83,25 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 
 			article, err := parser.ParseDocument(m.Dom, m.Extractor.Drop().URL)
 			if err != nil {
-				m.Log.WithError(err).Error("readability error")
+				m.Log().Error("readability error", slog.Any("err", err))
 				m.ResetContent()
 				return next
 			}
 
 			if article.Node == nil {
-				m.Log.Error("could not extract content")
+				m.Log().Error("could not extract content")
 				m.ResetContent()
 				return next
 			}
 
-			m.Log.Debug("readability on contents")
+			m.Log().Debug("readability on contents")
 
 			doc = &html.Node{Type: html.DocumentNode}
 			body = dom.CreateElement("body")
 			doc.AppendChild(body)
 			dom.AppendChild(body, article.Node)
 		} else {
-			m.Log.Info("readability is disabled by flag")
+			m.Log().Info("readability is disabled by flag")
 			doc = m.Dom
 			body = dom.QuerySelector(doc, "body")
 		}
@@ -145,7 +146,7 @@ func Text(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
 		return next
 	}
 
-	m.Log.Debug("get text content")
+	m.Log().Debug("get text content")
 
 	doc, _ := html.Parse(bytes.NewReader(m.Extractor.HTML))
 	text := dom.TextContent(doc)
@@ -371,10 +372,10 @@ func convertPictureNodes(top *html.Node, _ *extract.ProcessMessage) {
 func fixImages(top *html.Node, m *extract.ProcessMessage) {
 	// Fix images with an srcset attribute and only keep the
 	// best one.
-	m.Log.Debug("fixing images")
+	m.Log().Debug("fixing images")
 	nodes, err := htmlquery.QueryAll(top, "//*[@srcset]")
 	if err != nil {
-		m.Log.WithError(err).Warn()
+		m.Log().Warn("", slog.Any("err", err))
 	}
 
 	dom.ForEachNode(nodes, func(node *html.Node, _ int) {

@@ -8,6 +8,7 @@ package meta
 
 import (
 	"fmt"
+	"log/slog"
 	"regexp"
 	"strings"
 
@@ -29,7 +30,7 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 		return next
 	}
 
-	m.Log.Debug("loading metadata")
+	m.Log().Debug("loading metadata")
 
 	// Set raw meta
 	d := m.Extractor.Drop()
@@ -77,7 +78,7 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 
 	d.TextDirection = d.Meta.LookupGet("html.dir")
 
-	m.Log.WithField("count", len(d.Meta)).Debug("metadata loaded")
+	m.Log().Debug("metadata loaded", slog.Int("count", len(d.Meta)))
 	return next
 }
 
@@ -141,7 +142,7 @@ func SetDropProperties(m *extract.ProcessMessage, next extract.Processor) extrac
 		d.DocumentType = "article"
 	}
 
-	m.Log.WithField("type", d.DocumentType).Info("document type")
+	m.Log().Info("document type", slog.String("type", d.DocumentType))
 	return next
 }
 

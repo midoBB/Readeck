@@ -15,16 +15,17 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log/slog"
 	"net"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"golang.org/x/net/html"
 
 	"codeberg.org/readeck/readeck/pkg/glob"
 	"github.com/go-shiori/dom"
-	log "github.com/sirupsen/logrus"
 )
 
 type (
@@ -41,9 +42,9 @@ type (
 	// by the subsequent processes.
 	ProcessMessage struct {
 		Extractor *Extractor
-		Log       *log.Entry
 		Dom       *html.Node
 
+		logger       *slog.Logger
 		position     int
 		resetCounter int
 		maxReset     int
@@ -81,6 +82,23 @@ const (
 	StepDone
 )
 
+func (s ProcessStep) String() string {
+	switch s {
+	case 1:
+		return "start"
+	case 2:
+		return "body"
+	case 3:
+		return "dom"
+	case 4:
+		return "finish"
+	case 5:
+		return "done"
+	}
+
+	return strconv.Itoa(int(s))
+}
+
 // Step returns the current process step.
 func (m *ProcessMessage) Step() ProcessStep {
 	return m.step
@@ -109,8 +127,16 @@ func (m *ProcessMessage) ResetContent() {
 
 // Cancel fully cancel the extract process.
 func (m *ProcessMessage) Cancel(reason string, args ...interface{}) {
-	m.Log.WithError(fmt.Errorf(reason, args...)).Error("operation canceled")
+	m.Log().Error("operation canceled", slog.Any("err", fmt.Errorf(reason, args...)))
 	m.canceled = true
+}
+
+// Log returns the message's [slog.Logger].
+func (m *ProcessMessage) Log() *slog.Logger {
+	return m.logger.With(slog.Group("step",
+		slog.Int("id", int(m.step)),
+		slog.String("name", m.step.String()),
+	))
 }
 
 // Error holds all the non-fatal errors that were
@@ -144,15 +170,15 @@ func (l URLList) IsPresent(v *url.URL) bool {
 
 // Extractor is a page extractor.
 type Extractor struct {
-	URL       *url.URL
-	HTML      []byte
-	Text      string
-	Visited   URLList
-	Logs      []string
-	Context   context.Context
-	LogFields *log.Fields
+	URL     *url.URL
+	HTML    []byte
+	Text    string
+	Visited URLList
+	Logs    []string
+	Context context.Context
 
 	client          *http.Client
+	logger          *slog.Logger
 	processors      ProcessList
 	errors          Error
 	drops           []*Drop
@@ -187,13 +213,20 @@ func New(src string, options ...func(e *Extractor)) (*Extractor, error) {
 		}
 	}
 
+	if res.logger == nil {
+		res.logger = slog.New(newLogRecorder(slog.Default().Handler(), res))
+	}
+
 	return res, nil
 }
 
-// SetLogFields sets the default log fields for the extractor.
-func SetLogFields(f *log.Fields) func(e *Extractor) {
+// SetLogger sets the extractor logger.
+// This logger will copy everything to the extractor internal log and error list.
+// Arguments are [slog.With] arguments and are shared between the parent logger
+// and the log recorder.
+func SetLogger(logger *slog.Logger, args ...any) func(e *Extractor) {
 	return func(e *Extractor) {
-		e.LogFields = f
+		e.logger = slog.New(newLogRecorder(logger.Handler(), e)).With(args...)
 	}
 }
 
@@ -215,7 +248,7 @@ func SetProxyList(list []ProxyMatcher) func(e *Extractor) {
 		htr.Proxy = func(r *http.Request) (*url.URL, error) {
 			for _, p := range list {
 				if glob.Glob(p.Host(), r.URL.Host) {
-					e.GetLogger().WithField("proxy", p.URL().String()).Debug("using proxy")
+					e.Log().Debug("using proxy", slog.String("proxy", p.URL().String()))
 					return p.URL(), nil
 				}
 			}
@@ -227,6 +260,11 @@ func SetProxyList(list []ProxyMatcher) func(e *Extractor) {
 // Client returns the extractor's HTTP client.
 func (e *Extractor) Client() *http.Client {
 	return e.client
+}
+
+// Log returns the extractor's logger.
+func (e *Extractor) Log() *slog.Logger {
+	return e.logger
 }
 
 // AddToCache adds a resource to the extractor's resource cache.
@@ -287,32 +325,14 @@ func (e *Extractor) AddProcessors(p ...Processor) {
 
 // NewProcessMessage returns a new ProcessMessage for a given step.
 func (e *Extractor) NewProcessMessage(step ProcessStep) *ProcessMessage {
-	logEntry := log.NewEntry(e.GetLogger())
-	if e.LogFields != nil {
-		logEntry = logEntry.WithFields(*e.LogFields)
-	}
-
 	return &ProcessMessage{
 		Extractor:    e,
-		Log:          logEntry,
+		logger:       e.logger,
 		step:         step,
 		resetCounter: 0,
 		maxReset:     10,
 		maxDrops:     100,
 	}
-}
-
-// GetLogger returns a logger for the extractor.
-// This standard logger will copy everything to the
-// extractor Log slice.
-func (e *Extractor) GetLogger() *log.Logger {
-	logger := log.New()
-	logger.Formatter = log.StandardLogger().Formatter
-	logger.Level = log.DebugLevel
-	logger.SetOutput(io.Discard)
-	logger.AddHook(&messageLogHook{e})
-
-	return logger
 }
 
 // Run start the extraction process.
@@ -347,7 +367,10 @@ func (e *Extractor) Run() {
 		m.position = i
 
 		// Start extraction
-		m.Log.WithField("idx", i).WithField("url", d.URL.String()).Info("start")
+		m.Log().Info("start",
+			slog.Int("idx", i),
+			slog.String("url", d.URL.String()),
+		)
 		m.step = StepStart
 		e.runProcessors(m)
 		if m.canceled {
@@ -356,12 +379,12 @@ func (e *Extractor) Run() {
 
 		err := d.Load(e.client)
 		if err != nil {
-			m.Log.WithError(err).Error("cannot load resource")
+			m.Log().Error("cannot load resource", slog.Any("err", err))
 			return
 		}
 
 		// First process pass
-		m.Log.Debug("step body")
+		m.Log().Debug("step body")
 		m.step = StepBody
 		e.runProcessors(m)
 		if m.canceled {
@@ -377,11 +400,11 @@ func (e *Extractor) Run() {
 				}()
 
 				if err != nil {
-					m.Log.WithError(err).Error("cannot parse resource")
+					m.Log().Error("cannot parse resource", slog.Any("err", err))
 					return
 				}
 
-				m.Log.Debug("step DOM")
+				m.Log().Debug("step DOM")
 				m.Dom = doc
 				m.step = StepDom
 				e.runProcessors(m)
@@ -399,7 +422,7 @@ func (e *Extractor) Run() {
 		}
 
 		// Final processes
-		m.Log.Debug("step finish")
+		m.Log().Debug("step finish")
 		m.step = StepFinish
 		e.runProcessors(m)
 		if m.canceled {
@@ -411,7 +434,7 @@ func (e *Extractor) Run() {
 	}
 
 	// Postprocess
-	m.Log.Debug("postprocess")
+	m.Log().Debug("postprocess")
 	m.step = StepPostProcess
 	e.setFinalHTML()
 	e.runProcessors(m)
@@ -424,7 +447,7 @@ func (e *Extractor) getFromCache(req *http.Request) (*http.Response, error) {
 		return nil, nil
 	}
 
-	e.GetLogger().WithField("url", u).Debug("cache hit")
+	e.Log().Debug("cache hit", slog.String("url", u))
 	headers := make(http.Header)
 	for k, v := range entry.headers {
 		headers.Set(k, v)

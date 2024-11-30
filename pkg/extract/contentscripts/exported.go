@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"log/slog"
 	"net/url"
 	"slices"
 	"strings"
@@ -174,7 +175,7 @@ func (p *processMessageProxy) getAuthors() []string {
 
 func (p *processMessageProxy) setAuthors(names ...string) {
 	p.getDrop().Authors = names
-	p.vm.GetLogger().WithField("authors", names).Debug("set property")
+	p.vm.GetLogger().Debug("set property", slog.Any("authors", names))
 }
 
 func (p *processMessageProxy) getDescription() string {
@@ -183,7 +184,7 @@ func (p *processMessageProxy) getDescription() string {
 
 func (p *processMessageProxy) setDescription(val string) {
 	p.getDrop().Description = val
-	p.vm.GetLogger().WithField("description", val).Debug("set property")
+	p.vm.GetLogger().Debug("set property", slog.String("description", val))
 }
 
 func (p *processMessageProxy) getSiteName() string {
@@ -192,7 +193,7 @@ func (p *processMessageProxy) getSiteName() string {
 
 func (p *processMessageProxy) setSiteName(val string) {
 	p.getDrop().Site = val
-	p.vm.GetLogger().WithField("site", val).Debug("set property")
+	p.vm.GetLogger().Debug("set property", slog.String("site", val))
 }
 
 func (p *processMessageProxy) getTitle() string {
@@ -201,7 +202,7 @@ func (p *processMessageProxy) getTitle() string {
 
 func (p *processMessageProxy) setTitle(val string) {
 	p.getDrop().Title = val
-	p.vm.GetLogger().WithField("title", val).Debug("set property")
+	p.vm.GetLogger().Debug("set property", slog.String("title", val))
 }
 
 func (p *processMessageProxy) getType() string {
@@ -213,7 +214,7 @@ func (p *processMessageProxy) setType(val string) error {
 		return fmt.Errorf(`"%s" is not a valid type`, val)
 	}
 	p.getDrop().DocumentType = val
-	p.vm.GetLogger().WithField("document_type", val).Debug("set property")
+	p.vm.GetLogger().Debug("set property", slog.String("document_type", val))
 	return nil
 }
 
@@ -224,7 +225,9 @@ func (p *processMessageProxy) setHTML(val string) error {
 	}
 	p.getProcessMessage().Dom = node
 	p.getDrop().ContentType = "text/html"
-	p.vm.GetLogger().WithField("html", fmt.Sprintf("%s...", val[0:min(50, len(val))])).Debug("set property")
+	p.vm.GetLogger().Debug("set property",
+		slog.String("html", fmt.Sprintf("%s...", val[0:min(50, len(val))])),
+	)
 	return nil
 }
 
@@ -248,7 +251,7 @@ func (p *processMessageProxy) overrideConfig(cfg *SiteConfig, src string) error 
 	}
 
 	*cfg = *newConfig
-	p.vm.GetLogger().WithField("files", cfg.files).Debug("site configuration override")
+	p.vm.GetLogger().Debug("site configuration override", slog.Any("files", cfg.files))
 	return nil
 }
 
@@ -282,7 +285,7 @@ func (m *dropMetaProxy) Set(key string, val goja.Value) bool {
 		}
 	}
 	m.meta()[key] = v
-	m.vm.GetLogger().WithField(key, v).Debug("set meta")
+	m.vm.GetLogger().Debug("set meta", slog.Any(key, v))
 	return true
 }
 

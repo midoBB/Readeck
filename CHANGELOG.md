@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+### Changed
+- New, native, logging library
+
 ## [0.16.0] - 2024-11-27
 ### Added
 - Content Script for 404media.co

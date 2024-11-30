@@ -10,12 +10,12 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log/slog"
 	"net/url"
 	"slices"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
-	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
@@ -91,7 +91,7 @@ type BookmarkMeta struct {
 
 type importer struct {
 	worker          ImportWorker
-	log             *log.Entry
+	log             *slog.Logger
 	user            *users.User
 	requestID       string
 	allowDuplicates bool
@@ -166,9 +166,9 @@ func (imp importer) Import(f func([]int)) {
 		b, err := imp.createBookmark(imp.worker.Next)
 		logger := imp.log
 		if b != nil {
-			logger = logger.WithField("url", b.URL)
+			logger = logger.With(slog.String("url", b.URL))
 			if b.UID != "" {
-				logger = logger.WithField("id", b.UID)
+				logger = logger.With(slog.String("id", b.UID))
 			}
 		}
 
@@ -176,11 +176,11 @@ func (imp importer) Import(f func([]int)) {
 			break
 		}
 		if errors.Is(err, ErrIgnore) {
-			logger.WithError(err).Debug("import item")
+			logger.Debug("import item", slog.Any("err", err))
 			continue
 		}
 		if err != nil {
-			logger.WithError(err).Error("import item")
+			logger.Error("import item", slog.Any("err", err))
 			continue
 		}
 
@@ -191,7 +191,7 @@ func (imp importer) Import(f func([]int)) {
 
 	if len(ids) == 0 {
 		if err := clearStoreProgressList(GetTrackID(imp.requestID)); err != nil {
-			imp.log.WithError(err).Error("clearing progress")
+			imp.log.Error("clearing progress", slog.Any("err", err))
 		}
 		imp.log.Info("import finished")
 	}

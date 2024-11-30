@@ -6,9 +6,9 @@ package admin
 
 import (
 	"encoding/json"
+	"log/slog"
 
 	"github.com/doug-martin/goqu/v9"
-	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/bus"
@@ -37,16 +37,16 @@ func init() {
 
 func deleteUserHandler(data interface{}) {
 	id := data.(int)
-	logger := log.WithField("id", id)
+	logger := slog.With(slog.Int("id", id))
 
 	u, err := users.Users.GetOne(goqu.C("id").Eq(id))
 	if err != nil {
-		logger.WithError(err).Error("user retrieve")
+		logger.Error("user retrieve", slog.Any("err", err))
 		return
 	}
 
 	if err := deleteUser(u); err != nil {
-		logger.WithError(err).Error("user removal")
+		logger.Error("user removal", slog.Any("err", err))
 		return
 	}
 

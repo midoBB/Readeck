@@ -6,9 +6,9 @@ package profile
 
 import (
 	"encoding/json"
+	"log/slog"
 
 	"github.com/doug-martin/goqu/v9"
-	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/internal/auth/credentials"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
@@ -54,16 +54,16 @@ func init() {
 
 func deleteCredentialHandler(data interface{}) {
 	id := data.(int)
-	logger := log.WithField("id", id)
+	logger := slog.With(slog.Int("id", id))
 
 	c, err := credentials.Credentials.GetOne(goqu.C("id").Eq(id))
 	if err != nil {
-		logger.WithError(err).Error("credential retrieve")
+		logger.Error("credential retrieve", slog.Any("err", err))
 		return
 	}
 
 	if err := c.Delete(); err != nil {
-		logger.WithError(err).Error("token removal")
+		logger.Error("token removal", slog.Any("err", err))
 		return
 	}
 
@@ -72,16 +72,16 @@ func deleteCredentialHandler(data interface{}) {
 
 func deleteTokenHandler(data interface{}) {
 	id := data.(int)
-	logger := log.WithField("id", id)
+	logger := slog.With(slog.Int("id", id))
 
 	t, err := tokens.Tokens.GetOne(goqu.C("id").Eq(id))
 	if err != nil {
-		logger.WithError(err).Error("token retrieve")
+		logger.Error("token retrieve", slog.Any("err", err))
 		return
 	}
 
 	if err := t.Delete(); err != nil {
-		logger.WithError(err).Error("token removal")
+		logger.Error("token removal", slog.Any("err", err))
 		return
 	}
 

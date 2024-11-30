@@ -7,6 +7,7 @@ package contents
 import (
 	"bytes"
 	"fmt"
+	"log/slog"
 
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"github.com/go-shiori/dom"
@@ -21,7 +22,7 @@ func ExtractInlineSVGs(m *extract.ProcessMessage, next extract.Processor) extrac
 		return next
 	}
 
-	m.Log.Debug("extract inline SVG images")
+	m.Log().Debug("extract inline SVG images")
 
 	dom.ForEachNode(dom.QuerySelectorAll(m.Dom, "svg"), func(n *html.Node, i int) {
 		// Extract the node content to a buffer, as a standalone SVG file.
@@ -30,7 +31,7 @@ func ExtractInlineSVGs(m *extract.ProcessMessage, next extract.Processor) extrac
 		buf.WriteString("\n")
 		err := html.Render(buf, n)
 		if err != nil {
-			m.Log.Error(err)
+			m.Log().Error("", slog.Any("err", err))
 			return
 		}
 

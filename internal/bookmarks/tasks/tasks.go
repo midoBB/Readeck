@@ -11,6 +11,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"net/url"
 	"os"
 	"path"
@@ -23,7 +24,6 @@ import (
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
-	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/html"
 	"golang.org/x/sync/errgroup"
 
@@ -138,17 +138,17 @@ func ExtractPage(params ExtractParams) {
 
 func deleteBookmarkHandler(data interface{}) {
 	id := data.(int)
-	logger := log.WithField("id", id)
+	logger := slog.With(slog.Int("id", id))
 
 	logger.Debug("deleting bookmark")
 	b, err := bookmarks.Bookmarks.GetOne(goqu.C("id").Eq(id))
 	if err != nil {
-		logger.WithError(err).Error("bookmark retrieve")
+		logger.Error("bookmark retrieve", slog.Any("err", err))
 		return
 	}
 
 	if err := b.Delete(); err != nil {
-		logger.WithError(err).Error("bookmark removal")
+		logger.Error("bookmark removal", slog.Any("err", err))
 		return
 	}
 
@@ -157,18 +157,18 @@ func deleteBookmarkHandler(data interface{}) {
 
 func deleteCollectionHandler(data interface{}) {
 	id := data.(int)
-	logger := log.WithField("id", id)
+	logger := slog.With(slog.Int("id", id))
 
 	logger.Debug("deleting collection")
 
 	c, err := bookmarks.Collections.GetOne(goqu.C("id").Eq(id))
 	if err != nil {
-		logger.WithError(err).Error("collection retrieve")
+		logger.Error("collection retrieve", slog.Any("err", err))
 		return
 	}
 
 	if err := c.Delete(); err != nil {
-		logger.WithError(err).Error("collection removal")
+		logger.Error("collection removal", slog.Any("err", err))
 		return
 	}
 
@@ -177,20 +177,20 @@ func deleteCollectionHandler(data interface{}) {
 
 func deleteLabelHandler(data interface{}) {
 	params := data.(LabelDeleteParams)
-	logger := log.WithFields(log.Fields{
-		"user":  params.UserID,
-		"label": params.Name,
-	})
+	logger := slog.With(
+		slog.Int("user", params.UserID),
+		slog.String("label", params.Name),
+	)
 	logger.Debug("deleting label")
 
 	u, err := users.Users.GetOne(goqu.C("id").Eq(params.UserID))
 	if err != nil {
-		logger.WithError(err).Error("user retrieve")
+		logger.Error("user retrieve", slog.Any("err", err))
 		return
 	}
 
 	if _, err = bookmarks.Bookmarks.RenameLabel(u, params.Name, ""); err != nil {
-		logger.WithError(err).Error("label remove")
+		logger.Error("label remove", slog.Any("err", err))
 		return
 	}
 
@@ -205,11 +205,11 @@ func extractPageHandler(data interface{}) {
 
 	var resourceCount int
 	saved := false
-	logger := log.WithFields(log.Fields{
-		"@id":         params.RequestID,
-		"bookmark_id": params.BookmarkID,
-		"find_main":   params.FindMain,
-	})
+	logger := slog.With(
+		slog.String("@id", params.RequestID),
+		slog.Int("bookmark_id", params.BookmarkID),
+		slog.Bool("find_main", params.FindMain),
+	)
 	logger.Debug("starting extraction")
 	start := time.Now()
 
@@ -220,7 +220,7 @@ func extractPageHandler(data interface{}) {
 
 		// Recover from any error that could have arose
 		if r := recover(); r != nil {
-			logger.WithField("recover", r).Error("error during extraction")
+			logger.Error("error during extraction", slog.Any("recover", r))
 			debug.PrintStack()
 			b.State = bookmarks.StateError
 			b.Errors = append(b.Errors, fmt.Sprintf("%v", r))
@@ -236,7 +236,7 @@ func extractPageHandler(data interface{}) {
 		// Then save the whole thing
 		if !saved {
 			if err := b.Save(); err != nil {
-				logger.WithError(err).Error("saving bookmark")
+				logger.Error("saving bookmark", slog.Any("err", err))
 			}
 		}
 
@@ -248,7 +248,7 @@ func extractPageHandler(data interface{}) {
 
 	b, err = bookmarks.Bookmarks.GetOne(goqu.C("id").Eq(params.BookmarkID))
 	if err != nil {
-		logger.WithError(err).Error()
+		logger.Error("", slog.Any("err", err))
 		return
 	}
 
@@ -259,15 +259,15 @@ func extractPageHandler(data interface{}) {
 
 	ex, err := extract.New(
 		b.URL,
-		extract.SetLogFields(&log.Fields{
-			"@id":         params.RequestID,
-			"bookmark_id": b.ID,
-		}),
+		extract.SetLogger(slog.Default(),
+			slog.String("@id", params.RequestID),
+			slog.Int("bookmark_id", b.ID),
+		),
 		extract.SetDeniedIPs(configs.ExtractorDeniedIPs()),
 		extract.SetProxyList(proxyList),
 	)
 	if err != nil {
-		logger.WithError(err).Error()
+		logger.Error("", slog.Any("err", err))
 		return
 	}
 
@@ -278,7 +278,7 @@ func extractPageHandler(data interface{}) {
 
 	ex.AddProcessors(
 		contentscripts.LoadScripts(
-			bookmarks.GetContentScripts(ex.GetLogger())...,
+			bookmarks.GetContentScripts(ex.Log())...,
 		),
 		meta.ExtractMeta,
 		meta.ExtractOembed,
@@ -383,11 +383,10 @@ func saveBookmark(b *bookmarks.Bookmark, saved *bool, resourceCount *int) extrac
 
 		// Run the archiver
 		var arc *archiver.Archiver
-		logEntry := log.NewEntry(ex.GetLogger()).WithFields(*ex.LogFields)
 		if len(ex.HTML) > 0 && ex.Drop().IsHTML() {
 			arc, err = bookmarks.NewArchive(context.TODO(), ex)
 			if err != nil {
-				logEntry.WithError(err).Error("archiver error")
+				m.Log().Error("archiver error", slog.Any("err", err))
 			}
 		}
 
@@ -407,7 +406,7 @@ func saveBookmark(b *bookmarks.Bookmark, saved *bool, resourceCount *int) extrac
 
 		// All good? Save now
 		if err := b.Save(); err != nil {
-			log.WithError(err).Error()
+			m.Log().Error("", slog.Any("err", err))
 			return next
 		}
 		*saved = true
@@ -434,16 +433,18 @@ func fetchLinksProcessor(b *bookmarks.Bookmark) extract.Processor {
 		g.SetLimit(10)
 		for i := range links {
 			g.Go(func() error {
-				log.WithField("url", links[i].URL).Debug("extract link")
+				m.Log().Debug("extract link", slog.String("url", links[i].URL))
 				URL, err := url.Parse(links[i].URL)
 				if err != nil {
 					return err
 				}
-				// d := seen[links[i].URL]
 				d := extract.NewDrop(URL)
 				err = d.Load(m.Extractor.Client())
 				if err != nil {
-					log.WithField("url", d.URL).WithError(err).Warn("extract link error")
+					m.Log().Warn("extract link error",
+						slog.String("url", d.URL.String()),
+						slog.Any("err", err),
+					)
 				}
 
 				links[i].ContentType = d.ContentType
@@ -455,12 +456,18 @@ func fetchLinksProcessor(b *bookmarks.Bookmark) extract.Processor {
 
 				node, err := html.Parse(bytes.NewReader(d.Body))
 				if err != nil {
-					log.WithField("url", d.URL).WithError(err).Warn("extract link error")
+					m.Log().Warn("extract link error",
+						slog.String("url", d.URL.String()),
+						slog.Any("err", err),
+					)
 					return nil
 				}
 				meta := meta.ParseMeta(node)
 				title := meta.LookupGet("graph.title", "tiwtter.title", "html.title")
-				log.WithField("url", d.URL.String()).WithField("title", title).Debug("link")
+				m.Log().Debug("link",
+					slog.String("url", d.URL.String()),
+					slog.String("title", title),
+				)
 
 				links[i].Title = title
 				return nil
@@ -468,7 +475,7 @@ func fetchLinksProcessor(b *bookmarks.Bookmark) extract.Processor {
 		}
 
 		if err := g.Wait(); err != nil {
-			log.WithError(err).Error("extract links")
+			m.Log().Error("extract links", slog.Any("err", err))
 		}
 
 		links = slices.CompactFunc(links, func(a, b bookmarks.BookmarkLink) bool {
@@ -480,7 +487,7 @@ func fetchLinksProcessor(b *bookmarks.Bookmark) extract.Processor {
 		}
 
 		if err := b.Update(map[string]any{"links": links}); err != nil {
-			log.WithError(err).Error()
+			m.Log().Error("", slog.Any("err", err))
 		}
 
 		return next

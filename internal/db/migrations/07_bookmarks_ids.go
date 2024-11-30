@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
+	"log/slog"
 	"math/rand"
 	"os"
 	"path/filepath"
@@ -15,7 +16,6 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/go-shiori/dom"
-	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/html"
 
 	"codeberg.org/readeck/readeck/configs"
@@ -136,7 +136,10 @@ func M07migrateBookmarkIDs(_ *goqu.TxDatabase, _ fs.FS) error {
 		files, _ := filepath.Glob(filepath.Join(p, "**/*.zip.tmp"))
 		for _, x := range files {
 			if err := os.Remove(x); err != nil {
-				log.WithField("file", x).WithError(err).Error("deleting file")
+				slog.Error("deleting file",
+					slog.String("file", x),
+					slog.Any("err", err),
+				)
 			}
 		}
 	}

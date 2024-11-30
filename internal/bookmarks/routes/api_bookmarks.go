@@ -9,6 +9,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log/slog"
 	"mime"
 	"net/http"
 	"net/url"
@@ -67,7 +68,7 @@ func (api *apiRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	item := newBookmarkItem(api.srv, r, b, "./..")
 	item.Errors = b.Errors
 	if err := item.setEmbed(); err != nil {
-		api.srv.Log(r).Error(err)
+		api.srv.Log(r).Error("", slog.Any("err", err))
 	}
 
 	if api.srv.IsTurboRequest(r) {
@@ -88,7 +89,7 @@ func (api *apiRouter) bookmarkArticle(w http.ResponseWriter, r *http.Request) {
 	bi := newBookmarkItem(api.srv, r, b, "")
 	buf, err := bi.getArticle()
 	if err != nil {
-		api.srv.Log(r).Error(err)
+		api.srv.Log(r).Error("", slog.Any("err", err))
 	}
 
 	if api.srv.IsTurboRequest(r) {
@@ -161,7 +162,7 @@ func (api *apiRouter) bookmarkCreate(w http.ResponseWriter, r *http.Request) {
 		err = f.loadMultipart(r)
 		if err != nil {
 			f.AddErrors("", fmt.Errorf("Unable to process input data"))
-			api.srv.Log(r).WithError(err).Error("input error")
+			api.srv.Log(r).Error("input error", slog.Any("err", err))
 		}
 	} else {
 		forms.Bind(f, r)

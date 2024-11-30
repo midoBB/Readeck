@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"context"
 	"io"
+	"log/slog"
 	"net/url"
 	"path"
 	"strconv"
@@ -16,7 +17,6 @@ import (
 
 	"github.com/go-shiori/dom"
 	"github.com/lithammer/shortuuid/v4"
-	log "github.com/sirupsen/logrus"
 	"golang.org/x/sync/semaphore"
 
 	"codeberg.org/readeck/readeck/pkg/archiver"
@@ -114,19 +114,26 @@ var mimeTypes = map[string]string{
 }
 
 func eventHandler(ex *extract.Extractor) func(ctx context.Context, arc *archiver.Archiver, evt archiver.Event) {
-	entry := log.NewEntry(ex.GetLogger()).WithFields(*ex.LogFields)
-
 	return func(_ context.Context, _ *archiver.Archiver, evt archiver.Event) {
+		attrs := []slog.Attr{}
+		for k, v := range evt.Fields() {
+			attrs = append(attrs, slog.Any(k, v))
+		}
+		msg := "archiver"
+		level := slog.LevelDebug
+
 		switch evt.(type) {
 		case *archiver.EventError:
-			entry.WithFields(evt.Fields()).Warn("archive error")
+			msg = "archive error"
+			level = slog.LevelError
 		case archiver.EventStartHTML:
-			entry.WithFields(evt.Fields()).Info("start archive")
+			msg = "start archive"
+			level = slog.LevelInfo
 		case *archiver.EventFetchURL:
-			entry.WithFields(evt.Fields()).Debug("load archive resource")
-		default:
-			entry.WithFields(evt.Fields()).Debug("archiver")
+			msg = "load archive resource"
 		}
+
+		ex.Log().LogAttrs(context.Background(), level, msg, attrs...)
 	}
 }
 

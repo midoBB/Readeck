@@ -9,13 +9,13 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"errors"
+	"log/slog"
 	"math/rand"
 	"strings"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/hlandau/passlib"
-	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/internal/acls"
 	"codeberg.org/readeck/readeck/internal/db"
@@ -217,7 +217,7 @@ func (u *User) HasPermission(obj, act string) bool {
 	}
 	r, err := acls.Check(u.Group, obj, act)
 	if err != nil {
-		log.WithError(err).Error("ACL check error")
+		slog.Error("ACL check error", slog.Any("err", err))
 		return false
 	}
 	return r

@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"net/http"
 
 	"codeberg.org/readeck/readeck/configs"
@@ -68,7 +69,7 @@ func (s *Server) Render(w http.ResponseWriter, r *http.Request, status int, valu
 	enc := json.NewEncoder(b)
 	enc.SetEscapeHTML(false)
 	if err := enc.Encode(value); err != nil {
-		s.Log(r).WithError(err).Error()
+		s.Log(r).Error("encoding error", slog.Any("err", err))
 		http.Error(w, http.StatusText(500), 500)
 		return
 	}
@@ -88,7 +89,7 @@ func (s *Server) Message(w http.ResponseWriter, r *http.Request, message *Messag
 
 	// Log errors only in dev mode
 	if message.Status >= 400 && configs.Config.Main.DevMode {
-		s.Log(r).WithField("message", message).Warn(message.Message)
+		s.Log(r).Warn(message.Message, slog.Any("message", message))
 	}
 }
 
@@ -110,6 +111,6 @@ func (s *Server) Status(w http.ResponseWriter, _ *http.Request, status int) {
 
 // Error sends an HTTP 500 and log the given error.
 func (s *Server) Error(w http.ResponseWriter, r *http.Request, err error) {
-	s.Log(r).WithError(err).Error("server error")
+	s.Log(r).Error("server error", slog.Any("err", err))
 	s.Status(w, r, 500)
 }

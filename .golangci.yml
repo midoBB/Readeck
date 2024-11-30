@@ -16,6 +16,7 @@ linters:
     - govet
     - misspell
     - revive
+    - sloglint
     - staticcheck
     - testifylint
     - typecheck
@@ -67,6 +68,15 @@ linters-settings:
       - (net/http.File).Close
       - (*archive/zip.ReadCloser).Close
 
+  sloglint:
+    attr-only: true
+    args-on-sep-lines: true
+    key-naming-case: snake
+    forbidden-keys:
+      - time
+      - level
+      - msg
+      - source
 
   gocognit:
     min-complexity: 60

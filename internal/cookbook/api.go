@@ -8,13 +8,13 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
+	"log/slog"
 	"net/http"
 	"path"
 	"runtime"
 	"time"
 
 	"github.com/go-chi/chi/v5"
-	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
@@ -62,7 +62,9 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 
 	ex, err := extract.New(
 		src,
-		extract.SetLogFields(&log.Fields{"@id": api.srv.GetReqID(r)}),
+		extract.SetLogger(slog.Default(),
+			slog.String("@id", api.srv.GetReqID(r)),
+		),
 		extract.SetDeniedIPs(configs.ExtractorDeniedIPs()),
 		extract.SetProxyList(proxyList),
 	)
@@ -83,7 +85,7 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 
 	ex.AddProcessors(
 		contentscripts.LoadScripts(
-			bookmarks.GetContentScripts(api.srv.Log(r).Logger)...,
+			bookmarks.GetContentScripts(api.srv.Log(r))...,
 		),
 		meta.ExtractMeta,
 		meta.ExtractOembed,
@@ -191,7 +193,10 @@ func (api *cookbookAPI) urlList(w http.ResponseWriter, r *http.Request) {
 
 		cfg, err := contentscripts.NewSiteConfig(f)
 		if err != nil {
-			log.WithField("cf", d.Name()).WithError(err).Error("error parsing file")
+			slog.Error("error parsing file",
+				slog.String("cf", d.Name()),
+				slog.Any("err", err),
+			)
 			return nil
 		}
 

@@ -9,13 +9,14 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"log/slog"
 	"net/url"
 	"os"
 	"path"
 	"path/filepath"
 
 	"github.com/cristalhq/acmd"
-	log "github.com/sirupsen/logrus"
+	"github.com/phsym/console-slog"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth/users"
@@ -38,6 +39,11 @@ func (f *appFlags) Flags() *flag.FlagSet {
 	return fs
 }
 
+func fatal(msg string, err error) {
+	slog.Error(msg, slog.Any("err", err))
+	os.Exit(1)
+}
+
 // Run starts the application CLI.
 func Run() error {
 	return acmd.RunnerOf(commands, acmd.Config{
@@ -50,55 +56,56 @@ func Run() error {
 // InitApp prepares the app for running the server or the tests.
 func InitApp() {
 	// Setup logger
-	lvl, err := log.ParseLevel(configs.Config.Main.LogLevel)
-	if err != nil {
-		lvl = log.InfoLevel
-	}
-	log.SetLevel(lvl)
-	log.WithField("log_level", lvl).Debug()
+	var handler slog.Handler
 	if configs.Config.Main.DevMode {
-		log.SetFormatter(&log.TextFormatter{
-			ForceColors: true,
+		handler = console.NewHandler(os.Stdout, &console.HandlerOptions{
+			Level:      configs.Config.Main.LogLevel,
+			Theme:      devLogTheme{},
+			TimeFormat: "15:04:05.000",
 		})
-		log.SetOutput(os.Stdout)
-		log.SetLevel(log.TraceLevel)
+	} else {
+		handler = slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
+			Level: configs.Config.Main.LogLevel,
+		})
 	}
+
+	slog.SetDefault(slog.New(handler))
 
 	// Load locales
 	locales.Load()
 
 	// Create required folders
 	if err := createFolder(configs.Config.Main.DataDirectory); err != nil {
-		log.WithError(err).Fatal("Can't create data directory")
+		fatal("can't create data directory", err)
 	}
 
 	// Create content-scripts folder
 	if err := createFolder(filepath.Join(configs.Config.Main.DataDirectory, "content-scripts")); err != nil {
-		log.WithError(err).Fatal("Can't create content-scripts directory")
+		fatal("can't create content-scripts directory", err)
 	}
 	bookmarks.LoadContentScripts()
 
 	// Database URL
 	dsn, err := url.Parse(configs.Config.Database.Source)
 	if err != nil {
-		log.WithError(err).Fatal("Can't read database source value")
+		fatal("can't read database source value", err)
 	}
 
 	// SQLite data path
 	if dsn.Scheme == "sqlite3" {
 		if err := createFolder(path.Dir(dsn.Opaque)); err != nil {
-			log.WithError(err).Fatal("Can't create database directory")
+			fatal("can't create database directory", err)
 		}
 	}
 
 	// Connect to database
 	if err := db.Open(configs.Config.Database.Source); err != nil {
-		log.WithError(err).Fatal("Can't connect to database")
+		fatal("can't connect to database", err)
 	}
 
 	// Init db schema
 	if err := db.Init(); err != nil {
-		log.WithError(err).Fatal()
+		fatal("can't initialize database", err)
 	}
 
 	// Init email sending
@@ -130,7 +137,7 @@ func appPreRun(flags *appFlags) error {
 
 	// Enforce debug in dev mode
 	if configs.Config.Main.DevMode {
-		configs.Config.Main.LogLevel = "debug"
+		configs.Config.Main.LogLevel = slog.LevelDebug
 	}
 
 	InitApp()
@@ -140,9 +147,9 @@ func appPreRun(flags *appFlags) error {
 
 func appPostRun() {
 	if err := db.Close(); err != nil {
-		log.WithError(err).Error("closing database")
+		slog.Error("closing database", slog.Any("err", err))
 	} else {
-		log.Debug("database is closed")
+		slog.Debug("database is closed")
 	}
 }
 

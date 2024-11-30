@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log/slog"
 	"net"
 	"net/http"
 	"slices"
@@ -30,6 +31,10 @@ const (
 	unauthorizedDefault = iota
 	unauthorizedRedir
 )
+
+type cspReport struct {
+	Report map[string]any `json:"csp-report"`
+}
 
 func setHost(r *http.Request) error {
 	xfh := forwarded.ParseXForwardedHost(r.Header)
@@ -114,7 +119,7 @@ func (s *Server) InitRequest(next http.Handler) http.Handler {
 		// Set host
 		if trusted {
 			if err := setHost(r); err != nil {
-				s.Log(r).WithError(err).Error("server error")
+				s.Log(r).Error("server error", slog.Any("err", err))
 				s.Status(w, r, http.StatusBadRequest)
 				return
 			}
@@ -124,7 +129,7 @@ func (s *Server) InitRequest(next http.Handler) http.Handler {
 		// Check host
 		if !configs.Config.Main.DevMode {
 			if err := checkHost(r); err != nil {
-				s.Log(r).WithError(err).Error("server error")
+				s.Log(r).Error("server error", slog.Any("err", err))
 				s.Status(w, r, http.StatusBadRequest)
 				return
 			}
@@ -202,14 +207,24 @@ func (s *Server) SetSecurityHeaders(next http.Handler) http.Handler {
 }
 
 func (s *Server) cspReport(w http.ResponseWriter, r *http.Request) {
-	report := map[string]any{}
+	report := cspReport{}
 	dec := json.NewDecoder(r.Body)
 	if err := dec.Decode(&report); err != nil {
-		s.Log(r).WithError(err).Error("server error")
+		s.Log(r).Error("server error", slog.Any("err", err))
 		return
 	}
 
-	s.Log(r).WithField("report", report["csp-report"]).Warn("CSP violation")
+	attrs := []slog.Attr{}
+	for k, v := range report.Report {
+		attrs = append(attrs, slog.Any(k, v))
+	}
+	s.Log(r).WithGroup("report").LogAttrs(
+		context.Background(),
+		slog.LevelWarn,
+		"CSP violation",
+		attrs...,
+	)
+
 	w.WriteHeader(http.StatusNoContent)
 }
 

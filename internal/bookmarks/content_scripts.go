@@ -6,10 +6,9 @@ package bookmarks
 
 import (
 	"io/fs"
+	"log/slog"
 	"os"
 	"path"
-
-	log "github.com/sirupsen/logrus"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/pkg/extract/contentscripts"
@@ -17,7 +16,7 @@ import (
 
 var contentScriptRegistry = []*contentscripts.Program{}
 
-func loadContentScripts(logger *log.Logger) []*contentscripts.Program {
+func loadContentScripts(logger *slog.Logger) []*contentscripts.Program {
 	res := []*contentscripts.Program{}
 	for _, root := range configs.Config.Extractor.ContentScripts {
 		rootFS := os.DirFS(root)
@@ -31,21 +30,21 @@ func loadContentScripts(logger *log.Logger) []*contentscripts.Program {
 
 			fd, err := rootFS.Open(name)
 			if err != nil {
-				logger.WithError(err).Error("content script")
+				logger.Error("content script", slog.Any("err", err))
 				return nil
 			}
 			defer fd.Close() //nolint:errcheck
 
 			p, err := contentscripts.NewProgram(path.Join(root, name), fd)
 			if err != nil {
-				logger.WithError(err).Error("content script")
+				logger.Error("content script", slog.Any("err", err))
 				return nil
 			}
 			res = append(res, p)
 			return nil
 		})
 		if err != nil {
-			logger.WithError(err).Error("content script")
+			logger.Error("content script", slog.Any("err", err))
 		}
 	}
 
@@ -57,13 +56,13 @@ func loadContentScripts(logger *log.Logger) []*contentscripts.Program {
 // In dev mode, scripts are reloaded on each extraction.
 func LoadContentScripts() {
 	if !configs.Config.Main.DevMode {
-		contentScriptRegistry = loadContentScripts(log.New())
+		contentScriptRegistry = loadContentScripts(slog.Default())
 	}
 }
 
 // GetContentScripts returns the compiled content scripts, either from
 // the cache or by browsing the configured folders.
-func GetContentScripts(logger *log.Logger) []*contentscripts.Program {
+func GetContentScripts(logger *slog.Logger) []*contentscripts.Program {
 	if configs.Config.Main.DevMode {
 		return loadContentScripts(logger)
 	}

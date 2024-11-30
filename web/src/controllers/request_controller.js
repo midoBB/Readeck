@@ -24,15 +24,20 @@ export default class extends Controller {
       method: method || "get",
     }
 
-    // Set the body based on the target value if it exists, and the
-    // provided data-request-name-param attribute
-    if (!!event.params.name && event.currentTarget.value !== undefined) {
+    // Set the body based on the form elements when the event receiver
+    // is a form.
+    if (event.currentTarget.tagName.toLowerCase() == "form") {
+      const form = event.currentTarget
       options.body = {}
-      let value = event.currentTarget.value
-      if (!isNaN(value)) {
-        value = Number(value)
+      for (let e of form.elements) {
+        if (!!e.name) {
+          let value = e.value
+          if (!isNaN(value)) {
+            value = Number(value)
+          }
+          options.body[e.name] = value
+        }
       }
-      options.body[event.params.name] = value
     }
 
     await request(src, options)

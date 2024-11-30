@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
 "PO-Revision-Date: 2024-12-01 02:29+0000\n"
-"Last-Translator: SomeTr <SomeTr@users.noreply.translate.codeberg.org>\n"
+"Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
 "Language: uk\n"
@@ -739,7 +739,7 @@ msgstr "Компактний вигляд"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:9
 msgid "You can share the following link with your friends."
-msgstr ""
+msgstr "Ви можете поділитися наступним посиланням з друзями."
 
 #: assets/templates/bookmarks/components/public_share.jet.html:10
 #, python-format

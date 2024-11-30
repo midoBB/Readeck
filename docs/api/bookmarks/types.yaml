@@ -97,6 +97,11 @@ schemas:
         type: boolean
         description: |
           `true` when the bookmark is in the archives.
+      read_progress:
+        type: integer
+        minimum: 0
+        maximum: 100
+        description: Reading progress percentage.
       labels:
         type: array
         items:
@@ -155,6 +160,9 @@ schemas:
       - $ref: "#/components/schemas/bookmarkSummary"
       - type: object
         properties:
+          read_anchor:
+            type: string
+            description: CSS selector of the last seen element.
           links:
             description: |
               This contains the list of all the links collected in the
@@ -211,6 +219,14 @@ schemas:
         type: boolean
         description: |
           If `true`, schedules the bookmark for deletion, otherwise, cancels any scheduled deletion
+      read_progress:
+        type: integer
+        minimum: 0
+        maximum: 100
+        description: Reading progress percentage
+      read_anchor:
+        type: string
+        description: CSS selector of the last seen element
       labels:
         type: array
         items:
@@ -252,6 +268,14 @@ schemas:
       is_deleted:
         type: string
         description: Scheduled deletion status
+      read_progress:
+        type: integer
+        minimum: 0
+        maximum: 100
+        description: Reading progress percentage
+      read_anchor:
+        type: string
+        description: CSS selector of the last seen element
       labels:
         type: string
         description: New label list

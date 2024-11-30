@@ -236,6 +236,8 @@ func newUpdateForm(tr forms.Translator) (f *updateForm) {
 		forms.NewBooleanField("is_marked"),
 		forms.NewBooleanField("is_archived"),
 		forms.NewBooleanField("is_deleted"),
+		forms.NewIntegerField("read_progress", forms.Gte(0), forms.Lte(100)),
+		forms.NewTextField("read_anchor", forms.Trim),
 		forms.NewListField("labels", strConstructor, strConverter),
 		forms.NewListField("add_labels", strConstructor, strConverter),
 		forms.NewListField("remove_labels", strConstructor, strConverter),
@@ -269,6 +271,12 @@ func (f *updateForm) update(b *bookmarks.Bookmark) (updated map[string]interface
 		case "is_deleted":
 			deleted = new(bool)
 			*deleted = field.Value().(bool)
+		case "read_progress":
+			b.ReadProgress = field.Value().(int)
+			updated[n] = field.Value()
+		case "read_anchor":
+			b.ReadAnchor = field.String()
+			updated[n] = field.Value()
 		// labels, add_labels and remove_labels are declared and
 		// processed in this order.
 		case "labels":

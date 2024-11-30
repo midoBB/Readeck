@@ -96,6 +96,8 @@ type Bookmark struct {
 	Files         BookmarkFiles       `db:"files"`
 	Errors        types.Strings       `db:"errors"`
 	Labels        types.Strings       `db:"labels"`
+	ReadProgress  int                 `db:"read_progress"`
+	ReadAnchor    string              `db:"read_anchor"`
 	IsArchived    bool                `db:"is_archived"`
 	IsMarked      bool                `db:"is_marked"`
 	Annotations   BookmarkAnnotations `db:"annotations"`

@@ -65,6 +65,10 @@
       @apply link;
     }
 
+    .bookmark-card--progress {
+      @apply filter-none opacity-100;
+    }
+
     .bookmark-card--actions {
       form button,
       form a {
@@ -83,6 +87,27 @@
 
   &--ico {
     grid-area: ico;
+  }
+
+  &--progress {
+    grid-area: progress;
+
+    -webkit-appearance: none;
+    appearance: none;
+    height: 2px;
+    @apply w-full bg-transparent filter grayscale opacity-25;
+
+    &::-webkit-progress-bar {
+      @apply bg-transparent;
+    }
+
+    &::-moz-progress-bar {
+      @apply bg-gradient-to-r from-yellow-500 to-red-500;
+    }
+
+    &::-webkit-progress-value {
+      @apply bg-gradient-to-r from-yellow-500 to-red-500;
+    }
   }
 
   &--title {
@@ -197,12 +222,13 @@
     position: relative;
     grid-template-areas:
       "img img" "spinner spinner"
+      "progress progress"
       "title title" "ico meta"
       "labels labels"
       "deleted deleted"
       "actions actions";
     grid-template-columns: auto 1fr;
-    grid-template-rows: auto auto auto auto 1fr;
+    grid-template-rows: auto auto auto auto auto 1fr;
 
     height: 100%;
 
@@ -295,6 +321,13 @@
       }
     }
 
+    @screen md {
+      &--progress {
+        height: 3px;
+        @apply grayscale-0 opacity-50;
+      }
+    }
+
     // Responsive states
     @screen max-md {
       grid-template-areas:
@@ -302,7 +335,8 @@
         "img spinner ico meta"
         "img spinner labels labels"
         "img spinner deleted deleted"
-        "img spinner actions actions";
+        "img spinner actions actions"
+        "img progress progress progress";
       grid-template-columns: auto auto auto 1fr;
 
       &--img {
@@ -334,9 +368,10 @@
     grid-template-areas:
       "ico title title actions deleted"
       "ico meta labels actions deleted"
-      "ico spinner spinner . .";
+      "ico spinner spinner . ."
+      "ico progress progress progress progress";
     grid-template-columns: auto auto 1fr auto auto;
-    @apply mb-2 pb-2 -mx-2;
+    @apply mb-2 -mx-2;
     @apply rounded;
 
     > .svgicon {
@@ -366,6 +401,10 @@
 
     &--title {
       @apply pt-2 pr-2;
+    }
+
+    &--progress {
+      @apply mt-2;
     }
 
     &--meta {
@@ -409,7 +448,8 @@
         "ico spinner meta meta"
         "ico spinner labels labels"
         "ico spinner actions actions"
-        "ico spinner deleted deleted";
+        "ico spinner deleted deleted"
+        "ico progress progress progress";
       grid-template-columns: auto auto auto 1fr;
 
       &--spinner {

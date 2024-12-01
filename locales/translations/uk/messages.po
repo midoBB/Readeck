@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-12-01 02:29+0000\n"
+"PO-Revision-Date: 2024-12-01 14:56+0000\n"
 "Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
@@ -563,7 +563,7 @@ msgstr ""
 "закладки\n"
 "          зберігаючи вибрані вами пошукові запити.\n"
 "          Коли ви створюєте нову закладку, яка відповідає критеріям\n"
-"          колекції, вона з'явиться відразу.\n"
+"          колекції, вона миттєво відображається.\n"
 "          Ось кілька прикладів:\n"
 "        "
 
@@ -791,12 +791,14 @@ msgid "no"
 msgstr "ні"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:120
+#, fuzzy
 msgid "Hyphenation"
-msgstr ""
+msgstr "Перенесення"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:13
+#, fuzzy
 msgid "Errors occurred during extraction."
-msgstr ""
+msgstr "Під час розархівування виникли помилки."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:101
 msgid "Start selecting text in the article to create a new highlight."
@@ -812,6 +814,7 @@ msgid "Import your Browser's Bookmarks"
 msgstr "Імпортувати закладки з вашого браузера"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:15
+#, fuzzy
 msgid ""
 "\n"
 "    In your web browser, export your bookmarks as an HTML file.<br>\n"
@@ -819,6 +822,11 @@ msgid ""
 "    every bookmark found it the file.\n"
 "  "
 msgstr ""
+"\n"
+"    У вашому веб-переглядачі експортуйте закладки як HTML файл.<br>\n"
+"    Завантажте цей файл у форму нижче і Readeck створить та витягне\n"
+"    кожну закладку, яка є у файлі.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:22
 msgid "Instructions for Firefox"
@@ -846,6 +854,9 @@ msgid ""
 "    Upload a JSON file obtained from your GoodLinks app.\n"
 "  "
 msgstr ""
+"\n"
+"    Завантажте файл JSON, отриманий з вашого застосунку GoodLinks\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:43
@@ -853,6 +864,7 @@ msgid "Import your Omnivore Articles"
 msgstr "Імпортувати ваші статті з Omnivore"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:15
+#, fuzzy
 msgid ""
 "\n"
 "    To import your articles from Omnivore, you must first create an API "
@@ -860,6 +872,11 @@ msgid ""
 "    Omnivore's settings and enter it in the the form below.\n"
 "  "
 msgstr ""
+"\n"
+"    Щоб імпортувати ваші статті з Omnivore, спочатку ви маєте створити ключ "
+"API в\n"
+"    налаштуваннях Omnivore та ввести їх у форму нижче.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:28
 msgid "Omnivore URL"

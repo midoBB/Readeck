@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-12-01 14:56+0000\n"
+"PO-Revision-Date: 2024-12-01 22:32+0000\n"
 "Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
@@ -282,7 +282,7 @@ msgstr ""
 "\n"
 "        Будь ласка, вкажіть електронну адресу яку ви використовували при "
 "створенні\n"
-"        акаунту і ми надішлемо вам повідомлення з посиланням\n"
+"        облікового запису і ми надішлемо вам повідомлення з посиланням\n"
 "        для відновлення паролю.\n"
 "      "
 
@@ -338,12 +338,10 @@ msgid "Go to the sign in page"
 msgstr "Перейти на сторінку входу"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
-#, fuzzy
 msgid "Bookmark Highlights"
 msgstr "Закладки з виділеннями"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:17
-#, fuzzy
 msgid "You don't have any highlights yet."
 msgstr "У вас поки що немає виділень."
 
@@ -608,7 +606,7 @@ msgstr "Завантажити EPUB"
 #: assets/templates/bookmarks/components/actions.jet.html:50
 #, fuzzy
 msgid "Share by Link"
-msgstr "Поділитися посиланням"
+msgstr "Поділитися через посилання"
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
 msgid "Saved with Readeck"
@@ -662,9 +660,8 @@ msgid "Highlight"
 msgstr "Виділити"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:48
-#, fuzzy
 msgid "Remove Highlight(s)"
-msgstr "Прибрати виділення"
+msgstr "Стерти виділення"
 
 #: assets/templates/bookmarks/components/filters.jet.html:9
 msgid "Search"
@@ -697,7 +694,7 @@ msgstr "Тип"
 #: assets/templates/bookmarks/components/filters.jet.html:50
 #, fuzzy
 msgid "Is Favorite"
-msgstr "Обране"
+msgstr "В обраному"
 
 #: assets/templates/bookmarks/components/filters.jet.html:56
 msgid "Is Archived"

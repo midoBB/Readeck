@@ -94,8 +94,7 @@ SPDX-License-Identifier: AGPL-3.0-only
               <span class="sr-only">{{ gettext("Bookmark information") }}</span></button>
             </button>
           </div>
-          <div class="h-0.5 w-0 bg-gradient-to-r from-blue-700 to-blue-500"
-           data-scroll-progress-target="indicator"></div>
+          <progress max="100" value="{{ .Item.ReadProgress }}" data-scroll-progress-target="indicator"></progress>
           <form class="hidden"
            data-controller="request"
            data-request-url-value="{{ urlFor(`/api/bookmarks`, .Item.ID) }}"

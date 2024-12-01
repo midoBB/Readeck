@@ -52,7 +52,7 @@ export default class extends Controller {
     // No tracked element, it's then 100% and we save the value if not
     // already done.
     if (!this.hasTrackedTarget) {
-      this.indicatorTarget.style.width = "100%"
+      this.indicatorTarget.value = 100
       if (this.current.p != 100) {
         this.current = {p: 100, s: ""}
         setTimeout(() => this.updatePositionTargets(), 100)
@@ -190,7 +190,7 @@ export default class extends Controller {
    */
   indicatorUpdater() {
     // Set initial position
-    this.indicatorTarget.style.width = `${toPercent(this.viewedPercentage)}%`
+    this.indicatorTarget.value = toPercent(this.viewedPercentage)
 
     // Start listing for document scroll
     let ticking = false
@@ -199,8 +199,7 @@ export default class extends Controller {
       () => {
         if (!ticking) {
           window.requestAnimationFrame(() => {
-            const p = toPercent(this.viewedPercentage)
-            this.indicatorTarget.style.width = `${p}%`
+            this.indicatorTarget.value = toPercent(this.viewedPercentage)
             ticking = false
           })
 

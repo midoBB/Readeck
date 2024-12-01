@@ -60,7 +60,8 @@ SPDX-License-Identifier: AGPL-3.0-only
     lang="{{ .Item.Lang }}"
     dir="{{ default(.Item.TextDirection, `ltr`) }}"
     data-controller="styler"
-    data-annotations-target="root">
+    data-annotations-target="root"
+    data-scroll-progress-target="tracked">
     {{- unsafeWrite(.HTML) -}}
   </div>
   {{- include "./bookmark_qrcode" }}

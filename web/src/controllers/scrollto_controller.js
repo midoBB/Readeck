@@ -31,5 +31,6 @@ export default class extends Controller {
     }
 
     el.scrollIntoView({block: "start", inline: "nearest", behavior: "auto"})
+    history.pushState({}, "", url)
   }
 }

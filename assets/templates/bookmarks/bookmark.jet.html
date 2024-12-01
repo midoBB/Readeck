@@ -29,7 +29,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 <div class="layout">
   {{ include "/menu" }}
 
-  <turbo-frame id="bookmark-info" data-controller="turbo-refresh panel"
+  <turbo-frame id="bookmark-info" data-controller="turbo-refresh panel scroll-progress"
    data-turbo-refresh-on-value="[data-deleted]"
    data-turbo-refresh-interval-value="3"
    data-panel-hidden-class="max-md:hidden hidden"
@@ -95,9 +95,21 @@ SPDX-License-Identifier: AGPL-3.0-only
             </button>
           </div>
           <div class="h-0.5 w-0 bg-gradient-to-r from-blue-700 to-blue-500"
-           data-controller="scroll-indicator"
-           data-scroll-indicator-target="progress"
-          ></div>
+           data-scroll-progress-target="indicator"></div>
+          <form class="hidden"
+           data-controller="request"
+           data-request-url-value="{{ urlFor(`/api/bookmarks`, .Item.ID) }}"
+           data-request-method-value="patch"
+           data-scroll-progress-target="trigger"
+           data-action="scroll-progress:progress->request#fetch"
+          >
+            <input type="hidden" name="read_progress" value="{{ .Item.ReadProgress }}"
+             data-scroll-progress-target="value"
+            > -
+            <input type="hidden" name="read_anchor" value="{{ .Item.ReadAnchor }}"
+             data-scroll-progress-target="anchor"
+            >
+          </form>
         </div>
 
         {* title and description *}

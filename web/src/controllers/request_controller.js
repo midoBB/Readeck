@@ -32,7 +32,7 @@ export default class extends Controller {
       for (let e of form.elements) {
         if (!!e.name) {
           let value = e.value
-          if (!isNaN(value)) {
+          if (!isNaN(value) && value !== "") {
             value = Number(value)
           }
           options.body[e.name] = value

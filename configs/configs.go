@@ -70,7 +70,7 @@ type configServer struct {
 	Host           string        `json:"host" env:"READECK_SERVER_HOST"`
 	Port           int           `json:"port" env:"READECK_SERVER_PORT"`
 	Prefix         string        `json:"prefix" env:"READECK_SERVER_PREFIX"`
-	TrustedProxies []configIPNet `json:"trusted_proxies" env:"READECK_TRUSTED_PROXIES"`
+	TrustedProxies configIPNets  `json:"trusted_proxies" env:"READECK_TRUSTED_PROXIES"`
 	AllowedHosts   []string      `json:"allowed_hosts" env:"READECK_ALLOWED_HOSTS"`
 	Session        configSession `json:"session" env:"-"`
 }
@@ -109,7 +109,7 @@ type configWorker struct {
 type configExtractor struct {
 	NumWorkers     int                `json:"workers" env:"-"`
 	ContentScripts []string           `json:"content_scripts" env:"-"`
-	DeniedIPs      []configIPNet      `json:"denied_ips" env:"-"`
+	DeniedIPs      configIPNets       `json:"denied_ips" env:"-"`
 	ProxyMatch     []configProxyMatch `json:"proxy_match" env:"-"`
 }
 
@@ -121,6 +121,8 @@ type configMetrics struct {
 type configIPNet struct {
 	*net.IPNet
 }
+
+type configIPNets []configIPNet
 
 func newConfigIPNet(v string) configIPNet {
 	_, r, _ := net.ParseCIDR(v)
@@ -153,6 +155,24 @@ func (ci *configIPNet) UnmarshalJSON(d []byte) error {
 	}
 	ci.IPNet = r
 
+	return nil
+}
+
+func (ciList *configIPNets) UnmarshalENV(values string) error {
+	res := configIPNets{}
+	for _, value := range strings.Split(values, " ") {
+		ci := configIPNet{}
+		if err := json.Unmarshal([]byte(`"`+strings.TrimSpace(value)+`"`), &ci); err != nil {
+			return err
+		}
+		if len(ci.IP) == 0 {
+			continue
+		}
+
+		res = append(res, ci)
+	}
+
+	*ciList = res
 	return nil
 }
 
@@ -212,7 +232,7 @@ var Config = config{
 			CookieName: "sxid",
 			MaxAge:     86400 * 30, // 60 days
 		},
-		TrustedProxies: []configIPNet{
+		TrustedProxies: configIPNets{
 			newConfigIPNet("127.0.0.0/8"),
 			newConfigIPNet("10.0.0.0/8"),
 			newConfigIPNet("172.16.0.0/12"),
@@ -236,7 +256,7 @@ var Config = config{
 	Extractor: configExtractor{
 		NumWorkers:     runtime.NumCPU(),
 		ContentScripts: []string{"data/content-scripts"},
-		DeniedIPs: []configIPNet{
+		DeniedIPs: configIPNets{
 			newConfigIPNet("127.0.0.0/8"),
 			newConfigIPNet("::1/128"),
 		},

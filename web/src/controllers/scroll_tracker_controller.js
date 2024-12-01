@@ -11,21 +11,25 @@ export default class extends Controller {
     let prevScroll = window.scrollY
     let isDown = false
     let ticking = false
-    window.addEventListener("scroll", () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          ticking = false
-          isDown = window.scrollY > prevScroll
-          prevScroll = window.scrollY
-          if (isDown) {
-            this.element.classList.add(this.downClass)
-          } else {
-            this.element.classList.remove(this.downClass)
-          }
-        })
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            ticking = false
+            isDown = window.scrollY > prevScroll
+            prevScroll = window.scrollY
+            if (isDown) {
+              this.element.classList.add(this.downClass)
+            } else {
+              this.element.classList.remove(this.downClass)
+            }
+          })
 
-        ticking = true
-      }
-    })
+          ticking = true
+        }
+      },
+      {passive: true},
+    )
   }
 }

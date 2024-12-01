@@ -620,7 +620,7 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 			Select(
 				"b.id", "b.uid", "b.created", "b.updated", "b.state", "b.url", "b.title",
 				"b.domain", "b.site", "b.site_name", "b.authors", "b.lang", "b.dir", "b.type",
-				"b.is_marked", "b.is_archived",
+				"b.is_marked", "b.is_archived", "b.read_progress",
 				"b.labels", "b.description", "b.word_count", "b.duration", "b.file_path", "b.files").
 			Where(
 				goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
@@ -843,6 +843,8 @@ type bookmarkItem struct {
 	IsMarked      bool                          `json:"is_marked"`
 	IsArchived    bool                          `json:"is_archived"`
 	Labels        []string                      `json:"labels"`
+	ReadProgress  int                           `json:"read_progress"`
+	ReadAnchor    string                        `json:"read_anchor,omitempty"`
 	Annotations   bookmarks.BookmarkAnnotations `json:"-"`
 	Resources     map[string]*bookmarkFile      `json:"resources"`
 	Embed         string                        `json:"embed,omitempty"`
@@ -887,6 +889,8 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *bookmarks.Bookmark, b
 		IsDeleted:     tasks.DeleteBookmarkTask.IsRunning(b.ID),
 		IsMarked:      b.IsMarked,
 		IsArchived:    b.IsArchived,
+		ReadProgress:  b.ReadProgress,
+		ReadAnchor:    b.ReadAnchor,
 		Labels:        make([]string, 0),
 		Annotations:   b.Annotations,
 		Resources:     make(map[string]*bookmarkFile),

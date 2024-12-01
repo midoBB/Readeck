@@ -94,6 +94,25 @@
         top: calc(0 - theme("space.topnav") + theme("space[1]"));
       }
     }
+
+    progress {
+      -webkit-appearance: none;
+      appearance: none;
+
+      @apply w-full h-0.5 bg-transparent;
+
+      &::-webkit-progress-bar {
+        @apply bg-transparent;
+      }
+
+      &::-moz-progress-bar {
+        @apply bg-gradient-to-r from-blue-700 to-blue-500;
+      }
+
+      &::-webkit-progress-value {
+        @apply bg-gradient-to-r from-blue-700 to-blue-500;
+      }
+    }
   }
 
   .bookmark-sidebar {

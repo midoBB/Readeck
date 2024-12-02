@@ -8,12 +8,12 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-11-25 18:58+0000\n"
+"PO-Revision-Date: 2024-12-02 15:55+0000\n"
 "Last-Translator: toooobeeee <toooobeeee@users.noreply.translate.codeberg.org>"
 "\n"
 "Language-Team: Danish <https://translate.codeberg.org/projects/readeck/"
 "application/da/>\n"
-"Language: da\n"
+"Language: da_DK\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -703,56 +703,56 @@ msgstr "Med fejl"
 
 #: assets/templates/bookmarks/components/labels.jet.html:1
 msgid "Remove label"
-msgstr ""
+msgstr "Fjern label"
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:1
 msgid "Add a label"
-msgstr ""
+msgstr "Tilføj label"
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:35
 msgid "Add label"
-msgstr ""
+msgstr "Tilføj label"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Grid view"
-msgstr ""
+msgstr "Gitter view"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Compact view"
-msgstr ""
+msgstr "Kompakt view"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:9
 msgid "You can share the following link with your friends."
-msgstr ""
+msgstr "Du kan dele følgende link med dine venner."
 
 #: assets/templates/bookmarks/components/public_share.jet.html:10
 #, python-format
 msgid "It expires on %s"
-msgstr ""
+msgstr "Udløber den %s"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:22
 msgid "Copy the link"
-msgstr ""
+msgstr "Kopier linket"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:25
 msgid "Go back to the bookmark"
-msgstr ""
+msgstr "Gå tilbage til bogmærket"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
-msgstr ""
+msgstr "Skrifttype"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:53
 msgid "Size"
-msgstr ""
+msgstr "Størrelse"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:75
 msgid "Line height"
-msgstr ""
+msgstr "Linje højde"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:96
 msgid "Justify"
-msgstr ""
+msgstr "Justeret"
 
 #: assets/templates/bookmarks/components/filters.jet.html:52
 #: assets/templates/bookmarks/components/filters.jet.html:58
@@ -762,7 +762,7 @@ msgstr ""
 #: assets/templates/bookmarks/components/reader_control.jet.html:107
 #: assets/templates/bookmarks/components/reader_control.jet.html:131
 msgid "yes"
-msgstr ""
+msgstr "ja"
 
 #: assets/templates/bookmarks/components/filters.jet.html:52
 #: assets/templates/bookmarks/components/filters.jet.html:58
@@ -772,19 +772,19 @@ msgstr ""
 #: assets/templates/bookmarks/components/reader_control.jet.html:107
 #: assets/templates/bookmarks/components/reader_control.jet.html:131
 msgid "no"
-msgstr ""
+msgstr "nej"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:120
 msgid "Hyphenation"
-msgstr ""
+msgstr "Orddeling"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:13
 msgid "Errors occurred during extraction."
-msgstr ""
+msgstr "Der opstod fejl under udtrækkelsen."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:101
 msgid "Start selecting text in the article to create a new highlight."
-msgstr ""
+msgstr "Start med at vælge tekst for at oprette en ny highlight."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:133
 msgid "Links"
@@ -792,7 +792,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:9
 msgid "Import your Browser's Bookmarks"
-msgstr ""
+msgstr "Importér dine browser's bogmærker"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:15
 msgid ""
@@ -802,26 +802,32 @@ msgid ""
 "    every bookmark found it the file.\n"
 "  "
 msgstr ""
+"\n"
+"    Eksportér bogmærkerne fra din browser som en HTML fil.<br>\n"
+"    Upload denne fil ved at bruge nedenstående formular og Readeck opretter "
+"og henter\n"
+"    hver en bogmærke som findes i filen.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:22
 msgid "Instructions for Firefox"
-msgstr ""
+msgstr "Instruktioner til Firefox"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:23
 msgid "Instructions for Chrome"
-msgstr ""
+msgstr "Instruktioner til Chrome"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:42
 msgid "Convert section titles to labels"
-msgstr ""
+msgstr "Konvertér afsnitternes titler til labels"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:44
 msgid "Adds a label on links, based on their section title"
-msgstr ""
+msgstr "Tilføjer label til links, baseret på deres afsnits titel"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
 msgid "Import Links from a GoodLinks export file"
-msgstr ""
+msgstr "Importér links fra en GoodLinks eksport fil"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:15
 msgid ""
@@ -829,11 +835,14 @@ msgid ""
 "    Upload a JSON file obtained from your GoodLinks app.\n"
 "  "
 msgstr ""
+"\n"
+"    Upload en JSON fil fra din GoodLinks app.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:43
 msgid "Import your Omnivore Articles"
-msgstr ""
+msgstr "Importér dine Omnivore artikler"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:15
 msgid ""
@@ -843,6 +852,11 @@ msgid ""
 "    Omnivore's settings and enter it in the the form below.\n"
 "  "
 msgstr ""
+"\n"
+"    For at importere dine Omnivore artikler skal du først oprette en API "
+"nøgle i dine\n"
+"    Omnivore indstillinger og sætte den ind i formularen nedenunder.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:28
 msgid "Omnivore URL"
@@ -850,16 +864,16 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:30
 msgid "URL of your Omnivore homepage"
-msgstr ""
+msgstr "URL af din Omnivore homepage"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:36
 msgid "API Key"
-msgstr ""
+msgstr "API nøgle"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:46
 msgid "Import your Pocket Articles"
-msgstr ""
+msgstr "Importér dine Pocket artikler"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
 #, python-format
@@ -869,6 +883,10 @@ msgid ""
 "    <a class=\"%s\" href=\"%s\">%s</a>.\n"
 "  "
 msgstr ""
+"\n"
+"    Du kan eksportere dine artikler fra Pocket ved at besøge:<br>\n"
+"    <a class=\"%s\" href=\"%s\">%s</a>.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:21
 msgid ""
@@ -877,6 +895,10 @@ msgid ""
 "    every link found it the file.\n"
 "  "
 msgstr ""
+"\n"
+"    Upload denne fil i nedenstående formular og Readeck vil hente og gemme\n"
+"    hver et link som findes i filen.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:27
 msgid ""
@@ -888,13 +910,20 @@ msgid ""
 "    see in Pocket.\n"
 "  "
 msgstr ""
+"\n"
+"    Venligst vær opmærksom på, at Pocket ikke tillader eksport af artiklens "
+"indhold.  \n"
+"    Dette kunne medføre forskellige resultater i Readeck end hvad du ser i "
+"Pocket\n"
+"    i øjeblikket.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:34
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:27
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:42
 #: assets/templates/bookmarks/import/form-text.jet.html:28
 msgid "File"
-msgstr ""
+msgstr "Fil"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:48
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
@@ -903,12 +932,12 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-text.jet.html:35
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:69
 msgid "Import Bookmarks"
-msgstr ""
+msgstr "Importer bogmærker"
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32
 msgid "Import Links from a Text File"
-msgstr ""
+msgstr "Importer links fra en tekst fil"
 
 #: assets/templates/bookmarks/import/form-text.jet.html:15
 msgid ""
@@ -918,11 +947,15 @@ msgid ""
 "    all of them and save them in your bookmark list.\n"
 "  "
 msgstr ""
+"\n"
+"    Upload en tekst fil med ét link per linje og Readeck henter dem alle\n"
+"    og gemmer dem i din bogmærke liste.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:49
 msgid "Import your Wallabag Articles"
-msgstr ""
+msgstr "Importér dine Wallabag artikler"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:15
 msgid ""
@@ -934,6 +967,13 @@ msgid ""
 "    a <strong>Client ID</strong> and <strong>Client secret</strong>.\n"
 "  "
 msgstr ""
+"\n"
+"    For at importere dine artikler fra Wallabag skal du først oprette en API "
+"klient\n"
+"    i Wallabags <strong>API clients management</strong> menu. Dette vil "
+"resultere \n"
+"    i en  <strong>Client ID</strong> og en <strong>Client secret</strong>.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:21
 msgid ""
@@ -941,6 +981,10 @@ msgid ""
 "    You can then enter all the necessary information in the form below.\n"
 "  "
 msgstr ""
+"\n"
+"    Derefter kan du indtaste al nødvendig information i nedenstående "
+"formular.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:33
 msgid "Wallabag URL"
@@ -948,7 +992,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:35
 msgid "URL of your Wallabag homepage"
-msgstr ""
+msgstr "URL af din Wallabag homepage"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:55
 msgid "Client ID"
@@ -960,7 +1004,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/index.jet.html:9
 msgid "Import your Bookmarks"
-msgstr ""
+msgstr "Importér dine bogmærker"
 
 #: assets/templates/bookmarks/import/index.jet.html:25
 msgid ""
@@ -969,42 +1013,46 @@ msgid ""
 "sources into Readeck.\n"
 "  "
 msgstr ""
+"\n"
+"    Her kan du importere din bogmærkesamling fra forskellige kilder ind i "
+"Readeck.\n"
+"  "
 
 #: assets/templates/bookmarks/import/index.jet.html:36
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
-msgstr ""
+msgstr "Importér din browsers bogmærker, Pinboard, Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html:40
 msgid "Import your GoodLinks Articles"
-msgstr ""
+msgstr "Importér dine GoodLinks artikler"
 
 #: assets/templates/bookmarks/import/options.jet.html:7
 msgid "Options"
-msgstr ""
+msgstr "Optioner"
 
 #: assets/templates/bookmarks/import/options.jet.html:12
 msgid "A label to add to all imported bookmarks"
-msgstr ""
+msgstr "Label som skal tilføjes alle importerede bogmærker"
 
 #: assets/templates/bookmarks/import/options.jet.html:16
 msgid "Ignore links already in your bookmarks"
-msgstr ""
+msgstr "Ignorér links som allerede findes i dine bogmærker"
 
 #: assets/templates/bookmarks/import/progress.jet.html:15
 msgid "Import operation will launch momentarily."
-msgstr ""
+msgstr "Import starter om et øjeblik."
 
 #: assets/templates/bookmarks/import/progress.jet.html:17
 msgid "Import operation has started!"
-msgstr ""
+msgstr "Import er started!"
 
 #: assets/templates/bookmarks/import/progress.jet.html:21
 msgid "You can keep using Readeck while the import is running."
-msgstr ""
+msgstr "Du kan fortsætte med at bruge Readeck imens importen kører."
 
 #: assets/templates/bookmarks/import/progress.jet.html:24
 msgid "Import is finished!"
-msgstr ""
+msgstr "Import er færdig!"
 
 #: assets/templates/bookmarks/import/progress.jet.html:25
 #, python-format
@@ -1014,15 +1062,19 @@ msgid ""
 "href=\"%s\">bookmark list</a>.\n"
 "      "
 msgstr ""
+"\n"
+"      Dine bogmærker findes nu i din <a class=\"%s\" href=\"%s\">bogmærke "
+"liste</a>.\n"
+"      "
 
 #: assets/templates/bookmarks/index.jet.html:27
 msgid "Save a new link"
-msgstr ""
+msgstr "Gem et nyt link"
 
 #: assets/templates/bookmarks/index.jet.html:40
 msgctxt "button"
 msgid "Save link"
-msgstr ""
+msgstr "Gem link"
 
 #: assets/templates/bookmarks/index.jet.html:49
 #, python-format
@@ -1030,12 +1082,16 @@ msgid ""
 "\"%s\" is not a valid address. Did you mean to search your bookmarks for "
 "%s?"
 msgstr ""
+"\"%s\" er ikke en gyldig adresse. Var det meningen, at du ville søge %s i "
+"dine bogmærker?"
 
 #: assets/templates/bookmarks/index.jet.html:73
 msgid ""
 "You don't have any bookmarks yet.<br> Copy a link in the field above and "
 "start saving."
 msgstr ""
+"Du har ingen bogmærker endnu.<br> Sæt et link ind i feltet ovenover og "
+"begynd med at gemme dem."
 
 #: assets/templates/bookmarks/index.jet.html:75
 #, python-format
@@ -1043,6 +1099,7 @@ msgid ""
 "Read more about bookmarks in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
+"Læs mere om bogmærker i <a class=\"%s\" href=\"%s\">dokumentationen</a>."
 
 #: assets/templates/bookmarks/index.jet.html:81
 msgid ""
@@ -1052,38 +1109,43 @@ msgid ""
 "          Try Readeck's import tool.\n"
 "        "
 msgstr ""
+"\n"
+"          Vil du prøve at importere fra en lignende service eller fra en fil "
+"med eksisterende bogmærker?\n"
+"          Prøv Readecks import værktøj.\n"
+"        "
 
 #: assets/templates/bookmarks/index.jet.html:88
 msgid "Import links and articles"
-msgstr ""
+msgstr "Importér links og artikler"
 
 #: assets/templates/bookmarks/index.jet.html:113
 msgid "Import bookmarks"
-msgstr ""
+msgstr "Importér bogmærker"
 
 #: assets/templates/bookmarks/index.jet.html:122
 msgid "Your search query yielded <strong>no results</strong>."
-msgstr ""
+msgstr "Din forespørgsel førte <strong>ikke nogen resultater</strong> med sig."
 
 #: assets/templates/bookmarks/index.jet.html:124
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Din forespørgsel fandt <strong>%d resultat</strong>."
+msgstr[1] "Din forespørgsel fandt <strong>%d resultater</strong>."
 
 #: assets/templates/bookmarks/index.jet.html:155
 msgctxt "action"
 msgid "Search"
-msgstr ""
+msgstr "Søg"
 
 #: assets/templates/bookmarks/index.jet.html:157
 msgid "Reset search"
-msgstr ""
+msgstr "Reset søgning"
 
 #: assets/templates/bookmarks/index.jet.html:160
 msgid "Create a collection"
-msgstr ""
+msgstr "Opret en samling"
 
 #: assets/templates/bookmarks/components/filters.jet.html:29
 #: assets/templates/bookmarks/import/options.jet.html:10
@@ -1093,15 +1155,15 @@ msgstr ""
 
 #: assets/templates/bookmarks/label.jet.html:37
 msgid "Delete"
-msgstr ""
+msgstr "Slet"
 
 #: assets/templates/bookmarks/label.jet.html:50
 msgid "Label will be removed in a few seconds."
-msgstr ""
+msgstr "Label vil blive slettet om få sekunder."
 
 #: assets/templates/bookmarks/labels.jet.html:8
 msgid "Bookmark Labels"
-msgstr ""
+msgstr "Bogmærke labels"
 
 #: assets/templates/bookmarks/labels.jet.html:14
 msgid ""
@@ -1109,6 +1171,9 @@ msgid ""
 "  Labels let your organize your bookmarks the way you want.\n"
 "  You can set anything to a label, including emojis!\n"
 msgstr ""
+"\n"
+"  Labels hjælper med at arrangere dine bogmærker som du vil have det.\n"
+"  Du kan bruge hvad som helst som label, selv emojis!\n"
 
 #: assets/templates/docs/about.jet.html:14
 msgid "Version:"
@@ -1127,10 +1192,12 @@ msgid ""
 "Here are your current system information. Please include them if you "
 "report a bug."
 msgstr ""
+"Her er din aktuelle system information. Venligst inkludér dem, hvis du "
+"skulle rapportere en programfejl."
 
 #: assets/templates/docs/about.jet.html:31
 msgid "Project"
-msgstr ""
+msgstr "Projekt"
 
 #: assets/templates/docs/about.jet.html:34
 msgid "Main website"

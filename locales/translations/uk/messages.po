@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-12-01 22:32+0000\n"
-"Last-Translator: SomeTr <SomeTr@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2024-12-02 15:55+0000\n"
+"Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
 "Language: uk\n"
@@ -805,12 +805,10 @@ msgid "Links"
 msgstr "Посилання"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:9
-#, fuzzy
 msgid "Import your Browser's Bookmarks"
-msgstr "Імпортувати закладки з вашого браузера"
+msgstr "Імпортувати закладки з вашого вебперегядача"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:15
-#, fuzzy
 msgid ""
 "\n"
 "    In your web browser, export your bookmarks as an HTML file.<br>\n"
@@ -819,8 +817,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    У вашому веб-переглядачі експортуйте закладки як HTML файл.<br>\n"
-"    Завантажте цей файл у форму нижче і Readeck створить та витягне\n"
+"    У вашому вебпереглядачі експортуйте закладки як HTML файл.<br>\n"
+"    Завантажте цей файл у форму нижче, і Readeck створить та витягне\n"
 "    кожну закладку, яка є у файлі.\n"
 "  "
 
@@ -869,9 +867,9 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Щоб імпортувати ваші статті з Omnivore, спочатку ви маєте створити ключ "
+"    Щоб імпортувати ваші статті з Omnivore, спочатку необхідно створити ключ "
 "API в\n"
-"    налаштуваннях Omnivore та ввести їх у форму нижче.\n"
+"    налаштуваннях Omnivore та ввести його у форму нижче.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:28
@@ -892,13 +890,17 @@ msgid "Import your Pocket Articles"
 msgstr "Імпортувати ваші статті з Pocket"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "\n"
 "    You can export your articles on Pocket by visiting:<br>\n"
 "    <a class=\"%s\" href=\"%s\">%s</a>.\n"
 "  "
 msgstr ""
+"\n"
+"    Ви можете експортувати ваші статті на Pocket, перейшовши на:<br>\n"
+"    <a class=\"%s\" href=\"%s\">%s</a>.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:21
 msgid ""
@@ -907,6 +909,10 @@ msgid ""
 "    every link found it the file.\n"
 "  "
 msgstr ""
+"\n"
+"    Завантажте цей файл у форму нижче, і Readeck витягне та збереже\n"
+"    кожне посилання знайдене у файлі.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:27
 msgid ""
@@ -948,6 +954,11 @@ msgid ""
 "    all of them and save them in your bookmark list.\n"
 "  "
 msgstr ""
+"\n"
+"    Завантажте текстовий файл, який містить по одному посиланню в рядку, і "
+"Readeck витягне\n"
+"    та збереже їх усі у вашому списку закладок.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:49

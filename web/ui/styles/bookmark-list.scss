@@ -162,6 +162,20 @@
         @apply hf:text-btn-danger;
       }
     }
+
+    .svgicon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    @screen touch {
+      & {
+        @apply mt-1;
+        .svgicon svg {
+          @apply w-6 h-6;
+        }
+      }
+    }
   }
 
   &--deleted {
@@ -282,6 +296,12 @@
 
       form:nth-of-type(1) {
         @apply flex-grow;
+      }
+
+      @screen touch {
+        form {
+          @apply gap-x-4;
+        }
       }
     }
 

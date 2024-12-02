@@ -6,6 +6,7 @@
 
 ### Changed
 - New, native, logging library
+- Bigger card icons on desktop and even bigger on touch screens
 
 ## [0.16.0] - 2024-11-27
 ### Added

@@ -11,6 +11,7 @@ on:
 jobs:
   tests:
     uses: ./.forgejo/workflows/run-tests.yaml
+    runs-on: self-hosted
 
   build:
     needs:

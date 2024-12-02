@@ -299,6 +299,13 @@ func (f *updateForm) update(b *bookmarks.Bookmark) (updated map[string]interface
 		updated["labels"] = b.Labels
 	}
 
+	if _, ok := updated["read_progress"]; ok {
+		if b.ReadProgress == 0 || b.ReadProgress == 100 {
+			b.ReadAnchor = ""
+			updated["read_anchor"] = ""
+		}
+	}
+
 	defer func() {
 		updated["id"] = b.UID
 		if err != nil {

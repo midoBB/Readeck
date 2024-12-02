@@ -4,6 +4,7 @@ SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
 SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{- import "/_libs/common" -}}
+{{- textRead := .ReadProgress == 100 ? gettext("Mark as unread") : gettext("Mark as read") }}
 {{- textArch := .IsArchived ? gettext("Remove from archive") : gettext("Move to archive") -}}
 {{- textFav := .IsMarked ? gettext("Remove from favorites") : gettext("Add to favorites") -}}
 
@@ -30,7 +31,16 @@ SPDX-License-Identifier: AGPL-3.0-only
     class="relative">
       {{ yield csrfField() }}
       <div class="btn-group btn-primary rounded-full">
-        <button class="btn-outlined btn-primary pl-3" name="is_marked" value="{{ .IsMarked ? 0 : 1 }}"
+        <button class="btn-outlined btn-primary pl-3" name="read_progress"
+        value="{{ .ReadProgress == 100 ? 0 : 100 }}"
+        title="{{ textRead }}"
+        data-action="click->scroll-progress#setPosition"
+        data-scroll-progress-position-param="{{ .ReadProgress == 100 ? 0 : 100 }}"
+        data-scroll-progress-notify-param="0"
+        >
+          {{ yield icon(name=(.ReadProgress == 100 ? "o-check-on" : "o-check-off")) }}
+        </button>
+        <button class="btn-outlined btn-primary" name="is_marked" value="{{ .IsMarked ? 0 : 1 }}"
         title="{{ textFav }}">
           {{ yield icon(name=(.IsMarked ? "o-favorite-on" : "o-favorite-off")) }}
         </button>

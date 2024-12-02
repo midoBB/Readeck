@@ -35,6 +35,7 @@ SPDX-License-Identifier: AGPL-3.0-only
    data-panel-hidden-class="max-md:hidden hidden"
    data-panel-force-hidden-class="max-md:hidden"
    data-panel-body-class="max-md:overflow-hidden"
+   data-scroll-progress-auto-mark-after-value="{{ .Item.Type == `photo` ? 4 : 0 }}"
    class="bookmark-container">
     {{- if !.Item.Loaded -}}
       <div class="text-center mt-8" id="content">
@@ -42,6 +43,22 @@ SPDX-License-Identifier: AGPL-3.0-only
         <p class="text-lg">{{ gettext("Bookmark is loading") }}…</p>
       </div>
     {{- else -}}
+       <form class="hidden"
+        data-controller="request"
+        data-request-turbo-value="1"
+        data-request-url-value="{{ urlFor(`/api/bookmarks`, .Item.ID) }}"
+        data-request-method-value="patch"
+        data-scroll-progress-target="trigger"
+        data-action="scroll-progress:progress->request#fetch"
+      >
+        <input type="hidden" name="read_progress" value="{{ .Item.ReadProgress }}"
+          data-scroll-progress-target="value"
+        > -
+        <input type="hidden" name="read_anchor" value="{{ .Item.ReadAnchor }}"
+          data-scroll-progress-target="anchor"
+        >
+      </form>
+
       <div class="hidden print:block {{ preferences.ReaderFont().Class }}" data-controller="styler"
        dir="{{ default(.Item.TextDirection, `ltr`) }}">
         <h1 class="px-6 py-4 text-3xl print:px-0">{{ .Item.Title }}</h1>
@@ -94,21 +111,9 @@ SPDX-License-Identifier: AGPL-3.0-only
               <span class="sr-only">{{ gettext("Bookmark information") }}</span></button>
             </button>
           </div>
-          <progress max="100" value="{{ .Item.ReadProgress }}" data-scroll-progress-target="indicator"></progress>
-          <form class="hidden"
-           data-controller="request"
-           data-request-url-value="{{ urlFor(`/api/bookmarks`, .Item.ID) }}"
-           data-request-method-value="patch"
-           data-scroll-progress-target="trigger"
-           data-action="scroll-progress:progress->request#fetch"
-          >
-            <input type="hidden" name="read_progress" value="{{ .Item.ReadProgress }}"
-             data-scroll-progress-target="value"
-            > -
-            <input type="hidden" name="read_anchor" value="{{ .Item.ReadAnchor }}"
-             data-scroll-progress-target="anchor"
-            >
-          </form>
+          {{- if .Item.HasArticle -}}
+            <progress max="100" value="{{ .Item.ReadProgress }}" data-scroll-progress-target="indicator"></progress>
+          {{- end -}}
         </div>
 
         {* title and description *}

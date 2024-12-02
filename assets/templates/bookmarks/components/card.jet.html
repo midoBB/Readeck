@@ -48,7 +48,13 @@ SPDX-License-Identifier: AGPL-3.0-only
                              width=256, height=144) -}}
       {{- end }}
     </a>
-    <progress max="100" value="{{ .ReadProgress }}" class="bookmark-card--progress"></progress>
+
+    {{- if .ReadProgress > 0 -}}
+      <div class="bookmark-card--progress">
+        {{- yield progress_circle(value=.ReadProgress) -}}
+      </div>
+    {{- end -}}
+
     <div class="bookmark-card--ico">
       {{- if isset(.Resources.icon) -}}
         <img loading="lazy" src="{{ .Resources.icon.Src }}" alt=""

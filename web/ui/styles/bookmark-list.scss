@@ -91,22 +91,10 @@
 
   &--progress {
     grid-area: progress;
+    @apply opacity-70 stroke-gray-600 fill-gray-200/50;
 
-    -webkit-appearance: none;
-    appearance: none;
-    height: 2px;
-    @apply w-full bg-transparent filter grayscale opacity-25;
-
-    &::-webkit-progress-bar {
-      @apply bg-transparent;
-    }
-
-    &::-moz-progress-bar {
-      @apply bg-gradient-to-r from-yellow-500 to-red-500;
-    }
-
-    &::-webkit-progress-value {
-      @apply bg-gradient-to-r from-yellow-500 to-red-500;
+    & > svg {
+      @apply w-6 h-6 stroke-inherit fill-inherit;
     }
   }
 
@@ -222,7 +210,6 @@
     position: relative;
     grid-template-areas:
       "img img" "spinner spinner"
-      "progress progress"
       "title title" "ico meta"
       "labels labels"
       "deleted deleted"
@@ -323,21 +310,26 @@
 
     @screen md {
       &--progress {
-        height: 3px;
-        @apply grayscale-0 opacity-50;
+        @apply absolute z-10 top-1 right-1 fill-black/40 stroke-white opacity-75;
       }
     }
 
     // Responsive states
     @screen max-md {
       grid-template-areas:
-        "img spinner title title"
-        "img spinner ico meta"
-        "img spinner labels labels"
-        "img spinner deleted deleted"
-        "img spinner actions actions"
-        "img progress progress progress";
-      grid-template-columns: auto auto auto 1fr;
+        "img spinner title title progress"
+        "img spinner ico meta meta"
+        "img spinner labels labels labels"
+        "img spinner deleted deleted deleted"
+        "img spinner actions actions actions";
+      grid-template-columns: auto auto auto 1fr auto;
+
+      &--progress {
+        @apply pt-2 pr-1 self-baseline;
+        & > svg {
+          @apply w-5 h-5;
+        }
+      }
 
       &--img {
         @apply overflow-hidden w-28;
@@ -366,12 +358,11 @@
     display: grid;
     position: relative;
     grid-template-areas:
-      "ico title title actions deleted"
-      "ico meta labels actions deleted"
-      "ico spinner spinner . ."
-      "ico progress progress progress progress";
-    grid-template-columns: auto auto 1fr auto auto;
-    @apply mb-2 -mx-2;
+      "ico title title title actions deleted"
+      "ico progress meta labels actions deleted"
+      "ico . spinner spinner . .";
+    grid-template-columns: auto auto auto 1fr auto auto;
+    @apply mb-2 -mx-2 pb-2;
     @apply rounded;
 
     > .svgicon {
@@ -384,13 +375,20 @@
       }
     }
 
+    &--progress {
+      @apply pt-1 pr-2 self-center;
+      & > svg {
+        @apply w-5 h-5;
+      }
+    }
+
     &--img {
       @apply hidden;
     }
 
     &--ico {
       @apply self-baseline;
-      @apply py-2 pr-4 pl-2;
+      @apply py-2 pr-3 pl-2;
 
       > img,
       .svgicon,
@@ -401,10 +399,6 @@
 
     &--title {
       @apply pt-2 pr-2;
-    }
-
-    &--progress {
-      @apply mt-2;
     }
 
     &--meta {
@@ -444,13 +438,12 @@
     // Responsive states
     @screen max-lg {
       grid-template-areas:
-        "ico spinner title title"
-        "ico spinner meta meta"
-        "ico spinner labels labels"
-        "ico spinner actions actions"
-        "ico spinner deleted deleted"
-        "ico progress progress progress";
-      grid-template-columns: auto auto auto 1fr;
+        "ico spinner title title title"
+        "ico spinner progress meta meta"
+        "ico spinner labels labels labels"
+        "ico spinner actions actions actions"
+        "ico spinner deleted deleted deleted";
+      grid-template-columns: auto auto auto 1fr auto;
 
       &--spinner {
         @apply text-left;

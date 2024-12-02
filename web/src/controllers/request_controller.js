@@ -4,11 +4,13 @@
 
 import {Controller} from "@hotwired/stimulus"
 import {request} from "../lib/request"
+import {cspNonce} from "../lib/turbo"
 
 export default class extends Controller {
   static values = {
     url: {type: String, default: ""},
     method: {type: String, default: ""},
+    turbo: {type: Boolean, default: false},
   }
 
   async fetch(event) {
@@ -22,6 +24,16 @@ export default class extends Controller {
       : this.methodValue
     const options = {
       method: method || "get",
+      headers: {},
+    }
+
+    if (this.turboValue) {
+      options.headers["X-Turbo"] = "1"
+      options.headers = {
+        ...options.headers,
+        "X-Turbo": "1",
+        "X-Turbo-Nonce": cspNonce,
+      }
     }
 
     // Set the body based on the form elements when the event receiver
@@ -40,7 +52,11 @@ export default class extends Controller {
       }
     }
 
-    await request(src, options)
+    const rsp = await request(src, options)
+    if (this.turboValue) {
+      Turbo.renderStreamMessage(await rsp.text())
+    }
+
     this.dispatch(event.params.eventName || "done")
   }
 }

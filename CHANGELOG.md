@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Reading progress tracker on articles
+
 ### Changed
 - New, native, logging library
 

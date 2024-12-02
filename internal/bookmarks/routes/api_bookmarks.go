@@ -221,6 +221,7 @@ func (api *apiRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 		_, withMarked := updated["is_marked"]
 		_, withArchived := updated["is_archived"]
 		_, withDeleted := updated["is_deleted"]
+		_, withProgress := updated["read_progress"]
 
 		if withTitle {
 			api.srv.RenderTurboStream(w, r,
@@ -232,7 +233,7 @@ func (api *apiRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 				"/bookmarks/components/labels", "replace",
 				"bookmark-label-list-"+b.UID, item)
 		}
-		if withMarked || withArchived || withDeleted {
+		if withMarked || withArchived || withDeleted || withProgress {
 			api.srv.RenderTurboStream(w, r,
 				"/bookmarks/components/actions", "replace",
 				"bookmark-actions-"+b.UID, item)

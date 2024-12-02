@@ -30,3 +30,5 @@ document.addEventListener("turbo:submit-end", (evt) => {
     .querySelectorAll("[data-turbo-empty-submit-end]")
     .forEach((x) => (x.value = ""))
 })
+
+export {cspNonce}

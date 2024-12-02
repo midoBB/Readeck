@@ -19,7 +19,10 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{- raw(.Item.Embed) -}}
     </template>
     <template data-video-target="play">
-      <button class="play-button" data-action="click->video#play">
+      <button class="play-button"
+       data-action="{{ if !.Item.HasArticle }}click->scroll-progress#setPosition {{ end -}} click->video#play"
+       data-scroll-progress-position-param="100"
+      >
         <span></span>
       </button>
     </template>

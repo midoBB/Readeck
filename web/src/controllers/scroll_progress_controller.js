@@ -7,6 +7,10 @@ import {Controller} from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["tracked", "indicator", "trigger", "value", "anchor"]
   static values = {
+    autoMarkAfter: {
+      type: Number,
+      default: 0,
+    },
     trackInterval: {
       type: Number,
       default: 100,
@@ -49,14 +53,19 @@ export default class extends Controller {
       this.indicatorUpdater()
     }
 
-    // No tracked element, it's then 100% and we save the value if not
-    // already done.
-    if (!this.hasTrackedTarget) {
-      this.indicatorTarget.value = 100
-      if (this.current.p != 100) {
-        this.current = {p: 100, s: ""}
-        setTimeout(() => this.updatePositionTargets(), 100)
-      }
+    // No tracked element. If autoMarkAfter is > 0 we mark as read after
+    // a delay.
+    if (
+      !this.hasTrackedTarget &&
+      this.autoMarkAfterValue > 0 &&
+      this.current.p != 100
+    ) {
+      setTimeout(() => {
+        if (this.current.p != 100) {
+          this.current = {p: 100, s: ""}
+          this.updatePositionTargets()
+        }
+      }, this.autoMarkAfterValue * 1000)
       return
     }
   }
@@ -120,15 +129,55 @@ export default class extends Controller {
   }
 
   /**
+   * setPosition is an event handler that sets the scroll value.
+   * It can receive a param "position" and "notify". The later, if false
+   * prevents sending the "progress" event.
+   *
+   * @param {Event} evt Event
+   */
+  setPosition(evt) {
+    const data = {...this.current}
+    if (evt.params.position !== undefined) {
+      data.p = parseInt(evt.params.position) || 0
+    }
+
+    if (data.p == this.current.p && data.s == this.current.s) {
+      return
+    }
+
+    this.current = {...data}
+    let notify = true
+    if (evt.params.notify !== undefined) {
+      notify = !!evt.params.notify
+    }
+    this.updatePositionTargets(notify)
+  }
+
+  /**
+   * scroll is an event handler that scrolls the document to
+   * the currently set position, whithout triggering the observer.
+   *
+   * @param {Event} evt Event
+   */
+  scroll(evt) {
+    this.skipEvent = true
+    this.scrollTo(this.current.p, this.current.s)
+  }
+
+  /**
    * updatePositionTargets update the "value" and "anchor" target values
    * and dispatch the progress event to every trigger.
    */
-  updatePositionTargets() {
+  updatePositionTargets(notify = true) {
     if (this.hasValueTarget) {
       this.valueTarget.value = this.current.p
     }
     if (this.hasAnchorTarget) {
       this.anchorTarget.value = this.current.s
+    }
+
+    if (!notify) {
+      return
     }
 
     this.triggerTargets.forEach((t) => {
@@ -156,7 +205,7 @@ export default class extends Controller {
       position = 0
     }
 
-    // 0%, do nothing
+    // 0%, scroll to top
     if (position == 0) {
       window.scroll({top: 0, behavior: "instant"})
       return

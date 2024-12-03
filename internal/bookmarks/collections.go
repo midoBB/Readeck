@@ -173,19 +173,19 @@ func (c *Collection) GetSumStrings() []string {
 
 // CollectionFilters contains the filters applied by a collection.
 type CollectionFilters struct {
-	Search     string `json:"search"`
-	Title      string `json:"title"`
-	Author     string `json:"author"`
-	Site       string `json:"site"`
-	Type       string `json:"type"`
-	Labels     string `json:"labels"`
-	IsMarked   *bool  `json:"is_marked"`
-	IsArchived *bool  `json:"is_archived"`
-	IsLoaded   *bool  `json:"is_loaded"`
-	HasErrors  *bool  `json:"has_errors"`
-	HasLabels  *bool  `json:"has_labels"`
-	RangeStart string `json:"range_start"`
-	RangeEnd   string `json:"range_end"`
+	Search     string        `json:"search"`
+	Title      string        `json:"title"`
+	Author     string        `json:"author"`
+	Site       string        `json:"site"`
+	Type       types.Strings `json:"type"`
+	Labels     string        `json:"labels"`
+	IsMarked   *bool         `json:"is_marked"`
+	IsArchived *bool         `json:"is_archived"`
+	IsLoaded   *bool         `json:"is_loaded"`
+	HasErrors  *bool         `json:"has_errors"`
+	HasLabels  *bool         `json:"has_labels"`
+	RangeStart string        `json:"range_start"`
+	RangeEnd   string        `json:"range_end"`
 }
 
 // Scan loads a CollectionFilters instance from a column.

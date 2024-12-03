@@ -413,13 +413,6 @@ type filterForm struct {
 }
 
 func newFilterForm(tr forms.Translator) (f *filterForm) {
-	availableTypes := [][2]string{
-		{"", tr.Gettext("All")},
-		{"article", tr.Gettext("Article")},
-		{"photo", tr.Gettext("Picture")},
-		{"video", tr.Gettext("Video")},
-	}
-
 	f = &filterForm{
 		Form: forms.Must(
 			forms.NewBooleanField("bf"),
@@ -427,7 +420,11 @@ func newFilterForm(tr forms.Translator) (f *filterForm) {
 			forms.NewTextField("title", forms.Trim),
 			forms.NewTextField("author", forms.Trim),
 			forms.NewTextField("site", forms.Trim),
-			forms.NewChoiceField("type", availableTypes, forms.Trim),
+			forms.NewStringListField("type", forms.Choices{
+				{"article", tr.Gettext("Article")},
+				{"photo", tr.Gettext("Picture")},
+				{"video", tr.Gettext("Video")},
+			}, forms.Trim),
 			forms.NewBooleanField("is_loaded"),
 			forms.NewBooleanField("has_errors"),
 			forms.NewBooleanField("has_labels"),
@@ -538,7 +535,17 @@ func (f *filterForm) IsActive() bool {
 func (f *filterForm) GetQueryString() string {
 	q := url.Values{}
 	for _, field := range f.Fields() {
-		q.Add(field.Name(), field.String())
+		if field.IsNil() {
+			continue
+		}
+		switch n := field.Name(); n {
+		case "type":
+			for _, s := range field.Value().([]string) {
+				q.Add(n, s)
+			}
+		default:
+			q.Add(n, field.String())
+		}
 	}
 
 	return q.Encode()
@@ -561,7 +568,7 @@ func (f *filterForm) setArchived(v bool) {
 }
 
 func (f *filterForm) setType(v string) {
-	f.Get("type").Set(v)
+	f.Get("type").Set([]string{v})
 	switch v {
 	case "article":
 		f.title = filtersTitleArticles
@@ -660,8 +667,12 @@ func (f *filterForm) toSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset
 				))
 			}
 		case "type":
-			if field.String() != "" {
-				ds = ds.Where(goqu.C("type").Table("b").Eq(field.String()))
+			if !field.IsNil() {
+				or := goqu.Or()
+				for _, x := range field.Value().([]string) {
+					or = or.Append(goqu.C("type").Table("b").Eq(x))
+				}
+				ds = ds.Where(or)
 			}
 		}
 	}

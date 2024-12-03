@@ -39,13 +39,11 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{- end -}}
       </div>
 
-      <form class="hidden" data-action="styler-option:setValue->request#fetch">
-        <input type="hidden"
-         name="settings_reader_font"
-         value="{{ preferences.ReaderFont().Value }}"
-         data-styler-option-target="value"
-        >
-      </form>
+      <input type="hidden"
+       name="settings_reader_font"
+       value="{{ preferences.ReaderFont().Value }}"
+       data-styler-option-target="value"
+       data-action="styler-option:setValue->request#fetch">
     </details>
     <div
       class="mt-4 flex items-center gap-2"
@@ -58,13 +56,11 @@ SPDX-License-Identifier: AGPL-3.0-only
        data-action="styler-option#decreaseValue">
         {{- yield icon(name="o-minus") -}}
       </button>
-      <form data-action="styler-option:setValue->request#fetch">
-        <input class="p-1 text-center text-sm bg-gray-200 rounded-full" type="text" size="1" disabled
-         name="settings_reader_font_size"
-         value="{{ preferences.ReaderFontSize().Value }}"
-         data-styler-option-target="value"
-        >
-      </form>
+      <input class="p-1 text-center text-sm bg-gray-200 rounded-full" type="text" size="1" disabled
+       name="settings_reader_font_size"
+       value="{{ preferences.ReaderFontSize().Value }}"
+       data-styler-option-target="value"
+       data-action="styler-option:setValue->request#fetch">
       <button class="btn-outlined py-1.5 w-9 rounded"
        data-action="styler-option#increaseValue">
         {{- yield icon(name="o-plus") -}}
@@ -81,13 +77,11 @@ SPDX-License-Identifier: AGPL-3.0-only
        data-action="styler-option#decreaseValue">
         {{- yield icon(name="o-minus") -}}
       </button>
-      <form data-action="styler-option:setValue->request#fetch">
-        <input class="p-1 text-center text-sm bg-gray-200 rounded-full" type="text" size="1" disabled
-         name="settings_reader_line_height"
-         value="{{ preferences.ReaderLineHeight().Value }}"
-         data-styler-option-target="value"
-        >
-      </form>
+      <input class="p-1 text-center text-sm bg-gray-200 rounded-full" type="text" size="1" disabled
+       name="settings_reader_line_height"
+       value="{{ preferences.ReaderLineHeight().Value }}"
+       data-styler-option-target="value"
+       data-action="styler-option:setValue->request#fetch">
       <button class="btn-outlined py-1.5 w-9 rounded"
        data-action="styler-option#increaseValue">
         {{- yield icon(name="o-plus") -}}
@@ -112,13 +106,11 @@ SPDX-License-Identifier: AGPL-3.0-only
           >{{ i ? gettext("yes") : gettext("no") }}</button>
         {{- end -}}
       </div>
-      <form class="hidden" data-action="styler-option:setValue->request#fetch">
-        <input type="hidden"
-         name="settings_reader_justify"
-         value="{{ preferences.ReaderJustify().Value }}"
-         data-styler-option-target="value"
-        >
-      </form>
+      <input type="hidden"
+       name="settings_reader_justify"
+       value="{{ preferences.ReaderJustify().Value }}"
+       data-styler-option-target="value"
+       data-action="styler-option:setValue->request#fetch">
     </div>
 
     <div class="mt-4 flex items-center gap-2"
@@ -139,13 +131,11 @@ SPDX-License-Identifier: AGPL-3.0-only
           >{{ i ? gettext("yes") : gettext("no") }}</button>
         {{- end -}}
       </div>
-      <form class="hidden" data-action="styler-option:setValue->request#fetch">
-        <input type="hidden"
-         value="{{ preferences.ReaderHyphenation().Value }}"
-         name="settings_reader_hyphenation"
-         data-styler-option-target="value"
-        >
-      </form>
+      <input type="hidden"
+       value="{{ preferences.ReaderHyphenation().Value }}"
+       name="settings_reader_hyphenation"
+       data-styler-option-target="value"
+       data-action="styler-option:setValue->request#fetch">
     </div>
   </div>
 </details>

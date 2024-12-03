@@ -26,13 +26,12 @@ SPDX-License-Identifier: AGPL-3.0-only
     data-action="styler-option#setChoice"
     >{{ yield icon(name="o-list") }}</button>
 
-    <form data-action="styler-option:setValue->request#fetch">
-      <input type="hidden"
-       name="bookmark_list_display"
-       value="{{ preferences.BookmarkListLayout().Value }}"
-       data-styler-option-target="value"
-      >
-    </form>
+    <input type="hidden"
+      name="bookmark_list_display"
+      value="{{ preferences.BookmarkListLayout().Value }}"
+      data-styler-option-target="value"
+      data-action="styler-option:setValue->request#fetch"
+    >
   </div>
 
   {{- if isset(.OrderOptions) -}}

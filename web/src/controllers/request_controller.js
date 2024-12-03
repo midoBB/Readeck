@@ -36,20 +36,25 @@ export default class extends Controller {
       }
     }
 
-    // Set the body based on the form elements when the event receiver
-    // is a form.
     if (event.currentTarget.tagName.toLowerCase() == "form") {
+      // Set the body based on the form elements when the event receiver
+      // is a form.
       const form = event.currentTarget
       options.body = {}
       for (let e of form.elements) {
         if (!!e.name) {
-          let value = e.value
-          if (!isNaN(value) && value !== "") {
-            value = Number(value)
-          }
-          options.body[e.name] = value
+          options.body[e.name] = getValue(e.value)
         }
       }
+    } else if (
+      event.currentTarget.name !== undefined &&
+      event.currentTarget.value !== undefined
+    ) {
+      // Otherwise, anything with a name and value attribute does the job.
+      options.body = {}
+      options.body[event.currentTarget.name] = getValue(
+        event.currentTarget.value,
+      )
     }
 
     const rsp = await request(src, options)
@@ -59,4 +64,11 @@ export default class extends Controller {
 
     this.dispatch(event.params.eventName || "done")
   }
+}
+
+function getValue(value) {
+  if (!isNaN(value) && value !== "") {
+    return Number(value)
+  }
+  return value
 }

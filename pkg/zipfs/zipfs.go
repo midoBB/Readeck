@@ -34,7 +34,7 @@ type ZipRW struct {
 }
 
 // NewZipRW returns a new ZipRW using a destination writer and a source reader.
-// Both can be null but, obviously, it won't work very well with at least a writer.
+// Both can be null but, obviously, it won't work very well without at least a writer.
 func NewZipRW(dst io.Writer, src io.ReaderAt, srcSize int64) *ZipRW {
 	return &ZipRW{
 		dst:     dst,
@@ -158,35 +158,57 @@ func (z *ZipRW) SrcFiles() []*zip.File {
 	})
 }
 
-// Add adds a new file to the zip file.
-// It creates the necessary directories if needed.
-func (z *ZipRW) Add(h *zip.FileHeader, r io.Reader) error {
+func (z *ZipRW) getWriter(h *zip.FileHeader, raw bool) (io.Writer, error) {
 	if h.FileInfo().IsDir() {
-		return errors.New("cannot add a directory directly")
+		return nil, errors.New("cannot add a directory directly")
 	}
 
 	h.Name = path.Clean(h.Name)
 	if slices.Contains(z.entries, h.Name) {
-		return fmt.Errorf(`file "%s" already exists`, h.Name)
+		return nil, fmt.Errorf(`file "%s" already exists`, h.Name)
 	}
 
 	if err := z.init(); err != nil {
-		return err
+		return nil, err
 	}
 
 	if z.zw == nil {
-		return errors.New("needs a zip writer to add content")
+		return nil, errors.New("needs a zip writer to add content")
 	}
 
 	if err := z.makeDirs(h.Name); err != nil {
-		return err
+		return nil, err
 	}
 
 	if h.Modified.IsZero() {
 		h.Modified = time.Now().UTC()
 	}
 
-	w, err := z.zw.CreateHeader(h)
+	var w io.Writer
+	var err error
+	if raw {
+		w, err = z.zw.CreateRaw(h)
+	} else {
+		w, err = z.zw.CreateHeader(h)
+	}
+
+	return w, err
+}
+
+// GetWriter returns a writer for a zipfile entry.
+func (z *ZipRW) GetWriter(h *zip.FileHeader) (io.Writer, error) {
+	return z.getWriter(h, false)
+}
+
+// GetRawWriter returns a raw writer for a zipfile entry.
+func (z *ZipRW) GetRawWriter(h *zip.FileHeader) (io.Writer, error) {
+	return z.getWriter(h, true)
+}
+
+// Add adds a new file to the zip file.
+// It creates the necessary directories if needed.
+func (z *ZipRW) Add(h *zip.FileHeader, r io.Reader) error {
+	w, err := z.GetWriter(h)
 	if err != nil {
 		return err
 	}

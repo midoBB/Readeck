@@ -12,6 +12,7 @@ import (
 // Translator describes a type that implements a translation method.
 type Translator interface {
 	Gettext(string, ...interface{}) string
+	Pgettext(ctx, str string, vars ...interface{}) string
 }
 
 // FormError is a form's or field's error that contains an error message

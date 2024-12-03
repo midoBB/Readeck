@@ -123,6 +123,7 @@ func (c *Collection) Flatten() map[string]interface{} {
 		"site":        c.Filters.Site,
 		"type":        c.Filters.Type,
 		"labels":      c.Filters.Labels,
+		"read_status": c.Filters.ReadStatus,
 		"is_archived": nil,
 		"is_marked":   nil,
 		"is_loaded":   nil,
@@ -179,6 +180,7 @@ type CollectionFilters struct {
 	Site       string        `json:"site"`
 	Type       types.Strings `json:"type"`
 	Labels     string        `json:"labels"`
+	ReadStatus types.Strings `json:"read_status"`
 	IsMarked   *bool         `json:"is_marked"`
 	IsArchived *bool         `json:"is_archived"`
 	IsLoaded   *bool         `json:"is_loaded"`

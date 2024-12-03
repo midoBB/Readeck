@@ -74,6 +74,7 @@ func newCollectionForm(tr forms.Translator) (f *collectionForm) {
 		"site":        {},
 		"type":        {},
 		"labels":      {},
+		"read_status": {},
 		"is_marked":   {},
 		"is_archived": {},
 		"is_loaded":   {},
@@ -177,6 +178,8 @@ func (f *collectionForm) setCollection(c *bookmarks.Collection) {
 			field.Set([]string(c.Filters.Type))
 		case "labels":
 			field.Set(c.Filters.Labels)
+		case "read_status":
+			field.Set([]string(c.Filters.ReadStatus))
 		case "is_marked":
 			if c.Filters.IsMarked == nil {
 				field.Set(nil)
@@ -241,6 +244,10 @@ func (f *collectionForm) createCollection(userID int) (*bookmarks.Collection, er
 
 	if !f.Get("type").IsNil() {
 		c.Filters.Type = f.Get("type").Value().([]string)
+	}
+
+	if !f.Get("read_status").IsNil() {
+		c.Filters.ReadStatus = f.Get("read_status").Value().([]string)
 	}
 
 	if !f.Get("is_marked").IsNil() {

@@ -633,11 +633,21 @@ type ListField struct {
 }
 
 // DefaultListConverter is a default fieldConverter that
-// simply returns a list of interface{} items.
+// simply returns a list of [interface{}] items.
 func DefaultListConverter(values []Field) interface{} {
 	res := make([]interface{}, len(values))
 	for i, x := range values {
 		res[i] = x.Value()
+	}
+	return res
+}
+
+// StringListConverter is a fieldConverter that returns
+// a list of [string] items.
+func StringListConverter(values []Field) interface{} {
+	res := make([]string, len(values))
+	for i, x := range values {
+		res[i] = x.String()
 	}
 	return res
 }
@@ -861,4 +871,20 @@ func (f *ListField) String() string {
 	}
 	b, _ := json.Marshal(f.Value())
 	return string(b)
+}
+
+func NewStringListField(name string, choices Choices, validators ...FieldValidator) Field {
+	field := NewListField(name,
+		func(s string) Field {
+			return NewTextField(s, validators...)
+		}, func(values []Field) interface{} {
+			res := make([]string, len(values))
+			for i, x := range values {
+				res[i] = x.String()
+			}
+			return res
+		})
+	field.(*ListField).SetChoices(choices)
+
+	return field
 }

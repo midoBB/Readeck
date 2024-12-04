@@ -16,6 +16,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
+	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -184,19 +185,19 @@ type collectionItem struct {
 	IsDeleted bool      `json:"is_deleted"`
 
 	// Filters
-	Search     string `json:"search"`
-	Title      string `json:"title"`
-	Author     string `json:"author"`
-	Site       string `json:"site"`
-	Type       string `json:"type"`
-	Labels     string `json:"labels"`
-	IsMarked   *bool  `json:"is_marked"`
-	IsArchived *bool  `json:"is_archived"`
-	IsLoaded   *bool  `json:"is_loaded"`
-	HasErrors  *bool  `json:"has_errors"`
-	HasLabels  *bool  `json:"has_labels"`
-	RangeStart string `json:"range_start"`
-	RangeEnd   string `json:"range_end"`
+	Search     string        `json:"search"`
+	Title      string        `json:"title"`
+	Author     string        `json:"author"`
+	Site       string        `json:"site"`
+	Type       types.Strings `json:"type"`
+	Labels     string        `json:"labels"`
+	IsMarked   *bool         `json:"is_marked"`
+	IsArchived *bool         `json:"is_archived"`
+	IsLoaded   *bool         `json:"is_loaded"`
+	HasErrors  *bool         `json:"has_errors"`
+	HasLabels  *bool         `json:"has_labels"`
+	RangeStart string        `json:"range_start"`
+	RangeEnd   string        `json:"range_end"`
 }
 
 func newCollectionItem(s *server.Server, r *http.Request, c *bookmarks.Collection, base string) collectionItem {

@@ -301,10 +301,14 @@ func UnmarshalValues(f Binder, values url.Values) {
 	f.Bind()
 
 	for _, field := range f.Fields() {
+
 		v, exists := values[field.Name()]
 		if !exists {
 			continue
 		}
+
+		// Always empty the field before proceeding
+		field.Set(nil)
 		for _, x := range v {
 			if err := field.UnmarshalText([]byte(x)); err != nil {
 				f.AddErrors(field.Name(), err)

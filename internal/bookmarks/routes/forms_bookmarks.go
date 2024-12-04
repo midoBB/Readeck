@@ -46,6 +46,12 @@ const (
 	filtersTitlePictures
 )
 
+const (
+	filtersReadStatusUnread  = "unread"
+	filtersReadStatusReading = "reading"
+	filtersReadStatusRead    = "read"
+)
+
 type orderExpressionList []exp.OrderedExpression
 
 type createForm struct {
@@ -413,13 +419,6 @@ type filterForm struct {
 }
 
 func newFilterForm(tr forms.Translator) (f *filterForm) {
-	availableTypes := [][2]string{
-		{"", tr.Gettext("All")},
-		{"article", tr.Gettext("Article")},
-		{"photo", tr.Gettext("Picture")},
-		{"video", tr.Gettext("Video")},
-	}
-
 	f = &filterForm{
 		Form: forms.Must(
 			forms.NewBooleanField("bf"),
@@ -427,11 +426,20 @@ func newFilterForm(tr forms.Translator) (f *filterForm) {
 			forms.NewTextField("title", forms.Trim),
 			forms.NewTextField("author", forms.Trim),
 			forms.NewTextField("site", forms.Trim),
-			forms.NewChoiceField("type", availableTypes, forms.Trim),
+			forms.NewStringListField("type", forms.Choices{
+				{"article", tr.Gettext("Article")},
+				{"photo", tr.Gettext("Picture")},
+				{"video", tr.Gettext("Video")},
+			}, forms.Trim),
 			forms.NewBooleanField("is_loaded"),
 			forms.NewBooleanField("has_errors"),
 			forms.NewBooleanField("has_labels"),
 			forms.NewTextField("labels", forms.Trim),
+			forms.NewStringListField("read_status", forms.Choices{
+				{filtersReadStatusUnread, tr.Pgettext("status", "Unseen")},
+				{filtersReadStatusReading, tr.Pgettext("status", "In-Progress")},
+				{filtersReadStatusRead, tr.Pgettext("status", "Completed")},
+			}, forms.Trim),
 			forms.NewBooleanField("is_marked"),
 			forms.NewBooleanField("is_archived"),
 			forms.NewTextField("range_start", forms.Trim, validateTimeToken),
@@ -538,7 +546,17 @@ func (f *filterForm) IsActive() bool {
 func (f *filterForm) GetQueryString() string {
 	q := url.Values{}
 	for _, field := range f.Fields() {
-		q.Add(field.Name(), field.String())
+		if field.IsNil() {
+			continue
+		}
+		switch n := field.Name(); n {
+		case "type":
+			for _, s := range field.Value().([]string) {
+				q.Add(n, s)
+			}
+		default:
+			q.Add(n, field.String())
+		}
 	}
 
 	return q.Encode()
@@ -561,7 +579,7 @@ func (f *filterForm) setArchived(v bool) {
 }
 
 func (f *filterForm) setType(v string) {
-	f.Get("type").Set(v)
+	f.Get("type").Set([]string{v})
 	switch v {
 	case "article":
 		f.title = filtersTitleArticles
@@ -629,6 +647,8 @@ func (f *filterForm) toSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset
 
 	for _, field := range f.Fields() {
 		switch n := field.Name(); n {
+		case "read_status":
+			ds = f.addReadStatus(field, ds)
 		case "is_marked", "is_archived":
 			if !field.IsNil() {
 				ds = ds.Where(goqu.C(n).Table("b").Eq(goqu.V(field.Value())))
@@ -660,8 +680,12 @@ func (f *filterForm) toSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset
 				))
 			}
 		case "type":
-			if field.String() != "" {
-				ds = ds.Where(goqu.C("type").Table("b").Eq(field.String()))
+			if !field.IsNil() {
+				or := goqu.Or()
+				for _, x := range field.Value().([]string) {
+					or = or.Append(goqu.C("type").Table("b").Eq(x))
+				}
+				ds = ds.Where(or)
 			}
 		}
 	}
@@ -679,6 +703,28 @@ func (f *filterForm) toSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset
 		ds = ds.Order(orderging.Asc())
 
 	}
+
+	return ds
+}
+
+func (f *filterForm) addReadStatus(field *forms.FormField, ds *goqu.SelectDataset) *goqu.SelectDataset {
+	if field.IsNil() {
+		return ds
+	}
+
+	or := goqu.Or()
+	c := goqu.C("read_progress").Table("b")
+	for _, x := range field.Value().([]string) {
+		switch x {
+		case filtersReadStatusUnread:
+			or = or.Append(c.Eq(0))
+		case filtersReadStatusReading:
+			or = or.Append(c.Between(goqu.Range(1, 99)))
+		case filtersReadStatusRead:
+			or = or.Append(c.Eq(100))
+		}
+	}
+	ds = ds.Where(or)
 
 	return ds
 }

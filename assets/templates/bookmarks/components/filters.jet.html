@@ -41,8 +41,13 @@ SPDX-License-Identifier: AGPL-3.0-only
     class="field-h--compact",
   ) }}
 
-  {{ yield selectField(field=.Get("type"),
+  {{ yield multiSelectField(field=.Get("type"),
     label=gettext("Type"),
+    class="field-h--compact",
+  ) }}
+
+  {{ yield multiSelectField(field=.Get("read_status"),
+    label=pgettext("filter", "Progress"),
     class="field-h--compact",
   ) }}
 

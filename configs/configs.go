@@ -16,11 +16,10 @@ import (
 	"net/url"
 	"os"
 	"runtime"
-	"strings"
 	"time"
 
 	"github.com/araddon/dateparse"
-	"github.com/halorium/env"
+	"github.com/caarlos0/env/v11"
 	"github.com/komkom/toml"
 )
 
@@ -60,23 +59,23 @@ type config struct {
 }
 
 type configMain struct {
-	LogLevel      slog.Level `json:"log_level" env:"READECK_LOG_LEVEL"`
-	DevMode       bool       `json:"dev_mode" env:"READECK_DEV_MODE"`
-	SecretKey     string     `json:"secret_key" env:"-"`
-	DataDirectory string     `json:"data_directory" env:"-"`
+	LogLevel      slog.Level `json:"log_level" env:"LOG_LEVEL"`
+	DevMode       bool       `json:"dev_mode" env:"DEV_MODE"`
+	SecretKey     string     `json:"secret_key" env:"SECRET_KEY,unset"`
+	DataDirectory string     `json:"data_directory" env:"DATA_DIRECTORY,unset"`
 }
 
 type configServer struct {
-	Host           string        `json:"host" env:"READECK_SERVER_HOST"`
-	Port           int           `json:"port" env:"READECK_SERVER_PORT"`
-	Prefix         string        `json:"prefix" env:"READECK_SERVER_PREFIX"`
-	TrustedProxies configIPNets  `json:"trusted_proxies" env:"READECK_TRUSTED_PROXIES"`
-	AllowedHosts   []string      `json:"allowed_hosts" env:"READECK_ALLOWED_HOSTS"`
+	Host           string        `json:"host" env:"SERVER_HOST"`
+	Port           int           `json:"port" env:"SERVER_PORT"`
+	Prefix         string        `json:"prefix" env:"SERVER_PREFIX"`
+	TrustedProxies []configIPNet `json:"trusted_proxies" env:"TRUSTED_PROXIES,unset"`
+	AllowedHosts   []string      `json:"allowed_hosts" env:"ALLOWED_HOSTS"`
 	Session        configSession `json:"session" env:"-"`
 }
 
 type configDB struct {
-	Source string `json:"source" env:"READECK_DATABASE_SOURCE"`
+	Source string `json:"source" env:"DATABASE_SOURCE,unset"`
 }
 
 type configSession struct {
@@ -85,60 +84,70 @@ type configSession struct {
 }
 
 type configBookmarks struct {
-	PublicShareTTL int `json:"public_share_ttl" env:"READECK_PUBLIC_SHARE_TTL"`
+	PublicShareTTL int `json:"public_share_ttl" env:"PUBLIC_SHARE_TTL"`
 }
 
 type configEmail struct {
-	Debug       bool   `json:"debug" env:"-"`
-	Host        string `json:"host" env:"-"`
-	Port        int    `json:"port" env:"-"`
-	Username    string `json:"username" env:"-"`
-	Password    string `json:"password" env:"-"`
-	Encryption  string `json:"encryption" env:"-"`
-	Insecure    bool   `json:"insecure" env:"-"`
-	From        string `json:"from" env:"-"`
-	FromNoReply string `json:"from_noreply" env:"-"`
+	Debug       bool   `json:"debug" env:"MAIL_DEBUG,unset"`
+	Host        string `json:"host" env:"MAIL_HOST,unset"`
+	Port        int    `json:"port" env:"MAIL_PORT,unset"`
+	Username    string `json:"username" env:"MAIL_USERNAME,unset"`
+	Password    string `json:"password" env:"MAIL_PASSWORD,unset"`
+	Encryption  string `json:"encryption" env:"MAIL_ENCRYPTION,unset"`
+	Insecure    bool   `json:"insecure" env:"MAIL_INSECURE,unset"`
+	From        string `json:"from" env:"MAIL_FROM,unset"`
+	FromNoReply string `json:"from_noreply" env:"MAIL_FROMNOREPLY,unset"`
 }
 
 type configWorker struct {
-	DSN         string `json:"dsn" env:"READECK_WORKER_DSN"`
-	NumWorkers  int    `json:"num_workers" env:"READECK_WORKER_NUMBER"`
-	StartWorker bool   `json:"start_worker" env:"READECK_WORKER_START"`
+	DSN         string `json:"dsn" env:"WORKER_DSN,unset"`
+	NumWorkers  int    `json:"num_workers" env:"WORKER_NUMBER"`
+	StartWorker bool   `json:"start_worker" env:"WORKER_START"`
 }
 
 type configExtractor struct {
 	NumWorkers     int                `json:"workers" env:"-"`
 	ContentScripts []string           `json:"content_scripts" env:"-"`
-	DeniedIPs      configIPNets       `json:"denied_ips" env:"-"`
+	DeniedIPs      []configIPNet      `json:"denied_ips" env:"-"`
 	ProxyMatch     []configProxyMatch `json:"proxy_match" env:"-"`
 }
 
 type configMetrics struct {
-	Host string `json:"host" env:"READECK_METRICS_HOST"`
-	Port int    `json:"port" env:"READECK_METRICS_PORT"`
+	Host string `json:"host" env:"METRICS_HOST"`
+	Port int    `json:"port" env:"METRICS_PORT"`
 }
 
 type configIPNet struct {
 	*net.IPNet
 }
 
-type configIPNets []configIPNet
+func (c *config) LoadFile(filename string) error {
+	fd, err := os.Open(filename)
+	if err != nil {
+		return err
+	}
+	defer fd.Close() //nolint:errcheck
+
+	dec := json.NewDecoder(toml.New(fd))
+	return dec.Decode(c)
+}
+
+func (c *config) LoadEnv() error {
+	return env.ParseWithOptions(c, env.Options{
+		Prefix:                "READECK_",
+		UseFieldNameByDefault: false,
+	})
+}
 
 func newConfigIPNet(v string) configIPNet {
 	_, r, _ := net.ParseCIDR(v)
 	return configIPNet{IPNet: r}
 }
 
-// UnmarshalJSON loads a given string containing an ip address or
+// parse loads a given string containing an ip address or
 // a cidr. If it falls back to a single ip address, it gets a
 // /32 or /128 netmask.
-func (ci *configIPNet) UnmarshalJSON(d []byte) error {
-	var s string
-	err := json.Unmarshal(d, &s)
-	if err != nil {
-		return err
-	}
-
+func (ci *configIPNet) parse(s string) error {
 	// Try first to parse a cidr value
 	_, r, err := net.ParseCIDR(s)
 	if err == nil {
@@ -154,26 +163,23 @@ func (ci *configIPNet) UnmarshalJSON(d []byte) error {
 		r.Mask = net.CIDRMask(8*net.IPv6len, 8*net.IPv6len)
 	}
 	ci.IPNet = r
-
 	return nil
 }
 
-func (ciList *configIPNets) UnmarshalENV(values string) error {
-	res := configIPNets{}
-	for _, value := range strings.Split(values, " ") {
-		ci := configIPNet{}
-		if err := json.Unmarshal([]byte(`"`+strings.TrimSpace(value)+`"`), &ci); err != nil {
-			return err
-		}
-		if len(ci.IP) == 0 {
-			continue
-		}
-
-		res = append(res, ci)
+// UnmarshalJSON implements [encoding.json.Unmarshaler].
+func (ci *configIPNet) UnmarshalJSON(d []byte) error {
+	var s string
+	err := json.Unmarshal(d, &s)
+	if err != nil {
+		return err
 	}
 
-	*ciList = res
-	return nil
+	return ci.parse(s)
+}
+
+// UnmarshalText implements [encoding.TextUnmarshaler].
+func (ci *configIPNet) UnmarshalText(text []byte) error {
+	return ci.parse(string(text))
 }
 
 type configProxyMatch struct {
@@ -232,7 +238,7 @@ var Config = config{
 			CookieName: "sxid",
 			MaxAge:     86400 * 30, // 60 days
 		},
-		TrustedProxies: configIPNets{
+		TrustedProxies: []configIPNet{
 			newConfigIPNet("127.0.0.0/8"),
 			newConfigIPNet("10.0.0.0/8"),
 			newConfigIPNet("172.16.0.0/12"),
@@ -256,7 +262,7 @@ var Config = config{
 	Extractor: configExtractor{
 		NumWorkers:     runtime.NumCPU(),
 		ContentScripts: []string{"data/content-scripts"},
-		DeniedIPs: configIPNets{
+		DeniedIPs: []configIPNet{
 			newConfigIPNet("127.0.0.0/8"),
 			newConfigIPNet("::1/128"),
 		},
@@ -274,23 +280,12 @@ func LoadConfiguration(configPath string) error {
 		return nil
 	}
 
-	fd, err := os.Open(configPath)
-	if err != nil {
-		return err
-	}
-	defer fd.Close() //nolint:errcheck
-
-	dec := json.NewDecoder(toml.New(fd))
-	if err := dec.Decode(&Config); err != nil {
+	if err := Config.LoadFile(configPath); err != nil {
 		return err
 	}
 
 	// Override configuration from environment variables
-	if err = env.Unmarshal(&Config); err != nil {
-		return err
-	}
-
-	if err = cleanEnv(); err != nil {
+	if err := Config.LoadEnv(); err != nil {
 		return err
 	}
 
@@ -398,23 +393,4 @@ func BuildTime() time.Time {
 		return startTime
 	}
 	return buildTime
-}
-
-func cleanEnv() error {
-	for _, v := range os.Environ() {
-		if !strings.HasPrefix(v, "READECK_") {
-			continue
-		}
-		var i int
-		var x rune
-		for i, x = range v {
-			if x == '=' {
-				break
-			}
-		}
-		if err := os.Unsetenv(v[0:i]); err != nil {
-			return err
-		}
-	}
-	return nil
 }

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-12-03 06:54+0000\n"
+"PO-Revision-Date: 2024-12-04 17:36+0000\n"
 "Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
@@ -1078,15 +1078,19 @@ msgid ""
 "href=\"%s\">bookmark list</a>.\n"
 "      "
 msgstr ""
+"\n"
+"      Ваші закладки тепер доступні у <a class=\"%s\" href=\"%s\">списку "
+"закладок</a>.\n"
+"      "
 
 #: assets/templates/bookmarks/index.jet.html:27
 msgid "Save a new link"
-msgstr ""
+msgstr "Зберегти нове посилання"
 
 #: assets/templates/bookmarks/index.jet.html:40
 msgctxt "button"
 msgid "Save link"
-msgstr ""
+msgstr "Зберегти посилання"
 
 #: assets/templates/bookmarks/index.jet.html:49
 #, python-format
@@ -1094,12 +1098,15 @@ msgid ""
 "\"%s\" is not a valid address. Did you mean to search your bookmarks for "
 "%s?"
 msgstr ""
+"\"%s\" не є дійсною адресою. Ви мали на увазі шукати %s у ваших закладках?"
 
 #: assets/templates/bookmarks/index.jet.html:73
 msgid ""
 "You don't have any bookmarks yet.<br> Copy a link in the field above and "
 "start saving."
 msgstr ""
+"У вас ще немає закладок.<br> Скопіюйте посилання в поле вище та почніть "
+"зберігати."
 
 #: assets/templates/bookmarks/index.jet.html:75
 #, python-format
@@ -1107,8 +1114,11 @@ msgid ""
 "Read more about bookmarks in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
+"Докладніше про закладки читайте в <a class=\"%s\" href=\"%s\""
+">документації</a>."
 
 #: assets/templates/bookmarks/index.jet.html:81
+#, fuzzy
 msgid ""
 "\n"
 "          Would you like to import from a similar tool or from a file "
@@ -1116,56 +1126,62 @@ msgid ""
 "          Try Readeck's import tool.\n"
 "        "
 msgstr ""
+"\n"
+"          Ви хочете здійснити імпорт зі схожого інструменту або файлу з "
+"ісунуючими закладками?\n"
+"          Спробуйте утиліту імпорту Readeck.\n"
+"        "
 
 #: assets/templates/bookmarks/index.jet.html:88
 msgid "Import links and articles"
-msgstr ""
+msgstr "Імпортувати посилання та статті"
 
 #: assets/templates/bookmarks/index.jet.html:113
 msgid "Import bookmarks"
-msgstr ""
+msgstr "Імпорутвати закладки"
 
 #: assets/templates/bookmarks/index.jet.html:122
 msgid "Your search query yielded <strong>no results</strong>."
-msgstr ""
+msgstr "Ваш пошуковий запит не дав <strong>жодних результатів</strong>."
 
 #: assets/templates/bookmarks/index.jet.html:124
-#, python-format
+#, fuzzy, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ваш пошуковий запит дав <strong>%dрезультат</strong>."
+msgstr[1] "Ваш пошуковий запит дав <strong>%dрезультати</strong>."
+msgstr[2] "Ваш пошуковий запит дав <strong>%dрезультатів</strong>."
 
 #: assets/templates/bookmarks/index.jet.html:155
 msgctxt "action"
 msgid "Search"
-msgstr ""
+msgstr "Пошук"
 
 #: assets/templates/bookmarks/index.jet.html:157
 msgid "Reset search"
-msgstr ""
+msgstr "Скинути пошук"
 
 #: assets/templates/bookmarks/index.jet.html:160
 msgid "Create a collection"
-msgstr ""
+msgstr "Створити колекцію"
 
 #: assets/templates/bookmarks/components/filters.jet.html:29
 #: assets/templates/bookmarks/import/options.jet.html:10
 #: assets/templates/bookmarks/label.jet.html:10
 msgid "Label"
-msgstr ""
+msgstr "Мітка"
 
 #: assets/templates/bookmarks/label.jet.html:37
 msgid "Delete"
-msgstr ""
+msgstr "Видалити"
 
 #: assets/templates/bookmarks/label.jet.html:50
 msgid "Label will be removed in a few seconds."
-msgstr ""
+msgstr "Мітку буде видалено через кілька секунд."
 
 #: assets/templates/bookmarks/labels.jet.html:8
 msgid "Bookmark Labels"
-msgstr ""
+msgstr "Мітки закладок"
 
 #: assets/templates/bookmarks/labels.jet.html:14
 msgid ""

@@ -57,6 +57,22 @@ func TestEnvVars(t *testing.T) {
 		{"READECK_DEV_MODE", "abc", func(assert *require.Assertions, err error) {
 			assert.ErrorContains(err, "invalid syntax")
 		}},
+		{"READECK_SECRET_KEY", "abcdefghijkl", func(assert *require.Assertions, err error) {
+			assert.NoError(err)
+			assert.Equal("abcdefghijkl", cf.Main.SecretKey)
+
+			v, exists := os.LookupEnv("READECK_SECRET_KEY")
+			assert.Equal("", v)
+			assert.False(exists)
+		}},
+		{"READECK_DATA_DIRECTORY", "/srv/data/readeck", func(assert *require.Assertions, err error) {
+			assert.NoError(err)
+			assert.Equal("/srv/data/readeck", cf.Main.DataDirectory)
+
+			v, exists := os.LookupEnv("READECK_DATA_DIRECTORY")
+			assert.Equal("", v)
+			assert.False(exists)
+		}},
 		{"READECK_SERVER_HOST", "localhost", func(assert *require.Assertions, err error) {
 			assert.NoError(err)
 			assert.Equal("localhost", cf.Server.Host)
@@ -130,4 +146,41 @@ func TestEnvVars(t *testing.T) {
 			test.expect(require.New(t), err)
 		})
 	}
+
+	t.Run("email settings", func(t *testing.T) {
+		envMap := map[string]string{
+			"READECK_MAIL_DEBUG":       "false",
+			"READECK_MAIL_HOST":        "localhost",
+			"READECK_MAIL_PORT":        "25",
+			"READECK_MAIL_USERNAME":    "alice",
+			"READECK_MAIL_PASSWORD":    "1234",
+			"READECK_MAIL_ENCRYPTION":  "starttls",
+			"READECK_MAIL_INSECURE":    "true",
+			"READECK_MAIL_FROM":        "alice@example.net",
+			"READECK_MAIL_FROMNOREPLY": "noreply@example.net",
+		}
+
+		for k, v := range envMap {
+			t.Setenv(k, v)
+		}
+		err := cf.LoadEnv()
+
+		assert := require.New(t)
+		assert.NoError(err)
+		assert.False(cf.Email.Debug)
+		assert.Equal("localhost", cf.Email.Host)
+		assert.Equal(25, cf.Email.Port)
+		assert.Equal("alice", cf.Email.Username)
+		assert.Equal("1234", cf.Email.Password)
+		assert.Equal("starttls", cf.Email.Encryption)
+		assert.True(cf.Email.Insecure)
+		assert.Equal("alice@example.net", cf.Email.From)
+		assert.Equal("noreply@example.net", cf.Email.FromNoReply)
+
+		for k := range envMap {
+			v, exists := os.LookupEnv(k)
+			assert.Equal("", v)
+			assert.False(exists)
+		}
+	})
 }

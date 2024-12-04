@@ -61,8 +61,8 @@ type config struct {
 type configMain struct {
 	LogLevel      slog.Level `json:"log_level" env:"LOG_LEVEL"`
 	DevMode       bool       `json:"dev_mode" env:"DEV_MODE"`
-	SecretKey     string     `json:"secret_key" env:"-"`
-	DataDirectory string     `json:"data_directory" env:"-"`
+	SecretKey     string     `json:"secret_key" env:"SECRET_KEY,unset"`
+	DataDirectory string     `json:"data_directory" env:"DATA_DIRECTORY,unset"`
 }
 
 type configServer struct {
@@ -88,15 +88,15 @@ type configBookmarks struct {
 }
 
 type configEmail struct {
-	Debug       bool   `json:"debug" env:"-"`
-	Host        string `json:"host" env:"-"`
-	Port        int    `json:"port" env:"-"`
-	Username    string `json:"username" env:"-"`
-	Password    string `json:"password" env:"-"`
-	Encryption  string `json:"encryption" env:"-"`
-	Insecure    bool   `json:"insecure" env:"-"`
-	From        string `json:"from" env:"-"`
-	FromNoReply string `json:"from_noreply" env:"-"`
+	Debug       bool   `json:"debug" env:"MAIL_DEBUG,unset"`
+	Host        string `json:"host" env:"MAIL_HOST,unset"`
+	Port        int    `json:"port" env:"MAIL_PORT,unset"`
+	Username    string `json:"username" env:"MAIL_USERNAME,unset"`
+	Password    string `json:"password" env:"MAIL_PASSWORD,unset"`
+	Encryption  string `json:"encryption" env:"MAIL_ENCRYPTION,unset"`
+	Insecure    bool   `json:"insecure" env:"MAIL_INSECURE,unset"`
+	From        string `json:"from" env:"MAIL_FROM,unset"`
+	FromNoReply string `json:"from_noreply" env:"MAIL_FROMNOREPLY,unset"`
 }
 
 type configWorker struct {

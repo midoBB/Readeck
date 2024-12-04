@@ -70,6 +70,10 @@ func M14collectionBookmarkType(db *goqu.TxDatabase, _ fs.FS) error {
 		ids = append(ids, row.ID)
 	}
 
+	if len(cases.GetWhens()) == 0 {
+		return nil
+	}
+
 	_, err = db.Update("bookmark_collection").Prepared(true).
 		Set(goqu.Record{"filters": cases}).
 		Where(goqu.C("id").In(ids)).

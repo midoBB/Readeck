@@ -11,6 +11,7 @@ require (
 	github.com/antchfx/xmlquery v1.4.2
 	github.com/anthonynsimon/bild v0.14.0
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
+	github.com/caarlos0/env/v11 v11.2.2
 	github.com/casbin/casbin/v2 v2.101.0
 	github.com/cristalhq/acmd v0.12.0
 	github.com/cristalhq/jwt/v3 v3.1.0
@@ -25,7 +26,6 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/csrf v1.7.2
 	github.com/gorilla/securecookie v1.1.2
-	github.com/halorium/env v1.0.0
 	github.com/hlandau/passlib v1.0.11
 	github.com/itchyny/gojq v0.12.14
 	github.com/jackc/pgx/v5 v5.7.1

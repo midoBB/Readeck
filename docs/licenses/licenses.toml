@@ -210,10 +210,19 @@ All rights reserved.
 [[licenses]]
 name = "acmd"
 license = "MIT"
-author = " Oleg Kovalov"
+author = "Oleg Kovalov"
 url = "https://github.com/cristalhq/acmd"
 copyright = """
 Copyright (c) 2021 cristaltech
+"""
+
+[[licenses]]
+name = "env"
+license = "MIT"
+author = "Carlos Alexandro Becker"
+url = "https://github.com/caarlos0/env"
+copyright = """
+Copyright (c) 2015-2024 Carlos Alexandro Becker
 """
 
 [[licenses]]

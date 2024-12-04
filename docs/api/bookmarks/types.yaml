@@ -416,12 +416,20 @@ schemas:
         type: string
         description: Site (name, host or domain) filter
       type:
-        type: string
-        enum: [article, photo, video]
+        type: array
+        items:
+          type: string
+          enum: [article, photo, video]
         description: Type filter
       labels:
         type: string
         description: Label filter
+      read_status:
+        type: array
+        items:
+          type: string
+          enum: [unread, reading, read]
+        description: Read progress status
       is_marked:
         type: boolean
         description: Favorite filter
@@ -479,12 +487,20 @@ schemas:
         type: string
         description: Site (name, host or domain) filter
       type:
-        type: string
-        enum: [article, photo, video]
+        type: array
+        items:
+          type: string
+          enum: [article, photo, video]
         description: Type filter
       labels:
         type: string
         description: Label filter
+      read_status:
+        type: array
+        items:
+          type: string
+          enum: [unread, reading, read]
+        description: Read progress status
       is_marked:
         type: boolean
         description: Favorite filter

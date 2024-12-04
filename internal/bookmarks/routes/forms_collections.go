@@ -10,10 +10,12 @@ import (
 	"encoding/json"
 	"errors"
 	"net/url"
+	"slices"
 	"time"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
+	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -307,8 +309,15 @@ func (f *collectionForm) updateCollection(c *bookmarks.Collection) (res map[stri
 	updateMap["filters"] = filterMap{}
 	needsFilters := false
 	for k, v := range updated {
-		if v != current[k] {
-			res[k] = v
+		switch t := v.(type) {
+		case []string:
+			if slices.Compare(t, current[k].(types.Strings)) != 0 {
+				res[k] = v
+			}
+		default:
+			if v != current[k] {
+				res[k] = v
+			}
 		}
 
 		_, inFilters := f.filterFields[k]

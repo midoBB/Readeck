@@ -191,6 +191,7 @@ type collectionItem struct {
 	Site       string        `json:"site"`
 	Type       types.Strings `json:"type"`
 	Labels     string        `json:"labels"`
+	ReadStatus types.Strings `json:"read_status"`
 	IsMarked   *bool         `json:"is_marked"`
 	IsArchived *bool         `json:"is_archived"`
 	IsLoaded   *bool         `json:"is_loaded"`
@@ -218,6 +219,7 @@ func newCollectionItem(s *server.Server, r *http.Request, c *bookmarks.Collectio
 		Site:       c.Filters.Site,
 		Type:       c.Filters.Type,
 		Labels:     c.Filters.Labels,
+		ReadStatus: c.Filters.ReadStatus,
 		IsMarked:   c.Filters.IsMarked,
 		IsArchived: c.Filters.IsArchived,
 		IsLoaded:   c.Filters.IsLoaded,

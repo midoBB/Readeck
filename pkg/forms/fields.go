@@ -873,6 +873,9 @@ func (f *ListField) String() string {
 	return string(b)
 }
 
+// NewStringListField return a [ListField] instance made of [TextField].
+// It take a [Choices] argument and any [FieldValidator] that are applied
+// to each sub field.
 func NewStringListField(name string, choices Choices, validators ...FieldValidator) Field {
 	field := NewListField(name,
 		func(s string) Field {

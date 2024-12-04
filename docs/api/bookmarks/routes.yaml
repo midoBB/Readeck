@@ -73,8 +73,10 @@ list:
       in: query
       description: Bookmark type
       schema:
-        type: string
-        enum: [article, photo, video]
+        type: array
+        items:
+          type: string
+          enum: [article, photo, video]
     - name: labels
       in: query
       description: One or several labels
@@ -113,6 +115,14 @@ list:
       in: query
       schema:
         type: string
+    - name: read_status
+      in: query
+      description: Read progress status
+      schema:
+        type: array
+        items:
+          type: string
+          enum: [unread, reading, read]
     - name: updated_since
       in: query
       description: Retrieve bookmarks created after this date

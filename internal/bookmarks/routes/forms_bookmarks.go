@@ -436,7 +436,7 @@ func newFilterForm(tr forms.Translator) (f *filterForm) {
 			forms.NewBooleanField("has_labels"),
 			forms.NewTextField("labels", forms.Trim),
 			forms.NewStringListField("read_status", forms.Choices{
-				{filtersReadStatusUnread, tr.Pgettext("status", "Unseen")},
+				{filtersReadStatusUnread, tr.Pgettext("status", "Unviewed")},
 				{filtersReadStatusReading, tr.Pgettext("status", "In-Progress")},
 				{filtersReadStatusRead, tr.Pgettext("status", "Completed")},
 			}, forms.Trim),
@@ -550,7 +550,7 @@ func (f *filterForm) GetQueryString() string {
 			continue
 		}
 		switch n := field.Name(); n {
-		case "type":
+		case "type", "read_status":
 			for _, s := range field.Value().([]string) {
 				q.Add(n, s)
 			}

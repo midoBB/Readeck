@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-12-05 11:32+0000\n"
-"Last-Translator: SomeTr <SomeTr@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2024-12-06 09:00+0000\n"
+"Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
 "Language: uk\n"
@@ -1189,10 +1189,13 @@ msgid ""
 "  Labels let your organize your bookmarks the way you want.\n"
 "  You can set anything to a label, including emojis!\n"
 msgstr ""
+"\n"
+"  Мітки дадуть вам змогу впорядкувати закладки так, як ви захочете.\n"
+"  До мітки можна додати будь-що, зокрема емодзі!\n"
 
 #: assets/templates/docs/about.jet.html:14
 msgid "Version:"
-msgstr ""
+msgstr "Версія:"
 
 #: assets/templates/docs/about.jet.html:15
 msgid "Built Date:"
@@ -1219,24 +1222,26 @@ msgid "Main website"
 msgstr "Головний вебсайт"
 
 #: assets/templates/docs/about.jet.html:35
+#, fuzzy
 msgid "Sources and issues"
-msgstr ""
+msgstr "Джерела та запити"
 
 #: assets/templates/docs/about.jet.html:36
+#, fuzzy
 msgid "How to contribute"
-msgstr ""
+msgstr "Як долучитися"
 
 #: assets/templates/docs/about.jet.html:37
 msgid "Community Forum"
-msgstr ""
+msgstr "Форум спільноти"
 
 #: assets/templates/docs/about.jet.html:38
 msgid "Matrix Chat"
-msgstr ""
+msgstr "Чат Matrix"
 
 #: assets/templates/docs/about.jet.html:41
 msgid "License"
-msgstr ""
+msgstr "Ліцензія"
 
 #: assets/templates/docs/about.jet.html:43
 #, python-format

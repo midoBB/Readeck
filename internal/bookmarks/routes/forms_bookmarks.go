@@ -434,7 +434,7 @@ func newFilterForm(tr forms.Translator) (f *filterForm) {
 			forms.NewBooleanField("is_loaded"),
 			forms.NewBooleanField("has_errors"),
 			forms.NewBooleanField("has_labels"),
-			forms.NewTextField("labels"),
+			forms.NewTextField("labels", forms.Trim),
 			forms.NewStringListField("read_status", forms.Choices{
 				{filtersReadStatusUnread, tr.Pgettext("status", "Unviewed")},
 				{filtersReadStatusReading, tr.Pgettext("status", "In-Progress")},

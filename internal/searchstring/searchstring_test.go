@@ -29,10 +29,11 @@ func TestParseQuery(t *testing.T) {
 			{Exact: false, Field: "", Value: "multiple"},
 			{Exact: true, Field: "", Value: `unclosed`},
 		}},
-		{`"quoted" "q \"test" "tt\ab"`, []SearchTerm{
+		{`"quoted" "q \"test" "tt\ab" "test]\\"`, []SearchTerm{
 			{Exact: true, Field: "", Value: "quoted"},
 			{Exact: true, Field: "", Value: `q "test`},
 			{Exact: true, Field: "", Value: `tt\ab`},
+			{Exact: true, Field: "", Value: `test]\`},
 		}},
 		{`-test1 test2 -label:"name" label2:-name`, []SearchTerm{
 			{Value: "test1", Exclude: true},

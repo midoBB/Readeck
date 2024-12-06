@@ -116,10 +116,10 @@ func (s scanner) scanQuoted(delim rune) string {
 	ch := s.next()
 	for ch != eof {
 		if ch == '\\' { //nolint:gocritic
-			c := s.next()
-			if c == delim {
+			switch c := s.next(); c {
+			case delim, '\\':
 				b.WriteRune(c)
-			} else {
+			default:
 				b.WriteRune('\\')
 				b.WriteRune(c)
 			}

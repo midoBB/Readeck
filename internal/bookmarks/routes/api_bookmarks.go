@@ -333,7 +333,7 @@ func (api *apiRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 
 	u := api.srv.AbsoluteURL(r, "/api/bookmarks")
 	q := u.Query()
-	q.Add("label", fmt.Sprintf(`"%s"`, label))
+	q.Add("labels", strconv.Quote(label))
 	u.RawQuery = q.Encode()
 
 	api.srv.Render(w, r, http.StatusOK, map[string]interface{}{
@@ -515,7 +515,7 @@ func (api *apiRouter) withLabel(next http.Handler) http.Handler {
 		ctx := context.WithValue(r.Context(), ctxLabelKey{}, label)
 
 		filters := newFilterForm(api.srv.Locale(r))
-		filters.Get("labels").Set(fmt.Sprintf(`"%s"`, label))
+		filters.Get("labels").Set(strconv.Quote(label))
 		ctx = filters.saveContext(ctx)
 
 		next.ServeHTTP(w, r.WithContext(ctx))

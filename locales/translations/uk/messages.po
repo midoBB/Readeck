@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
 "PO-Revision-Date: 2024-12-07 12:07+0000\n"
-"Last-Translator: SomeTr <SomeTr@users.noreply.translate.codeberg.org>\n"
+"Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
 "Language: uk\n"
@@ -1246,51 +1246,53 @@ msgstr "Ліцензія"
 #: assets/templates/docs/about.jet.html:43
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
-msgstr ""
+msgstr "Readeck розповсюджується на умовах ліценції \"%s\""
 
 #: assets/templates/docs/about.jet.html:47
 msgid "Here's a short summary of the license conditions:"
-msgstr ""
+msgstr "Ось короткий огляд ліцензійних умов:"
 
 #: assets/templates/docs/about.jet.html:52
 msgid "Permissions"
-msgstr ""
+msgstr "Дозволи"
 
 #: assets/templates/docs/about.jet.html:53
 msgid "Conditions"
-msgstr ""
+msgstr "Умови"
 
 #: assets/templates/docs/about.jet.html:54
 msgid "Limitations"
-msgstr ""
+msgstr "Обмеження"
 
 #: assets/templates/docs/about.jet.html:62
 msgid "Commercial use"
-msgstr ""
+msgstr "Комерційне використання"
 
 #: assets/templates/docs/about.jet.html:65
 msgid "Distribution"
-msgstr ""
+msgstr "Розповсюдження"
 
 #: assets/templates/docs/about.jet.html:68
+#, fuzzy
 msgid "Modification"
-msgstr ""
+msgstr "Модифікація"
 
 #: assets/templates/docs/about.jet.html:71
 msgid "Patent use"
-msgstr ""
+msgstr "Використання патенту"
 
 #: assets/templates/docs/about.jet.html:74
 msgid "Private use"
-msgstr ""
+msgstr "Приватне використання"
 
 #: assets/templates/docs/about.jet.html:81
+#, fuzzy
 msgid "Disclose source"
-msgstr ""
+msgstr "Оприлюднення коду"
 
 #: assets/templates/docs/about.jet.html:84
 msgid "License and copyright notice"
-msgstr ""
+msgstr "Ліцензія та повідомлення про авторські права"
 
 #: assets/templates/docs/about.jet.html:87
 msgid "Network use is distribution"
@@ -1298,40 +1300,40 @@ msgstr ""
 
 #: assets/templates/docs/about.jet.html:90
 msgid "Same license"
-msgstr ""
+msgstr "Та сама ліцензія"
 
 #: assets/templates/docs/about.jet.html:93
 msgid "State changes"
-msgstr ""
+msgstr "Зміни стану"
 
 #: assets/templates/docs/about.jet.html:100
 msgid "Liability"
-msgstr ""
+msgstr "Відповідальність"
 
 #: assets/templates/docs/about.jet.html:103
 msgid "Warranty"
-msgstr ""
+msgstr "Гарантія"
 
 #: assets/templates/docs/about.jet.html:130
 msgid "Third-Party Licenses"
-msgstr ""
+msgstr "Сторонні ліцензії"
 
 #: assets/templates/docs/about.jet.html:132
 msgid "Readeck includes and/or uses the following open source assets:"
-msgstr ""
+msgstr "Readeck містить та/або використовує такі ресурси з відкритим кодом:"
 
 #: assets/templates/docs/api-docs.jet.html:8
 #: assets/templates/docs/base.jet.html:21
 msgid "API Documentation"
-msgstr ""
+msgstr "Документація API"
 
 #: assets/templates/docs/base.jet.html:9
 msgid "Readeck Help"
-msgstr ""
+msgstr "Допомога Readeck"
 
 #: assets/templates/docs/base.jet.html:28
 msgid "Changelog"
-msgstr ""
+msgstr "Журнал змін"
 
 #: assets/templates/emails/recover.tmpl:8
 #, python-format
@@ -1347,6 +1349,16 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"\n"
+"Привіт,\n"
+"\n"
+"Ви (або хтось інший) ввели цю електронну адресу під час спроби\n"
+"змінити пароль облікового запису Readeck (%s).\n"
+"\n"
+"Якщо ви очікуєте на цей лист, перейдіть за цим посиланням, щоб встановити\n"
+"новий пароль для свого облікового запису Readeck.\n"
+"\n"
+"%s\n"
 
 #: assets/templates/emails/recover.tmpl:21
 #, python-format
@@ -1366,76 +1378,92 @@ msgid ""
 "\n"
 "If you are not a Readeck user, please ignore this message.\n"
 msgstr ""
+"\n"
+"Привіт,\n"
+"\n"
+"Ви (або хтось інший) ввели цю електронну адресу під час спроби\n"
+"змінити пароль облікового запису Readeck (%s).\n"
+"\n"
+"Однак ця електронна адреса не пов'язана з жодним обліковим записом,\n"
+"тому спроба змінити пароль не вдалася.\n"
+"\n"
+"Якщо ви користувач Readeck на %s і ви\n"
+"очікували цей електронний лист, будь ласка, спробуйте ще раз, використовуючи "
+"електронну адресу,\n"
+"яку ви вказали під час створення свого облікового запису.\n"
+"\n"
+"Якщо ви не є користувачем Readeck, будь ласка, проігноруйте це повідомлення."
+"\n"
 
 #: assets/templates/emails/recover.tmpl:38
 msgid "Kind regards"
-msgstr ""
+msgstr "З повагою"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:1
 #: assets/templates/bookmarks/components/sidebar.jet.html:49
 #: assets/templates/epub/bookmark.jet.html:34
 msgid "no site name"
-msgstr ""
+msgstr "немає назви сайту"
 
 #: assets/templates/epub/bookmark.jet.html:44
 #, python-format
 msgid "About %d min read"
-msgstr ""
+msgstr "Приблизно %d хв читання"
 
 #: assets/templates/error.jet.html:8
 msgid "Error"
-msgstr ""
+msgstr "Помилка"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
 #: assets/templates/bookmarks/bookmark.jet.html:26
 #: assets/templates/error.jet.html:12
 msgid "Menu"
-msgstr ""
+msgstr "Меню"
 
 #: assets/templates/_layouts/sidemenu.jet.html:31
 #: assets/templates/bookmarks/bookmark.jet.html:27
 #: assets/templates/error.jet.html:13
 msgid "Main content"
-msgstr ""
+msgstr "Основний вміст"
 
 #: assets/templates/error.jet.html:22
 msgid "Permission denied."
-msgstr ""
+msgstr "У дозволі відмовлено."
 
 #: assets/templates/error.jet.html:24
 msgid "Page not found."
-msgstr ""
+msgstr "Сторінка не знайдена."
 
 #: assets/templates/error.jet.html:26
 msgid "An error occurred."
-msgstr ""
+msgstr "Сталася помилка."
 
 #: assets/templates/menu.jet.html:1
 msgid "Change theme"
-msgstr ""
+msgstr "Змінити тему"
 
 #: assets/templates/menu.jet.html:1 assets/templates/menu.jet.html:48
 msgid "Sign out"
-msgstr ""
+msgstr "Вийти"
 
 #: assets/templates/menu.jet.html:10
 msgid "Open menu"
-msgstr ""
+msgstr "Відкрити меню"
 
 #: assets/templates/menu.jet.html:33
 msgid "Change color theme"
-msgstr ""
+msgstr "Змінити колірну тему"
 
 #: assets/templates/profile/base.jet.html:9
 msgid "Settings"
-msgstr ""
+msgstr "Налаштування"
 
 #: assets/templates/profile/base.jet.html:14 internal/profile/views.go:97
 #: internal/profile/views.go:132 internal/profile/views.go:177
 #: internal/profile/views.go:242 internal/profile/views.go:273
 #: internal/profile/views.go:333
 msgid "Profile"
-msgstr ""
+msgstr "Профіль"
 
 #: assets/templates/profile/base.jet.html:21 internal/profile/views.go:178
 #: internal/profile/views.go:243

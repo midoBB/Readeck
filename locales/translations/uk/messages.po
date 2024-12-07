@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-12-07 12:07+0000\n"
+"PO-Revision-Date: 2024-12-08 16:07+0000\n"
 "Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
@@ -251,11 +251,11 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"  Ваша електронна адреса не обов'язкова і залишиться тільки в цій інсталяції."
-"\n"
-"  Вона ніколи не буде зібрана, перенесена чи продана.\n"
-"  Її буде використано <strong>тільки</strong> у разі вашої потреби "
-"відновлення паролю або для внутрішніх сповіщень.\n"
+"  Ваша електронна адреса не є обов’язковою та залишиться лише в межах цієї "
+"інсталяції.\n"
+"  Вона ніколи не буде зібрана, передана чи продана.\n"
+"  Її буде використано <strong>лише</strong> у разі вашої потреби відновлення "
+"паролю або для внутрішніх сповіщень.\n"
 "  "
 
 #: assets/templates/auth/onboarding.jet.html:47
@@ -271,7 +271,6 @@ msgid "No worries, it happens to anyone."
 msgstr "Без паніки, це з усіма трапляється."
 
 #: assets/templates/auth/recover.jet.html:22
-#, fuzzy
 msgid ""
 "\n"
 "        Please provide the email address you used to create\n"
@@ -280,9 +279,9 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"        Будь ласка, вкажіть електронну адресу яку ви використовували при "
-"створенні\n"
-"        облікового запису і ми надішлемо вам повідомлення з посиланням\n"
+"        Будь ласка, вкажіть електронну адресу, яку ви використовували під "
+"час створення\n"
+"        облікового запису, і ми надішлемо вам повідомлення з посиланням\n"
 "        для відновлення паролю.\n"
 "      "
 
@@ -432,7 +431,6 @@ msgid "Bookmark information"
 msgstr "Інформація про закладку"
 
 #: assets/templates/bookmarks/bookmark.jet.html:12
-#, fuzzy
 msgid "Bookmark loading"
 msgstr "Завантаження закладки"
 
@@ -454,7 +452,6 @@ msgid "Page not found"
 msgstr "Сторінку не знайдено"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:25
-#, fuzzy
 msgid "Page has expired"
 msgstr "Термін дії сторінки закінчився"
 
@@ -546,7 +543,6 @@ msgid "Create a new collection"
 msgstr "Створити нову колекцію"
 
 #: assets/templates/bookmarks/collection_list.jet.html:24
-#, fuzzy
 msgid ""
 "\n"
 "          Collections let you easily organize and export your bookmarks\n"
@@ -557,11 +553,10 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          Колекції дають вам змогу впорядковувати та експортувати ваші "
-"закладки,\n"
+"          Колекції дають вам змогу впорядковувати та експортувати закладки,\n"
 "          зберігаючи вибрані вами пошукові запити.\n"
 "          Коли ви створюєте нову закладку, яка відповідає критеріям\n"
-"          колекції, вона миттєво відображається.\n"
+"          колекції, вона миттєво відображається в ній.\n"
 "          Ось кілька прикладів:\n"
 "        "
 

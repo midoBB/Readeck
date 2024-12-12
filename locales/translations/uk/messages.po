@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-12-08 16:07+0000\n"
+"PO-Revision-Date: 2024-12-13 10:08+0000\n"
 "Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.8.1\n"
+"X-Generator: Weblate 5.8.4\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:30
@@ -1463,20 +1463,20 @@ msgstr "Профіль"
 #: assets/templates/profile/base.jet.html:21 internal/profile/views.go:178
 #: internal/profile/views.go:243
 msgid "Application Passwords"
-msgstr ""
+msgstr "Паролі застосунків"
 
 #: assets/templates/profile/base.jet.html:26 internal/profile/views.go:274
 #: internal/profile/views.go:334
 msgid "API Tokens"
-msgstr ""
+msgstr "Токени API"
 
 #: assets/templates/profile/credential.jet.html:9
 msgid "Application Password"
-msgstr ""
+msgstr "Пароль застосунку"
 
 #: assets/templates/profile/credential.jet.html:19
 msgid "Password will be removed in a few seconds."
-msgstr ""
+msgstr "Пароль буде видалено через кілька секунд."
 
 #: assets/templates/profile/credential.jet.html:27
 msgid ""

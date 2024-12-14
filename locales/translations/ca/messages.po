@@ -8,12 +8,12 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-11-22 19:37+0100\n"
-"PO-Revision-Date: 2024-12-02 15:55+0000\n"
-"Last-Translator: toooobeeee <toooobeeee@users.noreply.translate.codeberg.org>"
-"\n"
-"Language-Team: Danish <https://translate.codeberg.org/projects/readeck/"
-"application/da/>\n"
-"Language: da_DK\n"
+"PO-Revision-Date: 2024-11-28 11:39+0000\n"
+"Last-Translator: enricpineda <enricpineda@users.noreply.translate.codeberg."
+"org>\n"
+"Language-Team: Catalan <https://translate.codeberg.org/projects/readeck/"
+"application/ca/>\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,99 +23,99 @@ msgstr ""
 
 #: assets/templates/_layouts/sidemenu.jet.html:30
 msgid "Secondary Menu"
-msgstr "Sekundær menu"
+msgstr "Menú secundari"
 
 #: assets/templates/_layouts/sidemenu.jet.html:46
 msgid "Close menu"
-msgstr "Luk menu"
+msgstr "Tancar el menú"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Quick access menu"
-msgstr "Hurtig adgang menu"
+msgstr "Menú d'accés ràpid"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Home Page"
-msgstr "Hjemmeside"
+msgstr "Pàgina principal"
 
 #: assets/templates/_libs/forms.jet.html:1
 #: assets/templates/_libs/forms.jet.html:33
 msgid "Required"
-msgstr "Påkrævet"
+msgstr "Requerit"
 
 #: assets/templates/_libs/forms.jet.html:10
 msgid "Errors"
-msgstr "Fejl"
+msgstr "Errors"
 
 #: assets/templates/_libs/forms.jet.html:16
 msgid "Please check your form for errors."
-msgstr "Venligst tjek formularen for fejl."
+msgstr "Si us plau, revisa el formulari."
 
 #: assets/templates/_libs/forms.jet.html:210
 msgid "The previous"
-msgstr "Forrige"
+msgstr "Els darrer"
 
 #: assets/templates/_libs/forms.jet.html:219
 msgid "Day(s)"
-msgstr "Dag(e)"
+msgstr "Dia/es"
 
 #: assets/templates/_libs/forms.jet.html:220
 msgid "Week(s)"
-msgstr "Uge(r)"
+msgstr "Setmana/es"
 
 #: assets/templates/_libs/forms.jet.html:221
 msgid "Month(s)"
-msgstr "Måned(er)"
+msgstr "Mes/os"
 
 #: assets/templates/_libs/forms.jet.html:222
 msgid "Year(s)"
-msgstr "År"
+msgstr "Any/s"
 
 #: assets/templates/_libs/forms.jet.html:225
 msgctxt "word"
 msgid "or"
-msgstr "eller"
+msgstr "o"
 
 #: assets/templates/_libs/forms.jet.html:253
 msgid "Select or drop file"
-msgstr "Vælg eller drop fil"
+msgstr "Selecciona o deixa anar un fitxer"
 
 #: assets/templates/_libs/forms.jet.html:257
 msgid "remove"
-msgstr "fjern"
+msgstr "elimina"
 
 #: assets/templates/_libs/pagination.jet.html:1
 msgid "Go to previous page"
-msgstr "Gå til forrige side"
+msgstr "Ves a la pàgina anterior"
 
 #: assets/templates/_libs/pagination.jet.html:1
 #, python-format
 msgid "Go to page %d"
-msgstr "Gå til side %d"
+msgstr "Ves a la pàgina %d"
 
 #: assets/templates/_libs/pagination.jet.html:1
 msgid "Go to next page"
-msgstr "Gå til næste side"
+msgstr "Ves a la pàgina següent"
 
 #: assets/templates/_libs/pagination.jet.html:10
 msgctxt "page"
 msgid "Previous"
-msgstr "Forrige"
+msgstr "Anterior"
 
 #: assets/templates/_libs/pagination.jet.html:15
 msgctxt "page"
 msgid "Next"
-msgstr "Næste"
+msgstr "Següent"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
 #: assets/templates/profile/base.jet.html:35 internal/admin/views.go:62
 #: internal/admin/views.go:92 internal/admin/views.go:132
 msgid "Users"
-msgstr "Brugere"
+msgstr "Usuaris"
 
 #: assets/templates/admin/user.jet.html:19
 msgid "User will be removed in a few seconds"
-msgstr ""
+msgstr "L'usuari serà eliminat en breus segons"
 
 #: assets/templates/admin/user.jet.html:20
 #: assets/templates/admin/user_list.jet.html:44
@@ -133,7 +133,7 @@ msgstr ""
 #: assets/templates/profile/token.jet.html:20
 #: assets/templates/profile/token_list.jet.html:61
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel·lar"
 
 #: assets/templates/admin/user.jet.html:31
 #: assets/templates/admin/user_create.jet.html:20
@@ -141,19 +141,19 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:41
 #: assets/templates/profile/index.jet.html:20
 msgid "Username"
-msgstr ""
+msgstr "Nom d'usuari"
 
 #: assets/templates/admin/user.jet.html:37
 #: assets/templates/admin/user_create.jet.html:26
 #: assets/templates/auth/onboarding.jet.html:37
 #: assets/templates/auth/recover.jet.html:29
 msgid "Email address"
-msgstr ""
+msgstr "Correu electrònic"
 
 #: assets/templates/admin/user.jet.html:41
 #: assets/templates/admin/user_create.jet.html:31
 msgid "Group"
-msgstr ""
+msgstr "Grup"
 
 #: assets/templates/admin/user.jet.html:46
 #: assets/templates/admin/user_create.jet.html:36
@@ -162,11 +162,11 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:48
 #: assets/templates/profile/base.jet.html:17 internal/profile/views.go:133
 msgid "Password"
-msgstr ""
+msgstr "Contrasenya"
 
 #: assets/templates/admin/user.jet.html:49
 msgid "will not change if empty"
-msgstr ""
+msgstr "no canviarà si està buida"
 
 #: assets/templates/admin/user.jet.html:52
 #: assets/templates/bookmarks/collection.jet.html:77
@@ -176,70 +176,69 @@ msgstr ""
 #: assets/templates/profile/password.jet.html:36
 #: assets/templates/profile/token.jet.html:70
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 #: assets/templates/admin/user.jet.html:55
 msgid "Delete this user"
-msgstr ""
+msgstr "Eliminar l'usuari"
 
 #: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:93
 msgid "New User"
-msgstr ""
+msgstr "Nou usuari"
 
 #: assets/templates/admin/user_create.jet.html:42
 msgid "Create user"
-msgstr ""
+msgstr "Crear usuari"
 
 #: assets/templates/admin/user_list.jet.html:14
 msgid "Add a new user"
-msgstr ""
+msgstr "Afegir un nou usuari"
 
 #: assets/templates/admin/user_list.jet.html:30
 #: assets/templates/profile/credential_list.jet.html:45
 #: assets/templates/profile/token_list.jet.html:47
 #, python-format
 msgid "Created on: %s"
-msgstr ""
+msgstr "Creat el: %s"
 
 #: assets/templates/admin/user_list.jet.html:31
 #, python-format
 msgid "Last update: %s"
-msgstr ""
+msgstr "Darrera actualització: %s"
 
 #: assets/templates/admin/user_list.jet.html:38
 msgid "This user will be removed in a few seconds."
-msgstr ""
+msgstr "Aquest usuari serà eliminat en breus segons."
 
 #: assets/templates/auth/login.jet.html:9
 #: assets/templates/auth/login.jet.html:37
 msgid "Sign in"
-msgstr ""
+msgstr "Entra"
 
 #: assets/templates/auth/login.jet.html:12
 msgid "Sign in to Readeck"
-msgstr ""
+msgstr "Entra a Readeck"
 
 #: assets/templates/auth/login.jet.html:22
 msgid "Username or email address"
-msgstr ""
+msgstr "Nom d'usuari o correu electrònic"
 
 #: assets/templates/auth/login.jet.html:41
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Has oblidat la contrasenya?"
 
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:71
 msgid "Welcome to Readeck!"
-msgstr "Velkommen til Readeck!"
+msgstr "Benvingut a Readeck!"
 
 #: assets/templates/auth/onboarding.jet.html:15
 msgid "We're delighted to have you on board; one more step and you're good to go."
-msgstr ""
-"Vi glæder os til at have dig om bord; kun et lille skridt og du er klar."
+msgstr "Estem encantats de tenir-te a bord; un pas més i ja podràs entrar."
 
 #: assets/templates/auth/onboarding.jet.html:39
 msgid "Please note:"
-msgstr "Venligst bemærk:"
+msgstr "Tingues en compte:"
 
 #: assets/templates/auth/onboarding.jet.html:40
 msgid ""
@@ -251,23 +250,23 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"  Din mailadresse er optional og forlader aldrig denne installation.\n"
-"  Den bliver aldrig samlet, overdraget eller solgt.\n"
-"  Den bliver <strong>kun</strong> brugt, hvis du anmoder om nulstilling af "
-"kodeord, eller til interne notifikationer.\n"
+"  El teu correu és opcional i mai sortirà d'aquesta instal·lació.\n"
+"  Mai el recollirem, transferirem o vendrem.\n"
+"  <strong>Només</strong>  el farem servir, si cal, per recuperar la "
+"contrasenya i per notificacions internes.\n"
 "  "
 
 #: assets/templates/auth/onboarding.jet.html:47
 msgid "Finish installation"
-msgstr "Færdiggør installationen"
+msgstr "Acabar la instal·lació"
 
 #: assets/templates/auth/recover.jet.html:9
 msgid "Password recovery"
-msgstr "Nulstilling af kodeord"
+msgstr "Recuperar la contrasenya"
 
 #: assets/templates/auth/recover.jet.html:21
 msgid "No worries, it happens to anyone."
-msgstr "Ingen bekymring, det kan ske for enhver."
+msgstr "Tranquil, li passa a tothom."
 
 #: assets/templates/auth/recover.jet.html:22
 msgid ""
@@ -278,23 +277,23 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"        Venligst angiv den email adresse du brugte til\n"
-"        oprettelse af din konto, og vi sender en mail med et link\n"
-"        til gendannelse af dit kodeord.\n"
+"        Si us plau, escriu l'adreça de correu que vas fer servir\n"
+"        per crear el teu compte, i t'enviarem un enllaç\n"
+"        per recuperar la contrasenya.\n"
 "      "
 
 #: assets/templates/auth/recover.jet.html:32
 msgid "Send me a recovery link"
-msgstr "Send mig et link til genoprettelse"
+msgstr "Envia'm un enllaç de recuperació"
 
 #: assets/templates/auth/recover.jet.html:33
 #: assets/templates/auth/recover.jet.html:58
 msgid "Cancel and go back to sign in"
-msgstr "Afbryd og tilbage til login"
+msgstr "Cancel·la i torna a l'entrada"
 
 #: assets/templates/auth/recover.jet.html:37
 msgid "Almost there!"
-msgstr "Næsten dér!"
+msgstr "Gairebé hi som!"
 
 #: assets/templates/auth/recover.jet.html:38
 #, python-format
@@ -306,41 +305,41 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"        Vi har sendt en mail til\n"
+"        Hem enviat un correu a\n"
 "        <strong>%s</strong>\n"
-"        med yderligere instrukser.\n"
+"        amb instruccions.\n"
 "      "
 
 #: assets/templates/auth/recover.jet.html:54
 #: assets/templates/profile/password.jet.html:29
 msgid "New password"
-msgstr "Nyt kodeord"
+msgstr "Nova contrasenya"
 
 #: assets/templates/auth/onboarding.jet.html:32
 #: assets/templates/auth/recover.jet.html:56
 #: assets/templates/profile/password.jet.html:32
 msgid "must be at least 8 characters long"
-msgstr "skal være mindst 8 tegn"
+msgstr "ha de tenir un mínim de 8 caràcters"
 
 #: assets/templates/auth/recover.jet.html:57
 msgid "Update your password"
-msgstr "Opdatér dit kodeord"
+msgstr "Actualitza la contrasenya"
 
 #: assets/templates/auth/recover.jet.html:62
 msgid "Your password has been changed."
-msgstr "Dit kodeord er blevet ændret."
+msgstr "La teva contrasenya ha canviat."
 
 #: assets/templates/auth/recover.jet.html:63
 msgid "Go to the sign in page"
-msgstr "Gå til login siden"
+msgstr "Ves a la pàgina d'entrada"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
-msgstr "Bogmærke Highlights"
+msgstr "Destacats dels marcadors"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:17
 msgid "You don't have any highlights yet."
-msgstr "Du har ingen highlights endnu."
+msgstr "Encara no tens cap destacat."
 
 #: assets/templates/bookmarks/annotation_list.jet.html:18
 msgid ""
@@ -351,9 +350,9 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"        Lige så snart du begynder at highlighte dele af dine gemte artikler, "
-"vil de dukke op på denne side\n"
-"        så de er nemt at finde igen.\n"
+"        Quan comencis a destacar parts dels teus articles, apareixeran en "
+"aquesta pàgina\n"
+"        perquè els puguis trobar fàcilment.\n"
 "      "
 
 #: assets/templates/bookmarks/annotation_list.jet.html:23
@@ -362,109 +361,110 @@ msgid ""
 "Read more about highlights in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Læs mere om highlights i <a class=\"%s\" href=\"%s\">dokumentationen</a>."
+"Llegeix més sobre els destacats a la <a class=\"%s\" href=\"%s\""
+">documentació</a>."
 
 #: assets/templates/bookmarks/base.jet.html:9
 #: assets/templates/bookmarks/bookmark.jet.html:15
 msgid "Bookmarks"
-msgstr "Bogmærker"
+msgstr "Marcadors"
 
 #: assets/templates/bookmarks/base.jet.html:24
 #: internal/bookmarks/routes/forms_bookmarks.go:402
 msgid "All"
-msgstr "Alle"
+msgstr "Tot"
 
 #: assets/templates/bookmarks/base.jet.html:26
 msgid "Unread"
-msgstr "Ulæste"
+msgstr "No llegits"
 
 #: assets/templates/bookmarks/base.jet.html:28
 msgid "Archive"
-msgstr "Arkiv"
+msgstr "Arxiu"
 
 #: assets/templates/bookmarks/base.jet.html:30
 msgid "Favorites"
-msgstr "Favoritter"
+msgstr "Favorits"
 
 #: assets/templates/bookmarks/base.jet.html:37
 #: internal/bookmarks/routes/views_bookmarks.go:111
 msgid "Articles"
-msgstr "Artikler"
+msgstr "Articles"
 
 #: assets/templates/bookmarks/base.jet.html:42
 #: internal/bookmarks/routes/views_bookmarks.go:115
 msgid "Videos"
-msgstr "Videoer"
+msgstr "Vídeos"
 
 #: assets/templates/bookmarks/base.jet.html:47
 #: internal/bookmarks/routes/views_bookmarks.go:113
 msgid "Pictures"
-msgstr "Billeder"
+msgstr "Imatges"
 
 #: assets/templates/bookmarks/base.jet.html:56
 #: assets/templates/bookmarks/components/sidebar.jet.html:93
 msgid "Labels"
-msgstr "Labels"
+msgstr "Etiquetes"
 
 #: assets/templates/bookmarks/base.jet.html:58
 #: assets/templates/bookmarks/components/sidebar.jet.html:98
 msgid "Highlights"
-msgstr "Highlights"
+msgstr "Destacats"
 
 #: assets/templates/bookmarks/base.jet.html:60
 #: assets/templates/bookmarks/collection.jet.html:11
 #: assets/templates/bookmarks/collection.jet.html:33
 msgid "Collections"
-msgstr "Samlinger"
+msgstr "Col·leccions"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:63
 msgid "Close panel"
-msgstr "Luk panel"
+msgstr "Tanca el panell"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:94
 msgid "Bookmark information"
-msgstr "Bogmærke information"
+msgstr "Informació del marcador"
 
 #: assets/templates/bookmarks/bookmark.jet.html:12
 msgid "Bookmark loading"
-msgstr ""
+msgstr "Càrrega de marcadors"
 
 #: assets/templates/bookmarks/bookmark.jet.html:42
 msgid "Bookmark is loading"
-msgstr ""
+msgstr "El marcador s'està carregant"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html:9
 #: assets/templates/bookmarks/bookmark_missing.jet.html:14
 msgid "Bookmark not found"
-msgstr "Bogmærke ikke fundet"
+msgstr "Marcador no trobat"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:13
 msgid "Shared link"
-msgstr "Delt link"
+msgstr "Enllaç compartit"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:23
 msgid "Page not found"
-msgstr "Side ikke fundet"
+msgstr "Pàgina no trobada"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:25
 msgid "Page has expired"
-msgstr "Side er udløbet"
+msgstr "La pàgina ha caducat"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:47
 #: assets/templates/bookmarks/components/sidebar.jet.html:53
 #: assets/templates/epub/bookmark.jet.html:37
 #, python-format
 msgid "Published on %s"
-msgstr "Offentliggjort den %s"
+msgstr "Publicat el %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:52
 #: assets/templates/bookmarks/components/sidebar.jet.html:58
 #: assets/templates/epub/bookmark.jet.html:40
 #, python-format
 msgid "By %s"
-msgstr "af %s"
+msgstr "Per %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:60
 #: assets/templates/bookmarks/components/card.jet.html:68
@@ -476,68 +476,68 @@ msgstr "%d min"
 #: assets/templates/bookmarks/bookmark_public.jet.html:65
 #, python-format
 msgid "Shared by %s"
-msgstr "Delt af %s"
+msgstr "Compartit per %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:66
 msgid "with"
-msgstr "med"
+msgstr "amb"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
 msgid "Powered by"
-msgstr ""
+msgstr "Desenvolupat per"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:8
 msgid "Share link"
-msgstr "Del link"
+msgstr "Compartir enllaç"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:19
 #, python-format
 msgid "Share: %s"
-msgstr "Del: %s"
+msgstr "Compartir: %s"
 
 #: assets/templates/bookmarks/collection.jet.html:16
 #, python-format
 msgid "Collection %s"
-msgstr "Samling %s"
+msgstr "Col·lecció %s"
 
 #: assets/templates/bookmarks/collection.jet.html:21
 msgid "Collection will be removed in a few seconds."
-msgstr "Samling vil blive fjernet om få sekunder."
+msgstr "La col·lecció s'eliminarà en breus segons."
 
 #: assets/templates/bookmarks/collection.jet.html:42
 #: assets/templates/bookmarks/collection.jet.html:54
 msgid "Edit"
-msgstr "Redigér"
+msgstr "Editar"
 
 #: assets/templates/bookmarks/collection.jet.html:56
 #: assets/templates/bookmarks/index.jet.html:105
 #: assets/templates/bookmarks/index.jet.html:139
 #: assets/templates/bookmarks/index.jet.html:142
 msgid "Filters"
-msgstr "Filtre"
+msgstr "Filtres"
 
 #: assets/templates/bookmarks/collection.jet.html:67
 #: assets/templates/bookmarks/collection_create.jet.html:23
 #: assets/templates/profile/credential.jet.html:58
 msgid "Name"
-msgstr "Navn"
+msgstr "Nom"
 
 #: assets/templates/bookmarks/collection.jet.html:79
 msgid "Delete collection"
-msgstr "Slet samling"
+msgstr "Esborrar col·lecció"
 
 #: assets/templates/bookmarks/collection_create.jet.html:9
 msgid "New Collection"
-msgstr "Ny samling"
+msgstr "Nova Col·lecció"
 
 #: assets/templates/bookmarks/collection_list.jet.html:9
 #: internal/opds/http.go:74
 msgid "Bookmark Collections"
-msgstr "Bogmærke samlinger"
+msgstr "Col·leccions de marcadors"
 
 #: assets/templates/bookmarks/collection_list.jet.html:15
 msgid "Create a new collection"
-msgstr "Opret ny samling"
+msgstr "Crear una nova col·lecció"
 
 #: assets/templates/bookmarks/collection_list.jet.html:24
 msgid ""
@@ -550,28 +550,28 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          Samlinger gør det let at organisere og eksportere dine bogmærker\n"
-"          ved at gemme søgninger som du selv vælger.\n"
-"          Når du opretter en ny bogmærke som matcher en samlings\n"
-"          kriterier dukker det op med det samme.\n"
-"          Her er nogle eksempler:\n"
+"          Les col·leccions et permeten organitzar i exportar els marcadors\n"
+"          fàcilment guardant cerques escollides per tu.\n"
+"          Quan crees un marcador que coincideix amb el criteri d'una\n"
+"          col·lecció, apareixerà inmediatament.\n"
+"          Heus aquí alguns exemples:\n"
 "        "
 
 #: assets/templates/bookmarks/collection_list.jet.html:33
 msgid "The unread articles (no photos or videos)"
-msgstr "Ulæste artikler (ingen fotos eller videos)"
+msgstr "Articles no llegits (sense fotos ni vídeos)"
 
 #: assets/templates/bookmarks/collection_list.jet.html:34
 msgid "The archived articles from \"wikipedia.org\""
-msgstr "Arkiverede artikler fra \"wikipedia.org\""
+msgstr "El articles arxivats de \"wikipedia.org\""
 
 #: assets/templates/bookmarks/collection_list.jet.html:35
 msgid "The pictures with the label \"cat\""
-msgstr "Billeder med label \"cat\""
+msgstr "Les fotografies amb etiqueta \"gat\""
 
 #: assets/templates/bookmarks/collection_list.jet.html:36
 msgid "The articles that contain \"shelter\" in their title"
-msgstr "Artiklerne som indeholder \"shelter\" i deres titel"
+msgstr "Els articles que contenen el mot \"refugi\" al seu títol"
 
 #: assets/templates/bookmarks/collection_list.jet.html:39
 #, python-format
@@ -579,87 +579,88 @@ msgid ""
 "Read more about collections in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Læs mere om samlinger i <a class=\"%s\" href=\"%s\">dokumentationen</a>."
+"Llegeix més sobre les col·leccions a la <a class=\"%s\" href=\"%s\""
+">documentació</a>."
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
 msgid "Export and Share"
-msgstr "Eksport og del"
+msgstr "Exporta i comparteix"
 
 #: assets/templates/bookmarks/components/actions.jet.html:23
 msgid "Undo"
-msgstr "Fortryd"
+msgstr "Desfer"
 
 #: assets/templates/bookmarks/components/actions.jet.html:48
 #: assets/templates/bookmarks/components/list_actions.jet.html:65
 msgid "Download EPUB"
-msgstr ""
+msgstr "Descarrega EPUB"
 
 #: assets/templates/bookmarks/components/actions.jet.html:50
 msgid "Share by Link"
-msgstr "Del ved link"
+msgstr "Comparteix mitjançant enllaç"
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
 msgid "Saved with Readeck"
-msgstr "Gemt med Readeck"
+msgstr "Gravat amb Readeck"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Remove from archive"
-msgstr "Fjern fra arkiv"
+msgstr "Eliminar de l'arxiu"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Move to archive"
-msgstr "Flyt til arkiv"
+msgstr "Moure a l'arxiu"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
 #: assets/templates/bookmarks/components/card.jet.html:10
 msgid "Remove from favorites"
-msgstr "Fjern fra favoritter"
+msgstr "Eliminar dels favorits"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
 #: assets/templates/bookmarks/components/card.jet.html:10
 msgid "Add to favorites"
-msgstr "Tilføj til favoritter"
+msgstr "Afegir als favorits"
 
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Go to original page"
-msgstr "Gå til original side"
+msgstr "Ves a la pàgina original"
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Delete this bookmark"
-msgstr "Slet bogmærke"
+msgstr "Esborra aquest marcador"
 
 #: assets/templates/bookmarks/components/card.jet.html:33
 msgctxt "bookmark"
 msgid "Loading"
-msgstr ""
+msgstr "Carregant"
 
 #: assets/templates/bookmarks/components/actions.jet.html:14
 #: assets/templates/bookmarks/components/card.jet.html:85
 msgid "This bookmark will be removed in a few seconds."
-msgstr "Denne bogmærke vil blive fjernet om få sekunder."
+msgstr "Aquest marcador s'esborrarà en breus segons."
 
 #: assets/templates/bookmarks/components/content_block.jet.html:44
 msgid "Highlight"
-msgstr ""
+msgstr "Destacar"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:48
 msgid "Remove Highlight(s)"
-msgstr "Fjern highlight(s)"
+msgstr "Treure destacat/s"
 
 #: assets/templates/bookmarks/components/filters.jet.html:9
 msgid "Search"
-msgstr "Søg"
+msgstr "Cercar"
 
 #: assets/templates/bookmarks/components/filters.jet.html:14
 msgid "Title"
-msgstr "Titel"
+msgstr "Títol"
 
 #: assets/templates/bookmarks/components/filters.jet.html:19
 msgid "Author"
@@ -667,92 +668,92 @@ msgstr "Autor"
 
 #: assets/templates/bookmarks/components/filters.jet.html:24
 msgid "Site"
-msgstr "Side"
+msgstr "Lloc web"
 
 #: assets/templates/bookmarks/components/filters.jet.html:34
 msgid "From date"
-msgstr "Fra dato"
+msgstr "Data d'inici"
 
 #: assets/templates/bookmarks/components/filters.jet.html:40
 msgid "To date"
-msgstr "Til dato"
+msgstr "Data final"
 
 #: assets/templates/bookmarks/components/filters.jet.html:45
 msgid "Type"
-msgstr ""
+msgstr "Tipus"
 
 #: assets/templates/bookmarks/components/filters.jet.html:50
 msgid "Is Favorite"
-msgstr "Er favorit"
+msgstr "és Favorit"
 
 #: assets/templates/bookmarks/components/filters.jet.html:56
 msgid "Is Archived"
-msgstr "Er arkiveret"
+msgstr "Està arxivat"
 
 #: assets/templates/bookmarks/components/filters.jet.html:62
 msgid "Is Loaded"
-msgstr ""
+msgstr "Està carregat"
 
 #: assets/templates/bookmarks/components/filters.jet.html:68
 msgid "With Labels"
-msgstr "Med labels"
+msgstr "Amb etiquetes"
 
 #: assets/templates/bookmarks/components/filters.jet.html:74
 msgid "With Errors"
-msgstr "Med fejl"
+msgstr "Amb errors"
 
 #: assets/templates/bookmarks/components/labels.jet.html:1
 msgid "Remove label"
-msgstr "Fjern label"
+msgstr "Eliminar etiqueta"
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:1
 msgid "Add a label"
-msgstr "Tilføj label"
+msgstr "Afegir una etiqueta"
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:35
 msgid "Add label"
-msgstr "Tilføj label"
+msgstr "Afegir etiqueta"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Grid view"
-msgstr "Gitter view"
+msgstr "Vista de quadrícula"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Compact view"
-msgstr "Kompakt view"
+msgstr "Vista compacta"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:9
 msgid "You can share the following link with your friends."
-msgstr "Du kan dele følgende link med dine venner."
+msgstr "Pots compartir l'enllaç següent amb els teus amics."
 
 #: assets/templates/bookmarks/components/public_share.jet.html:10
 #, python-format
 msgid "It expires on %s"
-msgstr "Udløber den %s"
+msgstr ""
 
 #: assets/templates/bookmarks/components/public_share.jet.html:22
 msgid "Copy the link"
-msgstr "Kopier linket"
+msgstr ""
 
 #: assets/templates/bookmarks/components/public_share.jet.html:25
 msgid "Go back to the bookmark"
-msgstr "Gå tilbage til bogmærket"
+msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
-msgstr "Skrifttype"
+msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:53
 msgid "Size"
-msgstr "Størrelse"
+msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:75
 msgid "Line height"
-msgstr "Linje højde"
+msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:96
 msgid "Justify"
-msgstr "Justeret"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:52
 #: assets/templates/bookmarks/components/filters.jet.html:58
@@ -762,7 +763,7 @@ msgstr "Justeret"
 #: assets/templates/bookmarks/components/reader_control.jet.html:107
 #: assets/templates/bookmarks/components/reader_control.jet.html:131
 msgid "yes"
-msgstr "ja"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:52
 #: assets/templates/bookmarks/components/filters.jet.html:58
@@ -772,19 +773,19 @@ msgstr "ja"
 #: assets/templates/bookmarks/components/reader_control.jet.html:107
 #: assets/templates/bookmarks/components/reader_control.jet.html:131
 msgid "no"
-msgstr "nej"
+msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:120
 msgid "Hyphenation"
-msgstr "Orddeling"
+msgstr ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:13
 msgid "Errors occurred during extraction."
-msgstr "Der opstod fejl under udtrækkelsen."
+msgstr ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:101
 msgid "Start selecting text in the article to create a new highlight."
-msgstr "Start med at vælge tekst for at oprette en ny highlight."
+msgstr ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:133
 msgid "Links"
@@ -792,7 +793,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:9
 msgid "Import your Browser's Bookmarks"
-msgstr "Importér dine browser's bogmærker"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:15
 msgid ""
@@ -802,32 +803,26 @@ msgid ""
 "    every bookmark found it the file.\n"
 "  "
 msgstr ""
-"\n"
-"    Eksportér bogmærkerne fra din browser som en HTML fil.<br>\n"
-"    Upload denne fil ved at bruge nedenstående formular og Readeck opretter "
-"og henter\n"
-"    hver en bogmærke som findes i filen.\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:22
 msgid "Instructions for Firefox"
-msgstr "Instruktioner til Firefox"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:23
 msgid "Instructions for Chrome"
-msgstr "Instruktioner til Chrome"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:42
 msgid "Convert section titles to labels"
-msgstr "Konvertér afsnitternes titler til labels"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:44
 msgid "Adds a label on links, based on their section title"
-msgstr "Tilføjer label til links, baseret på deres afsnits titel"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
 msgid "Import Links from a GoodLinks export file"
-msgstr "Importér links fra en GoodLinks eksport fil"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:15
 msgid ""
@@ -835,14 +830,11 @@ msgid ""
 "    Upload a JSON file obtained from your GoodLinks app.\n"
 "  "
 msgstr ""
-"\n"
-"    Upload en JSON fil fra din GoodLinks app.\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:43
 msgid "Import your Omnivore Articles"
-msgstr "Importér dine Omnivore artikler"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:15
 msgid ""
@@ -852,11 +844,6 @@ msgid ""
 "    Omnivore's settings and enter it in the the form below.\n"
 "  "
 msgstr ""
-"\n"
-"    For at importere dine Omnivore artikler skal du først oprette en API "
-"nøgle i dine\n"
-"    Omnivore indstillinger og sætte den ind i formularen nedenunder.\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:28
 msgid "Omnivore URL"
@@ -864,16 +851,16 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:30
 msgid "URL of your Omnivore homepage"
-msgstr "URL af din Omnivore homepage"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:36
 msgid "API Key"
-msgstr "API nøgle"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:46
 msgid "Import your Pocket Articles"
-msgstr "Importér dine Pocket artikler"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
 #, python-format
@@ -883,10 +870,6 @@ msgid ""
 "    <a class=\"%s\" href=\"%s\">%s</a>.\n"
 "  "
 msgstr ""
-"\n"
-"    Du kan eksportere dine artikler fra Pocket ved at besøge:<br>\n"
-"    <a class=\"%s\" href=\"%s\">%s</a>.\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:21
 msgid ""
@@ -895,10 +878,6 @@ msgid ""
 "    every link found it the file.\n"
 "  "
 msgstr ""
-"\n"
-"    Upload denne fil i nedenstående formular og Readeck vil hente og gemme\n"
-"    hver et link som findes i filen.\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:27
 msgid ""
@@ -910,20 +889,13 @@ msgid ""
 "    see in Pocket.\n"
 "  "
 msgstr ""
-"\n"
-"    Venligst vær opmærksom på, at Pocket ikke tillader eksport af artiklens "
-"indhold.  \n"
-"    Dette kunne medføre forskellige resultater i Readeck end hvad du ser i "
-"Pocket\n"
-"    i øjeblikket.\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:34
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:27
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:42
 #: assets/templates/bookmarks/import/form-text.jet.html:28
 msgid "File"
-msgstr "Fil"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:48
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
@@ -932,12 +904,12 @@ msgstr "Fil"
 #: assets/templates/bookmarks/import/form-text.jet.html:35
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:69
 msgid "Import Bookmarks"
-msgstr "Importer bogmærker"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32
 msgid "Import Links from a Text File"
-msgstr "Importer links fra en tekst fil"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-text.jet.html:15
 msgid ""
@@ -947,15 +919,11 @@ msgid ""
 "    all of them and save them in your bookmark list.\n"
 "  "
 msgstr ""
-"\n"
-"    Upload en tekst fil med ét link per linje og Readeck henter dem alle\n"
-"    og gemmer dem i din bogmærke liste.\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:49
 msgid "Import your Wallabag Articles"
-msgstr "Importér dine Wallabag artikler"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:15
 msgid ""
@@ -967,13 +935,6 @@ msgid ""
 "    a <strong>Client ID</strong> and <strong>Client secret</strong>.\n"
 "  "
 msgstr ""
-"\n"
-"    For at importere dine artikler fra Wallabag skal du først oprette en API "
-"klient\n"
-"    i Wallabags <strong>API clients management</strong> menu. Dette vil "
-"resultere \n"
-"    i en  <strong>Client ID</strong> og en <strong>Client secret</strong>.\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:21
 msgid ""
@@ -981,10 +942,6 @@ msgid ""
 "    You can then enter all the necessary information in the form below.\n"
 "  "
 msgstr ""
-"\n"
-"    Derefter kan du indtaste al nødvendig information i nedenstående "
-"formular.\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:33
 msgid "Wallabag URL"
@@ -992,7 +949,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:35
 msgid "URL of your Wallabag homepage"
-msgstr "URL af din Wallabag homepage"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:55
 msgid "Client ID"
@@ -1004,7 +961,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/index.jet.html:9
 msgid "Import your Bookmarks"
-msgstr "Importér dine bogmærker"
+msgstr ""
 
 #: assets/templates/bookmarks/import/index.jet.html:25
 msgid ""
@@ -1013,46 +970,42 @@ msgid ""
 "sources into Readeck.\n"
 "  "
 msgstr ""
-"\n"
-"    Her kan du importere din bogmærkesamling fra forskellige kilder ind i "
-"Readeck.\n"
-"  "
 
 #: assets/templates/bookmarks/import/index.jet.html:36
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
-msgstr "Importér din browsers bogmærker, Pinboard, Instapaper"
+msgstr ""
 
 #: assets/templates/bookmarks/import/index.jet.html:40
 msgid "Import your GoodLinks Articles"
-msgstr "Importér dine GoodLinks artikler"
+msgstr ""
 
 #: assets/templates/bookmarks/import/options.jet.html:7
 msgid "Options"
-msgstr "Optioner"
+msgstr ""
 
 #: assets/templates/bookmarks/import/options.jet.html:12
 msgid "A label to add to all imported bookmarks"
-msgstr "Label som skal tilføjes alle importerede bogmærker"
+msgstr ""
 
 #: assets/templates/bookmarks/import/options.jet.html:16
 msgid "Ignore links already in your bookmarks"
-msgstr "Ignorér links som allerede findes i dine bogmærker"
+msgstr ""
 
 #: assets/templates/bookmarks/import/progress.jet.html:15
 msgid "Import operation will launch momentarily."
-msgstr "Import starter om et øjeblik."
+msgstr ""
 
 #: assets/templates/bookmarks/import/progress.jet.html:17
 msgid "Import operation has started!"
-msgstr "Import er started!"
+msgstr ""
 
 #: assets/templates/bookmarks/import/progress.jet.html:21
 msgid "You can keep using Readeck while the import is running."
-msgstr "Du kan fortsætte med at bruge Readeck imens importen kører."
+msgstr ""
 
 #: assets/templates/bookmarks/import/progress.jet.html:24
 msgid "Import is finished!"
-msgstr "Import er færdig!"
+msgstr ""
 
 #: assets/templates/bookmarks/import/progress.jet.html:25
 #, python-format
@@ -1062,19 +1015,15 @@ msgid ""
 "href=\"%s\">bookmark list</a>.\n"
 "      "
 msgstr ""
-"\n"
-"      Dine bogmærker findes nu i din <a class=\"%s\" href=\"%s\">bogmærke "
-"liste</a>.\n"
-"      "
 
 #: assets/templates/bookmarks/index.jet.html:27
 msgid "Save a new link"
-msgstr "Gem et nyt link"
+msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:40
 msgctxt "button"
 msgid "Save link"
-msgstr "Gem link"
+msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:49
 #, python-format
@@ -1082,16 +1031,12 @@ msgid ""
 "\"%s\" is not a valid address. Did you mean to search your bookmarks for "
 "%s?"
 msgstr ""
-"\"%s\" er ikke en gyldig adresse. Var det meningen, at du ville søge %s i "
-"dine bogmærker?"
 
 #: assets/templates/bookmarks/index.jet.html:73
 msgid ""
 "You don't have any bookmarks yet.<br> Copy a link in the field above and "
 "start saving."
 msgstr ""
-"Du har ingen bogmærker endnu.<br> Sæt et link ind i feltet ovenover og "
-"begynd med at gemme dem."
 
 #: assets/templates/bookmarks/index.jet.html:75
 #, python-format
@@ -1099,7 +1044,6 @@ msgid ""
 "Read more about bookmarks in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Læs mere om bogmærker i <a class=\"%s\" href=\"%s\">dokumentationen</a>."
 
 #: assets/templates/bookmarks/index.jet.html:81
 msgid ""
@@ -1109,43 +1053,38 @@ msgid ""
 "          Try Readeck's import tool.\n"
 "        "
 msgstr ""
-"\n"
-"          Vil du prøve at importere fra en lignende service eller fra en fil "
-"med eksisterende bogmærker?\n"
-"          Prøv Readecks import værktøj.\n"
-"        "
 
 #: assets/templates/bookmarks/index.jet.html:88
 msgid "Import links and articles"
-msgstr "Importér links og artikler"
+msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:113
 msgid "Import bookmarks"
-msgstr "Importér bogmærker"
+msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:122
 msgid "Your search query yielded <strong>no results</strong>."
-msgstr "Din forespørgsel førte <strong>ikke nogen resultater</strong> med sig."
+msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:124
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
-msgstr[0] "Din forespørgsel fandt <strong>%d resultat</strong>."
-msgstr[1] "Din forespørgsel fandt <strong>%d resultater</strong>."
+msgstr[0] ""
+msgstr[1] ""
 
 #: assets/templates/bookmarks/index.jet.html:155
 msgctxt "action"
 msgid "Search"
-msgstr "Søg"
+msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:157
 msgid "Reset search"
-msgstr "Reset søgning"
+msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:160
 msgid "Create a collection"
-msgstr "Opret en samling"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:29
 #: assets/templates/bookmarks/import/options.jet.html:10
@@ -1155,15 +1094,15 @@ msgstr ""
 
 #: assets/templates/bookmarks/label.jet.html:37
 msgid "Delete"
-msgstr "Slet"
+msgstr ""
 
 #: assets/templates/bookmarks/label.jet.html:50
 msgid "Label will be removed in a few seconds."
-msgstr "Label vil blive slettet om få sekunder."
+msgstr ""
 
 #: assets/templates/bookmarks/labels.jet.html:8
 msgid "Bookmark Labels"
-msgstr "Bogmærke labels"
+msgstr ""
 
 #: assets/templates/bookmarks/labels.jet.html:14
 msgid ""
@@ -1171,9 +1110,6 @@ msgid ""
 "  Labels let your organize your bookmarks the way you want.\n"
 "  You can set anything to a label, including emojis!\n"
 msgstr ""
-"\n"
-"  Labels hjælper med at arrangere dine bogmærker som du vil have det.\n"
-"  Du kan bruge hvad som helst som label, selv emojis!\n"
 
 #: assets/templates/docs/about.jet.html:14
 msgid "Version:"
@@ -1192,12 +1128,10 @@ msgid ""
 "Here are your current system information. Please include them if you "
 "report a bug."
 msgstr ""
-"Her er din aktuelle system information. Venligst inkludér dem, hvis du "
-"skulle rapportere en programfejl."
 
 #: assets/templates/docs/about.jet.html:31
 msgid "Project"
-msgstr "Projekt"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:34
 msgid "Main website"

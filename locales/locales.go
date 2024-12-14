@@ -32,7 +32,10 @@ var (
 // disabledTranslations contains translation that are disabled
 // for some reasons (incomplete, faulty, etc.)
 var disabledTranslations = map[string]struct{}{
+	"ca-ES": {},
 	"da-DK": {},
+	"tr-TR": {},
+	"uk-UA": {},
 }
 
 // Locale combines a gotext.Translator instance for a given language

@@ -139,12 +139,6 @@ func TestPicture(t *testing.T) {
 		require.Error(t, err)
 	})
 
-	t.Run("Load error", func(t *testing.T) {
-		p, _ := NewPicture("/img", base)
-		err := p.Load(nil, 0, "")
-		require.Error(t, err)
-	})
-
 	t.Run("Load", func(t *testing.T) {
 		assert := require.New(t)
 		p, _ := NewPicture("/img", base)

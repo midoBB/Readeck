@@ -82,7 +82,7 @@ func (p *Picture) Load(client *http.Client, size uint, toFormat string) error {
 	}
 	defer ri.Close() //nolint:errcheck
 
-	err = img.Pipeline(ri, pClean, pComp, pQual, pFit(size), pFormat(toFormat))
+	err = img.Pipeline(ri, pClean, pComp, pQual, pFit(size, 0), pFormat(toFormat))
 	if err != nil {
 		return err
 	}
@@ -109,7 +109,7 @@ func (p *Picture) Copy(size uint, toFormat string) (*Picture, error) {
 	defer ri.Close() //nolint:errcheck
 
 	res := &Picture{Href: p.Href}
-	err = img.Pipeline(ri, pClean, pComp, pQual, pFit(size), pFormat(toFormat))
+	err = img.Pipeline(ri, pClean, pComp, pQual, pFit(size, 0), pFormat(toFormat))
 	if err != nil {
 		return nil, err
 	}
@@ -153,9 +153,9 @@ func pFormat(f string) img.ImageFilter {
 	}
 }
 
-func pFit(s uint) img.ImageFilter {
+func pFit(w, h uint) img.ImageFilter {
 	return func(im img.Image) error {
-		return img.Fit(im, s, s)
+		return img.Fit(im, w, h)
 	}
 }
 

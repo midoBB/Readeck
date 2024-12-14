@@ -39,6 +39,9 @@ func TestImageFit(t *testing.T) {
 		size     [2]int
 		expected [2]int
 	}{
+		{[2]int{0, 0}, [2]int{200, 100}},
+		{[2]int{150, 0}, [2]int{150, 75}},
+		{[2]int{0, 75}, [2]int{150, 75}},
 		{[2]int{100, 100}, [2]int{100, 50}},
 		{[2]int{300, 300}, [2]int{200, 100}},
 		{[2]int{50, 100}, [2]int{50, 25}},

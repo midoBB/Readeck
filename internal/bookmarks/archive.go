@@ -184,7 +184,7 @@ func imageProcessor(ctx context.Context, arc *archiver.Archiver, input io.Reader
 		func(im img.Image) error { return im.Clean() },
 		func(im img.Image) error { return im.SetQuality(75) },
 		func(im img.Image) error { return im.SetCompression(img.CompressionBest) },
-		func(im img.Image) error { return img.Fit(im, 1280, 1920) },
+		func(im img.Image) error { return img.Fit(im, 1280, 0) },
 	)
 	if err != nil {
 		arc.SendEvent(ctx, &archiver.EventError{Err: err, URI: uri.String()})

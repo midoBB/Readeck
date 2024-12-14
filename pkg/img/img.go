@@ -107,24 +107,38 @@ func Pipeline(im Image, filters ...ImageFilter) error {
 // Fit resizes the image keeping the aspect ratio and staying within
 // the given width and height.
 func Fit(im Image, w, h uint) error {
-	ow := im.Width()
-	oh := im.Height()
-
-	if w > ow && h > oh {
+	if w == 0 && h == 0 {
 		return nil
 	}
 
-	srcAspectRatio := float64(ow) / float64(oh)
-	maxAspectRatio := float64(w) / float64(h)
+	// original dimension
+	ow := float64(im.Width())
+	oh := float64(im.Height())
+	aspectRatio := ow / oh
 
-	var nw, nh uint
-	if srcAspectRatio > maxAspectRatio {
-		nw = w
-		nh = uint(float64(nw) / srcAspectRatio)
-	} else {
-		nh = h
-		nw = uint(float64(nh) * srcAspectRatio)
+	// target dimension
+	tw := float64(w)
+	th := float64(h)
+
+	// if width or height is zero, adjust it based on the other dimension
+	// and aspect ratio.
+	if w == 0 {
+		tw = th * aspectRatio
+	}
+	if h == 0 {
+		th = tw / aspectRatio
 	}
 
-	return im.Resize(nw, nh)
+	// When the target ens up being bigger, don't resize it.
+	if tw > ow && th > oh {
+		return nil
+	}
+
+	if aspectRatio > tw/th {
+		th = tw / aspectRatio
+	} else {
+		tw = th * aspectRatio
+	}
+
+	return im.Resize(uint(tw), uint(th))
 }

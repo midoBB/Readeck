@@ -306,7 +306,7 @@
     }
 
     &--deleted {
-      @apply p-2;
+      @apply p-2 place-self-end;
     }
 
     // Hover and focus on the card

@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   <div class="mainmenu">
     <menu class="grow">
       {{- if  hasPermission("bookmarks", "read") -}}
-      {{ yield mainMenuItem(name="Bookmarks", path="/bookmarks/unread", icon="o-library",
+      {{ yield mainMenuItem(name=gettext("Bookmarks"), path="/bookmarks/unread", icon="o-library",
                             current=pathIs(`/bookmarks`, `/bookmarks/*`)) }}
       {{- end -}}
     </menu>
@@ -37,10 +37,10 @@ SPDX-License-Identifier: AGPL-3.0-only
         </button>
       </li>
       {{- if  hasPermission("profile", "read") -}}
-        {{ yield mainMenuItem(name="Settings", path="/profile", icon="o-settings",
+        {{ yield mainMenuItem(name=gettext("Settings"), path="/profile", icon="o-settings",
                               current=pathIs(`/admin`, `/admin/*`, `/profile`, `/profile/*`)) }}
       {{- end -}}
-      {{ yield mainMenuItem(name="Documentation", path="/docs/", icon="o-help",
+      {{ yield mainMenuItem(name=gettext("Documentation"), path="/docs/", icon="o-help",
                             current=pathIs(`/docs/*`)) }}
       <li>
         <form action="{{ urlFor(`/logout`)}}" method="post">

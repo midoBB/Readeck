@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-11-22 19:37+0100\n"
+"POT-Creation-Date: 2024-12-14 08:47+0000\n"
 "PO-Revision-Date: 2024-11-22 18:25+0000\n"
 "Last-Translator: Anonymous "
 "<anonymous@users.noreply.translate.codeberg.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.15.0\n"
+"Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
 #: assets/templates/bookmarks/bookmark.jet.html assets/templates/error.jet.html
@@ -368,12 +368,11 @@ msgstr ""
 "class=\"%s\" href=\"%s\">documentación</a>."
 
 #: assets/templates/bookmarks/base.jet.html
-#: assets/templates/bookmarks/bookmark.jet.html
+#: assets/templates/bookmarks/bookmark.jet.html assets/templates/menu.jet.html
 msgid "Bookmarks"
 msgstr "Marcadores"
 
 #: assets/templates/bookmarks/base.jet.html
-#: internal/bookmarks/routes/forms_bookmarks.go
 msgid "All"
 msgstr "Todo"
 
@@ -513,7 +512,8 @@ msgid "Filters"
 msgstr ""
 
 #: assets/templates/bookmarks/collection.jet.html
-#: assets/templates/bookmarks/index.jet.html docs/http.go
+#: assets/templates/bookmarks/index.jet.html assets/templates/menu.jet.html
+#: docs/http.go
 msgid "Documentation"
 msgstr "Documentación"
 
@@ -592,6 +592,14 @@ msgstr "Exportar y compartir"
 #: assets/templates/bookmarks/components/card.jet.html
 msgid "Delete this bookmark"
 msgstr "Eliminar este marcador"
+
+#: assets/templates/bookmarks/components/actions.jet.html
+msgid "Mark as unread"
+msgstr ""
+
+#: assets/templates/bookmarks/components/actions.jet.html
+msgid "Mark as read"
+msgstr ""
 
 #: assets/templates/bookmarks/components/actions.jet.html
 #: assets/templates/bookmarks/components/bottom_actions.jet.html
@@ -689,6 +697,11 @@ msgstr "A Fecha"
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "Type"
 msgstr "Tipo"
+
+#: assets/templates/bookmarks/components/filters.jet.html
+msgctxt "filter"
+msgid "Progress"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Favorite"
@@ -1415,7 +1428,7 @@ msgstr "Abrir menú"
 msgid "Change color theme"
 msgstr "Cambiar el tema de color"
 
-#: assets/templates/profile/base.jet.html
+#: assets/templates/menu.jet.html assets/templates/profile/base.jet.html
 msgid "Settings"
 msgstr "Ajustes"
 
@@ -1716,6 +1729,21 @@ msgstr "Foto"
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgid "Video"
 msgstr "Video"
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "status"
+msgid "Unviewed"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "status"
+msgid "In-Progress"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go
+msgctxt "status"
+msgid "Completed"
+msgstr ""
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"

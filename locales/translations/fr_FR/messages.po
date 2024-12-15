@@ -7,15 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-12-15 12:59+0000\n"
-"PO-Revision-Date: 2024-12-14 09:51+0100\n"
+"PO-Revision-Date: 2024-12-15 13:03+0000\n"
 "Last-Translator: olivier <olivier@users.noreply.translate.codeberg.org>\n"
+"Language-Team: French <https://translate.codeberg.org/projects/readeck/"
+"application/fr/>\n"
 "Language: fr_FR\n"
-"Language-Team: French "
-"<https://translate.codeberg.org/projects/readeck/application/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.8.4\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -1680,7 +1681,7 @@ msgstr "Signets de navigateur"
 
 #: internal/bookmarks/importer/browser.go
 msgid "Unable to read HTML content"
-msgstr ""
+msgstr "Impossible d'extraire le contenu HTML"
 
 #: internal/bookmarks/importer/browser.go
 #: internal/bookmarks/importer/goodlinks.go
@@ -1703,7 +1704,7 @@ msgstr "Format d'envoi invalide"
 
 #: internal/bookmarks/importer/pocket_file.go
 msgid "Unable to open zip file"
-msgstr ""
+msgstr "Impossible d'ouvrir le fichier zip"
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
@@ -1875,7 +1876,7 @@ msgstr "Votre mot de passe a été modifié."
 
 #: internal/profile/views.go
 msgid "Error: you cannot create more credentials."
-msgstr ""
+msgstr "Erreur : vous ne pouvez plus créer de nouveau mot de passe."
 
 #: internal/profile/views.go
 msgid "An error occurred while creating your password."
@@ -2161,4 +2162,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Error: you can not create more credentials."
 #~ msgstr "Erreur : vous ne pouvez plus créer de nouveau mot de passe."
-

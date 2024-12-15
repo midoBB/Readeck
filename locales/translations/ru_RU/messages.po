@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-12-14 08:47+0000\n"
+"POT-Creation-Date: 2024-12-15 12:59+0000\n"
 "PO-Revision-Date: 2024-11-28 11:39+0000\n"
 "Last-Translator: liilliil <liilliil@users.noreply.translate.codeberg.org>"
 "\n"
@@ -1661,8 +1661,8 @@ msgid "Browser Bookmarks"
 msgstr "Закладки браузера"
 
 #: internal/bookmarks/importer/browser.go
-msgid "Unabled to read HTML content"
-msgstr "Не удалось прочесть HTML содержимое"
+msgid "Unable to read HTML content"
+msgstr ""
 
 #: internal/bookmarks/importer/browser.go
 #: internal/bookmarks/importer/goodlinks.go
@@ -1684,8 +1684,8 @@ msgid "Invalid upload format"
 msgstr "Загружен неверный формат"
 
 #: internal/bookmarks/importer/pocket_file.go
-msgid "Unabled to open zip file"
-msgstr "Zip-файл не открывается"
+msgid "Unable to open zip file"
+msgstr ""
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
@@ -1856,8 +1856,8 @@ msgid "Your password was changed."
 msgstr "Ваш пароль изменён."
 
 #: internal/profile/views.go
-msgid "Error: you can not create more credentials."
-msgstr "Ошибка: Вам нельзя создать дополнительные учетные данные."
+msgid "Error: you cannot create more credentials."
+msgstr ""
 
 #: internal/profile/views.go
 msgid "An error occurred while creating your password."
@@ -2134,4 +2134,13 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Filters documentation"
 #~ msgstr "Документация по фильтрам"
+
+#~ msgid "Unabled to read HTML content"
+#~ msgstr "Не удалось прочесть HTML содержимое"
+
+#~ msgid "Unabled to open zip file"
+#~ msgstr "Zip-файл не открывается"
+
+#~ msgid "Error: you can not create more credentials."
+#~ msgstr "Ошибка: Вам нельзя создать дополнительные учетные данные."
 

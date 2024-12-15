@@ -236,7 +236,7 @@ func TestFileAdapters(t *testing.T) {
 			},
 			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
 				require.False(f.IsValid())
-				require.Equal("Unabled to open zip file", f.Get("data").Errors.Error())
+				require.Equal("Unable to open zip file", f.Get("data").Errors.Error())
 			},
 		},
 		{

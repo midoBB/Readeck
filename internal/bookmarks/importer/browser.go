@@ -66,7 +66,7 @@ func (adapter *browserAdapter) Params(form forms.Binder) ([]byte, error) {
 
 	root, err := html.Parse(reader)
 	if err != nil {
-		form.AddErrors("data", forms.Gettext("Unabled to read HTML content"), err)
+		form.AddErrors("data", forms.Gettext("Unable to read HTML content"), err)
 		return nil, nil
 	}
 

@@ -186,7 +186,7 @@ func (v *profileViews) credentialCreate(w http.ResponseWriter, r *http.Request) 
 	tr := v.srv.Locale(r)
 	cl := r.Context().Value(ctxCredentialListKey{}).(credentialList)
 	if cl.Pagination.TotalCount >= maxCredentials {
-		v.srv.AddFlash(w, r, "error", tr.Gettext("Error: you can not create more credentials."))
+		v.srv.AddFlash(w, r, "error", tr.Gettext("Error: you cannot create more credentials."))
 		v.srv.Redirect(w, r)
 		return
 	}

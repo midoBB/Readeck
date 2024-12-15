@@ -71,7 +71,7 @@ func (adapter *pocketFileAdapter) Params(form forms.Binder) ([]byte, error) {
 
 	zr, err := zip.NewReader(reader.(io.ReaderAt), header.Size)
 	if err != nil {
-		form.AddErrors("data", forms.Gettext("Unabled to open zip file"))
+		form.AddErrors("data", forms.Gettext("Unable to open zip file"))
 		return nil, nil
 	}
 

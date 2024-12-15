@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-12-14 08:47+0000\n"
+"POT-Creation-Date: 2024-12-15 12:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -1524,7 +1524,7 @@ msgid "Browser Bookmarks"
 msgstr ""
 
 #: internal/bookmarks/importer/browser.go
-msgid "Unabled to read HTML content"
+msgid "Unable to read HTML content"
 msgstr ""
 
 #: internal/bookmarks/importer/browser.go
@@ -1547,7 +1547,7 @@ msgid "Invalid upload format"
 msgstr ""
 
 #: internal/bookmarks/importer/pocket_file.go
-msgid "Unabled to open zip file"
+msgid "Unable to open zip file"
 msgstr ""
 
 #: internal/bookmarks/importer/text.go
@@ -1719,7 +1719,7 @@ msgid "Your password was changed."
 msgstr ""
 
 #: internal/profile/views.go
-msgid "Error: you can not create more credentials."
+msgid "Error: you cannot create more credentials."
 msgstr ""
 
 #: internal/profile/views.go
@@ -1996,5 +1996,14 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Filters documentation"
+#~ msgstr ""
+
+#~ msgid "Unabled to read HTML content"
+#~ msgstr ""
+
+#~ msgid "Unabled to open zip file"
+#~ msgstr ""
+
+#~ msgid "Error: you can not create more credentials."
 #~ msgstr ""
 

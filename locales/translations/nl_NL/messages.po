@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-12-14 08:47+0000\n"
+"POT-Creation-Date: 2024-12-15 12:59+0000\n"
 "PO-Revision-Date: 2024-11-23 20:07+0000\n"
 "Last-Translator: Vistaus <Vistaus@users.noreply.translate.codeberg.org>\n"
 "Language: nl_NL\n"
@@ -1672,8 +1672,8 @@ msgid "Browser Bookmarks"
 msgstr "Browserbladwijzers"
 
 #: internal/bookmarks/importer/browser.go
-msgid "Unabled to read HTML content"
-msgstr "De html-inhoud kan niet worden uitgelezen"
+msgid "Unable to read HTML content"
+msgstr ""
 
 #: internal/bookmarks/importer/browser.go
 #: internal/bookmarks/importer/goodlinks.go
@@ -1695,8 +1695,8 @@ msgid "Invalid upload format"
 msgstr "Het bestandsformaat is ongeldig"
 
 #: internal/bookmarks/importer/pocket_file.go
-msgid "Unabled to open zip file"
-msgstr "Het zipbestand kan niet worden geopend"
+msgid "Unable to open zip file"
+msgstr ""
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
@@ -1867,8 +1867,8 @@ msgid "Your password was changed."
 msgstr "Het wachtwoord is gewijzigd."
 
 #: internal/profile/views.go
-msgid "Error: you can not create more credentials."
-msgstr "Foutmelding: je kunt geen inloggegevens meer aanmaken."
+msgid "Error: you cannot create more credentials."
+msgstr ""
 
 #: internal/profile/views.go
 msgid "An error occurred while creating your password."
@@ -2142,4 +2142,13 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Filters documentation"
 #~ msgstr "Filterdocumentatie"
+
+#~ msgid "Unabled to read HTML content"
+#~ msgstr "De html-inhoud kan niet worden uitgelezen"
+
+#~ msgid "Unabled to open zip file"
+#~ msgstr "Het zipbestand kan niet worden geopend"
+
+#~ msgid "Error: you can not create more credentials."
+#~ msgstr "Foutmelding: je kunt geen inloggegevens meer aanmaken."
 

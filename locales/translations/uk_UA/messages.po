@@ -10,8 +10,8 @@ msgstr ""
 "PO-Revision-Date: 2024-12-13 10:08+0000\n"
 "Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
 "Language: uk\n"
-"Language-Team: Ukrainian "
-"<https://translate.codeberg.org/projects/readeck/application/uk/>\n"
+"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
+"application/uk/>\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
@@ -238,7 +238,8 @@ msgid "Welcome to Readeck!"
 msgstr "Вітаємо в Readeck!"
 
 #: assets/templates/auth/onboarding.jet.html
-msgid "We're delighted to have you on board; one more step and you're good to go."
+msgid ""
+"We're delighted to have you on board; one more step and you're good to go."
 msgstr "Ми раді бачити вас на борту; ще один крок і все готово."
 
 #: assets/templates/auth/onboarding.jet.html
@@ -257,16 +258,16 @@ msgid ""
 "\n"
 "  Your email address is optional and will never leave this installation.\n"
 "  It will never be collected, transferred or sold.\n"
-"  It will <strong>only</strong> be used, should you need it, for password"
-" recovery and internal notifications.\n"
+"  It will <strong>only</strong> be used, should you need it, for password "
+"recovery and internal notifications.\n"
 "  "
 msgstr ""
 "\n"
-"  Ваша електронна адреса не є обов’язковою та залишиться лише в межах "
-"цієї інсталяції.\n"
+"  Ваша електронна адреса не є обов’язковою та залишиться лише в межах цієї "
+"інсталяції.\n"
 "  Вона ніколи не буде зібрана, передана чи продана.\n"
-"  Її буде використано <strong>лише</strong> у разі вашої потреби "
-"відновлення паролю або для внутрішніх сповіщень.\n"
+"  Її буде використано <strong>лише</strong> у разі вашої потреби відновлення "
+"паролю або для внутрішніх сповіщень.\n"
 "  "
 
 #: assets/templates/auth/onboarding.jet.html
@@ -290,8 +291,8 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"        Будь ласка, вкажіть електронну адресу, яку ви використовували під"
-" час створення\n"
+"        Будь ласка, вкажіть електронну адресу, яку ви використовували під "
+"час створення\n"
 "        облікового запису, і ми надішлемо вам повідомлення з посиланням\n"
 "        для відновлення паролю.\n"
 "      "
@@ -351,25 +352,25 @@ msgstr "У вас поки що немає виділень."
 #: assets/templates/bookmarks/annotation_list.jet.html
 msgid ""
 "\n"
-"        Once you start highlighting parts of your saved articles, they "
-"will appear on this page\n"
+"        Once you start highlighting parts of your saved articles, they will "
+"appear on this page\n"
 "        for you to easily find them.\n"
 "      "
 msgstr ""
 "\n"
-"        Як тільки ви почнете виділяти частини ваших збережених статей, "
-"вони з'являться на цій сторінці\n"
+"        Як тільки ви почнете виділяти частини ваших збережених статей, вони "
+"з'являться на цій сторінці\n"
 "        щоб ви легко знайшли їх.\n"
 "      "
 
 #: assets/templates/bookmarks/annotation_list.jet.html
 #, python-format
 msgid ""
-"Read more about highlights in the <a class=\"%s\" "
-"href=\"%s\">documentation</a>."
+"Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</"
+"a>."
 msgstr ""
-"Прочитайте більше про виділення в <a class=\"%s\" "
-"href=\"%s\">документації</a>."
+"Прочитайте більше про виділення в <a class=\"%s\" href=\"%s\">документації</"
+"a>."
 
 #: assets/templates/bookmarks/base.jet.html
 #: assets/templates/bookmarks/bookmark.jet.html assets/templates/menu.jet.html
@@ -378,7 +379,7 @@ msgstr "Закладки"
 
 #: assets/templates/bookmarks/base.jet.html
 msgid "All"
-msgstr "Все"
+msgstr "Усе"
 
 #: assets/templates/bookmarks/base.jet.html
 msgid "Unread"
@@ -519,7 +520,7 @@ msgstr "Фільтри"
 #: assets/templates/bookmarks/index.jet.html assets/templates/menu.jet.html
 #: docs/http.go
 msgid "Documentation"
-msgstr ""
+msgstr "Документація"
 
 #: assets/templates/bookmarks/collection.jet.html
 #: assets/templates/bookmarks/collection_create.jet.html
@@ -554,8 +555,7 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          Колекції дають вам змогу впорядковувати та експортувати "
-"закладки,\n"
+"          Колекції дають вам змогу впорядковувати та експортувати закладки,\n"
 "          зберігаючи вибрані вами пошукові запити.\n"
 "          Коли ви створюєте нову закладку, яка відповідає критеріям\n"
 "          колекції, вона миттєво відображається в ній.\n"
@@ -584,8 +584,8 @@ msgid ""
 "Read more about collections in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Прочитайте більше про колекції в <a class=\"%s\" "
-"href=\"%s\">документації</a>."
+"Прочитайте більше про колекції в <a class=\"%s\" href=\"%s\">документації</"
+"a>."
 
 #: assets/templates/bookmarks/components/actions.jet.html
 msgid "Export and Share"
@@ -888,14 +888,14 @@ msgstr "Імпортувати ваші статті з Omnivore"
 #, fuzzy
 msgid ""
 "\n"
-"    To import your articles from Omnivore, you must first create an API "
-"Key in your\n"
+"    To import your articles from Omnivore, you must first create an API Key "
+"in your\n"
 "    Omnivore's settings and enter it in the the form below.\n"
 "  "
 msgstr ""
 "\n"
-"    Щоб імпортувати ваші статті з Omnivore, спочатку необхідно створити "
-"ключ API в\n"
+"    Щоб імпортувати ваші статті з Omnivore, спочатку необхідно створити ключ "
+"API в\n"
 "    налаштуваннях Omnivore та ввести його у форму нижче.\n"
 "  "
 
@@ -947,15 +947,14 @@ msgid ""
 "\n"
 "    Please note that Pocket does not allow the article content to be "
 "exported.\n"
-"    This could lead to different results in Readeck than what you "
-"currently\n"
+"    This could lead to different results in Readeck than what you currently\n"
 "    see in Pocket.\n"
 "  "
 msgstr ""
 "\n"
 "    Зверніть увагу, що Pocket не дозволяє експортувати вміст статті.\n"
-"    Це може призвести до того, що результати в Readeck будуть "
-"відрізнятися від тих, які ви зараз\n"
+"    Це може призвести до того, що результати в Readeck будуть відрізнятися "
+"від тих, які ви зараз\n"
 "    бачите в Pocket.\n"
 "  "
 
@@ -973,8 +972,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Завантажте текстовий файл, який містить по одному посиланню в рядку, "
-"і Readeck витягне\n"
+"    Завантажте текстовий файл, який містить по одному посиланню в рядку, і "
+"Readeck витягне\n"
 "    та збереже їх усі у вашому списку закладок.\n"
 "  "
 
@@ -989,8 +988,8 @@ msgid ""
 "\n"
 "    To import your articles from Wallabag, you must first create an API "
 "client\n"
-"    in Wallabag's <strong>API clients management</strong> menu. This will"
-" give you\n"
+"    in Wallabag's <strong>API clients management</strong> menu. This will "
+"give you\n"
 "    a <strong>Client ID</strong> and <strong>Client secret</strong>.\n"
 "  "
 msgstr ""
@@ -1075,7 +1074,8 @@ msgstr "Процес імпорту почався!"
 
 #: assets/templates/bookmarks/import/progress.jet.html
 msgid "You can keep using Readeck while the import is running."
-msgstr "Ви можете продовжувати користуватися Readeck під час виконання імпорту."
+msgstr ""
+"Ви можете продовжувати користуватися Readeck під час виконання імпорту."
 
 #: assets/templates/bookmarks/import/progress.jet.html
 msgid "Import is finished!"
@@ -1106,9 +1106,9 @@ msgstr "Зберегти посилання"
 #: assets/templates/bookmarks/index.jet.html
 #, python-format
 msgid ""
-"\"%s\" is not a valid address. Did you mean to search your bookmarks for "
-"%s?"
-msgstr "\"%s\" не є дійсною адресою. Ви мали на увазі шукати %s у ваших закладках?"
+"\"%s\" is not a valid address. Did you mean to search your bookmarks for %s?"
+msgstr ""
+"\"%s\" не є дійсною адресою. Ви мали на увазі шукати %s у ваших закладках?"
 
 #: assets/templates/bookmarks/index.jet.html
 msgid ""
@@ -1121,18 +1121,18 @@ msgstr ""
 #: assets/templates/bookmarks/index.jet.html
 #, python-format
 msgid ""
-"Read more about bookmarks in the <a class=\"%s\" "
-"href=\"%s\">documentation</a>."
+"Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentation</"
+"a>."
 msgstr ""
-"Докладніше про закладки читайте в <a class=\"%s\" "
-"href=\"%s\">документації</a>."
+"Докладніше про закладки читайте в <a class=\"%s\" href=\"%s\">документації</"
+"a>."
 
 #: assets/templates/bookmarks/index.jet.html
 #, fuzzy
 msgid ""
 "\n"
-"          Would you like to import from a similar tool or from a file "
-"with existing bookmarks?\n"
+"          Would you like to import from a similar tool or from a file with "
+"existing bookmarks?\n"
 "          Try Readeck's import tool.\n"
 "        "
 msgstr ""
@@ -1216,11 +1216,11 @@ msgstr "Інформація про систему"
 
 #: assets/templates/docs/about.jet.html
 msgid ""
-"Here are your current system information. Please include them if you "
-"report a bug."
+"Here are your current system information. Please include them if you report "
+"a bug."
 msgstr ""
-"Тут знаходиться поточна інформація про вашу систему. Будь ласка, вкажіть "
-"її, якщо повідомляєте про помилку."
+"Тут знаходиться поточна інформація про вашу систему. Будь ласка, вкажіть її, "
+"якщо повідомляєте про помилку."
 
 #: assets/templates/docs/about.jet.html
 msgid "Project"
@@ -1363,8 +1363,7 @@ msgstr ""
 "Ви (або хтось інший) ввели цю електронну адресу під час спроби\n"
 "змінити пароль облікового запису Readeck (%s).\n"
 "\n"
-"Якщо ви очікуєте на цей лист, перейдіть за цим посиланням, щоб встановити"
-"\n"
+"Якщо ви очікуєте на цей лист, перейдіть за цим посиланням, щоб встановити\n"
 "новий пароль для свого облікового запису Readeck.\n"
 "\n"
 "%s\n"
@@ -1397,8 +1396,8 @@ msgstr ""
 "тому спроба змінити пароль не вдалася.\n"
 "\n"
 "Якщо ви користувач Readeck на %s і ви\n"
-"очікували цей електронний лист, будь ласка, спробуйте ще раз, "
-"використовуючи електронну адресу,\n"
+"очікували цей електронний лист, будь ласка, спробуйте ще раз, використовуючи "
+"електронну адресу,\n"
 "яку ви вказали під час створення свого облікового запису.\n"
 "\n"
 "Якщо ви не є користувачем Readeck, будь ласка, проігноруйте це "
@@ -1472,19 +1471,19 @@ msgstr "Пароль буде видалено через кілька секу�
 #: assets/templates/profile/credential.jet.html
 msgid ""
 "\n"
-"    Your application password was created. Please copy the password below"
-" and write it down\n"
+"    Your application password was created. Please copy the password below "
+"and write it down\n"
 "    or store it in a password manager.\n"
 "  "
 msgstr ""
 
 #: assets/templates/profile/credential.jet.html
 msgid "Your password:"
-msgstr ""
+msgstr "Ваш пароль:"
 
 #: assets/templates/profile/credential.jet.html
 msgid "Copy"
-msgstr ""
+msgstr "Скопіювати"
 
 #: assets/templates/profile/credential.jet.html
 #: assets/templates/profile/token.jet.html
@@ -1498,13 +1497,13 @@ msgstr ""
 #: assets/templates/profile/credential.jet.html
 #: assets/templates/profile/token.jet.html
 msgid "Enabled"
-msgstr ""
+msgstr "Увімкнено"
 
 #: assets/templates/profile/credential.jet.html
 msgid ""
 "\n"
-"    You can limit the permissions granted to this password by choosing "
-"one or more\n"
+"    You can limit the permissions granted to this password by choosing one "
+"or more\n"
 "    group of permissions below.<br>\n"
 "    Leave all the choices blank to grant all your permissions to this "
 "password.\n"
@@ -1518,7 +1517,7 @@ msgstr ""
 
 #: assets/templates/profile/credential.jet.html
 msgid "Delete password"
-msgstr ""
+msgstr "Видалити пароль"
 
 #: assets/templates/profile/credential_list.jet.html
 msgid "My Application Passwords"
@@ -1526,11 +1525,11 @@ msgstr ""
 
 #: assets/templates/profile/credential_list.jet.html
 msgid "Create a new Application Password"
-msgstr ""
+msgstr "Створити новий пароль застосунку"
 
 #: assets/templates/profile/credential_list.jet.html
 msgid "This password will be removed in a few seconds."
-msgstr ""
+msgstr "Цей пароль буде видалено через кілька секунд."
 
 #: assets/templates/profile/index.jet.html
 msgid "My profile"
@@ -1538,27 +1537,27 @@ msgstr ""
 
 #: assets/templates/profile/index.jet.html
 msgid "Email Address"
-msgstr ""
+msgstr "Електронна адреса"
 
 #: assets/templates/profile/index.jet.html
 msgid "Language"
-msgstr ""
+msgstr "Мова"
 
 #: assets/templates/profile/password.jet.html
 msgid "Change my password"
-msgstr ""
+msgstr "Змінити пароль"
 
 #: assets/templates/profile/password.jet.html
 msgid "Current password"
-msgstr ""
+msgstr "Поточний пароль"
 
 #: assets/templates/profile/token.jet.html
 msgid "API Token"
-msgstr ""
+msgstr "Токен API"
 
 #: assets/templates/profile/token.jet.html
 msgid "Token will be removed in a few seconds."
-msgstr ""
+msgstr "Токен буде видалено через кілька секунд."
 
 #: assets/templates/profile/token.jet.html
 msgid "Token ID"
@@ -1575,8 +1574,8 @@ msgstr ""
 #: assets/templates/profile/token.jet.html
 msgid ""
 "\n"
-"    You can limit the permissions granted to this token by choosing one "
-"or more\n"
+"    You can limit the permissions granted to this token by choosing one or "
+"more\n"
 "    group of permissions below.<br>\n"
 "    Leave all the choices blank to grant all your permissions to this "
 "token.\n"
@@ -1585,7 +1584,7 @@ msgstr ""
 
 #: assets/templates/profile/token.jet.html
 msgid "Delete token"
-msgstr ""
+msgstr "Видалити токен"
 
 #: assets/templates/profile/token.jet.html
 msgid "API authentication"
@@ -1593,12 +1592,12 @@ msgstr ""
 
 #: assets/templates/profile/token.jet.html
 msgid "Your API token"
-msgstr ""
+msgstr "Ваш токен API"
 
 #: assets/templates/profile/token.jet.html
 msgid ""
-"You can use this token by passing it as an <strong>Authorization: "
-"Bearer</strong> HTTP header."
+"You can use this token by passing it as an <strong>Authorization: Bearer</"
+"strong> HTTP header."
 msgstr ""
 
 #: assets/templates/profile/token_list.jet.html
@@ -1616,13 +1615,12 @@ msgstr ""
 #: assets/templates/profile/token_list.jet.html
 #, python-format
 msgid ""
-"Please read the <a href=\"%s\">API Documentation</a> if you plan to use "
-"it."
+"Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
 msgstr ""
 
 #: assets/templates/profile/token_list.jet.html
 msgid "Create a new API token"
-msgstr ""
+msgstr "Створити новий токен API"
 
 #: assets/templates/profile/token_list.jet.html
 #, python-format
@@ -1631,7 +1629,7 @@ msgstr ""
 
 #: assets/templates/profile/token_list.jet.html
 msgid "This token will be removed in a few seconds."
-msgstr ""
+msgstr "Цей токен буде видалено через кілька секунд."
 
 #: internal/admin/views.go
 msgid "User created."
@@ -1678,7 +1676,7 @@ msgstr ""
 
 #: internal/bookmarks/importer/goodlinks.go
 msgid "GoodLinks Export File"
-msgstr ""
+msgstr "Файл експорту GoodLinks"
 
 #: internal/bookmarks/importer/omnivore.go
 msgid "Invalid API Key"
@@ -1694,7 +1692,7 @@ msgstr ""
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
-msgstr ""
+msgstr "Текстовий файл"
 
 #: internal/bookmarks/importer/wallabag.go
 msgid "Invalid URL"
@@ -1710,15 +1708,15 @@ msgstr ""
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgid "Article"
-msgstr ""
+msgstr "Стаття"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgid "Picture"
-msgstr ""
+msgstr "Зображення"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgid "Video"
-msgstr ""
+msgstr "Відео"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "status"
@@ -1818,19 +1816,19 @@ msgstr ""
 
 #: internal/bookmarks/routes/views_bookmarks.go internal/opds/http.go
 msgid "Unread Bookmarks"
-msgstr ""
+msgstr "Непрочитані закладки"
 
 #: internal/bookmarks/routes/views_bookmarks.go internal/opds/http.go
 msgid "Archived Bookmarks"
-msgstr ""
+msgstr "Архівовані закладки"
 
 #: internal/bookmarks/routes/views_bookmarks.go internal/opds/http.go
 msgid "Favorite Bookmarks"
-msgstr ""
+msgstr "Обрані закладки"
 
 #: internal/bookmarks/routes/views_collections.go
 msgid "Collection updated."
-msgstr ""
+msgstr "Колекцію оновлено."
 
 #: internal/bookmarks/routes/views_import.go
 msgid "Import"
@@ -1842,7 +1840,7 @@ msgstr ""
 
 #: internal/opds/http.go
 msgid "All Bookmarks"
-msgstr ""
+msgstr "Усі закладки"
 
 #: internal/profile/forms.go
 msgid "invalid username and/or email"
@@ -1854,11 +1852,11 @@ msgstr ""
 
 #: internal/profile/views.go
 msgid "Profile updated."
-msgstr ""
+msgstr "Профіль оновлено."
 
 #: internal/profile/views.go
 msgid "Your password was changed."
-msgstr ""
+msgstr "Ваш пароль змінено."
 
 #: internal/profile/views.go
 msgid "Error: you cannot create more credentials."
@@ -1870,7 +1868,7 @@ msgstr ""
 
 #: internal/profile/views.go
 msgid "Password was updated."
-msgstr ""
+msgstr "Пароль оновлено."
 
 #: internal/profile/views.go
 msgid "An error occurred while creating your token."
@@ -1878,11 +1876,11 @@ msgstr ""
 
 #: internal/profile/views.go
 msgid "New token created."
-msgstr ""
+msgstr "Новий токен створено."
 
 #: internal/profile/views.go
 msgid "Token was updated."
-msgstr ""
+msgstr "Токен оновлено."
 
 #: pkg/forms/forms.go
 msgid "an unexpected error has occurred"
@@ -1913,192 +1911,192 @@ msgstr ""
 #: pkg/strftime/strftime.go
 msgctxt "datetime_dl"
 msgid "Sunday"
-msgstr ""
+msgstr "Неділя"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_dl"
 msgid "Monday"
-msgstr ""
+msgstr "Понеділок"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_dl"
 msgid "Tuesday"
-msgstr ""
+msgstr "Вівторок"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_dl"
 msgid "Wednesday"
-msgstr ""
+msgstr "Середа"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_dl"
 msgid "Thursday"
-msgstr ""
+msgstr "Четвер"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_dl"
 msgid "Friday"
-msgstr ""
+msgstr "П'ятниця"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_dl"
 msgid "Saturday"
-msgstr ""
+msgstr "Субота"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ds"
 msgid "Sun"
-msgstr ""
+msgstr "Нд"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ds"
 msgid "Mon"
-msgstr ""
+msgstr "Пн"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ds"
 msgid "Tue"
-msgstr ""
+msgstr "Вт"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ds"
 msgid "Wed"
-msgstr ""
+msgstr "Ср"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ds"
 msgid "Thu"
-msgstr ""
+msgstr "Чт"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ds"
 msgid "Fri"
-msgstr ""
+msgstr "Пт"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ds"
 msgid "Sat"
-msgstr ""
+msgstr "Сб"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "January"
-msgstr ""
+msgstr "Січень"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "February"
-msgstr ""
+msgstr "Лютий"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "March"
-msgstr ""
+msgstr "Березень"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "April"
-msgstr ""
+msgstr "Квітень"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "May"
-msgstr ""
+msgstr "Травень"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "June"
-msgstr ""
+msgstr "Червень"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "July"
-msgstr ""
+msgstr "Липень"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "August"
-msgstr ""
+msgstr "Серпень"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "September"
-msgstr ""
+msgstr "Вересень"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "October"
-msgstr ""
+msgstr "Жовтень"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "November"
-msgstr ""
+msgstr "Листопад"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ml"
 msgid "December"
-msgstr ""
+msgstr "Грудень"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Jan"
-msgstr ""
+msgstr "Січ"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Feb"
-msgstr ""
+msgstr "Лют"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Mar"
-msgstr ""
+msgstr "Бер"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Apr"
-msgstr ""
+msgstr "Кві"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "May"
-msgstr ""
+msgstr "Тра"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Jun"
-msgstr ""
+msgstr "Чер"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Jul"
-msgstr ""
+msgstr "Лип"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Aug"
-msgstr ""
+msgstr "Сер"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Sep"
-msgstr ""
+msgstr "Вер"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Oct"
-msgstr ""
+msgstr "Жов"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Nov"
-msgstr ""
+msgstr "Лис"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Dec"
-msgstr ""
+msgstr "Гру"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime"
@@ -2120,19 +2118,21 @@ msgstr ""
 #, python-format
 msgctxt "datetime"
 msgid "%m/%d/%Y"
-msgstr ""
+msgstr "%d.%m.%Y"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime"
 msgid "%H:%M:%S"
+msgstr "%H:%M:%S"
+
+#: internal/bookmarks/importer/browser.go
+msgid "Unabled to read HTML content"
 msgstr ""
 
-#~ msgid "Unabled to read HTML content"
-#~ msgstr ""
+#: internal/bookmarks/importer/pocket_file.go
+msgid "Unabled to open zip file"
+msgstr ""
 
-#~ msgid "Unabled to open zip file"
-#~ msgstr ""
-
-#~ msgid "Error: you can not create more credentials."
-#~ msgstr ""
-
+#: internal/profile/views.go
+msgid "Error: you can not create more credentials."
+msgstr ""

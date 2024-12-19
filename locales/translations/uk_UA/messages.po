@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-12-15 12:59+0000\n"
-"PO-Revision-Date: 2024-12-18 11:48+0000\n"
+"PO-Revision-Date: 2024-12-20 16:08+0000\n"
 "Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
@@ -576,7 +576,7 @@ msgstr "Зображення з міткою \"кіт\""
 
 #: assets/templates/bookmarks/collection_list.jet.html
 msgid "The articles that contain \"shelter\" in their title"
-msgstr "Статті, які містять \"притулок\" в заголовку"
+msgstr "Статті, які містять \"притулок\" у своїй назві"
 
 #: assets/templates/bookmarks/collection_list.jet.html
 #, python-format
@@ -1772,12 +1772,12 @@ msgstr "Додано, спочатку найдавніші"
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Published, most recent first"
-msgstr ""
+msgstr "Опубліковано, спочатку найновіші"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Published, oldest first"
-msgstr ""
+msgstr "Опубліковано, спочатку найдавніші"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"

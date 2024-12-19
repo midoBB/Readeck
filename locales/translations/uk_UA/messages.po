@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-12-15 12:59+0000\n"
 "PO-Revision-Date: 2024-12-20 16:08+0000\n"
-"Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
+"Last-Translator: SomeTr <SomeTr@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
 "Language: uk_UA\n"
@@ -215,7 +215,7 @@ msgstr "Останнє оновлення: %s"
 
 #: assets/templates/admin/user_list.jet.html
 msgid "This user will be removed in a few seconds."
-msgstr "Користувач буде видалений через декілька секунд."
+msgstr "Користувача буде видалено через декілька секунд."
 
 #: assets/templates/auth/login.jet.html
 msgid "Sign in"
@@ -335,7 +335,7 @@ msgstr "Оновити ваш пароль"
 
 #: assets/templates/auth/recover.jet.html
 msgid "Your password has been changed."
-msgstr "Ваш пароль змінений."
+msgstr "Ваш пароль змінено."
 
 #: assets/templates/auth/recover.jet.html
 msgid "Go to the sign in page"
@@ -534,11 +534,11 @@ msgstr "Видалити колекцію"
 
 #: assets/templates/bookmarks/collection_create.jet.html
 msgid "New Collection"
-msgstr "Нова Колекція"
+msgstr "Нова колекція"
 
 #: assets/templates/bookmarks/collection_list.jet.html internal/opds/http.go
 msgid "Bookmark Collections"
-msgstr "Колекції Закладок"
+msgstr "Колекції закладок"
 
 #: assets/templates/bookmarks/collection_list.jet.html
 msgid "Create a new collection"
@@ -1255,7 +1255,7 @@ msgstr "Ліцензія"
 #: assets/templates/docs/about.jet.html
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
-msgstr "Readeck розповсюджується на умовах ліценції \"%s\""
+msgstr "Readeck розповсюджується на умовах ліцензії \"%s\""
 
 #: assets/templates/docs/about.jet.html
 msgid "Here's a short summary of the license conditions:"
@@ -1396,12 +1396,12 @@ msgstr ""
 "тому спроба змінити пароль не вдалася.\n"
 "\n"
 "Якщо ви користувач Readeck на %s і ви\n"
-"очікували цей електронний лист, будь ласка, спробуйте ще раз, використовуючи "
+"очікували на цей лист, будь ласка, спробуйте ще раз, використовуючи "
 "електронну адресу,\n"
 "яку ви вказали під час створення свого облікового запису.\n"
 "\n"
-"Якщо ви не є користувачем Readeck, будь ласка, проігноруйте це "
-"повідомлення.\n"
+"Якщо ви не є користувачем Readeck, будь ласка, проігноруйте це повідомлення."
+"\n"
 
 #: assets/templates/emails/recover.tmpl
 msgid "Kind regards"
@@ -1422,7 +1422,7 @@ msgstr "У дозволі відмовлено."
 
 #: assets/templates/error.jet.html
 msgid "Page not found."
-msgstr "Сторінка не знайдена."
+msgstr "Сторінку не знайдено."
 
 #: assets/templates/error.jet.html
 msgid "An error occurred."
@@ -1782,45 +1782,45 @@ msgstr "Опубліковано, спочатку найдавніші"
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Title, A to Z"
-msgstr ""
+msgstr "Назва, А-Я"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Title, Z to A"
-msgstr ""
+msgstr "Назва, Я-А"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Site Name, A to Z"
-msgstr ""
+msgstr "Назва сайту, А-Я"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Site Name, Z to A"
-msgstr ""
+msgstr "Назва сайту, Я-А"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Duration, shortest first"
-msgstr ""
+msgstr "Тривалість, спочатку найкоротші"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Duration, longest first"
-msgstr ""
+msgstr "Тривалість, спочатку найдовші"
 
 #: internal/bookmarks/routes/opds.go
 msgid "Readeck Bookmarks"
-msgstr ""
+msgstr "Закладки Readeck"
 
 #: internal/bookmarks/routes/opds.go
 msgid "Readeck Bookmark Collections"
-msgstr ""
+msgstr "Колекції закладок Readeck"
 
 #: internal/bookmarks/routes/opds.go
 #, python-format
 msgid "Readeck Collection: %s"
-msgstr ""
+msgstr "Колекція Readeck: %s"
 
 #: internal/bookmarks/routes/opds.go
 #, python-format
@@ -1870,11 +1870,11 @@ msgstr "Усі закладки"
 
 #: internal/profile/forms.go
 msgid "invalid username and/or email"
-msgstr ""
+msgstr "неправильне ім'я користувача і/або електронна адреса"
 
 #: internal/profile/forms.go
 msgid "invalid password"
-msgstr ""
+msgstr "неправильний пароль"
 
 #: internal/profile/views.go
 msgid "Profile updated."
@@ -1889,16 +1889,18 @@ msgid "Error: you cannot create more credentials."
 msgstr ""
 
 #: internal/profile/views.go
+#, fuzzy
 msgid "An error occurred while creating your password."
-msgstr ""
+msgstr "Під час створення пароля виникла помилка."
 
 #: internal/profile/views.go
 msgid "Password was updated."
 msgstr "Пароль оновлено."
 
 #: internal/profile/views.go
+#, fuzzy
 msgid "An error occurred while creating your token."
-msgstr ""
+msgstr "Під час створення токена виникла помилка."
 
 #: internal/profile/views.go
 msgid "New token created."
@@ -1914,15 +1916,15 @@ msgstr ""
 
 #: pkg/forms/validators.go
 msgid "field is required"
-msgstr ""
+msgstr "обов'язкове поле"
 
 #: pkg/forms/validators.go
 msgid "not a valid email address"
-msgstr ""
+msgstr "недійсна електронна адреса"
 
 #: pkg/forms/validators.go
 msgid "invalid URL"
-msgstr ""
+msgstr "неправильна URL-адреса"
 
 #: pkg/forms/validators.go
 #, python-format

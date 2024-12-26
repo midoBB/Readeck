@@ -606,5 +606,5 @@ type AnnotationQueryResult struct {
 	ID       string           `db:"annotation_id"`
 	Text     string           `db:"annotation_text"`
 	Created  types.TimeString `db:"annotation_created"`
-	Color    string			  `db:"annotation_color"`
+	Color    string           `db:"annotation_color"`
 }

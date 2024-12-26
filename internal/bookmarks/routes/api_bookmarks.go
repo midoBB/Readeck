@@ -907,7 +907,7 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *bookmarks.Bookmark, b
 				color = "yellow"
 			}
 			dom.SetAttribute(n, "data-annotation-id-value", id)
-			dom.SetAttribute(n, "class", fmt.Sprintf("rd-annotation rd-annotation--%s", color))
+			dom.SetAttribute(n, "data-annotation-color", color)
 		},
 	}
 

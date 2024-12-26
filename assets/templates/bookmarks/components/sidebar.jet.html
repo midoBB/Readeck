@@ -105,10 +105,9 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{- else -}}
           <ul class="mb-4" data-controller="request scrollto">
           {{- range _, x := .Item.Annotations -}}
-          {{- color := x.Color ? x.Color : "yellow" -}}
             <li class="
-              mb-3 flex p-2 rd-annotation rd-annotation--{{ color }} bg-opacity-20 hfw:bg-opacity-80
-              rounded border group/btn">
+              mb-3 flex p-2 rd-annotation bg-opacity-20 hfw:bg-opacity-80
+              rounded border group/btn" data-annotation-color="{{ x.Color ? x.Color : `yellow` }}">
               <a class="grow" href="#annotation-{{ x.ID }}"
                data-action="scrollto#scroll:prevent panel#close:prevent">{{ shortText(x.Text, 100) }}</a>
               <span class="no-js:hidden flex-shrink-0">

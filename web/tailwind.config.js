@@ -74,6 +74,12 @@ var config = {
       hl: {
         yellow: colorVar("hl-yellow"),
         "yellow-dark": colorVar("hl-yellow-dark"),
+        red: colorVar("hl-red"),
+        "red-dark": colorVar("hl-red-dark"),
+        blue: colorVar("hl-blue"),
+        "blue-dark": colorVar("hl-blue-dark"),
+        green: colorVar("hl-green"),
+        "green-dark": colorVar("hl-green-dark"),
       },
     },
     fontFamily: fontCatalog.families(),

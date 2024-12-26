@@ -41,8 +41,8 @@
     }
 
     rd-annotation {
-      @apply bg-hl-yellow;
-      @apply border-b border-b-hl-yellow-dark;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
     }
 
     .bookmark-article {

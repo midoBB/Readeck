@@ -28,7 +28,6 @@ type Annotation struct {
 	startOffset   int
 	endSelector   string
 	endOffset     int
-	color         string
 }
 
 // AnnotationRange holds the necessary DOM information to find and wrap an full annotation on
@@ -70,10 +69,9 @@ func AddAnnotation(
 	root *html.Node, tagName string,
 	startSelector string, startOffset int,
 	endSelector string, endOffset int,
-	color string,
 	options ...WrapCallback,
 ) error {
-	a := NewAnnotation(root, startSelector, startOffset, endSelector, endOffset, color)
+	a := NewAnnotation(root, startSelector, startOffset, endSelector, endOffset)
 	r, err := a.ToRange(func(ar *AnnotationRange) error {
 		for _, n := range ar.textNodes {
 			if n.Parent.Data == tagName {
@@ -85,7 +83,7 @@ func AddAnnotation(
 	if err != nil {
 		return err
 	}
-	r.Wrap(append(options, func(n *html.Node, _ int,) {
+	r.Wrap(append(options, func(n *html.Node, _ int) {
 		// Allways set the tag name, regardless of previously applied modifiers
 		n.Data = tagName
 	})...)
@@ -93,7 +91,7 @@ func AddAnnotation(
 }
 
 // NewAnnotation creates a new Annotation instance.
-func NewAnnotation(root *html.Node, startSelector string, startOffset int, endSelector string, endOffset int, color string) *Annotation {
+func NewAnnotation(root *html.Node, startSelector string, startOffset int, endSelector string, endOffset int) *Annotation {
 	return &Annotation{
 		root:          root,
 		tagName:       defaultTagName,
@@ -101,7 +99,6 @@ func NewAnnotation(root *html.Node, startSelector string, startOffset int, endSe
 		startOffset:   startOffset,
 		endSelector:   endSelector,
 		endOffset:     endOffset,
-		color:		   color,
 	}
 }
 

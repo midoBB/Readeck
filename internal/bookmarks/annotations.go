@@ -66,7 +66,6 @@ func (a *BookmarkAnnotation) AddToNode(root *html.Node, tagName string, options 
 		root, tagName,
 		a.StartSelector, a.StartOffset,
 		a.EndSelector, a.EndOffset,
-		a.Color,
 		options...,
 	)
 }

@@ -120,7 +120,6 @@ var config = {
       },
       gridTemplateColumns: {
         "bk-tools": "2fr auto auto",
-        "cards": "repeat(auto-fill, minmax(12rem, 1fr))",
       },
       height: {
         "screen": "100vh",

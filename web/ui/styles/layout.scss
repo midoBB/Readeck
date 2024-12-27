@@ -10,10 +10,11 @@
 
   .layout {
     @apply min-h-screen grid;
+    max-width: 1920px;
     grid-template-columns:
       theme("spacing.col-1")
       theme("spacing.col-5")
-      minmax(auto, theme("spacing.col-23"));
+      1fr;
 
     @screen max-sm {
       @apply flex flex-col;
@@ -184,6 +185,8 @@
   }
 
   .layout-content {
+    container-name: layout-content;
+    container-type: inline-size;
     @apply bg-transparent mx-6 my-8;
     @apply relative;
   }

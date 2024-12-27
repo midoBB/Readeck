@@ -269,10 +269,17 @@ $line-height: 1.5;
 
     table {
       @flow-block;
-      table-layout: fixed;
-      border-collapse: collapse;
-      border-spacing: 0;
       margin-top: -2px;
+      display: flow-root;
+      overflow-x: auto;
+
+      tbody {
+        display: table;
+        table-layout: fixed;
+        border-collapse: collapse;
+        border-spacing: 0;
+        max-width: 100%;
+      }
     }
 
     caption {

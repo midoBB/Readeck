@@ -5,7 +5,7 @@
 .bookmark-list-container {
   @apply flex gap-4;
 
-  @screen max-md {
+  @container layout-content (width <= 500px) {
     @apply flex-col;
   }
 
@@ -17,7 +17,7 @@
     @apply bg-gradient-to-b from-gray-100 to-10% to-app-bg;
     @apply p-2;
 
-    @screen md {
+    @container layout-content (width > 500px) {
       @apply border-l border-l-gray-200;
       @apply shrink-0;
       @apply order-last;
@@ -53,6 +53,11 @@
       @apply border-none p-0;
     }
   }
+}
+
+.bookmark-list {
+  container-type: inline-size;
+  container-name: bookmark-list;
 }
 
 // Common styles
@@ -212,12 +217,31 @@
 }
 
 // Grid display
+.bookmark-list {
+  .bookmark-list--grid {
+    --col-number: 1;
+    grid-template-columns: repeat(var(--col-number), minmax(0, 1fr));
+
+    @container bookmark-list (width > 500px) {
+      --col-number: 2;
+    }
+
+    @container bookmark-list (width > 610px) {
+      --col-number: 3;
+    }
+
+    @container bookmark-list (width > 880px) {
+      --col-number: 4;
+    }
+
+    @container bookmark-list (width >= 1240px) {
+      --col-number: 6;
+    }
+  }
+}
+
 .bookmark-list--grid {
   @apply grid gap-4;
-
-  @screen lg {
-    @apply grid-cols-cards;
-  }
 
   .bookmark-card {
     display: grid;
@@ -328,14 +352,14 @@
       }
     }
 
-    @screen md {
-      &--progress {
-        @apply absolute z-10 top-1 right-1 fill-black/40 stroke-white opacity-75;
-      }
+    &--progress {
+      @apply absolute z-10 top-1 right-1 fill-black/40 stroke-white opacity-75;
     }
+  }
 
-    // Responsive states
-    @screen max-md {
+  // Responsive states
+  @container bookmark-list (width < 500px) and (width > 300px) {
+    .bookmark-card {
       grid-template-areas:
         "img spinner title title progress"
         "img spinner ico meta meta"
@@ -456,7 +480,7 @@
     }
 
     // Responsive states
-    @screen max-lg {
+    @container bookmark-list (width <= 500px) {
       grid-template-areas:
         "ico spinner title title title"
         "ico spinner progress meta meta"

@@ -32,9 +32,9 @@ SPDX-License-Identifier: AGPL-3.0-only
   <turbo-frame id="bookmark-info" data-controller="turbo-refresh panel scroll-progress"
    data-turbo-refresh-on-value="[data-deleted]"
    data-turbo-refresh-interval-value="3"
-   data-panel-hidden-class="max-md:hidden hidden"
-   data-panel-force-hidden-class="max-md:hidden"
-   data-panel-body-class="max-md:overflow-hidden"
+   data-panel-hidden-class="max-lg:hidden hidden"
+   data-panel-force-hidden-class="max-lg:hidden"
+   data-panel-body-class="max-lg:overflow-hidden"
    data-scroll-progress-auto-mark-after-value="{{ .Item.Type == `photo` ? 4 : 0 }}"
    class="bookmark-container">
     {{- if !.Item.Loaded -}}
@@ -65,16 +65,16 @@ SPDX-License-Identifier: AGPL-3.0-only
       </div>
 
       <div id="bookmark-panel"
-       class="bookmark-sidebar max-md:hidden"
+       class="bookmark-sidebar max-lg:hidden"
        data-panel-target="panel"
        tabindex="-1"
       >
-        <div class="h-topnav border-b bg-app-bg border-b-gray-200 max-md:sticky max-md:top-0 max-md:z-40 print:hidden no-js:hidden">
+        <div class="h-topnav border-b bg-app-bg border-b-gray-200 max-lg:sticky max-lg:top-0 max-lg:z-40 print:hidden no-js:hidden">
           <button type="button" title="{{ gettext(`Close panel`) }}"
            data-action="click->panel#toggle"
            data-panel-target="button"
            aria-controls="bookmark-panel"
-           class="md:hidden p-1 ml-2 absolute top-3 right-3 border rounded text-gray-400 hf:text-gray-700"
+           class="lg:hidden p-1 ml-2 absolute top-3 right-3 border rounded text-gray-400 hf:text-gray-700"
           >
             {{- yield icon(name="o-close", class="inline-block", svgClass="w-8 h-8") -}}
             <span class="sr-only">{{ gettext("Close panel") }}</span></button>
@@ -117,7 +117,7 @@ SPDX-License-Identifier: AGPL-3.0-only
         </div>
 
         {* title and description *}
-        <div class="max-w-3xl mx-auto mt-4 print:mt-2 print:max-w-none mb-8 {{ preferences.ReaderFont().Class }}"
+        <div class="bookmark-header mt-4 print:mt-2 print:max-w-none mb-8 {{ preferences.ReaderFont().Class }}"
          data-controller="styler">
           {{ include "./components/title_form" .Item }}
 

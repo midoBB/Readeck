@@ -1,0 +1,46 @@
+// SPDX-FileCopyrightText: © 2024 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
+.paginator {
+  container-name: paginator;
+  container-type: inline-size;
+
+  @apply my-4 flex items-center justify-center;
+
+  &--basic {
+    @apply hidden flex-1 justify-between;
+
+    @container paginator (width <= 540px) {
+      @apply flex;
+    }
+
+    a {
+      @apply px-4 py-2 border border-gray-300 rounded-md hf:text-primary;
+    }
+  }
+
+  &--extended {
+    @apply flex items-center justify-center flex-shrink divide-x;
+    @apply border border-gray-300 rounded-md;
+    @apply overflow-hidden;
+
+    @container paginator (width <= 540px) {
+      @apply hidden;
+    }
+
+    & > a,
+    & > span {
+      @apply px-4 py-2;
+    }
+    & > a {
+      @apply hf:bg-gray-200 hf:text-primary;
+    }
+    span.paginator--current {
+      @apply bg-gray-200 font-bold;
+    }
+    span.paginator--hellip {
+      @apply text-gray-600;
+    }
+  }
+}

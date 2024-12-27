@@ -15,23 +15,44 @@
     }
 
     @at-root body.no-js & {
-      @screen max-md {
+      @screen max-lg {
         @apply flex-col;
       }
     }
   }
 
   .bookmark-content {
+    container-name: bookmark-content;
+    container-type: inline-size;
+
+    .bookmark-header,
+    .bookmark-article {
+      max-width: 48rem;
+      margin-left: auto;
+      margin-right: auto;
+
+      // Progressive width reduction.
+      @container bookmark-content (width < 48rem) {
+        max-width: 42rem;
+      }
+      @container bookmark-content (width < 44rem) {
+        max-width: 40rem;
+      }
+      @container bookmark-content (width < 42rem) {
+        max-width: 37rem;
+      }
+    }
+
     @apply max-w-full;
     @apply grow order-first;
     @apply px-6 pb-8;
     @apply bg-transparent;
 
-    @screen md {
+    @screen lg {
       @apply min-h-screen;
     }
 
-    @screen max-md {
+    @screen max-lg {
       @apply px-4 grow;
     }
 
@@ -120,11 +141,11 @@
     @apply w-col-6 h-screen sticky overflow-y-auto z-30;
     @apply border-l border-l-gray-200;
 
-    @screen md {
+    @screen lg {
       @apply top-0;
     }
 
-    @screen max-md {
+    @screen max-lg {
       @apply fixed top-0 right-0 w-full max-w-col-10 z-50;
       @apply bg-app-bg shadow-panel-r;
     }
@@ -136,7 +157,7 @@
   }
 
   body.no-js .bookmark-sidebar {
-    @screen max-md {
+    @screen max-lg {
       & {
         @apply block static shadow-none w-auto max-w-none h-auto;
       }

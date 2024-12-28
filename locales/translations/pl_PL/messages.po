@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-12-15 12:59+0000\n"
+"POT-Creation-Date: 2024-12-28 09:57+0000\n"
 "PO-Revision-Date: 2024-11-23 20:07+0000\n"
 "Last-Translator: Eryk Michalak <gnu.ewm@protonmail.com>\n"
 "Language: pl_PL\n"
@@ -661,12 +661,28 @@ msgid "Loading"
 msgstr "Wczytywanie"
 
 #: assets/templates/bookmarks/components/content_block.jet.html
-msgid "Highlight"
-msgstr "Podkreślenie"
-
-#: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Remove Highlight(s)"
 msgstr "Usuń podkreślenie(-a)"
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Yellow"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Red"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Blue"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Green"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Highlight"
+msgstr "Podkreślenie"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "Search"

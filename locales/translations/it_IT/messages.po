@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-12-15 12:59+0000\n"
+"POT-Creation-Date: 2024-12-28 09:57+0000\n"
 "PO-Revision-Date: 2024-11-25 08:02+0000\n"
 "Last-Translator: Tommi <tommi@users.noreply.translate.codeberg.org>\n"
 "Language: it\n"
@@ -658,12 +658,28 @@ msgid "Loading"
 msgstr "In caricamento"
 
 #: assets/templates/bookmarks/components/content_block.jet.html
-msgid "Highlight"
-msgstr "Evidenzia"
-
-#: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Remove Highlight(s)"
 msgstr "Rimuovi parte/i evidenziata/e"
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Yellow"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Red"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Blue"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Green"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Highlight"
+msgstr "Evidenzia"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "Search"

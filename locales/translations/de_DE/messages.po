@@ -6,17 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-12-15 12:59+0000\n"
+"POT-Creation-Date: 2024-12-28 09:57+0000\n"
 "PO-Revision-Date: 2024-12-16 04:49+0000\n"
 "Last-Translator: math-gh <math-gh@users.noreply.translate.codeberg.org>\n"
-"Language-Team: German <https://translate.codeberg.org/projects/readeck/"
-"application/de/>\n"
 "Language: de_DE\n"
+"Language-Team: German "
+"<https://translate.codeberg.org/projects/readeck/application/de/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8.4\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -662,12 +661,28 @@ msgid "Loading"
 msgstr "Laden"
 
 #: assets/templates/bookmarks/components/content_block.jet.html
-msgid "Highlight"
-msgstr "Markierung"
-
-#: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Remove Highlight(s)"
 msgstr "Markierung(en) entfernen"
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Yellow"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Red"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Blue"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Green"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Highlight"
+msgstr "Markierung"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "Search"
@@ -2172,3 +2187,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Error: you can not create more credentials."
 #~ msgstr "Fehler: Du kannst keine weiteren Anmeldeinformationen erstellen."
+

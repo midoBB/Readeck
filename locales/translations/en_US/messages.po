@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-12-15 12:59+0000\n"
+"POT-Creation-Date: 2024-12-28 09:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -623,11 +623,27 @@ msgid "Loading"
 msgstr ""
 
 #: assets/templates/bookmarks/components/content_block.jet.html
-msgid "Highlight"
+msgid "Remove Highlight(s)"
 msgstr ""
 
 #: assets/templates/bookmarks/components/content_block.jet.html
-msgid "Remove Highlight(s)"
+msgid "Yellow"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Red"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Blue"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Green"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html
+msgid "Highlight"
 msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html

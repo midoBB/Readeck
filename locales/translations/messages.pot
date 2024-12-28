@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-12-15 12:59+0000\n"
+"POT-Creation-Date: 2024-12-28 09:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -612,12 +612,28 @@ msgctxt "bookmark"
 msgid "Loading"
 msgstr ""
 
-#: assets/templates/bookmarks/components/content_block.jet.html:47
-msgid "Highlight"
+#: assets/templates/bookmarks/components/content_block.jet.html:1
+msgid "Remove Highlight(s)"
 msgstr ""
 
-#: assets/templates/bookmarks/components/content_block.jet.html:51
-msgid "Remove Highlight(s)"
+#: assets/templates/bookmarks/components/content_block.jet.html:46
+msgid "Yellow"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html:47
+msgid "Red"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html:48
+msgid "Blue"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html:49
+msgid "Green"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html:53
+msgid "Highlight"
 msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:9
@@ -764,7 +780,7 @@ msgstr ""
 msgid "Start selecting text in the article to create a new highlight."
 msgstr ""
 
-#: assets/templates/bookmarks/components/sidebar.jet.html:136
+#: assets/templates/bookmarks/components/sidebar.jet.html:135
 msgid "Links"
 msgstr ""
 
@@ -1216,13 +1232,13 @@ msgstr ""
 msgid "Readeck includes and/or uses the following open source assets:"
 msgstr ""
 
+#: assets/templates/docs/base.jet.html:9
+msgid "Readeck Help"
+msgstr ""
+
 #: assets/templates/docs/api-docs.jet.html:8
 #: assets/templates/docs/base.jet.html:21
 msgid "API Documentation"
-msgstr ""
-
-#: assets/templates/docs/base.jet.html:9
-msgid "Readeck Help"
 msgstr ""
 
 #: assets/templates/docs/base.jet.html:28

@@ -140,6 +140,7 @@ var config = {
       width: {
       },
       maxWidth: {
+        "layout": "1920px",
         "std": "49rem",
       },
     },

@@ -16,7 +16,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   slice("menu", "Menu"),
   slice("content", "Main content"),
 )) -}}
-<div class="flex h-screen max-sm:flex-col">
+<div class="max-w-layout flex h-screen max-sm:flex-col">
   {{ include "/menu" }}
   <div class="grow md:overflow-y-auto" id="content" lang="en-US">
     <rapi-doc

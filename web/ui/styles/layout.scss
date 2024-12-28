@@ -10,7 +10,7 @@
 
   .layout {
     @apply min-h-screen grid;
-    max-width: 1920px;
+    @apply max-w-layout;
     grid-template-columns:
       theme("spacing.col-1")
       theme("spacing.col-5")

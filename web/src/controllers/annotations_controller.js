@@ -6,12 +6,12 @@ import {Controller} from "@hotwired/stimulus"
 import {request} from "../lib/request"
 
 export default class extends Controller {
-  static targets = ["root", "controlls", "controllCreate", "controllDelete"]
+  static targets = ["root", "controlls", "controllCreate", "controllUpdate"]
   static classes = ["hidden"]
   static values = {
     apiUrl: String,
     canCreate: {type: Boolean, default: false},
-    canDelete: {type: Boolean, default: false},
+    canUpdate: {type: Boolean, default: false},
   }
 
   connect() {
@@ -40,16 +40,16 @@ export default class extends Controller {
     }
   }
 
-  canDeleteValueChanged(value) {
+  canUpdateValueChanged(value) {
     if (value) {
-      this.controllDeleteTarget.classList.remove(this.hiddenClass)
+      this.controllUpdateTarget.classList.remove(this.hiddenClass)
       this.setControllArrowColor(
-        getComputedStyle(this.controllDeleteTarget).getPropertyValue(
+        getComputedStyle(this.controllUpdateTarget).getPropertyValue(
           "background-color",
         ),
       )
     } else {
-      this.controllDeleteTarget.classList.add(this.hiddenClass)
+      this.controllUpdateTarget.classList.add(this.hiddenClass)
     }
   }
 
@@ -109,11 +109,11 @@ export default class extends Controller {
   /**
    *
    * @param {Boolean} canCreate
-   * @param {Boolean} canDelete
+   * @param {Boolean} canUpdate
    */
-  async showControlls(canCreate, canDelete) {
+  async showControlls(canCreate, canUpdate) {
     this.canCreateValue = canCreate
-    this.canDeleteValue = canDelete
+    this.canUpdateValue = canUpdate
     await this.nextTick()
 
     const position = this.controllArrow.dataset.position
@@ -171,7 +171,7 @@ export default class extends Controller {
 
   async hideControlls() {
     this.canCreateValue = false
-    this.canDeleteValue = false
+    this.canUpdateValue = false
     this.controllsTarget.classList.add(this.hiddenClass)
   }
 
@@ -205,9 +205,11 @@ export default class extends Controller {
 
   /**
    * save creates a new annotation on the document
+   *
+   * @param {Event} evt received event
    */
-  async save(event) {
-    const color = event.currentTarget.dataset.annotationsColorValue
+  async save(evt) {
+    const color = evt.currentTarget.value
     this.annotation.color = color
 
     if (!this.annotation || !this.annotation.isValid()) {
@@ -227,23 +229,60 @@ export default class extends Controller {
     await this.reload()
   }
 
+  /**
+   * update updates the selected annotations
+   *
+   * @param {Event} evt received event
+   */
+  async update(evt) {
+    const color = evt.currentTarget.value
+    const baseURL = new URL(`${this.apiUrlValue}/`, document.URL)
+
+    await this.iterCoveredAnnotations(async (id) => {
+      await request(new URL(id, baseURL), {
+        method: "PATCH",
+        body: {
+          color: color,
+        },
+      })
+    })
+    await this.reload()
+  }
+
+  /**
+   * delete removes the selected annotations
+   */
   async delete() {
+    const baseURL = new URL(`${this.apiUrlValue}/`, document.URL)
+    await this.iterCoveredAnnotations(async (id) => {
+      await request(new URL(id, baseURL), {method: "DELETE"})
+    })
+    await this.reload()
+  }
+
+  /**
+   * @callback iterCoveredCallback
+   * @param {string} id annotation id
+   */
+
+  /**
+   * iterCoveredAnnotations execute a function on each annotatin in the
+   * current selection.
+   *
+   * @param {iterCoveredCallback} fn
+   */
+  async iterCoveredAnnotations(fn) {
     const ids = new Set()
     this.annotation.coveredAnnotations().forEach((n) => {
       ids.add(n.dataset.annotationIdValue)
     })
-
     if (ids.length == 0) {
       return
     }
 
-    const baseURL = new URL(`${this.apiUrlValue}/`, document.URL)
     for (const id of ids) {
-      const url = new URL(id, baseURL)
-      await request(url, {method: "DELETE"})
+      await fn(id)
     }
-
-    await this.reload()
   }
 }
 

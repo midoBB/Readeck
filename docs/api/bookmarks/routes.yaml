@@ -341,7 +341,9 @@ bookmarkAnnotationList:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/annotationInfo"
+            type: array
+            items:
+              $ref: "#/components/schemas/annotationInfo"
 
 # POST /bookmarks/{id}annotations
 bookmarkAnnotationCreate:
@@ -370,11 +372,39 @@ bookmarkAnnotationCreate:
           schema:
             $ref: "#/components/schemas/annotationInfo"
 
+# PATCH /bookmarks/{id}annotations/{annotation_id}
+bookmarkAnnotationUpdate:
+  summary: Highlight Update
+  description: |
+    This route updates then given highlight in the given bookmark.
+
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/annotationUpdate"
+
+  responses:
+    "200":
+      description: Update result
+      content:
+        application/json:
+          schema:
+            properties:
+              updated:
+                type: string
+                format: date-time
+              annotations:
+                type: array
+                items:
+                  $ref: "#/components/schemas/annotationInfo"
+
+
 # DELETE /bookmarks/{id}annotations/{annotation_id}
 bookmarkAnnotationDelete:
   summary: Highlight Delete
   description: |
-    This route removes the given annotation in the given bookmark.
+    This route removes the given highlight in the given bookmark.
 
   responses:
     "204":

@@ -415,7 +415,41 @@ func (api *apiRouter) annotationCreate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Add("Location", api.srv.AbsoluteURL(r, ".", annotation.ID).String())
-	api.srv.Render(w, r, 200, annotation)
+	api.srv.Render(w, r, http.StatusCreated, annotation)
+}
+
+func (api *apiRouter) annotationUpdate(w http.ResponseWriter, r *http.Request) {
+	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
+	id := chi.URLParam(r, "id")
+	if b.Annotations == nil {
+		api.srv.Status(w, r, http.StatusNotFound)
+		return
+	}
+
+	if b.Annotations.Get(id) == nil {
+		api.srv.Status(w, r, http.StatusNotFound)
+		return
+	}
+
+	f := newAnnotationUpdateForm(api.srv.Locale(r))
+	forms.Bind(f, r)
+	if !f.IsValid() {
+		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
+		return
+	}
+
+	annotation := b.Annotations.Get(id)
+	annotation.Color = f.Get("color").String()
+	update := map[string]interface{}{
+		"annotations": b.Annotations,
+	}
+	err := b.Update(update)
+	if err != nil {
+		api.srv.Error(w, r, err)
+		return
+	}
+
+	api.srv.Render(w, r, http.StatusOK, update)
 }
 
 func (api *apiRouter) annotationDelete(w http.ResponseWriter, r *http.Request) {

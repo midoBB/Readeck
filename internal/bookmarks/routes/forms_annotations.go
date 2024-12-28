@@ -20,6 +20,14 @@ type annotationForm struct {
 	*forms.Form
 }
 
+func newAnnotationUpdateForm(tr forms.Translator) (f *forms.Form) {
+	f = forms.Must(
+		forms.NewTextField("color", forms.Required, forms.Trim),
+	)
+	f.SetLocale(tr)
+	return
+}
+
 func newAnnotationForm(tr forms.Translator) (f *annotationForm) {
 	f = &annotationForm{forms.Must(
 		forms.NewTextField("start_selector", forms.Required, forms.Trim),

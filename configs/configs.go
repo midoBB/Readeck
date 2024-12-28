@@ -46,15 +46,15 @@ func init() {
 // Because we don't need viper's mess for just storing configuration from
 // a source.
 type config struct {
-	Main         configMain      `json:"main" env:"-"`
-	Server       configServer    `json:"server" env:"-"`
-	Database     configDB        `json:"database" env:"-"`
-	Email        configEmail     `json:"email" env:"-"`
-	Extractor    configExtractor `json:"extractor" env:"-"`
-	Bookmarks    configBookmarks `json:"bookmarks" env:"-"`
-	Worker       configWorker    `json:"worker" env:"-"`
-	Metrics      configMetrics   `json:"metrics" env:"-"`
-	Commissioned bool            `json:"-" env:"-"`
+	Main         configMain      `json:"main"`
+	Server       configServer    `json:"server"`
+	Database     configDB        `json:"database"`
+	Email        configEmail     `json:"email"`
+	Extractor    configExtractor `json:"extractor"`
+	Bookmarks    configBookmarks `json:"bookmarks"`
+	Worker       configWorker    `json:"worker"`
+	Metrics      configMetrics   `json:"metrics"`
+	Commissioned bool            `json:"-"`
 	secretKey    []byte
 }
 
@@ -71,7 +71,7 @@ type configServer struct {
 	Prefix         string        `json:"prefix" env:"SERVER_PREFIX"`
 	TrustedProxies []configIPNet `json:"trusted_proxies" env:"TRUSTED_PROXIES,unset"`
 	AllowedHosts   []string      `json:"allowed_hosts" env:"ALLOWED_HOSTS"`
-	Session        configSession `json:"session" env:"-"`
+	Session        configSession `json:"session"`
 }
 
 type configDB struct {
@@ -79,8 +79,8 @@ type configDB struct {
 }
 
 type configSession struct {
-	CookieName string `json:"cookie_name" env:"-"`
-	MaxAge     int    `json:"max_age" env:"-"` // in minutes
+	CookieName string `json:"cookie_name"`
+	MaxAge     int    `json:"max_age"` // in minutes
 }
 
 type configBookmarks struct {
@@ -106,10 +106,10 @@ type configWorker struct {
 }
 
 type configExtractor struct {
-	NumWorkers     int                `json:"workers" env:"-"`
-	ContentScripts []string           `json:"content_scripts" env:"-"`
-	DeniedIPs      []configIPNet      `json:"denied_ips" env:"-"`
-	ProxyMatch     []configProxyMatch `json:"proxy_match" env:"-"`
+	NumWorkers     int                `json:"workers"`
+	ContentScripts []string           `json:"content_scripts"`
+	DeniedIPs      []configIPNet      `json:"denied_ips"`
+	ProxyMatch     []configProxyMatch `json:"proxy_match"`
 }
 
 type configMetrics struct {

@@ -7,16 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-12-15 12:59+0000\n"
-"PO-Revision-Date: 2024-12-13 10:08+0000\n"
+"PO-Revision-Date: 2024-12-23 23:08+0000\n"
 "Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
-"Language: uk\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Language: uk_UA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.9.2\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -214,7 +215,7 @@ msgstr "Останнє оновлення: %s"
 
 #: assets/templates/admin/user_list.jet.html
 msgid "This user will be removed in a few seconds."
-msgstr "Користувач буде видалений через декілька секунд."
+msgstr "Користувача буде видалено через декілька секунд."
 
 #: assets/templates/auth/login.jet.html
 msgid "Sign in"
@@ -253,7 +254,6 @@ msgid "Please note:"
 msgstr "Увага:"
 
 #: assets/templates/auth/onboarding.jet.html
-#, fuzzy
 msgid ""
 "\n"
 "  Your email address is optional and will never leave this installation.\n"
@@ -267,7 +267,7 @@ msgstr ""
 "інсталяції.\n"
 "  Вона ніколи не буде зібрана, передана чи продана.\n"
 "  Її буде використано <strong>лише</strong> у разі вашої потреби відновлення "
-"паролю або для внутрішніх сповіщень.\n"
+"паролю та для внутрішніх сповіщень.\n"
 "  "
 
 #: assets/templates/auth/onboarding.jet.html
@@ -335,7 +335,7 @@ msgstr "Оновити ваш пароль"
 
 #: assets/templates/auth/recover.jet.html
 msgid "Your password has been changed."
-msgstr "Ваш пароль змінений."
+msgstr "Ваш пароль змінено."
 
 #: assets/templates/auth/recover.jet.html
 msgid "Go to the sign in page"
@@ -534,11 +534,11 @@ msgstr "Видалити колекцію"
 
 #: assets/templates/bookmarks/collection_create.jet.html
 msgid "New Collection"
-msgstr "Нова Колекція"
+msgstr "Нова колекція"
 
 #: assets/templates/bookmarks/collection_list.jet.html internal/opds/http.go
 msgid "Bookmark Collections"
-msgstr "Колекції Закладок"
+msgstr "Колекції закладок"
 
 #: assets/templates/bookmarks/collection_list.jet.html
 msgid "Create a new collection"
@@ -576,7 +576,7 @@ msgstr "Зображення з міткою \"кіт\""
 
 #: assets/templates/bookmarks/collection_list.jet.html
 msgid "The articles that contain \"shelter\" in their title"
-msgstr "Статті, які містять \"притулок\" в заголовку"
+msgstr "Статті, які містять \"притулок\" у своїй назві"
 
 #: assets/templates/bookmarks/collection_list.jet.html
 #, python-format
@@ -598,11 +598,11 @@ msgstr "Видалити цю закладку"
 
 #: assets/templates/bookmarks/components/actions.jet.html
 msgid "Mark as unread"
-msgstr ""
+msgstr "Позначити як непрочитане"
 
 #: assets/templates/bookmarks/components/actions.jet.html
 msgid "Mark as read"
-msgstr ""
+msgstr "Позначити як прочитане"
 
 #: assets/templates/bookmarks/components/actions.jet.html
 #: assets/templates/bookmarks/components/bottom_actions.jet.html
@@ -705,7 +705,7 @@ msgstr "Тип"
 #: assets/templates/bookmarks/components/filters.jet.html
 msgctxt "filter"
 msgid "Progress"
-msgstr ""
+msgstr "Прогрес"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 #, fuzzy
@@ -1200,7 +1200,7 @@ msgstr ""
 #: assets/templates/docs/about.jet.html assets/templates/docs/base.jet.html
 #: docs/http.go
 msgid "About Readeck"
-msgstr ""
+msgstr "Про Readeck"
 
 #: assets/templates/docs/about.jet.html
 msgid "Version:"
@@ -1255,7 +1255,7 @@ msgstr "Ліцензія"
 #: assets/templates/docs/about.jet.html
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
-msgstr "Readeck розповсюджується на умовах ліценції \"%s\""
+msgstr "Readeck розповсюджується на умовах ліцензії \"%s\""
 
 #: assets/templates/docs/about.jet.html
 msgid "Here's a short summary of the license conditions:"
@@ -1396,12 +1396,12 @@ msgstr ""
 "тому спроба змінити пароль не вдалася.\n"
 "\n"
 "Якщо ви користувач Readeck на %s і ви\n"
-"очікували цей електронний лист, будь ласка, спробуйте ще раз, використовуючи "
+"очікували на цей лист, будь ласка, спробуйте ще раз, використовуючи "
 "електронну адресу,\n"
 "яку ви вказали під час створення свого облікового запису.\n"
 "\n"
-"Якщо ви не є користувачем Readeck, будь ласка, проігноруйте це "
-"повідомлення.\n"
+"Якщо ви не є користувачем Readeck, будь ласка, проігноруйте це повідомлення."
+"\n"
 
 #: assets/templates/emails/recover.tmpl
 msgid "Kind regards"
@@ -1422,7 +1422,7 @@ msgstr "У дозволі відмовлено."
 
 #: assets/templates/error.jet.html
 msgid "Page not found."
-msgstr "Сторінка не знайдена."
+msgstr "Сторінку не знайдено."
 
 #: assets/templates/error.jet.html
 msgid "An error occurred."
@@ -1476,6 +1476,11 @@ msgid ""
 "    or store it in a password manager.\n"
 "  "
 msgstr ""
+"\n"
+"    Ваш пароль для застосунку створено. Будь ласка, скопіюйте пароль нижче, "
+"запишіть\n"
+"    або збережіть його у менеджері паролів.\n"
+"  "
 
 #: assets/templates/profile/credential.jet.html
 msgid "Your password:"
@@ -1488,11 +1493,11 @@ msgstr "Скопіювати"
 #: assets/templates/profile/credential.jet.html
 #: assets/templates/profile/token.jet.html
 msgid "Properties"
-msgstr ""
+msgstr "Властивості"
 
 #: assets/templates/profile/credential.jet.html
 msgid "Password ID"
-msgstr ""
+msgstr "ID пароля"
 
 #: assets/templates/profile/credential.jet.html
 #: assets/templates/profile/token.jet.html
@@ -1509,11 +1514,17 @@ msgid ""
 "password.\n"
 "  "
 msgstr ""
+"\n"
+"    Ви можете обмежити дозволи, надані цьому паролю, вибравши одну або "
+"кілька\n"
+"    груп дозволів нижче.<br>\n"
+"    Залиште всі опції порожніми, щоб надати усі ваші дозволи цьому паролю.\n"
+"  "
 
 #: assets/templates/profile/credential.jet.html
 #: assets/templates/profile/token.jet.html
 msgid "Roles"
-msgstr ""
+msgstr "Ролі"
 
 #: assets/templates/profile/credential.jet.html
 msgid "Delete password"
@@ -1521,7 +1532,7 @@ msgstr "Видалити пароль"
 
 #: assets/templates/profile/credential_list.jet.html
 msgid "My Application Passwords"
-msgstr ""
+msgstr "Мої паролі застосунків"
 
 #: assets/templates/profile/credential_list.jet.html
 msgid "Create a new Application Password"
@@ -1533,7 +1544,7 @@ msgstr "Цей пароль буде видалено через кілька с
 
 #: assets/templates/profile/index.jet.html
 msgid "My profile"
-msgstr ""
+msgstr "Мій профіль"
 
 #: assets/templates/profile/index.jet.html
 msgid "Email Address"
@@ -1561,15 +1572,15 @@ msgstr "Токен буде видалено через кілька секун�
 
 #: assets/templates/profile/token.jet.html
 msgid "Token ID"
-msgstr ""
+msgstr "ID токена"
 
 #: assets/templates/profile/token.jet.html
 msgid "Application"
-msgstr ""
+msgstr "Застосунок"
 
 #: assets/templates/profile/token.jet.html
 msgid "Expires on"
-msgstr ""
+msgstr "Закінчується"
 
 #: assets/templates/profile/token.jet.html
 msgid ""
@@ -1581,6 +1592,12 @@ msgid ""
 "token.\n"
 "  "
 msgstr ""
+"\n"
+"    Ви можете обмежити дозволи, надані цьому токену, вибравши одну або "
+"кілька\n"
+"    груп дозволів нижче.<br>\n"
+"    Залиште всі опції порожніми, щоб надати усі ваші дозволи цьому токену.\n"
+"  "
 
 #: assets/templates/profile/token.jet.html
 msgid "Delete token"
@@ -1588,7 +1605,7 @@ msgstr "Видалити токен"
 
 #: assets/templates/profile/token.jet.html
 msgid "API authentication"
-msgstr ""
+msgstr "Аутентифікація API"
 
 #: assets/templates/profile/token.jet.html
 msgid "Your API token"
@@ -1599,10 +1616,12 @@ msgid ""
 "You can use this token by passing it as an <strong>Authorization: Bearer</"
 "strong> HTTP header."
 msgstr ""
+"Ви можете використовувати цей токен, передаючи його у HTTP-заголовку "
+"<strong>Authorization: Bearer</strong> ."
 
 #: assets/templates/profile/token_list.jet.html
 msgid "My API Tokens"
-msgstr ""
+msgstr "Мої токени API"
 
 #: assets/templates/profile/token_list.jet.html
 msgid ""
@@ -1611,12 +1630,18 @@ msgid ""
 "extension)\n"
 "  access to the Readeck API.\n"
 msgstr ""
+"\n"
+"  Токен API — це ключ, який надає вам (або іншому інструменту, наприклад, "
+"розширенню браузера)\n"
+"  доступ до API Readeck\n"
 
 #: assets/templates/profile/token_list.jet.html
 #, python-format
 msgid ""
 "Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
 msgstr ""
+"Будь ласка, прочитайте <a href=\"%s\">Документацію API</a>, якщо ви плануєте "
+"використовувати його."
 
 #: assets/templates/profile/token_list.jet.html
 msgid "Create a new API token"
@@ -1625,7 +1650,7 @@ msgstr "Створити новий токен API"
 #: assets/templates/profile/token_list.jet.html
 #, python-format
 msgid "Expires on: %s"
-msgstr ""
+msgstr "Закінчується: %s"
 
 #: assets/templates/profile/token_list.jet.html
 msgid "This token will be removed in a few seconds."
@@ -1633,46 +1658,46 @@ msgstr "Цей токен буде видалено через кілька се
 
 #: internal/admin/views.go
 msgid "User created."
-msgstr ""
+msgstr "Користувача створено."
 
 #: internal/admin/views.go
 msgid "User updated."
-msgstr ""
+msgstr "Користувача оновлено."
 
 #: internal/auth/signin/forms.go
 msgid "Invalid user and/or password"
-msgstr ""
+msgstr "Неправильний користувач і/або пароль"
 
 #: internal/auth/users/forms.go
 msgid "Bookmarks : Read Only"
-msgstr ""
+msgstr "Закладки : Лише для читання"
 
 #: internal/auth/users/forms.go
 msgid "Bookmarks : Write Only"
-msgstr ""
+msgstr "Закладки : Лише для запису"
 
 #: internal/auth/users/forms.go
 msgid "Admin : Read Only"
-msgstr ""
+msgstr "Адміністратор : Лише для читання"
 
 #: internal/auth/users/forms.go
 msgid "Admin : Write Only"
-msgstr ""
+msgstr "Адміністратор : Лише для запису"
 
 #: internal/bookmarks/importer/browser.go
 msgid "Browser Bookmarks"
-msgstr ""
+msgstr "Закладки браузера"
 
 #: internal/bookmarks/importer/browser.go
 msgid "Unable to read HTML content"
-msgstr ""
+msgstr "Не вдається прочитати вміст HTML"
 
 #: internal/bookmarks/importer/browser.go
 #: internal/bookmarks/importer/goodlinks.go
 #: internal/bookmarks/importer/pocket_file.go
 #: internal/bookmarks/importer/text.go
 msgid "Empty or invalid import file"
-msgstr ""
+msgstr "Порожній або неправильний файл імпорту"
 
 #: internal/bookmarks/importer/goodlinks.go
 msgid "GoodLinks Export File"
@@ -1680,15 +1705,16 @@ msgstr "Файл експорту GoodLinks"
 
 #: internal/bookmarks/importer/omnivore.go
 msgid "Invalid API Key"
-msgstr ""
+msgstr "Неправильний ключ API"
 
 #: internal/bookmarks/importer/pocket_file.go
+#, fuzzy
 msgid "Invalid upload format"
-msgstr ""
+msgstr "Неправильний формат файлу"
 
 #: internal/bookmarks/importer/pocket_file.go
 msgid "Unable to open zip file"
-msgstr ""
+msgstr "Не вдається відкрити файл zip"
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
@@ -1696,15 +1722,15 @@ msgstr "Текстовий файл"
 
 #: internal/bookmarks/importer/wallabag.go
 msgid "Invalid URL"
-msgstr ""
+msgstr "Неправильна URL-адреса"
 
 #: internal/bookmarks/importer/wallabag.go
 msgid "Invalid credentials"
-msgstr ""
+msgstr "Неправильні облікові дані"
 
 #: internal/bookmarks/importer/wallabag.go
 msgid "No access token found"
-msgstr ""
+msgstr "Не знайдено токен доступу"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgid "Article"
@@ -1721,80 +1747,80 @@ msgstr "Відео"
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "status"
 msgid "Unviewed"
-msgstr ""
+msgstr "Не переглянуто"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "status"
 msgid "In-Progress"
-msgstr ""
+msgstr "Виконується"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "status"
 msgid "Completed"
-msgstr ""
+msgstr "Завершено"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Added, most recent first"
-msgstr ""
+msgstr "Додано, спочатку найновіші"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Added, oldest first"
-msgstr ""
+msgstr "Додано, спочатку найдавніші"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Published, most recent first"
-msgstr ""
+msgstr "Опубліковано, спочатку найновіші"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Published, oldest first"
-msgstr ""
+msgstr "Опубліковано, спочатку найдавніші"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Title, A to Z"
-msgstr ""
+msgstr "Назва, А-Я"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Title, Z to A"
-msgstr ""
+msgstr "Назва, Я-А"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Site Name, A to Z"
-msgstr ""
+msgstr "Назва сайту, А-Я"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Site Name, Z to A"
-msgstr ""
+msgstr "Назва сайту, Я-А"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Duration, shortest first"
-msgstr ""
+msgstr "Тривалість, спочатку найкоротші"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Duration, longest first"
-msgstr ""
+msgstr "Тривалість, спочатку найдовші"
 
 #: internal/bookmarks/routes/opds.go
 msgid "Readeck Bookmarks"
-msgstr ""
+msgstr "Закладки Readeck"
 
 #: internal/bookmarks/routes/opds.go
 msgid "Readeck Bookmark Collections"
-msgstr ""
+msgstr "Колекції закладок Readeck"
 
 #: internal/bookmarks/routes/opds.go
 #, python-format
 msgid "Readeck Collection: %s"
-msgstr ""
+msgstr "Колекція Readeck: %s"
 
 #: internal/bookmarks/routes/opds.go
 #, python-format
@@ -1832,11 +1858,11 @@ msgstr "Колекцію оновлено."
 
 #: internal/bookmarks/routes/views_import.go
 msgid "Import"
-msgstr ""
+msgstr "Імпортувати"
 
 #: internal/bookmarks/routes/views_import.go
 msgid "Progress"
-msgstr ""
+msgstr "Прогрес"
 
 #: internal/opds/http.go
 msgid "All Bookmarks"
@@ -1844,11 +1870,11 @@ msgstr "Усі закладки"
 
 #: internal/profile/forms.go
 msgid "invalid username and/or email"
-msgstr ""
+msgstr "неправильне ім'я користувача і/або електронна адреса"
 
 #: internal/profile/forms.go
 msgid "invalid password"
-msgstr ""
+msgstr "неправильний пароль"
 
 #: internal/profile/views.go
 msgid "Profile updated."
@@ -1863,16 +1889,18 @@ msgid "Error: you cannot create more credentials."
 msgstr ""
 
 #: internal/profile/views.go
+#, fuzzy
 msgid "An error occurred while creating your password."
-msgstr ""
+msgstr "Під час створення пароля виникла помилка."
 
 #: internal/profile/views.go
 msgid "Password was updated."
 msgstr "Пароль оновлено."
 
 #: internal/profile/views.go
+#, fuzzy
 msgid "An error occurred while creating your token."
-msgstr ""
+msgstr "Під час створення токена виникла помилка."
 
 #: internal/profile/views.go
 msgid "New token created."
@@ -1888,15 +1916,15 @@ msgstr ""
 
 #: pkg/forms/validators.go
 msgid "field is required"
-msgstr ""
+msgstr "обов'язкове поле"
 
 #: pkg/forms/validators.go
 msgid "not a valid email address"
-msgstr ""
+msgstr "недійсна електронна адреса"
 
 #: pkg/forms/validators.go
 msgid "invalid URL"
-msgstr ""
+msgstr "неправильна URL-адреса"
 
 #: pkg/forms/validators.go
 #, python-format
@@ -2101,12 +2129,12 @@ msgstr "Гру"
 #: pkg/strftime/strftime.go
 msgctxt "datetime"
 msgid "a.m."
-msgstr ""
+msgstr "дп"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime"
 msgid "p.m."
-msgstr ""
+msgstr "пп"
 
 #: pkg/strftime/strftime.go
 #, python-format

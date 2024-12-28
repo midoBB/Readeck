@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-12-15 12:59+0000\n"
-"PO-Revision-Date: 2024-11-23 20:07+0000\n"
-"Last-Translator: FrankDex <FrankDex@users.noreply.translate.codeberg.org>"
-"\n"
+"PO-Revision-Date: 2024-12-16 04:49+0000\n"
+"Last-Translator: math-gh <math-gh@users.noreply.translate.codeberg.org>\n"
+"Language-Team: German <https://translate.codeberg.org/projects/readeck/"
+"application/de/>\n"
 "Language: de_DE\n"
-"Language-Team: German "
-"<https://translate.codeberg.org/projects/readeck/application/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.8.4\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -600,11 +600,11 @@ msgstr "Lösche dieses Lesezeichen"
 
 #: assets/templates/bookmarks/components/actions.jet.html
 msgid "Mark as unread"
-msgstr ""
+msgstr "Als ungelesen markieren"
 
 #: assets/templates/bookmarks/components/actions.jet.html
 msgid "Mark as read"
-msgstr ""
+msgstr "Als gelesen markieren"
 
 #: assets/templates/bookmarks/components/actions.jet.html
 #: assets/templates/bookmarks/components/bottom_actions.jet.html
@@ -706,7 +706,7 @@ msgstr "Typ"
 #: assets/templates/bookmarks/components/filters.jet.html
 msgctxt "filter"
 msgid "Progress"
-msgstr ""
+msgstr "Fortschritt"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Favorite"
@@ -1691,7 +1691,7 @@ msgstr "Browser Lesezeichen"
 
 #: internal/bookmarks/importer/browser.go
 msgid "Unable to read HTML content"
-msgstr ""
+msgstr "Der HTML-Inhalt kann nicht gelesen werden"
 
 #: internal/bookmarks/importer/browser.go
 #: internal/bookmarks/importer/goodlinks.go
@@ -1714,7 +1714,7 @@ msgstr "Ungültiges Format"
 
 #: internal/bookmarks/importer/pocket_file.go
 msgid "Unable to open zip file"
-msgstr ""
+msgstr "Die ZIP-Datei kann nicht geöffnet werden"
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
@@ -1757,7 +1757,7 @@ msgstr ""
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "status"
 msgid "Completed"
-msgstr ""
+msgstr "Abgeschlossen"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
@@ -2172,4 +2172,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Error: you can not create more credentials."
 #~ msgstr "Fehler: Du kannst keine weiteren Anmeldeinformationen erstellen."
-

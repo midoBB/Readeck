@@ -1,26 +1,29 @@
 /*
- * SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
- *
- * SPDX-License-Identifier: AGPL-3.0-only
- */
+* SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+*
+* SPDX-License-Identifier: AGPL-3.0-only
+*/
+@use "sass:meta";
+
+//--fonts-- DO NOT REMOVE THIS LINE
 
 @import "tailwindcss/base.css";
 @import "tailwindcss/components.css";
 
-@import "./styles/colors";
-@import "./styles/base";
+@include meta.load-css("styles/colors");
+@include meta.load-css("styles/base");
 
-@import "./styles/button";
-@import "./styles/bookmark-list";
-@import "./styles/breadcrumbs";
-@import "./styles/forms";
-@import "./styles/layout";
-@import "./styles/prose";
-@import "./styles/video";
-@import "./styles/menu";
-@import "./styles/pagination";
+@include meta.load-css("styles/button");
+@include meta.load-css("styles/bookmark-list");
+@include meta.load-css("styles/breadcrumbs");
+@include meta.load-css("styles/forms");
+@include meta.load-css("styles/layout");
+@include meta.load-css("styles/prose");
+@include meta.load-css("styles/video");
+@include meta.load-css("styles/menu");
+@include meta.load-css("styles/pagination");
 
-@import "./styles/bookmark";
-@import "./styles/docs";
+@include meta.load-css("styles/bookmark");
+@include meta.load-css("styles/docs");
 
 @import "tailwindcss/utilities.css";

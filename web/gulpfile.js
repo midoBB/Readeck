@@ -194,9 +194,15 @@ function css_bundle() {
         // Push @import from the font catalog
         if (file.isBuffer()) {
           const concat = []
-          concat.push(Buffer.from(fontCatalog.atRules().join("\n")))
-          concat.push(Buffer.from("\n\n"))
-          concat.push(file.contents)
+
+          for (let l of file.contents.toString().split("\n")) {
+            if (l.startsWith("//--fonts--")) {
+              concat.push(Buffer.from(fontCatalog.atRules().join("\n")))
+              concat.push(Buffer.from("\n\n"))
+              continue
+            }
+            concat.push(Buffer.from(l + "\n"))
+          }
           file.contents = Buffer.concat(concat)
         }
 

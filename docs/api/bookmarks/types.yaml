@@ -372,7 +372,7 @@ schemas:
         description: Highlighted text
 
   annotationCreate:
-    required: [start_selector, start_offset, end_selector, end_offset]
+    required: [start_selector, start_offset, end_selector, end_offset, color]
     properties:
       start_selector:
         type: string
@@ -386,6 +386,16 @@ schemas:
       end_offset:
         type: integer
         description: End element's text offset
+      color:
+        type: color
+        description: Annotation color
+
+  annotationUpdate:
+    required: [color]
+    properties:
+      color:
+        type: color
+        description: Annotation color
 
   collectionSummary:
     properties:

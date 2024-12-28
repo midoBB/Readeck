@@ -102,6 +102,7 @@ func newAPIRouter(s *server.Server) *apiRouter {
 			r.Patch("/{uid:[a-zA-Z0-9]{18,22}}", api.bookmarkUpdate)
 			r.Delete("/{uid:[a-zA-Z0-9]{18,22}}", api.bookmarkDelete)
 			r.Post("/{uid:[a-zA-Z0-9]{18,22}}/annotations", api.annotationCreate)
+			r.Patch("/{uid:[a-zA-Z0-9]{18,22}}/annotations/{id:[a-zA-Z0-9]{18,22}}", api.annotationUpdate)
 			r.Delete("/{uid:[a-zA-Z0-9]{18,22}}/annotations/{id:[a-zA-Z0-9]{18,22}}", api.annotationDelete)
 		})
 		r.With(api.withLabel).Patch("/labels/{label}", api.labelUpdate)

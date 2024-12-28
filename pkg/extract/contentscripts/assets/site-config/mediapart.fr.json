@@ -3,7 +3,7 @@
     "//h1[@class=\"title\"]"
   ],
   "body_selectors": [
-    "//main[@class=\"global-wrapper\"]"
+    "//main[1]"
   ],
   "date_selectors": [
     "//div[contains(concat(' ',normalize-space(@class),' '),' author ')]//time/@datetime"
@@ -12,9 +12,21 @@
     "//div[contains(concat(' ',normalize-space(@class),' '),' author ')]//a[@class='journalist']"
   ],
   "strip_selectors": [
-    "//aside"
+    "//button"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "news__body__right",
+    "news__heading__top__kicker",
+    "page-title",
+    "news__heading__center",
+    "splitter",
+    "engagement-bar-wrapper",
+    "read-also",
+    "newsletter-form",
+    "paywall-login",
+    "paywall-message",
+    "paywall_no_variance"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -24,7 +36,12 @@
     "//link[@rel=\"canonical\"]"
   ],
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "class=\"container",
+      "class=\"foo_cntr"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {

@@ -1,0 +1,71 @@
+{
+  "title_selectors": [
+    "//h1[@itemprop=\"headline\"]"
+  ],
+  "body_selectors": [
+    "//div[@class='materia-titulo']/h2 | //*[@id=\"materia-letra\"]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' content-head ')] | //article[1] | //div[contains(@class, 'content-top-image')]"
+  ],
+  "date_selectors": [
+    "//time[@itemprop='dateModified']/@datetime",
+    "//time[@itemprop='datePublished']/@datetime"
+  ],
+  "author_selectors": [
+    "//*[@itemprop='author']",
+    "//*[@class='content-publication-data__from']/@title"
+  ],
+  "strip_selectors": [
+    "//button",
+    "//div[contains(@class,'foto')]/strong",
+    "//div[contains(@class,'frase-materia')]/div[@class='autor']",
+    "//div[contains(@class,'saibamais')]",
+    "//*[contains(text(),'Clique aqui e veja mais')]/ancestor::p",
+    "//ul[@class=\"toolbar\"]",
+    "//div[@class='mc-article-header']/hr",
+    "//strong[text()='LEIA TAMBÉM']/parent::p/parent::div/parent::div | //strong[text()='LEIA TAMBÉM']/parent::p/parent::div/parent::div/following-sibling::*",
+    "//a[contains(@href, 'www.whatsapp.com/channel/')]/ancestor::div[1]",
+    "//section[@id='passador-materia'] | //section[@id='passador-materia']/following-sibling::*"
+  ],
+  "strip_id_or_class": [
+    "content__share-bar",
+    "content__signa-share",
+    "bread-crumb-title",
+    "gallery-mosaic-item"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "[Clique aqui e veja mais vídeos do Fluminense]",
+      "[]"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://ge.globo.com/atletismo/noticia/2013/08/michael-johnson-diz-que-bolt-e-melhor-da-historia-nao-ha-duvidas.html",
+      "contains": []
+    },
+    {
+      "url": "https://ge.globo.com/futebol/futebol-internacional/futebol-espanhol/noticia/2013/08/barca-atropela-levante-e-neymar-passa-em-branco-em-estreia-oficial.html",
+      "contains": []
+    },
+    {
+      "url": "https://g1.globo.com/mundo/noticia/2024/11/15/palco-de-mortes-e-tragedias-palacio-amaldicoado-de-veneza-e-vendido-a-comprador-anonimo.ghtml",
+      "contains": []
+    },
+    {
+      "url": "https://gshow.globo.com/tudo-mais/tv-e-famosos/noticia/giovanna-ewbank-e-bruno-gagliasso-se-pronunciam-apos-justica-condenar-portuguesa-acusada-de-racismo.ghtml",
+      "contains": []
+    },
+    {
+      "url": "https://oglobo.globo.com/cultura/noticia/2024/11/15/erro-em-nome-de-ivan-lins-durante-grammy-latino-gera-criticas-nas-redes-sociais-quem-e-david-lins.ghtml",
+      "contains": []
+    }
+  ]
+}

@@ -1,11 +1,14 @@
 {
   "title_selectors": null,
   "body_selectors": [
+    "//main[1]/article[1]/section[@id='article-body'] | //header/div[contains(concat(' ',normalize-space(@class),' '),' heading_image ')]",
     "//article[1]"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
+    "//button",
+    "//a[contains(@href, 'ref=ad_removal')]",
     "//footer/self::* | //footer/following-sibling::*"
   ],
   "strip_id_or_class": [
@@ -29,9 +32,13 @@
     ]
   ],
   "http_headers": {
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/122.0"
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0"
   },
   "tests": [
+    {
+      "url": "https://www.howtogeek.com/mac-pro-3d-print-mac-mini-case/",
+      "contains": []
+    },
     {
       "url": "https://www.howtogeek.com/how-to-see-who-is-stalking-your-facebook-profile/",
       "contains": []

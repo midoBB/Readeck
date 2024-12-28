@@ -1,14 +1,12 @@
 {
-  "title_selectors": [
-    "//h1[@class=\"h2\"]"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[@class=\"article-holder\"]"
+    "//article[1]//section[1] | //div[contains(@class, 'FullBleedWrapper')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
-    "//a[contains(@class, 'btn-')]/parent::div"
+    "//*[@aria-hidden=\"true\"]"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -22,7 +20,11 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://lesjours.fr/obsessions/pole-financier/ep12-marcel-campion/",
+      "url": "https://www.barrons.com/articles/60-40-portfolio-bond-yield-inflation-fddb9c4b?st=MKL2je",
+      "contains": []
+    },
+    {
+      "url": "https://www.barrons.com/articles/ai-evs-nuclear-energy-electricity-a4198583",
       "contains": []
     }
   ]

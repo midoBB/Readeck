@@ -1,0 +1,44 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//button",
+    "//div[contains(@class, 'RecircMostPopularWrapper')]",
+    "//div[contains(@class, 'ContentFooterWrapper-')]",
+    "//figure/p[text()='Trending Video']/parent::figure/parent::div"
+  ],
+  "strip_id_or_class": [
+    "ContentHeaderHedAccreditationWrapper-GFiQf",
+    "article-body__footer",
+    "social-icons--overlay",
+    "ad__slot"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "noscript\u003e",
+      "div\u003e"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.architecturaldigest.com/story/affordable-housing-crisis-in-america",
+      "contains": []
+    },
+    {
+      "url": "https://www.architecturaldigest.com/gallery/best-castle-hotels#intcid=_architectural-digest-right-rail_3f371479-54ab-4ca7-bf02-50218c22a041_popular4-1",
+      "contains": []
+    }
+  ]
+}

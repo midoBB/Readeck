@@ -3,14 +3,21 @@
     "//span[@data-tag=\"post-title\"]"
   ],
   "body_selectors": [
+    "//div[@data-tag=\"post-card\"]",
     "//div[@data-tag=\"post-content\"]"
   ],
   "date_selectors": [
     "substring-before(//a[@data-tag=\"post-published-at\"], ' at ')"
   ],
   "author_selectors": null,
-  "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_selectors": [
+    "//button",
+    "//div[contains(@class, 'sc-a8c5af79-0')]/parent::div"
+  ],
+  "strip_id_or_class": [
+    "sc-661b5c1a-5",
+    "sc-c54e49fb-3"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -18,14 +25,21 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "class=\"sc-dc35f3ae-0\"\u003e",
+      "class=\"sc-dc35f3ae-0\" foo=\"bar\"\u003e\u003chr /\u003e"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.patreon.com/posts/switch-between-40339561",
-      "contains": [
-        "Browser-retrieved content is the default"
-      ]
+      "url": "https://www.patreon.com/posts/texas-chow-chow-6143718",
+      "contains": []
+    },
+    {
+      "url": "https://www.patreon.com/posts/upcoming-ambient-112497601",
+      "contains": []
     }
   ]
 }

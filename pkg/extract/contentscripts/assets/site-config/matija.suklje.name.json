@@ -1,14 +1,14 @@
 {
-  "title_selectors": [
-    "//h1[@class=\"h2\"]"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[@class=\"article-holder\"]"
+    "//div[contains(@class, 'article-content')]"
   ],
-  "date_selectors": null,
+  "date_selectors": [
+    "//meta[@property='og:article:published_time']/@content"
+  ],
   "author_selectors": null,
   "strip_selectors": [
-    "//a[contains(@class, 'btn-')]/parent::div"
+    "//a[starts-with(@href, '#')]"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -22,7 +22,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://lesjours.fr/obsessions/pole-financier/ep12-marcel-campion/",
+      "url": "https://matija.suklje.name/persistent-copyright-licensing-information-in-client-side-javascript-css-and-similar-a-proposal-call-for-help",
       "contains": []
     }
   ]

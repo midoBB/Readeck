@@ -1,0 +1,48 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//button",
+    "//aside",
+    "//header/div[1]/div[1]"
+  ],
+  "strip_id_or_class": [
+    "grid-layout__aside"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "IframeEmbedContent\" height=\"300px\"",
+      "IframeEmbedContent\""
+    ],
+    [
+      "noscript\u003e",
+      "div\u003e"
+    ],
+    [
+      "\u003cdiv class=\"PullQuoteEmbedContent",
+      "\u003ch2\u003e\u003cdiv class=\"PullQuoteEmbedContent"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.vogue.co.uk/gallery/gaby-novogratz-and-zach-spohler-wedding",
+      "contains": []
+    },
+    {
+      "url": "https://www.vogue.co.uk/beauty/article/psilocybin-microdosing-retreat",
+      "contains": []
+    }
+  ]
+}

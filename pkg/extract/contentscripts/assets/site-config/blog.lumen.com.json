@@ -1,16 +1,18 @@
 {
   "title_selectors": [
-    "//h1[@class=\"h2\"]"
+    "//div[@class='post_header_title']/h1"
   ],
   "body_selectors": [
-    "//div[@class=\"article-holder\"]"
+    "//div[contains(@class, 'post_header single')] | //div[contains(@class, 'post_img static')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": [
-    "//a[contains(@class, 'btn-')]/parent::div"
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "social_share_counter",
+    "social_share_button_wrapper",
+    "post_share_center"
   ],
-  "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -22,7 +24,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://lesjours.fr/obsessions/pole-financier/ep12-marcel-campion/",
+      "url": "https://blog.lumen.com/one-sock-fits-all-the-use-and-abuse-of-the-nsocks-botnet/",
       "contains": []
     }
   ]

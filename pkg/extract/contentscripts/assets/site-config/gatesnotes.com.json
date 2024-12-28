@@ -1,7 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[@class='TGN_site_Article']"
+    "//div[@class='TGN_Article_ReadTimeSection']/div | //div[@id='TGN_site_Article_body']//p | //div[@id='TGN_site_Article_body']//img | //div[@class='TGN_Article_ReadTimeSection']/p | //div[@class='article_top_description'] | //div[@class='article_top_articlehero']"
   ],
   "date_selectors": [
     "//div[@class='article_top_dateline']"
@@ -14,6 +14,7 @@
     "//div[starts-with(@class, 'TGN_CH_BO_ChapterholderTop')]",
     "//div[contains(@data-module-name, 'pullquote')]",
     "//script",
+    "//style",
     "//canvas",
     "//iframe"
   ],
@@ -31,7 +32,8 @@
     "TGN_CH_BO_HeroHolder",
     "TGN_site_Article_readnext",
     "TGN_site_Article_cta",
-    "TGN_site_Article_comments"
+    "TGN_site_Article_comments",
+    "suspendedCTA"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -42,16 +44,8 @@
   "next_page_link_selectors": null,
   "replace_strings": [
     [
-      "DMT_Image\" src=",
-      "DMT_Image\" dummy="
-    ],
-    [
-      "HF_IMG\" src=",
-      "HF_IMG\" dummy="
-    ],
-    [
-      "\" data-src=",
-      "\"  src="
+      "src=\"https://www.gatesnotes.com/media/GNIN/gray_4x6.png\" data-src=",
+      "src="
     ]
   ],
   "http_headers": null,
@@ -62,6 +56,10 @@
     },
     {
       "url": "https://www.gatesnotes.com/My-trip-to-India-in-pictures",
+      "contains": []
+    },
+    {
+      "url": "https://www.gatesnotes.com/Digital-public-infrastructure",
       "contains": []
     }
   ]

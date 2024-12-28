@@ -70,7 +70,6 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": [
     "//a[contains(@href, '?view=print')]",
-    "//a[contains(@title, 'Druck')]",
     "//a[contains(@href, '?seite=all')]/@href"
   ],
   "next_page_link_selectors": [

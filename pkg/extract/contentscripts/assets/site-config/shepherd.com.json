@@ -1,0 +1,37 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//main[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//nav",
+    "//button",
+    "//address/following-sibling::ul",
+    "//main//h1[1]"
+  ],
+  "strip_id_or_class": [
+    "disclosure-box",
+    "show_more_related_book_lists_more_button"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://shepherd.com/best-books/science-fiction-that-you-should-definitely-read",
+      "contains": []
+    },
+    {
+      "url": "https://shepherd.com/book/project-hail-mary",
+      "contains": []
+    }
+  ]
+}

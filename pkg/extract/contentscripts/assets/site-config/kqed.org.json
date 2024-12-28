@@ -1,0 +1,33 @@
+{
+  "title_selectors": [
+    "//h1[contains(@class, 'Post-Title')]"
+  ],
+  "body_selectors": null,
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//div[contains(@class, 'Shortcode__aside')]",
+    "//div[contains(@class, '_mpost_Info')]",
+    "//div[contains(@class, '_mpost_Title')]"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.kqed.org/arts/13951914/dungeness-crab-garlic-noodles-san-bruno-late-night",
+      "contains": []
+    },
+    {
+      "url": "https://www.kqed.org/arts/13900855/garlic-noodles-sf-bay-area-iconic-foods-thanh-long-smellys",
+      "contains": []
+    }
+  ]
+}

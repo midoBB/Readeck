@@ -1,16 +1,19 @@
 {
   "title_selectors": [
-    "//h1[@class=\"h2\"]"
+    "substring-before( //meta[@property='og:title']/@content , ' - BESABINE')"
   ],
   "body_selectors": [
-    "//div[@class=\"article-holder\"]"
+    "//article[1]/div[contains(@class, 'post-entry')] | //article[1]/div[contains(@class, 'post-image')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
-    "//a[contains(@class, 'btn-')]/parent::div"
+    "//style",
+    "//a/em[text()='Photo credits']/parent::a/parent::p"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "post-tags"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -22,7 +25,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://lesjours.fr/obsessions/pole-financier/ep12-marcel-campion/",
+      "url": "https://www.besabine.com/en/travel-transmilenio-public-transport-bogota/",
       "contains": []
     }
   ]

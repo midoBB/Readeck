@@ -1,0 +1,40 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[contains(@class, 'page__content')] | //div[contains(@class, 'page--when-checked')]"
+  ],
+  "date_selectors": [
+    "substring-before(normalize-space( //div[@class='page__dateline']),' by ')"
+  ],
+  "author_selectors": [
+    "substring-after(normalize-space( //div[@class='page__dateline']),' by ')"
+  ],
+  "strip_selectors": [
+    "//form",
+    "//input"
+  ],
+  "strip_id_or_class": [
+    "page--when-unchecked",
+    "page__comments-no-more",
+    "page__button"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://qntm.org/vhitaos",
+      "contains": []
+    },
+    {
+      "url": "https://qntm.org/mmacevedo",
+      "contains": []
+    }
+  ]
+}

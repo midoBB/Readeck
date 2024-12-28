@@ -1,12 +1,31 @@
 {
-  "title_selectors": null,
+  "title_selectors": [
+    "//meta[@name=\"title\"]/@content"
+  ],
   "body_selectors": [
-    "//div[@class='story-body']"
+    "//article[@id='story']",
+    "//article[1]"
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_selectors": [
+    "//aside",
+    "//button"
+  ],
+  "strip_id_or_class": [
+    "source",
+    "story-headline",
+    "story-byline",
+    "vjs-ima3-ad-container",
+    "vms-player",
+    "story-secondary",
+    "ad-custom",
+    "nca-et-embed",
+    "more-coverage",
+    "more-coverage-v1",
+    "more-coverage-v2",
+    "poster"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -15,7 +34,9 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": null,
+  "http_headers": {
+    "User-Agent": "curl/7.83.1"
+  },
   "tests": [
     {
       "url": "http://www.news.com.au/lifestyle/parenting/babies/dad-shamed-for-taking-baby-into-mackay-shopping-centre-parents-room/news-story/02e22f3df7be275f74825feb63302cc6",

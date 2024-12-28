@@ -1,15 +1,9 @@
 {
-  "title_selectors": [
-    "//h1[@class=\"h2\"]"
-  ],
-  "body_selectors": [
-    "//div[@class=\"article-holder\"]"
-  ],
+  "title_selectors": null,
+  "body_selectors": null,
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": [
-    "//a[contains(@class, 'btn-')]/parent::div"
-  ],
+  "strip_selectors": null,
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -19,10 +13,12 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": null,
+  "http_headers": {
+    "user-agent": "PHP/8.3"
+  },
   "tests": [
     {
-      "url": "https://lesjours.fr/obsessions/pole-financier/ep12-marcel-campion/",
+      "url": "https://blogs.lse.ac.uk/politicsandpolicy/stop-working-on-increasing-road-safety/",
       "contains": []
     }
   ]

@@ -1,12 +1,21 @@
 {
   "title_selectors": null,
-  "body_selectors": null,
-  "date_selectors": [
-    "//meta[@name=\"date\"]/@content"
+  "body_selectors": [
+    "//div[@id='content']"
   ],
-  "author_selectors": null,
+  "date_selectors": [
+    "//div[@class='post-date']"
+  ],
+  "author_selectors": [
+    "//meta[@name='author']/@content"
+  ],
   "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "post-date",
+    "post-title",
+    "taglist",
+    "comments"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -18,7 +27,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://wallabag.org/news/20241103-new-release-wallabag-2610/",
+      "url": "https://bastibe.de/2019-02-24-what-i-learned-about-amateur-photography.html",
       "contains": []
     }
   ]

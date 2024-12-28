@@ -1,0 +1,42 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article[contains(concat(' ',normalize-space(@class),' '),' article__post ')]",
+    "//article[contains(concat(' ',normalize-space(@class),' '),' article__post--encyklopedia ')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//figure[contains(concat(' ',normalize-space(@class),' '),' post__thumbnail--desktop ')]"
+  ],
+  "strip_id_or_class": [
+    "post__next",
+    "post__related-header",
+    "post__related-posts",
+    "article__post--encyklopedia__nav"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "data-src=",
+      "src="
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.tradingforaliving.pl/ekonomia-behawioralna-richard-thaler/",
+      "contains": []
+    },
+    {
+      "url": "https://www.tradingforaliving.pl/encyklopedia/bank-run/",
+      "contains": []
+    }
+  ]
+}

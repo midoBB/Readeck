@@ -1,14 +1,16 @@
 {
   "title_selectors": [
-    "//h1[@class=\"h2\"]"
+    "//article[1]/header/h1"
   ],
   "body_selectors": [
-    "//div[@class=\"article-holder\"]"
+    "//article[1]//section[1] | //article/header/div[1]"
   ],
   "date_selectors": null,
-  "author_selectors": null,
+  "author_selectors": [
+    "//article[1]/header//a[contains(@href, '/author/')]"
+  ],
   "strip_selectors": [
-    "//a[contains(@class, 'btn-')]/parent::div"
+    "//aside"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -22,7 +24,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://lesjours.fr/obsessions/pole-financier/ep12-marcel-campion/",
+      "url": "https://www.classcentral.com/report/duolingo-vs-coursera-udemy-worth-comparison/",
       "contains": []
     }
   ]

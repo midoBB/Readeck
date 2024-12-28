@@ -3,7 +3,7 @@
     "//h1[@class='entry-title']"
   ],
   "body_selectors": [
-    "//article[1]"
+    "//article[1]/div[@class='entry-content']"
   ],
   "date_selectors": [
     "//time[1]/@datetime"
@@ -14,7 +14,7 @@
   "strip_selectors": [
     "//header",
     "//footer",
-    "//article[1]/div[1]/p[1]/br[1]/parent::p",
+    "//div[@class='entry-content']/hr[1]/preceding-sibling::ol | //div[@class='entry-content']/hr[1]/preceding-sibling::ul | //div[@class='entry-content']/hr[1]/preceding-sibling::h1",
     "//img[contains(@src, 'images/by.svg.png')]/parent::p | //img[contains(@src, 'images/by.svg.png')]/parent::p/preceding-sibling::hr[1] | //img[contains(@src, 'images/by.svg.png')]/parent::p/following-sibling::*",
     "//h1[contains(text(), 'How to get Pluralistic')]/self::* | //h1[contains(text(), 'How to get Pluralistic')]/following-sibling::*"
   ],
@@ -26,11 +26,28 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "\u003epermalink\u003c/a\u003e",
+      "\u003e#\u003c/a\u003e"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {
       "url": "https://pluralistic.net/2023/07/31/seize-the-means-of-computation/",
+      "contains": []
+    },
+    {
+      "url": "https://pluralistic.net/2020/02/19/pluralist-19-feb-2020/",
+      "contains": []
+    },
+    {
+      "url": "https://pluralistic.net/2024/11/06/brazilian-blowout/",
+      "contains": []
+    },
+    {
+      "url": "https://pluralistic.net/2021/10/28/clintons-ghost/",
       "contains": []
     }
   ]

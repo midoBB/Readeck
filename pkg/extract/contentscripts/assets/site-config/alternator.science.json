@@ -1,16 +1,17 @@
 {
-  "title_selectors": [
-    "//h1[@class=\"h2\"]"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[@class=\"article-holder\"]"
+    "//div[contains(@class, 'article-page')]"
   ],
   "date_selectors": null,
-  "author_selectors": null,
-  "strip_selectors": [
-    "//a[contains(@class, 'btn-')]/parent::div"
+  "author_selectors": [
+    "//div[@class='author-row']//a"
   ],
-  "strip_id_or_class": null,
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "category",
+    "info-share-banner-wrapper"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -22,7 +23,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://lesjours.fr/obsessions/pole-financier/ep12-marcel-campion/",
+      "url": "https://www.alternator.science/sl/daljse/novi-grofje-celjski-in-dvorec-novo-celje/",
       "contains": []
     }
   ]

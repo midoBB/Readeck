@@ -1,15 +1,11 @@
 {
-  "title_selectors": [
-    "//h1[@class=\"h2\"]"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[@class=\"article-holder\"]"
+    "//main"
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": [
-    "//a[contains(@class, 'btn-')]/parent::div"
-  ],
+  "strip_selectors": null,
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -22,7 +18,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://lesjours.fr/obsessions/pole-financier/ep12-marcel-campion/",
+      "url": "https://doc.rust-lang.ru/book/ch10-03-lifetime-syntax.html",
       "contains": []
     }
   ]

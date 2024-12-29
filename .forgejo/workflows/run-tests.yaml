@@ -8,7 +8,20 @@ on:
 
 jobs:
   tests:
-    runs-on: self-hosted
+    runs-on: docker
+    container:
+      image: docker.io/library/node:20-bullseye
+      volumes:
+        - /workspace/go:/workspace/go
+        - /workspace/.cache/go-build:/workspace/.cache/go-build
+        - /workspace/.cache/golangci-lint:/workspace/.cache/golangci-lint
+        - /workspace/.cache/uv:/workspace/.cache/uv
+        - /workspace/.npm:/workspace/.npm
+      env:
+        HOME: /workspace
+        GOPATH: /workspace/go
+        GOCACHE: /workspace/.cache/go-build
+        GOLANGCI_LINT_CACHE: /workspace/.cache/golangci-lint
     defaults:
       run:
         shell: bash

@@ -32,6 +32,8 @@ runs:
     - name: Setup UV
       if: ${{ fromJson(inputs.python) }}
       uses: https://github.com/astral-sh/setup-uv@v3
+      with:
+        cache-local-path: "/workspace/.cache/uv"
 
     - name: Clean Go cache
       if: ${{ fromJson(inputs.go_clean) }}

@@ -7,16 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-12-28 09:57+0000\n"
-"PO-Revision-Date: 2024-12-23 23:08+0000\n"
+"PO-Revision-Date: 2024-12-29 18:38+0000\n"
 "Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
+"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
+"application/uk/>\n"
 "Language: uk_UA\n"
-"Language-Team: Ukrainian "
-"<https://translate.codeberg.org/projects/readeck/application/uk/>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.9.2\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -665,19 +666,19 @@ msgstr "Стерти виділення"
 
 #: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Yellow"
-msgstr ""
+msgstr "Жовтий"
 
 #: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Red"
-msgstr ""
+msgstr "Червоний"
 
 #: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Blue"
-msgstr ""
+msgstr "Синій"
 
 #: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Green"
-msgstr ""
+msgstr "Зелений"
 
 #: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Highlight"
@@ -767,9 +768,8 @@ msgid "Add label"
 msgstr "Помітити"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html
-#, fuzzy
 msgid "Grid view"
-msgstr "Таблиця"
+msgstr "Вигляд сітки"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html
 msgid "Compact view"
@@ -1068,9 +1068,8 @@ msgid "Import your GoodLinks Articles"
 msgstr "Імпортувати ваші статті з GoodLinks"
 
 #: assets/templates/bookmarks/import/options.jet.html
-#, fuzzy
 msgid "Options"
-msgstr "Опції"
+msgstr "Параметри"
 
 #: assets/templates/bookmarks/import/options.jet.html
 msgid "A label to add to all imported bookmarks"
@@ -1320,7 +1319,7 @@ msgstr "Ліцензія та повідомлення про авторські
 
 #: assets/templates/docs/about.jet.html
 msgid "Network use is distribution"
-msgstr ""
+msgstr "Мережеве використання — це розповсюдження"
 
 #: assets/templates/docs/about.jet.html
 msgid "Same license"
@@ -1844,20 +1843,20 @@ msgstr "Колекція Readeck: %s"
 #: internal/bookmarks/routes/opds.go
 #, python-format
 msgid "Collection ebook - %s"
-msgstr ""
+msgstr "Електронна книга колекції - %s"
 
 #: internal/bookmarks/routes/opds.go
 #, python-format
 msgid "Browse collection: %s"
-msgstr ""
+msgstr "Переглянути колекцію: %s"
 
 #: internal/bookmarks/routes/views_bookmarks.go
 msgid "All your Bookmarks"
-msgstr ""
+msgstr "Усі ваші закладки"
 
 #: internal/bookmarks/routes/views_bookmarks.go
 msgid "Bookmark Search"
-msgstr ""
+msgstr "Пошук закладок"
 
 #: internal/bookmarks/routes/views_bookmarks.go internal/opds/http.go
 msgid "Unread Bookmarks"
@@ -1905,7 +1904,7 @@ msgstr "Ваш пароль змінено."
 
 #: internal/profile/views.go
 msgid "Error: you cannot create more credentials."
-msgstr ""
+msgstr "Помилка: ви не можете створити більше облікових даних."
 
 #: internal/profile/views.go
 #, fuzzy
@@ -1931,7 +1930,7 @@ msgstr "Токен оновлено."
 
 #: pkg/forms/forms.go
 msgid "an unexpected error has occurred"
-msgstr ""
+msgstr "сталася непередбачена помилка"
 
 #: pkg/forms/validators.go
 msgid "field is required"
@@ -2180,4 +2179,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Error: you can not create more credentials."
 #~ msgstr ""
-

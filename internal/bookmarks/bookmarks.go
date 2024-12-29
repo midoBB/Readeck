@@ -296,6 +296,7 @@ type countQueryResult struct {
 // breakdown.
 type CountResult struct {
 	Total    int
+	Unread   int
 	Archived int
 	Marked   int
 	ByType   map[string]int
@@ -330,6 +331,9 @@ func (m *BookmarkManager) CountAll(u *users.User) (CountResult, error) {
 		}
 		if x.IsMarked {
 			res.Marked += x.Count
+		}
+		if !x.IsArchived {
+			res.Unread += x.Count
 		}
 		if x.Type != "" {
 			res.ByType[x.Type] += x.Count

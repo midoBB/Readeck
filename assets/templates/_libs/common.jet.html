@@ -100,9 +100,14 @@ href="{{ assetURL(`img/icons.svg`) }}#{{ name }}"></use></svg></span>
 >{{- yield content -}}</h2>
 {{- end -}}
 
-{{- block sideMenuItem(name, path, icon, current=false) -}}
-<li><a href="{{ urlFor(path) }}" data-current="{{ current }}">{{ yield icon(name=icon) }}
-{{ name }}</a></li>
+{{- block sideMenuItem(name, path, icon, current=false, nbItems=nil) -}}
+<li><a href="{{ urlFor(path) }}" data-current="{{ current }}">
+  {{- yield icon(name=icon) }}
+  <span class="grow">{{ name }}</span>
+  {{- if nbItems -}}
+    <span class="count">{{ nbItems }}</span>
+  {{- end -}}
+</a></li>
 {{- end -}}
 
 {{- block breadcrumbs() -}}

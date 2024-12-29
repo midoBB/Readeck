@@ -9,8 +9,11 @@ package locales
 
 import (
 	"embed"
+	"errors"
+	"fmt"
 	"io"
 	"io/fs"
+	"log/slog"
 	"path"
 
 	"github.com/leonelquinteros/gotext"
@@ -23,20 +26,15 @@ import (
 //go:embed translations/*/*.po
 var localesFS embed.FS
 
+// completionCutoff is the percentage of translated content under which
+// a translation won't be loaded.
+const completionCutoff = 0.9
+
 var (
 	catalog   = make(map[language.Tag]*Locale)
 	allTags   = []language.Tag{}
 	available [][2]string
 )
-
-// disabledTranslations contains translation that are disabled
-// for some reasons (incomplete, faulty, etc.)
-var disabledTranslations = map[string]struct{}{
-	"ca-ES": {},
-	"da-DK": {},
-	"tr-TR": {},
-	"uk-UA": {},
-}
 
 // Locale combines a gotext.Translator instance for a given language
 // identified by a language.Tag.
@@ -82,9 +80,6 @@ func Load() {
 	for _, filename := range files {
 
 		tag := language.Make(path.Dir(filename))
-		if _, exists := disabledTranslations[tag.String()]; exists {
-			continue
-		}
 		var r io.Reader
 		if r, err = localFilesFS().Open(filename); err != nil {
 			panic(err)
@@ -124,6 +119,30 @@ func addLocale(tag language.Tag, r io.Reader) error {
 
 	mo := gotext.NewPo()
 	mo.Parse(b)
+
+	total := 0
+	translated := 0
+	for _, x := range mo.GetDomain().GetTranslations() {
+		total++
+		if x.IsTranslated() {
+			translated++
+		}
+	}
+	pct := float64(translated) / float64(total)
+
+	log := slog.With(
+		slog.String("tag", tag.String()),
+		slog.Int("strings", total),
+		slog.Int("translated", translated),
+		slog.String("completion", fmt.Sprintf("%.0f%%", pct*100)),
+	)
+
+	if tag.String() != "en-US" && pct <= completionCutoff {
+		log.Debug("translation not loaded", slog.Any("err", errors.New("partial")))
+		return nil
+	}
+
+	log.Debug("locale loaded")
 
 	catalog[tag] = &Locale{
 		Translator: mo,

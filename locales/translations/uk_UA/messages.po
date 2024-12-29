@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-12-28 09:57+0000\n"
-"PO-Revision-Date: 2024-12-28 21:32+0000\n"
-"Last-Translator: SomeTr <sometr@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2024-12-29 16:21+0000\n"
+"Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
 "Language: uk_UA\n"
@@ -768,9 +768,8 @@ msgid "Add label"
 msgstr "Помітити"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html
-#, fuzzy
 msgid "Grid view"
-msgstr "Таблиця"
+msgstr "Вигляд сітки"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html
 msgid "Compact view"
@@ -1906,7 +1905,7 @@ msgstr "Ваш пароль змінено."
 
 #: internal/profile/views.go
 msgid "Error: you cannot create more credentials."
-msgstr "Помилка: неможливо створити більше облікових даних."
+msgstr "Помилка: ви не можете створити більше облікових даних."
 
 #: internal/profile/views.go
 #, fuzzy

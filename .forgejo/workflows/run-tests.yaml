@@ -4,6 +4,7 @@ name: Readeck Tests
 run-name: ${{ gitea.actor }} tests
 on:
   push:
+  pull_request:
   workflow_call:
 
 jobs:

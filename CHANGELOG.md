@@ -3,6 +3,19 @@
 ## [Unreleased]
 ### Added
 - Reading progress tracker on articles
+- Filter bookmarks by reading progress
+- Filter bookmarks by more than one type
+- `user` sub command to create or update users, by [@algernon](https://codeberg.org/algernon)
+- Colored highlights, by [@makebit](https://codeberg.org/makebit)
+
+### Fixed
+- Search query with backslash would be parsed incorrectly
+
+### Improved
+- Only load translation that are at least 90% completed
+- Resize images by maximum width only
+- Bookmark display with wide tables, by [@makebit](https://codeberg.org/makebit)
+- Container based responsive layout
 
 ### Changed
 - New, native, logging library

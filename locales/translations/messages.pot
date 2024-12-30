@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-12-28 09:57+0000\n"
+"POT-Creation-Date: 2024-12-30 14:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -341,39 +341,39 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: assets/templates/bookmarks/base.jet.html:26
+#: assets/templates/bookmarks/base.jet.html:27
 msgid "Unread"
 msgstr ""
 
-#: assets/templates/bookmarks/base.jet.html:28
+#: assets/templates/bookmarks/base.jet.html:30
 msgid "Archive"
 msgstr ""
 
-#: assets/templates/bookmarks/base.jet.html:30
+#: assets/templates/bookmarks/base.jet.html:33
 msgid "Favorites"
 msgstr ""
 
-#: assets/templates/bookmarks/base.jet.html:37
+#: assets/templates/bookmarks/base.jet.html:41
 #: internal/bookmarks/routes/views_bookmarks.go:112
 msgid "Articles"
 msgstr ""
 
-#: assets/templates/bookmarks/base.jet.html:42
+#: assets/templates/bookmarks/base.jet.html:47
 #: internal/bookmarks/routes/views_bookmarks.go:116
 msgid "Videos"
 msgstr ""
 
-#: assets/templates/bookmarks/base.jet.html:47
+#: assets/templates/bookmarks/base.jet.html:53
 #: internal/bookmarks/routes/views_bookmarks.go:114
 msgid "Pictures"
 msgstr ""
 
-#: assets/templates/bookmarks/base.jet.html:56
+#: assets/templates/bookmarks/base.jet.html:63
 #: assets/templates/bookmarks/components/sidebar.jet.html:96
 msgid "Labels"
 msgstr ""
 
-#: assets/templates/bookmarks/base.jet.html:58
+#: assets/templates/bookmarks/base.jet.html:65
 #: assets/templates/bookmarks/components/sidebar.jet.html:101
 msgid "Highlights"
 msgstr ""
@@ -456,7 +456,7 @@ msgstr ""
 msgid "Share: %s"
 msgstr ""
 
-#: assets/templates/bookmarks/base.jet.html:60
+#: assets/templates/bookmarks/base.jet.html:67
 #: assets/templates/bookmarks/collection.jet.html:11
 #: assets/templates/bookmarks/collection.jet.html:33
 msgid "Collections"
@@ -616,23 +616,23 @@ msgstr ""
 msgid "Remove Highlight(s)"
 msgstr ""
 
-#: assets/templates/bookmarks/components/content_block.jet.html:46
+#: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
 msgstr ""
 
-#: assets/templates/bookmarks/components/content_block.jet.html:47
+#: assets/templates/bookmarks/components/content_block.jet.html:48
 msgid "Red"
 msgstr ""
 
-#: assets/templates/bookmarks/components/content_block.jet.html:48
+#: assets/templates/bookmarks/components/content_block.jet.html:49
 msgid "Blue"
 msgstr ""
 
-#: assets/templates/bookmarks/components/content_block.jet.html:49
+#: assets/templates/bookmarks/components/content_block.jet.html:50
 msgid "Green"
 msgstr ""
 
-#: assets/templates/bookmarks/components/content_block.jet.html:53
+#: assets/templates/bookmarks/components/content_block.jet.html:54
 msgid "Highlight"
 msgstr ""
 
@@ -671,6 +671,26 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:55
 msgid "Is Favorite"
+msgstr ""
+
+#: assets/templates/bookmarks/components/filters.jet.html:57
+#: assets/templates/bookmarks/components/filters.jet.html:63
+#: assets/templates/bookmarks/components/filters.jet.html:69
+#: assets/templates/bookmarks/components/filters.jet.html:75
+#: assets/templates/bookmarks/components/filters.jet.html:81
+#: assets/templates/bookmarks/components/reader_control.jet.html:127
+#: assets/templates/bookmarks/components/reader_control.jet.html:152
+msgid "yes"
+msgstr ""
+
+#: assets/templates/bookmarks/components/filters.jet.html:57
+#: assets/templates/bookmarks/components/filters.jet.html:63
+#: assets/templates/bookmarks/components/filters.jet.html:69
+#: assets/templates/bookmarks/components/filters.jet.html:75
+#: assets/templates/bookmarks/components/filters.jet.html:81
+#: assets/templates/bookmarks/components/reader_control.jet.html:127
+#: assets/templates/bookmarks/components/reader_control.jet.html:152
+msgid "no"
 msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:61
@@ -731,38 +751,22 @@ msgid "Font"
 msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:54
-msgid "Size"
+msgid "Width"
 msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:75
+msgid "Size"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:96
 msgid "Line height"
 msgstr ""
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:95
+#: assets/templates/bookmarks/components/reader_control.jet.html:116
 msgid "Justify"
 msgstr ""
 
-#: assets/templates/bookmarks/components/filters.jet.html:57
-#: assets/templates/bookmarks/components/filters.jet.html:63
-#: assets/templates/bookmarks/components/filters.jet.html:69
-#: assets/templates/bookmarks/components/filters.jet.html:75
-#: assets/templates/bookmarks/components/filters.jet.html:81
-#: assets/templates/bookmarks/components/reader_control.jet.html:106
-#: assets/templates/bookmarks/components/reader_control.jet.html:131
-msgid "yes"
-msgstr ""
-
-#: assets/templates/bookmarks/components/filters.jet.html:57
-#: assets/templates/bookmarks/components/filters.jet.html:63
-#: assets/templates/bookmarks/components/filters.jet.html:69
-#: assets/templates/bookmarks/components/filters.jet.html:75
-#: assets/templates/bookmarks/components/filters.jet.html:81
-#: assets/templates/bookmarks/components/reader_control.jet.html:106
-#: assets/templates/bookmarks/components/reader_control.jet.html:131
-msgid "no"
-msgstr ""
-
-#: assets/templates/bookmarks/components/reader_control.jet.html:120
+#: assets/templates/bookmarks/components/reader_control.jet.html:141
 msgid "Hyphenation"
 msgstr ""
 
@@ -1739,7 +1743,7 @@ msgstr ""
 
 #: internal/bookmarks/routes/views_import.go:28
 #: internal/bookmarks/routes/views_import.go:37
-#: internal/bookmarks/routes/views_import.go:67
+#: internal/bookmarks/routes/views_import.go:66
 msgid "Import"
 msgstr ""
 

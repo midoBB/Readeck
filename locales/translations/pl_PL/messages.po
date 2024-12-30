@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-12-28 09:57+0000\n"
+"POT-Creation-Date: 2024-12-30 14:03+0000\n"
 "PO-Revision-Date: 2024-11-23 20:07+0000\n"
 "Last-Translator: Eryk Michalak <gnu.ewm@protonmail.com>\n"
 "Language: pl_PL\n"
@@ -793,6 +793,10 @@ msgstr "Wróć do zakładki"
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Font"
 msgstr "Czcionka"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html
+msgid "Width"
+msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Size"

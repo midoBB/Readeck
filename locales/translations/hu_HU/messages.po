@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2024-12-28 09:57+0000\n"
+"POT-Creation-Date: 2024-12-30 14:03+0000\n"
 "PO-Revision-Date: 2024-11-22 18:25+0000\n"
 "Last-Translator: User240803 "
 "<User240803@users.noreply.translate.codeberg.org>\n"
@@ -790,6 +790,10 @@ msgstr "Tovább a könyvjelzőhöz"
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Font"
 msgstr "Betűtípus"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html
+msgid "Width"
+msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Size"

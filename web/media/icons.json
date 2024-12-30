@@ -66,6 +66,7 @@
   "o-user-admin":   "node_modules/boxicons/svg/solid/bxs-user-circle.svg",
   "o-video":        "node_modules/boxicons/svg/regular/bx-film.svg",
   "o-wallabag":     "media/img/logo-wallabag.svg",
+  "o-width":        "node_modules/@mdi/svg/svg/arrow-expand-horizontal.svg",
 
   "o-big-arrow":    "media/img/big-arrow.svg",
   "o-sidebar":      "media/img/sidebar.svg",

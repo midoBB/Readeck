@@ -27,20 +27,8 @@
 
     .bookmark-header,
     .bookmark-article {
-      max-width: 48rem;
       margin-left: auto;
       margin-right: auto;
-
-      // Progressive width reduction.
-      @container bookmark-content (width < 48rem) {
-        max-width: 42rem;
-      }
-      @container bookmark-content (width < 44rem) {
-        max-width: 40rem;
-      }
-      @container bookmark-content (width < 42rem) {
-        max-width: 37rem;
-      }
     }
 
     @apply max-w-full;
@@ -166,6 +154,35 @@
 }
 
 .bookmark-display {
+  &--width-regular {
+    max-width: 48rem;
+  }
+  &--width-wide {
+    max-width: 56rem;
+
+    @container bookmark-content (width < 56rem) {
+      max-width: 52rem;
+    }
+    @container bookmark-content (width < 54rem) {
+      max-width: 50rem;
+    }
+  }
+  &--width-regular,
+  &--width-wide {
+    @container bookmark-content (width < 48rem) {
+      max-width: 42rem;
+    }
+    @container bookmark-content (width < 44rem) {
+      max-width: 40rem;
+    }
+    @container bookmark-content (width < 42rem) {
+      max-width: 37rem;
+    }
+  }
+  &--width-full {
+    max-width: 100%;
+  }
+
   &--size-1 {
     @apply text-sm;
   }

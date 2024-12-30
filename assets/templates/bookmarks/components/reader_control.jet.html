@@ -49,6 +49,27 @@ SPDX-License-Identifier: AGPL-3.0-only
       class="mt-4 flex items-center gap-2"
       data-controller="styler-option"
       data-styler-option-styler-outlet="[data-controller='styler']"
+      data-styler-option-values-value="{{- preferences.WidthList()|json() -}}"
+    >
+      {{- yield icon(name="o-width") -}} <span class="flex-grow">{{ gettext("Width") }}</span>
+      <button class="btn-outlined py-1.5 w-9 rounded"
+       data-action="styler-option#decreaseValue">
+        {{- yield icon(name="o-minus") -}}
+      </button>
+      <input class="p-1 text-center text-sm bg-gray-200 rounded-full" type="text" size="1" disabled
+       name="settings_reader_width"
+       value="{{ preferences.ReaderWidth().Value }}"
+       data-styler-option-target="value"
+       data-action="styler-option:setValue->request#fetch">
+      <button class="btn-outlined py-1.5 w-9 rounded"
+       data-action="styler-option#increaseValue">
+        {{- yield icon(name="o-plus") -}}
+      </button>
+    </div>
+    <div
+      class="mt-4 flex items-center gap-2"
+      data-controller="styler-option"
+      data-styler-option-styler-outlet="[data-controller='styler']"
       data-styler-option-values-value="{{- preferences.FontSizes()|json() -}}"
     >
       {{- yield icon(name="o-font-size") -}} <span class="flex-grow">{{ gettext("Size") }}</span>

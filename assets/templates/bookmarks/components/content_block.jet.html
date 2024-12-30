@@ -39,7 +39,8 @@ SPDX-License-Identifier: AGPL-3.0-only
  data-annotations-hidden-class="hidden"
 >
 
-<div class="bookmark-article print:max-w-none relative">
+<div class="bookmark-article print:max-w-none relative {{ preferences.ReaderWidth().Class }}"
+ data-controller="styler">
   <div class="hidden absolute z-50"
     data-annotations-target="controlls">
       {{- colors := slice(

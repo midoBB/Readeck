@@ -47,6 +47,9 @@ func newProfileForm(tr forms.Translator) (f *profileForm) {
 				locales.Available(),
 				forms.Trim, forms.RequiredOrNil,
 			),
+			forms.NewIntegerField("settings_reader_width",
+				forms.RequiredOrNil, forms.Gte(1), forms.Lte(3),
+			),
 			forms.NewTextField("settings_reader_font",
 				forms.Trim, forms.RequiredOrNil,
 			),
@@ -125,6 +128,8 @@ func (f *profileForm) updateUser(u *users.User) (res map[string]interface{}, err
 		case strings.HasPrefix(n, "settings_reader_"):
 			name := strings.TrimPrefix(n, "settings_reader_")
 			switch name {
+			case "width":
+				u.Settings.ReaderSettings.Width = field.Value().(int)
 			case "font":
 				u.Settings.ReaderSettings.Font = field.String()
 			case "font_size":

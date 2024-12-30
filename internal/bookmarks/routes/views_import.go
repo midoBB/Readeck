@@ -20,7 +20,7 @@ func (h *viewsRouter) bookmarksImportMain(w http.ResponseWriter, r *http.Request
 	tr := h.srv.Locale(r)
 	trackID := chi.URLParam(r, "trackID")
 
-	ctx := server.TC{}
+	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
 
 	if trackID != "" {
 		ctx.SetBreadcrumbs([][2]string{
@@ -59,9 +59,8 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 	f.SetLocale(tr)
 
 	templateName := fmt.Sprintf("/bookmarks/import/form-%s", source)
-	ctx := server.TC{
-		"Form": f,
-	}
+	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
+	ctx["Form"] = f
 	ctx.SetBreadcrumbs([][2]string{
 		{"Bookmarks", h.srv.AbsoluteURL(r, "/bookmarks").String()},
 		{tr.Gettext("Import"), h.srv.AbsoluteURL(r, "/bookmarks/import").String()},

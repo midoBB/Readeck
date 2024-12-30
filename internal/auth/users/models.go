@@ -232,6 +232,7 @@ type UserSettings struct {
 
 // ReaderSettings contains the reader settings.
 type ReaderSettings struct {
+	Width       int    `json:"width"`
 	Font        string `json:"font"`
 	FontSize    int    `json:"font_size"`
 	LineHeight  int    `json:"line_height"`

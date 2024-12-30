@@ -16,6 +16,11 @@ import (
 )
 
 var (
+	readerWidthList = []string{
+		"bookmark-display--width-regular",
+		"bookmark-display--width-wide",
+		"bookmark-display--width-full",
+	}
 	readerFontList = [][2]string{
 		{"lora", "bookmark-display--font-lora"},
 		{"public-sans", "bookmark-display--font-public-sans"},
@@ -67,6 +72,7 @@ type Pair struct {
 type Preferences struct {
 	user                  *users.User
 	session               *sessions.Session
+	idxReaderWidth        int
 	idxReaderFont         int
 	idxReaderFontSize     int
 	idxReaderLineHeight   int
@@ -81,6 +87,7 @@ func New(user *users.User, session *sessions.Session) *Preferences {
 	p := &Preferences{
 		user:                  user,
 		session:               session,
+		idxReaderWidth:        0,
 		idxReaderFont:         0,
 		idxReaderFontSize:     2,
 		idxReaderLineHeight:   2,
@@ -90,6 +97,10 @@ func New(user *users.User, session *sessions.Session) *Preferences {
 	}
 
 	if user != nil && user.Settings != nil {
+		if idx := user.Settings.ReaderSettings.Width - 1; idx >= 0 && idx < len(readerWidthList) {
+			p.idxReaderWidth = idx
+		}
+
 		if idx := slices.IndexFunc(readerFontList, func(e [2]string) bool {
 			return e[0] == user.Settings.ReaderSettings.Font
 		}); idx >= 0 {
@@ -110,6 +121,7 @@ func New(user *users.User, session *sessions.Session) *Preferences {
 		if user.Settings.ReaderSettings.Hyphenation > 0 {
 			p.idxReaderHyphenation = 1
 		}
+
 	}
 
 	if session != nil {
@@ -119,6 +131,11 @@ func New(user *users.User, session *sessions.Session) *Preferences {
 	}
 
 	return p
+}
+
+// WidthList returns the list of available widths.
+func (p *Preferences) WidthList() []string {
+	return readerWidthList
 }
 
 // FontList returns the available font faces.
@@ -144,6 +161,14 @@ func (p *Preferences) Justify() [2]string {
 // Hyphenation returns the available hyphenation values.
 func (p *Preferences) Hyphenation() [2]string {
 	return readerHyphenation
+}
+
+// ReaderWidth returns the user's reader font.
+func (p *Preferences) ReaderWidth() Pair {
+	return Pair{
+		strconv.Itoa(p.idxReaderWidth + 1),
+		readerWidthList[p.idxReaderWidth],
+	}
 }
 
 // ReaderFont returns the user's reader font.

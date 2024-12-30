@@ -7,6 +7,7 @@
 - Filter bookmarks by more than one type
 - `user` sub command to create or update users, by [@algernon](https://codeberg.org/algernon)
 - Colored highlights, by [@makebit](https://codeberg.org/makebit)
+- Adjustable content's width on bookmark view
 
 ### Fixed
 - Search query with backslash would be parsed incorrectly

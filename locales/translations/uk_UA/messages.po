@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-12-30 14:03+0000\n"
-"PO-Revision-Date: 2024-12-31 16:08+0000\n"
+"PO-Revision-Date: 2025-01-01 21:08+0000\n"
 "Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
@@ -1714,9 +1714,8 @@ msgid "Invalid API Key"
 msgstr "Неправильний ключ API"
 
 #: internal/bookmarks/importer/pocket_file.go
-#, fuzzy
 msgid "Invalid upload format"
-msgstr "Неправильний формат файлу"
+msgstr "Неправильний формат завантаження"
 
 #: internal/bookmarks/importer/pocket_file.go
 msgid "Unable to open zip file"
@@ -1895,18 +1894,16 @@ msgid "Error: you cannot create more credentials."
 msgstr "Помилка: ви не можете створити більше облікових даних."
 
 #: internal/profile/views.go
-#, fuzzy
 msgid "An error occurred while creating your password."
-msgstr "Під час створення пароля виникла помилка."
+msgstr "Під час створення вашого пароля виникла помилка."
 
 #: internal/profile/views.go
 msgid "Password was updated."
 msgstr "Пароль оновлено."
 
 #: internal/profile/views.go
-#, fuzzy
 msgid "An error occurred while creating your token."
-msgstr "Під час створення токена виникла помилка."
+msgstr "Під час створення вашого токена виникла помилка."
 
 #: internal/profile/views.go
 msgid "New token created."

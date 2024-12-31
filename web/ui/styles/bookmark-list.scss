@@ -369,7 +369,7 @@
       grid-template-columns: auto auto auto 1fr auto;
 
       &--progress {
-        @apply pt-2 pr-1 self-baseline;
+        @apply pt-1 pr-1 self-baseline;
         & > svg {
           @apply w-5 h-5;
         }
@@ -391,6 +391,11 @@
 
       &--spinner {
         @apply flex-row text-left;
+      }
+
+      &--title {
+        @apply pr-8;
+        text-wrap: auto;
       }
     }
   }

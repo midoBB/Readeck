@@ -7,16 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-12-30 14:03+0000\n"
-"PO-Revision-Date: 2024-12-29 18:38+0000\n"
+"PO-Revision-Date: 2024-12-31 16:08+0000\n"
 "Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
-"Language: uk_UA\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Language: uk_UA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.9.2\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -464,7 +465,7 @@ msgstr "Опубліковано %s"
 #: assets/templates/bookmarks/bookmark_public.jet.html
 #: assets/templates/bookmarks/components/sidebar.jet.html
 #: assets/templates/epub/bookmark.jet.html
-#, fuzzy, python-format
+#, python-format
 msgid "By %s"
 msgstr "Автор %s"
 
@@ -794,7 +795,7 @@ msgstr "Шрифт"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Width"
-msgstr ""
+msgstr "Ширина"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Size"
@@ -818,9 +819,8 @@ msgid "no site name"
 msgstr "немає назви сайту"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html
-#, fuzzy
 msgid "Errors occurred during extraction."
-msgstr "Під час розархівування виникли помилки."
+msgstr "Під час витягу виникли помилки."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html
 msgid "Start selecting text in the article to create a new highlight."
@@ -900,7 +900,6 @@ msgid "Import your Omnivore Articles"
 msgstr "Імпортувати ваші статті з Omnivore"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
-#, fuzzy
 msgid ""
 "\n"
 "    To import your articles from Omnivore, you must first create an API Key "
@@ -909,8 +908,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Щоб імпортувати ваші статті з Omnivore, спочатку необхідно створити ключ "
-"API в\n"
+"    Щоб імпортувати ваші статті з Omnivore, спершу ви маєте створити ключ "
+"API у\n"
 "    налаштуваннях Omnivore та ввести його у форму нижче.\n"
 "  "
 
@@ -932,7 +931,7 @@ msgid "Import your Pocket Articles"
 msgstr "Імпортувати ваші статті з Pocket"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "    You can export your articles on Pocket by visiting:<br>\n"
@@ -940,7 +939,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Ви можете експортувати ваші статті на Pocket, перейшовши на:<br>\n"
+"    Ви можете експортувати ваші статті на Pocket, перейшовши за:<br>\n"
 "    <a class=\"%s\" href=\"%s\">%s</a>.\n"
 "  "
 
@@ -957,7 +956,6 @@ msgstr ""
 "  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
-#, fuzzy
 msgid ""
 "\n"
 "    Please note that Pocket does not allow the article content to be "
@@ -998,7 +996,6 @@ msgid "Import your Wallabag Articles"
 msgstr "Імпортувати ваші статті з Wallabag"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
-#, fuzzy
 msgid ""
 "\n"
 "    To import your articles from Wallabag, you must first create an API "
@@ -1009,7 +1006,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Щоб імпортувати ваші статті з Wallabag, спочатку ви повинні створити "
+"    Щоб імпортувати ваші статті з Wallabag, спочатку необхідно створити "
 "клієнта API\n"
 "    в меню <strong>Керування клієнтами API</strong> Wallabag. Так ви "
 "отримаєте\n"
@@ -1142,7 +1139,6 @@ msgstr ""
 "a>."
 
 #: assets/templates/bookmarks/index.jet.html
-#, fuzzy
 msgid ""
 "\n"
 "          Would you like to import from a similar tool or from a file with "
@@ -1151,8 +1147,8 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          Ви хочете здійснити імпорт зі схожого інструменту або файлу з "
-"існуючими закладками?\n"
+"          Ви хочете імпортувати зі схожого інструменту або файлу з існуючими "
+"закладками?\n"
 "          Спробуйте утиліту імпорту Readeck.\n"
 "        "
 
@@ -1169,7 +1165,7 @@ msgid "Your search query yielded <strong>no results</strong>."
 msgstr "Ваш пошуковий запит не дав <strong>жодних результатів</strong>."
 
 #: assets/templates/bookmarks/index.jet.html
-#, fuzzy, python-format
+#, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
 msgstr[0] "Ваш пошуковий запит дав <strong>%d результат</strong>."
@@ -1245,12 +1241,10 @@ msgid "Main website"
 msgstr "Головний вебсайт"
 
 #: assets/templates/docs/about.jet.html
-#, fuzzy
 msgid "Sources and issues"
-msgstr "Джерела та запити"
+msgstr "Джерела та задачі"
 
 #: assets/templates/docs/about.jet.html
-#, fuzzy
 msgid "How to contribute"
 msgstr "Як долучитися"
 
@@ -1296,7 +1290,6 @@ msgid "Distribution"
 msgstr "Розповсюдження"
 
 #: assets/templates/docs/about.jet.html
-#, fuzzy
 msgid "Modification"
 msgstr "Модифікація"
 
@@ -1309,9 +1302,8 @@ msgid "Private use"
 msgstr "Приватне використання"
 
 #: assets/templates/docs/about.jet.html
-#, fuzzy
 msgid "Disclose source"
-msgstr "Оприлюднення коду"
+msgstr "Оприлюднення джерела"
 
 #: assets/templates/docs/about.jet.html
 msgid "License and copyright notice"

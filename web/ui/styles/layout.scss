@@ -16,6 +16,13 @@
       theme("spacing.col-5")
       1fr;
 
+    @screen max-md {
+      grid-template-columns:
+        theme("spacing.col-1")
+        15rem
+        1fr;
+    }
+
     @screen max-sm {
       @apply flex flex-col;
     }

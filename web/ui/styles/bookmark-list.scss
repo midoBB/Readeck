@@ -361,25 +361,33 @@
   @container bookmark-list (width < 500px) and (width > 300px) {
     .bookmark-card {
       grid-template-areas:
-        "img spinner title title progress"
-        "img spinner ico meta meta"
-        "img spinner labels labels labels"
-        "img spinner deleted deleted deleted"
-        "img spinner actions actions actions";
-      grid-template-columns: auto auto auto 1fr auto;
+        "img spinner title title"
+        "img spinner ico meta"
+        "img spinner labels labels"
+        "img spinner deleted deleted"
+        "img spinner actions actions";
+      grid-template-columns: auto auto auto 1fr;
+      @apply -ml-2;
+
+      & > .svgicon {
+        @apply left-3 top-3 w-5 h-5;
+        & > svg {
+          @apply w-4 h-4;
+        }
+      }
 
       &--progress {
-        @apply pt-1 pr-1 self-baseline;
+        @apply left-16 top-3 w-5;
         & > svg {
           @apply w-5 h-5;
         }
       }
 
       &--img {
-        @apply overflow-hidden w-28;
+        @apply overflow-hidden w-20 ml-2 my-2;
 
         > img {
-          @apply w-full h-full;
+          @apply aspect-square rounded-md;
         }
       }
 
@@ -394,7 +402,6 @@
       }
 
       &--title {
-        @apply pr-8;
         text-wrap: auto;
       }
     }

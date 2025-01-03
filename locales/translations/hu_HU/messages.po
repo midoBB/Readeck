@@ -7,16 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-12-30 14:03+0000\n"
-"PO-Revision-Date: 2024-11-22 18:25+0000\n"
-"Last-Translator: User240803 "
-"<User240803@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2025-01-03 18:26+0000\n"
+"Last-Translator: User240803 <user240803@users.noreply.translate.codeberg.org>"
+"\n"
+"Language-Team: Hungarian <https://translate.codeberg.org/projects/readeck/"
+"application/hu/>\n"
 "Language: hu_HU\n"
-"Language-Team: Hungarian "
-"<https://translate.codeberg.org/projects/readeck/application/hu/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.9.2\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -35,7 +36,7 @@ msgstr "Tartalom"
 
 #: assets/templates/_layouts/sidemenu.jet.html
 msgid "Close menu"
-msgstr ""
+msgstr "Menü bezárása"
 
 #: assets/templates/_libs/common.jet.html
 msgid "Quick access menu"
@@ -421,11 +422,11 @@ msgstr "Gyűjtemények"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Close panel"
-msgstr ""
+msgstr "Panel bezárása"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark information"
-msgstr ""
+msgstr "Könyvjelző információ"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark loading"
@@ -437,7 +438,7 @@ msgstr "Könyvjelző töltődik"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html
 msgid "Bookmark not found"
-msgstr ""
+msgstr "Könyvjelző nem található"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html
 msgid "Shared link"
@@ -510,7 +511,7 @@ msgstr "Szerkesztés"
 #: assets/templates/bookmarks/collection.jet.html
 #: assets/templates/bookmarks/index.jet.html
 msgid "Filters"
-msgstr ""
+msgstr "Szűrők"
 
 #: assets/templates/bookmarks/collection.jet.html
 #: assets/templates/bookmarks/index.jet.html assets/templates/menu.jet.html
@@ -596,11 +597,11 @@ msgstr "Könyvjelző törlése"
 
 #: assets/templates/bookmarks/components/actions.jet.html
 msgid "Mark as unread"
-msgstr ""
+msgstr "Olvasatlanak jelöl"
 
 #: assets/templates/bookmarks/components/actions.jet.html
 msgid "Mark as read"
-msgstr ""
+msgstr "Olvasottnak jelöl"
 
 #: assets/templates/bookmarks/components/actions.jet.html
 #: assets/templates/bookmarks/components/bottom_actions.jet.html
@@ -663,19 +664,19 @@ msgstr "Kiemelés(ek) törlése"
 
 #: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Yellow"
-msgstr ""
+msgstr "Sárga"
 
 #: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Red"
-msgstr ""
+msgstr "Piros"
 
 #: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Blue"
-msgstr ""
+msgstr "Kék"
 
 #: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Green"
-msgstr ""
+msgstr "Zöld"
 
 #: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Highlight"
@@ -718,7 +719,7 @@ msgstr "Típus"
 #: assets/templates/bookmarks/components/filters.jet.html
 msgctxt "filter"
 msgid "Progress"
-msgstr ""
+msgstr "Előrehaladás"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Favorite"
@@ -740,15 +741,15 @@ msgstr "Archivált"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Loaded"
-msgstr ""
+msgstr "Betöltve"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "With Labels"
-msgstr ""
+msgstr "Címkékkel"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "With Errors"
-msgstr ""
+msgstr "Hibákkal"
 
 #: assets/templates/bookmarks/components/labels.jet.html
 msgid "Remove label"
@@ -793,7 +794,7 @@ msgstr "Betűtípus"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Width"
-msgstr ""
+msgstr "Szélesség"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Size"
@@ -805,11 +806,11 @@ msgstr "Sormagassság"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Justify"
-msgstr ""
+msgstr "Kiegyenlítés"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Hyphenation"
-msgstr ""
+msgstr "Kötőjeles írásmód"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html
 #: assets/templates/epub/bookmark.jet.html
@@ -860,7 +861,7 @@ msgstr "Útmutató a Chrome-hoz"
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/form-text.jet.html
 msgid "File"
-msgstr "Válassza ki vagy húzza ide a fájlt"
+msgstr "Fájl"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
 msgid "Convert section titles to labels"
@@ -896,7 +897,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
 msgid "Import your Omnivore Articles"
-msgstr ""
+msgstr "Omnivore Cikkek importálása"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid ""
@@ -906,18 +907,23 @@ msgid ""
 "    Omnivore's settings and enter it in the the form below.\n"
 "  "
 msgstr ""
+"\n"
+"    Omnivore cikkeinek importálásához először is egy API Kulcsot kell "
+"létrehoznia\n"
+"az Omnivore beállításainál majd be kell írnia az alábbi űrlapon.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid "Omnivore URL"
-msgstr ""
+msgstr "Omnivore URL-címe"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid "URL of your Omnivore homepage"
-msgstr ""
+msgstr "Az Ön Omnivore kezdőoldalának URL címe"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid "API Key"
-msgstr ""
+msgstr "API Kulcs"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
@@ -1021,7 +1027,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
 msgid "Wallabag URL"
-msgstr "Wallabag URL"
+msgstr "Wallabag URL-cím"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
 msgid "URL of your Wallabag homepage"
@@ -1230,27 +1236,27 @@ msgstr ""
 
 #: assets/templates/docs/about.jet.html
 msgid "Project"
-msgstr ""
+msgstr "Projekt"
 
 #: assets/templates/docs/about.jet.html
 msgid "Main website"
-msgstr ""
+msgstr "Fő weboldal"
 
 #: assets/templates/docs/about.jet.html
 msgid "Sources and issues"
-msgstr ""
+msgstr "Források és hibák"
 
 #: assets/templates/docs/about.jet.html
 msgid "How to contribute"
-msgstr ""
+msgstr "Közreműködés"
 
 #: assets/templates/docs/about.jet.html
 msgid "Community Forum"
-msgstr ""
+msgstr "Közösségi Fórum"
 
 #: assets/templates/docs/about.jet.html
 msgid "Matrix Chat"
-msgstr ""
+msgstr "Matrix Chat"
 
 #: assets/templates/docs/about.jet.html
 msgid "License"
@@ -1259,7 +1265,8 @@ msgstr "Licence"
 #: assets/templates/docs/about.jet.html
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
-msgstr "A Readeck a \"%s\" licenc feltételei szerint kerül terjesztésre."
+msgstr ""
+"A Readeck a következő licenc feltételei szerint kerül terjesztésre \"%s\""
 
 #: assets/templates/docs/about.jet.html
 msgid "Here's a short summary of the license conditions:"
@@ -1345,7 +1352,7 @@ msgstr "Readeck Súgó"
 
 #: assets/templates/docs/base.jet.html
 msgid "Changelog"
-msgstr ""
+msgstr "Változásnapló"
 
 #: assets/templates/emails/recover.tmpl
 #, python-format
@@ -1695,7 +1702,7 @@ msgstr "Böngésző Könyvjelzők"
 
 #: internal/bookmarks/importer/browser.go
 msgid "Unable to read HTML content"
-msgstr ""
+msgstr "Nem olvasható a HTML tartalom"
 
 #: internal/bookmarks/importer/browser.go
 #: internal/bookmarks/importer/goodlinks.go
@@ -1710,15 +1717,15 @@ msgstr "GoodLinks Export Fájl"
 
 #: internal/bookmarks/importer/omnivore.go
 msgid "Invalid API Key"
-msgstr ""
+msgstr "Érvénytelen API Kulcs"
 
 #: internal/bookmarks/importer/pocket_file.go
 msgid "Invalid upload format"
-msgstr ""
+msgstr "Érvénytelen felöltési formátum"
 
 #: internal/bookmarks/importer/pocket_file.go
 msgid "Unable to open zip file"
-msgstr ""
+msgstr "Zip fájl nem nyitható meg"
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
@@ -1751,17 +1758,17 @@ msgstr "Videó"
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "status"
 msgid "Unviewed"
-msgstr ""
+msgstr "Megtekintetlen"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "status"
 msgid "In-Progress"
-msgstr ""
+msgstr "Folyamatban"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "status"
 msgid "Completed"
-msgstr ""
+msgstr "Befejezett"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
@@ -1890,7 +1897,7 @@ msgstr "Megváltozott a jelszava."
 
 #: internal/profile/views.go
 msgid "Error: you cannot create more credentials."
-msgstr ""
+msgstr "Hiba: nem hozhat létre további hitelesítő adatot."
 
 #: internal/profile/views.go
 msgid "An error occurred while creating your password."
@@ -2176,4 +2183,3 @@ msgstr "%a %b %e %H:%M:%S %y"
 
 #~ msgid "Error: you can not create more credentials."
 #~ msgstr "Hiba: nem tud több hitelesítő adatot létrehozni."
-

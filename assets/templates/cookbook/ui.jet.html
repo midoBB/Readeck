@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
 SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{ extends "./base" }}
-{{ import "/_libs/forms" }}
+{{ import "/_libs/formsv2" }}
 
 {{- block title() -}}User Interface{{- end -}}
 
@@ -162,9 +162,8 @@ Removable message
 ) }}
 
 {{ yield multiSelectField(
-  field=.Form.Get("choices"),
+  field=.Form.Get("select"),
   name="radio",
-  type="radio",
   label="Radio",
   class="field-h",
 ) }}

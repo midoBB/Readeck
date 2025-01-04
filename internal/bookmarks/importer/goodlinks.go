@@ -5,12 +5,13 @@
 package importer
 
 import (
+	"context"
 	"encoding/json"
 	"io"
 	"time"
 
 	"codeberg.org/readeck/readeck/internal/db/types"
-	"codeberg.org/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/forms/v2"
 )
 
 type goodlinksAdapter struct {
@@ -45,12 +46,17 @@ func (adapter *goodlinksAdapter) Name(tr forms.Translator) string {
 
 func (adapter *goodlinksAdapter) Form() forms.Binder {
 	return forms.Must(
+		context.Background(),
 		forms.NewFileField("data", forms.Required),
 	)
 }
 
 func (adapter *goodlinksAdapter) Params(form forms.Binder) ([]byte, error) {
-	reader, err := form.Get("data").Field.(*forms.FileField).Open()
+	if !form.IsValid() {
+		return nil, nil
+	}
+
+	reader, err := form.Get("data").(*forms.FileField).V().Open()
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +65,7 @@ func (adapter *goodlinksAdapter) Params(form forms.Binder) ([]byte, error) {
 	dec := json.NewDecoder(reader)
 	err = dec.Decode(&adapter.Items)
 	if err != nil {
-		form.AddErrors("data", forms.Gettext("Empty or invalid import file"))
+		form.AddErrors("data", errInvalidFile)
 		return nil, nil
 	}
 

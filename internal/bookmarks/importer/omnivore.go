@@ -6,6 +6,7 @@ package importer
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -15,12 +16,13 @@ import (
 	"slices"
 	"strings"
 
-	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
-	"codeberg.org/readeck/readeck/internal/db/types"
-	"codeberg.org/readeck/readeck/pkg/forms"
 	"github.com/araddon/dateparse"
 	"github.com/go-shiori/dom"
 	"golang.org/x/net/html"
+
+	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
+	"codeberg.org/readeck/readeck/internal/db/types"
+	"codeberg.org/readeck/readeck/pkg/forms/v2"
 )
 
 type omnivoreAPIAdapter struct {
@@ -140,9 +142,11 @@ func (adapter *omnivoreAPIAdapter) Name(_ forms.Translator) string {
 
 func (adapter *omnivoreAPIAdapter) Form() forms.Binder {
 	f := forms.Must(
+		context.Background(),
 		forms.NewTextField("url",
 			forms.Trim,
-			forms.Chain(forms.Required, forms.IsValidURL(allowedSchemes...)),
+			forms.Required,
+			forms.IsURL(allowedSchemes...),
 		),
 		forms.NewTextField("token", forms.Trim, forms.Required),
 	)
@@ -152,6 +156,10 @@ func (adapter *omnivoreAPIAdapter) Form() forms.Binder {
 }
 
 func (adapter *omnivoreAPIAdapter) Params(f forms.Binder) ([]byte, error) {
+	if !f.IsValid() {
+		return nil, nil
+	}
+
 	endpoint, _ := url.Parse(f.Get("url").String())
 	endpoint.Fragment = ""
 	endpoint = endpoint.JoinPath("/api/graphql")

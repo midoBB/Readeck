@@ -5,6 +5,7 @@
 package importer
 
 import (
+	"context"
 	"encoding/json"
 	"io"
 	"net/url"
@@ -17,7 +18,7 @@ import (
 	"golang.org/x/net/html"
 
 	"codeberg.org/readeck/readeck/internal/db/types"
-	"codeberg.org/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/forms/v2"
 )
 
 type browserAdapter struct {
@@ -52,13 +53,18 @@ func (adapter *browserAdapter) Name(tr forms.Translator) string {
 
 func (adapter *browserAdapter) Form() forms.Binder {
 	return forms.Must(
+		context.Background(),
 		forms.NewFileField("data", forms.Required),
 		forms.NewBooleanField("labels_from_titles"),
 	)
 }
 
 func (adapter *browserAdapter) Params(form forms.Binder) ([]byte, error) {
-	reader, err := form.Get("data").Field.(*forms.FileField).Open()
+	if !form.IsValid() {
+		return nil, nil
+	}
+
+	reader, err := form.Get("data").(*forms.FileField).V().Open()
 	if err != nil {
 		return nil, err
 	}

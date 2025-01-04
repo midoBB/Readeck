@@ -50,6 +50,10 @@ var funcMap = map[string]jet.Func{
 
 		return reflect.ValueOf(strings.Join(list, sep))
 	},
+	"isList": func(a jet.Arguments) reflect.Value {
+		a.RequireNumOfArguments("isList", 1, 1)
+		return reflect.ValueOf(a.Get(0).Kind() == reflect.Slice)
+	},
 	"checksum": func(a jet.Arguments) reflect.Value {
 		a.RequireNumOfArguments("checksum", 1, 1)
 		h := adler32.New()

@@ -14,7 +14,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth/credentials"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/server"
-	"codeberg.org/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/forms/v2"
 )
 
 // profileViews is an HTTP handler for the user profile web views.
@@ -104,7 +104,7 @@ func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
 // userPassword handles GET and POST requests on /profile/password.
 func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 	tr := v.srv.Locale(r)
-	f := newPasswordForm()
+	f := newPasswordForm(tr)
 
 	if r.Method == http.MethodPost {
 		user := auth.GetRequestUser(r)

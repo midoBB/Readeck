@@ -15,10 +15,9 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth/credentials"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
-	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/internal/sessions"
 	"codeberg.org/readeck/readeck/locales"
-	"codeberg.org/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/forms/v2"
 )
 
 type (
@@ -36,36 +35,32 @@ var (
 )
 
 // newProfileForm returns a ProfileForm instance.
-func newProfileForm(tr forms.Translator) (f *profileForm) {
-	f = &profileForm{
-		forms.Must(
-			forms.NewTextField("username",
-				forms.Trim, forms.RequiredOrNil, users.IsValidUsername),
-			forms.NewTextField("email",
-				forms.Trim, forms.RequiredOrNil, forms.IsEmail),
-			forms.NewChoiceField("settings_lang",
-				locales.Available(),
-				forms.Trim, forms.RequiredOrNil,
-			),
-			forms.NewIntegerField("settings_reader_width",
-				forms.RequiredOrNil, forms.Gte(1), forms.Lte(3),
-			),
-			forms.NewTextField("settings_reader_font",
-				forms.Trim, forms.RequiredOrNil,
-			),
-			forms.NewIntegerField("settings_reader_font_size",
-				forms.RequiredOrNil, forms.Gte(1), forms.Lte(6),
-			),
-			forms.NewIntegerField("settings_reader_line_height",
-				forms.RequiredOrNil, forms.Gte(1), forms.Lte(6),
-			),
-			forms.NewIntegerField("settings_reader_justify"),
-			forms.NewIntegerField("settings_reader_hyphenation"),
+func newProfileForm(tr forms.Translator) *profileForm {
+	return &profileForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
+		forms.NewTextField("username",
+			forms.Trim, forms.RequiredOrNil, users.IsValidUsername),
+		forms.NewTextField("email",
+			forms.Trim, forms.RequiredOrNil, forms.IsEmail),
+		forms.NewTextField("settings_lang",
+			forms.Trim,
+			forms.ChoicesPairs(locales.Available()),
 		),
-	}
-	f.SetLocale(tr)
-
-	return
+		forms.NewIntegerField("settings_reader_width",
+			forms.RequiredOrNil, forms.Gte(1), forms.Lte(3),
+		),
+		forms.NewTextField("settings_reader_font",
+			forms.Trim, forms.RequiredOrNil,
+		),
+		forms.NewIntegerField("settings_reader_font_size",
+			forms.RequiredOrNil, forms.Gte(1), forms.Lte(6),
+		),
+		forms.NewIntegerField("settings_reader_line_height",
+			forms.RequiredOrNil, forms.Gte(1), forms.Lte(6),
+		),
+		forms.NewIntegerField("settings_reader_justify"),
+		forms.NewIntegerField("settings_reader_hyphenation"),
+	)}
 }
 
 // setUser sets the form's values from a user instance.
@@ -179,44 +174,38 @@ type passwordForm struct {
 }
 
 // newPasswordForm returns a PasswordForm instance.
-func newPasswordForm() *passwordForm {
-	f, err := forms.New(
-		forms.NewTextField("current"),
-		forms.NewTextField("password",
-			forms.Required, users.IsValidPassword),
-	)
-	if err != nil {
-		panic(err)
-	}
+func newPasswordForm(tr forms.Translator) *passwordForm {
+	return &passwordForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
+		forms.NewTextField("current", forms.ValueValidatorFunc[string](func(f forms.Field, value string) error {
+			// If a user was passed in context, then "current"
+			// is mandatory and must match the current user
+			// password.
+			form := forms.GetForm(f)
+			u, ok := form.Context().Value(ctxUserFormKey{}).(*users.User)
+			if !ok {
+				return nil
+			}
+			if errs := forms.ApplyValidators[string](f, value, forms.Required); len(errs) > 0 {
+				return errors.Join(errs...)
+			}
 
-	return &passwordForm{f}
+			if !u.CheckPassword(value) {
+				return errInvalidPassword
+			}
+
+			return nil
+		})),
+		forms.NewTextField("password",
+			forms.Required, users.IsValidPassword,
+		),
+	)}
 }
 
 // setUser adds a user to the wrapping form's context.
 func (f *passwordForm) setUser(u *users.User) {
 	ctx := context.WithValue(f.Context(), ctxUserFormKey{}, u)
 	f.SetContext(ctx)
-}
-
-// Validate performs extra validation steps.
-func (f *passwordForm) Validate() {
-	// If a user was passed in context, then "current"
-	// is mandatory and must match the current user
-	// password.
-	u, ok := f.Context().Value(ctxUserFormKey{}).(*users.User)
-	if !ok {
-		return
-	}
-
-	if errs := forms.ValidateField(f.Get("current"), forms.Required); len(errs) > 0 {
-		f.AddErrors("current", errs...)
-	}
-	if !f.IsValid() {
-		return
-	}
-	if !u.CheckPassword(f.Get("current").String()) {
-		f.AddErrors("current", errInvalidPassword)
-	}
 }
 
 // updatePassword performs the user's password update.
@@ -238,23 +227,18 @@ type sessionPrefForm struct {
 	*forms.Form
 }
 
-func newSessionPrefForm(tr forms.Translator) (f *sessionPrefForm) {
-	f = &sessionPrefForm{forms.Must(
-		forms.NewChoiceField(
+func newSessionPrefForm(tr forms.Translator) *sessionPrefForm {
+	return &sessionPrefForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
+		forms.NewTextField(
 			"bookmark_list_display",
-			forms.Choices{
-				{"grid", "grid"},
-				{"compact", "compact"},
-			},
+			forms.Skip,
+			forms.Choices(
+				forms.Choice("grid", "grid"),
+				forms.Choice("compact", "compact"),
+			),
 		),
 	)}
-	f.SetLocale(tr)
-
-	f.Get("bookmark_list_display").SetValidators(
-		forms.Optional(f.Get("bookmark_list_display").Validators()...),
-	)
-
-	return f
 }
 
 func (f sessionPrefForm) updateSession(payload *sessions.Payload) (res map[string]interface{}, err error) {
@@ -290,13 +274,12 @@ type deleteCredentialForm struct {
 }
 
 // newDeleteTokenForm returns a deleteForm instance.
-func newDeleteCredentialForm(tr forms.Translator) (f *deleteCredentialForm) {
-	f = &deleteCredentialForm{forms.Must(
+func newDeleteCredentialForm(tr forms.Translator) *deleteCredentialForm {
+	return &deleteCredentialForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
 		forms.NewBooleanField("cancel"),
 		forms.NewTextField("_to"),
 	)}
-	f.SetLocale(tr)
-	return
 }
 
 // trigger launch the token deletion or cancel task.
@@ -313,14 +296,13 @@ type credentialForm struct {
 }
 
 // newCredentialForm returns an credentialForm instance.
-func newCredentialForm(tr forms.Translator, user *users.User) (f *credentialForm) {
-	f = &credentialForm{forms.Must(
+func newCredentialForm(tr forms.Translator, user *users.User) *credentialForm {
+	return &credentialForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
 		forms.NewBooleanField("is_enabled", forms.RequiredOrNil),
 		forms.NewTextField("name", forms.Required, forms.Trim),
 		users.NewRolesField(tr, user),
 	)}
-	f.SetLocale(tr)
-	return
 }
 
 // setCredential set the token's values from an existing token.
@@ -341,12 +323,12 @@ func (f *credentialForm) updateCredential(p *credentials.Credential) error {
 		}
 		switch field.Name() {
 		case "is_enabled":
-			p.IsEnabled = field.Value().(bool)
+			p.IsEnabled = field.(forms.TypedField[bool]).V()
 		case "name":
 			p.Name = field.String()
 		case "roles":
-			if field.Value() != nil {
-				p.Roles = field.Value().(types.Strings)
+			if !field.IsNil() {
+				p.Roles = field.(forms.TypedField[[]string]).V()
 			} else {
 				p.Roles = nil
 			}
@@ -366,13 +348,12 @@ type deleteTokenForm struct {
 }
 
 // newDeleteTokenForm returns a deleteForm instance.
-func newDeleteTokenForm(tr forms.Translator) (f *deleteTokenForm) {
-	f = &deleteTokenForm{forms.Must(
+func newDeleteTokenForm(tr forms.Translator) *deleteTokenForm {
+	return &deleteTokenForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
 		forms.NewBooleanField("cancel"),
 		forms.NewTextField("_to"),
 	)}
-	f.SetLocale(tr)
-	return
 }
 
 // trigger launch the token deletion or cancel task.
@@ -390,15 +371,14 @@ type tokenForm struct {
 }
 
 // tokenForm returns a tokenForm instance.
-func newTokenForm(tr forms.Translator, user *users.User) (f *tokenForm) {
-	f = &tokenForm{forms.Must(
+func newTokenForm(tr forms.Translator, user *users.User) *tokenForm {
+	return &tokenForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
 		forms.NewTextField("application", forms.Trim, forms.Required),
 		forms.NewBooleanField("is_enabled", forms.RequiredOrNil),
 		forms.NewDatetimeField("expires"),
 		users.NewRolesField(tr, user),
 	)}
-	f.SetLocale(tr)
-	return
 }
 
 // setToken set the token's values from an existing token.
@@ -422,17 +402,17 @@ func (f *tokenForm) updateToken(t *tokens.Token) error {
 		case "application":
 			t.Application = field.String()
 		case "is_enabled":
-			t.IsEnabled = field.Value().(bool)
+			t.IsEnabled = field.(forms.TypedField[bool]).V()
 		case "expires":
-			if field.Value() == nil {
+			if field.IsNil() {
 				t.Expires = nil
 				continue
 			}
-			v := field.Value().(time.Time)
+			v := field.(forms.TypedField[time.Time]).V()
 			t.Expires = &v
 		case "roles":
 			if field.Value() != nil {
-				t.Roles = field.Value().(types.Strings)
+				t.Roles = field.(forms.TypedField[[]string]).V()
 			} else {
 				t.Roles = nil
 			}

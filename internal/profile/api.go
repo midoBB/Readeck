@@ -18,7 +18,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/server"
-	"codeberg.org/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/forms/v2"
 )
 
 type (
@@ -127,7 +127,7 @@ func (api *profileAPI) profileUpdate(w http.ResponseWriter, r *http.Request) {
 
 // passwordUpdate updates the current user's password.
 func (api *profileAPI) passwordUpdate(w http.ResponseWriter, r *http.Request) {
-	f := newPasswordForm()
+	f := newPasswordForm(api.srv.Locale(r))
 	forms.Bind(f, r)
 
 	if !f.IsValid() {

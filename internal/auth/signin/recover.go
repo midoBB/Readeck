@@ -5,6 +5,7 @@
 package signin
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"log/slog"
@@ -22,7 +23,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/locales"
-	"codeberg.org/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/forms/v2"
 )
 
 type recoverForm struct {
@@ -31,32 +32,34 @@ type recoverForm struct {
 	prefix string
 }
 
-func newRecoverForm(tr forms.Translator) (f *recoverForm) {
-	f = &recoverForm{
+func newRecoverForm(tr forms.Translator) *recoverForm {
+	return &recoverForm{
 		Form: forms.Must(
-			forms.NewIntegerField("step", forms.Required),
-			forms.NewTextField("email", forms.Trim),
-			forms.NewTextField("password"),
+			forms.WithTranslator(context.Background(), tr),
+			forms.NewIntegerField("step",
+				forms.Required,
+				forms.TypedValidator(func(v int) bool {
+					return 0 <= v || v <= 3
+				}, errors.New("invalid step")),
+			),
+			forms.NewTextField("email",
+				forms.Trim,
+				forms.When(func(f forms.Field, _ string) bool {
+					step := forms.GetForm(f).Get("step").(forms.TypedField[int]).V()
+					return step == 0 || step == 1
+				}).
+					True(forms.Required),
+			),
+			forms.NewTextField("password",
+				forms.When(func(f forms.Field, _ string) bool {
+					step := forms.GetForm(f).Get("step").(forms.TypedField[int]).V()
+					return step == 2 || step == 3
+				}).
+					True(forms.Required, users.IsValidPassword),
+			),
 		),
 		ttl:    time.Duration(2 * time.Hour),
 		prefix: "recover_code",
-	}
-	f.SetLocale(tr)
-	return
-}
-
-func (f *recoverForm) Validate() {
-	if !f.IsValid() {
-		return
-	}
-
-	switch f.Get("step").Value().(int) {
-	case 0, 1:
-		f.AddErrors("email", forms.ValidateField(f.Get("email"), forms.Required)...)
-	case 2, 3:
-		f.AddErrors("password", forms.ValidateField(f.Get("password"), forms.Required, users.IsValidPassword)...)
-	default:
-		f.AddErrors("", errors.New("invalid step"))
 	}
 }
 

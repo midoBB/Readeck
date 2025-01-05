@@ -5,6 +5,7 @@
 package bookmarks
 
 import (
+	"bytes"
 	"database/sql/driver"
 	"encoding/json"
 	"errors"
@@ -15,6 +16,7 @@ import (
 
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/db/types"
+	"codeberg.org/readeck/readeck/pkg/forms/v2"
 )
 
 const (
@@ -111,46 +113,6 @@ func (c *Collection) Update(v interface{}) error {
 	return err
 }
 
-// Flatten returns a flat mapping of all the collection's property,
-// including filters.
-func (c *Collection) Flatten() map[string]interface{} {
-	res := map[string]interface{}{
-		"name":        c.Name,
-		"is_pinned":   c.IsPinned,
-		"search":      c.Filters.Search,
-		"title":       c.Filters.Title,
-		"author":      c.Filters.Author,
-		"site":        c.Filters.Site,
-		"type":        c.Filters.Type,
-		"labels":      c.Filters.Labels,
-		"read_status": c.Filters.ReadStatus,
-		"is_archived": nil,
-		"is_marked":   nil,
-		"is_loaded":   nil,
-		"has_errors":  nil,
-		"has_labels":  nil,
-		"range_start": c.Filters.RangeStart,
-		"range_end":   c.Filters.RangeEnd,
-	}
-	if c.Filters.IsArchived != nil {
-		res["is_archived"] = *c.Filters.IsArchived
-	}
-	if c.Filters.IsMarked != nil {
-		res["is_marked"] = *c.Filters.IsMarked
-	}
-	if c.Filters.IsLoaded != nil {
-		res["is_loaded"] = *c.Filters.IsLoaded
-	}
-	if c.Filters.HasErrors != nil {
-		res["has_errors"] = *c.Filters.HasErrors
-	}
-	if c.Filters.HasLabels != nil {
-		res["has_labels"] = *c.Filters.HasLabels
-	}
-
-	return res
-}
-
 // Save updates all the collection values.
 func (c *Collection) Save() error {
 	c.Updated = time.Now()
@@ -211,4 +173,34 @@ func (s CollectionFilters) Value() (driver.Value, error) {
 		return "", err
 	}
 	return string(v), nil
+}
+
+// LoadForm loads the form values as properties.
+func (s *CollectionFilters) LoadForm(f forms.Binder) error {
+	values := map[string]any{}
+
+	for name, field := range f.Fields() {
+		values[name] = field.Value()
+	}
+
+	buf := new(bytes.Buffer)
+	err := json.NewEncoder(buf).Encode(values)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(buf.Bytes(), s)
+}
+
+// ToValues returns the result of a JSON encoding to a map.
+func (s *CollectionFilters) ToValues() (map[string]any, error) {
+	buf := new(bytes.Buffer)
+	if err := json.NewEncoder(buf).Encode(s); err != nil {
+		return nil, err
+	}
+	res := map[string]any{}
+	if err := json.Unmarshal(buf.Bytes(), &res); err != nil {
+		return nil, err
+	}
+	return res, nil
 }

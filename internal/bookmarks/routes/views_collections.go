@@ -11,7 +11,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/server"
-	"codeberg.org/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/forms/v2"
 )
 
 func (h *viewsRouter) collectionList(w http.ResponseWriter, r *http.Request) {
@@ -28,12 +28,12 @@ func (h *viewsRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *viewsRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
-	f := newCollectionForm(h.srv.Locale(r))
+	f := newCollectionForm(h.srv.Locale(r), r)
 
 	switch r.Method {
 	case http.MethodGet:
 		// Add values from query string but don't perform validation
-		f.BindQueryString(r.URL.Query())
+		forms.BindURL(f, r)
 	case http.MethodPost:
 		forms.Bind(f, r)
 		if f.IsValid() {
@@ -66,7 +66,7 @@ func (h *viewsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 	c := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
 	item := newCollectionItem(h.srv, r, c, "./..")
 
-	f := newCollectionForm(h.srv.Locale(r))
+	f := newCollectionForm(h.srv.Locale(r), r)
 	f.setCollection(c)
 
 	if r.Method == http.MethodPost {

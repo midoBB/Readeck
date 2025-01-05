@@ -18,7 +18,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/internal/server"
-	"codeberg.org/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/forms/v2"
 )
 
 type (
@@ -46,7 +46,7 @@ func (api *apiRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *apiRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
-	f := newCollectionForm(api.srv.Locale(r))
+	f := newCollectionForm(api.srv.Locale(r), r)
 
 	forms.Bind(f, r)
 	if !f.IsValid() {
@@ -67,7 +67,7 @@ func (api *apiRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
 func (api *apiRouter) collectionUpdate(w http.ResponseWriter, r *http.Request) {
 	c := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
 
-	f := newCollectionForm(api.srv.Locale(r))
+	f := newCollectionForm(api.srv.Locale(r), r)
 	f.setCollection(c)
 	forms.Bind(f, r)
 

@@ -5,6 +5,7 @@
 package routes
 
 import (
+	"context"
 	"strings"
 	"time"
 
@@ -13,31 +14,29 @@ import (
 	"golang.org/x/net/html"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
-	"codeberg.org/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/forms/v2"
 )
 
 type annotationForm struct {
 	*forms.Form
 }
 
-func newAnnotationUpdateForm(tr forms.Translator) (f *forms.Form) {
-	f = forms.Must(
-		forms.NewTextField("color", forms.Required, forms.Trim),
+func newAnnotationUpdateForm(tr forms.Translator) *forms.Form {
+	return forms.Must(
+		forms.WithTranslator(context.Background(), tr),
+		forms.NewTextField("color", forms.Trim, forms.Required),
 	)
-	f.SetLocale(tr)
-	return
 }
 
-func newAnnotationForm(tr forms.Translator) (f *annotationForm) {
-	f = &annotationForm{forms.Must(
+func newAnnotationForm(tr forms.Translator) *annotationForm {
+	return &annotationForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
 		forms.NewTextField("start_selector", forms.Required, forms.Trim),
 		forms.NewIntegerField("start_offset", forms.Required, forms.Gte(0)),
 		forms.NewTextField("end_selector", forms.Required, forms.Trim),
 		forms.NewIntegerField("end_offset", forms.Required, forms.Gte(0)),
 		forms.NewTextField("color", forms.Required, forms.Trim),
 	)}
-	f.SetLocale(tr)
-	return
 }
 
 func (f *annotationForm) addToBookmark(bi *bookmarkItem) (*bookmarks.BookmarkAnnotation, error) {

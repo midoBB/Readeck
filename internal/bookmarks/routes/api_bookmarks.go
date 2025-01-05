@@ -10,7 +10,6 @@ import (
 	"fmt"
 	"io"
 	"log/slog"
-	"mime"
 	"net/http"
 	"net/url"
 	"os"
@@ -31,7 +30,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/db/filters"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/annotate"
-	"codeberg.org/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/forms/v2"
 	"codeberg.org/readeck/readeck/pkg/zipfs"
 )
 
@@ -150,29 +149,15 @@ func (api *apiRouter) bookmarkExport(w http.ResponseWriter, r *http.Request) {
 
 // bookmarkCreate creates a new bookmark.
 func (api *apiRouter) bookmarkCreate(w http.ResponseWriter, r *http.Request) {
-	var err error
-	ct, _, _ := mime.ParseMediaType(r.Header.Get("content-type"))
-
 	f := newCreateForm(api.srv.Locale(r), auth.GetRequestUser(r).ID, api.srv.GetReqID(r))
-
-	if ct == "multipart/form-data" {
-		// A multipart form must provide a section with the url and others "resource"
-		// with each cached resource.
-		f.Bind()
-		err = f.loadMultipart(r)
-		if err != nil {
-			f.AddErrors("", fmt.Errorf("Unable to process input data"))
-			api.srv.Log(r).Error("input error", slog.Any("err", err))
-		}
-	} else {
-		forms.Bind(f, r)
-	}
+	forms.Bind(f, r)
 
 	if !f.IsValid() {
 		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
 		return
 	}
 
+	var err error
 	b, err := f.createBookmark()
 	if err != nil {
 		api.srv.Error(w, r, err)
@@ -600,10 +585,11 @@ func (api *apiRouter) withCollectionFilters(next http.Handler) http.Handler {
 		}
 
 		// Apply filters
-		f := newCollectionForm(api.srv.Locale(r))
-		f.Filters = newContextFilterForm(r.Context(), api.srv.Locale(r))
+		f := newCollectionForm(api.srv.Locale(r), r)
 		f.setCollection(c)
-		ctx = f.Filters.saveContext(ctx)
+		filters := newContextFilterForm(r.Context(), api.srv.Locale(r))
+		f.setFilters(filters)
+		ctx = filters.saveContext(ctx)
 
 		if ctx.Value(ctxBookmarkOrderKey{}) == nil {
 			ctx = context.WithValue(ctx, ctxBookmarkOrderKey{}, orderExpressionList{goqu.T("b").Col("created").Desc()})
@@ -616,9 +602,7 @@ func (api *apiRouter) withCollectionFilters(next http.Handler) http.Handler {
 func (api *apiRouter) withBookmarkOrdering(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		f := newBookmarkOrderForm()
-
-		_ = r.ParseForm()
-		forms.UnmarshalValues(f, r.Form)
+		forms.BindURL(f, r)
 
 		order := f.toOrderedExpressions()
 		ctx := r.Context()
@@ -665,10 +649,7 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 
 		// Filters (search and other filters)
 		filters := newContextFilterForm(r.Context(), api.srv.Locale(r))
-
-		// We accept any values coming from a post or get method.
-		_ = r.ParseForm()
-		forms.UnmarshalValues(filters, r.Form)
+		forms.BindURL(filters, r)
 
 		if filters.IsValid() {
 			ds = filters.toSelectDataSet(ds)
@@ -784,7 +765,7 @@ func (api *apiRouter) withLabelList(next http.Handler) http.Handler {
 			)
 
 		f := newLabelSearchForm(api.srv.Locale(r))
-		forms.UnmarshalValues(f, r.URL.Query())
+		forms.BindURL(f, r)
 		if f.Get("q").String() != "" {
 			q := strings.ReplaceAll(f.Get("q").String(), "*", "%")
 			ds = ds.Where(goqu.I("name").Like(q))

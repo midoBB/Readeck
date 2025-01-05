@@ -37,25 +37,25 @@ func TestCollectionAPI(t *testing.T) {
 					"author": {
 						"is_null": true,
 						"is_bound": false,
-						"value": null,
+						"value": "",
 						"errors": null
 					},
 					"bf": {
 						"is_null": true,
 						"is_bound": false,
-						"value": null,
+						"value": false,
 						"errors": null
 					},
 					"has_errors": {
 						"is_null": true,
 						"is_bound": false,
-						"value": null,
+						"value": false,
 						"errors": null
 					},
 					"has_labels": {
 						"is_null": true,
 						"is_bound": false,
-						"value": null,
+						"value": false,
 						"errors": null
 					},
 					"id": {
@@ -67,23 +67,23 @@ func TestCollectionAPI(t *testing.T) {
 					"is_archived": {
 						"is_null": true,
 						"is_bound": false,
-						"value": null,
+						"value": false,
 						"errors": null
 					},
 					"is_loaded": {
 						"is_null": true,
 						"is_bound": false,
-						"value": null,
+						"value": false,
 						"errors": null
 					},
 					"is_marked": {
 						"is_null": true,
 						"is_bound": false,
-						"value": null,
+						"value": false,
 						"errors": null
 					},
 					"is_pinned": {
-						"is_null": false,
+						"is_null": true,
 						"is_bound": false,
 						"value": false,
 						"errors": null
@@ -91,13 +91,13 @@ func TestCollectionAPI(t *testing.T) {
 					"labels": {
 						"is_null": true,
 						"is_bound": false,
-						"value": null,
+						"value": "",
 						"errors": null
 					},
 					"name": {
 						"is_null": true,
 						"is_bound": false,
-						"value": null,
+						"value": "",
 						"errors": [
 							"field is required"
 						]
@@ -105,25 +105,25 @@ func TestCollectionAPI(t *testing.T) {
 					"search": {
 						"is_null": true,
 						"is_bound": false,
-						"value": null,
+						"value": "",
 						"errors": null
 					},
 					"site": {
 						"is_null": true,
 						"is_bound": false,
-						"value": null,
+						"value": "",
 						"errors": null
 					},
 					"range_end": {
 						"is_null": true,
 						"is_bound": false,
-						"value": null,
+						"value": "",
 						"errors": null
 					},
 					"range_start": {
 						"is_null": true,
 						"is_bound": false,
-						"value": null,
+						"value": "",
 						"errors": null
 					},
 					"read_status": {
@@ -135,7 +135,7 @@ func TestCollectionAPI(t *testing.T) {
 					"title": {
 						"is_null": true,
 						"is_bound": false,
-						"value": null,
+						"value": "",
 						"errors": null
 					},
 					"type": {
@@ -147,7 +147,7 @@ func TestCollectionAPI(t *testing.T) {
 					"updated_since": {
 						"is_null": true,
 						"is_bound": false,
-						"value": null,
+						"value": "0001-01-01T00:00:00Z",
 						"errors": null
 					}
 				}
@@ -228,7 +228,7 @@ func TestCollectionAPI(t *testing.T) {
 					"site":"",
 					"type": ["article"],
 					"labels":"test 🥳",
-					"read_status": [],
+					"read_status": null,
 					"is_marked": true,
 					"is_archived": null,
 					"is_loaded": null,
@@ -250,8 +250,10 @@ func TestCollectionAPI(t *testing.T) {
 			ExpectStatus: 200,
 			ExpectJSON: `{
 				"id": "<<PRESENCE>>",
-				"updated": "<<PRESENCE>>",
-				"is_marked": false
+				"is_archived": null,
+				"is_marked": false,
+				"name": "new name",
+				"updated": "<<PRESENCE>>"
 			}`,
 		},
 		RequestTest{
@@ -272,7 +274,7 @@ func TestCollectionAPI(t *testing.T) {
 				"site":"",
 				"type": ["article"],
 				"labels":"test 🥳",
-				"read_status": [],
+				"read_status": null,
 				"is_marked": false,
 				"is_archived": null,
 				"is_loaded": null,
@@ -293,8 +295,10 @@ func TestCollectionAPI(t *testing.T) {
 			ExpectStatus: 200,
 			ExpectJSON: `{
 				"id": "<<PRESENCE>>",
-				"updated": "<<PRESENCE>>",
-				"is_marked": null
+				"is_archived": null,
+				"is_marked": null,
+				"name": "new name",
+				"updated": "<<PRESENCE>>"
 			}`,
 		},
 		RequestTest{
@@ -315,7 +319,7 @@ func TestCollectionAPI(t *testing.T) {
 				"site":"",
 				"type": ["article"],
 				"labels":"test 🥳",
-				"read_status": [],
+				"read_status": null,
 				"is_marked": null,
 				"is_archived": null,
 				"is_loaded": null,
@@ -337,13 +341,14 @@ func TestCollectionAPI(t *testing.T) {
 			ExpectStatus: 200,
 			ExpectJSON: `{
 				"id": "<<PRESENCE>>",
-				"updated": "<<PRESENCE>>",
 				"labels":"label1 label2 test 🥳",
+				"name": "new name",
+				"read_status": ["unread", "reading"],
 				"search":"some search",
 				"site":"example.com",
 				"title":"tt",
 				"type": ["article", "video"],
-				"read_status": ["unread", "reading"]
+				"updated": "<<PRESENCE>>"
 			}`,
 		},
 		RequestTest{

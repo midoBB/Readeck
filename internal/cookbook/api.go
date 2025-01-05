@@ -5,13 +5,16 @@
 package cookbook
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"io/fs"
 	"log/slog"
 	"net/http"
+	"net/textproto"
 	"path"
 	"runtime"
+	"strings"
 	"time"
 
 	"github.com/go-chi/chi/v5"
@@ -25,6 +28,7 @@ import (
 	"codeberg.org/readeck/readeck/pkg/extract/contents"
 	"codeberg.org/readeck/readeck/pkg/extract/contentscripts"
 	"codeberg.org/readeck/readeck/pkg/extract/meta"
+	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
 // cookbookAPI is the base cookbook api router.
@@ -48,10 +52,44 @@ func newCookbookAPI(s *server.Server) *cookbookAPI {
 	return api
 }
 
+type extractForm struct {
+	*forms.Form
+}
+
+func newExtractForm() *extractForm {
+	return &extractForm{forms.Must(
+		context.Background(),
+		forms.NewTextField("url", forms.Required, forms.IsURL("http", "https")),
+		forms.NewFileField("data"),
+	)}
+}
+
+func (f *extractForm) bind(r *http.Request) {
+	forms.BindURL(f, r)
+	if !f.IsValid() || r.Method == http.MethodGet {
+		return
+	}
+
+	if strings.HasPrefix(r.Header.Get("Content-Type"), "text/") {
+		f.Get("data").Set(&bodyOpener{r})
+	}
+}
+
+type bodyOpener struct {
+	r *http.Request
+}
+
+func (o *bodyOpener) Open() (io.ReadCloser, error) { return o.r.Body, nil }
+func (o *bodyOpener) Filename() string             { return "" }
+func (o *bodyOpener) Size() int64                  { return o.r.ContentLength }
+func (o *bodyOpener) Header() textproto.MIMEHeader { return textproto.MIMEHeader(o.r.Header) }
+
 func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
-	src := r.URL.Query().Get("url")
-	if src == "" {
-		http.Error(w, http.StatusText(400), 400)
+	f := newExtractForm()
+	f.bind(r)
+
+	if !f.IsValid() {
+		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
 		return
 	}
 
@@ -61,7 +99,7 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ex, err := extract.New(
-		src,
+		f.Get("url").String(),
 		extract.SetLogger(slog.Default(),
 			slog.String("@id", api.srv.GetReqID(r)),
 		),
@@ -72,15 +110,19 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	if r.Method == http.MethodPost {
-		body, err := io.ReadAll(r.Body)
+	if !f.Get("data").IsNil() {
+		fd, err := f.Get("data").(*forms.FileField).V().Open()
 		if err != nil {
 			panic(err)
 		}
-		defer r.Body.Close() // nolint:errcheck
-		ex.AddToCache(src, map[string]string{
-			"Content-Type": "text/html",
-		}, body)
+		defer fd.Close() //nolint:errcheck
+		if content, err := io.ReadAll(fd); err == nil {
+			ex.AddToCache(f.Get("url").String(), map[string]string{
+				"Content-Type": "text/html",
+			}, content)
+		} else {
+			slog.Error("caching body", slog.Any("err", err))
+		}
 	}
 
 	ex.AddProcessors(

@@ -25,7 +25,7 @@ import (
 
 	"codeberg.org/readeck/readeck/internal/bookmarks/importer"
 	"codeberg.org/readeck/readeck/internal/db/types"
-	"codeberg.org/readeck/readeck/pkg/forms/v2"
+	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
 type adapterTest struct {

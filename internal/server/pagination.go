@@ -11,7 +11,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"codeberg.org/readeck/readeck/pkg/forms/v2"
+	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
 // PaginationForm is a default form for pagination.

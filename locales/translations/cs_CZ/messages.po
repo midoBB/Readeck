@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck CZ 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-12-30 14:03+0000\n"
-"PO-Revision-Date: 2024-12-31 16:08+0000\n"
+"PO-Revision-Date: 2025-01-08 13:08+0000\n"
 "Last-Translator: Joedmin <joedmin@joedmin.cz>\n"
 "Language-Team: Czech <https://translate.codeberg.org/projects/readeck/"
 "application/cs/>\n"
@@ -1235,7 +1235,7 @@ msgstr "Hlavní stránka"
 
 #: assets/templates/docs/about.jet.html
 msgid "Sources and issues"
-msgstr "Zdroje a problémy"
+msgstr "Zdrojové kódy a problémy"
 
 #: assets/templates/docs/about.jet.html
 msgid "How to contribute"

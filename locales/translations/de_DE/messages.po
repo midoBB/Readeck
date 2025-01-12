@@ -7,15 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-12-30 14:03+0000\n"
-"PO-Revision-Date: 2024-12-28 21:32+0000\n"
-"Last-Translator: SomeTr <sometr@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2025-01-08 13:08+0000\n"
+"Last-Translator: altruizine <altruizine@users.noreply.translate.codeberg.org>"
+"\n"
+"Language-Team: German <https://translate.codeberg.org/projects/readeck/"
+"application/de/>\n"
 "Language: de_DE\n"
-"Language-Team: German "
-"<https://translate.codeberg.org/projects/readeck/application/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.9.2\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -34,11 +36,11 @@ msgstr "Hauptinhalt"
 
 #: assets/templates/_layouts/sidemenu.jet.html
 msgid "Close menu"
-msgstr "Menu schliessen"
+msgstr "Menü schließen"
 
 #: assets/templates/_libs/common.jet.html
 msgid "Quick access menu"
-msgstr "Schnellzugriff Menü"
+msgstr "Schnellzugriffsmenü"
 
 #: assets/templates/_libs/common.jet.html
 msgid "Home Page"
@@ -58,7 +60,7 @@ msgstr "Bitte überprüfe das Formular auf Fehler."
 
 #: assets/templates/_libs/forms.jet.html
 msgid "The previous"
-msgstr "Das voherige"
+msgstr "Das vorherige"
 
 #: assets/templates/_libs/forms.jet.html
 msgid "Day(s)"
@@ -105,7 +107,7 @@ msgstr "Gehe zur nächsten Seite"
 #: assets/templates/_libs/pagination.jet.html
 msgctxt "page"
 msgid "Previous"
-msgstr "Voherige"
+msgstr "Vorherige"
 
 #: assets/templates/_libs/pagination.jet.html
 msgctxt "page"
@@ -153,7 +155,7 @@ msgstr "Benutzername"
 #: assets/templates/auth/onboarding.jet.html
 #: assets/templates/auth/recover.jet.html
 msgid "Email address"
-msgstr "E-Mail Adresse"
+msgstr "E-Mail-Adresse"
 
 #: assets/templates/admin/user.jet.html
 #: assets/templates/admin/user_create.jet.html
@@ -234,7 +236,7 @@ msgstr "Passwort vergessen?"
 #: assets/templates/auth/onboarding.jet.html
 #: assets/templates/bookmarks/index.jet.html
 msgid "Welcome to Readeck!"
-msgstr "Wilkommen bei Readeck!"
+msgstr "Willkommen bei Readeck!"
 
 #: assets/templates/auth/onboarding.jet.html
 msgid "We're delighted to have you on board; one more step and you're good to go."
@@ -274,11 +276,11 @@ msgstr "Installation beenden"
 
 #: assets/templates/auth/recover.jet.html
 msgid "Password recovery"
-msgstr "Passwort Wiederherstellen"
+msgstr "Passwort wiederherstellen"
 
 #: assets/templates/auth/recover.jet.html
 msgid "No worries, it happens to anyone."
-msgstr "Keine Sorge, das passiert jedem."
+msgstr "Keine Sorge, das kann jedem passieren."
 
 #: assets/templates/auth/recover.jet.html
 msgid ""
@@ -325,7 +327,7 @@ msgstr ""
 #: assets/templates/auth/recover.jet.html
 #: assets/templates/profile/password.jet.html
 msgid "New password"
-msgstr "Neus Passwort"
+msgstr "Neues Passwort"
 
 #: assets/templates/auth/recover.jet.html
 msgid "Update your password"
@@ -337,7 +339,7 @@ msgstr "Dein Passwort wurde geändert."
 
 #: assets/templates/auth/recover.jet.html
 msgid "Go to the sign in page"
-msgstr "Gehe zur Login Seite"
+msgstr "Gehe zur Login-Seite"
 
 #: assets/templates/bookmarks/annotation_list.jet.html
 msgid "Bookmark Highlights"
@@ -356,8 +358,8 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"       So bald du anfängst, Teile deiner Artikel zu markieren, werden Sie"
-" hier auftauchen \n"
+"        Sobald du anfängst, Teile deiner Artikel zu markieren, werden Sie "
+"hier auftauchen, \n"
 "        damit du sie leichter finden kannst.\n"
 "      "
 
@@ -367,8 +369,8 @@ msgid ""
 "Read more about highlights in the <a class=\"%s\" "
 "href=\"%s\">documentation</a>."
 msgstr ""
-"Lies mehr über diese Markierung in der <a class=\"%s\" "
-"href=\"%s\">Dokumentation</a>."
+"Lies mehr über Markierungen in der <a class=\"%s\" href=\"%s\""
+">Dokumentation</a>."
 
 #: assets/templates/bookmarks/base.jet.html
 #: assets/templates/bookmarks/bookmark.jet.html assets/templates/menu.jet.html
@@ -423,7 +425,7 @@ msgstr "Sammlungen"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Close panel"
-msgstr "Panel schliessen"
+msgstr "Panel schließen"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark information"
@@ -435,7 +437,7 @@ msgstr "Lesezeichen lädt"
 
 #: assets/templates/bookmarks/bookmark.jet.html
 msgid "Bookmark is loading"
-msgstr "Lesezeichen ist am laden"
+msgstr "Lesezeichen lädt"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html
 msgid "Bookmark not found"
@@ -796,7 +798,7 @@ msgstr "Schriftart"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Width"
-msgstr ""
+msgstr "Breite"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Size"
@@ -808,7 +810,7 @@ msgstr "Zeilenhöhe"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Justify"
-msgstr "Zentrieren"
+msgstr "Ausrichten"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Hyphenation"
@@ -902,7 +904,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
 msgid "Import your Omnivore Articles"
-msgstr "Importiere deine Omnivore Artikel"
+msgstr "Importiere deine Omnivore-Artikel"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid ""
@@ -913,27 +915,27 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Um deine Artikel aus Omnivore zu importieren, musst du zu erst einen "
-"API Schlüssel\n"
+"    Um deine Artikel aus Omnivore zu importieren, musst du zu erst einen API-"
+"Schlüssel\n"
 "    in den Omnivore Einstellungen erstellen und unten eintragen.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid "Omnivore URL"
-msgstr "Omnivore URL"
+msgstr "Omnivore-URL"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid "URL of your Omnivore homepage"
-msgstr "URL deiner Omnivore Startseite"
+msgstr "URL deiner Omnivore-Startseite"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
 msgid "API Key"
-msgstr "API Schlüssel"
+msgstr "API-Schlüssel"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
 msgid "Import your Pocket Articles"
-msgstr "Importiere deine Pocket Artikel"
+msgstr "Importiere deine Pocket-Artikel"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
 #, python-format
@@ -982,7 +984,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-text.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
 msgid "Import Links from a Text File"
-msgstr "Importiere Links aus einer Text Datei"
+msgstr "Importiere Links aus einer Textdatei"
 
 #: assets/templates/bookmarks/import/form-text.jet.html
 msgid ""
@@ -1035,11 +1037,11 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
 msgid "Wallabag URL"
-msgstr "Wallabag URL"
+msgstr "Wallabag-URL"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
 msgid "URL of your Wallabag homepage"
-msgstr "URL deiner Wallabag Seite"
+msgstr "URL deiner Wallabag-Seite"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
 msgid "Client ID"
@@ -1766,12 +1768,12 @@ msgstr "Video"
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "status"
 msgid "Unviewed"
-msgstr ""
+msgstr "Ungesehen"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "status"
 msgid "In-Progress"
-msgstr ""
+msgstr "In Arbeit"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "status"
@@ -1905,7 +1907,7 @@ msgstr "Dein Kennwort wurde geändert."
 
 #: internal/profile/views.go
 msgid "Error: you cannot create more credentials."
-msgstr ""
+msgstr "Fehler: Du kannst keine weiteren Anmeldeinformationen erzeugen."
 
 #: internal/profile/views.go
 msgid "An error occurred while creating your password."
@@ -2191,4 +2193,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Error: you can not create more credentials."
 #~ msgstr "Fehler: Du kannst keine weiteren Anmeldeinformationen erstellen."
-

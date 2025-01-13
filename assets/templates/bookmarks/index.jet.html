@@ -95,7 +95,6 @@ SPDX-License-Identifier: AGPL-3.0-only
     <div class="flex flex-wrap items-center gap-2 -mx-6 px-6 py-2">
       <h1 class="flex-grow title mb-0 text-h2 max-md:w-full">{{ .PageTitle }}</h1>
       {{- yield list_actions() content -}}
-        {* <div class="btn-group"> *}
         <form action="{{ urlFor() }}" method="get">
           <input type="hidden" name="bf" value="{{ .Filters.IsActive() ? 0 : 1 }}">
           <button type="submit" class="btn-outlined py-1"
@@ -105,7 +104,6 @@ SPDX-License-Identifier: AGPL-3.0-only
           >{{- yield icon(name="o-filter") }} {{ gettext("Filters") }}
           </button>
         </form>
-        {* </div> *}
 
         {{- if hasPermission("api:bookmarks", "export") && hasPermission("api:bookmarks:import", "write") -}}
           {{- yield export_menu(url=urlFor(`/api/bookmarks/export.epub`) + `?` + .Filters.GetQueryString()) content -}}

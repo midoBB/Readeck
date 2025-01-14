@@ -162,7 +162,7 @@ For longer term goals, there are [projects](https://codeberg.org/readeck/readeck
 
 There isn't but you can follow [@readeck@mastodon.online](https://mastodon.online/@readeck) on Mastodon.
 
-### Is the a Readeck Discord server?
+### Is there a Readeck Discord server?
 
 There isn't but you can join [#readeck:matrix.org](https://matrix.to/#/#readeck:matrix.org) on Matrix.
 

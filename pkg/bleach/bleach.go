@@ -107,6 +107,11 @@ func (p Policy) RemoveEmptyNodes(top *html.Node) {
 			return false
 		}
 
+		// Keep td and th
+		if dom.TagName(node) == "td" || dom.TagName(node) == "th" {
+			return false
+		}
+
 		// Keep nodes with children
 		if len(dom.Children(node)) > 0 {
 			return false

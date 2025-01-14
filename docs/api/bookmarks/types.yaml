@@ -107,6 +107,16 @@ schemas:
         items:
           type: string
         description: Bookmark's labels
+      word_count:
+        type: integer
+        minimum: 0
+        description: Number of words in the article, used to compute the reading time.
+      reading_time:
+        type: integer
+        minimum: 0
+        description: | 
+          Duration of the article, in minutes. Either the actual duration for a
+          video or a reading time based on the word count.
       resources:
         type: object
         description: |

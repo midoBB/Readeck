@@ -14,7 +14,11 @@
     "//div[contains(@class, 'dates_auteurs')]",
     "//div[@class='cartouche']/h1"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "abo_us",
+    "tags",
+    "partage"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -24,12 +28,11 @@
   "next_page_link_selectors": null,
   "replace_strings": null,
   "http_headers": {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:135.0) Gecko/20100101 Firefox/135.0",
-    "referer": "https://www.monde-diplomatique.fr"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:135.0) Gecko/20100101 Firefox/135.0"
   },
   "tests": [
     {
-      "url": "https://www.monde-diplomatique.fr/1996/04/BOURDIEU/5425",
+      "url": "https://blog.mondediplo.net/le-charles-de-gaulle-a-la-conquete-de-l-indo",
       "contains": []
     }
   ]

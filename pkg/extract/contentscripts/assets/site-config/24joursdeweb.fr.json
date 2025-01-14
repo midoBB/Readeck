@@ -5,7 +5,7 @@
     "//p[@class=\"post-metas\"]//time/@datetime"
   ],
   "author_selectors": [
-    "//div[@class=\"post-author-avatar\"]//img/@alt"
+    "substring-after(//h2[@class='post-author-title'], 'À propos de ')"
   ],
   "strip_selectors": null,
   "strip_id_or_class": null,

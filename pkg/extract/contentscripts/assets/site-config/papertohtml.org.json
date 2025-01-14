@@ -1,0 +1,35 @@
+{
+  "title_selectors": [
+    "//h1[@id='paper-title']"
+  ],
+  "body_selectors": [
+    "//article[contains(concat(' ',normalize-space(@class),' '),' paper__text ')]"
+  ],
+  "date_selectors": [
+    "//ul[@class='paper__meta']/li[2]"
+  ],
+  "author_selectors": [
+    "//ul[@class='paper__meta']/li[1]"
+  ],
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "c1"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://papertohtml.org/paper?id=d4685c38dbf463a0d6398eafb9944a056af3b0a8",
+      "contains": [
+        "Normal access to a safe or vault is via a door"
+      ]
+    }
+  ]
+}

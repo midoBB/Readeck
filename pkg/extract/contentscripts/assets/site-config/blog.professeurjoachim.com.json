@@ -1,16 +1,14 @@
 {
   "title_selectors": null,
-  "body_selectors": [
-    "//div[contains(@class, 'article-content-container')]",
-    "//article"
+  "body_selectors": null,
+  "date_selectors": [
+    "//section[contains(@class, 'article')]//time[@pubdate='pubdate']/@datetime"
   ],
-  "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
-  "strip_id_or_class": [
-    "DonateButton__container",
-    "PullQuote"
+  "strip_selectors": [
+    "//section[contains(@class, 'article')]//time[@pubdate='pubdate']"
   ],
+  "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -22,7 +20,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.tabletmag.com/feature/rapid-onset-political-enlightenment",
+      "url": "https://blog.professeurjoachim.com/billet/2023-03-31-aller-voir-les-aurores-boreales-en-train",
       "contains": []
     }
   ]

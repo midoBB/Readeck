@@ -1,0 +1,38 @@
+{
+  "title_selectors": [
+    "normalize-space(//h1[@class='page_title'])"
+  ],
+  "body_selectors": [
+    "//div[@class='main_entry']"
+  ],
+  "date_selectors": [
+    "//meta[@name=\"DC.Date.created\"]/@content"
+  ],
+  "author_selectors": [
+    "normalize-space(//h3[@class='authors'])"
+  ],
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "page_title",
+    "authors"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.romchip.org/index.php/romchip-journal/article/view/204",
+      "contains": []
+    },
+    {
+      "url": "https://bag.ha88.de/view/6216",
+      "contains": []
+    }
+  ]
+}

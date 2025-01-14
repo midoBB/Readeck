@@ -1,6 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
+    "//main[@id='content']/article[1]",
     "//div[@itemprop=\"text\"]",
     "//div[@class='main-content']",
     "//article[contains(@class, 'resp-node')]"
@@ -10,9 +11,18 @@
   ],
   "author_selectors": null,
   "strip_selectors": [
-    "//aside"
+    "//aside",
+    "//section[contains(@class, 'css-u7urgs')]/div",
+    "//section[contains(@class, 'css-u7urgs')]/h1",
+    "//section[contains(@class, 'css-1sh6d1o')]/div",
+    "//section[contains(@class, 'css-1sh6d1o')]/h1",
+    "//time/parent::div/parent::div",
+    "//*[@id='article-tags']/parent::div | //*[@id='article-tags']/parent::div/following-sibling::*",
+    "//div[@data-optimizely='related-articles-section']",
+    "//div[@data-test-id=\"sharing-modal\"]/parent::div"
   ],
   "strip_id_or_class": [
+    "tp-regwall",
     "newsletter-form--inline",
     "layout-article-links",
     "layout-sticky-rail",
@@ -35,11 +45,8 @@
       "contains": []
     },
     {
-      "url": "http://www.economist.com/news/essays/21623373-which-something-old-and-powerful-encountered-vault",
-      "contains": [
-        "the calfskin pages are smooth",
-        "Books will evolve online and off"
-      ]
+      "url": "https://www.economist.com/briefing/2024/12/05/gambling-is-growing-like-gangbusters-in-america",
+      "contains": []
     }
   ]
 }

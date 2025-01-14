@@ -1,16 +1,13 @@
 {
   "title_selectors": null,
-  "body_selectors": [
-    "//div[contains(@class, 'article-content-container')]",
-    "//article"
-  ],
+  "body_selectors": null,
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
-  "strip_id_or_class": [
-    "DonateButton__container",
-    "PullQuote"
+  "strip_selectors": [
+    "//div[@id=\"extras\"]",
+    "//div[@class=\"herald-da\"]"
   ],
+  "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -22,7 +19,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.tabletmag.com/feature/rapid-onset-political-enlightenment",
+      "url": "https://www.domo-blog.fr/economisez-energie-argent-avec-domotique-chauffe-eau-shelly-1-pro/",
       "contains": []
     }
   ]

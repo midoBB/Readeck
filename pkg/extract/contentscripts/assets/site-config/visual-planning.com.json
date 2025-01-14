@@ -1,16 +1,12 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//section[@data-ga-module=\"content-body\"]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' et_pb_column_0 ')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
-    "//time/parent::div",
-    "//section[@data-ga-module=\"content-body\"]/article/following-sibling::*",
-    "//img[contains(@src, '/authors/')]/ancestor::div[contains(@class, 'w-full')]/parent::div",
-    "//svg",
-    "//aside"
+    "//noscript"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -20,11 +16,20 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      " src=\"",
+      "data-src-old=\""
+    ],
+    [
+      " data-lazy-src=\"",
+      "src=\""
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {
-      "url": "https://lifehacker.com/health/how-much-stretching-it-takes-to-make-you-more-flexible",
+      "url": "https://www.visual-planning.com/documentation/frv9/accueil/agencement-et-visualisation/vue-evenements/vue-evenements-utilisation",
       "contains": []
     }
   ]

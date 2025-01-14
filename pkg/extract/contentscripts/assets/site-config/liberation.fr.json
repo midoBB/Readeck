@@ -7,6 +7,8 @@
   "author_selectors": null,
   "strip_selectors": [
     "//figcaption",
+    "//div[contains(@class, 'TypologyArticle__BlockHeadline')]",
+    "//figure[@class=\"lead-art-wrapper\"]",
     "//div[contains(concat(' ',normalize-space(@class),' '),' default__OutbrainWrapper')]",
     "//h1[contains(concat(' ',normalize-space(@class),' '),' styled__CardTitle')]",
     "//button"

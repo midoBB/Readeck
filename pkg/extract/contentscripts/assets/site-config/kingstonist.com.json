@@ -5,34 +5,32 @@
   ],
   "date_selectors": null,
   "author_selectors": [
-    "//meta[@name=\"author\"]/@content"
+    "//meta[@name='author']/@content"
   ],
   "strip_selectors": [
-    "//header",
-    "//svg",
-    "//aside"
+    "//header"
   ],
   "strip_id_or_class": [
-    "byline",
-    "post-bottom",
-    "print:hidden"
+    "cm-below-entry-meta"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
-  "tidy": true,
+  "tidy": false,
   "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": null,
+  "http_headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:135.0) Gecko/20100101 Firefox/135.0"
+  },
   "tests": [
     {
-      "url": "https://gizmodo.com/the-new-bad-tick-is-going-to-take-over-half-the-united-1831079855",
+      "url": "https://www.kingstonist.com/news/board-of-health-votes-to-merge-with-neighbours-to-become-south-east-public-health/",
       "contains": []
     },
     {
-      "url": "https://gizmodo.com/apple-iphone-16-review-2000500097",
+      "url": "https://www.kingstonist.com/culture/lifestyle/how-to-enjoy-the-fall-colours-in-and-around-kingston/",
       "contains": []
     }
   ]

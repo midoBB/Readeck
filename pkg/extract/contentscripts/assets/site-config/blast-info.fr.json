@@ -3,19 +3,19 @@
     "//h1"
   ],
   "body_selectors": [
-    "//div[contains(@class, 'story-container')]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' bg-body ')]"
   ],
   "date_selectors": [
-    "//aside[contains(@class, 'story-meta-right')]//time/@datetime"
+    "//time/@datetime"
   ],
   "author_selectors": [
-    "//div[contains(@class, 'story-meta-author')]"
+    "//a[contains(@href, '/auteurs/')]/figcaption"
   ],
   "strip_selectors": [
-    "//p[contains(@class, 'authors')]",
-    "//div[@class=\"story-tags\"]",
-    "//div[@class=\"story-related\"]",
-    "//header//div[contains(@class, 'btag')]"
+    "//header",
+    "//footer",
+    "//aside",
+    "//a[contains(@href, '/tags/')]/ancestor::h2[1]"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -25,8 +25,15 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
-  "http_headers": null,
+  "replace_strings": [
+    [
+      "class=\"container",
+      "class=\"foo-cntnr"
+    ]
+  ],
+  "http_headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:135.0) Gecko/20100101 Firefox/135.0"
+  },
   "tests": [
     {
       "url": "https://www.blast-info.fr/articles/2021/quand-le-jeu-video-tire-a-droite-episode-1-pixels-et-culottes-courtes-k6uqgfpeTsasamW1-eYv7g",

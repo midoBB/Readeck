@@ -1,15 +1,15 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, 'article-content-container')]",
-    "//article"
+    "//div[@id='content']"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": null,
   "strip_id_or_class": [
-    "DonateButton__container",
-    "PullQuote"
+    "sidebar",
+    "id_title",
+    "block-info"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -22,7 +22,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.tabletmag.com/feature/rapid-onset-political-enlightenment",
+      "url": "https://au.lifehacker.com/fitness/112236/feature/how-much-stretching-it-takes-to-make-you-more-flexible-according-to-science",
       "contains": []
     }
   ]

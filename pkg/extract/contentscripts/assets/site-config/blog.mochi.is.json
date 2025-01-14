@@ -1,15 +1,19 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, 'article-content-container')]",
-    "//article"
+    "//article[1]"
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//button"
+  ],
   "strip_id_or_class": [
-    "DonateButton__container",
-    "PullQuote"
+    "post-header",
+    "share-dialog",
+    "visibility-check",
+    "post-end-cta-full",
+    "post-footer"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -22,7 +26,11 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.tabletmag.com/feature/rapid-onset-political-enlightenment",
+      "url": "https://blog.mochi.is/p/important-update-changes-to-feed",
+      "contains": []
+    },
+    {
+      "url": "https://blog.mochi.is/feed",
       "contains": []
     }
   ]

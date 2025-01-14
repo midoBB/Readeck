@@ -1,0 +1,33 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//main//div[contains(@class, 'article-text')] | //p[@class='article-subhead']"
+  ],
+  "date_selectors": [
+    "//meta[@name='dc.date']/@content"
+  ],
+  "author_selectors": [
+    "//meta[@name='dc.creator']/@content"
+  ],
+  "strip_selectors": [
+    "//aside"
+  ],
+  "strip_id_or_class": [
+    "newsletter-promo-item"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://knowablemagazine.org/content/article/mind/2024/genetics-of-people-who-need-little-sleep",
+      "contains": []
+    }
+  ]
+}

@@ -1,17 +1,19 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//article | //div[contains(concat(' ',normalize-space(@class),' '),' main__content ')]"
+    "//div[@class='c-article-content']"
   ],
   "date_selectors": null,
-  "author_selectors": [
-    "//div[@class='meta__author']/a"
-  ],
+  "author_selectors": null,
   "strip_selectors": null,
   "strip_id_or_class": [
-    "entry-post-header",
-    "posts-list",
-    "author-footer"
+    "c-article-notifications",
+    "c-article-tax",
+    "p-header-article__title",
+    "p-header-article__author-date",
+    "m-authors",
+    "c-article-sticky-buttons",
+    "c-notifications"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -22,14 +24,18 @@
   "next_page_link_selectors": null,
   "replace_strings": [
     [
-      "\u003cmeta http-equiv=\"refresh\"",
-      "\u003cmeta norefresh"
+      "srcset=",
+      "foo="
+    ],
+    [
+      "data-src=",
+      "src="
     ]
   ],
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.lifehacker.com.au/2019/03/we-tried-mark-zuckerbergs-tricks-for-looking-taller-in-photos/",
+      "url": "https://www.sapiens.org/language/color-perception/",
       "contains": []
     }
   ]

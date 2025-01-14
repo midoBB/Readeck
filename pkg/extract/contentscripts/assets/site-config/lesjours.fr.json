@@ -8,7 +8,8 @@
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
-    "//a[contains(@class, 'btn-')]/parent::div"
+    "//*[@id=\"bulletpoints\"]",
+    "//div[@class=\"episode-extra-container\"]"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -18,11 +19,26 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
-  "http_headers": null,
+  "replace_strings": [
+    [
+      "src=\"data",
+      "foo=\"data"
+    ],
+    [
+      "data-src=\"",
+      "src=\""
+    ]
+  ],
+  "http_headers": {
+    "User-Agent": "Wallabag-Test"
+  },
   "tests": [
     {
       "url": "https://lesjours.fr/obsessions/pole-financier/ep12-marcel-campion/",
+      "contains": []
+    },
+    {
+      "url": "https://lesjours.fr/obsessions/vie-jours/ep157-newsletter-60/",
       "contains": []
     }
   ]

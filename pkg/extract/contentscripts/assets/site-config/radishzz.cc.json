@@ -1,16 +1,12 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, 'article-content-container')]",
-    "//article"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' article-content ')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": null,
-  "strip_id_or_class": [
-    "DonateButton__container",
-    "PullQuote"
-  ],
+  "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -22,7 +18,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.tabletmag.com/feature/rapid-onset-political-enlightenment",
+      "url": "https://radishzz.cc/posts/384776b2/",
       "contains": []
     }
   ]

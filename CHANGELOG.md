@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [0.17.0] - 2025-01-15
 ### Added
 - Reading progress tracker on articles
 - Filter bookmarks by reading progress
@@ -8,7 +8,7 @@
 - `user` sub command to create or update users, by [@algernon](https://codeberg.org/algernon)
 - Colored highlights, by [@makebit](https://codeberg.org/makebit)
 - Adjustable content's width on bookmark view
-- added word_count and reading_time to bookmark api, by [@eleith](https://codeberg.org/eleith)
+- Added word_count and reading_time to bookmark api, by [@eleith](https://codeberg.org/eleith)
 
 ### Fixed
 - Search query with backslash would be parsed incorrectly

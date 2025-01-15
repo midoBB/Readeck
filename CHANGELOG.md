@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.17.1] - 2025-01-15
+### Fixed
+- Username validation during onboarding
+
+### Changed
+- Build with Go 1.23.4
+
 ## [0.17.0] - 2025-01-15
 ### Added
 - Reading progress tracker on articles

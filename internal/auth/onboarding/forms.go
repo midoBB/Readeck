@@ -17,7 +17,7 @@ type onboardingForm struct {
 
 func newOnboardingForm(tr forms.Translator) (f *onboardingForm) {
 	f = &onboardingForm{forms.Must(
-		forms.NewTextField("username", forms.Trim, forms.Required),
+		forms.NewTextField("username", forms.Trim, forms.Required, users.IsValidUsername),
 		forms.NewTextField("email", forms.Trim, forms.Optional(
 			forms.IsEmail,
 		)),

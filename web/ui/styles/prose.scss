@@ -51,6 +51,7 @@ $line-height: 1.5;
     blockquote,
     address,
     figure,
+    details,
     hr {
       @flow-block;
       padding: 0;
@@ -314,6 +315,20 @@ $line-height: 1.5;
       td,
       th {
         font-style: italic;
+      }
+    }
+
+    details {
+      > summary {
+        list-style-type: disclosure-closed;
+  
+        &::-webkit-details-marker {
+          display: initial;
+        }
+      }
+
+      &[open] > summary {
+        list-style-type: disclosure-open;
       }
     }
 

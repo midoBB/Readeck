@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+### Improved
+- Mark imported archived bookmarks as read
+
 ## [0.17.1] - 2025-01-15
 ### Fixed
 - Username validation during onboarding

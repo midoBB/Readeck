@@ -259,6 +259,10 @@ func (imp importer) createBookmark(next func() (BookmarkImporter, error)) (*book
 		b.IsArchived = bm.IsArchived
 		b.IsMarked = bm.IsMarked
 		created = bm.Created
+
+		if b.IsArchived {
+			b.ReadProgress = 100
+		}
 	}
 
 	if imp.label != "" {

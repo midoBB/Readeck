@@ -6,6 +6,7 @@ package importer
 
 import (
 	"archive/zip"
+	"context"
 	"encoding/csv"
 	"encoding/json"
 	"io"
@@ -51,27 +52,27 @@ func (adapter *pocketFileAdapter) Name(_ forms.Translator) string {
 
 func (adapter *pocketFileAdapter) Form() forms.Binder {
 	return forms.Must(
+		context.Background(),
 		forms.NewFileField("data", forms.Required),
 	)
 }
 
 func (adapter *pocketFileAdapter) Params(form forms.Binder) ([]byte, error) {
-	f := form.Get("data").Field.(*forms.FileField)
-	header, ok := f.Header()
-	if !ok {
-		form.AddErrors("data", forms.Gettext("Invalid upload format"))
+	if !form.IsValid() {
 		return nil, nil
 	}
 
-	reader, err := f.Open()
+	opener := form.Get("data").(*forms.FileField).V()
+
+	reader, err := opener.Open()
 	if err != nil {
 		return nil, err
 	}
 	defer reader.Close() //nolint:errcheck
 
-	zr, err := zip.NewReader(reader.(io.ReaderAt), header.Size)
+	zr, err := zip.NewReader(reader.(io.ReaderAt), opener.Size())
 	if err != nil {
-		form.AddErrors("data", forms.Gettext("Unable to open zip file"))
+		form.AddErrors("data", errInvalidFile)
 		return nil, nil
 	}
 
@@ -80,7 +81,7 @@ func (adapter *pocketFileAdapter) Params(form forms.Binder) ([]byte, error) {
 	}
 
 	if len(adapter.Items) == 0 {
-		form.AddErrors("data", forms.Gettext("Empty or invalid import file"))
+		form.AddErrors("data", errInvalidFile)
 		return nil, nil
 	}
 

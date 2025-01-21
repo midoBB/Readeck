@@ -5,6 +5,7 @@
 package signin
 
 import (
+	"context"
 	"strings"
 
 	"github.com/doug-martin/goqu/v9"
@@ -19,29 +20,27 @@ type tokenLoginForm struct {
 	*forms.Form
 }
 
-func newTokenLoginForm(tr forms.Translator) (f *tokenLoginForm) {
-	f = &tokenLoginForm{forms.Must(
+func newTokenLoginForm(tr forms.Translator) *tokenLoginForm {
+	return &tokenLoginForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
 		forms.NewTextField("username", forms.Trim, forms.Required),
 		forms.NewTextField("password", forms.Required),
 		forms.NewTextField("application", forms.Required),
 		users.NewRolesField(tr, nil),
 	)}
-	f.SetLocale(tr)
-	return
 }
 
 type loginForm struct {
 	*forms.Form
 }
 
-func newLoginForm(tr forms.Translator) (f *loginForm) {
-	f = &loginForm{forms.Must(
+func newLoginForm(tr forms.Translator) *loginForm {
+	return &loginForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
 		forms.NewTextField("username", forms.Trim, forms.Required),
 		forms.NewTextField("password", forms.Required),
 		forms.NewTextField("redirect", forms.Trim),
 	)}
-	f.SetLocale(tr)
-	return
 }
 
 func checkUser(f forms.Binder) *users.User {

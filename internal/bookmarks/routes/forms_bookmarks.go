@@ -11,7 +11,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"mime/multipart"
 	"net/http"
 	"net/url"
 	"slices"
@@ -26,7 +25,6 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/db/filters"
-	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/internal/searchstring"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/locales"
@@ -61,42 +59,36 @@ type createForm struct {
 	resources []tasks.MultipartResource
 }
 
-func newCreateForm(tr forms.Translator, userID int, requestID string) (f *createForm) {
-	strConstructor := func(n string) forms.Field {
-		return forms.NewTextField(n, forms.Trim)
-	}
-	strConverter := func(values []forms.Field) interface{} {
-		res := make(types.Strings, len(values))
-		for i, x := range values {
-			res[i] = x.Value().(string)
-		}
-		return res
-	}
-
-	f = &createForm{
+func newCreateForm(tr forms.Translator, userID int, requestID string) *createForm {
+	return &createForm{
 		Form: forms.Must(
+			forms.WithTranslator(context.Background(), tr),
 			forms.NewTextField("url",
 				forms.Trim,
-				forms.Chain(
-					forms.Required,
-					forms.IsValidURL(validSchemes...),
-				),
+				forms.Required,
+				forms.IsURL(validSchemes...),
 			),
 			forms.NewTextField("title", forms.Trim),
-			forms.NewListField("labels", strConstructor, strConverter),
+			forms.NewTextListField("labels", forms.Trim, forms.DiscardEmpty),
 			forms.NewBooleanField("feature_find_main"),
+			forms.NewFileListField("resource"),
 		),
 		userID:    userID,
 		requestID: requestID,
 	}
-	f.SetLocale(tr)
-	return
 }
 
 // newMultipartResource returns a new instance of multipartResource from
-// an io.Reader. The input MUST contain a JSON payload on the first line
+// a [forms.FileOpener]. The input MUST contain a JSON payload on the first line
 // (with the url and headers) and the data on the remaining lines.
-func newMultipartResource(r io.Reader) (res tasks.MultipartResource, err error) {
+func (f *createForm) newMultipartResource(opener forms.FileOpener) (res tasks.MultipartResource, err error) {
+	var r io.ReadCloser
+	r, err = opener.Open()
+	if err != nil {
+		return
+	}
+	defer r.Close() // nolint:errcheck
+
 	const bufSize = 256 << 10 // In KiB
 	bio := bufio.NewReaderSize(r, bufSize)
 
@@ -127,55 +119,25 @@ func newMultipartResource(r io.Reader) (res tasks.MultipartResource, err error) 
 	return
 }
 
-func (f *createForm) loadMultipart(r *http.Request) (err error) {
-	const maxMemory = 16 << 20 // In MiB
-
-	err = r.ParseMultipartForm(maxMemory)
-	if err != nil {
+func (f *createForm) Validate() {
+	if !f.IsValid() {
 		return
 	}
 
-	// Parse all fields
-	for _, field := range f.Fields() {
-		for _, v := range r.Form[field.Name()] {
-			if err := field.UnmarshalText([]byte(v)); err != nil {
-				f.AddErrors(field.Name(), err)
+	// Load all the resources passed in the "resource" field.
+	for _, opener := range f.Get("resource").(forms.TypedField[[]forms.FileOpener]).V() {
+		resource, err := f.newMultipartResource(opener)
+		if err != nil {
+			if f.Get("url").String() != resource.URL {
+				// As long as the content is not from the requested URL
+				// we can ignore an empty value.
+				continue
 			}
+			f.AddErrors("", forms.Gettext("Unable to process input data"))
+			break
 		}
+		f.resources = append(f.resources, resource)
 	}
-
-	forms.Validate(f)
-	if !f.IsValid() { // no needs to go further
-		return
-	}
-
-	// Fetch and store resources
-	for k, v := range r.MultipartForm.File {
-		if k != "resource" {
-			continue
-		}
-		for _, x := range v {
-			var file multipart.File
-			var resource tasks.MultipartResource
-			var err error
-
-			if file, err = x.Open(); err != nil {
-				return err
-			}
-			resource, err = newMultipartResource(file)
-			if err != nil {
-				if f.Get("url").String() != resource.URL {
-					// As long as the content is not from the requested URL
-					// we can ignore an empty value.
-					continue
-				}
-				return err
-			}
-			f.resources = append(f.resources, resource)
-		}
-	}
-
-	return
 }
 
 func (f *createForm) createBookmark() (b *bookmarks.Bookmark, err error) {
@@ -196,7 +158,7 @@ func (f *createForm) createBookmark() (b *bookmarks.Bookmark, err error) {
 	}
 
 	if !f.Get("labels").IsNil() {
-		b.Labels = f.Get("labels").Value().(types.Strings)
+		b.Labels = f.Get("labels").(forms.TypedField[[]string]).V()
 		slices.Sort(b.Labels)
 		b.Labels = slices.Compact(b.Labels)
 	}
@@ -225,32 +187,20 @@ type updateForm struct {
 	*forms.Form
 }
 
-func newUpdateForm(tr forms.Translator) (f *updateForm) {
-	strConstructor := func(n string) forms.Field {
-		return forms.NewTextField(n, forms.Trim)
-	}
-	strConverter := func(values []forms.Field) interface{} {
-		res := make(types.Strings, len(values))
-		for i, x := range values {
-			res[i] = x.Value().(string)
-		}
-		return res
-	}
-
-	f = &updateForm{forms.Must(
+func newUpdateForm(tr forms.Translator) *updateForm {
+	return &updateForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
 		forms.NewTextField("title", forms.Trim),
 		forms.NewBooleanField("is_marked"),
 		forms.NewBooleanField("is_archived"),
 		forms.NewBooleanField("is_deleted"),
 		forms.NewIntegerField("read_progress", forms.Gte(0), forms.Lte(100)),
 		forms.NewTextField("read_anchor", forms.Trim),
-		forms.NewListField("labels", strConstructor, strConverter),
-		forms.NewListField("add_labels", strConstructor, strConverter),
-		forms.NewListField("remove_labels", strConstructor, strConverter),
+		forms.NewTextListField("labels", forms.Trim, forms.DiscardEmpty),
+		forms.NewTextListField("add_labels", forms.Trim, forms.DiscardEmpty),
+		forms.NewTextListField("remove_labels", forms.Trim, forms.DiscardEmpty),
 		forms.NewTextField("_to", forms.Trim),
 	)}
-	f.SetLocale(tr)
-	return
 }
 
 func (f *updateForm) update(b *bookmarks.Bookmark) (updated map[string]interface{}, err error) {
@@ -264,21 +214,21 @@ func (f *updateForm) update(b *bookmarks.Bookmark) (updated map[string]interface
 		}
 		switch n := field.Name(); n {
 		case "title":
-			if field.Value() != "" {
+			if field.String() != "" {
 				b.Title = field.String()
 				updated[n] = field.String()
 			}
 		case "is_marked":
-			b.IsMarked = field.Value().(bool)
+			b.IsMarked = field.(forms.TypedField[bool]).V()
 			updated[n] = field.Value()
 		case "is_archived":
-			b.IsArchived = field.Value().(bool)
+			b.IsArchived = field.(forms.TypedField[bool]).V()
 			updated[n] = field.Value()
 		case "is_deleted":
 			deleted = new(bool)
-			*deleted = field.Value().(bool)
+			*deleted = field.(forms.TypedField[bool]).V()
 		case "read_progress":
-			b.ReadProgress = field.Value().(int)
+			b.ReadProgress = field.(forms.TypedField[int]).V()
 			updated[n] = field.Value()
 		case "read_anchor":
 			b.ReadAnchor = field.String()
@@ -286,14 +236,14 @@ func (f *updateForm) update(b *bookmarks.Bookmark) (updated map[string]interface
 		// labels, add_labels and remove_labels are declared and
 		// processed in this order.
 		case "labels":
-			b.Labels = field.Value().(types.Strings)
+			b.Labels = field.(forms.TypedField[[]string]).V()
 			labelsChanged = true
 		case "add_labels":
-			b.Labels = append(b.Labels, field.Value().(types.Strings)...)
+			b.Labels = append(b.Labels, field.(forms.TypedField[[]string]).V()...)
 			labelsChanged = true
 		case "remove_labels":
 			b.Labels = slices.DeleteFunc(b.Labels, func(s string) bool {
-				return slices.Contains(field.Value().(types.Strings), s)
+				return slices.Contains(field.(forms.TypedField[[]string]).V(), s)
 			})
 			labelsChanged = true
 		}
@@ -341,13 +291,12 @@ type deleteForm struct {
 	*forms.Form
 }
 
-func newDeleteForm(tr forms.Translator) (f *deleteForm) {
-	f = &deleteForm{forms.Must(
+func newDeleteForm(tr forms.Translator) *deleteForm {
+	return &deleteForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
 		forms.NewBooleanField("cancel"),
 		forms.NewTextField("_to", forms.Trim),
 	)}
-	f.SetLocale(tr)
-	return
 }
 
 // trigger launch the user deletion or cancel task.
@@ -363,46 +312,43 @@ type labelForm struct {
 	*forms.Form
 }
 
-func newLabelForm(tr forms.Translator) (f *labelForm) {
-	f = &labelForm{
+func newLabelForm(tr forms.Translator) *labelForm {
+	return &labelForm{
 		Form: forms.Must(
+			forms.WithTranslator(context.Background(), tr),
 			forms.NewTextField("name", forms.Trim, forms.Required),
 		),
 	}
-	f.SetLocale(tr)
-	return
 }
 
 type labelSearchForm struct {
 	*forms.Form
 }
 
-func newLabelSearchForm(tr forms.Translator) (f *labelSearchForm) {
-	f = &labelSearchForm{forms.Must(
+func newLabelSearchForm(tr forms.Translator) *labelSearchForm {
+	return &labelSearchForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
 		forms.NewTextField("q", forms.Trim, forms.RequiredOrNil),
 	)}
-	f.SetLocale(tr)
-	return
 }
 
 type labelDeleteForm struct {
 	*forms.Form
 }
 
-func newLabelDeleteForm(tr forms.Translator) (f *labelDeleteForm) {
-	f = &labelDeleteForm{
+func newLabelDeleteForm(tr forms.Translator) *labelDeleteForm {
+	return &labelDeleteForm{
 		forms.Must(
+			forms.WithTranslator(context.Background(), tr),
 			forms.NewBooleanField("cancel"),
 		),
 	}
-	f.SetLocale(tr)
-	return
 }
 
 func (f *labelDeleteForm) trigger(user *users.User, name string) error {
 	id := fmt.Sprintf("%d@%s", user.ID, name)
 
-	if !f.Get("cancel").IsNil() && f.Get("cancel").Value().(bool) {
+	if !f.Get("cancel").IsNil() && f.Get("cancel").(forms.TypedField[bool]).V() {
 		return tasks.DeleteLabelTask.Cancel(id)
 	}
 
@@ -418,47 +364,38 @@ type filterForm struct {
 	sq           searchstring.SearchQuery
 }
 
-func newFilterForm(tr forms.Translator) (f *filterForm) {
-	f = &filterForm{
+func newFilterForm(tr forms.Translator) *filterForm {
+	return &filterForm{
 		Form: forms.Must(
+			forms.WithTranslator(context.Background(), tr),
 			forms.NewBooleanField("bf"),
 			forms.NewTextField("search", forms.Trim),
 			forms.NewTextField("title", forms.Trim),
 			forms.NewTextField("author", forms.Trim),
 			forms.NewTextField("site", forms.Trim),
-			forms.NewStringListField("type", forms.Choices{
-				{"article", tr.Gettext("Article")},
-				{"photo", tr.Gettext("Picture")},
-				{"video", tr.Gettext("Video")},
-			}, forms.Trim),
+			forms.NewTextListField("type", forms.Choices(
+				forms.Choice(tr.Gettext("Article"), "article"),
+				forms.Choice(tr.Gettext("Picture"), "photo"),
+				forms.Choice(tr.Gettext("Video"), "video"),
+			), forms.Trim),
 			forms.NewBooleanField("is_loaded"),
 			forms.NewBooleanField("has_errors"),
 			forms.NewBooleanField("has_labels"),
 			forms.NewTextField("labels", forms.Trim),
-			forms.NewStringListField("read_status", forms.Choices{
-				{filtersReadStatusUnread, tr.Pgettext("status", "Unviewed")},
-				{filtersReadStatusReading, tr.Pgettext("status", "In-Progress")},
-				{filtersReadStatusRead, tr.Pgettext("status", "Completed")},
-			}, forms.Trim),
+			forms.NewTextListField("read_status", forms.Choices(
+				forms.Choice(tr.Pgettext("status", "Unviewed"), filtersReadStatusUnread),
+				forms.Choice(tr.Pgettext("status", "In-Progress"), filtersReadStatusReading),
+				forms.Choice(tr.Pgettext("status", "Completed"), filtersReadStatusRead),
+			), forms.Trim),
 			forms.NewBooleanField("is_marked"),
 			forms.NewBooleanField("is_archived"),
 			forms.NewTextField("range_start", forms.Trim, validateTimeToken),
 			forms.NewTextField("range_end", forms.Trim, validateTimeToken),
 			forms.NewDatetimeField("updated_since"),
-			forms.NewListField("id", func(n string) forms.Field {
-				return forms.NewTextField(n)
-			}, func(values []forms.Field) interface{} {
-				res := make([]string, len(values))
-				for i, x := range values {
-					res[i] = x.Value().(string)
-				}
-				return res
-			}),
+			forms.NewTextListField("id", forms.Trim),
 		),
 		title: filtersTitleUnset,
 	}
-	f.SetLocale(tr)
-	return f
 }
 
 // newContextFilterForm returns an instance of filterForm. If one already
@@ -526,7 +463,10 @@ func (f *filterForm) Validate() {
 		if fname == "-" {
 			continue
 		}
-		field.Set(f.sq.ExtractField(fname).RemoveField().String())
+		v := f.sq.ExtractField(fname).RemoveField().String()
+		if v != field.String() {
+			_ = field.UnmarshalValues([]string{v})
+		}
 	}
 }
 
@@ -707,14 +647,14 @@ func (f *filterForm) toSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset
 	return ds
 }
 
-func (f *filterForm) addReadStatus(field *forms.FormField, ds *goqu.SelectDataset) *goqu.SelectDataset {
+func (f *filterForm) addReadStatus(field forms.Field, ds *goqu.SelectDataset) *goqu.SelectDataset {
 	if field.IsNil() {
 		return ds
 	}
 
 	or := goqu.Or()
 	c := goqu.C("read_progress").Table("b")
-	for _, x := range field.Value().([]string) {
+	for _, x := range field.(forms.TypedField[[]string]).V() {
 		switch x {
 		case filtersReadStatusUnread:
 			or = or.Append(c.Eq(0))
@@ -736,26 +676,17 @@ type orderForm struct {
 }
 
 func newOrderForm(fieldName string, choices map[string]exp.Orderable) *orderForm {
-	field := forms.NewListField(fieldName, func(n string) forms.Field {
-		return forms.NewTextField(n)
-	}, func(values []forms.Field) interface{} {
-		res := make([]string, len(values))
-		for i, x := range values {
-			res[i] = x.Value().(string)
-		}
-		return res
-	}, forms.Trim)
-
 	// Compile a list of choices being pairs of "A" and "-A", "B", "-B",
-	fieldChoices := make(forms.Choices, len(choices)*2)
+	fieldChoices := make(forms.ValueChoices[string], len(choices)*2)
 	for k := range choices {
-		fieldChoices = append(fieldChoices, [2]string{k}, [2]string{"-" + k})
+		fieldChoices = append(fieldChoices, forms.Choice("", k), forms.Choice("", "-"+k))
 	}
 
-	field.(*forms.ListField).SetChoices(fieldChoices)
-
 	return &orderForm{
-		Form:      forms.Must(field),
+		Form: forms.Must(
+			context.Background(),
+			forms.NewTextListField(fieldName, forms.Trim, forms.Choices(fieldChoices...)),
+		),
 		fieldName: fieldName,
 		choices:   choices,
 	}
@@ -766,13 +697,13 @@ func (f *orderForm) toOrderedExpressions() orderExpressionList {
 		return nil
 	}
 	field := f.Get(f.fieldName)
-	value, ok := field.Value().([]string)
-	if !ok || len(value) == 0 {
+	values := field.(forms.TypedField[[]string]).V()
+	if len(values) == 0 {
 		return nil
 	}
 
 	res := orderExpressionList{}
-	for _, x := range value {
+	for _, x := range values {
 		identifier := f.choices[strings.TrimPrefix(x, "-")]
 		if identifier == nil {
 			continue
@@ -792,10 +723,7 @@ func (f *orderForm) value() []string {
 		return nil
 	}
 
-	if value, ok := f.Get(f.fieldName).Value().([]string); ok {
-		return value
-	}
-	return nil
+	return f.Get(f.fieldName).(forms.TypedField[[]string]).V()
 }
 
 type bookmarkOrderForm struct {
@@ -852,22 +780,15 @@ func (f *bookmarkOrderForm) addToTemplateContext(r *http.Request, tr *locales.Lo
 	}
 }
 
-func validateTimeToken(f forms.Field) error {
-	if f.IsNil() {
+var validateTimeToken = forms.ValueValidatorFunc[string](func(_ forms.Field, value string) error {
+	if value == "" {
 		return nil
 	}
-
-	if f.String() == "" {
-		return nil
+	if _, err := timetoken.New(value); err != nil {
+		return fmt.Errorf(`"%s" is not a valid date value`, value)
 	}
-
-	_, err := timetoken.New(f.String())
-	if err != nil {
-		return fmt.Errorf(`"%s" is not a valid date value`, f.String())
-	}
-
 	return nil
-}
+})
 
 var searchConfig = map[string]*searchstring.BuilderConfig{
 	"sqlite3": searchstring.NewBuilderConfig(

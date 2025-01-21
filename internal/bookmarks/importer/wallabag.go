@@ -6,6 +6,7 @@ package importer
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -124,9 +125,11 @@ func (adapter *wallabagAdapter) Name(_ forms.Translator) string {
 
 func (adapter *wallabagAdapter) Form() forms.Binder {
 	return forms.Must(
+		context.Background(),
 		forms.NewTextField("url",
 			forms.Trim,
-			forms.Chain(forms.Required, forms.IsValidURL(allowedSchemes...)),
+			forms.Required,
+			forms.IsURL(allowedSchemes...),
 		),
 		forms.NewTextField("username", forms.Trim, forms.Required),
 		forms.NewTextField("password", forms.Required),
@@ -136,6 +139,10 @@ func (adapter *wallabagAdapter) Form() forms.Binder {
 }
 
 func (adapter *wallabagAdapter) Params(f forms.Binder) ([]byte, error) {
+	if !f.IsValid() {
+		return nil, nil
+	}
+
 	endpoint, _ := url.Parse(f.Get("url").String())
 	endpoint.Fragment = ""
 	if endpoint.Path != "" {

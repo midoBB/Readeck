@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     <div class="max-w-std">
     {{- yield message(type="error") content -}}
       <strong class="text-red-800">{{ gettext("Errors") }}</strong>
-      {{- if form.Errors() -}}
+      {{- if len(form.Errors()) > 0 -}}
         {{ range form.Errors() }}
           <p>{{ .Error() }}</p>
         {{- end -}}
@@ -23,7 +23,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 {{- block formField(field, name, label, help, class="", required=false, controlAttrs=attrList()) -}}
   {{- if !name -}}{{ name = field.Name() }}{{- end -}}
-  {{- if field.Errors -}}{{ class = class + " field-err" }}{{- end -}}
+  {{- if field.Errors() -}}{{ class = class + " field-err" }}{{- end -}}
 
   <div class="field{{ if class }} {{ class }}{{ end }}">
     {{ if label -}}
@@ -35,9 +35,9 @@ SPDX-License-Identifier: AGPL-3.0-only
     {{- end }}
     <div class="flex-grow min-w-0" {{ controlAttrs }}>
       {{ yield content }}
-      {{ if field.Errors }}
+      {{ if field.Errors() }}
         <ul class="mt-1 list-disc list-inside text-red-800">
-        {{- range field.Errors }}
+        {{- range field.Errors() }}
           <li>{{ . }}</li>
         {{ end -}}
         </ul>
@@ -87,18 +87,18 @@ SPDX-License-Identifier: AGPL-3.0-only
 ) -}}
   {{- if !name -}}{{ name = field.Name() }}{{- end -}}
   {{- if checked == nil }}{{ checked = field.Value() }}{{ end -}}
-  {{- if field.Errors -}}{{ class = class + " with-errors" }}{{ end }}
+  {{- if field.Errors() -}}{{ class = class + " with-errors" }}{{ end }}
   <div class="field{{ if class }} {{ class }}{{ end }}">
     <span class="field-spacer">&nbsp;</span>
     <div class="control">
-      <input type="hidden" name="{{ name }}" value="f" />
       <input type="checkbox" id="{{ name }}" name="{{ name }}"
        class="form-checkbox" value="t"
        {{- if checked }} checked="checked"{{ end -}} />
+      <input type="hidden" name="{{ name }}" value="f" />{* end with false so the field is bound *}
       <label class="font-bold" for="{{ name }}">{{ label }}</label>
-      {{ if field.Errors }}
+      {{ if field.Errors() }}
         <ul class="mt-1 list-disc list-inside text-red-800">
-        {{- range field.Errors }}
+        {{- range field.Errors() }}
           <li>{{ . }}</li>
         {{ end -}}
         </ul>
@@ -116,7 +116,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- if !name -}}{{ name = field.Name() }}{{- end -}}
   {{- if value == nil -}}{{ value = field.Value() }}{{- end -}}
   {{- if !options -}}{{ options = field.Choices() }}{{- end -}}
-  {{- if field.Errors -}}{{ class = class + " with-errors" }}{{ end }}
+  {{- if field.Errors() -}}{{ class = class + " with-errors" }}{{ end }}
   {{- if required -}}
     {{ inputAttrs.Set("required", true) }}
   {{- end -}}
@@ -124,35 +124,37 @@ SPDX-License-Identifier: AGPL-3.0-only
                       required=required, controlAttrs=controlAttrs) content -}}
     <select name="{{ name }}" id="{{ name }}" class="{{ inputClass }}" {{ inputAttrs }}>
       {{- range options -}}
-        <option value="{{ .[0] }}" {{ if string(value) == string(.[0]) }}selected="selected"{{ end }}>{{ .[1] }}</option>
+        <option value="{{ .Value }}" {{ if string(value) == string(.Value) }}selected="selected"{{ end }}>{{ .Name }}</option>
       {{- end -}}
     </select>
   {{- end -}}
 {{- end -}}
 
 {{- block multiSelectField(
-  field, name, label, class, help, type="checkbox"
+  field, name, label, class, help
 ) -}}
   {{- if !name -}}{{ name = field.Name() }}{{- end -}}
-  {{- if field.Errors -}}{{ class = class + " field-err" }}{{- end -}}
+  {{- if field.Errors() -}}{{ class = class + " field-err" }}{{- end -}}
+  {{- type := isList(field.V()) ? "checkbox" : "radio" -}}
   {{- inputClass := type == "radio" ? "form-radio" : "form-checkbox" -}}
   <div class="field{{ if class }} {{ class }}{{ end }}">
     <label>{{ label }}</label>
     <div class="flex-grow">
-      <input type="hidden" name="{{ name }}" value="">
+      <input type="hidden" name="{{ name }}" value="&#xff00">{* null value to bind the field *}
       <ul class="space-y-2">
-        {{- range field.Field.Choices() -}}
+        {{- range field.Choices() -}}
          <li class="space-x-1">
-          <input type="{{ type }}" name="{{ name }}" id="{{ name }}_{{ .[0] }}" value="{{ .[0] }}"
+          <input type="{{ type }}" name="{{ name }}" id="{{ name }}_{{ .Value }}" value="{{ .Value }}"
            class="{{ inputClass }}"
-           {{ if field.Field.InChoices(.[0]) }} checked{{ end }}>
-          <label for="{{ name }}_{{ .[0] }}">{{ .[1] }}</label>
+           {{- if isList(field.V()) && .In(field.V()) || field.V() == .Value }} checked
+           {{- end }}>
+          <label for="{{ name }}_{{ .Value }}">{{ .Name }}</label>
          </li>
         {{- end -}}
       </ul>
-      {{ if field.Errors }}
+      {{ if field.Errors() }}
         <ul class="mt-1 list-disc list-inside text-red-800">
-        {{- range field.Errors }}
+        {{- range field.Errors() }}
           <li>{{ . }}</li>
         {{ end -}}
         </ul>

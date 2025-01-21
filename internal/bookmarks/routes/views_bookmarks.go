@@ -72,7 +72,7 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// If the URL is not valid, set MaybeSearch so we can suggest it later
-		if len(f.Get("url").Errors) > 0 && errors.Is(f.Get("url").Errors[0], forms.ErrInvalidURL) {
+		if len(f.Get("url").Errors()) > 0 && errors.Is(f.Get("url").Errors()[0], forms.ErrInvalidURL) {
 			// User entered a wrong URL, we can mark it.
 			ctx["MaybeSearch"] = true
 		}

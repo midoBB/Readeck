@@ -7,6 +7,7 @@ package importer_test
 import (
 	"archive/zip"
 	"bytes"
+	"context"
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
@@ -19,11 +20,12 @@ import (
 	"testing"
 	"time"
 
+	"github.com/jarcoal/httpmock"
+	"github.com/stretchr/testify/require"
+
 	"codeberg.org/readeck/readeck/internal/bookmarks/importer"
 	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/pkg/forms"
-	"github.com/jarcoal/httpmock"
-	"github.com/stretchr/testify/require"
 )
 
 type adapterTest struct {
@@ -41,7 +43,7 @@ func TestFileAdapters(t *testing.T) {
 			},
 			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
 				require.False(f.IsValid())
-				require.Equal("Empty or invalid import file", f.Get("data").Errors.Error())
+				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
 			},
 		},
 		{
@@ -80,11 +82,11 @@ func TestFileAdapters(t *testing.T) {
 		{
 			importer.LoadAdapter("browser"),
 			func() []byte {
-				return []byte{}
+				return []byte("  ")
 			},
 			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
 				require.False(f.IsValid())
-				require.Equal("Empty or invalid import file", f.Get("data").Errors.Error())
+				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
 			},
 		},
 		{
@@ -161,11 +163,11 @@ func TestFileAdapters(t *testing.T) {
 		{
 			importer.LoadAdapter("goodlinks"),
 			func() []byte {
-				return []byte{}
+				return []byte("  ")
 			},
 			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
 				require.False(f.IsValid())
-				require.Equal("Empty or invalid import file", f.Get("data").Errors.Error())
+				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
 			},
 		},
 		{
@@ -232,11 +234,11 @@ func TestFileAdapters(t *testing.T) {
 		{
 			importer.LoadAdapter("pocket-file"),
 			func() []byte {
-				return []byte{}
+				return []byte("  ")
 			},
 			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
 				require.False(f.IsValid())
-				require.Equal("Unable to open zip file", f.Get("data").Errors.Error())
+				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
 			},
 		},
 		{
@@ -311,8 +313,8 @@ func TestFileAdapters(t *testing.T) {
 			r, _ := http.NewRequest(http.MethodPost, "/", body)
 			r.Header.Set("Content-Type", writer.FormDataContentType())
 
-			f := importer.NewImportForm(test.adapter)
-			forms.BindMultipart(f, r)
+			f := importer.NewImportForm(context.Background(), test.adapter)
+			forms.Bind(f, r)
 
 			data, err := test.adapter.Params(f)
 			require.NoError(t, err)
@@ -323,12 +325,12 @@ func TestFileAdapters(t *testing.T) {
 
 func TestWallabagImporter(t *testing.T) {
 	adapter := importer.LoadAdapter("wallabag")
-	f := importer.NewImportForm(adapter)
-	f.Get("url").Set("https://wallabag/")
-	f.Get("username").Set("user")
-	f.Get("password").Set("pass")
-	f.Get("client_id").Set("client_id")
-	f.Get("client_secret").Set("client_secret")
+	f := importer.NewImportForm(context.Background(), adapter)
+	_ = f.Get("url").UnmarshalValues([]string{"https://wallabag/"})
+	_ = f.Get("username").UnmarshalValues([]string{"user"})
+	_ = f.Get("password").UnmarshalValues([]string{"pass"})
+	_ = f.Get("client_id").UnmarshalValues([]string{"client_id"})
+	_ = f.Get("client_secret").UnmarshalValues([]string{"client_secret"})
 	f.Bind()
 
 	httpmock.Activate()
@@ -519,9 +521,9 @@ func TestOmnivoreImporter(t *testing.T) {
 
 	t.Run("auth failed", func(t *testing.T) {
 		adapter := importer.LoadAdapter("omnivore")
-		f := importer.NewImportForm(adapter)
-		f.Get("url").Set("https://omnivore.app/")
-		f.Get("token").Set("failed")
+		f := importer.NewImportForm(context.Background(), adapter)
+		_ = f.Get("url").UnmarshalValues([]string{"https://omnivore.app/"})
+		_ = f.Get("token").UnmarshalValues([]string{"failed"})
 		f.Bind()
 
 		require := require.New(t)
@@ -529,14 +531,14 @@ func TestOmnivoreImporter(t *testing.T) {
 		_, err := adapter.Params(f)
 		require.NoError(err)
 		require.False(f.IsValid())
-		require.Equal("Invalid API Key", f.Get("token").Errors.Error())
+		require.EqualError(f.Get("token").Errors(), "Invalid API Key")
 	})
 
 	t.Run("auth ok", func(t *testing.T) {
 		adapter := importer.LoadAdapter("omnivore")
-		f := importer.NewImportForm(adapter)
-		f.Get("url").Set("https://omnivore.app/")
-		f.Get("token").Set("abcd")
+		f := importer.NewImportForm(context.Background(), adapter)
+		_ = f.Get("url").UnmarshalValues([]string{"https://omnivore.app/"})
+		_ = f.Get("token").UnmarshalValues([]string{"abcd"})
 		f.Bind()
 
 		require := require.New(t)
@@ -548,9 +550,9 @@ func TestOmnivoreImporter(t *testing.T) {
 
 	t.Run("import", func(t *testing.T) {
 		adapter := importer.LoadAdapter("omnivore")
-		f := importer.NewImportForm(adapter)
-		f.Get("url").Set("https://omnivore.app/")
-		f.Get("token").Set("abcd")
+		f := importer.NewImportForm(context.Background(), adapter)
+		_ = f.Get("url").UnmarshalValues([]string{"https://omnivore.app/"})
+		_ = f.Get("token").UnmarshalValues([]string{"abcd"})
 		f.Bind()
 
 		require := require.New(t)
@@ -582,7 +584,6 @@ func TestOmnivoreImporter(t *testing.T) {
 			require.Equal(time.Date(2022, time.January, 2, 12, 23, 43, 0, time.UTC), bi.Published)
 
 			if i == 0 {
-				fmt.Printf(">>>>\n%#v\n", bi)
 				require.Equal(types.Strings{"Someone"}, bi.Authors)
 				require.Equal(types.Strings{"label 1", "label 2"}, bi.Labels)
 				require.True(bi.IsArchived)

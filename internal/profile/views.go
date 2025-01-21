@@ -104,7 +104,7 @@ func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
 // userPassword handles GET and POST requests on /profile/password.
 func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 	tr := v.srv.Locale(r)
-	f := newPasswordForm()
+	f := newPasswordForm(tr)
 
 	if r.Method == http.MethodPost {
 		user := auth.GetRequestUser(r)

@@ -1,893 +1,601 @@
-// SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+// SPDX-FileCopyrightText: © 2024 Olivier Meunier <olivier@neokraft.net>
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
 package forms
 
 import (
-	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io"
-	"mime/multipart"
-	"strconv"
 	"strings"
 	"time"
-
-	"github.com/araddon/dateparse"
 )
 
-// NilValue is a text null value. In an URL of form value, it would
-// be a field with %00 value. (name=%00).
-var NilValue = []byte{0}
+// ErrInvalidValue is the error for invalid value.
+var ErrInvalidValue = errors.New("invalid value")
+
+// FieldFlags is a field's flag list.
+type FieldFlags int8
+
+const (
+	// ValidatedField indicates a field has been validated.
+	ValidatedField FieldFlags = 1 << iota
+)
+
+type marshalledField struct {
+	IsNil   bool   `json:"is_null"`
+	IsBound bool   `json:"is_bound"`
+	Value   any    `json:"value"`
+	Errors  Errors `json:"errors"`
+}
 
 // Field describes a form field.
 type Field interface {
+	fmt.Stringer
+	json.Unmarshaler
+	UnmarshalValues([]string) error
+	Contexter
+
 	Name() string
 	IsBound() bool
+	IsEmpty() bool
 	IsNil() bool
-	Set(value interface{}) bool
-	UnmarshalJSON([]byte) error
-	UnmarshalText([]byte) error
-	Value() interface{}
-	String() string
-	Validators() []FieldValidator
-	SetValidators(...FieldValidator)
+	Value() any
+	Set(value any)
+
+	IsValid() bool
+
+	AddErrors(...error)
+	Errors() Errors
 }
 
-// FieldChoices describes a field that can return a list
-// of possible values.
-type FieldChoices interface {
-	Choices() Choices
+// TypedField exposes a field's typed value.
+type TypedField[T any] interface {
+	V() T
 }
 
-var (
-	// ErrInvalidType is the error for invalid type.
-	ErrInvalidType = errors.New("invalid type")
-	// ErrInvalidValue is the for invalid value.
-	ErrInvalidValue = errors.New("invalid value")
-)
+// GetForm returns the form that's attached to a field.
+// It's only available when the field has been added to a form
+// using [New] of [Must].
+func GetForm(f Field) Binder {
+	if form, ok := f.Context().Value(ctxFormKey).(Binder); ok {
+		return form
+	}
+	return nil
+}
 
-// fieldConstructor is a function returning a field with a given name.
-type fieldConstructor func(string) Field
-
-// fieldConverter is a function that returns a value from a list of fields.
-type fieldConverter func([]Field) interface{}
-
-// BaseField is a basic field that holds the field's name and its
-// bound and nil state.
-type BaseField struct {
-	name       string
-	isBound    bool
-	isNil      bool
-	validators []FieldValidator
+// BaseField is a generic base field that holds a value of the
+// given type and implements [Field].
+// It's the common building block for a specialized field.
+type BaseField[T any] struct {
+	flags   FieldFlags
+	value   Value[T]
+	name    string
+	context context.Context
+	decoder Decoder[T]
+	errors  Errors
 }
 
 // NewBaseField returns a new BaseField instance that is considered
 // null. Until it's set or bound, it will stay that way.
-func NewBaseField(name string, validators ...FieldValidator) *BaseField {
-	return &BaseField{
-		name:       name,
-		isNil:      true,
-		isBound:    false,
-		validators: validators,
+func NewBaseField[T any](name string, decoder Decoder[T], options ...any) *BaseField[T] {
+	res := &BaseField[T]{
+		name: name,
+		value: Value[T]{
+			F: IsNil | IsEmpty,
+		},
+		decoder: decoder,
+		context: context.Background(),
 	}
-}
 
-// SetNil sets the nil state of the field, based on the passed value.
-func (f *BaseField) SetNil(value interface{}) {
-	f.isNil = value == nil
-}
-
-// SetBind marks the field as bound.
-func (f *BaseField) SetBind() {
-	f.isBound = true
+	applyFieldOptions[T](res, options...)
+	return res
 }
 
 // Name returns the field's name.
-func (f *BaseField) Name() string {
+func (f BaseField[T]) Name() string {
 	return f.name
 }
 
+// Context returns the field's context.
+func (f BaseField[T]) Context() context.Context {
+	return f.context
+}
+
+// SetContext sets the field's context.
+func (f *BaseField[T]) SetContext(ctx context.Context) {
+	f.context = ctx
+}
+
 // IsBound returns true if the field is bound.
-func (f *BaseField) IsBound() bool {
-	return f.isBound
+func (f BaseField[T]) IsBound() bool {
+	return f.value.F.IsBound()
 }
 
 // IsNil returns true if the field's value is null.
-func (f *BaseField) IsNil() bool {
-	return f.isNil
+func (f BaseField[T]) IsNil() bool {
+	return f.value.F.IsNil()
 }
 
-// Validators returns the field's validator list.
-func (f *BaseField) Validators() []FieldValidator {
-	return f.validators
+// IsEmpty returns true if the field's value is empty.
+func (f BaseField[T]) IsEmpty() bool {
+	return f.value.F.IsEmpty()
 }
 
-// SetValidators sets new validators for a field.
-func (f *BaseField) SetValidators(validators ...FieldValidator) {
-	f.validators = validators
+// Value implements the [Field] interface and returns the field's value
+// with a type "any". It returns nil when the field is nil.
+func (f BaseField[T]) Value() any {
+	if f.value.F.IsNil() {
+		return nil
+	}
+	return f.value.V
+}
+
+// V implement the [TypedField] interface and returns the field's value
+// with its intended type.
+func (f BaseField[T]) V() T {
+	return f.value.V
+}
+
+// IsValid returns true when the field is valid.
+// It performs the validation on its first call.
+func (f *BaseField[T]) IsValid() bool {
+	if f.flags&ValidatedField > 0 {
+		return len(f.errors) == 0
+	}
+
+	defer func() {
+		f.flags |= ValidatedField
+	}()
+	if len(f.errors) == 0 {
+		f.AddErrors(ApplyValidators[T](f, f.value.V, GetValidators(f)...)...)
+	}
+	return len(f.errors) == 0
+}
+
+// Set sets the field's value. The value v can be a pointer or a concrete
+// value. A nil value, sets the field as nil with an zeroed value.
+func (f *BaseField[T]) Set(value any) {
+	if x, ok := value.(*T); ok && x != nil {
+		f.value = f.decoder.DecodeAny(*x)
+		return
+	}
+
+	// Then try a concrete value.
+	f.value = f.decoder.DecodeAny(value)
+}
+
+// UnmarshalJSON implements [json.Unmarshaler] for the field.
+// In case of decoding error, the value is zeroed and an [ErrInvalidValue] is returned.
+func (f *BaseField[T]) UnmarshalJSON(data []byte) error {
+	var errs Errors
+	var decoded any
+
+	defer func() {
+		f.postBinding(errs)
+	}()
+
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		f.Set(nil)
+		errs = Errors{ErrInvalidValue}
+		return errs[0]
+	}
+
+	if decoded == nil {
+		f.Set(nil)
+		return nil
+	}
+
+	f.value = f.decoder.DecodeAny(
+		f.preBinding(decoded),
+	)
+
+	if !f.value.F.IsNil() && !f.value.F.IsOk() {
+		errs = Errors{ErrInvalidValue}
+		return errs[0]
+	}
+
+	return nil
+}
+
+// UnmarshalValues decodes a list of values using the provided
+// field's [Decoder].
+// In this case, it only decodes the first value.
+func (f *BaseField[T]) UnmarshalValues(values []string) error {
+	var errs Errors
+	defer func() {
+		f.postBinding(errs)
+	}()
+
+	if len(values) == 0 {
+		return nil
+	}
+
+	if values[0] == nilText {
+		f.Set(nil)
+		return nil
+	}
+
+	x := f.preBinding(values[0])
+	if x, ok := x.(string); ok {
+		f.value = f.decoder.DecodeText(x)
+	} else {
+		f.value.F |= IsNil
+	}
+
+	if !f.value.F.IsNil() && !f.value.F.IsOk() {
+		errs = Errors{ErrInvalidValue}
+		return errs[0]
+	}
+
+	return nil
+}
+
+func (f *BaseField[T]) preBinding(data any) any {
+	for _, v := range GetCleaners(f) {
+		data = v.Clean(data)
+	}
+
+	return data
+}
+
+func (f *BaseField[T]) postBinding(err Errors) {
+	if err != nil {
+		f.AddErrors(err...)
+		return
+	}
+	f.value.F |= IsOk | IsBound
+}
+
+// Errors return the field's [Errors].
+func (f *BaseField[T]) Errors() Errors {
+	return f.errors
+}
+
+// AddErrors add errors to the field.
+func (f *BaseField[T]) AddErrors(errs ...error) {
+	if len(errs) == 0 {
+		return
+	}
+
+	tr := GetTranslator(f.context)
+	for _, err := range unwrapErrors(errs...) {
+		if err == nil {
+			continue
+		}
+
+		// an error that implements Err() (like [fatalError]) is unwrapped
+		// so we can access its real error with localization, if any.
+		if x, ok := err.(interface{ Err() error }); ok {
+			err = x.Err()
+		}
+
+		if _, ok := err.(localizedError); !ok {
+			err = localizedError{err: err, tr: tr}
+		}
+
+		f.errors = append(f.errors, err)
+	}
+
+	if len(f.errors) > 0 {
+		f.value.F &^= IsOk
+	}
+}
+
+// String implement [fmt.Stringer].
+func (f *BaseField[T]) String() string {
+	if f.IsNil() || f.IsEmpty() {
+		return ""
+	}
+
+	if d, ok := f.decoder.(valueStringer[T]); ok {
+		return d.ValueString(f.value.V)
+	}
+
+	return fmt.Sprintf("%v", f.value.V)
+}
+
+// MarshalJSON implements [json.Marshaler] for the field.
+func (f BaseField[T]) MarshalJSON() ([]byte, error) {
+	return json.Marshal(marshalledField{
+		IsNil:   f.IsNil(),
+		IsBound: f.IsBound(),
+		Value:   f.V(),
+		Errors:  f.Errors(),
+	})
 }
 
 /* Text field
    --------------------------------------------------------------- */
 
-// TextField is a field with a string value.
+// TextField is a field that holds a [string] value.
 type TextField struct {
-	*BaseField
-	value string
+	*BaseField[string]
 }
 
-// NewTextField returns a TextField instance.
-func NewTextField(name string, validators ...FieldValidator) *TextField {
-	return &TextField{BaseField: NewBaseField(name, validators...)}
-}
-
-// Set sets the field's value.
-func (f *TextField) Set(value interface{}) bool {
-	f.BaseField.SetNil(value)
-	if f.IsNil() {
-		f.value = ""
-		return true
+// NewTextField return a new [TextField] instance.
+func NewTextField(name string, options ...any) *TextField {
+	return &TextField{
+		NewBaseField(name, DecodeString, options...),
 	}
-	var ok bool
-	f.value, ok = value.(string)
-	return ok
 }
 
-// UnmarshalJSON decodes the input value into a string or a nil value.
-func (f *TextField) UnmarshalJSON(data []byte) error {
-	var value interface{}
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-
-	f.BaseField.SetNil(value)
-	f.BaseField.SetBind()
-	if ok := f.Set(value); !ok {
-		return ErrInvalidType
-	}
-	return nil
+func (f TextField) String() string {
+	return f.value.V
 }
 
-// UnmarshalText decodes the input text value into a string or nil value.
-func (f *TextField) UnmarshalText(text []byte) error {
-	if bytes.Equal(text, NilValue) {
-		f.BaseField.SetBind()
-		f.Set(nil)
-		return nil
-	}
-
-	f.BaseField.SetBind()
-	f.Set(string(text))
-
-	return nil
-}
-
-// Value returns the field's actuall value.
-func (f *TextField) Value() interface{} {
-	if f.IsNil() {
-		return nil
-	}
-	return f.value
-}
-
-// String returns the field's string value.
-func (f *TextField) String() string {
-	return f.value
+// Choices returns the field's [ValueChoices].
+func (f TextField) Choices() ValueChoices[string] {
+	return GetChoices[string](f)
 }
 
 /* Boolean field
    --------------------------------------------------------------- */
 
-// BooleanField is a boolean field (true/false).
+// BooleanField is a field that holds a [bool] value.
 type BooleanField struct {
-	*BaseField
-	value bool
+	*BaseField[bool]
 }
 
-// NewBooleanField return a BooleanField instance.
-func NewBooleanField(name string, validators ...FieldValidator) *BooleanField {
-	return &BooleanField{BaseField: NewBaseField(name, validators...)}
-}
-
-// Set sets the field's value.
-func (f *BooleanField) Set(value interface{}) bool {
-	f.BaseField.SetNil(value)
-	if f.IsNil() {
-		f.value = false
-		return true
+// NewBooleanField return a new [BooleanField] instance.
+func NewBooleanField(name string, options ...any) *BooleanField {
+	return &BooleanField{
+		NewBaseField(name, DecodeBoolean, options...),
 	}
-	var ok bool
-	f.value, ok = value.(bool)
-	return ok
-}
-
-// UnmarshalJSON decodes the input value into a string or a nil value.
-func (f *BooleanField) UnmarshalJSON(data []byte) error {
-	var value interface{}
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-
-	f.BaseField.SetNil(value)
-	f.BaseField.SetBind()
-	if ok := f.Set(value); !ok {
-		return ErrInvalidType
-	}
-	return nil
-}
-
-// UnmarshalText decodes the input text value into a string or nil value.
-func (f *BooleanField) UnmarshalText(text []byte) error {
-	f.BaseField.SetBind()
-	if len(text) == 0 {
-		f.Set(nil)
-		return nil
-	}
-
-	var value bool
-	var err error
-	t := string(text)
-
-	switch t {
-	case "":
-		value = false
-	case "on":
-		value = true
-	default:
-		value, err = strconv.ParseBool(t)
-	}
-
-	if err != nil {
-		f.Set(false)
-		return ErrInvalidValue
-	}
-
-	f.Set(value)
-	return nil
-}
-
-// Value returns the field's actuall value.
-func (f *BooleanField) Value() interface{} {
-	if f.IsNil() {
-		return nil
-	}
-	return f.value
-}
-
-// String returns the field's string value.
-func (f *BooleanField) String() string {
-	if f.IsNil() {
-		return ""
-	}
-	if f.value {
-		return "true"
-	}
-	return "false"
 }
 
 /* Integer field
    --------------------------------------------------------------- */
 
-// IntegerField is an integer field.
+// IntegerField is a field that holds an [int] value.
 type IntegerField struct {
-	*BaseField
-	value int
+	*BaseField[int]
 }
 
 // NewIntegerField returns a IntegerField instance.
-func NewIntegerField(name string, validators ...FieldValidator) *IntegerField {
+func NewIntegerField(name string, options ...any) *IntegerField {
 	return &IntegerField{
-		BaseField: NewBaseField(name, validators...),
-		value:     0,
+		NewBaseField(name, DecodeInt, options...),
 	}
 }
 
-// Set sets the field's value.
-func (f *IntegerField) Set(value interface{}) bool {
-	f.BaseField.SetNil(value)
-	if f.IsNil() {
-		f.value = 0
-		return true
-	}
-
-	switch v := value.(type) {
-	case int:
-		f.value = v
-		return true
-	case float64:
-		if v == float64(int(v)) {
-			f.value = int(v)
-			return true
-		}
-	}
-
-	f.SetNil(nil)
-	return false
+// Choices returns the field's [ValueChoices].
+func (f IntegerField) Choices() ValueChoices[int] {
+	return GetChoices[int](f)
 }
 
-// UnmarshalJSON decodes the input value into a string or a nil value.
-func (f *IntegerField) UnmarshalJSON(data []byte) error {
-	var value interface{}
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-
-	f.BaseField.SetNil(value)
-	f.BaseField.SetBind()
-	if value == nil {
-		return nil
-	}
-
-	if ok := f.Set(value); !ok {
-		return ErrInvalidType
-	}
-	return nil
-}
-
-// UnmarshalText decodes the input text value into a string or nil value.
-func (f *IntegerField) UnmarshalText(text []byte) error {
-	if bytes.Equal(text, NilValue) {
-		f.BaseField.SetBind()
-		f.Set(nil)
-		return nil
-	}
-
-	f.BaseField.SetBind()
-
-	v, err := strconv.ParseInt(string(text), 10, 0)
-	if err != nil {
-		f.Set(nil)
-		return ErrInvalidType
-	}
-
-	if ok := f.Set(int(v)); !ok {
-		return ErrInvalidType
-	}
-
-	return nil
-}
-
-// Value returns the field's actuall value.
-func (f *IntegerField) Value() interface{} {
-	if f.IsNil() {
-		return nil
-	}
-	return f.value
-}
-
-// String returns the field's string value.
-func (f *IntegerField) String() string {
-	if f.IsNil() {
-		return ""
-	}
-	return fmt.Sprint(f.value)
-}
-
-/* Time field
+/* Datetime field
    --------------------------------------------------------------- */
 
-// DatetimeField is a datetime field.
+// DatetimeField is a field that holds a [time.Time] value.
 type DatetimeField struct {
-	*BaseField
-	value time.Time
+	*BaseField[time.Time]
 }
 
-// NewDatetimeField return a DatetimeField instance.
-func NewDatetimeField(name string, validators ...FieldValidator) *DatetimeField {
+// NewDatetimeField return a [DatetimeField] instance.
+func NewDatetimeField(name string, options ...any) *DatetimeField {
 	return &DatetimeField{
-		BaseField: NewBaseField(name, validators...),
-		value:     time.Time{},
+		NewBaseField(name, DecodeTime, options...),
 	}
 }
 
-// Set sets the field's value.
-func (f *DatetimeField) Set(value interface{}) bool {
-	var t *time.Time
-	switch v := value.(type) {
-	case nil:
-		t = nil
-	case time.Time:
-		t = &v
-	case *time.Time:
-		t = v
-	default:
-		return false
-	}
-
-	if t == nil || t.IsZero() {
-		f.SetNil(nil)
-		return true
-	}
-	f.SetNil(struct{}{})
-	f.value = *t
-
-	return true
-}
-
-// UnmarshalJSON decodes the input value into a string or a nil value.
-func (f *DatetimeField) UnmarshalJSON(data []byte) error {
-	var value interface{}
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-
-	f.BaseField.SetNil(value)
-	f.BaseField.SetBind()
-	switch v := value.(type) {
-	case string:
-		return f.decodeTime(v)
-	case nil:
-		f.Set(nil)
-		return nil
-	}
-	return ErrInvalidType
-}
-
-// UnmarshalText decodes the input text value into a string or nil value.
-func (f *DatetimeField) UnmarshalText(text []byte) error {
-	if bytes.Equal(text, NilValue) {
-		f.BaseField.SetBind()
-		f.Set(nil)
-		return nil
-	}
-
-	f.BaseField.SetBind()
-	return f.decodeTime(string(text))
-}
-
-func (f *DatetimeField) decodeTime(text string) error {
-	if text == "" {
-		f.SetNil(nil)
-		return nil
-	}
-	v, err := dateparse.ParseAny(text)
-	if err != nil {
-		f.Set(time.Time{})
-		return errors.New("invalid datetime format")
-	}
-	if !f.Set(v) {
-		return ErrInvalidType
-	}
-	return nil
-}
-
-// Value returns the field's actuall value.
-func (f *DatetimeField) Value() interface{} {
-	if f.IsNil() {
-		return nil
-	}
-	return f.value
-}
-
-// String returns the field's string value.
-func (f *DatetimeField) String() string {
-	if f.IsNil() {
-		return ""
-	}
-
-	return f.value.Format("2006-01-02")
-}
-
-/* File field
+/* List field
    --------------------------------------------------------------- */
 
-// FileOpener describes an opener interface. Its [Open] function must return an [io.ReadCloser].
-type FileOpener interface {
-	Open() (io.ReadCloser, error)
+// ListField is a field wrapping a [BaseField] with a list of given type.
+type ListField[T any] struct {
+	*BaseField[[]T]
+	decoder Decoder[T]
 }
 
-// multipartFileOpener is a [FileOpener] implementation wrapping [multipart.FileHeader].
-type multipartFileOpener struct {
-	*multipart.FileHeader
-}
-
-// Open implements [FileOpener].
-func (o *multipartFileOpener) Open() (io.ReadCloser, error) {
-	return o.FileHeader.Open()
-}
-
-// readerOpener is a [FileOpener] implementation wrapping an [io.Reader].
-type readerOpener struct {
-	io.Reader
-}
-
-// Open implements [FileOpener].
-func (o *readerOpener) Open() (io.ReadCloser, error) {
-	if r, ok := o.Reader.(io.ReadCloser); ok {
-		return r, nil
+// NewListField returns a new instance of [ListField].
+func NewListField[T any](name string, decoder Decoder[T], options ...any) *ListField[T] {
+	res := &ListField[T]{
+		BaseField: NewBaseField[[]T](name, nil),
+		decoder:   decoder,
 	}
 
-	return io.NopCloser(o.Reader), nil
+	// We don't pass the options to the [BaseField].
+	applyFieldOptions[T](res, options...)
+
+	return res
 }
 
-// FileField is a file field. It receives a [FileOpener] as a value and thus, wont't be deserialize
-// by classic unmarshal functions but it can be open with its [FileField.Open] function.
-type FileField struct {
-	*BaseField
-	value FileOpener
-}
-
-// NewFileField returns a new [FileField] instance.
-func NewFileField(name string, validators ...FieldValidator) *FileField {
-	return &FileField{
-		BaseField: NewBaseField(name, validators...),
-	}
-}
-
-// Set sets the field value. It can receive a [*multipart.FileHeader] or a [io.Reader].
-// The value is set to a [FileOpener].
-func (f *FileField) Set(value interface{}) bool {
-	f.BaseField.SetNil(value)
-	if f.IsNil() {
-		f.value = nil
-		f.SetBind()
-		return true
-	}
+// Set sets the field's value. The value v can be a pointer or a concrete
+// value. A nil value, sets the field as nil with an zeroed value.
+func (f *ListField[T]) Set(value any) {
+	var items []T
+	f.value.F = ValueFlags(0)
 
 	switch t := value.(type) {
-	case *multipart.FileHeader:
-		f.value = &multipartFileOpener{t}
-	case io.Reader:
-		f.value = &readerOpener{t}
+	case *[]T:
+		items = *t
+	case []T:
+		items = t
+	case []any:
+		for _, v := range t {
+			if v, ok := v.(T); ok {
+				items = append(items, v)
+			}
+		}
+	default:
+		f.value.F |= IsNil | IsEmpty
+		return
 	}
 
-	if f.value != nil {
-		f.SetBind()
-		return true
+	f.value = NewValue[[]T]()
+	if len(items) == 0 {
+		return
 	}
-
-	f.SetNil(nil)
-	return false
-}
-
-// Value returns nil if the value's null or "(file reader)" when there's a [readerOpener] attached.
-func (f *FileField) Value() interface{} {
-	if f.value == nil {
-		return nil
-	}
-	return "(file reader)"
-}
-
-// String always returns an empty string.
-func (f *FileField) String() string {
-	if f.IsNil() {
-		return ""
-	}
-	return "\u0000"
-}
-
-// UnmarshalJSON is not implemented.
-func (f *FileField) UnmarshalJSON(_ []byte) error {
-	return nil
-}
-
-// UnmarshalText is not implemented.
-func (f *FileField) UnmarshalText(_ []byte) error {
-	return nil
-}
-
-// Open implements [FileOpener] on the field.
-func (f *FileField) Open() (io.ReadCloser, error) {
-	if f.value == nil {
-		return nil, ErrInvalidValue
-	}
-	return f.value.Open()
-}
-
-// Header returns a [*multipart.FileHeader] and boolean when the
-// inner value is a [multipartFileOpener].
-func (f *FileField) Header() (*multipart.FileHeader, bool) {
-	if t, ok := f.value.(*multipartFileOpener); ok {
-		return t.FileHeader, ok
-	}
-	return nil, false
-}
-
-// Choices is a list of valid values (value and name).
-type Choices [][2]string
-
-// ChoiceField is a text field with a limited possible values.
-type ChoiceField struct {
-	Field
-	choices Choices
-}
-
-// NewChoiceField returns a ChoiceField instance.
-func NewChoiceField(name string, choices Choices, validators ...FieldValidator) *ChoiceField {
-	f := &ChoiceField{
-		choices: choices,
-	}
-	f.Field = NewTextField(name, append([]FieldValidator{f.Validate}, validators...)...)
-	return f
-}
-
-// Choices returns the list of possible values.
-func (f *ChoiceField) Choices() Choices {
-	return f.choices
-}
-
-// Validate performs the field's validation.
-func (f *ChoiceField) Validate(_ Field) error {
-	choices := make([]string, len(f.choices))
-	for i, v := range f.choices {
-		choices[i] = v[0]
-		if v[0] == f.String() {
-			return nil
+	f.value.F &^= IsEmpty
+	for _, item := range items {
+		v := f.decoder.DecodeAny(item)
+		if v.F.IsOk() && !v.F.IsNil() {
+			f.value.V = append(f.value.V, v.V)
 		}
 	}
-
-	return fmt.Errorf("must be one of %s", strings.Join(choices, ", "))
 }
 
-// ListField is a field that implement decoding and encoding of
-// values in lists.
-type ListField struct {
-	*BaseField
-	constructor fieldConstructor
-	converter   fieldConverter
-	value       []Field
-	choices     Choices
-}
-
-// DefaultListConverter is a default fieldConverter that
-// simply returns a list of [interface{}] items.
-func DefaultListConverter(values []Field) interface{} {
-	res := make([]interface{}, len(values))
-	for i, x := range values {
-		res[i] = x.Value()
-	}
-	return res
-}
-
-// StringListConverter is a fieldConverter that returns
-// a list of [string] items.
-func StringListConverter(values []Field) interface{} {
-	res := make([]string, len(values))
-	for i, x := range values {
-		res[i] = x.String()
-	}
-	return res
-}
-
-// NewListField return a ListField instance. It needs a constructor and a converter.
-// Validators at this stage are only applied to the whole field.
-// If you need a validator for each received value, it must come with the field returned
-// by a custom constructor.
-func NewListField(name string, constructor fieldConstructor, converter fieldConverter, validators ...FieldValidator) Field {
-	f := &ListField{
-		constructor: constructor,
-		converter:   converter,
-		value:       []Field{},
-	}
-	f.BaseField = NewBaseField(name, append([]FieldValidator{f.Validate}, validators...)...)
-	return f
-}
-
-// SetChoices sets the field choice list.
-func (f *ListField) SetChoices(choices Choices) {
-	f.choices = choices
-}
-
-// Choices returns the field choice list.
-func (f *ListField) Choices() Choices {
-	return f.choices
-}
-
-// InChoices returns true if value is in the field choice list.
-func (f *ListField) InChoices(value string) bool {
-	for _, x := range f.value {
-		if value == x.String() {
-			return true
-		}
-	}
-	return false
-}
-
-// Validate performs the field validation.
-func (f *ListField) Validate(_ Field) error {
-	if len(f.choices) == 0 {
-		return nil
+// IsValid returns true when the field is valid.
+// It performs the validation on its first call.
+func (f *ListField[T]) IsValid() bool {
+	if f.flags&ValidatedField > 0 {
+		return len(f.errors) == 0
 	}
 
-	choices := map[string]struct{}{}
-	for _, c := range f.choices {
-		choices[c[0]] = struct{}{}
-	}
-
-	for _, v := range f.value {
-		if _, ok := choices[v.String()]; !ok {
-			return fmt.Errorf("%s is not a valid value", v.String())
-		}
-	}
-
-	return nil
-}
-
-// Set sets the field's value.
-func (f *ListField) Set(value interface{}) bool {
-	f.BaseField.SetNil(value)
-	if f.IsNil() {
-		f.value = []Field{}
-		return true
-	}
-
-	var values []interface{}
-
-	// Some shortcuts for common type.
-	// This let us set concrete values without having to
-	// convert it first.
-	switch v := value.(type) {
-	case []interface{}:
-		values = v
-	case []bool:
-		values = make([]interface{}, len(v))
-		for i, x := range v {
-			values[i] = x
-		}
-	case []float64:
-		values = make([]interface{}, len(v))
-		for i, x := range v {
-			values[i] = x
-		}
-	case []int:
-		values = make([]interface{}, len(v))
-		for i, x := range v {
-			values[i] = x
-		}
-	case []string:
-		values = make([]interface{}, len(v))
-		for i, x := range v {
-			values[i] = x
-		}
-	}
-
-	res := false
 	defer func() {
-		if !res {
-			f.SetNil(nil)
-			f.value = []Field{}
+		f.flags |= ValidatedField
+	}()
+	if len(f.errors) == 0 {
+		f.AddErrors(ApplyValidators[T](f, f.value.V, GetValidators(f)...)...)
+	}
+	return len(f.errors) == 0
+}
+
+// UnmarshalJSON implements [json.Unmarshaler] for the field.
+// In case of decoding error, the value is zeroed and an [ErrInvalidValue] is returned.
+func (f *ListField[T]) UnmarshalJSON(data []byte) error {
+	var errs Errors
+	var decoded any
+
+	defer func() {
+		if len(f.value.V) == 0 {
+			f.value.F |= IsEmpty
 		}
+		f.postBinding(errs)
 	}()
 
-	if values == nil {
-		return res
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		f.Set(nil)
+		errs = Errors{ErrInvalidValue}
+		return errs[0]
 	}
 
-	f.value = make([]Field, len(values))
-	for i, x := range values {
-		f.value[i] = f.constructor(strconv.Itoa(i))
-		if !f.value[i].Set(x) {
-			return res
-		}
-	}
-
-	res = true
-	return res
-}
-
-// UnmarshalJSON decodes the input value into a string or a nil value.
-func (f *ListField) UnmarshalJSON(data []byte) error {
-	f.BaseField.SetBind()
-
-	var value interface{}
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-
-	f.BaseField.SetBind()
-	if value == nil {
-		f.BaseField.SetNil(nil)
+	if decoded == nil {
+		f.Set(nil)
 		return nil
 	}
 
-	v, ok := value.([]interface{})
+	items, ok := decoded.([]any)
 	if !ok {
-		return ErrInvalidType
+		errs = Errors{ErrInvalidValue}
+		return errs[0]
 	}
 
-	// To match the behavior of URL encoded values,
-	// an empty list leads to nil.
-	if len(v) == 0 {
-		f.BaseField.SetNil(nil)
+	f.value = Value[[]T]{}
+	if len(items) == 0 {
 		return nil
 	}
-
-	// Discard null values in the list
-	values := []interface{}{}
-	for _, x := range v {
-		if x == nil {
+	for _, item := range items {
+		v := f.decoder.DecodeAny(
+			f.preBinding(item),
+		)
+		if v.F.IsNil() {
 			continue
 		}
-		values = append(values, x)
-	}
-
-	if ok = f.Set(values); !ok {
-		return ErrInvalidType
-	}
-
-	// We must now validate each field
-	for _, field := range f.value {
-		if e := ValidateField(field, field.Validators()...); len(e) > 0 {
-			return e
+		if !v.F.IsOk() {
+			f.value.V = []T(nil)
+			f.value.F |= IsEmpty
+			errs = Errors{ErrInvalidValue}
+			return errs[0]
 		}
+
+		f.value.V = append(f.value.V, v.V)
 	}
 
 	return nil
 }
 
-// UnmarshalText decodes the input text value and appends it to the
-// values when it's valid.
-func (f *ListField) UnmarshalText(text []byte) error {
-	f.BaseField.SetBind()
+// UnmarshalValues decodes a list of values using the provided
+// field's [Decoder] on each value.
+func (f *ListField[T]) UnmarshalValues(values []string) error {
+	var errs Errors
+	defer func() {
+		if len(f.value.V) == 0 {
+			f.value.F |= IsEmpty
+		}
+		f.postBinding(errs)
+	}()
 
-	if len(text) == 0 {
+	if len(values) == 0 {
+		f.Set(nil)
 		return nil
 	}
 
-	var err error
-	idx := len(f.value)
+	f.value = Value[[]T]{}
+	for _, s := range values {
+		if s == nilText {
+			continue
+		}
+		x := f.preBinding(s)
+		if _, ok := x.(string); !ok {
+			continue
+		}
+		v := f.decoder.DecodeText(x.(string))
+		if v.F.IsNil() {
+			continue
+		}
+		if !v.F.IsOk() {
+			f.value.V = []T(nil)
+			f.value.F |= IsEmpty
+			errs = Errors{ErrInvalidValue}
+			return errs[0]
+		}
 
-	// Initialize the field
-	field := f.constructor(strconv.Itoa(idx))
-	err = field.UnmarshalText(text)
-	if err != nil {
-		return err
+		f.value.V = append(f.value.V, v.V)
 	}
 
-	// No need to go further with a nil value
-	if field.IsNil() {
-		return nil
-	}
-
-	// Validation will add new errors to the field but
-	// could also change its value, so we don't return
-	// there and will append the value in any case.
-	if e := ValidateField(field, field.Validators()...); len(e) > 0 {
-		err = e
-	}
-
-	// We can now safely append the value in the field.
-	f.SetNil(1)
-	f.value = append(f.value, field)
-	return err
+	return nil
 }
 
-// Value returns the field's actuall value.
-func (f *ListField) Value() interface{} {
-	if f.value == nil || f.IsNil() || f.value == nil {
-		return nil
-	}
-
-	return f.converter(f.value)
-}
-
-// String returns the field's string value.
-func (f *ListField) String() string {
-	if f.IsNil() {
+func (f *ListField[T]) String() string {
+	if f.IsNil() || f.IsEmpty() {
 		return ""
 	}
-	b, _ := json.Marshal(f.Value())
-	return string(b)
+
+	if d, ok := f.decoder.(valueStringer[T]); ok {
+		res := make([]string, len(f.value.V))
+		for i := range f.value.V {
+			res[i] = d.ValueString(f.value.V[i])
+		}
+		return strings.Join(res, ", ")
+	}
+
+	return fmt.Sprintf("%v", f.value.V)
 }
 
-// NewStringListField return a [ListField] instance made of [TextField].
-// It take a [Choices] argument and any [FieldValidator] that are applied
-// to each sub field.
-func NewStringListField(name string, choices Choices, validators ...FieldValidator) Field {
-	field := NewListField(name,
-		func(s string) Field {
-			return NewTextField(s, validators...)
-		}, func(values []Field) interface{} {
-			res := make([]string, len(values))
-			for i, x := range values {
-				res[i] = x.String()
-			}
-			return res
-		})
-	field.(*ListField).SetChoices(choices)
+// TextListField is a field that holds a list of [string] values.
+type TextListField struct {
+	*ListField[string]
+}
 
-	return field
+// NewTextListField returns a new [TextListField] instance.
+func NewTextListField(name string, options ...any) *TextListField {
+	return &TextListField{
+		NewListField(name, DecodeString, options...),
+	}
+}
+
+// Choices returns the field's [ValueChoices].
+func (f TextListField) Choices() ValueChoices[string] {
+	return GetChoices[string](f)
+}
+
+// IntegerListField is a field that holds a list of [int] values.
+type IntegerListField struct {
+	*ListField[int]
+}
+
+// NewIntegerListField return new [IntegerListField] instance.
+func NewIntegerListField(name string, options ...any) *IntegerListField {
+	return &IntegerListField{
+		NewListField(name, DecodeInt, options...),
+	}
+}
+
+// Choices returns the field's [ValueChoices].
+func (f IntegerListField) Choices() ValueChoices[int] {
+	return GetChoices[int](f)
 }

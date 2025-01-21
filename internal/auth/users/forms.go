@@ -14,7 +14,6 @@ import (
 	"github.com/doug-martin/goqu/v9"
 
 	"codeberg.org/readeck/readeck/internal/acls"
-	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -26,7 +25,7 @@ type (
 var rxUsername = regexp.MustCompile(`^[a-zA-Z0-9_-]+$`)
 
 // IsValidPassword is the password validation rule.
-var IsValidPassword = forms.StringValidator(func(v string) bool {
+var IsValidPassword = forms.TypedValidator(func(v string) bool {
 	if strings.TrimSpace(v) == "" {
 		return false
 	}
@@ -34,7 +33,7 @@ var IsValidPassword = forms.StringValidator(func(v string) bool {
 }, errors.New("password must be at least 8 character long"))
 
 // IsValidUsername is the username validation rule.
-var IsValidUsername = forms.StringValidator(func(v string) bool {
+var IsValidUsername = forms.TypedValidator(func(v string) bool {
 	return rxUsername.MatchString(v)
 }, errors.New(`must contain English letters, digits, "_" and "-" only`))
 
@@ -44,15 +43,47 @@ type UserForm struct {
 }
 
 // NewUserForm returns a UserForm instance.
-func NewUserForm(tr forms.Translator) (f *UserForm) {
-	f = &UserForm{forms.Must(
-		forms.NewTextField("username", forms.Trim, forms.Required, IsValidUsername),
-		forms.NewTextField("password", forms.Required),
-		forms.NewTextField("email", forms.Trim, forms.Required, forms.IsEmail),
-		forms.NewChoiceField("group", availableGroups, forms.Trim, forms.Required),
+func NewUserForm(tr forms.Translator) *UserForm {
+	hasUser := func() *forms.ConditionValidator[string] {
+		return forms.When(func(f forms.Field, _ string) bool {
+			u, _ := forms.GetForm(f).Context().Value(ctxUserFormKey{}).(*User)
+			return u != nil
+		})
+	}
+
+	return &UserForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
+		forms.NewTextField("username",
+			forms.Trim,
+			hasUser().
+				True(forms.RequiredOrNil).
+				False(forms.Required),
+			IsValidUsername,
+		),
+		forms.NewTextField("password",
+			hasUser().
+				False(forms.Required),
+			forms.ValueValidatorFunc[string](func(f forms.Field, v string) error {
+				if f.IsBound() && v != "" && strings.TrimSpace(v) == "" {
+					return forms.Gettext("password is empty")
+				}
+				return nil
+			}),
+		),
+		forms.NewTextField("email",
+			forms.Trim,
+			hasUser().
+				True(forms.RequiredOrNil).
+				False(forms.Required),
+			forms.IsEmail,
+		),
+		forms.NewTextField("group",
+			forms.Trim,
+			forms.Default("user"),
+			forms.ChoicesPairs(availableGroups),
+			hasUser().False(forms.Required),
+		),
 	)}
-	f.SetLocale(tr)
-	return
 }
 
 // SetUser adds a user to the form's context.
@@ -76,23 +107,10 @@ func (f *UserForm) Bind() {
 		f.Get("group").Set("user")
 		return
 	}
-
-	// if we have a user, let some fields be optional
-	f.Get("username").SetValidators(forms.Trim, forms.RequiredOrNil, IsValidUsername)
-	f.Get("password").SetValidators()
-	f.Get("email").SetValidators(forms.Trim, forms.RequiredOrNil, forms.IsEmail)
-	f.Get("group").SetValidators(forms.Trim, forms.RequiredOrNil)
 }
 
 // Validate performs extra form validation.
 func (f *UserForm) Validate() {
-	f.AddErrors("password", forms.ValidateField(f.Get("password"), func(field forms.Field) error {
-		if field.IsBound() && field.String() != "" && strings.TrimSpace(field.String()) == "" {
-			return errors.New("cannot be empty")
-		}
-		return nil
-	})...)
-
 	u, _ := f.Context().Value(ctxUserFormKey{}).(*User)
 
 	userQuery := Users.Query().
@@ -183,33 +201,20 @@ func (f *UserForm) UpdateUser(u *User) (res map[string]interface{}, err error) {
 
 // NewRolesField returns a forms.Field with user's role choices.
 func NewRolesField(tr forms.Translator, user *User) forms.Field {
-	roleConstructor := func(n string) forms.Field {
-		return forms.NewTextField(n, forms.Trim)
-	}
-	roleConverter := func(values []forms.Field) interface{} {
-		res := make(types.Strings, len(values))
-		for i, x := range values {
-			res[i] = x.String()
-		}
-		return res
-	}
-
-	availableScopes := [][2]string{
-		{"scoped_bookmarks_r", tr.Gettext("Bookmarks : Read Only")},
-		{"scoped_bookmarks_w", tr.Gettext("Bookmarks : Write Only")},
-		{"scoped_admin_r", tr.Gettext("Admin : Read Only")},
-		{"scoped_admin_w", tr.Gettext("Admin : Write Only")},
+	availableScopes := []forms.ValueChoice[string]{
+		forms.Choice(tr.Gettext("Bookmarks : Read Only"), "scoped_bookmarks_r"),
+		forms.Choice(tr.Gettext("Bookmarks : Write Only"), "scoped_bookmarks_w"),
+		forms.Choice(tr.Gettext("Admin : Read Only"), "scoped_admin_r"),
+		forms.Choice(tr.Gettext("Admin : Write Only"), "scoped_admin_w"),
 	}
 
 	// Only present policies that the current user can access
-	choices := [][2]string{}
+	choices := []forms.ValueChoice[string]{}
 	for _, r := range availableScopes {
-		if user == nil || acls.InGroup(r[0], user.Group) {
+		if user == nil || acls.InGroup(r.Value, user.Group) {
 			choices = append(choices, r)
 		}
 	}
 
-	f := forms.NewListField("roles", roleConstructor, roleConverter)
-	f.(*forms.ListField).SetChoices(choices)
-	return f
+	return forms.NewTextListField("roles", forms.Choices(choices...))
 }

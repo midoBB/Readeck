@@ -5,6 +5,7 @@
 package onboarding
 
 import (
+	"context"
 	"fmt"
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
@@ -15,19 +16,13 @@ type onboardingForm struct {
 	*forms.Form
 }
 
-func newOnboardingForm(tr forms.Translator) (f *onboardingForm) {
-	f = &onboardingForm{forms.Must(
+func newOnboardingForm(tr forms.Translator) *onboardingForm {
+	return &onboardingForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
 		forms.NewTextField("username", forms.Trim, forms.Required, users.IsValidUsername),
-		forms.NewTextField("email", forms.Trim, forms.Optional(
-			forms.IsEmail,
-		)),
-		forms.NewTextField("password", forms.Chain(
-			forms.Required,
-			users.IsValidPassword,
-		)),
+		forms.NewTextField("email", forms.Trim, forms.Skip, forms.IsEmail),
+		forms.NewTextField("password", forms.Required, users.IsValidPassword),
 	)}
-	f.SetLocale(tr)
-	return
 }
 
 func (f *onboardingForm) createUser(language string) (*users.User, error) {

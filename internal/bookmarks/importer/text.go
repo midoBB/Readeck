@@ -6,6 +6,7 @@ package importer
 
 import (
 	"bufio"
+	"context"
 	"encoding/json"
 	"io"
 	"slices"
@@ -25,13 +26,18 @@ func (adapter *textAdapter) Name(tr forms.Translator) string {
 
 func (adapter *textAdapter) Form() forms.Binder {
 	return forms.Must(
+		context.Background(),
 		forms.NewFileField("data", forms.Required),
 		forms.NewBooleanField("labels_from_titles"),
 	)
 }
 
 func (adapter *textAdapter) Params(form forms.Binder) ([]byte, error) {
-	reader, err := form.Get("data").Field.(*forms.FileField).Open()
+	if !form.IsValid() {
+		return nil, nil
+	}
+
+	reader, err := form.Get("data").(*forms.FileField).V().Open()
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +55,7 @@ func (adapter *textAdapter) Params(form forms.Binder) ([]byte, error) {
 	}
 
 	if len(adapter.URLs) == 0 {
-		form.AddErrors("data", forms.Gettext("Empty or invalid import file"))
+		form.AddErrors("data", errInvalidFile)
 		return nil, nil
 	}
 

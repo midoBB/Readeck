@@ -5,6 +5,7 @@
 package routes
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 
@@ -31,8 +32,11 @@ func (api *apiRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	f := importer.NewImportForm(adapter)
-	forms.BindMultipart(f, r)
+	f := importer.NewImportForm(
+		forms.WithTranslator(context.Background(), api.srv.Locale(r)),
+		adapter,
+	)
+	forms.Bind(f, r)
 
 	// If the form is valid, we can load the adapter parameters.
 	var data []byte
@@ -53,10 +57,7 @@ func (api *apiRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ignoreDuplicates := true
-	if !f.Get("ignore_duplicates").IsNil() {
-		ignoreDuplicates = f.Get("ignore_duplicates").Value().(bool)
-	}
+	ignoreDuplicates := f.Get("ignore_duplicates").(forms.TypedField[bool]).V()
 
 	// Create the import task
 	trackID := importer.GetTrackID(api.srv.GetReqID(r))

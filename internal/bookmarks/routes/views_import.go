@@ -5,6 +5,7 @@
 package routes
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 
@@ -55,8 +56,10 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	f := importer.NewImportForm(adapter)
-	f.SetLocale(tr)
+	f := importer.NewImportForm(
+		forms.WithTranslator(context.Background(), tr),
+		adapter,
+	)
 
 	templateName := fmt.Sprintf("/bookmarks/import/form-%s", source)
 	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
@@ -68,7 +71,7 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 	})
 
 	if r.Method == http.MethodPost {
-		forms.BindMultipart(f, r)
+		forms.Bind(f, r)
 
 		var data []byte
 		var err error
@@ -85,10 +88,7 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		ignoreDuplicates := true
-		if !f.Get("ignore_duplicates").IsNil() {
-			ignoreDuplicates = f.Get("ignore_duplicates").Value().(bool)
-		}
+		ignoreDuplicates := f.Get("ignore_duplicates").(forms.TypedField[bool]).V()
 
 		// Create the import task
 		trackID := importer.GetTrackID(h.srv.GetReqID(r))

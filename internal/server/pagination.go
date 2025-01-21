@@ -5,6 +5,7 @@
 package server
 
 import (
+	"context"
 	"math"
 	"net/http"
 	"net/url"
@@ -18,29 +19,22 @@ type PaginationForm struct {
 	*forms.Form
 }
 
-func newPaginationForm(tr forms.Translator) (f *PaginationForm) {
-	f = &PaginationForm{forms.Must(
+func newPaginationForm(tr forms.Translator) *PaginationForm {
+	return &PaginationForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
 		forms.NewIntegerField("limit", forms.Gte(0), forms.Lte(100)),
 		forms.NewIntegerField("offset", forms.Gte(0)),
 	)}
-	f.SetLocale(tr)
-	return
 }
 
 // Limit returns the current limit or zero if none was given.
 func (f *PaginationForm) Limit() int {
-	if f.Get("limit").IsNil() {
-		return 0
-	}
-	return f.Get("limit").Value().(int)
+	return f.Get("limit").(forms.TypedField[int]).V()
 }
 
 // Offset returns the current offset or 0 if none was given.
 func (f *PaginationForm) Offset() int {
-	if f.Get("offset").IsNil() {
-		return 0
-	}
-	return f.Get("offset").Value().(int)
+	return f.Get("offset").(forms.TypedField[int]).V()
 }
 
 // SetLimit sets the limit's value. It's used to set a default limit before binding the form.
@@ -53,13 +47,13 @@ func (s *Server) GetPageParams(r *http.Request, defaultLimit int) *PaginationFor
 	f := newPaginationForm(s.Locale(r))
 	f.Get("limit").Set(0)
 	f.Get("offset").Set(0)
-	forms.UnmarshalValues(f, r.URL.Query())
+	forms.BindURL(f, r)
 
 	if !f.IsValid() {
 		return nil
 	}
 
-	if f.Get("limit").Value().(int) == 0 {
+	if f.Get("limit").(*forms.IntegerField).V() == 0 {
 		f.SetLimit(defaultLimit)
 	}
 

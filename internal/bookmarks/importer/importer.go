@@ -7,6 +7,7 @@
 package importer
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"io"
@@ -34,8 +35,9 @@ const (
 )
 
 var (
-	ErrIgnore    = errors.New("ignore")     // ErrIgnore is an error that can be ignored.
-	ErrNoAdapter = errors.New("no adapter") // ErrNoAdapter is returned when an adapter does not exist.
+	ErrIgnore      = errors.New("ignore")     // ErrIgnore is an error that can be ignored.
+	ErrNoAdapter   = errors.New("no adapter") // ErrNoAdapter is returned when an adapter does not exist.
+	errInvalidFile = forms.Gettext("Empty or invalid import file")
 )
 
 var allowedSchemes = []string{"http", "https"}
@@ -139,23 +141,16 @@ func LoadAdapter(name string) ImportLoader {
 
 // NewImportForm returns a [forms.Form] combining common fields
 // and fields defined by the import adapter.
-func NewImportForm(adapter ImportLoader) *forms.Form {
-	allFields := []forms.Field{}
-	for _, f := range adapter.Form().Fields() {
-		allFields = append(allFields, f.Field)
-	}
-
-	// f := &ImportForm{
-	f := forms.Must(
-		append([]forms.Field{
+func NewImportForm(ctx context.Context, adapter ImportLoader) *forms.JoinedForms {
+	return forms.Join(
+		ctx,
+		adapter.Form(),
+		forms.Must(
+			ctx,
 			forms.NewTextField("label", forms.Trim),
-			forms.NewBooleanField("ignore_duplicates", forms.RequiredOrNil),
-		}, allFields...)...,
+			forms.NewBooleanField("ignore_duplicates", forms.Default(true)),
+		),
 	)
-
-	f.Get("ignore_duplicates").Set(true)
-
-	return f
 }
 
 // Import performs the iteration on its adapter and import every item.

@@ -116,7 +116,7 @@ func TestAPI(t *testing.T) {
 						"email": {
 							"is_bound": false,
 							"is_null": true,
-							"value": null,
+							"value": "",
 							"errors": [
 								"field is required"
 							]
@@ -130,7 +130,7 @@ func TestAPI(t *testing.T) {
 						"password": {
 							"is_bound": false,
 							"is_null": true,
-							"value": null,
+							"value": "",
 							"errors": [
 								"field is required"
 							]
@@ -138,7 +138,7 @@ func TestAPI(t *testing.T) {
 						"username": {
 							"is_bound": false,
 							"is_null": true,
-							"value": null,
+							"value": "",
 							"errors": [
 								"field is required"
 							]
@@ -160,7 +160,7 @@ func TestAPI(t *testing.T) {
 						"email": {
 							"is_bound": false,
 							"is_null": true,
-							"value": null,
+							"value": "",
 							"errors": [
 								"field is required"
 							]
@@ -169,12 +169,12 @@ func TestAPI(t *testing.T) {
 							"is_bound": true,
 							"is_null": false,
 							"value": "foo",
-							"errors": ["must be one of none, user, staff, admin"]
+							"errors": ["foo is not one of none, user, staff, admin"]
 						},
 						"password": {
 							"is_bound": false,
 							"is_null": true,
-							"value": null,
+							"value": "",
 							"errors": [
 								"field is required"
 							]
@@ -182,7 +182,7 @@ func TestAPI(t *testing.T) {
 						"username": {
 							"is_bound": false,
 							"is_null": true,
-							"value": null,
+							"value": "",
 							"errors": [
 								"field is required"
 							]

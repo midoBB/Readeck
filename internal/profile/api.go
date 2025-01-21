@@ -127,7 +127,7 @@ func (api *profileAPI) profileUpdate(w http.ResponseWriter, r *http.Request) {
 
 // passwordUpdate updates the current user's password.
 func (api *profileAPI) passwordUpdate(w http.ResponseWriter, r *http.Request) {
-	f := newPasswordForm()
+	f := newPasswordForm(api.srv.Locale(r))
 	forms.Bind(f, r)
 
 	if !f.IsValid() {

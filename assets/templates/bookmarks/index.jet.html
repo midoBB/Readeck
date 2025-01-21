@@ -52,10 +52,10 @@ SPDX-License-Identifier: AGPL-3.0-only
             `class="link font-bold">` + html(.Form.Get(`url`).String()) + `</a>`,
           )|unsafe }}
           {{- end -}}
-        {{- else if .Form.Get("url").Errors -}}
+        {{- else if .Form.Get("url").Errors() -}}
           {{- yield message(type="error") content -}}
             <ul>
-              {{ range .Form.Get("url").Errors }}<li>{{ . }}</li>{{ end }}
+              {{ range .Form.Get("url").Errors() }}<li>{{ . }}</li>{{ end }}
             </ul>
           {{- end -}}
         {{- end -}}

@@ -87,8 +87,7 @@ func TestAPI(t *testing.T) {
 							"is_bound": true,
 							"value":"",
 							"errors":[
-								"field is required",
-        						"must contain English letters, digits, \"_\" and \"-\" only"
+								"field is required"
 							]
 						},
 						"settings_lang": "<<PRESENCE>>",
@@ -162,7 +161,7 @@ func TestAPI(t *testing.T) {
 					"current":{
 						"is_null": true,
 						"is_bound": false,
-						"value":null,
+						"value": "",
 						"errors":null
 					},
 					"password":{

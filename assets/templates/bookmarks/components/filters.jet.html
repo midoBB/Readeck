@@ -54,30 +54,49 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{ yield selectField(field=.Get("is_marked"),
     label=gettext("Is Favorite"),
     class="field-h--compact",
-    options=slice(slice("", ""), slice(true, gettext("yes")), slice(false, gettext("no"))),
+    options=slice(
+      map("Name", "", "Value", ""),
+      map("Name", gettext("yes"), "Value", true),
+      map("Name", gettext("no"), "Value", false),
+    )
   ) }}
-
   {{ yield selectField(field=.Get("is_archived"),
     label=gettext("Is Archived"),
     class="field-h--compact",
-    options=slice(slice("", ""), slice(true, gettext("yes")), slice(false, gettext("no"))),
+    options=slice(
+      map("Name", "", "Value", ""),
+      map("Name", gettext("yes"), "Value", true),
+      map("Name", gettext("no"), "Value", false),
+    )
   ) }}
 
   {{ yield selectField(field=.Get("is_loaded"),
     label=gettext("Is Loaded"),
     class="field-h--compact",
-    options=slice(slice("", ""), slice(true, gettext("yes")), slice(false, gettext("no"))),
+    options=slice(
+      map("Name", "", "Value", ""),
+      map("Name", gettext("yes"), "Value", true),
+      map("Name", gettext("no"), "Value", false),
+    )
   ) }}
 
   {{ yield selectField(field=.Get("has_labels"),
     label=gettext("With Labels"),
     class="field-h--compact",
-    options=slice(slice("", ""), slice(true, gettext("yes")), slice(false, gettext("no"))),
+    options=slice(
+      map("Name", "", "Value", ""),
+      map("Name", gettext("yes"), "Value", true),
+      map("Name", gettext("no"), "Value", false),
+    )
   ) }}
 
   {{ yield selectField(field=.Get("has_errors"),
     label=gettext("With Errors"),
     class="field-h--compact",
-    options=slice(slice("", ""), slice(true, gettext("yes")), slice(false, gettext("no"))),
+    options=slice(
+      map("Name", "", "Value", ""),
+      map("Name", gettext("yes"), "Value", true),
+      map("Name", gettext("no"), "Value", false),
+    )
     ) }}
 </div>

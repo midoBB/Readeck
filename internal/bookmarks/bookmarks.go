@@ -24,7 +24,7 @@ import (
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/db"
-	"codeberg.org/readeck/readeck/internal/db/filters"
+	"codeberg.org/readeck/readeck/internal/db/exp"
 	"codeberg.org/readeck/readeck/internal/db/types"
 )
 
@@ -350,7 +350,7 @@ func (m *BookmarkManager) RenameLabel(u *users.User, old, new string) (ids []int
 	ds := Bookmarks.Query().
 		Select("b.id", "b.labels").
 		Where(goqu.C("user_id").Eq(u.ID))
-	ds = filters.JSONListFilter(ds, goqu.I("b.labels").Eq(old))
+	ds = exp.JSONListFilter(ds, goqu.I("b.labels").Eq(old))
 
 	list := []*Bookmark{}
 	if err = ds.ScanStructs(&list); err != nil {
@@ -505,7 +505,7 @@ func (b *Bookmark) replaceLabel(old, new string) {
 		}
 	}
 
-	slices.SortFunc(b.Labels, db.UnaccentCompare)
+	slices.SortFunc(b.Labels, exp.UnaccentCompare)
 	b.Labels = slices.Compact(b.Labels)
 }
 

@@ -159,7 +159,7 @@ func isSpace(r rune) bool {
 	return false
 }
 
-func parseTokens(rd io.Reader) ([][]token, error) {
+func parseTokens(rd io.Reader) [][]token {
 	s := newScanner(rd)
 	tokens := [][]token{}
 
@@ -188,7 +188,7 @@ func parseTokens(rd io.Reader) ([][]token, error) {
 
 	return slices.DeleteFunc(tokens, func(t []token) bool {
 		return len(t) == 0
-	}), nil
+	})
 }
 
 // SearchTerm is a search term part.
@@ -349,32 +349,26 @@ func (q SearchQuery) Unfield(names ...string) SearchQuery {
 
 // ParseQuery returns a new SearchQuery after parsing
 // the input string.
-func ParseQuery(s string) (SearchQuery, error) {
+func ParseQuery(s string) SearchQuery {
 	q := SearchQuery{Terms: []SearchTerm{}}
 
-	tokens, err := parseTokens(strings.NewReader(s))
-	if err != nil {
-		return q, err
-	}
+	tokens := parseTokens(strings.NewReader(s))
 
 	for _, x := range tokens {
 		q.Terms = append(q.Terms, newSearchTerm(x, false))
 	}
 
-	return q, nil
+	return q
 }
 
 // ParseField returns a new SearchQuery, ignoring any field definition
 // in the tokens, but taking into acount exclusion or wildcards.
 // "-test*" becomes a search term with wildcard and exclusion
 // for the given label.
-func ParseField(s, name string) (SearchQuery, error) {
+func ParseField(s, name string) SearchQuery {
 	q := SearchQuery{Terms: []SearchTerm{}}
 
-	tokens, err := parseTokens(strings.NewReader(s))
-	if err != nil {
-		return q, err
-	}
+	tokens := parseTokens(strings.NewReader(s))
 
 	for _, x := range tokens {
 		t := newSearchTerm(x, true)
@@ -382,5 +376,5 @@ func ParseField(s, name string) (SearchQuery, error) {
 		q.Terms = append(q.Terms, t)
 	}
 
-	return q, nil
+	return q
 }

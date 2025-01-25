@@ -14,12 +14,14 @@ import (
 	"github.com/doug-martin/goqu/v9"
 	_ "github.com/doug-martin/goqu/v9/dialect/sqlite3" // dialect
 	"modernc.org/sqlite"                               // driver
+
+	"codeberg.org/readeck/readeck/internal/db/exp"
 )
 
 func init() {
 	drivers["sqlite3"] = &sqliteConnector{}
 
-	sqlite.MustRegisterCollationUtf8("UNICODE", UnaccentCompare)
+	sqlite.MustRegisterCollationUtf8("UNICODE", exp.UnaccentCompare)
 }
 
 type sqliteConnector struct{}

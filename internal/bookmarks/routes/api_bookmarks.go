@@ -27,7 +27,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/converter"
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
-	"codeberg.org/readeck/readeck/internal/db/filters"
+	"codeberg.org/readeck/readeck/internal/db/exp"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/annotate"
 	"codeberg.org/readeck/readeck/pkg/forms"
@@ -321,7 +321,7 @@ func (api *apiRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 		Where(
 			goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
 		)
-	ds = filters.JSONListFilter(ds, goqu.I("b.labels").Eq(label))
+	ds = exp.JSONListFilter(ds, goqu.I("b.labels").Eq(label))
 	count, err := ds.Count()
 	if err != nil {
 		api.srv.Error(w, r, err)
@@ -664,12 +664,32 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 
 		ds = ds.Order(goqu.I("created").Desc())
 
-		// Filters (search and other filters)
-		filters := newContextFilterForm(r.Context(), api.srv.Locale(r))
-		forms.BindURL(filters, r)
+		// Filters (search and other filterForm)
+		filterForm := newContextFilterForm(r.Context(), api.srv.Locale(r))
+		forms.BindURL(filterForm, r)
 
-		if filters.IsValid() {
-			ds = filters.toSelectDataSet(ds)
+		if filterForm.IsValid() {
+			filters := bookmarks.NewFiltersFromForm(filterForm)
+			filters.UpdateForm(filterForm)
+			ds = filters.ToSelectDataSet(ds)
+		}
+
+		if !filterForm.Get("updated_since").IsNil() {
+			ds = ds.Where(goqu.C("updated").Gt(filterForm.Get("updated_since").Value()))
+		}
+
+		// Filtering by ids. In this case we include all the given IDs and we sort the
+		// result according to the IDs order.
+		if !filterForm.Get("id").IsNil() {
+			ids := filterForm.Get("id").Value().([]string)
+			ds = ds.Where(goqu.C("uid").Table("b").In(ids))
+
+			orderging := goqu.Case().Value(goqu.C("uid").Table("b"))
+			for i, x := range ids {
+				orderging = orderging.When(x, i)
+			}
+			ds = ds.Order(orderging.Asc())
+
 		}
 
 		ds = ds.
@@ -684,7 +704,7 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 		// If pagination is disabled, remove all limits and force sorting by "created ASC"
 		// Note: noPagination is only used when exporting bookmarks. We may need to choose
 		// another mechanism if we use it somewhere else.
-		if filters.noPagination {
+		if filterForm.noPagination {
 			ds = ds.ClearLimit().ClearOffset().Order(goqu.T("b").Col("created").Asc())
 		}
 
@@ -707,7 +727,7 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 
 		res.Pagination = api.srv.NewPagination(r, int(count), pf.Limit(), pf.Offset())
 
-		ctx := filters.saveContext(r.Context())
+		ctx := filterForm.saveContext(r.Context())
 		ctx = context.WithValue(ctx, ctxBookmarkListKey{}, res)
 
 		tagers := []server.Etager{res}

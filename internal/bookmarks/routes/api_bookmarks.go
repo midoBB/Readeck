@@ -12,7 +12,6 @@ import (
 	"log/slog"
 	"net/http"
 	"net/url"
-	"os"
 	"path"
 	"strconv"
 	"strings"
@@ -26,6 +25,7 @@ import (
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/bookmarks/converter"
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/db/filters"
 	"codeberg.org/readeck/readeck/internal/server"
@@ -116,35 +116,47 @@ func (api *apiRouter) bookmarkArticle(w http.ResponseWriter, r *http.Request) {
 
 // bookmarkExport renders a list of bookmarks in the requested export format.
 func (api *apiRouter) bookmarkExport(w http.ResponseWriter, r *http.Request) {
-	var fn func(http.ResponseWriter, *http.Request, ...*bookmarks.Bookmark)
-
-	// Check if we have a valid format
-	format := chi.URLParam(r, "format")
-	switch format {
+	var exporter converter.Exporter
+	switch chi.URLParam(r, "format") {
 	case "epub":
-		fn = api.exportBookmarksEPUB
+		exp := converter.NewEPUBExporter(
+			api.srv.AbsoluteURL(r, "/"),
+			api.srv.TemplateVars(r),
+		)
+		if collection, ok := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection); ok {
+			exp.Collection = collection
+		}
+		exporter = exp
 	case "md":
-		fn = api.exportBookmarksMD
-	default:
+		exporter = converter.NewMarkdownExporter(
+			api.srv.AbsoluteURL(r, "/"),
+			api.srv.AbsoluteURL(r, "/bm/"),
+		)
+	}
+
+	if exporter == nil {
 		api.srv.Status(w, r, http.StatusNotFound)
 		return
 	}
 
-	// If we have a bookmark list
-	bl, ok := r.Context().Value(ctxBookmarkListKey{}).(bookmarkList)
-	if ok {
-		fn(w, r, bl.items...)
+	var items []*bookmarks.Bookmark
+	// Bookmark list or just one item
+	if bl, ok := r.Context().Value(ctxBookmarkListKey{}).(bookmarkList); ok {
+		items = bl.items
+	} else {
+		if b, ok := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark); ok {
+			items = []*bookmarks.Bookmark{b}
+		}
+	}
+
+	if len(items) == 0 {
+		api.srv.Status(w, r, http.StatusNotFound)
 		return
 	}
 
-	// Just one bookmark?
-	b, ok := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
-	if ok {
-		fn(w, r, b)
-		return
+	if err := exporter.Export(context.Background(), w, r, items); err != nil {
+		api.srv.Error(w, r, err)
 	}
-
-	api.srv.Status(w, r, http.StatusNotFound)
 }
 
 // bookmarkCreate creates a new bookmark.
@@ -981,46 +993,24 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *bookmarks.Bookmark, b
 	return res
 }
 
-// getArticle returns a strings.Reader containing the
-// HTML content of a bookmark. Only the body is retrieved.
-//
-// Note: this method will always return a non nil strings.Reader. In case of error
-// it might be empty or the original one if some transformation failed.
-// This lets us test for error and log them when needed.
+// getArticle calls [converter.HTMLConverter.GetArticle]
+// with URL replacer and annotation tag properly setup.
 func (bi bookmarkItem) getArticle() (*strings.Reader, error) {
-	var err error
-	var c *bookmarks.BookmarkContainer
-	if c, err = bi.OpenContainer(); err != nil {
-		return strings.NewReader(""), err
-	}
-	defer c.Close()
+	ctx := context.Background()
 
-	if err = c.LoadArticle(); err != nil {
-		if os.IsNotExist(err) {
-			return strings.NewReader(""), nil
-		}
-		return strings.NewReader(""), err
-	}
-
-	if err = c.ReplaceLinks(
+	// Set resource URL replacer, for images
+	ctx = converter.WithURLReplacer(ctx,
 		"./_resources",
-		fmt.Sprintf("%s/_resources", bi.mediaURL.String()),
-	); err != nil {
-		return strings.NewReader(""), err
-	}
+		bi.mediaURL.String()+"/_resources",
+	)
+	// Set annotation tag and callback
+	ctx = converter.WithAnnotationTag(ctx, bi.annotationTag, bi.annotationCallback)
 
-	if err = c.ExtractBody(); err != nil {
-		return strings.NewReader(""), err
-	}
-
-	reader := strings.NewReader(c.GetArticle())
-
-	// Add bookmark annotations
-	if len(bi.Annotations) > 0 {
-		return bi.addAnnotations(reader)
-	}
-
-	return reader, nil
+	// Get article from converter
+	return converter.HTMLConverter{}.GetArticle(
+		ctx,
+		bi.Bookmark,
+	)
 }
 
 // setEmbed sets the Embed and EmbedHostname item properties.
@@ -1099,34 +1089,6 @@ func (bi *bookmarkItem) setEmbed() error {
 	}
 
 	return nil
-}
-
-// addAnnotations adds the given annotations to the document's content.
-// annotations is a parameter for we can use this method to add existing annotations or
-// add a new one (and use this method as a validator).
-func (bi bookmarkItem) addAnnotations(input *strings.Reader) (*strings.Reader, error) {
-	var err error
-	var doc *html.Node
-
-	if doc, err = html.Parse(input); err != nil {
-		input.Seek(0, 0) //nolint:errcheck
-		return input, err
-	}
-	root := dom.QuerySelector(doc, "body")
-
-	err = bi.Annotations.AddToNode(root, bi.annotationTag, bi.annotationCallback)
-	if err != nil {
-		input.Seek(0, 0) //nolint:errcheck
-		return input, err
-	}
-
-	buf := new(strings.Builder)
-	if err = html.Render(buf, doc); err != nil {
-		input.Seek(0, 0) //nolint:errcheck
-		return input, err
-	}
-	reader := strings.NewReader(buf.String())
-	return reader, nil
 }
 
 type labelItem struct {

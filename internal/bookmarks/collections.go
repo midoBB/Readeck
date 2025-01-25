@@ -5,9 +5,6 @@
 package bookmarks
 
 import (
-	"bytes"
-	"database/sql/driver"
-	"encoding/json"
 	"errors"
 	"time"
 
@@ -15,8 +12,6 @@ import (
 	"github.com/lithammer/shortuuid/v4"
 
 	"codeberg.org/readeck/readeck/internal/db"
-	"codeberg.org/readeck/readeck/internal/db/types"
-	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
 const (
@@ -34,14 +29,14 @@ var (
 
 // Collection is a collection record in the database.
 type Collection struct {
-	ID       int               `db:"id" goqu:"skipinsert,skipupdate"`
-	UID      string            `db:"uid"`
-	UserID   *int              `db:"user_id"`
-	Created  time.Time         `db:"created" goqu:"skipupdate"`
-	Updated  time.Time         `db:"updated"`
-	Name     string            `db:"name"`
-	IsPinned bool              `db:"is_pinned"`
-	Filters  CollectionFilters `db:"filters"`
+	ID       int       `db:"id" goqu:"skipinsert,skipupdate"`
+	UID      string    `db:"uid"`
+	UserID   *int      `db:"user_id"`
+	Created  time.Time `db:"created" goqu:"skipupdate"`
+	Updated  time.Time `db:"updated"`
+	Name     string    `db:"name"`
+	IsPinned bool      `db:"is_pinned"`
+	Filters  Filters   `db:"filters"`
 }
 
 // CollectionManager is a query helper for bookmark entries.
@@ -132,75 +127,4 @@ func (c *Collection) Delete() error {
 // of the collection(s).
 func (c *Collection) GetSumStrings() []string {
 	return []string{c.UID, c.Updated.String()}
-}
-
-// CollectionFilters contains the filters applied by a collection.
-type CollectionFilters struct {
-	Search     string        `json:"search"`
-	Title      string        `json:"title"`
-	Author     string        `json:"author"`
-	Site       string        `json:"site"`
-	Type       types.Strings `json:"type"`
-	Labels     string        `json:"labels"`
-	ReadStatus types.Strings `json:"read_status"`
-	IsMarked   *bool         `json:"is_marked"`
-	IsArchived *bool         `json:"is_archived"`
-	IsLoaded   *bool         `json:"is_loaded"`
-	HasErrors  *bool         `json:"has_errors"`
-	HasLabels  *bool         `json:"has_labels"`
-	RangeStart string        `json:"range_start"`
-	RangeEnd   string        `json:"range_end"`
-}
-
-// Scan loads a CollectionFilters instance from a column.
-func (s *CollectionFilters) Scan(value interface{}) error {
-	if value == nil {
-		return nil
-	}
-
-	v, err := types.JSONBytes(value)
-	if err != nil {
-		return err
-	}
-	json.Unmarshal(v, s) //nolint:errcheck
-	return nil
-}
-
-// Value encodes a CollectionFilters value for storage.
-func (s CollectionFilters) Value() (driver.Value, error) {
-	v, err := json.Marshal(s)
-	if err != nil {
-		return "", err
-	}
-	return string(v), nil
-}
-
-// LoadForm loads the form values as properties.
-func (s *CollectionFilters) LoadForm(f forms.Binder) error {
-	values := map[string]any{}
-
-	for name, field := range f.Fields() {
-		values[name] = field.Value()
-	}
-
-	buf := new(bytes.Buffer)
-	err := json.NewEncoder(buf).Encode(values)
-	if err != nil {
-		return err
-	}
-
-	return json.Unmarshal(buf.Bytes(), s)
-}
-
-// ToValues returns the result of a JSON encoding to a map.
-func (s *CollectionFilters) ToValues() (map[string]any, error) {
-	buf := new(bytes.Buffer)
-	if err := json.NewEncoder(buf).Encode(s); err != nil {
-		return nil, err
-	}
-	res := map[string]any{}
-	if err := json.Unmarshal(buf.Bytes(), &res); err != nil {
-		return nil, err
-	}
-	return res, nil
 }

@@ -73,8 +73,7 @@ func TestParseQuery(t *testing.T) {
 	}
 	for i, test := range tests {
 		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
-			q, err := ParseQuery(test.s)
-			require.NoError(t, err)
+			q := ParseQuery(test.s)
 			require.Equal(t, test.expected, q.Terms)
 		})
 	}
@@ -104,8 +103,7 @@ func TestParseField(t *testing.T) {
 
 	for i, test := range tests {
 		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
-			q, err := ParseField(test.s, fieldName)
-			require.NoError(t, err)
+			q := ParseField(test.s, fieldName)
 			require.Equal(t, test.expected, q.Terms)
 		})
 	}
@@ -300,8 +298,7 @@ func TestTermToString(t *testing.T) {
 			require.Equal(t, test.expected, test.term.String())
 		})
 		t.Run(fmt.Sprintf("%d-reversed", i), func(t *testing.T) {
-			q, err := ParseQuery(test.expected)
-			require.NoError(t, err)
+			q := ParseQuery(test.expected)
 			require.Equal(t, []SearchTerm{test.term}, q.Terms)
 		})
 	}

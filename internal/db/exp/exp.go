@@ -2,13 +2,44 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-// Package filters provides query filters for specific operations.
-package filters
+// Package exp provides query expressions for specific operations.
+package exp
 
 import (
 	"github.com/doug-martin/goqu/v9"
 	"github.com/doug-martin/goqu/v9/exp"
 )
+
+// BooleanExpresion returns the provided [exp.Expression] or its negation when
+// "value" is false.
+func BooleanExpresion(expr exp.Expression, value bool) exp.Expression {
+	if value {
+		return expr
+	}
+	return goqu.Func("NOT", expr)
+}
+
+// JSONArrayLength returns a json(b)_array_length statement of the given identifier.
+func JSONArrayLength(dialect goqu.SQLDialect, identifier exp.IdentifierExpression) exp.SQLFunctionExpression {
+	switch dialect.Dialect() {
+	case "postgres":
+		return goqu.Func(
+			"jsonb_array_length",
+			goqu.Case().
+				When(goqu.Func("jsonb_typeof", identifier).Eq("array"), identifier).
+				Else(goqu.V("[]")),
+		)
+	case "sqlite3":
+		return goqu.Func(
+			"json_array_length",
+			goqu.Case().
+				When(goqu.Func("json_valid", identifier), identifier).
+				Else(goqu.V("[]")),
+		)
+	}
+
+	return nil
+}
 
 // JSONListFilter appends filters on list value to an existing dataset.
 // It adds statements in order to find rows with JSON arrays containing the

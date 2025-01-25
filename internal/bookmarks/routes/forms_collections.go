@@ -70,16 +70,7 @@ func (f *collectionForm) setCollection(c *bookmarks.Collection) {
 	f.Get("name").Set(c.Name)
 	f.Get("is_pinned").Set(c.IsPinned)
 
-	filters, err := c.Filters.ToValues()
-	if err != nil {
-		f.AddErrors("", err)
-		return
-	}
-	for k, v := range filters {
-		if field := f.Get(k); field != nil {
-			field.Set(v)
-		}
-	}
+	c.Filters.UpdateForm(f)
 }
 
 func (f *collectionForm) createCollection(userID int) (*bookmarks.Collection, error) {
@@ -97,11 +88,7 @@ func (f *collectionForm) createCollection(userID int) (*bookmarks.Collection, er
 	c := &bookmarks.Collection{
 		UserID:  &userID,
 		Name:    f.Get("name").String(),
-		Filters: bookmarks.CollectionFilters{},
-	}
-
-	if err = (&c.Filters).LoadForm(f); err != nil {
-		return nil, err
+		Filters: bookmarks.NewFiltersFromForm(f),
 	}
 
 	err = bookmarks.Collections.Create(c)
@@ -134,10 +121,7 @@ func (f *collectionForm) updateCollection(c *bookmarks.Collection) (res map[stri
 	}
 
 	if needsFilters {
-		if err = (&c.Filters).LoadForm(f); err != nil {
-			return
-		}
-		updateMap["filters"] = c.Filters
+		updateMap["filters"] = bookmarks.NewFiltersFromForm(f)
 	}
 
 	if len(res) > 0 {

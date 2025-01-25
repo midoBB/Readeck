@@ -18,13 +18,12 @@ import (
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
-	"github.com/doug-martin/goqu/v9/exp"
+	goquexp "github.com/doug-martin/goqu/v9/exp"
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
-	"codeberg.org/readeck/readeck/internal/db"
-	"codeberg.org/readeck/readeck/internal/db/filters"
+	"codeberg.org/readeck/readeck/internal/db/exp"
 	"codeberg.org/readeck/readeck/internal/searchstring"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/locales"
@@ -50,7 +49,7 @@ const (
 	filtersReadStatusRead    = "read"
 )
 
-type orderExpressionList []exp.OrderedExpression
+type orderExpressionList []goquexp.OrderedExpression
 
 type createForm struct {
 	*forms.Form
@@ -250,7 +249,7 @@ func (f *updateForm) update(b *bookmarks.Bookmark) (updated map[string]interface
 	}
 
 	if labelsChanged {
-		slices.SortFunc(b.Labels, db.UnaccentCompare)
+		slices.SortFunc(b.Labels, exp.UnaccentCompare)
 		b.Labels = slices.Compact(b.Labels)
 		updated["labels"] = b.Labels
 	}
@@ -414,12 +413,7 @@ func (f *filterForm) Validate() {
 	// the provided free form search and
 	// what we might have in the following fields:
 	// title, author, site, label
-	var err error
-	f.sq, err = searchstring.ParseQuery(f.Get("search").String())
-	if err != nil {
-		f.AddErrors("search", err)
-		return
-	}
+	f.sq = searchstring.ParseQuery(f.Get("search").String())
 
 	for _, field := range f.Fields() {
 		var fname string
@@ -434,11 +428,7 @@ func (f *filterForm) Validate() {
 			continue
 		}
 
-		q, err := searchstring.ParseField(field.String(), fname)
-		if err != nil {
-			f.AddErrors(field.Name(), err)
-			continue
-		}
+		q := searchstring.ParseField(field.String(), fname)
 		f.sq.Terms = append(f.sq.Terms, q.Terms...)
 	}
 
@@ -530,152 +520,13 @@ func (f *filterForm) setType(v string) {
 	}
 }
 
-// toSelectDataSet returns an augmented select dataset including all the filter
-// clauses.
-func (f *filterForm) toSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset {
-	// Separate labels from the final search string
-	var labels searchstring.SearchQuery
-	var search searchstring.SearchQuery
-	if len(f.sq.Terms) > 0 {
-		labels, search = f.sq.PopField("label")
-		labels = labels.RemoveField()
-	}
-
-	// Label filter
-	if len(labels.Terms) > 0 {
-		l := make([]exp.BooleanExpression, len(labels.Terms))
-		col := goqu.I("b.labels")
-		for i, x := range labels.Terms {
-			switch {
-			case x.Wildcard && x.Exclude:
-				l[i] = col.NotLike(x.Value + "%")
-			case x.Wildcard:
-				l[i] = col.Like(x.Value + "%")
-			case x.Exclude:
-				l[i] = col.Neq(x.Value)
-			default:
-				l[i] = col.Eq(x.Value)
-			}
-		}
-		ds = filters.JSONListFilter(ds, l...)
-	}
-
-	// Build the search query
-	if len(search.Terms) > 0 {
-		ds = searchstring.BuildSQL(ds, search, searchConfig[ds.Dialect().Dialect()])
-	}
-
-	// Time range
-	if f.Get("range_start").String() != "" || f.Get("range_end").String() != "" {
-		start, _ := timetoken.New(f.Get("range_start").String())
-		if f.Get("range_start").String() == "" {
-			// If start is empty, it's an empty time (0001-01-01 00:00:00)
-			start.Absolute = &time.Time{}
-		}
-
-		end, _ := timetoken.New(f.Get("range_end").String())
-		ds = ds.Where(goqu.C("created").Between(
-			goqu.Range(start.RelativeTo(nil),
-				end.RelativeTo(nil),
-			),
-		))
-	}
-
-	if !f.Get("updated_since").IsNil() {
-		ds = ds.Where(goqu.C("updated").Gt(f.Get("updated_since").Value()))
-	}
-
-	for _, field := range f.Fields() {
-		switch n := field.Name(); n {
-		case "read_status":
-			ds = f.addReadStatus(field, ds)
-		case "is_marked", "is_archived":
-			if !field.IsNil() {
-				ds = ds.Where(goqu.C(n).Table("b").Eq(goqu.V(field.Value())))
-			}
-		case "is_loaded":
-			if !field.IsNil() {
-				ds = ds.Where(db.BooleanExpresion(
-					goqu.C("state").Table("b").Neq(bookmarks.StateLoading),
-					field.Value().(bool),
-				))
-			}
-		case "has_errors":
-			if !field.IsNil() {
-				// This one's a bit special. Having errors could be the errors field
-				// not being empty or the state being [bookmarks.StateError]
-				ds = ds.Where(db.BooleanExpresion(
-					goqu.Or(
-						goqu.C("state").Table("b").Eq(bookmarks.StateError),
-						db.JSONArrayLength(goqu.C("errors").Table("b")).Gt(0),
-					),
-					field.Value().(bool),
-				))
-			}
-		case "has_labels":
-			if !field.IsNil() {
-				ds = ds.Where(db.BooleanExpresion(
-					db.JSONArrayLength(goqu.C("labels").Table("b")).Gt(0),
-					field.Value().(bool),
-				))
-			}
-		case "type":
-			if !field.IsNil() {
-				or := goqu.Or()
-				for _, x := range field.Value().([]string) {
-					or = or.Append(goqu.C("type").Table("b").Eq(x))
-				}
-				ds = ds.Where(or)
-			}
-		}
-	}
-
-	// Filtering by ids. In this case we include all the given IDs and we sort the
-	// result according to the IDs order.
-	if !f.Get("id").IsNil() {
-		ids := f.Get("id").Value().([]string)
-		ds = ds.Where(goqu.C("uid").Table("b").In(ids))
-
-		orderging := goqu.Case().Value(goqu.C("uid").Table("b"))
-		for i, x := range ids {
-			orderging = orderging.When(x, i)
-		}
-		ds = ds.Order(orderging.Asc())
-
-	}
-
-	return ds
-}
-
-func (f *filterForm) addReadStatus(field forms.Field, ds *goqu.SelectDataset) *goqu.SelectDataset {
-	if field.IsNil() {
-		return ds
-	}
-
-	or := goqu.Or()
-	c := goqu.C("read_progress").Table("b")
-	for _, x := range field.(forms.TypedField[[]string]).V() {
-		switch x {
-		case filtersReadStatusUnread:
-			or = or.Append(c.Eq(0))
-		case filtersReadStatusReading:
-			or = or.Append(c.Between(goqu.Range(1, 99)))
-		case filtersReadStatusRead:
-			or = or.Append(c.Eq(100))
-		}
-	}
-	ds = ds.Where(or)
-
-	return ds
-}
-
 type orderForm struct {
 	*forms.Form
 	fieldName string
-	choices   map[string]exp.Orderable
+	choices   map[string]goquexp.Orderable
 }
 
-func newOrderForm(fieldName string, choices map[string]exp.Orderable) *orderForm {
+func newOrderForm(fieldName string, choices map[string]goquexp.Orderable) *orderForm {
 	// Compile a list of choices being pairs of "A" and "-A", "B", "-B",
 	fieldChoices := make(forms.ValueChoices[string], len(choices)*2)
 	for k := range choices {
@@ -734,7 +585,7 @@ func newBookmarkOrderForm() *bookmarkOrderForm {
 	t := goqu.T("b")
 
 	return &bookmarkOrderForm{
-		orderForm: newOrderForm("sort", map[string]exp.Orderable{
+		orderForm: newOrderForm("sort", map[string]goquexp.Orderable{
 			"created":   t.Col("created"),
 			"domain":    t.Col("domain"),
 			"duration":  goqu.Case().When(goqu.L("? > 0", t.Col("duration")), t.Col("duration")).Else(goqu.L("? * 0.3", t.Col("word_count"))),
@@ -789,28 +640,3 @@ var validateTimeToken = forms.ValueValidatorFunc[string](func(_ forms.Field, val
 	}
 	return nil
 })
-
-var searchConfig = map[string]*searchstring.BuilderConfig{
-	"sqlite3": searchstring.NewBuilderConfig(
-		goqu.I("b.id"),
-		goqu.I("bookmark_idx.rowid"),
-		[][2]string{
-			{"", "-catchall"},
-			{"title", "title"},
-			{"author", "author"},
-			{"site", "site"},
-			{"label", "label"},
-		},
-	),
-	"postgres": searchstring.NewBuilderConfig(
-		goqu.I("b.id"),
-		goqu.I("bookmark_search.bookmark_id"),
-		[][2]string{
-			{"", `bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label"`},
-			{"title", "bookmark_search.title"},
-			{"author", "bookmark_search.author"},
-			{"site", "bookmark_search.site"},
-			{"label", "bookmark_search.label"},
-		},
-	),
-}

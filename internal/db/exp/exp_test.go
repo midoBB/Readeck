@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package filters_test
+package exp_test
 
 import (
 	"fmt"
@@ -11,10 +11,10 @@ import (
 	"github.com/doug-martin/goqu/v9"
 	_ "github.com/doug-martin/goqu/v9/dialect/postgres"
 	_ "github.com/doug-martin/goqu/v9/dialect/sqlite3"
-	"github.com/doug-martin/goqu/v9/exp"
+	goquexp "github.com/doug-martin/goqu/v9/exp"
 	"github.com/stretchr/testify/require"
 
-	"codeberg.org/readeck/readeck/internal/db/filters"
+	"codeberg.org/readeck/readeck/internal/db/exp"
 )
 
 type queryExpect struct {
@@ -24,11 +24,11 @@ type queryExpect struct {
 
 func TestStringsFilter(t *testing.T) {
 	tests := []struct {
-		expressions []exp.BooleanExpression
+		expressions []goquexp.BooleanExpression
 		expected    map[string]queryExpect
 	}{
 		{
-			[]exp.BooleanExpression{},
+			[]goquexp.BooleanExpression{},
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T`",
@@ -41,7 +41,7 @@ func TestStringsFilter(t *testing.T) {
 			},
 		},
 		{
-			[]exp.BooleanExpression{goqu.I("T.tags").Eq("test")},
+			[]goquexp.BooleanExpression{goqu.I("T.tags").Eq("test")},
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` WHERE EXISTS (SELECT * FROM json_each(CASE json_type(CASE json_valid(`T`.`tags`) WHEN true THEN `T`.`tags` ELSE '[]' END) WHEN 'array' THEN `T`.`tags` ELSE '[]' END) WHERE (`json_each`.`value` = ?))",
@@ -54,7 +54,7 @@ func TestStringsFilter(t *testing.T) {
 			},
 		},
 		{
-			[]exp.BooleanExpression{goqu.I("T.tags").Neq("test")},
+			[]goquexp.BooleanExpression{goqu.I("T.tags").Neq("test")},
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` WHERE NOT EXISTS (SELECT * FROM json_each(CASE json_type(CASE json_valid(`T`.`tags`) WHEN true THEN `T`.`tags` ELSE '[]' END) WHEN 'array' THEN `T`.`tags` ELSE '[]' END) WHERE (`json_each`.`value` = ?))",
@@ -67,7 +67,7 @@ func TestStringsFilter(t *testing.T) {
 			},
 		},
 		{
-			[]exp.BooleanExpression{goqu.I("T.tags").Like("test")},
+			[]goquexp.BooleanExpression{goqu.I("T.tags").Like("test")},
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` WHERE EXISTS (SELECT * FROM json_each(CASE json_type(CASE json_valid(`T`.`tags`) WHEN true THEN `T`.`tags` ELSE '[]' END) WHEN 'array' THEN `T`.`tags` ELSE '[]' END) WHERE (`json_each`.`value` LIKE ?))",
@@ -80,7 +80,7 @@ func TestStringsFilter(t *testing.T) {
 			},
 		},
 		{
-			[]exp.BooleanExpression{goqu.I("T.tags").NotLike("test")},
+			[]goquexp.BooleanExpression{goqu.I("T.tags").NotLike("test")},
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` WHERE NOT EXISTS (SELECT * FROM json_each(CASE json_type(CASE json_valid(`T`.`tags`) WHEN true THEN `T`.`tags` ELSE '[]' END) WHEN 'array' THEN `T`.`tags` ELSE '[]' END) WHERE (`json_each`.`value` LIKE ?))",
@@ -93,7 +93,7 @@ func TestStringsFilter(t *testing.T) {
 			},
 		},
 		{
-			[]exp.BooleanExpression{goqu.I("T.tags").Eq("test"), goqu.I("T.labels").Neq("test2")},
+			[]goquexp.BooleanExpression{goqu.I("T.tags").Eq("test"), goqu.I("T.labels").Neq("test2")},
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` WHERE (EXISTS (SELECT * FROM json_each(CASE json_type(CASE json_valid(`T`.`tags`) WHEN true THEN `T`.`tags` ELSE '[]' END) WHEN 'array' THEN `T`.`tags` ELSE '[]' END) WHERE (`json_each`.`value` = ?)) AND NOT EXISTS (SELECT * FROM json_each(CASE json_type(CASE json_valid(`T`.`labels`) WHEN true THEN `T`.`labels` ELSE '[]' END) WHEN 'array' THEN `T`.`labels` ELSE '[]' END) WHERE (`json_each`.`value` = ?)))",
@@ -114,7 +114,7 @@ func TestStringsFilter(t *testing.T) {
 			}
 			t.Run(fmt.Sprintf("%d-%s", i+1, dialect), func(t *testing.T) {
 				ds := goqu.Dialect(dialect).Select().From("T")
-				ds = filters.JSONListFilter(ds, test.expressions...)
+				ds = exp.JSONListFilter(ds, test.expressions...)
 
 				sql, args, err := ds.Prepared(true).ToSQL()
 				require.NoError(t, err)

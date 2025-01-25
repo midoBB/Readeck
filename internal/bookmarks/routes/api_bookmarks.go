@@ -127,6 +127,11 @@ func (api *apiRouter) bookmarkExport(w http.ResponseWriter, r *http.Request) {
 			exp.Collection = collection
 		}
 		exporter = exp
+	case "md.zip":
+		// Support the special "md.zip" extension that forces the request for a zipfile
+		// and then move on to the next, markdown, case.
+		r.Header.Set("Accept", "application/zip")
+		fallthrough
 	case "md":
 		exporter = converter.NewMarkdownExporter(
 			api.srv.AbsoluteURL(r, "/"),

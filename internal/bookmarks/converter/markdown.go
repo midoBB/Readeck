@@ -24,6 +24,7 @@ import (
 	"github.com/JohannesKaufmann/html-to-markdown/plugin"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gabriel-vasile/mimetype"
+	"golang.org/x/net/idna"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/pkg/accept"
@@ -61,8 +62,10 @@ func (e MarkdownExporter) Export(ctx context.Context, w io.Writer, r *http.Reque
 
 	ctx = WithAnnotationTag(ctx, "rd-annotation", nil)
 
-	accepted := accept.NegotiateContentType(r.Header, []string{"text/markdown", "multipart/alternative"}, "text/markdown")
+	accepted := accept.NegotiateContentType(r.Header, []string{"text/markdown", "application/zip", "multipart/alternative"}, "text/markdown")
 	switch accepted {
+	case "application/zip":
+		return e.exportZip(ctx, w, converter, bookmarks)
 	case "multipart/alternative":
 		return e.exportMultipart(ctx, w, converter, bookmarks)
 	default:
@@ -91,10 +94,10 @@ func (e MarkdownExporter) exportTextOnly(ctx context.Context, w io.Writer, conve
 
 func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, converter *html2md.Converter, bookmarks []*bookmarks.Bookmark) error {
 	mp := multipart.NewWriter(w)
+	defer mp.Close() //nolint:errcheck
 	if w, ok := w.(http.ResponseWriter); ok {
 		w.Header().Set("Content-Type", `multipart/alternative; boundary="`+mp.Boundary()+`"`)
 	}
-	defer mp.Close() //nolint:errcheck
 
 	ctx = WithURLReplacer(ctx, "./_resources", ".")
 	ctx = context.WithValue(ctx, ctxExportTypeKey, "multipart")
@@ -135,6 +138,97 @@ func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, conv
 			// Fetch all resources
 			for _, x := range bc.ListResources() {
 				if err := e.writeResource(mp, x, b); err != nil {
+					return err
+				}
+			}
+
+			return nil
+		}(); err != nil {
+			slog.Error("export", slog.Any("err", err))
+			continue
+		}
+	}
+
+	return nil
+}
+
+func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, converter *html2md.Converter, bookmarks []*bookmarks.Bookmark) error {
+	zw := zip.NewWriter(w)
+	defer zw.Close() //nolint:errcheck
+
+	basePath := fmt.Sprintf(
+		"%s-readeck-bookmarks",
+		time.Now().Format(time.DateOnly),
+	)
+	if w, ok := w.(http.ResponseWriter); ok {
+		w.Header().Set("Content-Type", "application/zip")
+		w.Header().Set("Content-Disposition", fmt.Sprintf(
+			`attachment; filename="%s.zip"`,
+			basePath,
+		))
+	}
+
+	ctx = WithURLReplacer(ctx, "./_resources", ".")
+	ctx = context.WithValue(ctx, ctxExportTypeKey, "multipart")
+
+	if _, err := zw.Create(basePath + "/"); err != nil {
+		return err
+	}
+
+	copyFromZip := func(src *zip.File, destName string) error {
+		src.FileHeader.Name = destName
+		fd, err := zw.CreateRaw(&src.FileHeader)
+		if err != nil {
+			return err
+		}
+		r, err := src.OpenRaw()
+		if err != nil {
+			return err
+		}
+		_, err = io.Copy(fd, r)
+		return err
+	}
+
+	for _, b := range bookmarks {
+		d, _ := idna.ToASCII(b.Site)
+		root := fmt.Sprintf("%s/%s-%s-%s",
+			basePath,
+			b.Created.Format(time.DateOnly),
+			strings.ReplaceAll(d, ".", "-"),
+			b.UID,
+		)
+		if err := func() error {
+			if _, err := zw.Create(root + "/"); err != nil {
+				return err
+			}
+
+			// Create index.md
+			fd, err := zw.Create(root + "/index.md")
+			if err != nil {
+				return err
+			}
+			if err := e.writeArticle(ctx, fd, converter, b, true); err != nil {
+				return err
+			}
+
+			bc, err := b.OpenContainer()
+			if err != nil {
+				return err
+			}
+			defer bc.Close()
+
+			// Copy the image
+			if img, ok := b.Files["image"]; ok {
+				if z, ok := bc.Lookup(img.Name); ok {
+					if err := copyFromZip(z, root+"/"+e.getImageURL(ctx, b, z.Name)); err != nil {
+						return err
+					}
+				}
+			}
+
+			// Copy resources
+			for _, x := range bc.ListResources() {
+				if err := copyFromZip(x, root+"/"+path.Base(x.Name)); err != nil {
 					return err
 				}
 			}

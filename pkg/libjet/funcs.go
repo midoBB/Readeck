@@ -38,14 +38,19 @@ var funcMap = map[string]jet.Func{
 	},
 	"join": func(a jet.Arguments) reflect.Value {
 		a.RequireNumOfArguments("join", 2, 2)
-		vl, isNil := Indirect(a.Get(0))
+		_, isNil := Indirect(a.Get(0))
 		if isNil {
 			return reflect.ValueOf("")
 		}
-		list, ok := vl.([]string)
-		if !ok {
+		if a.Get(0).Type().Kind() != reflect.Slice {
 			panic("invalid list type in join()")
 		}
+
+		list := make([]string, a.Get(0).Len())
+		for i := range list {
+			list[i] = ToString(a.Get(0).Index(i))
+		}
+
 		sep := ToString(a.Get(1))
 
 		return reflect.ValueOf(strings.Join(list, sep))

@@ -1,16 +1,19 @@
-// SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+// SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package routes
+package converter
 
 import (
+	"bytes"
+	"context"
 	"fmt"
 	"io"
 	"net/http"
-	"os"
+	"net/url"
 	"path"
 	"strings"
+	"time"
 
 	"github.com/CloudyKit/jet/v6"
 	"github.com/google/uuid"
@@ -24,61 +27,71 @@ import (
 
 var uuidURL = uuid.Must(uuid.Parse("6ba7b811-9dad-11d1-80b4-00c04fd430c8"))
 
-func (api *apiRouter) exportBookmarksEPUB(w http.ResponseWriter, r *http.Request, bookmarkList ...*bookmarks.Bookmark) {
-	if len(bookmarkList) == 0 {
-		api.srv.Status(w, r, http.StatusNotFound)
-		return
-	}
+// EPUBExporter is a content exporter that produces EPUB files.
+type EPUBExporter struct {
+	HTMLConverter
+	baseURL      *url.URL
+	templateVars jet.VarMap
+	Collection   *bookmarks.Collection
+}
 
+// NewEPUBExporter returns a new [EPUBExporter] instance.
+func NewEPUBExporter(baseURL *url.URL, templateVars jet.VarMap) EPUBExporter {
+	return EPUBExporter{
+		HTMLConverter: HTMLConverter{},
+		baseURL:       baseURL,
+		templateVars:  templateVars,
+	}
+}
+
+// Export implements [Exporter].
+// It writes an EPUB file on the provided [io.Writer].
+func (e EPUBExporter) Export(ctx context.Context, w io.Writer, _ *http.Request, bookmarks []*bookmarks.Bookmark) error {
 	// Define a title, date and filename
 	title := "Readeck Bookmarks"
-	date := bookmarkList[0].Created
-	if collection, ok := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection); ok {
-		// In case of a collection, we give the book a title and reverse
-		// the items order.
-		title = collection.Name
-	} else if len(bookmarkList) == 1 {
-		title = bookmarkList[0].Title
+	date := time.Now()
+	if e.Collection != nil {
+		title = e.Collection.Name
+	} else if len(bookmarks) == 1 {
+		title = bookmarks[0].Title
+		date = bookmarks[0].Created
 	}
 
 	id := ""
-	for _, x := range bookmarkList {
+	for _, x := range bookmarks {
 		id += x.UID
 	}
 
-	w.Header().Set("Content-Type", "application/epub+zip")
-	w.Header().Set("Content-Disposition",
-		fmt.Sprintf(
-			"attachment; filename=%s-%s.epub",
-			date.Format("2006-01-02"),
+	if w, ok := w.(http.ResponseWriter); ok {
+		w.Header().Set("Content-Type", "application/epub+zip")
+		w.Header().Set("Content-Disposition", fmt.Sprintf(
+			`attachment; filename="%s-%s.epub"`,
+			date.Format(time.DateOnly),
 			utils.Slug(strings.TrimSuffix(utils.ShortText(title, 40), "...")),
-		),
-	)
-
-	err := func() (err error) {
-		var m *epubMaker
-		if m, err = newEpubMaker(w, uuid.NewSHA1(uuidURL, []byte(id))); err != nil {
-			return
-		}
-		defer func() {
-			if err == nil {
-				m.SetTitle(title)
-				err = m.WritePackage()
-			}
-			m.Close() //nolint:errcheck
-		}()
-
-		for _, b := range bookmarkList {
-			if err = m.addBookmark(newBookmarkItem(api.srv, r, b, "/bookmarks"), api.srv.TemplateVars(r)); err != nil {
-				return err
-			}
-		}
-		return
-	}()
-	if err != nil {
-		api.srv.Error(w, r, err)
-		return
+		))
 	}
+
+	m, err := newEpubMaker(w, uuid.NewSHA1(uuidURL, []byte(id)))
+	if err != nil {
+		return err
+	}
+
+	defer func() {
+		if err == nil {
+			m.SetTitle(title)
+			err = m.WritePackage()
+		}
+		m.Close() //nolint:errcheck
+	}()
+
+	ctx = WithURLReplacer(ctx, "./_resources", "./Images")
+	for _, b := range bookmarks {
+		if err = m.addBookmark(ctx, e, b, e.templateVars); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // epubMaker is a wrapper around epub.Writer with extra methods to
@@ -115,8 +128,7 @@ func (m *epubMaker) addStylesheet() error {
 }
 
 // addBookmark adds a bookmark, with all its resources, to the epub file.
-func (m *epubMaker) addBookmark(b bookmarkItem, vars jet.VarMap) (err error) {
-	// Open the original container file
+func (m *epubMaker) addBookmark(ctx context.Context, e EPUBExporter, b *bookmarks.Bookmark, vars jet.VarMap) (err error) {
 	var c *bookmarks.BookmarkContainer
 	if c, err = b.OpenContainer(); err != nil {
 		return
@@ -142,14 +154,14 @@ func (m *epubMaker) addBookmark(b bookmarkItem, vars jet.VarMap) (err error) {
 		}
 	}
 
-	// Update the resource paths
-	resources := map[string]*bookmarkFile{}
-	for k, v := range b.Resources {
-		if k == "icon" || k == "image" && (b.Type == "photo" || b.Type == "video") {
-			resources[k] = &bookmarkFile{
-				Src:    path.Join("Images", fmt.Sprintf("%s-%s%s", k, b.UID, path.Ext(v.Src))),
-				Width:  v.Width,
-				Height: v.Height,
+	// Build the other resource list
+	resources := bookmarks.BookmarkFiles{}
+	for k, v := range b.Files {
+		if k == "icon" || k == "image" && (b.DocumentType == "photo" || b.DocumentType == "video") {
+			resources[k] = &bookmarks.BookmarkFile{
+				Name: path.Join("Images", fmt.Sprintf("%s-%s%s", k, b.UID, path.Ext(v.Name))),
+				Type: v.Type,
+				Size: v.Size,
 			}
 		}
 	}
@@ -165,7 +177,7 @@ func (m *epubMaker) addBookmark(b bookmarkItem, vars jet.VarMap) (err error) {
 
 			return m.AddImage(
 				fmt.Sprintf("%s-%s", k, b.UID),
-				v.Src,
+				v.Name,
 				fp,
 			)
 		}()
@@ -174,41 +186,29 @@ func (m *epubMaker) addBookmark(b bookmarkItem, vars jet.VarMap) (err error) {
 		}
 	}
 
-	// Swap the item's resources so we can use them in the template
-	b.Resources = resources
-
-	// Load the article's content and create the XHTML file
-	// that will become a chapter.
-	if err = c.LoadArticle(); err != nil {
-		if err != os.ErrNotExist {
-			return
-		}
-		err = nil
-	}
-	if err = c.ReplaceLinks("./_resources", "./Images"); err != nil {
-		return
-	}
-	if err = c.ExtractBody(); err != nil {
-		return
+	buf := new(bytes.Buffer)
+	html, err := e.GetArticle(ctx, b)
+	if err != nil {
+		return err
 	}
 	tpl, err := server.GetTemplate("epub/bookmark.jet.html")
 	if err != nil {
 		return err
 	}
-	ctx := server.TC{
-		"Item":    b,
-		"Content": c.GetArticle(),
+	tc := map[string]any{
+		"HTML":      html,
+		"Item":      b,
+		"ItemURL":   e.baseURL.JoinPath("bookmarks", b.UID),
+		"Resources": resources,
 	}
-	buf := new(strings.Builder)
-	if err = tpl.Execute(buf, vars, ctx); err != nil {
-		return
+	if err := tpl.Execute(buf, vars, tc); err != nil {
+		return err
 	}
 
-	// Add the chapter to the book
 	return m.AddChapter(
 		fmt.Sprintf("page-%s", b.UID),
 		b.Title,
 		fmt.Sprintf("%s.html", b.UID),
-		strings.NewReader(buf.String()),
+		buf,
 	)
 }

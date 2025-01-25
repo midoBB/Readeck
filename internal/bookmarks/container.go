@@ -51,6 +51,16 @@ func (b *Bookmark) OpenContainer() (*BookmarkContainer, error) { //revive:disabl
 	return res, nil
 }
 
+// Lookup return a [*zip.File] with the given name, when it exists.
+func (c *BookmarkContainer) Lookup(name string) (*zip.File, bool) {
+	for _, entry := range c.File {
+		if entry.Name == name {
+			return entry, true
+		}
+	}
+	return nil, false
+}
+
 // ListResources returns a list of files located under "_resources/".
 func (c *BookmarkContainer) ListResources() []*zip.File {
 	res := []*zip.File{}
@@ -98,8 +108,7 @@ func (c *BookmarkContainer) ReplaceLinks(orig, repl string) (err error) {
 
 // ExtractBody extract the content of the article's HTML body.
 func (c *BookmarkContainer) ExtractBody() (err error) {
-	res := rxHTMLStart.ReplaceAllString(c.articleContent.String(), "")
-	res = rxHTMLEnd.ReplaceAllString(res, "")
+	res := ExtractHTMLBody(c.articleContent.String())
 	c.articleContent.Reset()
 	_, err = c.articleContent.WriteString(res)
 	return
@@ -118,4 +127,12 @@ func (c *BookmarkContainer) GetFile(name string) ([]byte, error) {
 	}
 	defer fd.Close() //nolint:errcheck
 	return io.ReadAll(fd)
+}
+
+// ExtractHTMLBody returns the given string's content that's inside
+// the body element.
+func ExtractHTMLBody(text string) string {
+	res := rxHTMLStart.ReplaceAllString(text, "")
+	res = rxHTMLEnd.ReplaceAllString(res, "")
+	return res
 }

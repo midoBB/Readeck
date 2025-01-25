@@ -26,10 +26,10 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <ul class="info">
   <li>
-    {{- if isset(.Item.Resources.icon) -}}
-    <img class="icon" alt="" src="{{ .Item.Resources.icon.Src }}"
-      width="{{ .Item.Resources.icon.Width }}"
-      height="{{ .Item.Resources.icon.Height }}" />
+    {{- if isset(.Resources.icon) -}}
+    <img class="icon" alt="" src="{{ .Resources.icon.Name }}"
+      width="{{ .Resources.icon.Size[0] }}"
+      height="{{ .Resources.icon.Size[1] }}" />
     {{- end -}}
     <strong>{{ default(.Item.SiteName, gettext("no site name")) }}</strong>
   </li>
@@ -40,24 +40,21 @@ SPDX-License-Identifier: AGPL-3.0-only
     <li>{{ gettext("By %s", join(.Item.Authors, ", ")) }}</li>
   {{- end -}}
     <li><a href="{{ .Item.URL }}">{{ .Item.Domain }}</a></li>
-  {{- if .Item.ReadingTime > 0 -}}
-    <li>{{ gettext("About %d min read", .Item.ReadingTime) }}</li>
+  {{- readingTime := .Item.ReadingTime() -}}
+  {{- if readingTime > 0 -}}
+    <li>{{ gettext("About %d min read", readingTime) }}</li>
   {{- end -}}
 </ul>
 
-{{- if .Item.Type == "photo" -}}
+{{- if .Item.DocumentType == "photo" || .Item.DocumentType == "video" -}}
   <main class="photo">
-    <img src="{{ .Item.Resources.image.Src }}" alt="" />
-  </main>
-{{ else if .Item.Type == "video" -}}
-  <main class="photo">
-    <img src="{{ .Item.Resources.image.Src }}" alt="" />
+    <img src="{{ .Resources.image.Name }}" alt="" width="{{ .Resources.image.Size[0] }}" height="{{ .Resources.image.Size[1] }}" />
   </main>
 {{- end -}}
 
-{{- if .Item.HasArticle -}}
+{{- if isset(.Item.Files.article) -}}
   <main class="content {{ preferences.ReaderJustify().Class }} {{ preferences.ReaderHyphenation().Class }}">
-  {{ raw(.Content) }}
+  {{- unsafeWrite(.HTML) -}}
   </main>
 {{- end -}}
 
@@ -65,11 +62,11 @@ SPDX-License-Identifier: AGPL-3.0-only
 <table class="info">
   <tr>
     <td>
-      <img src="{{ qrcode(.Item.Href, -3) }}" alt="" />
+      <img src="{{ qrcode(.ItemURL, -3) }}" alt="" />
     </td>
     <td>
       Saved with <a href="https://readeck.com/">Readeck</a><br />
-      <a href="{{ .Item.Href}}">{{ .Item.Href }}</a>
+      <a href="{{ .ItemURL }}">{{ .ItemURL }}</a>
     </td>
   </tr>
 </table>

@@ -75,7 +75,9 @@ func (a BookmarkAnnotations) AddToNode(root *html.Node, tagName string, options 
 	for _, annotation := range a {
 		err := annotation.AddToNode(root, tagName, func(n *html.Node, index int) {
 			for _, f := range options {
-				f(annotation.ID, n, index, annotation.Color)
+				if f != nil {
+					f(annotation.ID, n, index, annotation.Color)
+				}
 			}
 		})
 		if err != nil {

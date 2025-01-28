@@ -45,8 +45,8 @@ func marshalItems[T any](ds *goqu.SelectDataset) ([]T, error) {
 	return items, err
 }
 
-func insertInto[T any](table string, item T, prep func(T)) (int, error) {
+func insertInto[T any](tx *goqu.TxDatabase, table string, item T, prep func(T)) (int, error) {
 	prep(item)
-	ds := db.Q().Insert(table).Rows(item).Prepared(true)
+	ds := tx.Insert(table).Rows(item).Prepared(true)
 	return db.InsertWithID(ds, "id")
 }

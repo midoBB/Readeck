@@ -273,16 +273,20 @@ func (imp *Importer) loadBookmark(tx *goqu.TxDatabase, item *bookmarkItem) (err 
 			continue
 		}
 
-		r, err := f.Open()
+		h := f.FileHeader
+		h.Name = strings.TrimPrefix(h.Name, prefix)
+
+		rr, err := f.OpenRaw()
 		if err != nil {
 			return err
 		}
-		f.Name = strings.TrimPrefix(f.Name, prefix)
-		if err = zw.Add(&f.FileHeader, r); err != nil {
-			r.Close() // nolint:errcheck
+
+		rw, err := zw.GetRawWriter(&h)
+		if err != nil {
 			return err
 		}
-		if err = r.Close(); err != nil {
+
+		if _, err = io.Copy(rw, rr); err != nil {
 			return err
 		}
 	}

@@ -28,6 +28,13 @@ import (
 
 var commands = []acmd.Command{}
 
+var (
+	colorReset  = console.ResetMod
+	colorGreen  = console.ToANSICode(console.Green)
+	colorYellow = console.ToANSICode(console.Yellow)
+	bold        = console.ToANSICode(console.Bold)
+)
+
 type appFlags struct {
 	ConfigFile string
 }
@@ -42,6 +49,17 @@ func (f *appFlags) Flags() *flag.FlagSet {
 func fatal(msg string, err error) {
 	slog.Error(msg, slog.Any("err", err))
 	os.Exit(1)
+}
+
+type stringsFlag []string
+
+func (l *stringsFlag) String() string {
+	return fmt.Sprintf("%v", *l)
+}
+
+func (l *stringsFlag) Set(value string) error {
+	*l = append(*l, value)
+	return nil
 }
 
 // Run starts the application CLI.

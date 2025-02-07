@@ -40,12 +40,14 @@ SPDX-License-Identifier: AGPL-3.0-only
         <details class="menu btn-group"
         data-controller="menu"
         data-menu-offset-value="right">
-          <summary class="btn-outlined py-1">
+          <summary class="btn-outlined py-1" role="button"
+           title="{{ gettext(`Sort bookmarks`) }}">
             {{- yield icon(name="o-sort") -}}
           </summary>
-          <ul class="top-8 right-0">
+          <ul class="top-8 right-0" role="menu" aria-label="{{ gettext(`Sort options`) }}">
             {{- range _, x := .OrderOptions -}}
-              <li {{ if x[0] == .CurrentOrder }}aria-current="page"{{ end }}><a class="link" href="{{ x[1] }}">{{ x[2] }}</a></li>
+              <li role="menuitem"
+               {{ if x[0] == .CurrentOrder }}aria-current="page"{{ end }}><a class="link" href="{{ x[1] }}">{{ x[2] }}</a></li>
             {{- end -}}
           </ul>
         </details>
@@ -61,7 +63,8 @@ SPDX-License-Identifier: AGPL-3.0-only
     <details class="menu btn-group"
      data-controller="menu"
      data-menu-offset-value="right">
-      <summary class="btn-outlined py-1">
+      <summary class="btn-outlined py-1" role="button"
+       title="{{ gettext(`Import and export`) }}">
         {{- yield icon(name="o-menu-dots") -}}
       </summary>
       <ul class="top-8 right-0">

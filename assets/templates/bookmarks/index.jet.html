@@ -142,7 +142,7 @@ SPDX-License-Identifier: AGPL-3.0-only
          class="link ml-auto">{{ yield icon(name="o-help") }}
         {{ gettext("Documentation") }}</a>
       </p>
-      <form action="{{ urlFor(`/bookmarks`) }}" method="get">
+      <form action="{{ urlFor(`/bookmarks`) }}" method="get" aria-label="{{ gettext(`Bookmark filters`) }}">
         {{ include("./components/filters") .Filters }}
         {{- if isset(.CurrentOrder) -}}
           <input type="hidden" name="sort" value="{{ .CurrentOrder }}">

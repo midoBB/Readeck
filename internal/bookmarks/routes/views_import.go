@@ -99,6 +99,8 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 			RequestID:       h.srv.GetReqID(r),
 			AllowDuplicates: !ignoreDuplicates,
 			Label:           f.Get("label").String(),
+			Archive:         f.Get("archive").(forms.TypedField[bool]).V(),
+			MarkRead:        f.Get("mark_read").(forms.TypedField[bool]).V(),
 		})
 		if err != nil {
 			h.srv.Error(w, r, err)

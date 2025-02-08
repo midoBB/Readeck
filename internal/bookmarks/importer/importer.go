@@ -98,6 +98,8 @@ type importer struct {
 	requestID       string
 	allowDuplicates bool
 	label           string
+	archive         bool
+	markRead        bool
 }
 
 type urlBookmarkItem string
@@ -149,6 +151,8 @@ func NewImportForm(ctx context.Context, adapter ImportLoader) *forms.JoinedForms
 			ctx,
 			forms.NewTextField("label", forms.Trim),
 			forms.NewBooleanField("ignore_duplicates", forms.Default(true)),
+			forms.NewBooleanField("archive"),
+			forms.NewBooleanField("mark_read"),
 		),
 	)
 }
@@ -254,14 +258,18 @@ func (imp importer) createBookmark(next func() (BookmarkImporter, error)) (*book
 		b.IsArchived = bm.IsArchived
 		b.IsMarked = bm.IsMarked
 		created = bm.Created
-
-		if b.IsArchived {
-			b.ReadProgress = 100
-		}
 	}
 
 	if imp.label != "" {
 		b.Labels = append(b.Labels, imp.label)
+	}
+
+	if b.IsArchived || imp.markRead {
+		b.ReadProgress = 100
+	}
+
+	if imp.archive {
+		b.IsArchived = true
 	}
 
 	if err = bookmarks.Bookmarks.Create(b); err != nil {

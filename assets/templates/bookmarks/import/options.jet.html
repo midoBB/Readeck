@@ -16,3 +16,15 @@ SPDX-License-Identifier: AGPL-3.0-only
   label=gettext("Ignore links already in your bookmarks"),
   class="field-h",
 ) -}}
+{{- yield checkboxField(
+  field=.Form.Get("archive"),
+  label=gettext("Archive all links"),
+  class="field-h",
+  help=gettext("Moves all links to archive, regardless of their original status"),
+) -}}
+{{- yield checkboxField(
+  field=.Form.Get("mark_read"),
+  label=gettext("Mark all links as read"),
+  class="field-h",
+  help=gettext("Marks all links as read, regardless of their original status"),
+) -}}

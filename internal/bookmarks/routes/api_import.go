@@ -68,6 +68,8 @@ func (api *apiRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 		RequestID:       api.srv.GetReqID(r),
 		AllowDuplicates: !ignoreDuplicates,
 		Label:           f.Get("label").String(),
+		Archive:         f.Get("archive").(forms.TypedField[bool]).V(),
+		MarkRead:        f.Get("mark_read").(forms.TypedField[bool]).V(),
 	})
 	if err != nil {
 		api.srv.Error(w, r, err)

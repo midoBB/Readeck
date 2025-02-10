@@ -18,6 +18,7 @@ jobs:
       image: codeberg.org/readeck/readeck-ci:latest
       volumes:
         - readeck-ci:/workspace
+        - readeck-artifacts:/artifacts
       env:
         HOME: /workspace
         GOPATH: /workspace/go
@@ -53,6 +54,6 @@ jobs:
         run: |
           make stamp-version
           ls -l dist/
-          mkdir -p /workspace/artifacts
-          rm -rf /workspace/artifacts/*
-          cp -p dist/* /workspace/artifacts/
+          mkdir -p /artifacts
+          rm -rf /artifacts/*
+          cp -p dist/* /artifacts/

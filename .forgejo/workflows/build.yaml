@@ -40,10 +40,7 @@ jobs:
 
       - name: Build release
         run: |
-          make release-linux
-          make release-freebsd
-          make release-darwin
-          make release-windows
+          make release-all
 
       - name: Build container image
         run: |
@@ -52,7 +49,6 @@ jobs:
 
       - name: Copy artifacts
         run: |
-          make stamp-version
           ls -l dist/
           mkdir -p /artifacts
           rm -rf /artifacts/*

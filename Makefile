@@ -223,14 +223,11 @@ xbuild/%:
 release-linux:
 	${MAKE} xbuild/linux/amd64
 	${MAKE} xbuild/linux/arm64
-	${MAKE} xbuild/linux/386
-	${MAKE} xbuild/linux/arm
 	touch $(DIST)/.release-linux
 
 .PHONY: release-windows
 release-windows:
 	${MAKE} xbuild/windows/amd64
-	${MAKE} xbuild/windows/386
 	touch $(DIST)/.release-windows
 
 .PHONY: release-darwin

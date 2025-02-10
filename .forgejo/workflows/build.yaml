@@ -1,0 +1,58 @@
+---
+
+name: Readeck Build
+run-name: ${{ gitea.actor }} build
+on:
+  workflow_dispatch:
+
+jobs:
+  tests:
+    uses: ./.forgejo/workflows/tests.yaml
+    runs-on: docker
+
+  build:
+    needs:
+      - tests
+    runs-on: docker
+    container:
+      image: codeberg.org/readeck/readeck-ci:latest
+      volumes:
+        - readeck-ci:/workspace
+      env:
+        HOME: /workspace
+        GOPATH: /workspace/go
+        GOCACHE: /workspace/.cache/go-build
+        GOLANGCI_LINT_CACHE: /workspace/.cache/golangci-lint
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup project
+        run: |
+          make setup
+
+      - name: Generate assets
+        run: |
+          make generate
+
+      - name: Build release
+        run: |
+          make release-linux
+          make release-freebsd
+          make release-darwin
+          make release-windows
+
+      - name: Build container image
+        run: |
+          mkdir -p /workspace/containers/storage
+          make release-container
+
+      - name: Copy artifacts
+        run: |
+          make stamp-version
+          ls -l dist/
+          mkdir -p /workspace/artifacts
+          rm -rf /workspace/artifacts/*
+          cp -p dist/* /workspace/artifacts/

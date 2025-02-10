@@ -70,6 +70,7 @@ build:
 	@echo "GOOS": $$GOOS
 	@echo "GOARCH": $$GOARCH
 	@echo "LDFLAGS": $(LDFLAGS)
+	@echo "OUTFILE_NAME:" $(OUTFILE_NAME)
 	$(GO) build \
 		-v \
 		-tags "$(BUILD_TAGS)" \
@@ -210,7 +211,7 @@ release-all:
 .PHONY: xbuild
 xbuild: CGO_ENABLED=0
 xbuild: LDFLAGS=-s -w
-xbuild: OUTFILE_NAME=readeck-$(VERSION)-$(GOOS)-$(GOARCH)
+xbuild: OUTFILE_NAME=readeck-$(VERSION)-$(GOOS)-$(GOARCH)$(OUTFILE_SUFFIX)
 xbuild: build
 
 
@@ -227,7 +228,7 @@ release-linux:
 
 .PHONY: release-windows
 release-windows:
-	${MAKE} xbuild/windows/amd64
+	${MAKE} OUTFILE_SUFFIX=.exe xbuild/windows/amd64
 	touch $(DIST)/.release-windows
 
 .PHONY: release-darwin

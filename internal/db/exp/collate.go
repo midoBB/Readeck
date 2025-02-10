@@ -9,7 +9,8 @@ import (
 	"golang.org/x/text/language"
 )
 
-var unicodeCollate = collate.New(language.Und, collate.Loose, collate.Numeric)
+// UnicodeCollate is the base Unicode collate.
+var UnicodeCollate = collate.New(language.Und, collate.Loose, collate.Numeric)
 
 // UnaccentCompare performs a string comparison after removing accents.
-var UnaccentCompare = unicodeCollate.CompareString
+var UnaccentCompare = UnicodeCollate.CompareString

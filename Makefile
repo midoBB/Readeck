@@ -14,7 +14,7 @@ VERSION := $(shell git describe --tags)
 DATE := $(shell git log -1 --format=%cI)
 endif
 
-BUILD_TAGS := netgo osusergo sqlite_omit_load_extension sqlite_foreign_keys sqlite_json1 sqlite_fts5 sqlite_secure_delete
+BUILD_TAGS := netgo osusergo
 VERSION_FLAGS := \
 	-X 'codeberg.org/readeck/readeck/configs.version=$(VERSION)' \
 	-X 'codeberg.org/readeck/readeck/configs.buildTimeStr=$(DATE)'
@@ -26,11 +26,6 @@ GO ?= go
 export CGO_ENABLED ?= 0
 export GOOS?=
 export GOARCH?=
-export CGO_CFLAGS ?= -D_LARGEFILE64_SOURCE
-export CC?=
-export XGO_IMAGE ?= docker.io/techknowlogick/xgo:go-1.21.x
-export XGO_PACKAGE ?= src.techknowlogick.com/xgo@latest
-export XGO_FLAGS ?= ""
 
 SITECONFIG_SRC=./ftr-site-config
 SITECONFIG_DEST=pkg/extract/contentscripts/assets/site-config
@@ -72,11 +67,9 @@ setup:
 # Build the server
 .PHONY: build
 build:
-	@echo "CC: $(CC)"
-	@echo "CGO_ENABLED": $$CGO_ENABLED
-	@echo "CGO_CFLAGS": $$CGO_CFLAGS
 	@echo "GOOS": $$GOOS
 	@echo "GOARCH": $$GOARCH
+	@echo "LDFLAGS": $(LDFLAGS)
 	$(GO) build \
 		-v \
 		-tags "$(BUILD_TAGS)" \
@@ -97,9 +90,6 @@ web-build:
 # Launch tests
 .PHONY: test
 test: docs-build
-	@echo "CC: $(CC)"
-	@echo "CGO_ENABLED": $$CGO_ENABLED
-	@echo "CGO_CFLAGS": $$CGO_CFLAGS
 	test -f assets/www/manifest.json || echo "{}" > assets/www/manifest.json
 	$(GO) test \
 		-tags "$(BUILD_TAGS)" \
@@ -125,13 +115,11 @@ list:
 .PHONY: lint
 lint: docs-build
 	test -f assets/www/manifest.json || echo "{}" > assets/www/manifest.json
-	CGO_ENABLED=0 \
 	$(GO) run $(GOLANGCI_PKG) run
 
 # Single lines of code
 .PHONY: sloc
 sloc:
-	CGO_ENABLED=0 \
 	$(GO) run $(SLOC_PKG) -i go,js,sass,html,md
 
 
@@ -164,8 +152,6 @@ dev:
 # the server on any change.
 .PHONY: serve
 serve:
-	# modd -f modd.conf
-	CGO_ENABLED=0 \
 	$(GO) run $(AIR_PKG) \
 		--tmp_dir "dist" \
 		--build.log "" \
@@ -181,7 +167,6 @@ serve:
 # on changes.
 .PHONY: docs-watch
 docs-watch:
-	CGO_ENABLED=0 \
 	$(GO) run $(AIR_PKG) \
 		--tmp_dir "dist" \
 		--build.log "" \
@@ -205,8 +190,6 @@ web-watch:
 
 # Unless you plan to build a full release, you don't need to use
 # these targets.
-# Please note that they don't work from a container because xgo itself
-# runs in a container and needs to mount the workspace.
 
 .PHONY: stamp-version
 stamp-version:
@@ -224,62 +207,39 @@ release-all:
 	touch $(DIST)/.release
 
 
-.PHONY: xgo-build
-xgo-build: | $(DIST)/.generate
-	@echo "CC: $(CC)"
-	@echo "CGO_ENABLED": $$CGO_ENABLED
-	@echo "CGO_CFLAGS": $$CGO_CFLAGS
-	@echo "XGO_IMAGE:" $(XGO_IMAGE)
-	@echo "XGO_PACKAGE": $(XGO_PACKAGE)
-	@echo "XGO_FLAGS": $(XGO_FLAGS)
-	@echo "LDFLAGS": $(LDFLAGS)
+.PHONY: xbuild
+xbuild: CGO_ENABLED=0
+xbuild: LDFLAGS=-s -w
+xbuild: OUTFILE_NAME=readeck-$(VERSION)-$(GOOS)-$(GOARCH)
+xbuild: build
 
-	test -d $(DIST) || mkdir $(DIST)
-	$(GO) run $(XGO_PACKAGE) \
-		-v \
-		-image $(XGO_IMAGE) \
-		-dest $(DIST) \
-		-tags "$(BUILD_TAGS)" \
-		-targets "$(XGO_TARGET)" \
-		-ldflags "$(VERSION_FLAGS) $(LDFLAGS)" \
-		$(XGO_FLAGS) \
-		-out readeck-$(VERSION) \
-		./
+
+xbuild/%:
+	$(eval GOOS=$(shell echo $* | cut -d"/" -f1))
+	$(eval GOARCH=$(shell echo $* | cut -d"/" -f2))
+	${MAKE} xbuild
 
 .PHONY: release-linux
-release-linux: CC=
-release-linux: CGO_ENABLED=1
-release-linux: LDFLAGS=-linkmode external -extldflags "-static" -s -w
-release-linux: XGO_FLAGS=
-release-linux: XGO_TARGET="linux/amd64,linux/386,linux/arm-5,linux/arm-6,linux/arm64"
-release-linux: xgo-build
+release-linux:
+	${MAKE} xbuild/linux/amd64
+	${MAKE} xbuild/linux/arm64
 	touch $(DIST)/.release-linux
 
 .PHONY: release-windows
-release-windows: CC=
-release-windows: CGO_ENABLED=1
-release-windows: LDFLAGS=-linkmode external -extldflags "-static" -s -w
-release-windows: XGO_FLAGS=-buildmode exe
-release-windows: XGO_TARGET="windows/amd64,windows/386"
-release-windows: xgo-build
+release-windows:
+	${MAKE} xbuild/windows/amd64
 	touch $(DIST)/.release-windows
 
 .PHONY: release-darwin
-release-darwin: CC=
-release-darwin: CGO_ENABLED=1
-release-darwin: LDFLAGS=-s -w
-release-darwin: XGO_FLAGS=
-release-darwin: XGO_TARGET="darwin-10.12/amd64,darwin-10.12/arm64"
-release-darwin: xgo-build
+release-darwin:
+	${MAKE} xbuild/darwin/amd64
+	${MAKE} xbuild/darwin/arm64
 	touch $(DIST)/.release-darwin
 
 .PHONY: release-freebsd
-release-freebsd: CC=
-release-freebsd: CGO_ENABLED=1
-release-freebsd: LDFLAGS=-linkmode external -extldflags "-static" -s -w
-release-freebsd: XGO_FLAGS=
-release-freebsd: XGO_TARGET="freebsd/amd64"
-release-freebsd: xgo-build
+release-freebsd:
+	${MAKE} xbuild/freebsd/amd64
+	${MAKE} xbuild/freebsd/arm64
 	touch $(DIST)/.release-freebsd
 
 

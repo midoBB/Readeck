@@ -1,0 +1,30 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "post-title",
+    "post-byline"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": {
+    "User-Agent": "Mastodon/4.3.2 (http.rb/5.2.0)"
+  },
+  "tests": [
+    {
+      "url": "https://info.signal-arnaques.com/encyclopedie-des-arnaques/10-arnaqueurs-celebres/",
+      "contains": []
+    }
+  ]
+}

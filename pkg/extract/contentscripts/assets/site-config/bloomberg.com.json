@@ -3,7 +3,7 @@
     "//meta[@property=\"og:title\"]/@content"
   ],
   "body_selectors": [
-    "//div[contains(@class, 'body-copy')]"
+    "//article[1]"
   ],
   "date_selectors": [
     "//meta[@name=\"iso-8601-publish-date\"]/@content",
@@ -15,6 +15,19 @@
     "//meta[@name=\"parsely-author\"]/@content"
   ],
   "strip_selectors": [
+    "//div[contains(@class, 'Byline_bylineWrapper')]",
+    "//div[contains(@class, 'gridLayout_topContent_')]",
+    "//div[contains(@class, 'gridLayout_leftContent_')]",
+    "//div[contains(@class, 'gridLayout_rightContent_')]",
+    "//div[contains(@class, 'styles_bookmarkSpeech_')]",
+    "//div[contains(@class, 'Image_imageOverlay')]",
+    "//div[contains(@class, 'loatingCopyLink')]",
+    "//div[contains(@class, 'AuthorBio_')]",
+    "//div[contains(@class, 'styles_bookmarkBottom_')]",
+    "//div[contains(@class, 'styles_shareFeedbackWrapper_')]",
+    "//div[contains(@class, 'styles_toutWrapper_')]",
+    "//div[contains(@class, 'InlineRecirc_')]",
+    "//h3[contains(text(), 'ore from Bloomberg')] | //h3[contains(text(), 'ore from Bloomberg')]/following-sibling::*",
     "//aside"
   ],
   "strip_id_or_class": [
@@ -24,6 +37,10 @@
     "postr-recirc",
     "left-column",
     "touts-v2",
+    "eyebrow",
+    "social-share",
+    "icon-button",
+    "outlined-button",
     "first-paragraph-image__credit"
   ],
   "strip_image_src": null,

@@ -1,15 +1,17 @@
 {
-  "title_selectors": null,
-  "body_selectors": null,
+  "title_selectors": [
+    "//h1"
+  ],
+  "body_selectors": [
+    "//article"
+  ],
   "date_selectors": [
-    "//meta[@property='og:article:published_time']/@content"
+    "substring-after(//article/p[@class=\"subtitle\"]/text()[2],\"le \")"
   ],
   "author_selectors": [
-    "//p[@class=\"subtitle\"]//a"
+    "//article/p[@class=\"subtitle\"]/a/text()"
   ],
-  "strip_selectors": [
-    "//p[@class=\"subtitle\"]"
-  ],
+  "strip_selectors": null,
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -21,6 +23,10 @@
   "replace_strings": null,
   "http_headers": null,
   "tests": [
+    {
+      "url": "https://ploum.net/2024-08-26-luddites-technophiles.html",
+      "contains": []
+    },
     {
       "url": "https://ploum.net/sunrise-le-calendrier-du-futur/",
       "contains": []

@@ -1,0 +1,43 @@
+{
+  "title_selectors": [
+    "//meta[@name=\"citation_title\"]/@content"
+  ],
+  "body_selectors": [
+    "//div[@id=\"article\"]"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//meta[@name=\"citation_author\"]/@content"
+  ],
+  "strip_selectors": [
+    "//div[@class=\"card row\"]",
+    "//strong[contains(text(),\"End Page \")]",
+    "//div[@class='thumbnail']/text()",
+    "//div[@class='thumbnail']/a[2]"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "class=\"figure\"",
+      "class=\"container figure\""
+    ],
+    [
+      "?format=thumb",
+      ""
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://muse.jhu.edu/article/947886",
+      "contains": []
+    }
+  ]
+}

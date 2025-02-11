@@ -17,7 +17,7 @@ require (
 	github.com/cristalhq/acmd v0.12.0
 	github.com/cristalhq/jwt/v3 v3.1.0
 	github.com/dop251/goja v0.0.0-20250125213203-5ef83b82af17
-	github.com/dop251/goja_nodejs v0.0.0-20240728170619-29b559befffc
+	github.com/dop251/goja_nodejs v0.0.0-20250211202206-2ae4cd213512
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/gabriel-vasile/mimetype v1.4.8
 	github.com/go-chi/chi/v5 v5.2.1

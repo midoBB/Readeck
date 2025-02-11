@@ -1,0 +1,39 @@
+{
+  "title_selectors": [
+    "//h1[1]"
+  ],
+  "body_selectors": [
+    "//article[contains(concat(' ',normalize-space(@class),' '),' news_container ')]"
+  ],
+  "date_selectors": [
+    "substring-before(substring-after( //link[@rel=\"canonical\"]/@href , '/19') , '_')",
+    "substring-before(substring-after( //link[@rel=\"canonical\"]/@href , '/20') , '_')",
+    "substring-before(substring-after( //link[@rel=\"canonical\"]/@href , '/21') , '_')"
+  ],
+  "author_selectors": [
+    "//p[@class=\"article-bottom-author\"]"
+  ],
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "other-news-note",
+    "event_list.list",
+    "article_date",
+    "article-menu_base",
+    "right_side"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.cnews.ru/news/top/2025-01-17_sozdana_absolyutno_besplatnaya",
+      "contains": []
+    }
+  ]
+}

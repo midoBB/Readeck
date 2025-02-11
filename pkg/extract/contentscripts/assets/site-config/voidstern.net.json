@@ -1,0 +1,37 @@
+{
+  "title_selectors": [
+    "//h1[contains(@class, 'wp-block-post-title')]"
+  ],
+  "body_selectors": [
+    "//main[1]/following-sibling::div[1]",
+    "//div[contains(@class, 'entry-content')] | //figure[contains(@class, 'wp-block-post-featured-image')]/parent::div"
+  ],
+  "date_selectors": [
+    "//time/@datetime"
+  ],
+  "author_selectors": [
+    "//p[contains(@class, 'wp-block-post-author__name')]"
+  ],
+  "strip_selectors": [
+    "//a[contains(@href, 'apps.apple.com')]/ancestor::div[1]",
+    "//a[@rel='tag']/parent::div"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": [
+    "//a[@class='wp-block-query-pagination-next']"
+  ],
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://voidstern.net/archives/3703",
+      "contains": []
+    }
+  ]
+}

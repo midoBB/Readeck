@@ -3,6 +3,7 @@
     "//h1[contains(concat(' ',normalize-space(@class),' '),' entry-title ')]"
   ],
   "body_selectors": [
+    "//article//div[contains(concat(' ',normalize-space(@class),' '),' article-content ')]",
     "//article//div[contains(concat(' ',normalize-space(@class),' '),' entry-content ')]"
   ],
   "date_selectors": [
@@ -17,7 +18,6 @@
   "strip_id_or_class": [
     "article-audio-player",
     "in-article-opt-in",
-    "footer-opt-in",
     "no-print",
     "lazyloaded"
   ],

@@ -12,7 +12,7 @@
 # ///
 
 import os
-from contextlib import contextmanager
+from contextlib import chdir, contextmanager
 from datetime import date
 from subprocess import call, check_call
 from tempfile import TemporaryDirectory
@@ -89,19 +89,19 @@ def update_go_dependencies():
 
 
 def update_js_dependencies():
-    # fmt:off
-    check_call(
-        [
-            "npm", "exec", "-y", "--",
-            "npm-check-updates",
-            "--cwd", "web",
-            "-t", "minor",
-            "--peer", "--upgrade",
-            "--install", "always",
-        ]
-    )
-    # fmt: on
-    check_call(["npx", "-y", "update-browserslist-db@latest"])
+    with chdir("web"):
+        # fmt:off
+        check_call(
+            [
+                "npm", "exec", "-y", "--",
+                "npm-check-updates",
+                "-t", "minor",
+                "--peer", "--upgrade",
+                "--install", "always",
+            ]
+        )
+        # fmt: on
+        check_call(["npx", "-y", "update-browserslist-db@latest"])
 
 
 def update_site_config_files():

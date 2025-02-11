@@ -6,6 +6,7 @@ package img_test
 
 import (
 	"bytes"
+	"regexp"
 	"strconv"
 	"strings"
 	"testing"
@@ -16,7 +17,12 @@ import (
 	"codeberg.org/readeck/readeck/pkg/img"
 )
 
+var rxSpaces = regexp.MustCompile(`>(\s+)<`)
+
 func assertXMLEqual(t *testing.T, expected, actual string) {
+	actual = rxSpaces.ReplaceAllString(actual, "><")
+	expected = rxSpaces.ReplaceAllString(expected, "><")
+
 	eNode, err := xmlquery.Parse(strings.NewReader(expected))
 	if err != nil {
 		t.Error(err)

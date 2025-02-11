@@ -101,6 +101,7 @@ def update_js_dependencies():
         ]
     )
     # fmt: on
+    check_call(["npx", "update-browserslist-db@latest"])
 
 
 def update_site_config_files():

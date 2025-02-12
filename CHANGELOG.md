@@ -1,8 +1,21 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Export command
+- Import command
+
 ### Improved
 - Mark imported archived bookmarks as read
+- Option to archive and/or mark read all imported bookmarks
+
+### Changed
+- New SQLite, CGO-free driver. Important: it won't run with `MemoryDenyWriteExecute=yes` in the systemd service file.
+- New internal form API
+
+### Fixed
+- Safari display bug with "details" HTML elements in bookmarks
+- Safari bug when creating highlights
 
 ## [0.17.1] - 2025-01-15
 ### Fixed

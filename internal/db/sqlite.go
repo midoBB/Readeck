@@ -32,6 +32,39 @@ func openSqlite(name string) (*sql.DB, error) {
 	})
 }
 
+func getSqliteDsn(dsn *url.URL) (*url.URL, error) {
+	if dsn.Opaque == ":memory:" {
+		return &url.URL{
+			Scheme: "memory",
+			Opaque: "/memory.db",
+		}, nil
+	}
+
+	var err error
+	uri := &url.URL{Scheme: "file"}
+
+	// Support initial dsn in several forms
+	switch {
+	case dsn.Opaque != "":
+		// could be sqlite3:some/path
+		uri.Path, err = filepath.Abs(dsn.Opaque)
+	case dsn.Path != "":
+		// or sqlite3:///some/path
+		uri.Path, err = filepath.Abs(dsn.Path)
+	default:
+		err = fmt.Errorf("%s is not a valid database URI", dsn)
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	// Convert it to file:<path> (without // path prefix)
+	uri.Opaque = uri.Path
+	uri.Path = ""
+
+	return uri, nil
+}
+
 type sqliteConnector struct{}
 
 func (c *sqliteConnector) Name() string {
@@ -46,31 +79,20 @@ func (c *sqliteConnector) Open(dsn *url.URL) (*sql.DB, error) {
 	var err error
 
 	// Prepare URI
-	uri := url.URL{Scheme: "file"}
+	uri, err := getSqliteDsn(dsn)
+	if err != nil {
+		return nil, err
+	}
 	query := uri.Query()
 
-	if dsn.Opaque == ":memory:" {
-		// Special case of sqlite3::memory:
+	if uri.Scheme == "memory" {
+		// In-memory database (for tests)
 		var memoryDB []byte
 		memdb.Create("memory.db", memoryDB)
-		uri.Path = "/memory.db"
+		uri.Scheme = "file"
 		query.Set("vfs", "memdb")
-	} else {
-		// Support initial dsn in several forms
-		switch {
-		// could be sqlite3:relative/path
-		case dsn.Opaque != "":
-			uri.Path, err = filepath.Abs(dsn.Opaque)
-		// or sqlite3:/absolute/path/to
-		case dsn.Path != "":
-			uri.Path, err = filepath.Abs(dsn.Path)
-		default:
-			err = fmt.Errorf("%s is not a valid database URI", dsn)
-		}
-		if err != nil {
-			return nil, err
-		}
 	}
+
 	query.Set("_txtlock", "immediate")
 	query.Set("_timefmt", "auto")
 	uri.RawQuery = query.Encode()

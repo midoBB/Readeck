@@ -17,7 +17,14 @@ import (
 	"codeberg.org/readeck/readeck/internal/db"
 )
 
+type exportInfo struct {
+	Date           time.Time
+	Version        string
+	ReadeckVersion string
+}
+
 type portableData struct {
+	Info                exportInfo
 	Users               []*users.User
 	Tokens              []*tokens.Token
 	Credentials         []*credentials.Credential

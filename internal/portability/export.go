@@ -16,6 +16,7 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 
+	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth/credentials"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
@@ -74,7 +75,13 @@ func (ex *Exporter) SetOutput(w io.Writer) {
 // ExportAll exports all the user content.
 func (ex *Exporter) ExportAll() error {
 	var err error
-	data := portableData{}
+	data := portableData{
+		Info: exportInfo{
+			Date:           time.Now(),
+			Version:        "1",
+			ReadeckVersion: configs.Version(),
+		},
+	}
 
 	if data.Users, err = marshalItems[*users.User](
 		users.Users.Query().

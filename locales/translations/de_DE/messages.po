@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-12-30 14:03+0000\n"
-"PO-Revision-Date: 2025-01-08 13:08+0000\n"
+"PO-Revision-Date: 2025-01-24 13:21+0000\n"
 "Last-Translator: altruizine <altruizine@users.noreply.translate.codeberg.org>"
 "\n"
 "Language-Team: German <https://translate.codeberg.org/projects/readeck/"
@@ -93,7 +93,7 @@ msgstr "Entfernen"
 
 #: assets/templates/_libs/pagination.jet.html
 msgid "Go to previous page"
-msgstr "Zurück zu voheringen Seite"
+msgstr "Zurück zu vorherigen Seite"
 
 #: assets/templates/_libs/pagination.jet.html
 #, python-format
@@ -227,7 +227,7 @@ msgstr "Bei Readeck anmelden"
 
 #: assets/templates/auth/login.jet.html
 msgid "Username or email address"
-msgstr "Nutzername oder E-Mail Adresse"
+msgstr "Nutzername oder E-Mail-Adresse"
 
 #: assets/templates/auth/login.jet.html
 msgid "Forgot your password?"
@@ -266,8 +266,8 @@ msgstr ""
 "\n"
 "  Ihre E-Mail-Adresse ist optional und verlässt diese Installation nie.\n"
 "  Sie wird niemals gesammelt, übertragen oder verkauft.\n"
-"  Sie wird <strong>nur</strong> verwendet, sollten Sie Ihr Passwort "
-"zurücksetzen,  oder interne Benachrichtigungen erhalten wollen.\n"
+"  Sie wird <strong>nur</strong> verwendet, wenn Sie Ihr Passwort "
+"zurücksetzen oder interne Benachrichtigungen erhalten wollen.\n"
 "  "
 
 #: assets/templates/auth/onboarding.jet.html
@@ -319,9 +319,9 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"        Wir haben eine E-Mail an\n"
+"        Wir haben eine E-Mail mit den nächsten Schritten an\n"
 "        <strong>%s</strong>\n"
-"        mit den nächsten Schritten geschickt.\n"
+"        gesendet.\n"
 "      "
 
 #: assets/templates/auth/recover.jet.html
@@ -343,11 +343,11 @@ msgstr "Gehe zur Login-Seite"
 
 #: assets/templates/bookmarks/annotation_list.jet.html
 msgid "Bookmark Highlights"
-msgstr "Lesezeichen-Highlights"
+msgstr "Lesezeichen-Markierungen"
 
 #: assets/templates/bookmarks/annotation_list.jet.html
 msgid "You don't have any highlights yet."
-msgstr "Du hast noch keine Highlights."
+msgstr "Du hast noch keine Markierungen."
 
 #: assets/templates/bookmarks/annotation_list.jet.html
 msgid ""
@@ -538,7 +538,7 @@ msgstr "Neue Sammlung"
 
 #: assets/templates/bookmarks/collection_list.jet.html internal/opds/http.go
 msgid "Bookmark Collections"
-msgstr "Lesezeichen Sammlung"
+msgstr "Lesezeichen-Sammlung"
 
 #: assets/templates/bookmarks/collection_list.jet.html
 msgid "Create a new collection"
@@ -617,7 +617,7 @@ msgstr "Aus dem Archiv entfernen"
 #: assets/templates/bookmarks/components/bottom_actions.jet.html
 #: assets/templates/bookmarks/components/card.jet.html
 msgid "Move to archive"
-msgstr "Ins Archiv bewegen"
+msgstr "Ins Archiv verschieben"
 
 #: assets/templates/bookmarks/components/actions.jet.html
 #: assets/templates/bookmarks/components/bottom_actions.jet.html
@@ -634,7 +634,7 @@ msgstr "Zu den Favoriten hinzufügen"
 #: assets/templates/bookmarks/components/actions.jet.html
 #: assets/templates/bookmarks/components/card.jet.html
 msgid "This bookmark will be removed in a few seconds."
-msgstr "Das Lesezeichen wird in ein paar Sekunden entfert."
+msgstr "Das Lesezeichen wird in ein paar Sekunden entfernt."
 
 #: assets/templates/bookmarks/components/actions.jet.html
 msgid "Undo"
@@ -647,7 +647,7 @@ msgstr "EPUB herunterladen"
 
 #: assets/templates/bookmarks/components/actions.jet.html
 msgid "Share by Link"
-msgstr "Meinen Link teilen"
+msgstr "Link teilen"
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html
 msgid "Saved with Readeck"
@@ -828,8 +828,7 @@ msgstr "Während der Extraktion sind Fehler aufgetreten."
 #: assets/templates/bookmarks/components/sidebar.jet.html
 msgid "Start selecting text in the article to create a new highlight."
 msgstr ""
-"Beginne mit der Textauswahl im Artikel, um eine neue Hervorhebung zu "
-"erstellen."
+"Beginne mit der Textauswahl im Artikel, um eine neue Markierung zu erstellen."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html
 msgid "Links"
@@ -848,11 +847,9 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Exportiere deine Lesezeichen in deinem Webbrowser als HTML-Datei.<br>"
-"\n"
-"    Lade die Datei in dem untenstehenden Formular hoch und Readeck "
-"erstellt\n"
-"    und holt alle darin gefundenen Lesezeichen.\n"
+"    Exportiere deine Lesezeichen in deinem Webbrowser als HTML-Datei.<br>\n"
+"    Lade die Datei in dem untenstehenden Formular hoch und Readeck erstellt\n"
+"    und downloadet alle darin gefundenen Lesezeichen.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-browser.jet.html
@@ -889,7 +886,7 @@ msgstr "Lesezeichen importieren"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
 msgid "Import Links from a GoodLinks export file"
-msgstr "Importiere"
+msgstr "Importiere Links aus GoodLinks-Exportdatei"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html
 msgid ""
@@ -898,7 +895,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Lade eine JSON Datei die du aus der GoodLinks App erhalten hast.\n"
+"    Lade eine JSON-Datei, die du aus der GoodLinks-App erhalten hast.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html
@@ -958,9 +955,9 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Lade die Datei in dem untenstehenden Formular hoch und Readeck "
+"    Lade die Datei in dem untenstehenden Formular hoch, und Readeck "
 "erstellt\n"
-"\tsowie holt alle darin gefundenen Lesezeichen.\n"
+"    und downloadet alle darin gefundenen Lesezeichen.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html
@@ -995,15 +992,15 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Lade eine Textdatei hoch, die einen Link pro Zeile enthält. Readeck "
-"wird dann alle abrufen\n"
-"\tund in Ihrer Lesezeichenliste speichern.\n"
+"    Lade eine Textdatei hoch, die einen Link pro Zeile enthält. Readeck wird "
+"dann alle abrufen\n"
+"    und in Ihrer Lesezeichenliste speichern.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
 #: assets/templates/bookmarks/import/index.jet.html
 msgid "Import your Wallabag Articles"
-msgstr "Importiere deine Wallabag Artikel"
+msgstr "Importiere deine Wallabag-Artikel"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
 msgid ""
@@ -1016,12 +1013,12 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Um deine Artikel aus Wallabag zu importieren, musst du zunächst einen"
-" API-Client\n"
+"    Um deine Artikel aus Wallabag zu importieren, musst du zunächst einen "
+"API-Client\n"
 "\tim Menü <strong>API-Clientverwaltung</strong> von Wallabag erstellen. "
-"Dadurch erhälst du\n"
-"\teine <strong>Client-ID</strong> und ein <strong>Client-"
-"Geheimnis</strong>.\n"
+"Dadurch erhältst du\n"
+"\teine <strong>Client-ID</strong> und ein <strong>Client-Geheimnis</strong>."
+"\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html
@@ -1063,17 +1060,18 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Hier kannst du deine exsistierenden Lesezeichen Sammlungen aus "
+"    Hier kannst du deine bestehenden Lesezeichen-Sammlungen aus "
 "verschiedenen Quellen in Readeck importieren.\n"
 "  "
 
 #: assets/templates/bookmarks/import/index.jet.html
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
-msgstr "Importiere deine Lesezeichen aus dem Browser, der Pinnwand oder Instapaper"
+msgstr ""
+"Importiere deine Lesezeichen aus dem Browser, aus Pinboard oder Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html
 msgid "Import your GoodLinks Articles"
-msgstr "Importiere die Artikel aus GoodLinks"
+msgstr "Importiere deine GoodLinks-Artikel"
 
 #: assets/templates/bookmarks/import/options.jet.html
 msgid "Options"
@@ -1081,11 +1079,11 @@ msgstr "Optionen"
 
 #: assets/templates/bookmarks/import/options.jet.html
 msgid "A label to add to all imported bookmarks"
-msgstr "Füge einen Tag all deinen importierten Lesezeichen hinzu"
+msgstr "Füge all deinen importierten Lesezeichen einen Tag hinzu"
 
 #: assets/templates/bookmarks/import/options.jet.html
 msgid "Ignore links already in your bookmarks"
-msgstr "Ignoriere Links die bereits als Lesezeichen existieren"
+msgstr "Ignoriere Links, die bereits als Lesezeichen existieren"
 
 #: assets/templates/bookmarks/import/progress.jet.html
 msgid "Import operation will launch momentarily."
@@ -1118,7 +1116,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html
 msgid "Save a new link"
-msgstr "Speicher einen neuen Link"
+msgstr "Speichere einen neuen Link"
 
 #: assets/templates/bookmarks/index.jet.html
 msgctxt "button"
@@ -1162,7 +1160,7 @@ msgstr ""
 "\n"
 "          Möchtest du aus einem ähnlichen Tool oder aus einer Datei mit "
 "vorhandenen Lesezeichen importieren?\n"
-"\t\t\tProbiere das Importtool von Readeck aus.\n"
+"\t\t\tProbiere das Import-Werkzeug von Readeck aus.\n"
 "        "
 
 #: assets/templates/bookmarks/index.jet.html
@@ -1216,9 +1214,9 @@ msgid ""
 "  You can set anything to a label, including emojis!\n"
 msgstr ""
 "\n"
-"  Etiketten ermöglichen dir die Organisation deiner Lesezeichen nach "
-"deinen Wünschen.\n"
-" Du kannst ein Etikett frei benennen, auch mit Emojis!\n"
+"  Tags ermöglichen dir die Organisation deiner Lesezeichen nach deinen "
+"Wünschen.\n"
+"  Du kannst einen Tag frei benennen, auch mit Emojis!\n"
 
 #: assets/templates/docs/about.jet.html assets/templates/docs/base.jet.html
 #: docs/http.go
@@ -1267,7 +1265,7 @@ msgstr "Community-Forum"
 
 #: assets/templates/docs/about.jet.html
 msgid "Matrix Chat"
-msgstr "Matrix Chat"
+msgstr "Matrix-Chat"
 
 #: assets/templates/docs/about.jet.html
 msgid "License"
@@ -1352,11 +1350,11 @@ msgstr "Readeck enthält und/oder verwendet die folgenden Open-Source-Ressourcen
 
 #: assets/templates/docs/api-docs.jet.html assets/templates/docs/base.jet.html
 msgid "API Documentation"
-msgstr "API Dokumentation"
+msgstr "API-Dokumentation"
 
 #: assets/templates/docs/base.jet.html
 msgid "Readeck Help"
-msgstr "Readeck Hilfe"
+msgstr "Readeck-Hilfe"
 
 #: assets/templates/docs/base.jet.html
 msgid "Changelog"
@@ -1449,7 +1447,7 @@ msgstr "Ein Fehler ist aufgetreten."
 
 #: assets/templates/menu.jet.html
 msgid "Change theme"
-msgstr "Theme verändern"
+msgstr "Design ändern"
 
 #: assets/templates/menu.jet.html
 msgid "Sign out"
@@ -1461,7 +1459,7 @@ msgstr "Menü öffnen"
 
 #: assets/templates/menu.jet.html
 msgid "Change color theme"
-msgstr "Theme Farbe verändern"
+msgstr "Farbschema ändern"
 
 #: assets/templates/menu.jet.html assets/templates/profile/base.jet.html
 msgid "Settings"
@@ -1477,7 +1475,7 @@ msgstr "Anwendungskennwörter"
 
 #: assets/templates/profile/base.jet.html internal/profile/views.go
 msgid "API Tokens"
-msgstr "API Token"
+msgstr "API-Token"
 
 #: assets/templates/profile/credential.jet.html
 msgid "Application Password"
@@ -1516,7 +1514,7 @@ msgstr "Merkmale"
 
 #: assets/templates/profile/credential.jet.html
 msgid "Password ID"
-msgstr "Kennwort ID"
+msgstr "Kennwort-ID"
 
 #: assets/templates/profile/credential.jet.html
 #: assets/templates/profile/token.jet.html
@@ -1534,10 +1532,10 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-" Du kannst die Berechtigungen für dieses Passwort einschränken, indem du "
+"    Du kannst die Berechtigungen für dieses Kennwort einschränken, indem du "
 "unten eine oder mehrere\n"
 " Berechtigungsgruppen auswählst.<br>\n"
-" Lass alle Auswahlmöglichkeiten leer, um diesem Passwort alle Ihre "
+" Lass alle Auswahlmöglichkeiten leer, um diesem Kennwort alle deine "
 "Berechtigungen zu erteilen.\n"
 "  "
 
@@ -1568,7 +1566,7 @@ msgstr "Mein Profil"
 
 #: assets/templates/profile/index.jet.html
 msgid "Email Address"
-msgstr "E-Mail Adresse"
+msgstr "E-Mail-Adresse"
 
 #: assets/templates/profile/index.jet.html
 msgid "Language"
@@ -1576,15 +1574,15 @@ msgstr "Sprache"
 
 #: assets/templates/profile/password.jet.html
 msgid "Change my password"
-msgstr "Kennwort ändern"
+msgstr "Passwort ändern"
 
 #: assets/templates/profile/password.jet.html
 msgid "Current password"
-msgstr "Aktuelles Kennwort"
+msgstr "Aktuelles Passwort"
 
 #: assets/templates/profile/token.jet.html
 msgid "API Token"
-msgstr "API Token"
+msgstr "API-Token"
 
 #: assets/templates/profile/token.jet.html
 msgid "Token will be removed in a few seconds."
@@ -1592,7 +1590,7 @@ msgstr "Token wird in ein paar Sekunden entfernt."
 
 #: assets/templates/profile/token.jet.html
 msgid "Token ID"
-msgstr "Token ID"
+msgstr "Token-ID"
 
 #: assets/templates/profile/token.jet.html
 msgid "Application"
@@ -1613,10 +1611,10 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Du kannst die diesem Token erteilten Berechtigungen einschränken, "
-"indem du unten eine oder mehrere\n"
-"\tBerechtigungsgruppen auswhälst.<br>\n"
-"\tLassen alle Auswahlmöglichkeiten leer, um diesem Token alle deine "
+"    Du kannst die diesem Token erteilten Berechtigungen einschränken, indem "
+"du unten eine oder mehrere\n"
+"\tBerechtigungsgruppen auswählst.<br>\n"
+"\tLasse alle Auswahlmöglichkeiten leer, um diesem Token alle deine "
 "Berechtigungen zu erteilen.\n"
 "  "
 
@@ -1630,7 +1628,7 @@ msgstr "API-Authentifizierung"
 
 #: assets/templates/profile/token.jet.html
 msgid "Your API token"
-msgstr "Dein API Token"
+msgstr "Dein API-Token"
 
 #: assets/templates/profile/token.jet.html
 msgid ""
@@ -1642,7 +1640,7 @@ msgstr ""
 
 #: assets/templates/profile/token_list.jet.html
 msgid "My API Tokens"
-msgstr "Meine API Token"
+msgstr "Meine API-Token"
 
 #: assets/templates/profile/token_list.jet.html
 msgid ""
@@ -1667,7 +1665,7 @@ msgstr ""
 
 #: assets/templates/profile/token_list.jet.html
 msgid "Create a new API token"
-msgstr "Erstelle ein neues API Token"
+msgstr "Erstelle ein neues API-Token"
 
 #: assets/templates/profile/token_list.jet.html
 #, python-format
@@ -1708,7 +1706,7 @@ msgstr "Admin: Nur schreiben"
 
 #: internal/bookmarks/importer/browser.go
 msgid "Browser Bookmarks"
-msgstr "Browser Lesezeichen"
+msgstr "Browser-Lesezeichen"
 
 #: internal/bookmarks/importer/browser.go
 msgid "Unable to read HTML content"
@@ -1723,11 +1721,11 @@ msgstr "Leere oder ungültige Importdatei"
 
 #: internal/bookmarks/importer/goodlinks.go
 msgid "GoodLinks Export File"
-msgstr "GoodLinks Export Datei"
+msgstr "GoodLinks-Export-Datei"
 
 #: internal/bookmarks/importer/omnivore.go
 msgid "Invalid API Key"
-msgstr "Falscher API Schlüssel"
+msgstr "Falscher API-Schlüssel"
 
 #: internal/bookmarks/importer/pocket_file.go
 msgid "Invalid upload format"
@@ -1739,7 +1737,7 @@ msgstr "Die ZIP-Datei kann nicht geöffnet werden"
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
-msgstr "Text Datei"
+msgstr "Textdatei"
 
 #: internal/bookmarks/importer/wallabag.go
 msgid "Invalid URL"
@@ -1783,7 +1781,7 @@ msgstr "Abgeschlossen"
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Added, most recent first"
-msgstr "Hinzugefügt, neuste zuerst"
+msgstr "Hinzugefügt, neueste zuerst"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
@@ -1793,7 +1791,7 @@ msgstr "Hinzugefügt, älteste zuerst"
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Published, most recent first"
-msgstr "Veröffentlicht, neuest zuerst"
+msgstr "Veröffentlicht, neueste zuerst"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
@@ -1813,12 +1811,12 @@ msgstr "Titel, Z bis A"
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Site Name, A to Z"
-msgstr "Seiten Name, A bis Z"
+msgstr "Site-Name, A bis Z"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
 msgid "Site Name, Z to A"
-msgstr "Seiten Name, Z bis A"
+msgstr "Site-Name, Z bis A"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
@@ -1832,21 +1830,21 @@ msgstr "Lesedauer, längste zuerst"
 
 #: internal/bookmarks/routes/opds.go
 msgid "Readeck Bookmarks"
-msgstr "Readeck Lesezeichen"
+msgstr "Readeck-Lesezeichen"
 
 #: internal/bookmarks/routes/opds.go
 msgid "Readeck Bookmark Collections"
-msgstr "Readeck Lesezeichen Sammlungen"
+msgstr "Readeck-Lesezeichensammlungen"
 
 #: internal/bookmarks/routes/opds.go
 #, python-format
 msgid "Readeck Collection: %s"
-msgstr "Readeck Sammlung: %s"
+msgstr "Readeck-Sammlung: %s"
 
 #: internal/bookmarks/routes/opds.go
 #, python-format
 msgid "Collection ebook - %s"
-msgstr "Sammlung ebook - %s"
+msgstr "Sammlungs-E-Book - %s"
 
 #: internal/bookmarks/routes/opds.go
 #, python-format
@@ -1859,7 +1857,7 @@ msgstr "Alle Lesezeichen"
 
 #: internal/bookmarks/routes/views_bookmarks.go
 msgid "Bookmark Search"
-msgstr "Lesezeichen Suche"
+msgstr "Lesezeichen-Suche"
 
 #: internal/bookmarks/routes/views_bookmarks.go internal/opds/http.go
 msgid "Unread Bookmarks"
@@ -1871,7 +1869,7 @@ msgstr "Archivierte Lesezeichen"
 
 #: internal/bookmarks/routes/views_bookmarks.go internal/opds/http.go
 msgid "Favorite Bookmarks"
-msgstr "Lesezeichen Favoriten"
+msgstr "Lesezeichen-Favoriten"
 
 #: internal/bookmarks/routes/views_collections.go
 msgid "Collection updated."
@@ -1891,11 +1889,11 @@ msgstr "Alle Lesezeichen"
 
 #: internal/profile/forms.go
 msgid "invalid username and/or email"
-msgstr "ungültiger Benutzername und/oder ungültige E-Mail"
+msgstr "ungültiger Benutzername und/oder ungültige E-Mail-Adresse"
 
 #: internal/profile/forms.go
 msgid "invalid password"
-msgstr "ungültiges Kennwort"
+msgstr "ungültiges Passwort"
 
 #: internal/profile/views.go
 msgid "Profile updated."
@@ -1903,7 +1901,7 @@ msgstr "Profil aktualisiert."
 
 #: internal/profile/views.go
 msgid "Your password was changed."
-msgstr "Dein Kennwort wurde geändert."
+msgstr "Dein Passwort wurde geändert."
 
 #: internal/profile/views.go
 msgid "Error: you cannot create more credentials."
@@ -1911,11 +1909,11 @@ msgstr "Fehler: Du kannst keine weiteren Anmeldeinformationen erzeugen."
 
 #: internal/profile/views.go
 msgid "An error occurred while creating your password."
-msgstr "Bei der Erstellung deines Kennworts ist eine Fehler aufgetreten."
+msgstr "Bei der Erstellung deines Passworts ist eine Fehler aufgetreten."
 
 #: internal/profile/views.go
 msgid "Password was updated."
-msgstr "Kennwort aktualisiert."
+msgstr "Passwort aktualisiert."
 
 #: internal/profile/views.go
 msgid "An error occurred while creating your token."
@@ -1939,7 +1937,7 @@ msgstr "Feld ist erforderlich"
 
 #: pkg/forms/validators.go
 msgid "not a valid email address"
-msgstr "keine gültige E-Mail Adresse"
+msgstr "keine gültige E-Mail-Adresse"
 
 #: pkg/forms/validators.go
 msgid "invalid URL"
@@ -2098,7 +2096,7 @@ msgstr "Feb"
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
 msgid "Mar"
-msgstr "März"
+msgstr "Mär"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime_ms"
@@ -2148,12 +2146,12 @@ msgstr "Dez"
 #: pkg/strftime/strftime.go
 msgctxt "datetime"
 msgid "a.m."
-msgstr "a.m."
+msgstr "vormittags"
 
 #: pkg/strftime/strftime.go
 msgctxt "datetime"
 msgid "p.m."
-msgstr "p.m."
+msgstr "nachmittags"
 
 #: pkg/strftime/strftime.go
 #, python-format

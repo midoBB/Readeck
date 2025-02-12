@@ -7,15 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2024-12-30 14:03+0000\n"
-"PO-Revision-Date: 2024-12-05 06:14+0000\n"
+"PO-Revision-Date: 2025-02-11 15:21+0000\n"
 "Last-Translator: Jorge Santos <kkillermachine@gmail.com>\n"
-"Language: pt\n"
-"Language-Team: Portuguese "
-"<https://translate.codeberg.org/projects/readeck/application/pt/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/"
+"projects/readeck/application/pt_PT/>\n"
+"Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.9.2\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html
@@ -596,11 +597,11 @@ msgstr "Apagar este favorito"
 
 #: assets/templates/bookmarks/components/actions.jet.html
 msgid "Mark as unread"
-msgstr ""
+msgstr "Marcar como não lido"
 
 #: assets/templates/bookmarks/components/actions.jet.html
 msgid "Mark as read"
-msgstr ""
+msgstr "Marcar como lido"
 
 #: assets/templates/bookmarks/components/actions.jet.html
 #: assets/templates/bookmarks/components/bottom_actions.jet.html
@@ -663,19 +664,19 @@ msgstr "Remover destaque(s)"
 
 #: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Yellow"
-msgstr ""
+msgstr "Amarelo"
 
 #: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Red"
-msgstr ""
+msgstr "Vermelho"
 
 #: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Blue"
-msgstr ""
+msgstr "Azul"
 
 #: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Green"
-msgstr ""
+msgstr "Verde"
 
 #: assets/templates/bookmarks/components/content_block.jet.html
 msgid "Highlight"
@@ -718,7 +719,7 @@ msgstr "Tipo"
 #: assets/templates/bookmarks/components/filters.jet.html
 msgctxt "filter"
 msgid "Progress"
-msgstr ""
+msgstr "Progresso"
 
 #: assets/templates/bookmarks/components/filters.jet.html
 msgid "Is Favorite"
@@ -793,7 +794,7 @@ msgstr "Fonte"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Width"
-msgstr ""
+msgstr "Largura"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html
 msgid "Size"
@@ -1698,7 +1699,7 @@ msgstr "Favoritos do navegador"
 
 #: internal/bookmarks/importer/browser.go
 msgid "Unable to read HTML content"
-msgstr ""
+msgstr "Não é possível ler o conteúdo HTML"
 
 #: internal/bookmarks/importer/browser.go
 #: internal/bookmarks/importer/goodlinks.go
@@ -1721,7 +1722,7 @@ msgstr "Formato de upload inválido"
 
 #: internal/bookmarks/importer/pocket_file.go
 msgid "Unable to open zip file"
-msgstr ""
+msgstr "Não é possível abrir o ficheiro zip"
 
 #: internal/bookmarks/importer/text.go
 msgid "Text File"
@@ -1754,17 +1755,17 @@ msgstr "Vídeo"
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "status"
 msgid "Unviewed"
-msgstr ""
+msgstr "Não visualizado"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "status"
 msgid "In-Progress"
-msgstr ""
+msgstr "Em curso"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "status"
 msgid "Completed"
-msgstr ""
+msgstr "Concluído"
 
 #: internal/bookmarks/routes/forms_bookmarks.go
 msgctxt "sort"
@@ -1893,7 +1894,7 @@ msgstr "A sua senha foi alterada."
 
 #: internal/profile/views.go
 msgid "Error: you cannot create more credentials."
-msgstr ""
+msgstr "Erro: não pode criar mais credenciais."
 
 #: internal/profile/views.go
 msgid "An error occurred while creating your password."
@@ -2166,4 +2167,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Error: you can not create more credentials."
 #~ msgstr "Erro: não pode criar mais credenciais."
-

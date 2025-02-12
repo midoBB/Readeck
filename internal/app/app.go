@@ -6,7 +6,6 @@
 package app
 
 import (
-	"errors"
 	"flag"
 	"fmt"
 	"log/slog"
@@ -174,7 +173,7 @@ func appPostRun() {
 func createConfigFile(filename string) error {
 	_, err := os.Stat(filename)
 	if err != nil {
-		if !errors.Is(err, os.ErrNotExist) {
+		if !os.IsNotExist(err) {
 			return err
 		}
 		fd, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0o600)
@@ -202,7 +201,7 @@ func initConfig(filename string) error {
 func createFolder(name string) error {
 	stat, err := os.Stat(name)
 	if err != nil {
-		if errors.Is(err, os.ErrNotExist) {
+		if os.IsNotExist(err) {
 			if err := os.MkdirAll(name, 0o750); err != nil {
 				return err
 			}

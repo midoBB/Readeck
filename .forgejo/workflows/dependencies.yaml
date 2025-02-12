@@ -8,7 +8,7 @@ on:
     - cron: "0 8 * * *"
 
 jobs:
-  tests:
+  update:
     runs-on: docker
     container:
       image: codeberg.org/readeck/readeck-ci:latest
@@ -22,8 +22,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - env:
           API_TOKEN: ${{ secrets.API_TOKEN }}

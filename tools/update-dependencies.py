@@ -4,26 +4,14 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 
-# /// script
-# requires-python = ">=3.11"
-# dependencies = [
-#     "httpx",
-# ]
-# ///
-
+import json
 import os
 from contextlib import chdir, contextmanager
 from datetime import date
-from subprocess import call, check_call
+from subprocess import call, check_call, check_output
 from tempfile import TemporaryDirectory
-
-import httpx
-
-API_URL = os.environ["GITHUB_API_URL"]
-REPOSITORY = os.environ["GITHUB_REPOSITORY"]
-GIT_REPO_USER = os.environ["API_USER"]
-GIT_REPO_PASSWORD = os.environ["API_TOKEN"]
-GIT_URL = f"https://{GIT_REPO_USER}:{GIT_REPO_PASSWORD}@codeberg.org/{REPOSITORY}.git/"
+from urllib import parse, request
+from urllib.error import HTTPError
 
 SITE_CONFIG_REPO = "https://github.com/j0k3r/graby-site-config.git"
 
@@ -58,29 +46,34 @@ def commit_changes(files: list[str], message: str):
     # fmt:on
 
 
-def push_changes(branch_name: str):
+def push_changes(repository_url: str, branch_name: str):
     rc = call(["git", "diff-index", "--quiet", "main"])
     if rc == 0:
         return
 
-    check_call(["git", "push", "--force", GIT_URL, branch_name])
+    check_call(["git", "push", "--force", repository_url, branch_name])
 
 
-def create_pr(branch_name: str):
-    rsp = httpx.post(
-        f"{API_URL}/repos/{REPOSITORY}/pulls",
+def create_pr(api_url: str, api_token: str, repository: str, branch_name: str):
+    r = request.Request(
+        url=f"{api_url}/repos/{repository}/pulls",
         headers={
-            "Authorization": f"token {GIT_REPO_PASSWORD}",
+            "Content-Type": "application/json",
+            "Authorization": f"token {api_token}",
         },
-        json={
-            "base": "main",
-            "head": branch_name,
-            "title": f"Dependencies update [{date.today()}]",
-        },
+        data=json.dumps(
+            {
+                "base": "main",
+                "head": branch_name,
+                "title": f"Dependencies update [{date.today()}]",
+            }
+        ).encode("utf-8"),
     )
-    if rsp.status_code == 409:
-        return
-    rsp.raise_for_status()
+    try:
+        request.urlopen(r)
+    except HTTPError as e:
+        if e.status != 409:
+            raise
 
 
 def update_go_dependencies():
@@ -129,6 +122,25 @@ def update_site_config_files():
 
 
 def main():
+    api_url = os.environ.get("GITHUB_API_URL")
+    api_user = os.environ.get("API_USER")
+    api_token = os.environ.get("API_TOKEN")
+    repository = os.environ.get("GITHUB_REPOSITORY")
+    repository_url = (
+        check_output(["git", "remote", "get-url", "origin"]).decode("utf-8").strip()
+    )
+
+    url = parse.urlparse(repository_url)
+    if url.scheme == "https":
+        url = url._replace(netloc=f"{api_user}:{api_token}@{url.netloc}")
+        repository_url = url.geturl()
+    else:
+        repository_url = None
+
+    print(f"API_URL:    {api_url}")
+    print(f"API USER:   {api_user}")
+    print(f"REPOSITORY: {repository}")
+
     with branch("chore/updates") as branch_name:
         update_go_dependencies()
         commit_changes(
@@ -153,8 +165,11 @@ def main():
             print("no new updates")
             return
 
-        push_changes(branch_name)
-        create_pr(branch_name)
+        if repository_url:
+            push_changes(repository_url, branch_name)
+
+        if api_url and api_token and repository:
+            create_pr(api_url, api_token, repository, branch_name)
 
 
 if __name__ == "__main__":

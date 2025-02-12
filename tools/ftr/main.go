@@ -14,7 +14,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"log"
+	"log/slog"
 	"os"
 	"path"
 	"path/filepath"
@@ -23,39 +23,58 @@ import (
 )
 
 func main() {
-	log.SetFlags(log.Flags() &^ (log.Ldate | log.Ltime))
+	level := slog.LevelDebug
+	if os.Getenv("CI") == "1" {
+		level = slog.LevelInfo
+	}
+
+	slog.SetDefault(slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
+		Level: level,
+		ReplaceAttr: func(groups []string, a slog.Attr) slog.Attr {
+			if a.Key == "time" {
+				return slog.Attr{}
+			}
+			return a
+		},
+	})))
+
 	flag.Parse()
 
 	if len(flag.Args()) < 2 {
-		log.Fatalf("Usage: fftr_convert <src> <dest>")
+		slog.Error("Usage: fftr_convert <src> <dest>")
+		os.Exit(1)
 	}
 	srcDir, _ := filepath.Abs(flag.Arg(0))
 	destDir, _ := filepath.Abs(flag.Arg(1))
 
 	info, err := os.Stat(srcDir)
 	if err != nil {
-		log.Fatal(err)
+		slog.Error(err.Error())
+		os.Exit(1)
 	}
 	if !info.IsDir() {
-		log.Fatalf("%s is not a directory", srcDir)
+		slog.Error("not a directory", slog.String("src", srcDir))
+		os.Exit(1)
 	}
 
 	info, err = os.Stat(destDir)
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) {
 			if e := os.MkdirAll(destDir, 0o755); e != nil {
-				log.Fatal(e)
+				slog.Error(e.Error())
 			}
 		} else {
-			log.Fatal(err)
+			slog.Error(err.Error())
 		}
 	}
 	if info != nil && !info.IsDir() {
-		log.Fatalf("%s is not a directory", destDir)
+		slog.Error("not a directory", slog.String("dir", destDir))
 	}
 
-	log.Printf("Reading FiveFilters files from %s", srcDir)
-	log.Printf("Destination: %s", destDir)
+	slog.Info("Reading FiveFilters files",
+		slog.String("src", srcDir),
+		slog.String("dest", destDir),
+	)
 
 	// Parse fftr files
 	err = filepath.Walk(srcDir, func(name string, info os.FileInfo, _ error) error {
@@ -70,14 +89,14 @@ func main() {
 		}
 
 		if err := converTextConfig(name, destDir); err != nil {
-			log.Printf("ERR: %s\n           %s", name, err)
+			slog.Error(err.Error(), slog.String("name", name))
 			return nil
 		}
 
 		return nil
 	})
 	if err != nil {
-		log.Fatal(err)
+		slog.Error(err.Error())
 	}
 }
 
@@ -112,7 +131,8 @@ type FilterTest struct {
 func converTextConfig(filename string, dest string) error {
 	fp, err := os.Open(filename)
 	if err != nil {
-		log.Fatal(err)
+		slog.Error(err.Error())
+		return err
 	}
 	defer fp.Close() //nolint:errcheck
 
@@ -139,7 +159,7 @@ func converTextConfig(filename string, dest string) error {
 	if _, err = fd.Write(buf.Bytes()); err != nil {
 		return err
 	}
-	log.Printf("ok: %s", destFile)
+	slog.Debug("ok", slog.String("file", destFile))
 	return nil
 }
 
@@ -157,7 +177,11 @@ func newConfig(file io.Reader) (*Config, error) {
 		}
 		entry, err := parseLine(t)
 		if err != nil {
-			return res, err
+			slog.Warn("can't parse config line",
+				slog.Any("err", err),
+				slog.String("line", t),
+			)
+			continue
 		}
 		entries = append(entries, entry)
 	}
@@ -199,7 +223,7 @@ var lineRE = regexp.MustCompile(`^(.+?)(?:\((.+)\))?:\s*(.*)$`)
 
 func parseLine(line string) ([3]string, error) {
 	if !lineRE.MatchString(line) {
-		return [3]string{}, fmt.Errorf("Cannot parse line (%s)", line)
+		return [3]string{}, fmt.Errorf("Cannot parse line")
 	}
 
 	m := lineRE.FindAllStringSubmatch(line, -1)

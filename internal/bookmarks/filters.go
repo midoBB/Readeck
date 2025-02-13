@@ -186,7 +186,7 @@ func (f *Filters) updateValues() {
 
 	// Then, restore the specific properties
 	updateValues := func(name string, p *string) {
-		v := f.sq.ExtractField(name).RemoveField().String()
+		v := f.sq.ExtractField(name).RemoveFieldInfo().String()
 		if v != *p {
 			*p = v
 		}
@@ -209,7 +209,7 @@ func (f Filters) ToSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset {
 	var search searchstring.SearchQuery
 	if len(f.sq.Terms) > 0 {
 		labels, search = f.sq.PopField("label")
-		labels = labels.RemoveField()
+		labels = labels.RemoveFieldInfo()
 	}
 
 	// Label filter

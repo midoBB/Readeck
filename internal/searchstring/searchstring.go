@@ -10,6 +10,7 @@ import (
 	"bytes"
 	"io"
 	"slices"
+	"strconv"
 	"strings"
 )
 
@@ -211,9 +212,7 @@ func (st SearchTerm) String() string {
 		b.WriteRune(':')
 	}
 	if st.Exact {
-		b.WriteRune('"')
-		b.WriteString(strings.ReplaceAll(st.Value, `"`, `\"`))
-		b.WriteRune('"')
+		b.WriteString(strconv.Quote(st.Value))
 	} else {
 		b.WriteString(st.Value)
 	}
@@ -318,9 +317,9 @@ func (q SearchQuery) ExtractField(name string) SearchQuery {
 	return res
 }
 
-// RemoveField returns a SearchQuery without the terms for
-// a specific field.
-func (q SearchQuery) RemoveField() SearchQuery {
+// RemoveFieldInfo returns a SearchQuery with the terms stripped of their
+// field name.
+func (q SearchQuery) RemoveFieldInfo() SearchQuery {
 	res := SearchQuery{Terms: []SearchTerm{}}
 	for _, t := range q.Terms {
 		t.Field = ""

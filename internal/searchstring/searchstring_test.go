@@ -29,11 +29,27 @@ func TestParseQuery(t *testing.T) {
 			{Exact: false, Field: "", Value: "multiple"},
 			{Exact: true, Field: "", Value: `unclosed`},
 		}},
-		{`"quoted" "q \"test" "tt\ab" "test]\\"`, []SearchTerm{
+		{fmt.Sprintf("%s %s %s %s",
+			strconv.Quote("quoted"),
+			strconv.Quote(`q "test`),
+			strconv.Quote(`tt\ab`),
+			strconv.Quote(`test]\`),
+		), []SearchTerm{
 			{Exact: true, Field: "", Value: "quoted"},
 			{Exact: true, Field: "", Value: `q "test`},
 			{Exact: true, Field: "", Value: `tt\ab`},
 			{Exact: true, Field: "", Value: `test]\`},
+		}},
+		{fmt.Sprintf("%s %s %s label:%s",
+			strconv.Quote("quoted"),
+			strconv.Quote(`q "test`),
+			strconv.Quote(`tt\ab`),
+			strconv.Quote(`test" label]\`),
+		), []SearchTerm{
+			{Exact: true, Field: "", Value: "quoted"},
+			{Exact: true, Field: "", Value: `q "test`},
+			{Exact: true, Field: "", Value: `tt\ab`},
+			{Exact: true, Field: "label", Value: `test" label]\`},
 		}},
 		{`-test1 test2 -label:"name" label2:-name`, []SearchTerm{
 			{Value: "test1", Exclude: true},
@@ -262,6 +278,92 @@ func TestPop(t *testing.T) {
 	}
 }
 
+func TestExtractField(t *testing.T) {
+	tests := []struct {
+		name   string
+		terms  []SearchTerm
+		expect []SearchTerm
+	}{
+		{
+			"label",
+			[]SearchTerm{
+				{Field: "label", Value: "--label--"},
+				{Field: "title", Value: "--title--"},
+				{Value: "some text"},
+			},
+			[]SearchTerm{
+				{Field: "label", Value: "--label--"},
+			},
+		},
+		{
+			"title",
+			[]SearchTerm{
+				{Field: "label", Value: "--label--"},
+				{Field: "title", Value: "--title 1--"},
+				{Field: "title", Value: "--title 2--"},
+				{Value: "some text"},
+			},
+			[]SearchTerm{
+				{Field: "title", Value: "--title 1--"},
+				{Field: "title", Value: "--title 2--"},
+			},
+		},
+	}
+
+	for i, test := range tests {
+		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
+			q := SearchQuery{Terms: test.terms}
+			result := q.ExtractField(test.name)
+			require.Equal(t, test.expect, result.Terms)
+		})
+	}
+}
+
+func TestRemoveFieldInfo(t *testing.T) {
+	tests := []struct {
+		name   string
+		terms  []SearchTerm
+		expect []SearchTerm
+	}{
+		{
+			"label",
+			[]SearchTerm{
+				{Field: "label", Value: "--label--"},
+				{Field: "title", Value: "--title--"},
+				{Value: "some text"},
+			},
+			[]SearchTerm{
+				{Value: "--label--"},
+				{Value: "--title--"},
+				{Value: "some text"},
+			},
+		},
+		{
+			"title",
+			[]SearchTerm{
+				{Field: "label", Value: "--label--"},
+				{Field: "title", Value: "--title 1--"},
+				{Field: "title", Value: "--title 2--"},
+				{Value: "some text"},
+			},
+			[]SearchTerm{
+				{Value: "--label--"},
+				{Value: "--title 1--"},
+				{Value: "--title 2--"},
+				{Value: "some text"},
+			},
+		},
+	}
+
+	for i, test := range tests {
+		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
+			q := SearchQuery{Terms: test.terms}
+			result := q.RemoveFieldInfo()
+			require.Equal(t, test.expect, result.Terms)
+		})
+	}
+}
+
 func TestTermToString(t *testing.T) {
 	tests := []struct {
 		term     SearchTerm
@@ -319,7 +421,13 @@ func TestQueryToString(t *testing.T) {
 			{Exact: true, Field: "", Value: "quoted"},
 			{Exact: true, Field: "", Value: `q "test`},
 			{Exact: true, Field: "", Value: `tt\ab`},
-		}, `"quoted" "q \"test" "tt\ab"`},
+		}, `"quoted" "q \"test" "tt\\ab"`},
+		{[]SearchTerm{
+			{Exact: true, Field: "", Value: "quoted"},
+			{Exact: true, Field: "", Value: `q "test`},
+			{Exact: true, Field: "", Value: `tt\ab`},
+			{Exact: true, Field: "label", Value: `test" label]\`},
+		}, `"quoted" "q \"test" "tt\\ab" label:"test\" label]\\"`},
 		{[]SearchTerm{
 			{Value: "test1", Exclude: true},
 			{Value: "test2"},

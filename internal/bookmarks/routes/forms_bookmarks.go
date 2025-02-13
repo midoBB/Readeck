@@ -453,7 +453,7 @@ func (f *filterForm) Validate() {
 		if fname == "-" {
 			continue
 		}
-		v := f.sq.ExtractField(fname).RemoveField().String()
+		v := f.sq.ExtractField(fname).RemoveFieldInfo().String()
 		if v != field.String() {
 			_ = field.UnmarshalValues([]string{v})
 		}

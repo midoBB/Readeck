@@ -122,6 +122,15 @@ func runFiltersToSQL(tests []struct {
 }
 
 func TestFilters(t *testing.T) {
+	t.Run("escapes", func(t *testing.T) {
+		text := `test" import]\`
+
+		form := filterForm()
+		form.Get("labels").Set(strconv.Quote(text))
+		filters := bookmarks.NewFiltersFromForm(form)
+		require.Exactly(t, strconv.Quote(text), filters.Labels)
+	})
+
 	t.Run("from form", runFiltersFromForm([]struct {
 		body     string
 		expected string

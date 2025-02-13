@@ -38,7 +38,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     {{- else if .DocumentType == "video" -}}
       {{- yield icon(name="o-video") -}}
     {{- end -}}
-    <a class="bookmark-card--img" href="{{ _url }}" data-turbo-frame="_top">
+    <span class="bookmark-card--img">
       {{ if isset(.Resources.thumbnail) -}}
         {{- yield card_image(src=.Resources.thumbnail.Src,
                              width=.Resources.thumbnail.Width,
@@ -47,7 +47,7 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{- yield card_image(src=urlFor(`/assets/rnd`, checksum(.URL)) + ".svg",
                              width=256, height=144) -}}
       {{- end }}
-    </a>
+    </span>
 
     {{- if .ReadProgress > 0 -}}
       <div class="bookmark-card--progress">

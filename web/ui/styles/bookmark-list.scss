@@ -286,6 +286,12 @@
 
     &--title {
       @apply p-2;
+
+      a::after {
+        @apply absolute top-0 bottom-0 left-0 right-0;
+        z-index: 1;
+        content: "";
+      }
     }
 
     &--spinner {
@@ -305,12 +311,13 @@
     }
 
     &--labels {
-      @apply px-2 pt-2;
+      @apply px-2 pt-2 z-10;
     }
 
     &--actions {
       @apply self-end;
       @apply p-2;
+      @apply z-10;
 
       @apply flex items-end gap-x-3;
 
@@ -330,7 +337,7 @@
     }
 
     &--deleted {
-      @apply p-2 place-self-end;
+      @apply p-2 place-self-end z-10;
     }
 
     // Hover and focus on the card

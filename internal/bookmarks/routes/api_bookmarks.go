@@ -73,7 +73,7 @@ func (api *apiRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	if api.srv.IsTurboRequest(r) {
 		api.srv.RenderTurboStream(w, r,
 			"/bookmarks/components/card", "replace",
-			"bookmark-card-"+b.UID, item)
+			"bookmark-card-"+b.UID, item, nil)
 		return
 	}
 
@@ -98,12 +98,14 @@ func (api *apiRouter) bookmarkArticle(w http.ResponseWriter, r *http.Request) {
 				"Item": bi,
 				"HTML": buf,
 				"Out":  w,
-			})
+			},
+			map[string]string{"method": "morph"},
+		)
 		api.srv.RenderTurboStream(w, r,
 			"/bookmarks/components/sidebar", "replace",
 			"bookmark-sidebar-"+b.UID, map[string]interface{}{
 				"Item": bi,
-			},
+			}, nil,
 		)
 		return
 	}
@@ -228,25 +230,25 @@ func (api *apiRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 		if withTitle {
 			api.srv.RenderTurboStream(w, r,
 				"/bookmarks/components/title_form", "replace",
-				"bookmark-title-"+b.UID, item)
+				"bookmark-title-"+b.UID, item, nil)
 		}
 		if withLabels {
 			api.srv.RenderTurboStream(w, r,
 				"/bookmarks/components/labels", "replace",
-				"bookmark-label-list-"+b.UID, item)
+				"bookmark-label-list-"+b.UID, item, nil)
 		}
 		if withMarked || withArchived || withDeleted || withProgress {
 			api.srv.RenderTurboStream(w, r,
 				"/bookmarks/components/actions", "replace",
-				"bookmark-actions-"+b.UID, item)
+				"bookmark-actions-"+b.UID, item, nil)
 			api.srv.RenderTurboStream(w, r,
 				"/bookmarks/components/card", "replace",
-				"bookmark-card-"+b.UID, item)
+				"bookmark-card-"+b.UID, item, nil)
 		}
 		if withMarked || withArchived {
 			api.srv.RenderTurboStream(w, r,
 				"/bookmarks/components/bottom_actions", "replace",
-				"bookmark-bottom-actions-"+b.UID, item)
+				"bookmark-bottom-actions-"+b.UID, item, nil)
 		}
 		return
 	}
@@ -275,7 +277,7 @@ func (api *apiRouter) bookmarkShare(w http.ResponseWriter, r *http.Request) {
 	if api.srv.IsTurboRequest(r) {
 		api.srv.RenderTurboStream(w, r,
 			"/bookmarks/components/public_share", "replace",
-			"bookmark-share-"+info.ID, info)
+			"bookmark-share-"+info.ID, info, nil)
 		return
 	}
 

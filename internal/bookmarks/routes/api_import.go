@@ -99,6 +99,7 @@ func (api *apiRouter) bookmaksImportStatus(w http.ResponseWriter, r *http.Reques
 				"Running":  importer.ImportBookmarksTask.IsRunning(trackID),
 				"Progress": p,
 			},
+			nil,
 		)
 		return
 	}

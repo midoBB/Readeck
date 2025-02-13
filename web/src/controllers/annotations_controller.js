@@ -198,8 +198,10 @@ export default class extends Controller {
       throw new Error("controller element must have an src attribute")
     }
 
-    // Enable turbo frame and wait for it to be reloaded
+    // Enable turbo frame and wait for it to be reloaded.
+    // The content being reloaded with morph, we need to clear all selections.
     this.element.disabled = false
+    window.getSelection().removeAllRanges()
     await this.element.loaded
   }
 

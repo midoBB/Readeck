@@ -8,6 +8,7 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
+	"html"
 	"image/color"
 	"io"
 	"io/fs"
@@ -99,6 +100,7 @@ func (s *Server) RenderTemplate(w http.ResponseWriter, r *http.Request,
 func (s *Server) RenderTurboStream(
 	w http.ResponseWriter, r *http.Request,
 	name, action, target string, ctx interface{},
+	attrs map[string]string,
 ) {
 	t, err := views.GetTemplate(name)
 	if err != nil {
@@ -106,9 +108,14 @@ func (s *Server) RenderTurboStream(
 		return
 	}
 
+	extraAttrs := ""
+	for k, v := range attrs {
+		extraAttrs += k + `="` + html.EscapeString(v) + `" `
+	}
+
 	w.Header().Set("Content-Type", "text/vnd.turbo-stream.html; charset=utf-8")
 
-	fmt.Fprintf(w, `<turbo-stream action="%s" target="%s"><template>%s`, action, target, "\n")
+	fmt.Fprintf(w, `<turbo-stream action="%s" %starget="%s"><template>%s`, action, extraAttrs, target, "\n")
 	if err = t.Execute(w, s.TemplateVars(r), ctx); err != nil {
 		panic(err)
 	}

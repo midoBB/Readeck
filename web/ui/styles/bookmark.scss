@@ -22,6 +22,9 @@
   }
 
   .bookmark-content {
+    container-name: bookmark-content;
+    container-type: inline-size;
+
     .bookmark-header,
     .bookmark-article {
       margin-left: auto;
@@ -156,6 +159,25 @@
   }
   &--width-wide {
     max-width: 56rem;
+
+    @container bookmark-content (width < 56rem) {
+      max-width: 52rem;
+    }
+    @container bookmark-content (width < 54rem) {
+      max-width: 50rem;
+    }
+  }
+  &--width-regular,
+  &--width-wide {
+    @container bookmark-content (width < 48rem) {
+      max-width: 42rem;
+    }
+    @container bookmark-content (width < 44rem) {
+      max-width: 40rem;
+    }
+    @container bookmark-content (width < 42rem) {
+      max-width: 37rem;
+    }
   }
   &--width-full {
     max-width: 100%;

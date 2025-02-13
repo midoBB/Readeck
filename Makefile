@@ -67,8 +67,9 @@ setup:
 # Build the server
 .PHONY: build
 build:
-	@echo "GOOS": $$GOOS
-	@echo "GOARCH": $$GOARCH
+	@echo "GOVERSION: $(shell go env GOVERSION)"
+	@echo "GOOS": $(shell go env GOOS)
+	@echo "GOARCH": $(shell go env GOARCH)
 	@echo "LDFLAGS": $(LDFLAGS)
 	@echo "OUTFILE_NAME:" $(OUTFILE_NAME)
 	$(GO) build \

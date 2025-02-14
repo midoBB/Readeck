@@ -7,7 +7,7 @@ toolchain go1.23.4
 require (
 	github.com/CloudyKit/jet/v6 v6.2.0
 	github.com/JohannesKaufmann/html-to-markdown v1.6.0
-	github.com/PuerkitoBio/goquery v1.10.1
+	github.com/PuerkitoBio/goquery v1.10.2
 	github.com/antchfx/htmlquery v1.3.4
 	github.com/antchfx/xmlquery v1.4.4
 	github.com/anthonynsimon/bild v0.14.0

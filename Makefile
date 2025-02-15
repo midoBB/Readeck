@@ -26,6 +26,8 @@ GO ?= go
 export CGO_ENABLED ?= 0
 export GOOS?=
 export GOARCH?=
+export GOAMD64 ?= v2
+export GOARM64 ?= v8.0
 
 SITECONFIG_SRC=./ftr-site-config
 SITECONFIG_DEST=pkg/extract/contentscripts/assets/site-config
@@ -75,7 +77,9 @@ build:
 	$(GO) build \
 		-v \
 		-tags "$(BUILD_TAGS)" \
-		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" -trimpath \
+		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" \
+		-trimpath \
+		-buildmode=pie \
 		-o $(DIST)/$(OUTFILE_NAME)
 
 # Build the documentation
@@ -96,6 +100,7 @@ test: docs-build
 	$(GO) test \
 		-tags "$(BUILD_TAGS)" \
 		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" \
+		-buildmode=pie \
 		-cover -count=1 ./...
 
 # Clean the build
@@ -118,6 +123,12 @@ list:
 lint: docs-build
 	test -f assets/www/manifest.json || echo "{}" > assets/www/manifest.json
 	$(GO) run $(GOLANGCI_PKG) run
+
+.PHONY: vulncheck
+vulncheck:
+	$(GO) run golang.org/x/vuln/cmd/govulncheck@latest \
+		-show color,verbose,version \
+		./...
 
 # Single lines of code
 .PHONY: sloc

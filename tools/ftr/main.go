@@ -19,12 +19,13 @@ import (
 	"path"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
 func main() {
 	level := slog.LevelDebug
-	if os.Getenv("CI") == "1" {
+	if ci, _ := strconv.ParseBool(os.Getenv("CI")); ci {
 		level = slog.LevelInfo
 	}
 

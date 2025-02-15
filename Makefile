@@ -79,7 +79,6 @@ build:
 		-tags "$(BUILD_TAGS)" \
 		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" \
 		-trimpath \
-		-buildmode=pie \
 		-o $(DIST)/$(OUTFILE_NAME)
 
 # Build the documentation
@@ -100,7 +99,6 @@ test: docs-build
 	$(GO) test \
 		-tags "$(BUILD_TAGS)" \
 		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" \
-		-buildmode=pie \
 		-cover -count=1 ./...
 
 # Clean the build

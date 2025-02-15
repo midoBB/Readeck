@@ -1,8 +1,8 @@
 module codeberg.org/readeck/readeck
 
-go 1.23
+go 1.23.5
 
-toolchain go1.23.4
+toolchain go1.23.6
 
 require (
 	github.com/CloudyKit/jet/v6 v6.2.0
@@ -23,7 +23,7 @@ require (
 	github.com/go-chi/chi/v5 v5.2.1
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-shiori/dom v0.0.0-20230515143342-73569d674e1c
-	github.com/go-shiori/go-readability v0.0.0-20241012063810-92284fa8a71f
+	github.com/go-shiori/go-readability v0.0.0-20250215073538-7ece303db41c
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/csrf v1.7.2
 	github.com/gorilla/securecookie v1.1.2
@@ -34,7 +34,7 @@ require (
 	github.com/kinbiko/jsonassert v1.1.1
 	github.com/klauspost/compress v1.17.11
 	github.com/komkom/toml v0.1.2
-	github.com/leonelquinteros/gotext v1.7.0
+	github.com/leonelquinteros/gotext v1.7.1
 	github.com/lithammer/shortuuid/v4 v4.2.0
 	github.com/mangoumbrella/goldmark-figure v1.0.0
 	github.com/ncruces/go-sqlite3 v0.23.0

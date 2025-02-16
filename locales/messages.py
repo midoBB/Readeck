@@ -1,9 +1,17 @@
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#     "babel",
+# ]
+# ///
+
 # SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 
 import io
 import re
+import sys
 from argparse import ArgumentParser
 from pathlib import Path
 
@@ -11,6 +19,9 @@ from babel.messages.catalog import Catalog
 from babel.messages.extract import extract_from_file
 from babel.messages.mofile import write_mo
 from babel.messages.pofile import read_po, write_po
+
+# Percentage of translated content under which a translation won't be loaded.
+COMPLETION_CUTOFF = 0.9
 
 HERE = Path(__file__).parent
 ROOT = (HERE / "..").resolve()
@@ -275,6 +286,7 @@ def extract_tmpl(fileobj, keywords, comment_tags, options):
 
 
 METHODS = {
+    "_test.go": None,
     ".go": extract_go,
     ".jet.html": extract_jet,
     ".tmpl": extract_tmpl,
@@ -296,9 +308,15 @@ def extract(_):
     template = Catalog(**CATALOG_OPTIONS)
 
     for f in ROOT.rglob("*"):
-        method = METHODS.get("".join(f.suffixes))
+        method = None
+        for suffix, m in METHODS.items():
+            if f.name.endswith(suffix):
+                method = m
+                break
+
         if method is None:
             continue
+
         for lineno, message, comments, context in extract_from_file(
             method, f, keywords=KEYWORDS
         ):
@@ -313,7 +331,13 @@ def extract(_):
     translations = HERE / "translations"
     dest = translations / "messages.pot"
     with dest.open("wb") as fp:
-        write_po(fp, template, sort_by_file=True, include_lineno=True)
+        write_po(
+            fp,
+            template,
+            sort_by_file=True,
+            include_lineno=True,
+            ignore_obsolete=True,
+        )
         print(f"{dest} written")
 
 
@@ -335,25 +359,95 @@ def update(_):
                 domain=po_file.name,
             )
 
-        catalog.update(template, no_fuzzy_matching=True)
+        catalog.update(template)
 
         with po_file.open("wb") as fp:
-            write_po(fp, catalog, sort_by_file=True, include_lineno=False)
+            write_po(
+                fp,
+                catalog,
+                width=None,
+                sort_by_file=True,
+                include_lineno=True,
+                include_previous=True,
+            )
             print(f"{po_file} written")
 
 
 def compile(_):
     translations = HERE / "translations"
-    mo_files = translations.glob("*/messages.po")
+    po_files = translations.glob("*/messages.po")
 
-    for filename in mo_files:
-        with open(filename, "rb") as fp:
+    with (translations / "messages.pot").open("rb") as fp:
+        template = read_po(fp)
+    total_strings = len(template)
+
+    for po_file in po_files:
+        code = po_file.parent.name
+
+        # Ignore en_US, it's always empty
+        if code == "en_US":
+            continue
+
+        with po_file.open("rb") as fp:
             catalog = read_po(fp)
 
-        dest = filename.with_suffix(".mo")
-        with open(dest, "wb") as fp:
-            write_mo(fp, catalog)
-            print(f"{dest} written")
+        # no need to compile en_US
+        if code == "en_US":
+            continue
+
+        # Count translated strings
+        nb_translated = 0
+        for k, m in catalog._messages.items():
+            tm = template._messages[k]
+            if m.fuzzy:
+                continue
+            if tm.string == m.string:
+                continue
+            if isinstance(m.string, str) and m.string.strip() == "":
+                continue
+            if isinstance(m.string, tuple) and any([x.strip() == "" for x in m.string]):
+                continue
+            nb_translated += 1
+
+        pct = nb_translated / total_strings
+        count_info = "{:>4}/{:<4} {:>4}%".format(
+            nb_translated, total_strings, round(pct * 100)
+        )
+        if pct < COMPLETION_CUTOFF:
+            print(f"[-] {code} {count_info}")
+            continue
+
+        dest = po_file.with_suffix(".mo")
+        with dest.open("wb") as fp:
+            write_mo(fp, catalog, use_fuzzy=False)
+            print(f"[+] {code} {count_info} -> {dest}")
+
+
+def check(_):
+    translations = HERE / "translations"
+    po_files = translations.glob("*/messages.po")
+
+    has_errors = False
+    for filename in po_files:
+        code = filename.parent.name
+        if code == "en_US":
+            continue
+
+        with filename.open("rb") as fp:
+            catalog = read_po(fp)
+
+        errors = list(catalog.check())
+        if len(errors) == 0:
+            print(f"[OK] {code}")
+        else:
+            has_errors = True
+            print(f"[ERRORS] {code}")
+            for [m, e] in errors:
+                print(f"  - #{m.lineno} - {m.id}")
+                for x in e:
+                    print(f"    - {str(x)}")
+
+    sys.exit(has_errors and 1 or 0)
 
 
 def main():
@@ -368,6 +462,9 @@ def main():
 
     p_compile = subparsers.add_parser("compile", help="Compile gettext .mo files")
     p_compile.set_defaults(func=compile)
+
+    p_check = subparsers.add_parser("check", help="Check translation files")
+    p_check.set_defaults(func=check)
 
     args = parser.parse_args()
     args.func(args)

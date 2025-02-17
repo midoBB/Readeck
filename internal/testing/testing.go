@@ -542,7 +542,7 @@ func (r *Response) AssertRedirect(t *testing.T, expected string) {
 
 // AssertJSON checks that the response's JSON matches what we expect.
 func (r *Response) AssertJSON(t *testing.T, expected string) {
-	jsonassert.New(t).Assertf(string(r.Body), expected) //nolint:govet
+	jsonassert.New(t).Assertf(string(r.Body), "%s", expected)
 	if t.Failed() {
 		t.Errorf("Received JSON: %s\n", string(r.Body))
 		t.FailNow()

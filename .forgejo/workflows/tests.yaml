@@ -47,6 +47,11 @@ jobs:
         run: |
           make -C web lint
 
+      - name: Check translations
+        shell: bash
+        run: |
+          make -C locales check
+
       #
       # Tests
       #

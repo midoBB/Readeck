@@ -58,6 +58,7 @@ all: generate build
 # Generate files (web and documentation artifacts)
 .PHONY: generate
 generate: web-build docs-build
+	${MAKE} -C locales compile
 	mkdir -p $(DIST)
 	touch $(DIST)/.generate
 
@@ -108,6 +109,7 @@ clean:
 	rm -rf assets/www/*
 	rm -rf docs/assets/*
 	make -C web clean
+	make -C locales clean
 
 # List all the modules included by the build
 list:

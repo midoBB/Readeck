@@ -8,9 +8,8 @@
 package locales
 
 import (
+	"bytes"
 	"embed"
-	"errors"
-	"fmt"
 	"io"
 	"io/fs"
 	"log/slog"
@@ -23,12 +22,8 @@ import (
 
 // localesFS contains all the translation files
 //
-//go:embed translations/*/*.po
+//go:embed translations/*/*.mo
 var localesFS embed.FS
-
-// completionCutoff is the percentage of translated content under which
-// a translation won't be loaded.
-const completionCutoff = 0.9
 
 var (
 	catalog   = make(map[language.Tag]*Locale)
@@ -72,13 +67,17 @@ func LoadTranslation(lang string) *Locale {
 
 // Load loads all the available translations.
 func Load() {
-	files, err := fs.Glob(localFilesFS(), "*/messages.po")
+	// Add en-US (empty), first
+	if err := addLocale(language.AmericanEnglish, new(bytes.Buffer)); err != nil {
+		panic(err)
+	}
+
+	files, err := fs.Glob(localFilesFS(), "*/messages.mo")
 	if err != nil {
 		panic(err)
 	}
 
 	for _, filename := range files {
-
 		tag := language.Make(path.Dir(filename))
 		var r io.Reader
 		if r, err = localFilesFS().Open(filename); err != nil {
@@ -95,6 +94,11 @@ func Load() {
 		n, _ := t.MarshalText()
 		available[i] = [2]string{string(n), display.Self.Name(t)}
 	}
+
+	slog.Debug("locales loaded",
+		slog.Int("count", len(allTags)),
+		slog.Any("locales", allTags),
+	)
 }
 
 // Available returns the available locales as a list of pair
@@ -117,32 +121,8 @@ func addLocale(tag language.Tag, r io.Reader) error {
 		return err
 	}
 
-	mo := gotext.NewPo()
+	mo := gotext.NewMo()
 	mo.Parse(b)
-
-	total := 0
-	translated := 0
-	for _, x := range mo.GetDomain().GetTranslations() {
-		total++
-		if x.IsTranslated() {
-			translated++
-		}
-	}
-	pct := float64(translated) / float64(total)
-
-	log := slog.With(
-		slog.String("tag", tag.String()),
-		slog.Int("strings", total),
-		slog.Int("translated", translated),
-		slog.String("completion", fmt.Sprintf("%.0f%%", pct*100)),
-	)
-
-	if tag.String() != "en-US" && pct <= completionCutoff {
-		log.Debug("translation not loaded", slog.Any("err", errors.New("partial")))
-		return nil
-	}
-
-	log.Debug("locale loaded")
 
 	catalog[tag] = &Locale{
 		Translator: mo,

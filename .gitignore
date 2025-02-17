@@ -14,5 +14,7 @@
 !/docs/assets/.keep
 /docs/src/.obsidian
 
+/locales/translations/*/messages.mo
+
 /web/dist
 /web/node_modules

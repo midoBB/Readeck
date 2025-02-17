@@ -27,6 +27,7 @@ import (
 
 const (
 	importText       = "text"
+	importCSV        = "csv"
 	importBrowser    = "browser"
 	importGoodLinks  = "goodlinks"
 	importOmnivore   = "omnivore"
@@ -126,6 +127,8 @@ func LoadAdapter(name string) ImportLoader {
 	switch name {
 	case importText:
 		return &textAdapter{}
+	case importCSV:
+		return &csvAdapter{}
 	case importBrowser:
 		return &browserAdapter{}
 	case importGoodLinks:

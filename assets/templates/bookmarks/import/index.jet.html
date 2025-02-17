@@ -35,6 +35,10 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{ yield icon(name="o-bookmarks", class="text-gray-600", svgClass="inline-block h-6 w-6") }}
       {{ gettext("Import your Browser's Bookmarks, Pinboard, Instapaper") }}
     </a>
+    <a class="flex items-center gap-2 p-4 link hf:bg-gray-100" href="{{ urlFor(`/bookmarks/import/csv`) }}">
+      {{ yield icon(name="o-spreadsheet", class="text-gray-600", svgClass="inline-block h-6 w-6") }}
+      {{ gettext("Import Links from a CSV File and Instapaper") }}
+    </a>
     <a class="flex items-center gap-2 p-4 link hf:bg-gray-100" href="{{ urlFor(`/bookmarks/import/goodlinks`) }}">
       {{ yield icon(name="o-star", class="text-gray-600", svgClass="inline-block h-6 w-6") }}
       {{ gettext("Import your GoodLinks Articles") }}

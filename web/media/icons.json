@@ -55,6 +55,7 @@
   "o-settings":     "node_modules/boxicons/svg/regular/bx-slider-alt.svg",
   "o-show":         "node_modules/boxicons/svg/solid/bxs-hide.svg",
   "o-sort":         "node_modules/boxicons/svg/regular/bx-sort.svg",
+  "o-spreadsheet":  "node_modules/boxicons/svg/solid/bxs-spreadsheet.svg",
   "o-star":         "node_modules/boxicons/svg/solid/bxs-star.svg",
   "o-terminal":     "node_modules/boxicons/svg/solid/bxs-terminal.svg",
   "o-trash":        "node_modules/boxicons/svg/regular/bx-trash.svg",

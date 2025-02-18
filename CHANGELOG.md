@@ -4,6 +4,7 @@
 ### Added
 - Export command
 - Import command
+- Import from CSV and Instapaper
 
 ### Improved
 - Mark imported archived bookmarks as read

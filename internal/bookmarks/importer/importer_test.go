@@ -161,6 +161,94 @@ func TestFileAdapters(t *testing.T) {
 			},
 		},
 		{
+			importer.LoadAdapter("csv"),
+			func() []byte {
+				return []byte(" ")
+			},
+			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
+				require.False(f.IsValid())
+				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
+			},
+		},
+		{
+			importer.LoadAdapter("csv"),
+			func() []byte {
+				return []byte("url,title")
+			},
+			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
+				require.False(f.IsValid())
+				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
+			},
+		},
+		{
+			importer.LoadAdapter("csv"),
+			func() []byte {
+				return []byte("{}")
+			},
+			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
+				require.False(f.IsValid())
+				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
+			},
+		},
+		{
+			importer.LoadAdapter("csv"),
+			func() []byte {
+				return []byte(`url,title` + "\n" + `https://example.net/,test,123`)
+			},
+			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
+				require.False(f.IsValid())
+				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
+			},
+		},
+		{
+			importer.LoadAdapter("csv"),
+			func() []byte {
+				return []byte(
+					`url,title,created,folder,labels` + "\n" +
+						`https://www.startpage.com/,"Site Title",,,` + "\n" +
+						`https://www.linuxserver.io/,"Some Title",2025-02-01 15:21:43,"archive","[""test label"",""label B""]"`,
+				)
+			},
+			func(test *adapterTest, require *require.Assertions, f forms.Binder, data []byte) {
+				require.True(f.IsValid())
+				adapter := test.adapter.(importer.ImportWorker)
+				err := adapter.LoadData(data)
+				require.NoError(err)
+
+				type bookmarkItem struct {
+					Link       string
+					Title      string
+					Created    time.Time
+					Labels     types.Strings
+					IsArchived bool
+				}
+				items := []bookmarkItem{}
+				for {
+					item, err := adapter.Next()
+					if err == io.EOF {
+						break
+					}
+					require.NoError(err)
+					bi := bookmarkItem{Link: item.URL()}
+					meta, err := item.(importer.BookmarkEnhancer).Meta()
+					require.NoError(err)
+
+					bi.Title = meta.Title
+					bi.Created = meta.Created
+					bi.IsArchived = meta.IsArchived
+					bi.Labels = meta.Labels
+
+					items = append(items, bi)
+				}
+
+				expected := []bookmarkItem{
+					{"https://www.linuxserver.io/", "Some Title", time.Date(2025, time.February, 1, 15, 21, 43, 0, time.UTC), types.Strings{"test label", "label B"}, true},
+					{"https://www.startpage.com/", "Site Title", time.Time{}, nil, false},
+				}
+				require.Equal(expected, items)
+			},
+		},
+		{
 			importer.LoadAdapter("goodlinks"),
 			func() []byte {
 				return []byte("  ")

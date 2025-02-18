@@ -7,14 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-02-18 07:09+0000\n"
-"PO-Revision-Date: 2025-01-14 23:58+0000\n"
-"Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2025-02-19 10:21+0000\n"
+"Last-Translator: SomeTr <sometr@users.noreply.translate.codeberg.org>\n"
+"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
+"application/uk/>\n"
 "Language: uk_UA\n"
-"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/application/uk/>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.9.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -573,15 +576,15 @@ msgstr "Непрочитані статті (без фото та відео)"
 
 #: assets/templates/bookmarks/collection_list.jet.html:34
 msgid "The archived articles from \"wikipedia.org\""
-msgstr "Архівовані статті з \"wikipedia.org\""
+msgstr "Архівовані статті з «wikipedia.org»"
 
 #: assets/templates/bookmarks/collection_list.jet.html:35
 msgid "The pictures with the label \"cat\""
-msgstr "Зображення з міткою \"кіт\""
+msgstr "Зображення з міткою «кіт»"
 
 #: assets/templates/bookmarks/collection_list.jet.html:36
 msgid "The articles that contain \"shelter\" in their title"
-msgstr "Статті, які містять \"притулок\" у своїй назві"
+msgstr "Статті, які містять «притулок» у своїй назві"
 
 #: assets/templates/bookmarks/collection_list.jet.html:39
 #, python-format
@@ -796,10 +799,8 @@ msgid "Sort options"
 msgstr "Параметри"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
-#| msgid "Import links and articles"
 msgid "Import and export"
-msgstr "Імпортувати посилання та статті"
+msgstr "Імпорт і експорт"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:9
 msgid "You can share the following link with your friends."
@@ -913,10 +914,8 @@ msgid "Import Bookmarks"
 msgstr "Імпортувати закладки"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
-#, fuzzy
-#| msgid "Import Links from a Text File"
 msgid "Import Links from a CSV File"
-msgstr "Імпортувати посилання з текстового файлу"
+msgstr "Імпортувати посилання з файлу CSV"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
@@ -924,6 +923,10 @@ msgid ""
 "    Upload a CSV file from Instapaper or any CSV that matches the format specified bellow.\n"
 "  "
 msgstr ""
+"\n"
+"    Завантажте файл CSV з Instapaper або будь-який файл CSV, що відповідає "
+"зазначеному нижче формату.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
 #, python-format
@@ -951,22 +954,16 @@ msgid "Alias"
 msgstr "Посилання"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:51
-#, fuzzy
-#| msgid "Distribution"
 msgid "Description"
-msgstr "Розповсюдження"
+msgstr "Опис"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:58
-#, fuzzy
-#| msgid "Email Address"
 msgid "Link address"
-msgstr "Електронна адреса"
+msgstr "Адреса посилання"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:63
-#, fuzzy
-#| msgid "Bookmark Labels"
 msgid "Bookmark title"
-msgstr "Мітки закладок"
+msgstr "Назва закладки"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:68
 #, python-format
@@ -976,14 +973,15 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-csv.jet.html:73
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
 msgstr ""
+"Дата створення, може бути позначкою часу UNIX або датою у форматі RFC-3339"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:78
 msgid "A JSON encoded list of labels"
-msgstr ""
+msgstr "Список міток у форматі JSON"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:83
 msgid "Example"
-msgstr ""
+msgstr "Приклад"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
 msgid "Import Links from a GoodLinks export file"
@@ -1153,10 +1151,8 @@ msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
 msgstr "Імпортувати ваші закладки з браузера, Pinboard, Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html:40
-#, fuzzy
-#| msgid "Import Links from a Text File"
 msgid "Import Links from a CSV File and Instapaper"
-msgstr "Імпортувати посилання з текстового файлу"
+msgstr "Імпортувати посилання з Instapaper або файлу CSV"
 
 #: assets/templates/bookmarks/import/index.jet.html:44
 msgid "Import your GoodLinks Articles"
@@ -1175,20 +1171,16 @@ msgid "Ignore links already in your bookmarks"
 msgstr "Пропустити посилання, які вже наявні у ваших закладках"
 
 #: assets/templates/bookmarks/import/options.jet.html:21
-#, fuzzy
-#| msgid "Archived Bookmarks"
 msgid "Archive all links"
-msgstr "Архівовані закладки"
+msgstr "Архівувати всі посилання"
 
 #: assets/templates/bookmarks/import/options.jet.html:23
 msgid "Moves all links to archive, regardless of their original status"
 msgstr ""
 
 #: assets/templates/bookmarks/import/options.jet.html:27
-#, fuzzy
-#| msgid "Mark as read"
 msgid "Mark all links as read"
-msgstr "Позначити як прочитане"
+msgstr "Позначити всі посилання як прочитані"
 
 #: assets/templates/bookmarks/import/options.jet.html:29
 msgid "Marks all links as read, regardless of their original status"
@@ -1222,10 +1214,8 @@ msgstr ""
 "      "
 
 #: assets/templates/bookmarks/index.jet.html:1
-#, fuzzy
-#| msgid "Bookmark Labels"
 msgid "Bookmark filters"
-msgstr "Мітки закладок"
+msgstr "Фільтри закладок"
 
 #: assets/templates/bookmarks/index.jet.html:27
 msgid "Save a new link"
@@ -1239,7 +1229,8 @@ msgstr "Зберегти посилання"
 #: assets/templates/bookmarks/index.jet.html:49
 #, python-format
 msgid "\"%s\" is not a valid address. Did you mean to search your bookmarks for %s?"
-msgstr "\"%s\" не є дійсною адресою. Ви мали на увазі шукати %s у ваших закладках?"
+msgstr ""
+"«%s» не є дійсною адресою. Ви мали на увазі шукати %s у ваших закладках?"
 
 #: assets/templates/bookmarks/index.jet.html:73
 msgid "You don't have any bookmarks yet.<br> Copy a link in the field above and start saving."
@@ -1369,7 +1360,7 @@ msgstr "Ліцензія"
 #: assets/templates/docs/about.jet.html:43
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
-msgstr "Readeck розповсюджується на умовах ліцензії \"%s\""
+msgstr "Readeck розповсюджується на умовах ліцензії «%s»"
 
 #: assets/templates/docs/about.jet.html:47
 msgid "Here's a short summary of the license conditions:"
@@ -1768,10 +1759,8 @@ msgid "Invalid user and/or password"
 msgstr "Неправильний користувач і/або пароль"
 
 #: internal/auth/users/forms.go:68
-#, fuzzy
-#| msgid "Password ID"
 msgid "password is empty"
-msgstr "ID пароля"
+msgstr "Пароль не вказано"
 
 #: internal/auth/users/forms.go:205
 msgid "Bookmarks : Read Only"
@@ -1807,10 +1796,8 @@ msgid "Empty or invalid import file"
 msgstr "Порожній або неправильний файл імпорту"
 
 #: internal/bookmarks/importer/csv.go:118
-#, fuzzy
-#| msgid "File"
 msgid "CSV File"
-msgstr "Файл"
+msgstr "Файл CSV"
 
 #: internal/bookmarks/importer/goodlinks.go:44
 msgid "GoodLinks Export File"
@@ -1838,7 +1825,7 @@ msgstr "Не знайдено токен доступу"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:135
 msgid "Unable to process input data"
-msgstr ""
+msgstr "Не вдається обробити вхідні дані"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:376
 msgid "Article"
@@ -2274,4 +2261,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr "Не вдається відкрити файл zip"
-

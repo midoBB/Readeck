@@ -8,7 +8,6 @@ import (
 	"archive/zip"
 	"bytes"
 	"context"
-	"encoding/json"
 	"fmt"
 	"io"
 	"log/slog"
@@ -25,6 +24,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gabriel-vasile/mimetype"
 	"golang.org/x/net/idna"
+	"gopkg.in/yaml.v3"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/pkg/accept"
@@ -36,6 +36,16 @@ type MarkdownExporter struct {
 	HTMLConverter
 	baseURL      *url.URL
 	mediaBaseURL *url.URL
+}
+
+type mdMeta struct {
+	Title     string   `yaml:"title,omitempty"`
+	Saved     string   `yaml:"saved,omitempty"`
+	Published string   `yaml:"published,omitempty"`
+	Website   string   `yaml:"website,omitempty"`
+	Source    string   `yaml:"source,omitempty"`
+	Authors   []string `yaml:"authors,omitempty"`
+	Labels    []string `yaml:"labels,omitempty"`
 }
 
 var ctxExportTypeKey = contextKey{"export-type"}
@@ -264,23 +274,23 @@ func (e MarkdownExporter) writeArticle(ctx context.Context, w io.Writer, convert
 	intro := new(bytes.Buffer)
 	if withMeta {
 		fmt.Fprintln(intro, "---")
-		fmt.Fprintln(intro, "title: "+b.Title)
-		fmt.Fprintln(intro, "saved: "+b.Created.Format(time.DateOnly))
+		meta := mdMeta{
+			Title:   b.Title,
+			Saved:   b.Created.Format(time.DateOnly),
+			Website: b.Site,
+			Source:  b.URL,
+			Authors: b.Authors,
+			Labels:  b.Labels,
+		}
 		if b.Published != nil {
-			fmt.Fprintln(intro, "published: "+b.Published.Format(time.DateOnly))
+			meta.Published = b.Published.Format(time.DateOnly)
 		}
-		fmt.Fprintln(intro, "website: "+b.Site)
-		fmt.Fprintln(intro, "source: "+b.URL)
-		if len(b.Authors) > 0 {
-			authors, _ := json.Marshal(b.Authors)
-			fmt.Fprintln(intro, "authors: "+string(authors))
+		enc := yaml.NewEncoder(intro)
+		enc.SetIndent(0)
+		if err := enc.Encode(meta); err != nil {
+			return err
 		}
-		if len(b.Labels) > 0 {
-			labels, _ := json.Marshal(b.Labels)
-			fmt.Fprintln(intro, "tag: "+string(labels))
-		}
-
-		fmt.Fprintln(intro, "---")
+		fmt.Fprint(intro, "---\n\n")
 	}
 
 	fmt.Fprintf(intro, "# %s\n\n", b.Title)

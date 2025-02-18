@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-02-18 07:09+0000\n"
-"PO-Revision-Date: 2024-12-15 13:03+0000\n"
+"PO-Revision-Date: 2025-02-18 07:27+0000\n"
 "Last-Translator: olivier <olivier@users.noreply.translate.codeberg.org>\n"
+"Language-Team: French <https://translate.codeberg.org/projects/readeck/"
+"application/fr/>\n"
 "Language: fr_FR\n"
-"Language-Team: French <https://translate.codeberg.org/projects/readeck/application/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.9.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -480,10 +482,8 @@ msgid "with"
 msgstr "avec"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
-#, fuzzy
-#| msgid "Saved with Readeck"
 msgid "Saved with"
-msgstr "Sauvegardé avec Readeck"
+msgstr "Sauvegardé avec"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:8
 msgid "Share link"
@@ -780,22 +780,16 @@ msgid "Compact view"
 msgstr "Vue compacte"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
-#| msgid "Import bookmarks"
 msgid "Sort bookmarks"
-msgstr "Importer des bookmarks"
+msgstr "Trier les bookmarks"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
-#| msgid "Options"
 msgid "Sort options"
-msgstr "Options"
+msgstr "Options de tri"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
-#| msgid "Import links and articles"
 msgid "Import and export"
-msgstr "Importer des liens et articles"
+msgstr "Importer et exporter"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:9
 msgid "You can share the following link with your friends."
@@ -909,10 +903,8 @@ msgid "Import Bookmarks"
 msgstr "Importer les bookmarks"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
-#, fuzzy
-#| msgid "Import Links from a Text File"
 msgid "Import Links from a CSV File"
-msgstr "Importez les liens d'un fichier texte"
+msgstr "Importez les liens d'un fichier CSV"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
@@ -920,6 +912,10 @@ msgid ""
 "    Upload a CSV file from Instapaper or any CSV that matches the format specified bellow.\n"
 "  "
 msgstr ""
+"\n"
+"    Déposez un fichier CSV depuis Instapaper ou n'importe quel fichier "
+"correspondant au format décrit ci-dessous.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
 #, python-format
@@ -929,57 +925,53 @@ msgid ""
 "    insensitive and, except for <code>%s</code>, every column is optional.\n"
 "  "
 msgstr ""
+"\n"
+"    Le fichier déposé doit contenir une première ligne avec les noms de "
+"colonne. Ceux-ci sont insensibles à la casse et, à part <code>%s</code>, "
+"chaque colonne est facultative.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:45
 msgid "Here are the columns you can set:"
-msgstr ""
+msgstr "Voici les colonnes que vous pouvez indiquer :"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
-#, fuzzy
-#| msgid "File"
 msgid "Field"
-msgstr "Fichier"
+msgstr "Champs"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
-#, fuzzy
-#| msgid "Links"
 msgid "Alias"
-msgstr "Liens"
+msgstr "Alias"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:51
-#, fuzzy
-#| msgid "Distribution"
 msgid "Description"
-msgstr "Distribution"
+msgstr "Description"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:58
-#, fuzzy
-#| msgid "Email Address"
 msgid "Link address"
-msgstr "Adresse e-mail"
+msgstr "Adresse du lien"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:63
-#, fuzzy
-#| msgid "Bookmark Labels"
 msgid "Bookmark title"
-msgstr "Labels des bookmarks"
+msgstr "Titre du bookmark"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:68
 #, python-format
 msgid "Bookmark's archived state; only valid value is \"%s\""
-msgstr ""
+msgstr "État archivé du bookmark ; la seule valeur possible est \"%s\""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:73
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
 msgstr ""
+"Date de création, peut être un timestamp UNIX ou une date au format RFC-3339"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:78
 msgid "A JSON encoded list of labels"
-msgstr ""
+msgstr "Liste de labels au format JSON"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:83
 msgid "Example"
-msgstr ""
+msgstr "Exemple"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
 msgid "Import Links from a GoodLinks export file"
@@ -1149,10 +1141,8 @@ msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
 msgstr "Importez les signets de votre navigateur, Pinboard, Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html:40
-#, fuzzy
-#| msgid "Import Links from a Text File"
 msgid "Import Links from a CSV File and Instapaper"
-msgstr "Importez les liens d'un fichier texte"
+msgstr "Importez des liens depuis un fichier CSV ou Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html:44
 msgid "Import your GoodLinks Articles"
@@ -1171,24 +1161,21 @@ msgid "Ignore links already in your bookmarks"
 msgstr "Ignorer les liens déjà présents dans vos bookmarks"
 
 #: assets/templates/bookmarks/import/options.jet.html:21
-#, fuzzy
-#| msgid "Archived Bookmarks"
 msgid "Archive all links"
-msgstr "Bookmarks archivés"
+msgstr "Archiver tous les liens"
 
 #: assets/templates/bookmarks/import/options.jet.html:23
 msgid "Moves all links to archive, regardless of their original status"
 msgstr ""
+"Marque tous les liens comme archivés, sans tenir compte de leur état original"
 
 #: assets/templates/bookmarks/import/options.jet.html:27
-#, fuzzy
-#| msgid "Mark as read"
 msgid "Mark all links as read"
-msgstr "Marquer lu"
+msgstr "Marquer tous les liens comme lus"
 
 #: assets/templates/bookmarks/import/options.jet.html:29
 msgid "Marks all links as read, regardless of their original status"
-msgstr ""
+msgstr "Marque tous les liens comme lu, sans tenir compte de leur état original"
 
 #: assets/templates/bookmarks/import/progress.jet.html:15
 msgid "Import operation will launch momentarily."
@@ -1218,10 +1205,8 @@ msgstr ""
 " "
 
 #: assets/templates/bookmarks/index.jet.html:1
-#, fuzzy
-#| msgid "Bookmark Labels"
 msgid "Bookmark filters"
-msgstr "Labels des bookmarks"
+msgstr "Filtres des bookmarks"
 
 #: assets/templates/bookmarks/index.jet.html:27
 msgid "Save a new link"
@@ -1768,10 +1753,8 @@ msgid "Invalid user and/or password"
 msgstr "Utilisateur et/ou mot de passe invalide"
 
 #: internal/auth/users/forms.go:68
-#, fuzzy
-#| msgid "Password ID"
 msgid "password is empty"
-msgstr "Mot de passe"
+msgstr "le mot de passe est vide"
 
 #: internal/auth/users/forms.go:205
 msgid "Bookmarks : Read Only"
@@ -1807,10 +1790,8 @@ msgid "Empty or invalid import file"
 msgstr "Fichier vide ou invalide"
 
 #: internal/bookmarks/importer/csv.go:118
-#, fuzzy
-#| msgid "File"
 msgid "CSV File"
-msgstr "Fichier"
+msgstr "Fichier CSV"
 
 #: internal/bookmarks/importer/goodlinks.go:44
 msgid "GoodLinks Export File"
@@ -1838,7 +1819,7 @@ msgstr "Aucun jeton d'accès trouvé"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:135
 msgid "Unable to process input data"
-msgstr ""
+msgstr "Impossible de traiter les données d'entrée"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:376
 msgid "Article"
@@ -2047,7 +2028,7 @@ msgstr "doit être inférieur ou égal à %d"
 #: pkg/forms/validators.go:395
 #, python-format
 msgid "%v is not one of %s"
-msgstr ""
+msgstr "%v n'est pas dans %s"
 
 #: pkg/strftime/strftime.go:23
 msgctxt "datetime_dl"
@@ -2296,4 +2277,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr "Impossible d'ouvrir le fichier zip"
-

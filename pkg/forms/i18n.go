@@ -71,8 +71,10 @@ func newErrorCtx(ctx string, msg string, args ...interface{}) FormError {
 }
 
 var (
-	Gettext  = newError    // Gettext is an alias for newError (for locales extractor).
-	Pgettext = newErrorCtx // Pgettext is an alias for newError (for locales extractor).
+	// Gettext is an alias for newError (for locales extractor).
+	Gettext = newError
+	// Pgettext is an alias for newError (for locales extractor).
+	Pgettext = newErrorCtx
 )
 
 // localizedError associates an error with a translator.

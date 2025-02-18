@@ -10,7 +10,7 @@ import (
 	"encoding/json"
 	"errors"
 	"log/slog"
-	"math/rand"
+	"math/rand/v2"
 	"strings"
 	"time"
 
@@ -193,7 +193,7 @@ func (u *User) SetPassword(password string) error {
 // SetSeed sets a new seed to the user. It returns the seed as an integer value
 // and does *not* save the data but the seed is accessible on the user instance.
 func (u *User) SetSeed() int {
-	u.Seed = rand.Intn(32767)
+	u.Seed = rand.IntN(32767) //nolint:gosec
 	return u.Seed
 }
 

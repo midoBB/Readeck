@@ -101,19 +101,6 @@ func (p Pagination) GetPageLinks() []PageLink {
 		{1, p.GetLink(0)},
 	}
 
-	max := func(x, y int) int {
-		if x < y {
-			return y
-		}
-		return x
-	}
-	min := func(x, y int) int {
-		if x > y {
-			return y
-		}
-		return x
-	}
-
 	prevLinks := []PageLink{}
 	for i := p.CurrentPage - 1; i > max(1, p.CurrentPage-3); i-- {
 		prevLinks = append([]PageLink{{i, p.GetLink((i - 1) * p.Limit)}}, prevLinks...)

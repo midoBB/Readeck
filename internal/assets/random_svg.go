@@ -7,7 +7,7 @@ package assets
 import (
 	"context"
 	"fmt"
-	"math/rand"
+	"math/rand/v2"
 	"net/http"
 	"strings"
 	"time"
@@ -38,7 +38,7 @@ type random struct {
 }
 
 func newRandom(data uint64) *random {
-	return &random{rand.New(rand.NewSource(int64(data)))}
+	return &random{rand.New(rand.NewPCG(data, data))} //nolint:gosec
 }
 
 func (r *random) GetSumStrings() []string {

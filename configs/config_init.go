@@ -5,7 +5,8 @@
 package configs
 
 import (
-	"math/rand"
+	crand "crypto/rand"
+	"math/rand/v2"
 	"os"
 	"text/template"
 )
@@ -62,10 +63,14 @@ func GenerateKey(minLen, maxLen int) string {
 		}
 	}
 
-	l := rand.Intn(maxLen-minLen) + minLen
-	b := make([]rune, l)
-	for i := range b {
-		b[i] = runes[rand.Intn(len(runes))]
+	l := rand.N(maxLen-minLen) + minLen //nolint:gosec
+	b := make([]byte, l)
+	if _, err := crand.Read(b); err != nil {
+		panic(err)
 	}
+	for i := 0; i < l; i++ {
+		b[i] = byte(runes[b[i]%byte(len(runes))])
+	}
+
 	return string(b)
 }

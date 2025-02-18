@@ -7,7 +7,7 @@ package db
 import (
 	"io"
 	"io/fs"
-	"math/rand"
+	"math/rand/v2"
 	"path"
 
 	"github.com/doug-martin/goqu/v9"
@@ -68,7 +68,7 @@ var migrationList = []migrationEntry{
 			return
 		}
 		for _, id := range ids {
-			seed := rand.Intn(32767)
+			seed := rand.IntN(32767) //nolint:gosec
 			_, err = td.Update("user").
 				Set(goqu.Record{"seed": seed}).
 				Where(goqu.C("id").Eq(id)).

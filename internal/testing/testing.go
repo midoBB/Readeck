@@ -103,7 +103,7 @@ func (f *fixtureData) copyFiles(t *testing.T) {
 		func(dstFile, srcFile string) {
 			dstFile = path.Join(configs.Config.Main.DataDirectory, dstFile)
 			srcFile = path.Join(root, srcFile)
-			if err := os.MkdirAll(path.Dir(dstFile), 0o755); err != nil {
+			if err := os.MkdirAll(path.Dir(dstFile), 0o750); err != nil {
 				t.Fatal(err)
 			}
 

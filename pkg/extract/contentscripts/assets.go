@@ -14,9 +14,11 @@ import (
 var assets embed.FS
 
 var (
+	// SiteConfigFiles is the default site-config files discovery.
+	SiteConfigFiles *SiteConfigDiscovery
+
 	siteConfigFS     fs.FS
 	preloadedScripts []*Program
-	SiteConfigFiles  *SiteConfigDiscovery // SiteConfigFiles is the default site-config files discovery
 )
 
 func init() {

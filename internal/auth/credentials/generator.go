@@ -9,7 +9,7 @@ import (
 	"embed"
 	"fmt"
 	"io"
-	"math/rand"
+	"math/rand/v2"
 	"strings"
 )
 

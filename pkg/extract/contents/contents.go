@@ -11,7 +11,7 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
-	"math/rand"
+	"math/rand/v2"
 	"regexp"
 	"sort"
 	"strings"

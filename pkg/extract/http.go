@@ -124,7 +124,7 @@ func (t *Transport) RoundTrip(req *http.Request) (*http.Response, error) {
 func (t *Transport) setTLSGrease() {
 	if tr, ok := t.tr.(*http.Transport); ok {
 		tr.TLSClientConfig.CipherSuites = append([]uint16{
-			greaseCiphers[rand.IntN(len(greaseCiphers))],
+			greaseCiphers[rand.IntN(len(greaseCiphers))], //nolint:gosec
 		}, cipherSuites...)
 	}
 }

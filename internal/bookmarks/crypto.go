@@ -20,7 +20,7 @@ func EncryptID(id uint64, expires time.Time) (string, error) {
 	buf := make([]byte, 16)
 	now := uint64(expires.Unix())
 	binary.LittleEndian.PutUint64(buf[0:], now)
-	binary.LittleEndian.PutUint64(buf[8:], uint64(id))
+	binary.LittleEndian.PutUint64(buf[8:], id)
 
 	// Encrypt the packet. There's not need for complex IV since
 	// it's the right size to encrypt the initial packet.

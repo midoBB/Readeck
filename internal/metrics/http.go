@@ -8,12 +8,21 @@ package metrics
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 // ListenAndServe start an HTTP server only to serve the /metrics route.
 func ListenAndServe(host string, port int) error {
-	http.Handle("/metrics", promhttp.Handler())
-	return http.ListenAndServe(fmt.Sprintf("%s:%d", host, port), nil)
+	mux := http.NewServeMux()
+	mux.Handle("/metrics", promhttp.Handler())
+
+	s := &http.Server{
+		Addr:              fmt.Sprintf("%s:%d", host, port),
+		Handler:           mux,
+		ReadHeaderTimeout: time.Second * 1,
+	}
+
+	return s.ListenAndServe()
 }

@@ -116,7 +116,7 @@ func (s *SMTPSender) SendEmail(m *mail.Email) error {
 	server.SendTimeout = 10 * time.Second
 
 	if configs.Config.Email.Insecure {
-		server.TLSConfig = &tls.Config{InsecureSkipVerify: true}
+		server.TLSConfig = &tls.Config{InsecureSkipVerify: true} // nolint:gosec
 	}
 
 	smtpClient, err := server.Connect()

@@ -124,25 +124,25 @@ func NewConfigForURL(discovery *SiteConfigDiscovery, src *url.URL) (*SiteConfig,
 }
 
 // Merge merges a new configuration in the current one.
-func (cf *SiteConfig) Merge(new *SiteConfig) {
-	cf.files = append(cf.files, new.files...)
-	cf.TitleSelectors = append(cf.TitleSelectors, new.TitleSelectors...)
-	cf.BodySelectors = append(cf.BodySelectors, new.BodySelectors...)
-	cf.DateSelectors = append(cf.DateSelectors, new.DateSelectors...)
-	cf.AuthorSelectors = append(cf.AuthorSelectors, new.AuthorSelectors...)
-	cf.StripSelectors = append(cf.StripSelectors, new.StripSelectors...)
-	cf.StripIDOrClass = append(cf.StripIDOrClass, new.StripIDOrClass...)
-	cf.StripImageSrc = append(cf.StripImageSrc, new.StripImageSrc...)
-	cf.NativeAdSelectors = append(cf.NativeAdSelectors, new.NativeAdSelectors...)
-	cf.Tidy = new.Tidy
-	cf.Prune = new.Prune
-	cf.AutoDetectOnFailure = new.AutoDetectOnFailure
-	cf.SinglePageLinkSelectors = append(cf.SinglePageLinkSelectors, new.SinglePageLinkSelectors...)
-	cf.NextPageLinkSelectors = append(cf.NextPageLinkSelectors, new.NextPageLinkSelectors...)
-	cf.ReplaceStrings = append(cf.ReplaceStrings, new.ReplaceStrings...)
-	cf.Tests = append(cf.Tests, new.Tests...)
+func (cf *SiteConfig) Merge(src *SiteConfig) {
+	cf.files = append(cf.files, src.files...)
+	cf.TitleSelectors = append(cf.TitleSelectors, src.TitleSelectors...)
+	cf.BodySelectors = append(cf.BodySelectors, src.BodySelectors...)
+	cf.DateSelectors = append(cf.DateSelectors, src.DateSelectors...)
+	cf.AuthorSelectors = append(cf.AuthorSelectors, src.AuthorSelectors...)
+	cf.StripSelectors = append(cf.StripSelectors, src.StripSelectors...)
+	cf.StripIDOrClass = append(cf.StripIDOrClass, src.StripIDOrClass...)
+	cf.StripImageSrc = append(cf.StripImageSrc, src.StripImageSrc...)
+	cf.NativeAdSelectors = append(cf.NativeAdSelectors, src.NativeAdSelectors...)
+	cf.Tidy = src.Tidy
+	cf.Prune = src.Prune
+	cf.AutoDetectOnFailure = src.AutoDetectOnFailure
+	cf.SinglePageLinkSelectors = append(cf.SinglePageLinkSelectors, src.SinglePageLinkSelectors...)
+	cf.NextPageLinkSelectors = append(cf.NextPageLinkSelectors, src.NextPageLinkSelectors...)
+	cf.ReplaceStrings = append(cf.ReplaceStrings, src.ReplaceStrings...)
+	cf.Tests = append(cf.Tests, src.Tests...)
 
-	for k, v := range new.HTTPHeaders {
+	for k, v := range src.HTTPHeaders {
 		cf.HTTPHeaders[k] = v
 	}
 }

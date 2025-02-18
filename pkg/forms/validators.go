@@ -14,9 +14,12 @@ import (
 )
 
 var (
-	ErrRequired     = Gettext("field is required")         // ErrRequired is a required field
-	ErrInvalidEmail = Gettext("not a valid email address") // ErrInvalidEmail is an invalid e-mail address
-	ErrInvalidURL   = Gettext("invalid URL")               // ErrInvalidURL is an invalid URL
+	// ErrRequired is a required field.
+	ErrRequired = Gettext("field is required")
+	// ErrInvalidEmail is an invalid e-mail address.
+	ErrInvalidEmail = Gettext("not a valid email address")
+	// ErrInvalidURL is an invalid URL.
+	ErrInvalidURL = Gettext("invalid URL")
 )
 
 var (

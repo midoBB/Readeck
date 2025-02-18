@@ -479,7 +479,7 @@ func TestWallabagImporter(t *testing.T) {
 	data, err := adapter.Params(f)
 	require.NoError(err)
 	require.True(f.IsValid())
-	require.Equal(`{"url":"https://wallabag","token":"1234"}`, string(data))
+	require.JSONEq(`{"url":"https://wallabag","token":"1234"}`, string(data))
 
 	worker := adapter.(importer.ImportWorker)
 	err = worker.LoadData(data)

@@ -22,8 +22,10 @@ import (
 )
 
 var (
-	ImportBookmarksTask superbus.Task // ImportBookmarksTask is the bookmark import task.
-	ImportExtractTask   superbus.Task // ImportExtractTask is the bookmark extraction task.
+	// ImportBookmarksTask is the bookmark import task.
+	ImportBookmarksTask superbus.Task
+	// ImportExtractTask is the bookmark extraction task.
+	ImportExtractTask superbus.Task
 )
 
 // ImportParams contains the ImportBookmarksTask parameters.

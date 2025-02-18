@@ -42,10 +42,14 @@ import (
 )
 
 var (
-	ExtractPageTask      superbus.Task // ExtractPageTask is the bookmark creation task.
-	DeleteBookmarkTask   superbus.Task // DeleteBookmarkTask is the bookmark deletion task.
-	DeleteCollectionTask superbus.Task // DeleteCollectionTask is the collection deletion task.
-	DeleteLabelTask      superbus.Task // DeleteLabelTask is the label deletion task.
+	// ExtractPageTask is the bookmark creation task.
+	ExtractPageTask superbus.Task
+	// DeleteBookmarkTask is the bookmark deletion task.
+	DeleteBookmarkTask superbus.Task
+	// DeleteCollectionTask is the collection deletion task.
+	DeleteCollectionTask superbus.Task
+	// DeleteLabelTask is the label deletion task.
+	DeleteLabelTask superbus.Task
 )
 
 type (

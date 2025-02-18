@@ -272,7 +272,7 @@ func main() {
 	info, err = os.Stat(destDir)
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) {
-			if e := os.MkdirAll(destDir, 0o755); e != nil {
+			if e := os.MkdirAll(destDir, 0o750); e != nil {
 				log.Fatal(e)
 			}
 		} else {

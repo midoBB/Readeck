@@ -12,9 +12,11 @@ linters:
     - gocyclo
     - godot
     - gofumpt
+    - gosec
     - gosimple
     - govet
     - misspell
+    # - perfsprint
     - revive
     - sloglint
     - staticcheck
@@ -84,6 +86,15 @@ linters-settings:
   gocyclo:
     min-complexity: 30
 
+  gosec:
+    excludes:
+      - G104 # we already have errcheck with more fine-grained tuning
+      - G115
+      - G304
+    config:
+      G304:
+
+
   misspell:
     locale: US
 
@@ -91,6 +102,7 @@ linters-settings:
     severity: warning
     rules:
       - name: blank-imports
+      - name: comment-spacings
       - name: context-as-argument
       - name: context-keys-type
       - name: defer

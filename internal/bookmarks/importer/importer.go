@@ -36,8 +36,12 @@ const (
 )
 
 var (
-	ErrIgnore      = errors.New("ignore")     // ErrIgnore is an error that can be ignored.
-	ErrNoAdapter   = errors.New("no adapter") // ErrNoAdapter is returned when an adapter does not exist.
+	// ErrIgnore is an error that can be ignored.
+	ErrIgnore = errors.New("ignore")
+
+	// ErrNoAdapter is returned when an adapter does not exist.
+	ErrNoAdapter = errors.New("no adapter")
+
 	errInvalidFile = forms.Gettext("Empty or invalid import file")
 )
 

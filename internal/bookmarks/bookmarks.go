@@ -343,14 +343,14 @@ func (m *BookmarkManager) CountAll(u *users.User) (CountResult, error) {
 }
 
 // RenameLabel renames or deletes a label in all bookmarks for a given user.
-// If "new" is empty, the label is deleted.
-func (m *BookmarkManager) RenameLabel(u *users.User, old, new string) (ids []int, err error) {
+// If "newLabel" is empty, the label is deleted.
+func (m *BookmarkManager) RenameLabel(u *users.User, oldLabel, newLabel string) (ids []int, err error) {
 	ids = make([]int, 0)
 
 	ds := Bookmarks.Query().
 		Select("b.id", "b.labels").
 		Where(goqu.C("user_id").Eq(u.ID))
-	ds = exp.JSONListFilter(ds, goqu.I("b.labels").Eq(old))
+	ds = exp.JSONListFilter(ds, goqu.I("b.labels").Eq(oldLabel))
 
 	list := []*Bookmark{}
 	if err = ds.ScanStructs(&list); err != nil {
@@ -370,7 +370,7 @@ func (m *BookmarkManager) RenameLabel(u *users.User, old, new string) (ids []int
 
 	for i, x := range list {
 		ids[i] = x.ID
-		x.replaceLabel(old, new)
+		x.replaceLabel(oldLabel, newLabel)
 		cases = cases.When(goqu.C("id").Eq(x.ID), goqu.L(casePlaceholder, x.Labels))
 	}
 
@@ -488,19 +488,19 @@ func (b *Bookmark) GetFilePath() string {
 // bookmark's Labels. It does not save the bookmark into
 // the database.
 // If new is empty, the label is removed from the list.
-func (b *Bookmark) replaceLabel(old, new string) {
+func (b *Bookmark) replaceLabel(oldLabel, newLabel string) {
 	if b.Labels == nil {
 		return
 	}
 
-	if strings.TrimSpace(new) == "" {
+	if strings.TrimSpace(newLabel) == "" {
 		b.Labels = slices.DeleteFunc(slices.Clone(b.Labels), func(s string) bool {
-			return s == old
+			return s == oldLabel
 		})
 	} else {
 		for i, v := range b.Labels {
-			if v == old {
-				b.Labels[i] = new
+			if v == oldLabel {
+				b.Labels[i] = newLabel
 			}
 		}
 	}

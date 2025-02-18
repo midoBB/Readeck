@@ -7,14 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-02-18 07:09+0000\n"
-"PO-Revision-Date: 2024-12-31 16:08+0000\n"
-"Last-Translator: Outbreak2096 <outbreak2096@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2025-02-19 10:21+0000\n"
+"Last-Translator: Outbreak2096 "
+"<outbreak2096@users.noreply.translate.codeberg.org>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
 "Language: zh_CN\n"
-"Language-Team: Chinese (Simplified Han script) <https://translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.9.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -381,7 +384,7 @@ msgstr "未读"
 
 #: assets/templates/bookmarks/base.jet.html:30
 msgid "Archive"
-msgstr "存档"
+msgstr "归档"
 
 #: assets/templates/bookmarks/base.jet.html:33
 msgid "Favorites"
@@ -439,7 +442,7 @@ msgstr "书签正在加载"
 #: assets/templates/bookmarks/bookmark_missing.jet.html:9
 #: assets/templates/bookmarks/bookmark_missing.jet.html:14
 msgid "Bookmark not found"
-msgstr "书签未找到"
+msgstr "未找到书签"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:13
 msgid "Shared link"
@@ -447,7 +450,7 @@ msgstr "分享链接"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:23
 msgid "Page not found"
-msgstr "页面不存在"
+msgstr "未找到页面"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:25
 msgid "Page has expired"
@@ -484,10 +487,8 @@ msgid "with"
 msgstr "通过"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
-#, fuzzy
-#| msgid "Saved with Readeck"
 msgid "Saved with"
-msgstr "用 Readeck 保存"
+msgstr "已保存"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:8
 msgid "Share link"
@@ -573,7 +574,7 @@ msgstr "未读的文章（不含图片和视频）"
 
 #: assets/templates/bookmarks/collection_list.jet.html:34
 msgid "The archived articles from \"wikipedia.org\""
-msgstr "来自“wikipedia.org”的存档文章"
+msgstr "来自“wikipedia.org”的归档文章"
 
 #: assets/templates/bookmarks/collection_list.jet.html:35
 msgid "The pictures with the label \"cat\""
@@ -609,13 +610,13 @@ msgstr "标记为已读"
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Remove from archive"
-msgstr "从存档中移除"
+msgstr "从归档移除"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Move to archive"
-msgstr "移动到存档"
+msgstr "移至归档"
 
 #: assets/templates/bookmarks/components/actions.jet.html:9
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
@@ -749,7 +750,7 @@ msgstr "否"
 
 #: assets/templates/bookmarks/components/filters.jet.html:64
 msgid "Is Archived"
-msgstr "已存档"
+msgstr "已归档"
 
 #: assets/templates/bookmarks/components/filters.jet.html:74
 msgid "Is Loaded"
@@ -784,22 +785,16 @@ msgid "Compact view"
 msgstr "紧凑视图"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
-#| msgid "Import bookmarks"
 msgid "Sort bookmarks"
-msgstr "导入书签"
+msgstr "排序书签"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
-#| msgid "Options"
 msgid "Sort options"
-msgstr "选项"
+msgstr "排序选项"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
-#| msgid "Import links and articles"
 msgid "Import and export"
-msgstr "导入链接和文章"
+msgstr "导入和导出"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:9
 msgid "You can share the following link with your friends."
@@ -913,10 +908,8 @@ msgid "Import Bookmarks"
 msgstr "导入书签"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
-#, fuzzy
-#| msgid "Import Links from a Text File"
 msgid "Import Links from a CSV File"
-msgstr "从文本文件导入链接"
+msgstr "从 CSV 文件导入链接"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
@@ -924,6 +917,9 @@ msgid ""
 "    Upload a CSV file from Instapaper or any CSV that matches the format specified bellow.\n"
 "  "
 msgstr ""
+"\n"
+"    从 Instapaper 上传 CSV 文件或符合以下指定格式的任何 CSV 文件。\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
 #, python-format
@@ -933,57 +929,51 @@ msgid ""
 "    insensitive and, except for <code>%s</code>, every column is optional.\n"
 "  "
 msgstr ""
+"\n"
+"    上传的文件必须包含带有列名的第一行。列名不区分\n"
+"    大小写，除 <code>%s</code> 外，每一列都是可选的。\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:45
 msgid "Here are the columns you can set:"
-msgstr ""
+msgstr "这是您可以设置的列："
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
-#, fuzzy
-#| msgid "File"
 msgid "Field"
-msgstr "文件"
+msgstr "字段"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
-#, fuzzy
-#| msgid "Links"
 msgid "Alias"
-msgstr "链接"
+msgstr "别名"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:51
-#, fuzzy
-#| msgid "Distribution"
 msgid "Description"
-msgstr "分发"
+msgstr "描述"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:58
-#, fuzzy
-#| msgid "Email Address"
 msgid "Link address"
-msgstr "邮件地址"
+msgstr "链接地址"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:63
-#, fuzzy
-#| msgid "Bookmark Labels"
 msgid "Bookmark title"
-msgstr "书签标签"
+msgstr "书签标题"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:68
 #, python-format
 msgid "Bookmark's archived state; only valid value is \"%s\""
-msgstr ""
+msgstr "书签的归档状态；只有有效的值是“%s”"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:73
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
-msgstr ""
+msgstr "创建日期，可以是 UNIX 时间戳或 RFC-3339 格式的日期"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:78
 msgid "A JSON encoded list of labels"
-msgstr ""
+msgstr "JSON 编码的标签列表"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:83
 msgid "Example"
-msgstr ""
+msgstr "示例"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
 msgid "Import Links from a GoodLinks export file"
@@ -1153,10 +1143,8 @@ msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
 msgstr "导入浏览器的书签、Pinboard、Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html:40
-#, fuzzy
-#| msgid "Import Links from a Text File"
 msgid "Import Links from a CSV File and Instapaper"
-msgstr "从文本文件导入链接"
+msgstr "从 CSV 文件和 Instapaper 导入链接"
 
 #: assets/templates/bookmarks/import/index.jet.html:44
 msgid "Import your GoodLinks Articles"
@@ -1175,24 +1163,20 @@ msgid "Ignore links already in your bookmarks"
 msgstr "忽略书签中已有的链接"
 
 #: assets/templates/bookmarks/import/options.jet.html:21
-#, fuzzy
-#| msgid "Archived Bookmarks"
 msgid "Archive all links"
-msgstr "已存档书签"
+msgstr "归档所有链接"
 
 #: assets/templates/bookmarks/import/options.jet.html:23
 msgid "Moves all links to archive, regardless of their original status"
-msgstr ""
+msgstr "将所有链接移至归档，无论其原始状态如何"
 
 #: assets/templates/bookmarks/import/options.jet.html:27
-#, fuzzy
-#| msgid "Mark as read"
 msgid "Mark all links as read"
-msgstr "标记为已读"
+msgstr "将所有链接标记为已读"
 
 #: assets/templates/bookmarks/import/options.jet.html:29
 msgid "Marks all links as read, regardless of their original status"
-msgstr ""
+msgstr "将所有链接标记为已读，无论其原始状态如何"
 
 #: assets/templates/bookmarks/import/progress.jet.html:15
 msgid "Import operation will launch momentarily."
@@ -1222,10 +1206,8 @@ msgstr ""
 "      "
 
 #: assets/templates/bookmarks/index.jet.html:1
-#, fuzzy
-#| msgid "Bookmark Labels"
 msgid "Bookmark filters"
-msgstr "书签标签"
+msgstr "书签筛选器"
 
 #: assets/templates/bookmarks/index.jet.html:27
 msgid "Save a new link"
@@ -1362,7 +1344,7 @@ msgstr "Matrix 聊天"
 
 #: assets/templates/docs/about.jet.html:41
 msgid "License"
-msgstr "许可证"
+msgstr "许可"
 
 #: assets/templates/docs/about.jet.html:43
 #, python-format
@@ -1419,7 +1401,7 @@ msgstr "网络使用视为分发"
 
 #: assets/templates/docs/about.jet.html:90
 msgid "Same license"
-msgstr "相同许可证"
+msgstr "相同许可"
 
 #: assets/templates/docs/about.jet.html:93
 msgid "State changes"
@@ -1435,7 +1417,7 @@ msgstr "担保"
 
 #: assets/templates/docs/about.jet.html:130
 msgid "Third-Party Licenses"
-msgstr "第三方许可证"
+msgstr "第三方许可"
 
 #: assets/templates/docs/about.jet.html:132
 msgid "Readeck includes and/or uses the following open source assets:"
@@ -1531,7 +1513,7 @@ msgstr "权限不足。"
 
 #: assets/templates/error.jet.html:24
 msgid "Page not found."
-msgstr "找不到页面。"
+msgstr "未找到页面。"
 
 #: assets/templates/error.jet.html:26
 msgid "An error occurred."
@@ -1766,10 +1748,8 @@ msgid "Invalid user and/or password"
 msgstr "用户和/或密码无效"
 
 #: internal/auth/users/forms.go:68
-#, fuzzy
-#| msgid "Password ID"
 msgid "password is empty"
-msgstr "密码 ID"
+msgstr "密码为空"
 
 #: internal/auth/users/forms.go:205
 msgid "Bookmarks : Read Only"
@@ -1805,10 +1785,8 @@ msgid "Empty or invalid import file"
 msgstr "导入文件为空或无效"
 
 #: internal/bookmarks/importer/csv.go:118
-#, fuzzy
-#| msgid "File"
 msgid "CSV File"
-msgstr "文件"
+msgstr "CSV 文件"
 
 #: internal/bookmarks/importer/goodlinks.go:44
 msgid "GoodLinks Export File"
@@ -1832,11 +1810,11 @@ msgstr "无效的凭据"
 
 #: internal/bookmarks/importer/wallabag.go:254
 msgid "No access token found"
-msgstr "找不到访问令牌"
+msgstr "未找到访问令牌"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:135
 msgid "Unable to process input data"
-msgstr ""
+msgstr "无法处理输入数据"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:376
 msgid "Article"
@@ -1952,7 +1930,7 @@ msgstr "未读书签"
 
 #: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:62
 msgid "Archived Bookmarks"
-msgstr "已存档书签"
+msgstr "已归档书签"
 
 #: internal/bookmarks/routes/views_bookmarks.go:110 internal/opds/http.go:66
 msgid "Favorite Bookmarks"
@@ -2045,7 +2023,7 @@ msgstr "必须小于或等于 %d"
 #: pkg/forms/validators.go:395
 #, python-format
 msgid "%v is not one of %s"
-msgstr ""
+msgstr "%v 不是 %s 之一"
 
 #: pkg/strftime/strftime.go:23
 msgctxt "datetime_dl"
@@ -2294,4 +2272,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr "无法打开 zip 文件"
-

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-02-18 07:09+0000\n"
-"PO-Revision-Date: 2025-02-18 07:27+0000\n"
+"PO-Revision-Date: 2025-02-18 07:32+0000\n"
 "Last-Translator: olivier <olivier@users.noreply.translate.codeberg.org>\n"
 "Language-Team: French <https://translate.codeberg.org/projects/readeck/"
 "application/fr/>\n"
@@ -937,7 +937,7 @@ msgstr "Voici les colonnes que vous pouvez indiquer :"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
 msgid "Field"
-msgstr "Champs"
+msgstr "Champ"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
 msgid "Alias"
@@ -1225,8 +1225,8 @@ msgstr "\"%s\" n'est pas une adresse valide. Vouliez-vous chercher %s à la plac
 #: assets/templates/bookmarks/index.jet.html:73
 msgid "You don't have any bookmarks yet.<br> Copy a link in the field above and start saving."
 msgstr ""
-"Vous n'avez aucun bookmark pour le moment<br>\n"
-"Copiez un lien dans le champ au dessus pour commencer."
+"Vous n'avez aucun bookmark pour le moment<br> Copiez un lien dans le champ "
+"au dessus pour commencer."
 
 #: assets/templates/bookmarks/index.jet.html:75
 #, python-format
@@ -2005,7 +2005,7 @@ msgstr "une erreur innatendue est survenue"
 
 #: pkg/forms/validators.go:17
 msgid "field is required"
-msgstr "champs obligatoire"
+msgstr "champ obligatoire"
 
 #: pkg/forms/validators.go:18
 msgid "not a valid email address"

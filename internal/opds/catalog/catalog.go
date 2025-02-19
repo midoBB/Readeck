@@ -7,9 +7,9 @@ package catalog
 
 import (
 	"bytes"
-	"fmt"
 	"io"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/google/uuid"
@@ -166,7 +166,7 @@ func (c *Catalog) Render(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	w.Header().Set("Content-Type", c.Feed.FeedType)
-	w.Header().Set("Content-Length", fmt.Sprintf("%d", buf.Len()))
+	w.Header().Set("Content-Length", strconv.Itoa(buf.Len()))
 
 	if r.Method == http.MethodHead {
 		return nil

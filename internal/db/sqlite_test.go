@@ -5,7 +5,6 @@
 package db
 
 import (
-	"fmt"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -31,7 +30,7 @@ func TestSqliteDSN(t *testing.T) {
 		},
 		{
 			"sqlite3:test.db",
-			fmt.Sprintf("file:%s", filepath.Join(cwd, "test.db")),
+			"file:" + filepath.Join(cwd, "test.db"),
 			"",
 		},
 		{

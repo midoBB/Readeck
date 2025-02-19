@@ -166,10 +166,8 @@ func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, converter 
 	zw := zip.NewWriter(w)
 	defer zw.Close() //nolint:errcheck
 
-	basePath := fmt.Sprintf(
-		"%s-readeck-bookmarks",
-		time.Now().Format(time.DateOnly),
-	)
+	basePath := time.Now().Format(time.DateOnly) + "-readeck-bookmarks"
+
 	if w, ok := w.(http.ResponseWriter); ok {
 		w.Header().Set("Content-Type", "application/zip")
 		w.Header().Set("Content-Disposition", fmt.Sprintf(

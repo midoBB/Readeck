@@ -173,7 +173,7 @@ func (adapter *wallabagAdapter) LoadData(data []byte) (err error) {
 
 	// Initialize an empty article list with the first "next" URL to fetch
 	adapter.articles = &wallabagArticleList{}
-	adapter.articles.Links.Next.Href = fmt.Sprintf("%s/api/entries?sort=created&order=desc&perPage=10&page=1", adapter.Endpoint)
+	adapter.articles.Links.Next.Href = adapter.Endpoint + "/api/entries?sort=created&order=desc&perPage=10&page=1"
 	adapter.articles.Embedded.Items = []wallabagArticle{}
 	return
 }
@@ -224,7 +224,7 @@ func (adapter *wallabagAdapter) authenticate(f forms.Binder) error {
 		"password":      f.Get("password").String(),
 	})
 
-	req, _ := http.NewRequest(http.MethodPost, fmt.Sprintf("%s/oauth/v2/token", adapter.Endpoint), body)
+	req, _ := http.NewRequest(http.MethodPost, adapter.Endpoint+"/oauth/v2/token", body)
 	req.Header.Set("Content-Type", "application/json")
 
 	rsp, err := http.DefaultClient.Do(req)

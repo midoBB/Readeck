@@ -139,7 +139,7 @@ func importExtractHandler(data interface{}) {
 
 func getStoreProgressList(trackID string) (ids []int) {
 	ids = []int{}
-	data := bus.Store().Get(fmt.Sprintf("bookmark_import_%s", trackID))
+	data := bus.Store().Get("bookmark_import_" + trackID)
 
 	if data == "" {
 		return
@@ -153,11 +153,11 @@ func setStoreProgressList(trackID string, ids []int) error {
 	if err != nil {
 		return err
 	}
-	return bus.Store().Set(fmt.Sprintf("bookmark_import_%s", trackID), string(data), 0)
+	return bus.Store().Set("bookmark_import_"+trackID, string(data), 0)
 }
 
 func clearStoreProgressList(trackID string) error {
-	return bus.Store().Del(fmt.Sprintf("bookmark_import_%s", trackID))
+	return bus.Store().Del("bookmark_import_" + trackID)
 }
 
 // GetTrackID returns a tracking ID based on the request ID.

@@ -9,6 +9,7 @@ import (
 	"hash/crc64"
 	"net/http"
 	"sort"
+	"strconv"
 	"strings"
 	"time"
 
@@ -60,7 +61,7 @@ func (s *Server) WriteEtag(w http.ResponseWriter, r *http.Request, taggers ...Et
 		fmt.Fprint(h, sess.Payload.Preferences.LastUpdate.Unix()) //nolint:errcheck
 	}
 
-	w.Header().Set("Etag", fmt.Sprintf("%x", h.Sum64()))
+	w.Header().Set("Etag", strconv.FormatUint(h.Sum64(), 16))
 }
 
 // WriteLastModified adds a Last-Modified headers using the most

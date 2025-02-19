@@ -224,7 +224,7 @@ var lineRE = regexp.MustCompile(`^(.+?)(?:\((.+)\))?:\s*(.*)$`)
 
 func parseLine(line string) ([3]string, error) {
 	if !lineRE.MatchString(line) {
-		return [3]string{}, fmt.Errorf("Cannot parse line")
+		return [3]string{}, errors.New("Cannot parse line")
 	}
 
 	m := lineRE.FindAllStringSubmatch(line, -1)

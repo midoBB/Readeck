@@ -7,6 +7,7 @@ package extract
 import (
 	"bytes"
 	"encoding/base64"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -23,7 +24,7 @@ func NewRemoteImage(src string, client *http.Client) (img.Image, error) {
 	}
 
 	if src == "" {
-		return nil, fmt.Errorf("No image URL")
+		return nil, errors.New("No image URL")
 	}
 
 	// Send the request with a specific Accept header

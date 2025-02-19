@@ -16,7 +16,7 @@ linters:
     - gosimple
     - govet
     - misspell
-    # - perfsprint
+    - perfsprint
     - revive
     - sloglint
     - staticcheck

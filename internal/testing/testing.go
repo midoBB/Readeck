@@ -443,7 +443,7 @@ func (c *Client) RenderTemplate(src string, extra map[string]interface{}) (strin
 	buf := bytes.Buffer{}
 	data := map[string]interface{}{
 		"Users": c.app.Users,
-		"URL":   fmt.Sprintf("http://%s", c.URL.Host),
+		"URL":   "http://" + c.URL.Host,
 	}
 	for k, v := range extra {
 		data[k] = v

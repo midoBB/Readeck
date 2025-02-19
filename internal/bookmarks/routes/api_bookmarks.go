@@ -959,7 +959,7 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *bookmarks.Bookmark, b
 		annotationTag: "rd-annotation",
 		annotationCallback: func(id string, n *html.Node, index int, color string) {
 			if index == 0 {
-				dom.SetAttribute(n, "id", fmt.Sprintf("annotation-%s", id))
+				dom.SetAttribute(n, "id", "annotation-"+id)
 			}
 			if color == "" {
 				color = "yellow"

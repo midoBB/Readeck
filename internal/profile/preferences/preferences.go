@@ -7,7 +7,6 @@
 package preferences
 
 import (
-	"fmt"
 	"slices"
 	"strconv"
 
@@ -215,6 +214,6 @@ func (p *Preferences) ReaderHyphenation() (res Pair) {
 func (p *Preferences) BookmarkListLayout() Pair {
 	return Pair{
 		bookmarkListLayouts[p.idxRookmarkListLayout],
-		fmt.Sprintf("bookmark-list--%s", bookmarkListLayouts[p.idxRookmarkListLayout]),
+		"bookmark-list--" + bookmarkListLayouts[p.idxRookmarkListLayout],
 	}
 }

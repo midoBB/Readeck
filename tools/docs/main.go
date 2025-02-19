@@ -20,6 +20,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"strconv"
 	"strings"
 
 	figure "github.com/mangoumbrella/goldmark-figure"
@@ -199,7 +200,7 @@ func getEtag(name string, src ...io.Reader) string {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return fmt.Sprintf("%x", h.Sum64())
+	return strconv.FormatUint(h.Sum64(), 16)
 }
 
 func newManifest(fileList []*File) (*Manifest, error) {

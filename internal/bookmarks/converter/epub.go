@@ -144,7 +144,7 @@ func (m *epubMaker) addBookmark(ctx context.Context, e EPUBExporter, b *bookmark
 			}
 			defer fp.Close() //nolint:errcheck
 			return m.AddImage(
-				fmt.Sprintf("res-%s", strings.TrimSuffix(path.Base(x.Name), path.Ext(x.Name))),
+				"res-"+strings.TrimSuffix(path.Base(x.Name), path.Ext(x.Name)),
 				path.Join("Images", path.Base(x.Name)),
 				fp,
 			)
@@ -206,9 +206,9 @@ func (m *epubMaker) addBookmark(ctx context.Context, e EPUBExporter, b *bookmark
 	}
 
 	return m.AddChapter(
-		fmt.Sprintf("page-%s", b.UID),
+		"page-"+b.UID,
 		b.Title,
-		fmt.Sprintf("%s.html", b.UID),
+		b.UID+".html",
 		buf,
 	)
 }

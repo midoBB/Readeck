@@ -215,7 +215,7 @@ func (s *Server) initTemplates() {
 			panic(err)
 		}
 
-		return reflect.ValueOf(fmt.Sprintf("data:image/png;base64,%s", base64.StdEncoding.EncodeToString(buf)))
+		return reflect.ValueOf("data:image/png;base64," + base64.StdEncoding.EncodeToString(buf))
 	})
 }
 

@@ -7,8 +7,8 @@ package admin
 import (
 	"context"
 	"errors"
-	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
@@ -153,7 +153,7 @@ func (api *adminAPI) userCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Location", api.srv.AbsoluteURL(r, ".", fmt.Sprint(u.ID)).String())
+	w.Header().Set("Location", api.srv.AbsoluteURL(r, ".", strconv.Itoa(u.ID)).String())
 	api.srv.TextMessage(w, r, http.StatusCreated, "User created")
 }
 
@@ -214,7 +214,7 @@ type userItem struct {
 func newUserItem(s *server.Server, r *http.Request, u *users.User, base string) userItem {
 	return userItem{
 		ID:        u.ID,
-		Href:      s.AbsoluteURL(r, base, fmt.Sprint(u.ID)).String(),
+		Href:      s.AbsoluteURL(r, base, strconv.Itoa(u.ID)).String(),
 		Created:   u.Created,
 		Updated:   u.Updated,
 		Username:  u.Username,

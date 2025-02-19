@@ -10,6 +10,7 @@ import (
 	"hash/adler32"
 	"io"
 	"reflect"
+	"strconv"
 	"strings"
 	"time"
 
@@ -64,7 +65,7 @@ var funcMap = map[string]jet.Func{
 		h := adler32.New()
 		h.Write([]byte(ToString(a.Get(0))))
 
-		return reflect.ValueOf(fmt.Sprintf("%x", h.Sum32()))
+		return reflect.ValueOf(strconv.FormatUint(uint64(h.Sum32()), 16))
 	},
 	"shortText": func(args jet.Arguments) reflect.Value {
 		args.RequireNumOfArguments("shortText", 2, 2)

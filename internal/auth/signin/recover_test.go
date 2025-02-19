@@ -5,7 +5,6 @@
 package signin_test
 
 import (
-	"fmt"
 	"net/url"
 	"regexp"
 	"testing"
@@ -38,10 +37,9 @@ func TestRecover(t *testing.T) {
 				ExpectStatus: 200,
 				Assert: func(t *testing.T, _ *Response) {
 					require.Contains(t, app.LastEmail, "login/recover/")
-					rx := regexp.MustCompile(fmt.Sprintf(
-						"%s/login/recover/(.+)\r\n",
-						regexp.QuoteMeta("http://"+client.URL.Host),
-					))
+					rx := regexp.MustCompile(
+						regexp.QuoteMeta("http://"+client.URL.Host) + "/login/recover/(.+)\r\n",
+					)
 					m := rx.FindStringSubmatch(app.LastEmail)
 					if len(m) < 2 {
 						t.Fatal("could not find recovery link in last email")

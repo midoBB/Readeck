@@ -5,9 +5,9 @@
 package admin
 
 import (
-	"fmt"
 	"log/slog"
 	"net/http"
+	"strconv"
 
 	"github.com/go-chi/chi/v5"
 
@@ -79,7 +79,7 @@ func (h *adminViews) userCreate(w http.ResponseWriter, r *http.Request) {
 				h.srv.Log(r).Error("", slog.Any("err", err))
 			} else {
 				h.srv.AddFlash(w, r, "success", tr.Gettext("User created."))
-				h.srv.Redirect(w, r, "./..", fmt.Sprint(u.ID))
+				h.srv.Redirect(w, r, "./..", strconv.Itoa(u.ID))
 				return
 			}
 		}
@@ -118,7 +118,7 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 					sess.Payload.Seed = u.Seed
 				}
 				h.srv.AddFlash(w, r, "success", tr.Gettext("User updated."))
-				h.srv.Redirect(w, r, fmt.Sprint(u.ID))
+				h.srv.Redirect(w, r, strconv.Itoa(u.ID))
 				return
 			}
 		}

@@ -7,7 +7,6 @@ package img
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"image"
 	"image/draw"
 	"io"
@@ -94,7 +93,7 @@ func (im *NativeImage) Format() string {
 
 // ContentType returns the image mimetype.
 func (im *NativeImage) ContentType() string {
-	return fmt.Sprintf("image/%s", im.format)
+	return "image/" + im.format
 }
 
 // Width returns the image width.

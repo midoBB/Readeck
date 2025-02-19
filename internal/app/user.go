@@ -151,7 +151,7 @@ func (f *userFlags) setEmail(user *users.User) {
 
 	// Never leave an empty email address
 	if user.Email == "" {
-		user.Email = fmt.Sprintf("%s@localhost", user.Username)
+		user.Email = user.Username + "@localhost"
 	}
 
 	if email != user.Email {

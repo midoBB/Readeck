@@ -92,7 +92,7 @@ func setOembedMeta(d *extract.Drop, name string, v jsonString) {
 	if v == "" {
 		return
 	}
-	d.Meta.Add(fmt.Sprintf("oembed.%s", name), string(v))
+	d.Meta.Add("oembed."+name, string(v))
 }
 
 type oembed struct {

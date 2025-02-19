@@ -5,7 +5,6 @@
 package routes
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/doug-martin/goqu/v9"
@@ -143,14 +142,14 @@ func (h *opdsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 			id, _ := shortuuid.DefaultEncoder.Decode(item.UID)
 			catalog.WithBookEntry(
 				id, tr.Gettext("Collection ebook - %s", item.Name),
-				h.srv.AbsoluteURL(r, "/api/bookmarks", fmt.Sprintf("export.epub?collection=%s", item.UID)).String(),
+				h.srv.AbsoluteURL(r, "/api/bookmarks", "export.epub?collection="+item.UID).String(),
 				item.Created, item.Created, item.Updated,
 				"Readeck", "", "",
 			)(feed)
 
 			catalog.WithNavEntry(
 				tr.Gettext("Browse collection: %s", item.Name), lastUpdate,
-				h.srv.AbsoluteURL(r, "../../bookmarks", fmt.Sprintf("all?collection=%s", item.UID)).String(),
+				h.srv.AbsoluteURL(r, "../../bookmarks", "all?collection="+item.UID).String(),
 			)(feed)
 		},
 	)

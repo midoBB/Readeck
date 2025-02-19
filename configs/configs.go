@@ -300,7 +300,7 @@ func InitConfiguration() {
 	}
 
 	if Config.Email.From == "" {
-		Config.Email.From = fmt.Sprintf("noreply@%s", Config.Server.Host)
+		Config.Email.From = "noreply@" + Config.Server.Host
 	}
 	if Config.Email.FromNoReply == "" {
 		Config.Email.FromNoReply = Config.Email.From

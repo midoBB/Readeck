@@ -197,7 +197,7 @@ func (r *AnnotationRange) Wrap(options ...WrapCallback) {
 // getTextNodeBoundary returns a range (text node and offset), given a specific selector and an offset.
 // The offset parameter is from the very beginning of the selector.
 func getTextNodeBoundary(root *html.Node, selector string, index int) (*html.Node, int, error) {
-	e, err := htmlquery.Query(root, fmt.Sprintf("./%s", selector))
+	e, err := htmlquery.Query(root, "./"+selector)
 	if err != nil {
 		return nil, 0, err
 	}

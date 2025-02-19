@@ -6,6 +6,7 @@ package extract
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io"
 	"mime"
@@ -91,7 +92,7 @@ func (d *Drop) SetURL(src *url.URL) {
 // Load loads the remote URL and retrieve data.
 func (d *Drop) Load(client *http.Client) error {
 	if d.URL == nil {
-		return fmt.Errorf("No document URL")
+		return errors.New("No document URL")
 	}
 
 	if len(d.Body) > 0 {
@@ -282,7 +283,7 @@ func scanForCharset(r io.Reader) string {
 			if t.DataAtom.String() == "meta" {
 				attrs := getAttrs(t)
 				if v, ok := attrs["charset"]; ok {
-					return fmt.Sprintf("text/html; charset=%s", v)
+					return "text/html; charset=" + v
 				}
 				if v, ok := attrs["name"]; ok && v == "http-equiv" {
 					if v, ok := attrs["content"]; ok {

@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"math/rand/v2"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
@@ -42,7 +43,7 @@ func newRandom(data uint64) *random {
 }
 
 func (r *random) GetSumStrings() []string {
-	return []string{configs.BuildTime().String(), fmt.Sprintf("%d", r.Int())}
+	return []string{configs.BuildTime().String(), strconv.Itoa(r.Int())}
 }
 
 func (r *random) GetLastModified() []time.Time {

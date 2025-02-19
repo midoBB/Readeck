@@ -5,7 +5,6 @@
 package profile_test
 
 import (
-	"fmt"
 	"testing"
 
 	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
@@ -194,7 +193,7 @@ func TestAPIDeleteToken(t *testing.T) {
 	RunRequestSequence(t, client, "user",
 		RequestTest{
 			JSON:         true,
-			Target:       fmt.Sprintf("/api/profile/tokens/%s", u1.Token.UID),
+			Target:       "/api/profile/tokens/" + u1.Token.UID,
 			Method:       "DELETE",
 			ExpectStatus: 404,
 		},
@@ -208,7 +207,7 @@ func TestAPIDeleteToken(t *testing.T) {
 		},
 		RequestTest{
 			JSON:         true,
-			Target:       fmt.Sprintf("/api/profile/tokens/%s", u1.Token.UID),
+			Target:       "/api/profile/tokens/" + u1.Token.UID,
 			Method:       "DELETE",
 			ExpectStatus: 204,
 		},

@@ -64,7 +64,11 @@ func newRecoverForm(tr forms.Translator) *recoverForm {
 }
 
 func (f *recoverForm) saveCode(code string, userID int) error {
-	return bus.Store().Set(fmt.Sprintf("%s_%s", f.prefix, code), fmt.Sprint(userID), f.ttl)
+	return bus.Store().Set(
+		f.prefix+"_"+code,
+		strconv.Itoa(userID),
+		f.ttl,
+	)
 }
 
 func (f *recoverForm) getCode(code string) (int, bool) {

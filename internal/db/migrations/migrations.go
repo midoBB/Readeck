@@ -8,7 +8,6 @@ package migrations
 import (
 	"embed"
 	"errors"
-	"fmt"
 	"io/fs"
 	"log/slog"
 	"os"
@@ -140,7 +139,7 @@ func updateArchiveHTML(fn domUpdateFunc) fileUpdateFunc {
 		}
 
 		// Create the new zip file
-		dest := fmt.Sprintf("%s~", path)
+		dest := path + "~"
 		if err = z.AddDestFile(dest); err != nil {
 			return dest, err
 		}

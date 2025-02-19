@@ -58,7 +58,7 @@ func NewSiteconfigDiscovery(root fs.FS) *SiteConfigDiscovery {
 func (d *SiteConfigDiscovery) FindConfigHostFile(name string) []string {
 	res := []string{}
 
-	s, _ := fs.Stat(d, fmt.Sprintf("%s.json", name))
+	s, _ := fs.Stat(d, name+".json")
 	if s != nil && !s.IsDir() {
 		res = append(res, s.Name())
 	}

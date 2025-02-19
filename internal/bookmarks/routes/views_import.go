@@ -6,7 +6,6 @@ package routes
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -61,7 +60,7 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 		adapter,
 	)
 
-	templateName := fmt.Sprintf("/bookmarks/import/form-%s", source)
+	templateName := "/bookmarks/import/form-" + source
 	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
 	ctx["Form"] = f
 	ctx.SetBreadcrumbs([][2]string{

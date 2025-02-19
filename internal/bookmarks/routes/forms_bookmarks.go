@@ -101,7 +101,7 @@ func (f *createForm) newMultipartResource(opener forms.FileOpener) (res tasks.Mu
 	}
 
 	if res.URL == "" {
-		err = fmt.Errorf("No resource URL")
+		err = errors.New("No resource URL")
 		return
 	}
 
@@ -111,7 +111,7 @@ func (f *createForm) newMultipartResource(opener forms.FileOpener) (res tasks.Mu
 		return
 	}
 	if len(res.Data) == 0 {
-		err = fmt.Errorf("No resource content")
+		err = errors.New("No resource content")
 		return
 	}
 

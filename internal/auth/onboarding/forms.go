@@ -6,7 +6,6 @@ package onboarding
 
 import (
 	"context"
-	"fmt"
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/pkg/forms"
@@ -37,7 +36,7 @@ func (f *onboardingForm) createUser(language string) (*users.User, error) {
 	}
 
 	if u.Email == "" {
-		u.Email = fmt.Sprintf("%s@localhost", u.Username)
+		u.Email = u.Username + "@localhost"
 	}
 
 	err := users.Users.Create(u)

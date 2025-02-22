@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-02-18 07:09+0000\n"
+"POT-Creation-Date: 2025-02-22 09:41+0000\n"
 "PO-Revision-Date: 2025-01-04 04:13+0000\n"
 "Last-Translator: mateusjdev <mateusjdev@users.noreply.translate.codeberg.org>\n"
 "Language: pt_BR\n"
@@ -468,8 +468,6 @@ msgid "By %s"
 msgstr ""
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:60
-#: assets/templates/bookmarks/components/card.jet.html:75
-#: assets/templates/bookmarks/components/sidebar.jet.html:69
 #, python-format
 msgid "%d min"
 msgstr ""
@@ -650,6 +648,14 @@ msgstr ""
 msgctxt "bookmark"
 msgid "Loading"
 msgstr ""
+
+#: assets/templates/bookmarks/components/card.jet.html:75
+#, python-format
+msgctxt "abbr"
+msgid "%d min"
+msgid_plural "%d min"
+msgstr[0] ""
+msgstr[1] ""
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
@@ -837,6 +843,14 @@ msgstr ""
 msgid "Errors occurred during extraction."
 msgstr ""
 
+#: assets/templates/bookmarks/components/sidebar.jet.html:69
+#: assets/templates/epub/bookmark.jet.html:45
+#, python-format
+msgid "About %d minute read"
+msgid_plural "About %d minutes read"
+msgstr[0] ""
+msgstr[1] ""
+
 #: assets/templates/bookmarks/components/sidebar.jet.html:104
 msgid "Start selecting text in the article to create a new highlight."
 msgstr ""
@@ -928,15 +942,15 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
+# | msgid "Email address"
 #: assets/templates/bookmarks/import/form-csv.jet.html:58
 #, fuzzy
-#| msgid "Email address"
 msgid "Link address"
 msgstr "Endereço de e-mail"
 
+# | msgid "Bookmark loading"
 #: assets/templates/bookmarks/import/form-csv.jet.html:63
 #, fuzzy
-#| msgid "Bookmark loading"
 msgid "Bookmark title"
 msgstr "Carregando favorito"
 
@@ -1149,9 +1163,9 @@ msgid ""
 "      "
 msgstr ""
 
+# | msgid "Bookmark Highlights"
 #: assets/templates/bookmarks/index.jet.html:1
 #, fuzzy
-#| msgid "Bookmark Highlights"
 msgid "Bookmark filters"
 msgstr "Marcações"
 
@@ -1414,11 +1428,6 @@ msgstr ""
 msgid "Kind regards"
 msgstr ""
 
-#: assets/templates/epub/bookmark.jet.html:45
-#, python-format
-msgid "About %d min read"
-msgstr ""
-
 #: assets/templates/error.jet.html:8
 msgid "Error"
 msgstr ""
@@ -1646,9 +1655,9 @@ msgstr ""
 msgid "Invalid user and/or password"
 msgstr ""
 
+# | msgid "Password recovery"
 #: internal/auth/users/forms.go:68
 #, fuzzy
-#| msgid "Password recovery"
 msgid "password is empty"
 msgstr "Recuperação de senha"
 
@@ -1681,7 +1690,7 @@ msgstr ""
 #: internal/bookmarks/importer/csv.go:153
 #: internal/bookmarks/importer/csv.go:158
 #: internal/bookmarks/importer/csv.go:167
-#: internal/bookmarks/importer/importer.go:41
+#: internal/bookmarks/importer/importer.go:45
 msgid "Empty or invalid import file"
 msgstr ""
 
@@ -1794,25 +1803,25 @@ msgctxt "sort"
 msgid "Duration, longest first"
 msgstr ""
 
-#: internal/bookmarks/routes/opds.go:57
+#: internal/bookmarks/routes/opds.go:56
 msgid "Readeck Bookmarks"
 msgstr ""
 
-#: internal/bookmarks/routes/opds.go:102
+#: internal/bookmarks/routes/opds.go:101
 msgid "Readeck Bookmark Collections"
 msgstr ""
 
-#: internal/bookmarks/routes/opds.go:139
+#: internal/bookmarks/routes/opds.go:138
 #, python-format
 msgid "Readeck Collection: %s"
 msgstr ""
 
-#: internal/bookmarks/routes/opds.go:145
+#: internal/bookmarks/routes/opds.go:144
 #, python-format
 msgid "Collection ebook - %s"
 msgstr ""
 
-#: internal/bookmarks/routes/opds.go:152
+#: internal/bookmarks/routes/opds.go:151
 #, python-format
 msgid "Browse collection: %s"
 msgstr ""
@@ -1841,13 +1850,13 @@ msgstr ""
 msgid "Collection updated."
 msgstr ""
 
-#: internal/bookmarks/routes/views_import.go:29
-#: internal/bookmarks/routes/views_import.go:38
-#: internal/bookmarks/routes/views_import.go:69
+#: internal/bookmarks/routes/views_import.go:28
+#: internal/bookmarks/routes/views_import.go:37
+#: internal/bookmarks/routes/views_import.go:68
 msgid "Import"
 msgstr ""
 
-#: internal/bookmarks/routes/views_import.go:30
+#: internal/bookmarks/routes/views_import.go:29
 msgid "Progress"
 msgstr ""
 
@@ -1899,29 +1908,29 @@ msgstr ""
 msgid "an unexpected error has occurred"
 msgstr ""
 
-#: pkg/forms/validators.go:17
+#: pkg/forms/validators.go:18
 msgid "field is required"
 msgstr ""
 
-#: pkg/forms/validators.go:18
+#: pkg/forms/validators.go:20
 msgid "not a valid email address"
 msgstr ""
 
-#: pkg/forms/validators.go:19
+#: pkg/forms/validators.go:22
 msgid "invalid URL"
 msgstr ""
 
-#: pkg/forms/validators.go:328
+#: pkg/forms/validators.go:331
 #, python-format
 msgid "must be greater or equal than %d"
 msgstr ""
 
-#: pkg/forms/validators.go:336
+#: pkg/forms/validators.go:339
 #, python-format
 msgid "must be lower or equal than %d"
 msgstr ""
 
-#: pkg/forms/validators.go:395
+#: pkg/forms/validators.go:398
 #, python-format
 msgid "%v is not one of %s"
 msgstr ""
@@ -2150,5 +2159,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Unable to open zip file"
+#~ msgstr ""
+
+#~ msgid "About %d min read"
 #~ msgstr ""
 

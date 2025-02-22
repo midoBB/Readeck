@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-02-18 07:09+0000\n"
+"POT-Creation-Date: 2025-02-22 09:41+0000\n"
 "PO-Revision-Date: 2025-01-24 13:21+0000\n"
 "Last-Translator: altruizine <altruizine@users.noreply.translate.codeberg.org>\n"
 "Language: de_DE\n"
@@ -468,8 +468,6 @@ msgid "By %s"
 msgstr "Von %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:60
-#: assets/templates/bookmarks/components/card.jet.html:75
-#: assets/templates/bookmarks/components/sidebar.jet.html:69
 #, python-format
 msgid "%d min"
 msgstr "%d min"
@@ -483,9 +481,9 @@ msgstr "Geteilt von %s"
 msgid "with"
 msgstr "mit"
 
+# | msgid "Saved with Readeck"
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
 #, fuzzy
-#| msgid "Saved with Readeck"
 msgid "Saved with"
 msgstr "Gespeichert mit Readeck"
 
@@ -660,6 +658,15 @@ msgctxt "bookmark"
 msgid "Loading"
 msgstr "Laden"
 
+#: assets/templates/bookmarks/components/card.jet.html:75
+#, fuzzy, python-format
+#| msgid "%d min"
+msgctxt "abbr"
+msgid "%d min"
+msgid_plural "%d min"
+msgstr[0] "%d min"
+msgstr[1] ""
+
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
 msgstr "Markierung(en) entfernen"
@@ -783,21 +790,21 @@ msgstr "Rasteransicht"
 msgid "Compact view"
 msgstr "Kompaktansicht"
 
+# | msgid "Import bookmarks"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 #, fuzzy
-#| msgid "Import bookmarks"
 msgid "Sort bookmarks"
 msgstr "Lesezeichen importieren"
 
+# | msgid "Options"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 #, fuzzy
-#| msgid "Options"
 msgid "Sort options"
 msgstr "Optionen"
 
+# | msgid "Import links and articles"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 #, fuzzy
-#| msgid "Import links and articles"
 msgid "Import and export"
 msgstr "Importiere Links und Artikel"
 
@@ -851,6 +858,15 @@ msgstr "kein Sitename"
 #: assets/templates/bookmarks/components/sidebar.jet.html:13
 msgid "Errors occurred during extraction."
 msgstr "Während der Extraktion sind Fehler aufgetreten."
+
+#: assets/templates/bookmarks/components/sidebar.jet.html:69
+#: assets/templates/epub/bookmark.jet.html:45
+#, fuzzy, python-format
+#| msgid "About %d min read"
+msgid "About %d minute read"
+msgid_plural "About %d minutes read"
+msgstr[0] "Etwa %d min Lesezeit"
+msgstr[1] ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:104
 msgid "Start selecting text in the article to create a new highlight."
@@ -912,9 +928,9 @@ msgstr "Fügt ein Tag auf Links hinzu, basierend auf ihrem Abschnittstitel"
 msgid "Import Bookmarks"
 msgstr "Lesezeichen importieren"
 
+# | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
 #, fuzzy
-#| msgid "Import Links from a Text File"
 msgid "Import Links from a CSV File"
 msgstr "Importiere Links aus einer Textdatei"
 
@@ -938,33 +954,33 @@ msgstr ""
 msgid "Here are the columns you can set:"
 msgstr ""
 
+# | msgid "File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
 #, fuzzy
-#| msgid "File"
 msgid "Field"
 msgstr "Datei"
 
+# | msgid "Links"
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
 #, fuzzy
-#| msgid "Links"
 msgid "Alias"
 msgstr "Links"
 
+# | msgid "Distribution"
 #: assets/templates/bookmarks/import/form-csv.jet.html:51
 #, fuzzy
-#| msgid "Distribution"
 msgid "Description"
 msgstr "Verteilung"
 
+# | msgid "Email Address"
 #: assets/templates/bookmarks/import/form-csv.jet.html:58
 #, fuzzy
-#| msgid "Email Address"
 msgid "Link address"
 msgstr "E-Mail-Adresse"
 
+# | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/import/form-csv.jet.html:63
 #, fuzzy
-#| msgid "Bookmark Labels"
 msgid "Bookmark title"
 msgstr "Lesezeichen Tags"
 
@@ -1152,9 +1168,9 @@ msgstr ""
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
 msgstr "Importiere deine Lesezeichen aus dem Browser, aus Pinboard oder Instapaper"
 
+# | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/index.jet.html:40
 #, fuzzy
-#| msgid "Import Links from a Text File"
 msgid "Import Links from a CSV File and Instapaper"
 msgstr "Importiere Links aus einer Textdatei"
 
@@ -1174,9 +1190,9 @@ msgstr "Füge all deinen importierten Lesezeichen einen Tag hinzu"
 msgid "Ignore links already in your bookmarks"
 msgstr "Ignoriere Links, die bereits als Lesezeichen existieren"
 
+# | msgid "Archived Bookmarks"
 #: assets/templates/bookmarks/import/options.jet.html:21
 #, fuzzy
-#| msgid "Archived Bookmarks"
 msgid "Archive all links"
 msgstr "Archivierte Lesezeichen"
 
@@ -1184,9 +1200,9 @@ msgstr "Archivierte Lesezeichen"
 msgid "Moves all links to archive, regardless of their original status"
 msgstr ""
 
+# | msgid "Mark as read"
 #: assets/templates/bookmarks/import/options.jet.html:27
 #, fuzzy
-#| msgid "Mark as read"
 msgid "Mark all links as read"
 msgstr "Als gelesen markieren"
 
@@ -1221,9 +1237,9 @@ msgstr ""
 "      Deine Lesezeichen sind jetzt in deiner <a class=\"%s\" href=\"%s\">Lesezeichenliste</a> verfügbar.\n"
 "      "
 
+# | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/index.jet.html:1
 #, fuzzy
-#| msgid "Bookmark Labels"
 msgid "Bookmark filters"
 msgstr "Lesezeichen Tags"
 
@@ -1517,11 +1533,6 @@ msgstr ""
 msgid "Kind regards"
 msgstr "Mit freundlichen Grüßen"
 
-#: assets/templates/epub/bookmark.jet.html:45
-#, python-format
-msgid "About %d min read"
-msgstr "Etwa %d min Lesezeit"
-
 #: assets/templates/error.jet.html:8
 msgid "Error"
 msgstr "Fehler"
@@ -1766,9 +1777,9 @@ msgstr "Benutzer aktualisiert."
 msgid "Invalid user and/or password"
 msgstr "Ungültiger Benutzername und/oder ungültiges Passwort"
 
+# | msgid "Password ID"
 #: internal/auth/users/forms.go:68
 #, fuzzy
-#| msgid "Password ID"
 msgid "password is empty"
 msgstr "Kennwort-ID"
 
@@ -1801,13 +1812,13 @@ msgstr "Der HTML-Inhalt kann nicht gelesen werden"
 #: internal/bookmarks/importer/csv.go:153
 #: internal/bookmarks/importer/csv.go:158
 #: internal/bookmarks/importer/csv.go:167
-#: internal/bookmarks/importer/importer.go:41
+#: internal/bookmarks/importer/importer.go:45
 msgid "Empty or invalid import file"
 msgstr "Leere oder ungültige Importdatei"
 
+# | msgid "File"
 #: internal/bookmarks/importer/csv.go:118
 #, fuzzy
-#| msgid "File"
 msgid "CSV File"
 msgstr "Datei"
 
@@ -1916,25 +1927,25 @@ msgctxt "sort"
 msgid "Duration, longest first"
 msgstr "Lesedauer, längste zuerst"
 
-#: internal/bookmarks/routes/opds.go:57
+#: internal/bookmarks/routes/opds.go:56
 msgid "Readeck Bookmarks"
 msgstr "Readeck-Lesezeichen"
 
-#: internal/bookmarks/routes/opds.go:102
+#: internal/bookmarks/routes/opds.go:101
 msgid "Readeck Bookmark Collections"
 msgstr "Readeck-Lesezeichensammlungen"
 
-#: internal/bookmarks/routes/opds.go:139
+#: internal/bookmarks/routes/opds.go:138
 #, python-format
 msgid "Readeck Collection: %s"
 msgstr "Readeck-Sammlung: %s"
 
-#: internal/bookmarks/routes/opds.go:145
+#: internal/bookmarks/routes/opds.go:144
 #, python-format
 msgid "Collection ebook - %s"
 msgstr "Sammlungs-E-Book - %s"
 
-#: internal/bookmarks/routes/opds.go:152
+#: internal/bookmarks/routes/opds.go:151
 #, python-format
 msgid "Browse collection: %s"
 msgstr "Sammlung durchsuchen: %s"
@@ -1963,13 +1974,13 @@ msgstr "Lesezeichen-Favoriten"
 msgid "Collection updated."
 msgstr "Sammlung aktualisiert."
 
-#: internal/bookmarks/routes/views_import.go:29
-#: internal/bookmarks/routes/views_import.go:38
-#: internal/bookmarks/routes/views_import.go:69
+#: internal/bookmarks/routes/views_import.go:28
+#: internal/bookmarks/routes/views_import.go:37
+#: internal/bookmarks/routes/views_import.go:68
 msgid "Import"
 msgstr "Importieren"
 
-#: internal/bookmarks/routes/views_import.go:30
+#: internal/bookmarks/routes/views_import.go:29
 msgid "Progress"
 msgstr "Fortschritt"
 
@@ -2021,29 +2032,29 @@ msgstr "Token aktualisiert."
 msgid "an unexpected error has occurred"
 msgstr "Ein unerwarteter Fehler ist aufgetreten"
 
-#: pkg/forms/validators.go:17
+#: pkg/forms/validators.go:18
 msgid "field is required"
 msgstr "Feld ist erforderlich"
 
-#: pkg/forms/validators.go:18
+#: pkg/forms/validators.go:20
 msgid "not a valid email address"
 msgstr "keine gültige E-Mail-Adresse"
 
-#: pkg/forms/validators.go:19
+#: pkg/forms/validators.go:22
 msgid "invalid URL"
 msgstr "ungültige URL"
 
-#: pkg/forms/validators.go:328
+#: pkg/forms/validators.go:331
 #, python-format
 msgid "must be greater or equal than %d"
 msgstr "muss größer oder gleich %d sein"
 
-#: pkg/forms/validators.go:336
+#: pkg/forms/validators.go:339
 #, python-format
 msgid "must be lower or equal than %d"
 msgstr "muss kleiner oder gleich %d sein"
 
-#: pkg/forms/validators.go:395
+#: pkg/forms/validators.go:398
 #, python-format
 msgid "%v is not one of %s"
 msgstr ""

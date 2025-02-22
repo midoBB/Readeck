@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-02-18 07:09+0000\n"
+"POT-Creation-Date: 2025-02-22 09:41+0000\n"
 "PO-Revision-Date: 2024-12-31 16:08+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@users.noreply.translate.codeberg.org>\n"
 "Language: zh_CN\n"
@@ -468,8 +468,6 @@ msgid "By %s"
 msgstr "作者 %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:60
-#: assets/templates/bookmarks/components/card.jet.html:75
-#: assets/templates/bookmarks/components/sidebar.jet.html:69
 #, python-format
 msgid "%d min"
 msgstr "%d 分钟"
@@ -483,9 +481,9 @@ msgstr "由 %s 分享"
 msgid "with"
 msgstr "通过"
 
+# | msgid "Saved with Readeck"
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
 #, fuzzy
-#| msgid "Saved with Readeck"
 msgid "Saved with"
 msgstr "用 Readeck 保存"
 
@@ -660,6 +658,14 @@ msgctxt "bookmark"
 msgid "Loading"
 msgstr "加载"
 
+#: assets/templates/bookmarks/components/card.jet.html:75
+#, fuzzy, python-format
+#| msgid "%d min"
+msgctxt "abbr"
+msgid "%d min"
+msgid_plural "%d min"
+msgstr[0] "%d 分钟"
+
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
 msgstr "移除高亮"
@@ -783,21 +789,21 @@ msgstr "网格视图"
 msgid "Compact view"
 msgstr "紧凑视图"
 
+# | msgid "Import bookmarks"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 #, fuzzy
-#| msgid "Import bookmarks"
 msgid "Sort bookmarks"
 msgstr "导入书签"
 
+# | msgid "Options"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 #, fuzzy
-#| msgid "Options"
 msgid "Sort options"
 msgstr "选项"
 
+# | msgid "Import links and articles"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 #, fuzzy
-#| msgid "Import links and articles"
 msgid "Import and export"
 msgstr "导入链接和文章"
 
@@ -851,6 +857,14 @@ msgstr "没有网站名称"
 #: assets/templates/bookmarks/components/sidebar.jet.html:13
 msgid "Errors occurred during extraction."
 msgstr "提取过程中出错。"
+
+#: assets/templates/bookmarks/components/sidebar.jet.html:69
+#: assets/templates/epub/bookmark.jet.html:45
+#, fuzzy, python-format
+#| msgid "About %d min read"
+msgid "About %d minute read"
+msgid_plural "About %d minutes read"
+msgstr[0] "阅读约 %d 分钟"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:104
 msgid "Start selecting text in the article to create a new highlight."
@@ -912,9 +926,9 @@ msgstr "根据链接的章节标题添加标签"
 msgid "Import Bookmarks"
 msgstr "导入书签"
 
+# | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
 #, fuzzy
-#| msgid "Import Links from a Text File"
 msgid "Import Links from a CSV File"
 msgstr "从文本文件导入链接"
 
@@ -938,33 +952,33 @@ msgstr ""
 msgid "Here are the columns you can set:"
 msgstr ""
 
+# | msgid "File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
 #, fuzzy
-#| msgid "File"
 msgid "Field"
 msgstr "文件"
 
+# | msgid "Links"
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
 #, fuzzy
-#| msgid "Links"
 msgid "Alias"
 msgstr "链接"
 
+# | msgid "Distribution"
 #: assets/templates/bookmarks/import/form-csv.jet.html:51
 #, fuzzy
-#| msgid "Distribution"
 msgid "Description"
 msgstr "分发"
 
+# | msgid "Email Address"
 #: assets/templates/bookmarks/import/form-csv.jet.html:58
 #, fuzzy
-#| msgid "Email Address"
 msgid "Link address"
 msgstr "邮件地址"
 
+# | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/import/form-csv.jet.html:63
 #, fuzzy
-#| msgid "Bookmark Labels"
 msgid "Bookmark title"
 msgstr "书签标签"
 
@@ -1152,9 +1166,9 @@ msgstr ""
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
 msgstr "导入浏览器的书签、Pinboard、Instapaper"
 
+# | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/index.jet.html:40
 #, fuzzy
-#| msgid "Import Links from a Text File"
 msgid "Import Links from a CSV File and Instapaper"
 msgstr "从文本文件导入链接"
 
@@ -1174,9 +1188,9 @@ msgstr "添加到全部导入书签的标签"
 msgid "Ignore links already in your bookmarks"
 msgstr "忽略书签中已有的链接"
 
+# | msgid "Archived Bookmarks"
 #: assets/templates/bookmarks/import/options.jet.html:21
 #, fuzzy
-#| msgid "Archived Bookmarks"
 msgid "Archive all links"
 msgstr "已存档书签"
 
@@ -1184,9 +1198,9 @@ msgstr "已存档书签"
 msgid "Moves all links to archive, regardless of their original status"
 msgstr ""
 
+# | msgid "Mark as read"
 #: assets/templates/bookmarks/import/options.jet.html:27
 #, fuzzy
-#| msgid "Mark as read"
 msgid "Mark all links as read"
 msgstr "标记为已读"
 
@@ -1221,9 +1235,9 @@ msgstr ""
 "      您的书签现在可以在您的<a class=\"%s\" href=\"%s\">书签列表</a>中找到。\n"
 "      "
 
+# | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/index.jet.html:1
 #, fuzzy
-#| msgid "Bookmark Labels"
 msgid "Bookmark filters"
 msgstr "书签标签"
 
@@ -1516,11 +1530,6 @@ msgstr ""
 msgid "Kind regards"
 msgstr "亲切问候"
 
-#: assets/templates/epub/bookmark.jet.html:45
-#, python-format
-msgid "About %d min read"
-msgstr "阅读约 %d 分钟"
-
 #: assets/templates/error.jet.html:8
 msgid "Error"
 msgstr "错误"
@@ -1765,9 +1774,9 @@ msgstr "用户已更新。"
 msgid "Invalid user and/or password"
 msgstr "用户和/或密码无效"
 
+# | msgid "Password ID"
 #: internal/auth/users/forms.go:68
 #, fuzzy
-#| msgid "Password ID"
 msgid "password is empty"
 msgstr "密码 ID"
 
@@ -1800,13 +1809,13 @@ msgstr "无法读取 HTML 内容"
 #: internal/bookmarks/importer/csv.go:153
 #: internal/bookmarks/importer/csv.go:158
 #: internal/bookmarks/importer/csv.go:167
-#: internal/bookmarks/importer/importer.go:41
+#: internal/bookmarks/importer/importer.go:45
 msgid "Empty or invalid import file"
 msgstr "导入文件为空或无效"
 
+# | msgid "File"
 #: internal/bookmarks/importer/csv.go:118
 #, fuzzy
-#| msgid "File"
 msgid "CSV File"
 msgstr "文件"
 
@@ -1915,25 +1924,25 @@ msgctxt "sort"
 msgid "Duration, longest first"
 msgstr "耗时最长"
 
-#: internal/bookmarks/routes/opds.go:57
+#: internal/bookmarks/routes/opds.go:56
 msgid "Readeck Bookmarks"
 msgstr "Readeck 书签"
 
-#: internal/bookmarks/routes/opds.go:102
+#: internal/bookmarks/routes/opds.go:101
 msgid "Readeck Bookmark Collections"
 msgstr "Readeck 书签收藏集"
 
-#: internal/bookmarks/routes/opds.go:139
+#: internal/bookmarks/routes/opds.go:138
 #, python-format
 msgid "Readeck Collection: %s"
 msgstr "Readeck 收藏集：%s"
 
-#: internal/bookmarks/routes/opds.go:145
+#: internal/bookmarks/routes/opds.go:144
 #, python-format
 msgid "Collection ebook - %s"
 msgstr "收藏集电子书 - %s"
 
-#: internal/bookmarks/routes/opds.go:152
+#: internal/bookmarks/routes/opds.go:151
 #, python-format
 msgid "Browse collection: %s"
 msgstr "浏览收藏集：%s"
@@ -1962,13 +1971,13 @@ msgstr "已收藏书签"
 msgid "Collection updated."
 msgstr "收藏集已更新。"
 
-#: internal/bookmarks/routes/views_import.go:29
-#: internal/bookmarks/routes/views_import.go:38
-#: internal/bookmarks/routes/views_import.go:69
+#: internal/bookmarks/routes/views_import.go:28
+#: internal/bookmarks/routes/views_import.go:37
+#: internal/bookmarks/routes/views_import.go:68
 msgid "Import"
 msgstr "导入"
 
-#: internal/bookmarks/routes/views_import.go:30
+#: internal/bookmarks/routes/views_import.go:29
 msgid "Progress"
 msgstr "进度"
 
@@ -2020,29 +2029,29 @@ msgstr "令牌已更新。"
 msgid "an unexpected error has occurred"
 msgstr "发生意外错误"
 
-#: pkg/forms/validators.go:17
+#: pkg/forms/validators.go:18
 msgid "field is required"
 msgstr "必填字段"
 
-#: pkg/forms/validators.go:18
+#: pkg/forms/validators.go:20
 msgid "not a valid email address"
 msgstr "不是有效的邮件地址"
 
-#: pkg/forms/validators.go:19
+#: pkg/forms/validators.go:22
 msgid "invalid URL"
 msgstr "无效的 URL"
 
-#: pkg/forms/validators.go:328
+#: pkg/forms/validators.go:331
 #, python-format
 msgid "must be greater or equal than %d"
 msgstr "必须大于或等于 %d"
 
-#: pkg/forms/validators.go:336
+#: pkg/forms/validators.go:339
 #, python-format
 msgid "must be lower or equal than %d"
 msgstr "必须小于或等于 %d"
 
-#: pkg/forms/validators.go:395
+#: pkg/forms/validators.go:398
 #, python-format
 msgid "%v is not one of %s"
 msgstr ""

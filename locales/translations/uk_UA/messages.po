@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-02-18 07:09+0000\n"
+"POT-Creation-Date: 2025-02-22 09:41+0000\n"
 "PO-Revision-Date: 2025-01-14 23:58+0000\n"
 "Last-Translator: jpnsncp <jpnsncp@users.noreply.translate.codeberg.org>\n"
 "Language: uk_UA\n"
@@ -468,8 +468,6 @@ msgid "By %s"
 msgstr "Автор %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:60
-#: assets/templates/bookmarks/components/card.jet.html:75
-#: assets/templates/bookmarks/components/sidebar.jet.html:69
 #, python-format
 msgid "%d min"
 msgstr "%d хв"
@@ -483,9 +481,9 @@ msgstr "Поділились %s"
 msgid "with"
 msgstr "з"
 
+# | msgid "Saved with Readeck"
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
 #, fuzzy
-#| msgid "Saved with Readeck"
 msgid "Saved with"
 msgstr "Збережено Readeck"
 
@@ -660,6 +658,16 @@ msgctxt "bookmark"
 msgid "Loading"
 msgstr "Завантаження"
 
+#: assets/templates/bookmarks/components/card.jet.html:75
+#, fuzzy, python-format
+#| msgid "%d min"
+msgctxt "abbr"
+msgid "%d min"
+msgid_plural "%d min"
+msgstr[0] "%d хв"
+msgstr[1] ""
+msgstr[2] ""
+
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
 msgstr "Стерти виділення"
@@ -783,21 +791,21 @@ msgstr "Вигляд сітки"
 msgid "Compact view"
 msgstr "Компактний вигляд"
 
+# | msgid "Import bookmarks"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 #, fuzzy
-#| msgid "Import bookmarks"
 msgid "Sort bookmarks"
 msgstr "Імпортувати закладки"
 
+# | msgid "Options"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 #, fuzzy
-#| msgid "Options"
 msgid "Sort options"
 msgstr "Параметри"
 
+# | msgid "Import links and articles"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 #, fuzzy
-#| msgid "Import links and articles"
 msgid "Import and export"
 msgstr "Імпортувати посилання та статті"
 
@@ -851,6 +859,16 @@ msgstr "немає назви сайту"
 #: assets/templates/bookmarks/components/sidebar.jet.html:13
 msgid "Errors occurred during extraction."
 msgstr "Під час витягу виникли помилки."
+
+#: assets/templates/bookmarks/components/sidebar.jet.html:69
+#: assets/templates/epub/bookmark.jet.html:45
+#, fuzzy, python-format
+#| msgid "About %d min read"
+msgid "About %d minute read"
+msgid_plural "About %d minutes read"
+msgstr[0] "Приблизно %d хв читання"
+msgstr[1] ""
+msgstr[2] ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:104
 msgid "Start selecting text in the article to create a new highlight."
@@ -912,9 +930,9 @@ msgstr "Додає мітку до посилань на основі назви
 msgid "Import Bookmarks"
 msgstr "Імпортувати закладки"
 
+# | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
 #, fuzzy
-#| msgid "Import Links from a Text File"
 msgid "Import Links from a CSV File"
 msgstr "Імпортувати посилання з текстового файлу"
 
@@ -938,33 +956,33 @@ msgstr ""
 msgid "Here are the columns you can set:"
 msgstr ""
 
+# | msgid "File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
 #, fuzzy
-#| msgid "File"
 msgid "Field"
 msgstr "Файл"
 
+# | msgid "Links"
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
 #, fuzzy
-#| msgid "Links"
 msgid "Alias"
 msgstr "Посилання"
 
+# | msgid "Distribution"
 #: assets/templates/bookmarks/import/form-csv.jet.html:51
 #, fuzzy
-#| msgid "Distribution"
 msgid "Description"
 msgstr "Розповсюдження"
 
+# | msgid "Email Address"
 #: assets/templates/bookmarks/import/form-csv.jet.html:58
 #, fuzzy
-#| msgid "Email Address"
 msgid "Link address"
 msgstr "Електронна адреса"
 
+# | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/import/form-csv.jet.html:63
 #, fuzzy
-#| msgid "Bookmark Labels"
 msgid "Bookmark title"
 msgstr "Мітки закладок"
 
@@ -1152,9 +1170,9 @@ msgstr ""
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
 msgstr "Імпортувати ваші закладки з браузера, Pinboard, Instapaper"
 
+# | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/index.jet.html:40
 #, fuzzy
-#| msgid "Import Links from a Text File"
 msgid "Import Links from a CSV File and Instapaper"
 msgstr "Імпортувати посилання з текстового файлу"
 
@@ -1174,9 +1192,9 @@ msgstr "Мітка, яка буде додана до всіх імпортов�
 msgid "Ignore links already in your bookmarks"
 msgstr "Пропустити посилання, які вже наявні у ваших закладках"
 
+# | msgid "Archived Bookmarks"
 #: assets/templates/bookmarks/import/options.jet.html:21
 #, fuzzy
-#| msgid "Archived Bookmarks"
 msgid "Archive all links"
 msgstr "Архівовані закладки"
 
@@ -1184,9 +1202,9 @@ msgstr "Архівовані закладки"
 msgid "Moves all links to archive, regardless of their original status"
 msgstr ""
 
+# | msgid "Mark as read"
 #: assets/templates/bookmarks/import/options.jet.html:27
 #, fuzzy
-#| msgid "Mark as read"
 msgid "Mark all links as read"
 msgstr "Позначити як прочитане"
 
@@ -1221,9 +1239,9 @@ msgstr ""
 "      Ваші закладки тепер доступні у <a class=\"%s\" href=\"%s\">списку закладок</a>.\n"
 "      "
 
+# | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/index.jet.html:1
 #, fuzzy
-#| msgid "Bookmark Labels"
 msgid "Bookmark filters"
 msgstr "Мітки закладок"
 
@@ -1518,11 +1536,6 @@ msgstr ""
 msgid "Kind regards"
 msgstr "З повагою"
 
-#: assets/templates/epub/bookmark.jet.html:45
-#, python-format
-msgid "About %d min read"
-msgstr "Приблизно %d хв читання"
-
 #: assets/templates/error.jet.html:8
 msgid "Error"
 msgstr "Помилка"
@@ -1767,9 +1780,9 @@ msgstr "Користувача оновлено."
 msgid "Invalid user and/or password"
 msgstr "Неправильний користувач і/або пароль"
 
+# | msgid "Password ID"
 #: internal/auth/users/forms.go:68
 #, fuzzy
-#| msgid "Password ID"
 msgid "password is empty"
 msgstr "ID пароля"
 
@@ -1802,13 +1815,13 @@ msgstr "Не вдається прочитати вміст HTML"
 #: internal/bookmarks/importer/csv.go:153
 #: internal/bookmarks/importer/csv.go:158
 #: internal/bookmarks/importer/csv.go:167
-#: internal/bookmarks/importer/importer.go:41
+#: internal/bookmarks/importer/importer.go:45
 msgid "Empty or invalid import file"
 msgstr "Порожній або неправильний файл імпорту"
 
+# | msgid "File"
 #: internal/bookmarks/importer/csv.go:118
 #, fuzzy
-#| msgid "File"
 msgid "CSV File"
 msgstr "Файл"
 
@@ -1917,25 +1930,25 @@ msgctxt "sort"
 msgid "Duration, longest first"
 msgstr "Тривалість, спочатку найдовші"
 
-#: internal/bookmarks/routes/opds.go:57
+#: internal/bookmarks/routes/opds.go:56
 msgid "Readeck Bookmarks"
 msgstr "Закладки Readeck"
 
-#: internal/bookmarks/routes/opds.go:102
+#: internal/bookmarks/routes/opds.go:101
 msgid "Readeck Bookmark Collections"
 msgstr "Колекції закладок Readeck"
 
-#: internal/bookmarks/routes/opds.go:139
+#: internal/bookmarks/routes/opds.go:138
 #, python-format
 msgid "Readeck Collection: %s"
 msgstr "Колекція Readeck: %s"
 
-#: internal/bookmarks/routes/opds.go:145
+#: internal/bookmarks/routes/opds.go:144
 #, python-format
 msgid "Collection ebook - %s"
 msgstr "Електронна книга колекції - %s"
 
-#: internal/bookmarks/routes/opds.go:152
+#: internal/bookmarks/routes/opds.go:151
 #, python-format
 msgid "Browse collection: %s"
 msgstr "Переглянути колекцію: %s"
@@ -1964,13 +1977,13 @@ msgstr "Обрані закладки"
 msgid "Collection updated."
 msgstr "Колекцію оновлено."
 
-#: internal/bookmarks/routes/views_import.go:29
-#: internal/bookmarks/routes/views_import.go:38
-#: internal/bookmarks/routes/views_import.go:69
+#: internal/bookmarks/routes/views_import.go:28
+#: internal/bookmarks/routes/views_import.go:37
+#: internal/bookmarks/routes/views_import.go:68
 msgid "Import"
 msgstr "Імпортувати"
 
-#: internal/bookmarks/routes/views_import.go:30
+#: internal/bookmarks/routes/views_import.go:29
 msgid "Progress"
 msgstr "Прогрес"
 
@@ -2022,29 +2035,29 @@ msgstr "Токен оновлено."
 msgid "an unexpected error has occurred"
 msgstr "сталася непередбачена помилка"
 
-#: pkg/forms/validators.go:17
+#: pkg/forms/validators.go:18
 msgid "field is required"
 msgstr "обов'язкове поле"
 
-#: pkg/forms/validators.go:18
+#: pkg/forms/validators.go:20
 msgid "not a valid email address"
 msgstr "недійсна електронна адреса"
 
-#: pkg/forms/validators.go:19
+#: pkg/forms/validators.go:22
 msgid "invalid URL"
 msgstr "неправильна URL-адреса"
 
-#: pkg/forms/validators.go:328
+#: pkg/forms/validators.go:331
 #, python-format
 msgid "must be greater or equal than %d"
 msgstr "має бути більшим або дорівнювати %d"
 
-#: pkg/forms/validators.go:336
+#: pkg/forms/validators.go:339
 #, python-format
 msgid "must be lower or equal than %d"
 msgstr "має бути меншим або дорівнювати %d"
 
-#: pkg/forms/validators.go:395
+#: pkg/forms/validators.go:398
 #, python-format
 msgid "%v is not one of %s"
 msgstr ""

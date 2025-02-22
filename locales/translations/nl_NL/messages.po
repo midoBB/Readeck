@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-02-18 07:09+0000\n"
+"POT-Creation-Date: 2025-02-22 09:41+0000\n"
 "PO-Revision-Date: 2024-12-16 11:09+0000\n"
 "Last-Translator: Vistaus <Vistaus@users.noreply.translate.codeberg.org>\n"
 "Language: nl_NL\n"
@@ -468,8 +468,6 @@ msgid "By %s"
 msgstr "Door %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:60
-#: assets/templates/bookmarks/components/card.jet.html:75
-#: assets/templates/bookmarks/components/sidebar.jet.html:69
 #, python-format
 msgid "%d min"
 msgstr "%d min."
@@ -483,9 +481,9 @@ msgstr "Gedeeld door %s"
 msgid "with"
 msgstr "met"
 
+# | msgid "Saved with Readeck"
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
 #, fuzzy
-#| msgid "Saved with Readeck"
 msgid "Saved with"
 msgstr "Bewaard met Readeck"
 
@@ -660,6 +658,15 @@ msgctxt "bookmark"
 msgid "Loading"
 msgstr "Bezig met laden…"
 
+#: assets/templates/bookmarks/components/card.jet.html:75
+#, fuzzy, python-format
+#| msgid "%d min"
+msgctxt "abbr"
+msgid "%d min"
+msgid_plural "%d min"
+msgstr[0] "%d min."
+msgstr[1] ""
+
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
 msgstr "Markering(en) verwijderen"
@@ -783,21 +790,21 @@ msgstr "Roosterweergave"
 msgid "Compact view"
 msgstr "Compacte weergave"
 
+# | msgid "Import bookmarks"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 #, fuzzy
-#| msgid "Import bookmarks"
 msgid "Sort bookmarks"
 msgstr "Bladwijzers importeren"
 
+# | msgid "Options"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 #, fuzzy
-#| msgid "Options"
 msgid "Sort options"
 msgstr "Opties"
 
+# | msgid "Import links and articles"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 #, fuzzy
-#| msgid "Import links and articles"
 msgid "Import and export"
 msgstr "Links en artikelen importeren"
 
@@ -851,6 +858,15 @@ msgstr "Geen websitenaam"
 #: assets/templates/bookmarks/components/sidebar.jet.html:13
 msgid "Errors occurred during extraction."
 msgstr "Er zijn fouten opgetreden tijdens het extraheren."
+
+#: assets/templates/bookmarks/components/sidebar.jet.html:69
+#: assets/templates/epub/bookmark.jet.html:45
+#, fuzzy, python-format
+#| msgid "About %d min read"
+msgid "About %d minute read"
+msgid_plural "About %d minutes read"
+msgstr[0] "Ongeveer %d min. leestijd"
+msgstr[1] ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:104
 msgid "Start selecting text in the article to create a new highlight."
@@ -912,9 +928,9 @@ msgstr "Kent een label aan links toe op basis van de sectietitel"
 msgid "Import Bookmarks"
 msgstr "Bladwijzers importeren"
 
+# | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
 #, fuzzy
-#| msgid "Import Links from a Text File"
 msgid "Import Links from a CSV File"
 msgstr "Links importeren uit tekstbestand"
 
@@ -938,33 +954,33 @@ msgstr ""
 msgid "Here are the columns you can set:"
 msgstr ""
 
+# | msgid "File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
 #, fuzzy
-#| msgid "File"
 msgid "Field"
 msgstr "Bestand"
 
+# | msgid "Links"
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
 #, fuzzy
-#| msgid "Links"
 msgid "Alias"
 msgstr "Links"
 
+# | msgid "Distribution"
 #: assets/templates/bookmarks/import/form-csv.jet.html:51
 #, fuzzy
-#| msgid "Distribution"
 msgid "Description"
 msgstr "Verspreiding"
 
+# | msgid "Email Address"
 #: assets/templates/bookmarks/import/form-csv.jet.html:58
 #, fuzzy
-#| msgid "Email Address"
 msgid "Link address"
 msgstr "E-mailadres"
 
+# | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/import/form-csv.jet.html:63
 #, fuzzy
-#| msgid "Bookmark Labels"
 msgid "Bookmark title"
 msgstr "Bladwijzerlabels"
 
@@ -1152,9 +1168,9 @@ msgstr ""
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
 msgstr "Importeer de bladwijzers van je webbrowser, Pinboard of Instapaper"
 
+# | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/index.jet.html:40
 #, fuzzy
-#| msgid "Import Links from a Text File"
 msgid "Import Links from a CSV File and Instapaper"
 msgstr "Links importeren uit tekstbestand"
 
@@ -1174,9 +1190,9 @@ msgstr "Label voor alle geïmporteerde bladwijzers"
 msgid "Ignore links already in your bookmarks"
 msgstr "Reeds toegevoegde links negeren"
 
+# | msgid "Archived Bookmarks"
 #: assets/templates/bookmarks/import/options.jet.html:21
 #, fuzzy
-#| msgid "Archived Bookmarks"
 msgid "Archive all links"
 msgstr "Gearchiveerde bladwijzers"
 
@@ -1184,9 +1200,9 @@ msgstr "Gearchiveerde bladwijzers"
 msgid "Moves all links to archive, regardless of their original status"
 msgstr ""
 
+# | msgid "Mark as read"
 #: assets/templates/bookmarks/import/options.jet.html:27
 #, fuzzy
-#| msgid "Mark as read"
 msgid "Mark all links as read"
 msgstr "Markeren als gelezen"
 
@@ -1221,9 +1237,9 @@ msgstr ""
 "      De bladwijzers zijn toegevoegd aan je <a class=\"%s\" href=\"%s\">bladwijzerlijst</a>.\n"
 "      "
 
+# | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/index.jet.html:1
 #, fuzzy
-#| msgid "Bookmark Labels"
 msgid "Bookmark filters"
 msgstr "Bladwijzerlabels"
 
@@ -1517,11 +1533,6 @@ msgstr ""
 msgid "Kind regards"
 msgstr "Met vriendelijke groet"
 
-#: assets/templates/epub/bookmark.jet.html:45
-#, python-format
-msgid "About %d min read"
-msgstr "Ongeveer %d min. leestijd"
-
 #: assets/templates/error.jet.html:8
 msgid "Error"
 msgstr "Foutmelding"
@@ -1766,9 +1777,9 @@ msgstr "De gebruiker is bijgewerkt."
 msgid "Invalid user and/or password"
 msgstr "Ongeldige gebruikersnaam en/of wachtwoord"
 
+# | msgid "Password ID"
 #: internal/auth/users/forms.go:68
 #, fuzzy
-#| msgid "Password ID"
 msgid "password is empty"
 msgstr "Wachtwoord-id"
 
@@ -1801,13 +1812,13 @@ msgstr "De html-inhoud kan niet worden gelezen"
 #: internal/bookmarks/importer/csv.go:153
 #: internal/bookmarks/importer/csv.go:158
 #: internal/bookmarks/importer/csv.go:167
-#: internal/bookmarks/importer/importer.go:41
+#: internal/bookmarks/importer/importer.go:45
 msgid "Empty or invalid import file"
 msgstr "Het bestand is blanco of ongeldig"
 
+# | msgid "File"
 #: internal/bookmarks/importer/csv.go:118
 #, fuzzy
-#| msgid "File"
 msgid "CSV File"
 msgstr "Bestand"
 
@@ -1916,25 +1927,25 @@ msgctxt "sort"
 msgid "Duration, longest first"
 msgstr "Duur - langste eerst"
 
-#: internal/bookmarks/routes/opds.go:57
+#: internal/bookmarks/routes/opds.go:56
 msgid "Readeck Bookmarks"
 msgstr "Readeck-bladwijzers"
 
-#: internal/bookmarks/routes/opds.go:102
+#: internal/bookmarks/routes/opds.go:101
 msgid "Readeck Bookmark Collections"
 msgstr "Readeck-bladwijzerverzamelingen"
 
-#: internal/bookmarks/routes/opds.go:139
+#: internal/bookmarks/routes/opds.go:138
 #, python-format
 msgid "Readeck Collection: %s"
 msgstr "Readeck-verzameling: %s"
 
-#: internal/bookmarks/routes/opds.go:145
+#: internal/bookmarks/routes/opds.go:144
 #, python-format
 msgid "Collection ebook - %s"
 msgstr "E-boekverzameling: %s"
 
-#: internal/bookmarks/routes/opds.go:152
+#: internal/bookmarks/routes/opds.go:151
 #, python-format
 msgid "Browse collection: %s"
 msgstr "Surfverzameling: %s"
@@ -1963,13 +1974,13 @@ msgstr "Favoriete bladwijzers"
 msgid "Collection updated."
 msgstr "De verzameling is bijgewerkt."
 
-#: internal/bookmarks/routes/views_import.go:29
-#: internal/bookmarks/routes/views_import.go:38
-#: internal/bookmarks/routes/views_import.go:69
+#: internal/bookmarks/routes/views_import.go:28
+#: internal/bookmarks/routes/views_import.go:37
+#: internal/bookmarks/routes/views_import.go:68
 msgid "Import"
 msgstr "Importeren"
 
-#: internal/bookmarks/routes/views_import.go:30
+#: internal/bookmarks/routes/views_import.go:29
 msgid "Progress"
 msgstr "Voortgang"
 
@@ -2021,29 +2032,29 @@ msgstr "De sleutel is bijgewerkt."
 msgid "an unexpected error has occurred"
 msgstr "Er is een onverwachte fout opgetreden"
 
-#: pkg/forms/validators.go:17
+#: pkg/forms/validators.go:18
 msgid "field is required"
 msgstr "Veld is vereist"
 
-#: pkg/forms/validators.go:18
+#: pkg/forms/validators.go:20
 msgid "not a valid email address"
 msgstr "Ongeldig e-mailadres"
 
-#: pkg/forms/validators.go:19
+#: pkg/forms/validators.go:22
 msgid "invalid URL"
 msgstr "Ongeldige url"
 
-#: pkg/forms/validators.go:328
+#: pkg/forms/validators.go:331
 #, python-format
 msgid "must be greater or equal than %d"
 msgstr "Moet meer zijn dan of gelijk aan %d"
 
-#: pkg/forms/validators.go:336
+#: pkg/forms/validators.go:339
 #, python-format
 msgid "must be lower or equal than %d"
 msgstr "Moet minder zijn dan of gelijk aan %d"
 
-#: pkg/forms/validators.go:395
+#: pkg/forms/validators.go:398
 #, python-format
 msgid "%v is not one of %s"
 msgstr ""

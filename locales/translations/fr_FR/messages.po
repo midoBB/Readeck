@@ -6,17 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-02-18 07:09+0000\n"
+"POT-Creation-Date: 2025-02-22 09:41+0000\n"
 "PO-Revision-Date: 2025-02-18 07:32+0000\n"
 "Last-Translator: olivier <olivier@users.noreply.translate.codeberg.org>\n"
-"Language-Team: French <https://translate.codeberg.org/projects/readeck/"
-"application/fr/>\n"
 "Language: fr_FR\n"
+"Language-Team: French <https://translate.codeberg.org/projects/readeck/application/fr/>\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.9.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -466,8 +464,6 @@ msgid "By %s"
 msgstr "Par %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:60
-#: assets/templates/bookmarks/components/card.jet.html:75
-#: assets/templates/bookmarks/components/sidebar.jet.html:69
 #, python-format
 msgid "%d min"
 msgstr "%d min"
@@ -656,6 +652,15 @@ msgctxt "bookmark"
 msgid "Loading"
 msgstr "Chargement"
 
+#: assets/templates/bookmarks/components/card.jet.html:75
+#, fuzzy, python-format
+#| msgid "%d min"
+msgctxt "abbr"
+msgid "%d min"
+msgid_plural "%d min"
+msgstr[0] "%d min"
+msgstr[1] ""
+
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
 msgstr "Supprimer la ou les annotations"
@@ -842,6 +847,15 @@ msgstr "pas de nom de site"
 msgid "Errors occurred during extraction."
 msgstr "Des erreurs ont eu lieu durant l'extraction."
 
+#: assets/templates/bookmarks/components/sidebar.jet.html:69
+#: assets/templates/epub/bookmark.jet.html:45
+#, fuzzy, python-format
+#| msgid "About %d min read"
+msgid "About %d minute read"
+msgid_plural "About %d minutes read"
+msgstr[0] "Environ %d min de lecture"
+msgstr[1] ""
+
 #: assets/templates/bookmarks/components/sidebar.jet.html:104
 msgid "Start selecting text in the article to create a new highlight."
 msgstr "Sélectionnez un texte dans l'article pour créer une annotation."
@@ -913,8 +927,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Déposez un fichier CSV depuis Instapaper ou n'importe quel fichier "
-"correspondant au format décrit ci-dessous.\n"
+"    Déposez un fichier CSV depuis Instapaper ou n'importe quel fichier correspondant au format décrit ci-dessous.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
@@ -926,9 +939,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Le fichier déposé doit contenir une première ligne avec les noms de "
-"colonne. Ceux-ci sont insensibles à la casse et, à part <code>%s</code>, "
-"chaque colonne est facultative.\n"
+"    Le fichier déposé doit contenir une première ligne avec les noms de colonne. Ceux-ci sont insensibles à la casse et, à part <code>%s</code>, chaque colonne est facultative.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:45
@@ -962,8 +973,7 @@ msgstr "État archivé du bookmark ; la seule valeur possible est \"%s\""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:73
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
-msgstr ""
-"Date de création, peut être un timestamp UNIX ou une date au format RFC-3339"
+msgstr "Date de création, peut être un timestamp UNIX ou une date au format RFC-3339"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:78
 msgid "A JSON encoded list of labels"
@@ -1166,8 +1176,7 @@ msgstr "Archiver tous les liens"
 
 #: assets/templates/bookmarks/import/options.jet.html:23
 msgid "Moves all links to archive, regardless of their original status"
-msgstr ""
-"Marque tous les liens comme archivés, sans tenir compte de leur état original"
+msgstr "Marque tous les liens comme archivés, sans tenir compte de leur état original"
 
 #: assets/templates/bookmarks/import/options.jet.html:27
 msgid "Mark all links as read"
@@ -1224,9 +1233,7 @@ msgstr "\"%s\" n'est pas une adresse valide. Vouliez-vous chercher %s à la plac
 
 #: assets/templates/bookmarks/index.jet.html:73
 msgid "You don't have any bookmarks yet.<br> Copy a link in the field above and start saving."
-msgstr ""
-"Vous n'avez aucun bookmark pour le moment<br> Copiez un lien dans le champ "
-"au dessus pour commencer."
+msgstr "Vous n'avez aucun bookmark pour le moment<br> Copiez un lien dans le champ au dessus pour commencer."
 
 #: assets/templates/bookmarks/index.jet.html:75
 #, python-format
@@ -1502,11 +1509,6 @@ msgstr ""
 #: assets/templates/emails/recover.tmpl:38
 msgid "Kind regards"
 msgstr "Cordialement"
-
-#: assets/templates/epub/bookmark.jet.html:45
-#, python-format
-msgid "About %d min read"
-msgstr "Environ %d min de lecture"
 
 #: assets/templates/error.jet.html:8
 msgid "Error"
@@ -1785,7 +1787,7 @@ msgstr "Impossible d'extraire le contenu HTML"
 #: internal/bookmarks/importer/csv.go:153
 #: internal/bookmarks/importer/csv.go:158
 #: internal/bookmarks/importer/csv.go:167
-#: internal/bookmarks/importer/importer.go:41
+#: internal/bookmarks/importer/importer.go:45
 msgid "Empty or invalid import file"
 msgstr "Fichier vide ou invalide"
 
@@ -1898,25 +1900,25 @@ msgctxt "sort"
 msgid "Duration, longest first"
 msgstr "Durée, le plus long en premier"
 
-#: internal/bookmarks/routes/opds.go:57
+#: internal/bookmarks/routes/opds.go:56
 msgid "Readeck Bookmarks"
 msgstr "Bookmarks Readeck"
 
-#: internal/bookmarks/routes/opds.go:102
+#: internal/bookmarks/routes/opds.go:101
 msgid "Readeck Bookmark Collections"
 msgstr "Collections de bookmarks Readeck"
 
-#: internal/bookmarks/routes/opds.go:139
+#: internal/bookmarks/routes/opds.go:138
 #, python-format
 msgid "Readeck Collection: %s"
 msgstr "Collection Readeck : %s"
 
-#: internal/bookmarks/routes/opds.go:145
+#: internal/bookmarks/routes/opds.go:144
 #, python-format
 msgid "Collection ebook - %s"
 msgstr "Collection e-book - %s"
 
-#: internal/bookmarks/routes/opds.go:152
+#: internal/bookmarks/routes/opds.go:151
 #, python-format
 msgid "Browse collection: %s"
 msgstr "Explorer la collection : %s"
@@ -1945,13 +1947,13 @@ msgstr "Bookmarks favoris"
 msgid "Collection updated."
 msgstr "Collection mise à jour."
 
-#: internal/bookmarks/routes/views_import.go:29
-#: internal/bookmarks/routes/views_import.go:38
-#: internal/bookmarks/routes/views_import.go:69
+#: internal/bookmarks/routes/views_import.go:28
+#: internal/bookmarks/routes/views_import.go:37
+#: internal/bookmarks/routes/views_import.go:68
 msgid "Import"
 msgstr "Importer"
 
-#: internal/bookmarks/routes/views_import.go:30
+#: internal/bookmarks/routes/views_import.go:29
 msgid "Progress"
 msgstr "Progression"
 
@@ -2003,29 +2005,29 @@ msgstr "Le jeton a été mis à jour."
 msgid "an unexpected error has occurred"
 msgstr "une erreur innatendue est survenue"
 
-#: pkg/forms/validators.go:17
+#: pkg/forms/validators.go:18
 msgid "field is required"
 msgstr "champ obligatoire"
 
-#: pkg/forms/validators.go:18
+#: pkg/forms/validators.go:20
 msgid "not a valid email address"
 msgstr "adresse e-mail invalide"
 
-#: pkg/forms/validators.go:19
+#: pkg/forms/validators.go:22
 msgid "invalid URL"
 msgstr "URL invalide"
 
-#: pkg/forms/validators.go:328
+#: pkg/forms/validators.go:331
 #, python-format
 msgid "must be greater or equal than %d"
 msgstr "doit être supérieur ou égal à %d"
 
-#: pkg/forms/validators.go:336
+#: pkg/forms/validators.go:339
 #, python-format
 msgid "must be lower or equal than %d"
 msgstr "doit être inférieur ou égal à %d"
 
-#: pkg/forms/validators.go:395
+#: pkg/forms/validators.go:398
 #, python-format
 msgid "%v is not one of %s"
 msgstr "%v n'est pas dans %s"
@@ -2277,3 +2279,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr "Impossible d'ouvrir le fichier zip"
+

@@ -9,8 +9,10 @@
 ### Improved
 - Mark imported archived bookmarks as read
 - Option to archive and/or mark read all imported bookmarks
+- Reading time pluralization, by [@zull](https://codeberg.org/zull)
 
 ### Changed
+- Updated Go to 1.24
 - New SQLite, CGO-free driver. Important: it won't run with `MemoryDenyWriteExecute=yes` in the systemd service file.
 - New internal form API
 

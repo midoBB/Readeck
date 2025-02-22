@@ -42,7 +42,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     <li><a href="{{ .Item.URL }}">{{ .Item.Domain }}</a></li>
   {{- readingTime := .Item.ReadingTime() -}}
   {{- if readingTime > 0 -}}
-    <li>{{ gettext("About %d min read", readingTime) }}</li>
+    <li>{{ ngettext("About %d minute read", "About %d minutes read", readingTime, readingTime) }}</li>
   {{- end -}}
 </ul>
 

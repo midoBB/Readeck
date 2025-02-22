@@ -32,14 +32,14 @@ require (
 	github.com/jackc/pgx/v5 v5.7.2
 	github.com/jarcoal/httpmock v1.3.1
 	github.com/kinbiko/jsonassert v1.1.1
-	github.com/klauspost/compress v1.17.11
+	github.com/klauspost/compress v1.18.0
 	github.com/komkom/toml v0.1.2
 	github.com/leonelquinteros/gotext v1.7.1
 	github.com/lithammer/shortuuid/v4 v4.2.0
 	github.com/mangoumbrella/goldmark-figure v1.0.0
-	github.com/ncruces/go-sqlite3 v0.23.0
+	github.com/ncruces/go-sqlite3 v0.23.1
 	github.com/phsym/console-slog v0.3.1
-	github.com/prometheus/client_golang v1.20.5
+	github.com/prometheus/client_golang v1.21.0
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/stretchr/testify v1.10.0
 	github.com/tdewolff/parse/v2 v2.7.20
@@ -85,7 +85,7 @@ require (
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/tetratelabs/wazero v1.9.0 // indirect
 	github.com/toorop/go-dkim v0.0.0-20240103092955-90b7d1423f92 // indirect
-	golang.org/x/crypto v0.33.0 // indirect
+	golang.org/x/crypto v0.34.0 // indirect
 	golang.org/x/sys v0.30.0 // indirect
 	google.golang.org/protobuf v1.36.5 // indirect
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect

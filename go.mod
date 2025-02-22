@@ -1,8 +1,8 @@
 module codeberg.org/readeck/readeck
 
-go 1.23.5
+go 1.24
 
-toolchain go1.23.6
+toolchain go1.24.0
 
 require (
 	github.com/CloudyKit/jet/v6 v6.2.0

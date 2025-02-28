@@ -5,7 +5,7 @@ go 1.24
 toolchain go1.24.0
 
 require (
-	github.com/CloudyKit/jet/v6 v6.2.0
+	github.com/CloudyKit/jet/v6 v6.3.1
 	github.com/JohannesKaufmann/html-to-markdown v1.6.0
 	github.com/PuerkitoBio/goquery v1.10.2
 	github.com/antchfx/htmlquery v1.3.4
@@ -37,7 +37,7 @@ require (
 	github.com/leonelquinteros/gotext v1.7.1
 	github.com/lithammer/shortuuid/v4 v4.2.0
 	github.com/mangoumbrella/goldmark-figure v1.0.0
-	github.com/ncruces/go-sqlite3 v0.23.1
+	github.com/ncruces/go-sqlite3 v0.23.3
 	github.com/phsym/console-slog v0.3.1
 	github.com/prometheus/client_golang v1.21.0
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
@@ -84,8 +84,8 @@ require (
 	github.com/prometheus/common v0.62.0 // indirect
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/tetratelabs/wazero v1.9.0 // indirect
-	github.com/toorop/go-dkim v0.0.0-20240103092955-90b7d1423f92 // indirect
-	golang.org/x/crypto v0.34.0 // indirect
+	github.com/toorop/go-dkim v0.0.0-20250226130143-9025cce95817 // indirect
+	golang.org/x/crypto v0.35.0 // indirect
 	golang.org/x/sys v0.30.0 // indirect
 	google.golang.org/protobuf v1.36.5 // indirect
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect

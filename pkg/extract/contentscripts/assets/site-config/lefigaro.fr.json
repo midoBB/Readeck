@@ -3,7 +3,7 @@
     "//meta[@name='title']/@content"
   ],
   "body_selectors": [
-    "//article[@id='fig-article']/div"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' fig-main ')]//article"
   ],
   "date_selectors": [
     "//li[contains(concat(' ',normalize-space(@class),' '),' fig-date-pub ')]//time"
@@ -13,7 +13,16 @@
     "//meta[@name='author']/@content"
   ],
   "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "fig-wrapper-follow-button",
+    "fig-premium-mark-article",
+    "fig-tags",
+    "fig-sharebar",
+    "fig-premium-paywall",
+    "a11y-hidden",
+    "fig-crosslinking",
+    "fig-body-link"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

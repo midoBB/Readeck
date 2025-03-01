@@ -1,34 +1,41 @@
 {
-  "title_selectors": [
-    "//h2[@class=\"headline\"]"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[@id=\"story\"]"
+    "//article[contains(@id, 'post-')]//section[contains(@class, 'entry-content')] | //div[contains(@class, 'featured-image')] | //iframe/ancestor::div[1]"
   ],
   "date_selectors": null,
-  "author_selectors": null,
-  "strip_selectors": null,
+  "author_selectors": [
+    "//meta[@name=\"author\"]/@content"
+  ],
+  "strip_selectors": [
+    "//article/div[1]/div[1]",
+    "//a[@href='https://premium.boingboing.net']/parent::div"
+  ],
   "strip_id_or_class": [
     "shareMe",
     "authorbox",
     "byline",
     "share",
-    "separator"
+    "separator",
+    "next-post-list-container",
+    "share-comments-container"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
   "prune": false,
   "autodetect_on_failure": true,
-  "single_page_link_selectors": [
-    "//h2[@class=\"headline\"]/a"
-  ],
+  "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
   "http_headers": null,
   "tests": [
     {
       "url": "http://boingboing.net/2011/10/23/understanding-the-hyperrich-through-the-lens-of-tomorrows-history.html",
+      "contains": []
+    },
+    {
+      "url": "https://boingboing.net/2018/12/04/learn-how-to-spot-a-fake-paint.html",
       "contains": []
     }
   ]

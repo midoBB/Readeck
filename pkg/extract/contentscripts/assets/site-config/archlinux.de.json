@@ -1,13 +1,11 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, \"announcement_body\")]",
-    "//div[contains(concat(' ',normalize-space(@class),' '),' guide ')]"
+    "//div[@data-test=\"news-content\"]",
+    "//main[@id='content']"
   ],
   "date_selectors": null,
-  "author_selectors": [
-    "//a[@class=\"whiteLink\"]"
-  ],
+  "author_selectors": null,
   "strip_selectors": null,
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -21,11 +19,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://steamcommunity.com/games/elitedangerous/announcements/detail/1711828601535410336",
-      "contains": []
-    },
-    {
-      "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3428624761",
+      "url": "https://www.archlinux.de/news/35435-Warnung-vor-Kernelupdate-auf-Version-6-13-1",
       "contains": []
     }
   ]

@@ -1,0 +1,42 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//section[@id='content']//div[@class='article1']"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//div[contains(@x-data, 'show: false')]"
+  ],
+  "strip_id_or_class": [
+    "article1-side",
+    "-hide-print",
+    "footnotes1-side",
+    "socials1",
+    "lazyload"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "noscript\u003e",
+      "div\u003e"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.americanprogress.org/article/project-2025-would-destroy-the-u-s-system-of-checks-and-balances-and-create-an-imperial-presidency/",
+      "contains": []
+    },
+    {
+      "url": "https://www.americanprogress.org/article/childhood-vaccination-has-saved-millions-of-lives-but-rising-hesitancy-could-reverse-decades-of-progress/",
+      "contains": []
+    }
+  ]
+}

@@ -12,6 +12,7 @@
     "//div[@id='social-media-floater']",
     "//div[@class='advertisement']",
     "//div[@class='infobox']",
+    "//div[@class='disabled-overlay--show--text']",
     "//div[@id='articleComments']",
     "//section[@componenttype='moreToSubject']"
   ],

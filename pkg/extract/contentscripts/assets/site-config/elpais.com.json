@@ -7,7 +7,8 @@
     "//div[contains(@class, 'article_body')]",
     "//div[@class='columna_texto']",
     "//div[@id='cuerpo_noticia']",
-    "//div[@class='estructura_2col_1zq']//div[@class='margen_n']"
+    "//div[@class='estructura_2col_1zq']//div[@class='margen_n']",
+    "(//article[1]/header//h2)[1] | //article[1]/header//figure | //div[@data-dtm-region=\"articulo_cuerpo\"]"
   ],
   "date_selectors": [
     "//meta[@name='DC.date']/@content",
@@ -19,7 +20,8 @@
   "strip_selectors": [
     "//div[starts-with(@id, 'sumario') and contains(., 'más información')]",
     "//div[@id='coment' or @id='foros_not']",
-    "//picture//source"
+    "//picture//source",
+    "//svg"
   ],
   "strip_id_or_class": [
     "disposicion_vertical",

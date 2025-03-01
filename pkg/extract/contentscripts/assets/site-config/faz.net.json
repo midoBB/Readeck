@@ -4,7 +4,7 @@
   ],
   "body_selectors": [
     "//article[@class='storytelling']",
-    "//article[@class='article']//div[contains(@class,'body-elements')] | (//div[contains(@class,'header-teaser__image')])[1] | (//div[contains(concat(' ',normalize-space(@class),' '),' header-teaser ')])[last()]",
+    "//article[contains(@class='article')]//div[contains(@class,'body-elements')] | (//div[contains(@class,'header-teaser__image')])[1] | (//div[contains(concat(' ',normalize-space(@class),' '),' header-teaser ')])[last()]",
     "//article[1]",
     "//div[@class='Artikel']"
   ],
@@ -25,6 +25,9 @@
     "//button[contains(@class,'image-toggle')]",
     "//div[@class='clear']",
     "//a[@title='Zur Homepage FAZ.NET']",
+    "//button",
+    "//aside[contains(concat(' ',normalize-space(@class),' '),' btn ')]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' meta2 ')]",
     "//div[contains(@style, 'background-image')]",
     "//img[@width='1']",
     "//footer[@class='tsr-Base_ContentMeta']"
@@ -62,6 +65,7 @@
     "MediaLink",
     "FotoBoxInnerLeft",
     "BilderRelatedLinks",
+    "article-footer",
     "ArticlePagerBottom",
     "backToHome",
     "ArtikelAbbinder",
@@ -98,9 +102,7 @@
   "tidy": false,
   "prune": false,
   "autodetect_on_failure": true,
-  "single_page_link_selectors": [
-    "//a[contains(@href, 'printPagedArticle')]"
-  ],
+  "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": [
     [

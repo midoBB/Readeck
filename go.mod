@@ -17,7 +17,7 @@ require (
 	github.com/cristalhq/acmd v0.12.0
 	github.com/cristalhq/jwt/v3 v3.1.0
 	github.com/dop251/goja v0.0.0-20250125213203-5ef83b82af17
-	github.com/dop251/goja_nodejs v0.0.0-20250217171036-ba90ff8d8790
+	github.com/dop251/goja_nodejs v0.0.0-20250302133430-0ba139dfda9a
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/gabriel-vasile/mimetype v1.4.8
 	github.com/go-chi/chi/v5 v5.2.1
@@ -69,7 +69,7 @@ require (
 	github.com/go-test/deep v1.1.0 // indirect
 	github.com/gogs/chardet v0.0.0-20211120154057-b7413eaefb8f // indirect
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
-	github.com/google/pprof v0.0.0-20250208200701-d0013a598941 // indirect
+	github.com/google/pprof v0.0.0-20250302191652-9094ed2288e7 // indirect
 	github.com/itchyny/timefmt-go v0.1.5 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect

@@ -97,7 +97,7 @@
 
     // When scrolling down, adapt to the topnav disapearing
     @screen max-sm {
-      @apply top-topnav transition-all delay-100;
+      @apply top-topnav transition-all duration-500;
 
       @at-root body.scrolled-down & {
         @apply -top-topnav;

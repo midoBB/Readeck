@@ -44,7 +44,7 @@
 
     @screen max-sm {
       @apply flex-row w-full h-topnav px-2;
-      @apply translate-y-0 transition-transform delay-100;
+      @apply translate-y-0 transition-transform duration-500;
 
       // When scrolling down, hide the topnav menu
       @at-root body.scrolled-down & {

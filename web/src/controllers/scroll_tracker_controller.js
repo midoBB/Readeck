@@ -6,24 +6,57 @@ import {Controller} from "@hotwired/stimulus"
 
 export default class extends Controller {
   static classes = ["down"]
+  static values = {
+    delay: {type: Number, default: 250},
+    delta: {type: Number, default: 30},
+  }
 
   connect() {
     let prevScroll = window.scrollY
-    let isDown = false
     let ticking = false
+    let t = null
+
     window.addEventListener(
       "scroll",
       () => {
         if (!ticking) {
           window.requestAnimationFrame(() => {
-            ticking = false
-            isDown = window.scrollY > prevScroll
-            prevScroll = window.scrollY
-            if (isDown) {
-              this.element.classList.add(this.downClass)
-            } else {
-              this.element.classList.remove(this.downClass)
+            if (t !== null) {
+              window.clearTimeout(t)
             }
+            t = window.setTimeout(() => {
+              ticking = false
+
+              const y = window.scrollY
+              const ymax =
+                document.documentElement.scrollHeight - window.innerHeight
+              const cur = Math.min(Math.max(y, 0), ymax)
+              const delta = cur - prevScroll
+
+              try {
+                if (ymax <= y + this.deltaValue) {
+                  // Reaching the end, go into "up" state
+                  this.element.classList.remove(this.downClass)
+                  return
+                }
+
+                if (Math.abs(delta) < this.deltaValue) {
+                  // Scroll interval too short, stop now
+                  return
+                }
+
+                if (delta < 0) {
+                  // Scrolling up
+                  this.element.classList.remove(this.downClass)
+                } else {
+                  // Scrolling down
+                  this.element.classList.add(this.downClass)
+                }
+              } finally {
+                prevScroll = cur
+                t = null
+              }
+            }, this.delayValue)
           })
 
           ticking = true

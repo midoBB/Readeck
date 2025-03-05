@@ -39,7 +39,7 @@ require (
 	github.com/mangoumbrella/goldmark-figure v1.0.0
 	github.com/ncruces/go-sqlite3 v0.24.0
 	github.com/phsym/console-slog v0.3.1
-	github.com/prometheus/client_golang v1.21.0
+	github.com/prometheus/client_golang v1.21.1
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/stretchr/testify v1.10.0
 	github.com/tdewolff/parse/v2 v2.7.20
@@ -47,7 +47,7 @@ require (
 	github.com/yuin/goldmark v1.7.1
 	github.com/yuin/goldmark-meta v1.1.0
 	golang.org/x/image v0.24.0
-	golang.org/x/net v0.35.0
+	golang.org/x/net v0.36.0
 	golang.org/x/sync v0.11.0
 	golang.org/x/term v0.29.0
 	golang.org/x/text v0.22.0

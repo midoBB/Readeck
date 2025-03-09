@@ -16,8 +16,8 @@ require (
 	github.com/casbin/casbin/v2 v2.103.0
 	github.com/cristalhq/acmd v0.12.0
 	github.com/cristalhq/jwt/v3 v3.1.0
-	github.com/dop251/goja v0.0.0-20250125213203-5ef83b82af17
-	github.com/dop251/goja_nodejs v0.0.0-20250302133430-0ba139dfda9a
+	github.com/dop251/goja v0.0.0-20250307175808-203961f822d6
+	github.com/dop251/goja_nodejs v0.0.0-20250306164425-a0199362a3ae
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/gabriel-vasile/mimetype v1.4.8
 	github.com/go-chi/chi/v5 v5.2.1
@@ -46,11 +46,11 @@ require (
 	github.com/xhit/go-simple-mail/v2 v2.16.0
 	github.com/yuin/goldmark v1.7.1
 	github.com/yuin/goldmark-meta v1.1.0
-	golang.org/x/image v0.24.0
-	golang.org/x/net v0.36.0
-	golang.org/x/sync v0.11.0
-	golang.org/x/term v0.29.0
-	golang.org/x/text v0.22.0
+	golang.org/x/image v0.25.0
+	golang.org/x/net v0.37.0
+	golang.org/x/sync v0.12.0
+	golang.org/x/term v0.30.0
+	golang.org/x/text v0.23.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -85,8 +85,8 @@ require (
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/tetratelabs/wazero v1.9.0 // indirect
 	github.com/toorop/go-dkim v0.0.0-20250226130143-9025cce95817 // indirect
-	golang.org/x/crypto v0.35.0 // indirect
-	golang.org/x/sys v0.30.0 // indirect
+	golang.org/x/crypto v0.36.0 // indirect
+	golang.org/x/sys v0.31.0 // indirect
 	google.golang.org/protobuf v1.36.5 // indirect
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect
 	gopkg.in/hlandau/measurable.v1 v1.0.1 // indirect

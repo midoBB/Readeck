@@ -10,7 +10,6 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
-	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -56,7 +55,7 @@ func (api *authAPI) auth(w http.ResponseWriter, r *http.Request) {
 		Application: f.Get("application").String(),
 	}
 
-	if roles, ok := f.Get("roles").Value().(types.Strings); ok {
+	if roles, ok := f.Get("roles").Value().([]string); ok {
 		t.Roles = roles
 	}
 

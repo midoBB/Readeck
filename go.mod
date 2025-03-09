@@ -15,7 +15,6 @@ require (
 	github.com/caarlos0/env/v11 v11.3.1
 	github.com/casbin/casbin/v2 v2.104.0
 	github.com/cristalhq/acmd v0.12.0
-	github.com/cristalhq/jwt/v3 v3.1.0
 	github.com/dop251/goja v0.0.0-20250309171923-bcd7cc6bf64c
 	github.com/dop251/goja_nodejs v0.0.0-20250314160716-c55ecee183c0
 	github.com/doug-martin/goqu/v9 v9.19.0
@@ -25,8 +24,6 @@ require (
 	github.com/go-shiori/dom v0.0.0-20230515143342-73569d674e1c
 	github.com/go-shiori/go-readability v0.0.0-20250217085726-9f5bf5ca7612
 	github.com/google/uuid v1.6.0
-	github.com/gorilla/csrf v1.7.2
-	github.com/gorilla/securecookie v1.1.2
 	github.com/hlandau/passlib v1.0.11
 	github.com/itchyny/gojq v0.12.14
 	github.com/jackc/pgx/v5 v5.7.2
@@ -45,6 +42,7 @@ require (
 	github.com/xhit/go-simple-mail/v2 v2.16.0
 	github.com/yuin/goldmark v1.7.1
 	github.com/yuin/goldmark-meta v1.1.0
+	golang.org/x/crypto v0.36.0
 	golang.org/x/image v0.25.0
 	golang.org/x/net v0.37.0
 	golang.org/x/sync v0.12.0
@@ -84,7 +82,6 @@ require (
 	github.com/prometheus/procfs v0.16.0 // indirect
 	github.com/tetratelabs/wazero v1.9.0 // indirect
 	github.com/toorop/go-dkim v0.0.0-20250226130143-9025cce95817 // indirect
-	golang.org/x/crypto v0.36.0 // indirect
 	golang.org/x/sys v0.31.0 // indirect
 	google.golang.org/protobuf v1.36.5 // indirect
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect

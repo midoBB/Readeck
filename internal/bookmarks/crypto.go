@@ -5,58 +5,113 @@
 package bookmarks
 
 import (
-	"crypto/aes"
-	"encoding/base64"
+	"crypto/rand"
+	"crypto/subtle"
 	"encoding/binary"
 	"errors"
+	"io"
 	"time"
 
+	"golang.org/x/crypto/blake2b"
+	"golang.org/x/crypto/blowfish" //nolint:staticcheck
+
 	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/pkg/base58"
 )
 
-// EncryptID returns an 128bit base64 encrypted ID and timestamp.
+// EncryptID returns an 160-bit base58 encoded encrypted ID and timestamp.
+// This uses Encrypt-then-MAC authentication, with 2 keys.
+//
+// Initial message is:
+//
+// -----------------------------------
+// | 32-bit         | 32-bit         |
+// | timestamp      | ID             |
+// -----------------------------------
+//
+// Finale message is:
+//
+// ------------------------------------------------------------------------------
+// | 64-bit ciphertext               | 64-bit MAC                      | 32-bit |
+// |                                 |                                 | salt   |
+// ------------------------------------------------------------------------------
+//
+// This returns a base58 encoded string.
 func EncryptID(id uint64, expires time.Time) (string, error) {
-	// Pack the expiry timestamp and the bookmark ID in a 128bit packet
-	buf := make([]byte, 16)
-	now := uint64(expires.Unix())
-	binary.LittleEndian.PutUint64(buf[0:], now)
-	binary.LittleEndian.PutUint64(buf[8:], id)
+	packed := make([]byte, 8)
+	binary.LittleEndian.PutUint32(packed[:4], uint32(id))
 
-	// Encrypt the packet. There's not need for complex IV since
-	// it's the right size to encrypt the initial packet.
-	cipher, err := aes.NewCipher(configs.CookieBlockKey())
+	// Timestamp is expressed in minutes after rounding.
+	// This gives us plenty of time in a 32-bit unsigned integer.
+	binary.LittleEndian.PutUint32(packed[4:], uint32(expires.Round(time.Minute).Unix()/60))
+
+	// salt and keys
+	salt := make([]byte, 4)
+	if _, err := io.ReadFull(rand.Reader, salt); err != nil {
+		return "", err
+	}
+
+	// Get keys
+	k1, _ := configs.Keys.Expand("bookmark_share"+string(salt), 32)
+	k2, _ := configs.Keys.Expand("bookmark_share_mac"+string(salt), 32)
+
+	// Encrypt
+	cipher, err := blowfish.NewCipher(k1)
 	if err != nil {
 		return "", err
 	}
-	res := make([]byte, 16)
-	cipher.Encrypt(res, buf)
+	msg := make([]byte, 20)
+	cipher.Encrypt(msg, packed)
 
-	// Return the base64 encoded encrypted value
-	return base64.RawURLEncoding.EncodeToString(res), nil
+	// MAC
+	h, err := blake2b.New(8, k2)
+	if err != nil {
+		return "", err
+	}
+	h.Write(msg[0:8])
+
+	copy(msg[8:], h.Sum(nil))
+	copy(msg[16:], salt)
+
+	return base58.EncodeToString(msg), nil
 }
 
-// DecryptID deciphers a base64 encrypted value into a timestamp and
-// a unsigned integer.
-func DecryptID(value string) (time.Time, uint64, error) {
+// DecryptID deciphers a base58 encoded encrypted value
+// into a timestamp and a unsigned integer.
+func DecryptID(text string) (time.Time, uint64, error) {
 	// Load the base64 encoded value. It must be exactly 16 bytes.
-	data, err := base64.RawURLEncoding.DecodeString(value)
+	msg, err := base58.DecodeString(text)
 	if err != nil {
 		return time.Time{}, 0, err
 	}
-	if len(data) != 16 {
+
+	if len(msg) != 20 {
 		return time.Time{}, 0, errors.New("invalid size")
 	}
 
-	// Decrypt this value into a packet (ts + id)
-	cipher, err := aes.NewCipher(configs.CookieBlockKey())
+	// Get mac and salt
+	salt := msg[16:]
+	k2, _ := configs.Keys.Expand("bookmark_share_mac"+string(salt), 32)
+
+	// Verify MAC
+	h, err := blake2b.New(8, k2)
 	if err != nil {
 		return time.Time{}, 0, err
 	}
-	packed := make([]byte, 16)
-	cipher.Decrypt(packed, data)
+	h.Write(msg[0:8])
+	if subtle.ConstantTimeCompare(h.Sum(nil), msg[8:16]) != 1 {
+		return time.Time{}, 0, errors.New("invalid data")
+	}
 
-	ts := time.Unix(int64(binary.LittleEndian.Uint64(packed[0:])), 0)
-	id := binary.LittleEndian.Uint64(packed[8:])
+	// Decrypt content
+	k1, _ := configs.Keys.Expand("bookmark_share"+string(salt), 32)
+	cipher, err := blowfish.NewCipher(k1)
+	if err != nil {
+		return time.Time{}, 0, err
+	}
+	packed := make([]byte, 8)
+	cipher.Decrypt(packed, msg)
 
-	return ts, id, nil
+	ts := binary.LittleEndian.Uint32(packed[4:])
+	return time.Unix(int64(ts)*60, 0), uint64(binary.LittleEndian.Uint32(packed[:4])), nil
 }

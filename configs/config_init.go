@@ -5,8 +5,9 @@
 package configs
 
 import (
-	crand "crypto/rand"
-	"math/rand/v2"
+	"crypto/rand"
+	"io"
+	"math/big"
 	"os"
 	"text/template"
 )
@@ -63,12 +64,14 @@ func GenerateKey(minLen, maxLen int) string {
 		}
 	}
 
-	l := rand.N(maxLen-minLen) + minLen //nolint:gosec
+	bn, _ := rand.Int(rand.Reader, big.NewInt(int64(maxLen-minLen)))
+	l := bn.Add(bn, big.NewInt(int64(minLen))).Int64()
+
 	b := make([]byte, l)
-	if _, err := crand.Read(b); err != nil {
+	if _, err := io.ReadFull(rand.Reader, b); err != nil {
 		panic(err)
 	}
-	for i := 0; i < l; i++ {
+	for i := int64(0); i < l; i++ {
 		b[i] = byte(runes[b[i]%byte(len(runes))])
 	}
 

@@ -69,7 +69,7 @@ func (h *viewHandler) onboarding(w http.ResponseWriter, r *http.Request) {
 				sess := h.srv.GetSession(r)
 				sess.Payload.User = user.ID
 				sess.Payload.Seed = user.Seed
-				sess.Save(r, w)
+				sess.Save(w, r)
 
 				h.srv.Redirect(w, r, "/")
 				return

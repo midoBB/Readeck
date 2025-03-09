@@ -330,7 +330,8 @@ func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
 		data := chi.URLParam(r, "id")
 		expires, id, err := bookmarks.DecryptID(data)
 		if err != nil {
-			h.srv.Error(w, r, err)
+			h.srv.Log(r).Warn("shared bookmark", slog.Any("err", err))
+			h.srv.Status(w, r, 404)
 			return
 		}
 

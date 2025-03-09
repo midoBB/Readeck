@@ -164,7 +164,7 @@ type TestUser struct {
 	Token     *tokens.Token
 	Bookmarks []*bookmarks.Bookmark
 	password  string
-	jwt       string
+	token     string
 }
 
 // NewTestUser creates a new user for testing.
@@ -196,11 +196,11 @@ func NewTestUser(name, email, password, group string) (*TestUser, error) {
 	if err := tokens.Tokens.Create(res.Token); err != nil {
 		return nil, err
 	}
-	jwt, err := tokens.NewJwtToken(res.Token.UID)
+	token, err := tokens.EncodeToken(res.Token.UID)
 	if err != nil {
 		return nil, err
 	}
-	res.jwt = jwt.String()
+	res.token = token
 
 	return res, nil
 }
@@ -210,9 +210,9 @@ func (tu *TestUser) Password() string {
 	return tu.password
 }
 
-// JWT returns the user's API token.
-func (tu *TestUser) JWT() string {
-	return tu.jwt
+// APIToken returns the user's API token.
+func (tu *TestUser) APIToken() string {
+	return tu.token
 }
 
 // Login performs the login for the user.
@@ -636,7 +636,7 @@ func RunRequestSequence(t *testing.T, c *Client, user string, tests ...RequestTe
 					req = c.NewJSONRequest(test.Method, target, data)
 					req.Header.Del("Cookie")
 					if user != "" {
-						req.Header.Set("Authorization", "Bearer "+c.app.Users[user].JWT())
+						req.Header.Set("Authorization", "Bearer "+c.app.Users[user].APIToken())
 					} else {
 						req.Header.Del("Authorization")
 					}

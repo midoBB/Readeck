@@ -6,11 +6,14 @@ package server
 
 import (
 	"context"
+	"errors"
+	"log/slog"
 	"net/http"
 	"path"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/sessions"
+	"codeberg.org/readeck/readeck/pkg/securecookie"
 )
 
 type (
@@ -18,20 +21,19 @@ type (
 	ctxFlashKey   struct{}
 )
 
-var sessionHandler *sessions.Handler
+var sessionHandler *securecookie.Handler
 
 // InitSession creates the session handler.
-func (s *Server) InitSession() error {
+func (s *Server) InitSession() (err error) {
 	// Create the session handler
-	sessionHandler = sessions.NewHandler(
-		configs.Config.Server.Session.CookieName,
-		configs.CookieHashKey(),
-		configs.CookieBlockKey(),
-		sessions.Path(path.Join(s.BasePath)),
-		sessions.MaxAge(configs.Config.Server.Session.MaxAge),
+	sessionHandler = securecookie.NewHandler(
+		securecookie.Key(configs.Keys.SessionKey()),
+		securecookie.WithPath(path.Join(s.BasePath)),
+		securecookie.WithMaxAge(configs.Config.Server.Session.MaxAge),
+		securecookie.WithName(configs.Config.Server.Session.CookieName),
 	)
 
-	return nil
+	return
 }
 
 // WithSession initialize a session handler that will be available
@@ -40,7 +42,10 @@ func (s *Server) WithSession() func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			// Store session
-			session, _ := sessionHandler.New(r)
+			session, err := sessions.New(sessionHandler, r)
+			if err != nil && !errors.Is(err, http.ErrNoCookie) {
+				slog.Warn("session cookie", slog.Any("err", err))
+			}
 
 			ctx := r.Context()
 			ctx = context.WithValue(ctx, ctxSessionKey{}, session)
@@ -50,7 +55,7 @@ func (s *Server) WithSession() func(next http.Handler) http.Handler {
 			flashes := session.Flashes()
 			ctx = context.WithValue(ctx, ctxFlashKey{}, flashes)
 			if len(flashes) > 0 {
-				session.Save(r, w)
+				session.Save(w, r)
 			}
 
 			next.ServeHTTP(w, r.WithContext(ctx))
@@ -72,7 +77,7 @@ func (s *Server) GetSession(r *http.Request) *sessions.Session {
 func (s *Server) AddFlash(w http.ResponseWriter, r *http.Request, typ, msg string) error {
 	session := s.GetSession(r)
 	session.AddFlash(typ, msg)
-	return session.Save(r, w)
+	return session.Save(w, r)
 }
 
 // Flashes returns the flash messages retrieved from the session

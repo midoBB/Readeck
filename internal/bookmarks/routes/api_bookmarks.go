@@ -807,7 +807,7 @@ func (api *apiRouter) withLabelList(next http.Handler) http.Handler {
 		forms.BindURL(f, r)
 		if f.Get("q").String() != "" {
 			q := strings.ReplaceAll(f.Get("q").String(), "*", "%")
-			ds = ds.Where(goqu.I("name").Like(q))
+			ds = ds.Where(goqu.I("name").ILike(q))
 		}
 
 		res := []*labelItem{}

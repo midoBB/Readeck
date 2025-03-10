@@ -10,6 +10,7 @@
 - Mark imported archived bookmarks as read
 - Option to archive and/or mark read all imported bookmarks
 - Reading time pluralization, by [@zull](https://codeberg.org/zull)
+- Case insensitive label suggestions
 
 ### Changed
 - Updated Go to 1.24

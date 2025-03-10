@@ -49,10 +49,10 @@ github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f h1:lO4WD4F/r
 github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f/go.mod h1:cuUVRXasLTGF7a8hSLbxyZXjz+1KgoB3wDUb6vlszIc=
 github.com/dlclark/regexp2 v1.11.5 h1:Q/sSnsKerHeCkc/jSTNq1oCm7KiVgUMZRDUoRu0JQZQ=
 github.com/dlclark/regexp2 v1.11.5/go.mod h1:DHkYz0B9wPfa6wondMfaivmHpzrQ3v9q8cnmRbL6yW8=
-github.com/dop251/goja v0.0.0-20250307175808-203961f822d6 h1:G73yPVwEaihFs6WYKFFfSstwNY2vENyECvRnR0tye0g=
-github.com/dop251/goja v0.0.0-20250307175808-203961f822d6/go.mod h1:MxLav0peU43GgvwVgNbLAj1s/bSGboKkhuULvq/7hx4=
-github.com/dop251/goja_nodejs v0.0.0-20250306164425-a0199362a3ae h1:ZJhLGRQ/68zgPCqaO4L0HE1d5RxuQ72u3vvNEQ3tI/4=
-github.com/dop251/goja_nodejs v0.0.0-20250306164425-a0199362a3ae/go.mod h1:8oJNa7q7VTYFEgAT+uyoAfI6BD1MH9SKVs9U/p8xbBI=
+github.com/dop251/goja v0.0.0-20250309171923-bcd7cc6bf64c h1:mxWGS0YyquJ/ikZOjSrRjjFIbUqIP9ojyYQ+QZTU3Rg=
+github.com/dop251/goja v0.0.0-20250309171923-bcd7cc6bf64c/go.mod h1:MxLav0peU43GgvwVgNbLAj1s/bSGboKkhuULvq/7hx4=
+github.com/dop251/goja_nodejs v0.0.0-20250309172600-86a40d630cdd h1:qQ7rSxEYQ9wnt+PNGNlnSMskF7VucdTu9aK+rrIl7ro=
+github.com/dop251/goja_nodejs v0.0.0-20250309172600-86a40d630cdd/go.mod h1:Tb7Xxye4LX7cT3i8YLvmPMGCV92IOi4CDZvm/V8ylc0=
 github.com/doug-martin/goqu/v9 v9.19.0 h1:PD7t1X3tRcUiSdc5TEyOFKujZA5gs3VSA7wxSvBx7qo=
 github.com/doug-martin/goqu/v9 v9.19.0/go.mod h1:nf0Wc2/hV3gYK9LiyqIrzBEVGlI8qW3GuDCEobC4wBQ=
 github.com/fsnotify/fsnotify v1.4.9 h1:hsms1Qyu0jgnwNXIxa+/V/PDsU6CfLf6CNO8H7IWoS4=

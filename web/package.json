@@ -23,7 +23,7 @@
     "cssnano": "^7.0.6",
     "culori": "^4.0.1",
     "del": "^8.0.0",
-    "esbuild": "^0.25.0",
+    "esbuild": "^0.25.1",
     "esbuild-plugin-stimulus": "^0.1.5",
     "eslint": "^9.22.0",
     "eslint-config-prettier": "^10.1.1",

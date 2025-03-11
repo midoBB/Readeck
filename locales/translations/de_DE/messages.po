@@ -6,15 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-02-22 09:41+0000\n"
-"PO-Revision-Date: 2025-01-24 13:21+0000\n"
-"Last-Translator: altruizine <altruizine@users.noreply.translate.codeberg.org>\n"
+"POT-Creation-Date: 2025-02-18 07:09+0000\n"
+"PO-Revision-Date: 2025-02-19 10:21+0000\n"
+"Last-Translator: FrankDex <frankdex@users.noreply.translate.codeberg.org>\n"
+"Language-Team: German <https://translate.codeberg.org/projects/readeck/"
+"application/de/>\n"
 "Language: de_DE\n"
-"Language-Team: German <https://translate.codeberg.org/projects/readeck/application/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.9.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -481,11 +483,9 @@ msgstr "Geteilt von %s"
 msgid "with"
 msgstr "mit"
 
-# | msgid "Saved with Readeck"
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
-#, fuzzy
 msgid "Saved with"
-msgstr "Gespeichert mit Readeck"
+msgstr "Gespeichert mit"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:8
 msgid "Share link"
@@ -790,23 +790,18 @@ msgstr "Rasteransicht"
 msgid "Compact view"
 msgstr "Kompaktansicht"
 
-# | msgid "Import bookmarks"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort bookmarks"
-msgstr "Lesezeichen importieren"
+msgstr "Lesezeichen sortieren"
 
-# | msgid "Options"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort options"
-msgstr "Optionen"
+msgstr "Sortier-Optionen"
 
-# | msgid "Import links and articles"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 #, fuzzy
 msgid "Import and export"
-msgstr "Importiere Links und Artikel"
+msgstr "Import und Export der Links und Artikel"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:9
 msgid "You can share the following link with your friends."
@@ -928,11 +923,9 @@ msgstr "Fügt ein Tag auf Links hinzu, basierend auf ihrem Abschnittstitel"
 msgid "Import Bookmarks"
 msgstr "Lesezeichen importieren"
 
-# | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
-#, fuzzy
 msgid "Import Links from a CSV File"
-msgstr "Importiere Links aus einer Textdatei"
+msgstr "Importiere Links aus einer CSV Datei"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
@@ -940,6 +933,10 @@ msgid ""
 "    Upload a CSV file from Instapaper or any CSV that matches the format specified bellow.\n"
 "  "
 msgstr ""
+"\n"
+"    Laden Sie eine CSV-Datei von Instapaper oder einer beliebigen CSV-Datei "
+"hoch, die dem unten angegebenen Format entspricht.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
 #, python-format
@@ -949,57 +946,57 @@ msgid ""
 "    insensitive and, except for <code>%s</code>, every column is optional.\n"
 "  "
 msgstr ""
+"\n"
+"    Die hochgeladene Datei muss eine erste Zeile mit den Spaltennamen "
+"enthalten. Spaltennamen sind Groß- und Kleinschreibung\n"
+"Unempfindlich und, mit Ausnahme von <code>%s</code>, ist jede Spalte "
+"optional.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:45
 msgid "Here are the columns you can set:"
-msgstr ""
+msgstr "Hier sind die Spalten, die Sie einstellen können:"
 
-# | msgid "File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
-#, fuzzy
 msgid "Field"
-msgstr "Datei"
+msgstr "Feld"
 
-# | msgid "Links"
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
-#, fuzzy
 msgid "Alias"
-msgstr "Links"
+msgstr "Alias"
 
-# | msgid "Distribution"
 #: assets/templates/bookmarks/import/form-csv.jet.html:51
-#, fuzzy
 msgid "Description"
-msgstr "Verteilung"
+msgstr "Beschreibung"
 
-# | msgid "Email Address"
 #: assets/templates/bookmarks/import/form-csv.jet.html:58
 #, fuzzy
 msgid "Link address"
-msgstr "E-Mail-Adresse"
+msgstr "E-Mail- Adresse verlinken"
 
-# | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/import/form-csv.jet.html:63
-#, fuzzy
 msgid "Bookmark title"
-msgstr "Lesezeichen Tags"
+msgstr "Lesezeichen Titel"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:68
 #, python-format
 msgid "Bookmark's archived state; only valid value is \"%s\""
 msgstr ""
+"Archivierter Status des Lesezeichens; der einzige gültige Wert ist \"%s\""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:73
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
 msgstr ""
+"Erstellungsdatum, kann ein UNIX-Zeitstempel oder ein RFC-3339-formatiertes "
+"Datum sein"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:78
 msgid "A JSON encoded list of labels"
-msgstr ""
+msgstr "Eine JSON-kodierte Liste von Etiketten"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:83
 msgid "Example"
-msgstr ""
+msgstr "Beispiel"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
 msgid "Import Links from a GoodLinks export file"
@@ -1168,11 +1165,9 @@ msgstr ""
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
 msgstr "Importiere deine Lesezeichen aus dem Browser, aus Pinboard oder Instapaper"
 
-# | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/index.jet.html:40
-#, fuzzy
 msgid "Import Links from a CSV File and Instapaper"
-msgstr "Importiere Links aus einer Textdatei"
+msgstr "Links aus einer CSV-Datei und Instapaper importieren"
 
 #: assets/templates/bookmarks/import/index.jet.html:44
 msgid "Import your GoodLinks Articles"
@@ -1190,25 +1185,23 @@ msgstr "Füge all deinen importierten Lesezeichen einen Tag hinzu"
 msgid "Ignore links already in your bookmarks"
 msgstr "Ignoriere Links, die bereits als Lesezeichen existieren"
 
-# | msgid "Archived Bookmarks"
 #: assets/templates/bookmarks/import/options.jet.html:21
-#, fuzzy
 msgid "Archive all links"
-msgstr "Archivierte Lesezeichen"
+msgstr "Alle Links archivieren"
 
 #: assets/templates/bookmarks/import/options.jet.html:23
 msgid "Moves all links to archive, regardless of their original status"
 msgstr ""
+"Verschiebt alle Links ins Archiv, unabhängig von ihrem ursprünglichen Status"
 
-# | msgid "Mark as read"
 #: assets/templates/bookmarks/import/options.jet.html:27
-#, fuzzy
 msgid "Mark all links as read"
-msgstr "Als gelesen markieren"
+msgstr "Alle Links als gelesen markieren"
 
 #: assets/templates/bookmarks/import/options.jet.html:29
 msgid "Marks all links as read, regardless of their original status"
 msgstr ""
+"Markiert alle Links als gelesen, unabhängig von ihrem ursprünglichen Status"
 
 #: assets/templates/bookmarks/import/progress.jet.html:15
 msgid "Import operation will launch momentarily."
@@ -1237,11 +1230,9 @@ msgstr ""
 "      Deine Lesezeichen sind jetzt in deiner <a class=\"%s\" href=\"%s\">Lesezeichenliste</a> verfügbar.\n"
 "      "
 
-# | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/index.jet.html:1
-#, fuzzy
 msgid "Bookmark filters"
-msgstr "Lesezeichen Tags"
+msgstr "Lesezeichen Filter"
 
 #: assets/templates/bookmarks/index.jet.html:27
 msgid "Save a new link"
@@ -1777,11 +1768,9 @@ msgstr "Benutzer aktualisiert."
 msgid "Invalid user and/or password"
 msgstr "Ungültiger Benutzername und/oder ungültiges Passwort"
 
-# | msgid "Password ID"
 #: internal/auth/users/forms.go:68
-#, fuzzy
 msgid "password is empty"
-msgstr "Kennwort-ID"
+msgstr "Kennwort ist leer"
 
 #: internal/auth/users/forms.go:205
 msgid "Bookmarks : Read Only"
@@ -1816,11 +1805,9 @@ msgstr "Der HTML-Inhalt kann nicht gelesen werden"
 msgid "Empty or invalid import file"
 msgstr "Leere oder ungültige Importdatei"
 
-# | msgid "File"
 #: internal/bookmarks/importer/csv.go:118
-#, fuzzy
 msgid "CSV File"
-msgstr "Datei"
+msgstr "CSV-Datei"
 
 #: internal/bookmarks/importer/goodlinks.go:44
 msgid "GoodLinks Export File"
@@ -1848,7 +1835,7 @@ msgstr "Kein Zugangstoken gefunden"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:135
 msgid "Unable to process input data"
-msgstr ""
+msgstr "Eingabedaten können nicht verarbeitet werden"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:376
 msgid "Article"
@@ -2057,7 +2044,7 @@ msgstr "muss kleiner oder gleich %d sein"
 #: pkg/forms/validators.go:398
 #, python-format
 msgid "%v is not one of %s"
-msgstr ""
+msgstr "%v ist nicht einer von %s"
 
 #: pkg/strftime/strftime.go:23
 msgctxt "datetime_dl"
@@ -2306,4 +2293,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr "Die ZIP-Datei kann nicht geöffnet werden"
-

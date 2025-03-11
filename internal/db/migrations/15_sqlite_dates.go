@@ -13,12 +13,12 @@ import (
 	"github.com/doug-martin/goqu/v9/exp"
 )
 
-// M15SqliteDates performs a migration to update all datetime
+// M15sqliteDates performs a migration to update all datetime
 // formats with SQLite.
 // We can't only use a SQL script since we want to fix incorrectly set
 // dates. These wront dates most likely come from use of the non CGO sqlite
 // driver (modernc).
-func M15SqliteDates(db *goqu.TxDatabase, _ fs.FS) error {
+func M15sqliteDates(db *goqu.TxDatabase, _ fs.FS) error {
 	if db.Dialect() != "sqlite3" {
 		return nil
 	}

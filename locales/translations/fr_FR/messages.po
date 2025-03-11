@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-02-22 09:41+0000\n"
-"PO-Revision-Date: 2025-02-18 07:32+0000\n"
-"Last-Translator: olivier <olivier@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2025-03-11 08:35+0000\n"
+"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
+"Language-Team: French <https://translate.codeberg.org/projects/readeck/"
+"application/fr/>\n"
 "Language: fr_FR\n"
-"Language-Team: French <https://translate.codeberg.org/projects/readeck/application/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -653,13 +655,12 @@ msgid "Loading"
 msgstr "Chargement"
 
 #: assets/templates/bookmarks/components/card.jet.html:75
-#, fuzzy, python-format
-#| msgid "%d min"
+#, python-format
 msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
 msgstr[0] "%d min"
-msgstr[1] ""
+msgstr[1] "%d min"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
@@ -849,12 +850,11 @@ msgstr "Des erreurs ont eu lieu durant l'extraction."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:69
 #: assets/templates/epub/bookmark.jet.html:45
-#, fuzzy, python-format
-#| msgid "About %d min read"
+#, python-format
 msgid "About %d minute read"
 msgid_plural "About %d minutes read"
-msgstr[0] "Environ %d min de lecture"
-msgstr[1] ""
+msgstr[0] "Environ %d minute de lecture"
+msgstr[1] "Environ %d minutes de lecture"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:104
 msgid "Start selecting text in the article to create a new highlight."
@@ -2279,4 +2279,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr "Impossible d'ouvrir le fichier zip"
-

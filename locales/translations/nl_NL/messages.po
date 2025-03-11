@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-02-22 09:41+0000\n"
-"PO-Revision-Date: 2024-12-16 11:09+0000\n"
-"Last-Translator: Vistaus <Vistaus@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2025-03-12 11:21+0000\n"
+"Last-Translator: Vistaus <vistaus@noreply.codeberg.org>\n"
+"Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/"
+"application/nl/>\n"
 "Language: nl_NL\n"
-"Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/application/nl/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -483,9 +485,8 @@ msgstr "met"
 
 # | msgid "Saved with Readeck"
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
-#, fuzzy
 msgid "Saved with"
-msgstr "Bewaard met Readeck"
+msgstr "Bewaard met"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:8
 msgid "Share link"
@@ -659,13 +660,12 @@ msgid "Loading"
 msgstr "Bezig met laden…"
 
 #: assets/templates/bookmarks/components/card.jet.html:75
-#, fuzzy, python-format
-#| msgid "%d min"
+#, python-format
 msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
-msgstr[0] "%d min."
-msgstr[1] ""
+msgstr[0] "%d min."
+msgstr[1] "%d min."
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
@@ -792,21 +792,18 @@ msgstr "Compacte weergave"
 
 # | msgid "Import bookmarks"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort bookmarks"
-msgstr "Bladwijzers importeren"
+msgstr "Bladwijzers sorteren"
 
 # | msgid "Options"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort options"
-msgstr "Opties"
+msgstr "Sorteeropties"
 
 # | msgid "Import links and articles"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Import and export"
-msgstr "Links en artikelen importeren"
+msgstr "Importeren en exporteren"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:9
 msgid "You can share the following link with your friends."
@@ -861,12 +858,11 @@ msgstr "Er zijn fouten opgetreden tijdens het extraheren."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:69
 #: assets/templates/epub/bookmark.jet.html:45
-#, fuzzy, python-format
-#| msgid "About %d min read"
+#, python-format
 msgid "About %d minute read"
 msgid_plural "About %d minutes read"
 msgstr[0] "Ongeveer %d min. leestijd"
-msgstr[1] ""
+msgstr[1] "Ongeveer %d min. leestijd"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:104
 msgid "Start selecting text in the article to create a new highlight."
@@ -930,9 +926,8 @@ msgstr "Bladwijzers importeren"
 
 # | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
-#, fuzzy
 msgid "Import Links from a CSV File"
-msgstr "Links importeren uit tekstbestand"
+msgstr "Links importeren uit csv-bestand"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
@@ -940,6 +935,10 @@ msgid ""
 "    Upload a CSV file from Instapaper or any CSV that matches the format specified bellow.\n"
 "  "
 msgstr ""
+"\n"
+"    Upload een csv-bestand vanuit Instapaper of elders dat overeenkomt met "
+"onderstaande opmaak.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
 #, python-format
@@ -949,57 +948,60 @@ msgid ""
 "    insensitive and, except for <code>%s</code>, every column is optional.\n"
 "  "
 msgstr ""
+"\n"
+"    Het geüploade bestand dient over een eerste rij met kolomnamen te "
+"beschikken. Kolomnamen zijn\n"
+"    hoofdletterongevoelig en alle kolommen zijn optioneel, behalve "
+"<code>%s</code>.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:45
 msgid "Here are the columns you can set:"
-msgstr ""
+msgstr "Dit zijn de kolommen die je kunt gebruiken:"
 
 # | msgid "File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
-#, fuzzy
 msgid "Field"
-msgstr "Bestand"
+msgstr "Veld"
 
 # | msgid "Links"
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
-#, fuzzy
 msgid "Alias"
-msgstr "Links"
+msgstr "Alias"
 
 # | msgid "Distribution"
 #: assets/templates/bookmarks/import/form-csv.jet.html:51
-#, fuzzy
 msgid "Description"
-msgstr "Verspreiding"
+msgstr "Beschrijving"
 
 # | msgid "Email Address"
 #: assets/templates/bookmarks/import/form-csv.jet.html:58
-#, fuzzy
 msgid "Link address"
-msgstr "E-mailadres"
+msgstr "Linkadres"
 
 # | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/import/form-csv.jet.html:63
-#, fuzzy
 msgid "Bookmark title"
-msgstr "Bladwijzerlabels"
+msgstr "Bladwijzertitel"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:68
 #, python-format
 msgid "Bookmark's archived state; only valid value is \"%s\""
-msgstr ""
+msgstr "De archiefstatus van de bladwijzer - enige geldige waarde: ‘%s’"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:73
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
 msgstr ""
+"De aanmaakdatum - dit kan een UNIX-tijdstempel of een met RFC-3339 "
+"opgemaakte datum zijn"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:78
 msgid "A JSON encoded list of labels"
-msgstr ""
+msgstr "Een json-lijst met labels"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:83
 msgid "Example"
-msgstr ""
+msgstr "Voorbeeld"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
 msgid "Import Links from a GoodLinks export file"
@@ -1170,9 +1172,8 @@ msgstr "Importeer de bladwijzers van je webbrowser, Pinboard of Instapaper"
 
 # | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/index.jet.html:40
-#, fuzzy
 msgid "Import Links from a CSV File and Instapaper"
-msgstr "Links importeren uit tekstbestand"
+msgstr "Links importeren uit csv-bestand en Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html:44
 msgid "Import your GoodLinks Articles"
@@ -1192,23 +1193,21 @@ msgstr "Reeds toegevoegde links negeren"
 
 # | msgid "Archived Bookmarks"
 #: assets/templates/bookmarks/import/options.jet.html:21
-#, fuzzy
 msgid "Archive all links"
-msgstr "Gearchiveerde bladwijzers"
+msgstr "Alle links archiveren"
 
 #: assets/templates/bookmarks/import/options.jet.html:23
 msgid "Moves all links to archive, regardless of their original status"
-msgstr ""
+msgstr "Archiveer alle links, ongeacht de status"
 
 # | msgid "Mark as read"
 #: assets/templates/bookmarks/import/options.jet.html:27
-#, fuzzy
 msgid "Mark all links as read"
-msgstr "Markeren als gelezen"
+msgstr "Alle links markeren als gelezen"
 
 #: assets/templates/bookmarks/import/options.jet.html:29
 msgid "Marks all links as read, regardless of their original status"
-msgstr ""
+msgstr "Markeer alle links als gelezen, ongeacht de status"
 
 #: assets/templates/bookmarks/import/progress.jet.html:15
 msgid "Import operation will launch momentarily."
@@ -1239,9 +1238,8 @@ msgstr ""
 
 # | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/index.jet.html:1
-#, fuzzy
 msgid "Bookmark filters"
-msgstr "Bladwijzerlabels"
+msgstr "Bladwijzers filteren"
 
 #: assets/templates/bookmarks/index.jet.html:27
 msgid "Save a new link"
@@ -1779,9 +1777,8 @@ msgstr "Ongeldige gebruikersnaam en/of wachtwoord"
 
 # | msgid "Password ID"
 #: internal/auth/users/forms.go:68
-#, fuzzy
 msgid "password is empty"
-msgstr "Wachtwoord-id"
+msgstr "Geen wachtwoord ingevoerd"
 
 #: internal/auth/users/forms.go:205
 msgid "Bookmarks : Read Only"
@@ -1818,9 +1815,8 @@ msgstr "Het bestand is blanco of ongeldig"
 
 # | msgid "File"
 #: internal/bookmarks/importer/csv.go:118
-#, fuzzy
 msgid "CSV File"
-msgstr "Bestand"
+msgstr "Csv-bestand"
 
 #: internal/bookmarks/importer/goodlinks.go:44
 msgid "GoodLinks Export File"
@@ -1848,7 +1844,7 @@ msgstr "Er is geen toegangssleutel gevonden"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:135
 msgid "Unable to process input data"
-msgstr ""
+msgstr "De invoer kan niet worden verwerkt"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:376
 msgid "Article"
@@ -2057,7 +2053,7 @@ msgstr "Moet minder zijn dan of gelijk aan %d"
 #: pkg/forms/validators.go:398
 #, python-format
 msgid "%v is not one of %s"
-msgstr ""
+msgstr "%v is niet een %s"
 
 #: pkg/strftime/strftime.go:23
 msgctxt "datetime_dl"
@@ -2303,4 +2299,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr "Het zipbestand kan niet worden geopend"
-

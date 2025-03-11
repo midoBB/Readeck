@@ -7,9 +7,8 @@ msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-02-18 07:09+0000\n"
-"PO-Revision-Date: 2025-02-19 10:21+0000\n"
-"Last-Translator: Outbreak2096 "
-"<outbreak2096@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2025-03-12 11:21+0000\n"
+"Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -17,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -660,12 +659,11 @@ msgid "Loading"
 msgstr "加载"
 
 #: assets/templates/bookmarks/components/card.jet.html:75
-#, fuzzy, python-format
-#| msgid "%d min"
+#, python-format
 msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
-msgstr[0] "%d 分钟"
+msgstr[0] "%d 分钟"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
@@ -855,8 +853,7 @@ msgstr "提取过程中出错。"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:69
 #: assets/templates/epub/bookmark.jet.html:45
-#, fuzzy, python-format
-#| msgid "About %d min read"
+#, python-format
 msgid "About %d minute read"
 msgid_plural "About %d minutes read"
 msgstr[0] "阅读约 %d 分钟"

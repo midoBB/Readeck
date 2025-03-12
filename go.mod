@@ -35,7 +35,6 @@ require (
 	github.com/klauspost/compress v1.18.0
 	github.com/komkom/toml v0.1.2
 	github.com/leonelquinteros/gotext v1.7.1
-	github.com/lithammer/shortuuid/v4 v4.2.0
 	github.com/mangoumbrella/goldmark-figure v1.0.0
 	github.com/ncruces/go-sqlite3 v0.24.0
 	github.com/phsym/console-slog v0.3.1

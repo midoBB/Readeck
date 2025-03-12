@@ -12,11 +12,11 @@ import (
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
-	"github.com/lithammer/shortuuid/v4"
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/db/types"
+	"codeberg.org/readeck/readeck/pkg/base58"
 )
 
 const (
@@ -102,7 +102,7 @@ func (m *Manager) Create(token *Token) error {
 	}
 
 	token.Created = time.Now()
-	token.UID = shortuuid.New()
+	token.UID = base58.NewUUID()
 
 	ds := db.Q().Insert(TableName).
 		Rows(token).

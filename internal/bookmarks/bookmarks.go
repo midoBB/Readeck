@@ -19,13 +19,13 @@ import (
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
-	"github.com/lithammer/shortuuid/v4"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/db/exp"
 	"codeberg.org/readeck/readeck/internal/db/types"
+	"codeberg.org/readeck/readeck/pkg/base58"
 )
 
 // BookmarkState is the current bookmark state.
@@ -115,7 +115,7 @@ func (m *BookmarkManager) Create(bookmark *Bookmark) error {
 
 	bookmark.Created = time.Now()
 	bookmark.Updated = bookmark.Created
-	bookmark.UID = shortuuid.New()
+	bookmark.UID = base58.NewUUID()
 
 	if bookmark.InitialURL == "" {
 		bookmark.InitialURL = bookmark.URL

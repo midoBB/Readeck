@@ -16,10 +16,11 @@ import (
 	"time"
 
 	"github.com/go-shiori/dom"
-	"github.com/lithammer/shortuuid/v4"
+	"github.com/google/uuid"
 	"golang.org/x/sync/semaphore"
 
 	"codeberg.org/readeck/readeck/pkg/archiver"
+	"codeberg.org/readeck/readeck/pkg/base58"
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"codeberg.org/readeck/readeck/pkg/img"
 )
@@ -146,7 +147,9 @@ func GetURLfilename(uri string, contentType string) string {
 		ext = ".bin"
 	}
 
-	return shortuuid.NewWithNamespace(uri) + ext
+	return base58.EncodeUUID(
+		uuid.NewSHA1(uuid.NameSpaceURL, []byte(uri)),
+	) + ext
 }
 
 func urlProcessor(uri string, _ []byte, contentType string) string {

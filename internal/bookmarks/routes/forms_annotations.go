@@ -10,10 +10,10 @@ import (
 	"time"
 
 	"github.com/go-shiori/dom"
-	"github.com/lithammer/shortuuid/v4"
 	"golang.org/x/net/html"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/pkg/base58"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -41,7 +41,7 @@ func newAnnotationForm(tr forms.Translator) *annotationForm {
 
 func (f *annotationForm) addToBookmark(bi *bookmarkItem) (*bookmarks.BookmarkAnnotation, error) {
 	annotation := &bookmarks.BookmarkAnnotation{
-		ID:            shortuuid.New(),
+		ID:            base58.NewUUID(),
 		StartSelector: f.Get("start_selector").String(),
 		StartOffset:   f.Get("start_offset").Value().(int),
 		EndSelector:   f.Get("end_selector").String(),

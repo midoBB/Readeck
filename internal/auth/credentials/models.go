@@ -14,7 +14,6 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 	argon2 "github.com/hlandau/passlib/hash/argon2/raw"
-	"github.com/lithammer/shortuuid/v4"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 
@@ -22,6 +21,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/db/types"
+	"codeberg.org/readeck/readeck/pkg/base58"
 )
 
 const (
@@ -130,7 +130,7 @@ func (m *Manager) Create(c *Credential) error {
 	}
 
 	c.Created = time.Now()
-	c.UID = shortuuid.New()
+	c.UID = base58.NewUUID()
 
 	ds := db.Q().Insert(TableName).
 		Rows(c).

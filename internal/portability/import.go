@@ -18,13 +18,13 @@ import (
 	"strings"
 
 	"github.com/doug-martin/goqu/v9"
-	"github.com/lithammer/shortuuid/v4"
 
 	"codeberg.org/readeck/readeck/internal/auth/credentials"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/pkg/base58"
 	"codeberg.org/readeck/readeck/pkg/zipfs"
 )
 
@@ -197,7 +197,7 @@ func (imp *Importer) loadCollections(tx *goqu.TxDatabase, data *portableData) (e
 
 		if item.ID, err = insertInto(tx, bookmarks.CollectionTable, item, func(x *bookmarks.Collection) {
 			x.ID = 0
-			x.UID = shortuuid.New()
+			x.UID = base58.NewUUID()
 			x.UserID = ptrTo(imp.users[*x.UserID])
 		}); err != nil {
 			return
@@ -243,7 +243,7 @@ func (imp *Importer) loadBookmark(tx *goqu.TxDatabase, item *bookmarkItem) (err 
 
 	if b.ID, err = insertInto(tx, bookmarks.TableName, &b, func(x *bookmarks.Bookmark) {
 		x.ID = 0
-		x.UID = shortuuid.New()
+		x.UID = base58.NewUUID()
 		x.FilePath, _ = x.GetBaseFileURL()
 		x.UserID = ptrTo(imp.users[*x.UserID])
 	}); err != nil {

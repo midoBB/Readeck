@@ -9,12 +9,12 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/go-chi/chi/v5"
-	"github.com/lithammer/shortuuid/v4"
 
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/opds/catalog"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/pkg/base58"
 	"codeberg.org/readeck/readeck/pkg/opds"
 )
 
@@ -63,7 +63,7 @@ func (h *opdsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 			}
 
 			for _, b := range bl.items {
-				id, _ := shortuuid.DefaultEncoder.Decode(b.UID)
+				id, _ := base58.DecodeUUID(b.UID)
 				issued := b.Created
 				if b.Published != nil && !b.Published.IsZero() {
 					issued = *b.Published
@@ -139,7 +139,7 @@ func (h *opdsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 		catalog.WithURL(h.srv.AbsoluteURL(r).String()),
 		catalog.WithUpdated(lastUpdate),
 		func(feed *opds.Feed) {
-			id, _ := shortuuid.DefaultEncoder.Decode(item.UID)
+			id, _ := base58.DecodeUUID(item.UID)
 			catalog.WithBookEntry(
 				id, tr.Gettext("Collection ebook - %s", item.Name),
 				h.srv.AbsoluteURL(r, "/api/bookmarks", "export.epub?collection="+item.UID).String(),

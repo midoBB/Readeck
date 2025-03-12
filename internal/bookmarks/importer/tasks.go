@@ -11,13 +11,13 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/google/uuid"
-	"github.com/lithammer/shortuuid/v4"
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/bus"
 	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/pkg/base58"
 	"codeberg.org/readeck/readeck/pkg/superbus"
 )
 
@@ -162,7 +162,7 @@ func clearStoreProgressList(trackID string) error {
 
 // GetTrackID returns a tracking ID based on the request ID.
 func GetTrackID(requestID string) string {
-	return shortuuid.DefaultEncoder.Encode(
+	return base58.EncodeUUID(
 		uuid.NewSHA1(uuid.NameSpaceOID, []byte(requestID)),
 	)
 }

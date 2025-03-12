@@ -15,7 +15,6 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/go-chi/chi/v5"
-	"github.com/lithammer/shortuuid/v4"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth/users"
@@ -23,6 +22,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/locales"
+	"codeberg.org/readeck/readeck/pkg/base58"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -121,7 +121,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 			"EmailAddr": f.Get("email").String(),
 			"Loc":       locales.LoadTranslation("en-US"),
 		}
-		code := shortuuid.New()
+		code := base58.NewUUID()
 		if user != nil {
 			if err = f.saveCode(code, user.ID); err != nil {
 				return

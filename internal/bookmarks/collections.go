@@ -9,9 +9,9 @@ import (
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
-	"github.com/lithammer/shortuuid/v4"
 
 	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/pkg/base58"
 )
 
 const (
@@ -71,7 +71,7 @@ func (m *CollectionManager) Create(collection *Collection) error {
 
 	collection.Created = time.Now()
 	collection.Updated = collection.Created
-	collection.UID = shortuuid.New()
+	collection.UID = base58.NewUUID()
 
 	ds := db.Q().Insert(CollectionTable).
 		Rows(collection).

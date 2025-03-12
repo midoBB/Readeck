@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck CZ 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-02-22 09:41+0000\n"
-"PO-Revision-Date: 2025-01-08 13:08+0000\n"
+"PO-Revision-Date: 2025-03-12 11:21+0000\n"
 "Last-Translator: Joedmin <joedmin@joedmin.cz>\n"
+"Language-Team: Czech <https://translate.codeberg.org/projects/readeck/"
+"application/cs/>\n"
 "Language: cs_CZ\n"
-"Language-Team: Czech <https://translate.codeberg.org/projects/readeck/application/cs/>\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -483,9 +485,8 @@ msgstr "s"
 
 # | msgid "Saved with Readeck"
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
-#, fuzzy
 msgid "Saved with"
-msgstr "Uloženo Readeckem"
+msgstr "Uloženo s"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:8
 msgid "Share link"
@@ -659,14 +660,13 @@ msgid "Loading"
 msgstr "Načítání"
 
 #: assets/templates/bookmarks/components/card.jet.html:75
-#, fuzzy, python-format
-#| msgid "%d min"
+#, python-format
 msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
 msgstr[0] "%d min"
-msgstr[1] ""
-msgstr[2] ""
+msgstr[1] "%d min"
+msgstr[2] "%d min"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
@@ -793,21 +793,18 @@ msgstr "Kompaktní zobrazení"
 
 # | msgid "Import bookmarks"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort bookmarks"
-msgstr "Importovat záložky"
+msgstr "Třídit záložky"
 
 # | msgid "Options"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort options"
-msgstr "Možnosti"
+msgstr "Možnosti třídění"
 
 # | msgid "Import links and articles"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Import and export"
-msgstr "Importovat odkazy a články"
+msgstr "Import a export"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:9
 msgid "You can share the following link with your friends."
@@ -862,13 +859,12 @@ msgstr "Během extrahování se vyskytly chyby."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:69
 #: assets/templates/epub/bookmark.jet.html:45
-#, fuzzy, python-format
-#| msgid "About %d min read"
+#, python-format
 msgid "About %d minute read"
 msgid_plural "About %d minutes read"
-msgstr[0] "Asi %d min čtení"
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Asi minuta čtení"
+msgstr[1] "Asi %d minuty čtení"
+msgstr[2] "Asi %d minut čtení"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:104
 msgid "Start selecting text in the article to create a new highlight."
@@ -932,9 +928,8 @@ msgstr "Importovat záložky"
 
 # | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
-#, fuzzy
 msgid "Import Links from a CSV File"
-msgstr "Importovat z textového souboru"
+msgstr "Import odkazů ze souboru CSV"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
@@ -942,6 +937,10 @@ msgid ""
 "    Upload a CSV file from Instapaper or any CSV that matches the format specified bellow.\n"
 "  "
 msgstr ""
+"\n"
+"    Nahrajte soubor CSV z Instapaperu nebo jakýkoli soubor CSV, který "
+"odpovídá níže uvedenému formátu.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
 #, python-format
@@ -951,57 +950,59 @@ msgid ""
 "    insensitive and, except for <code>%s</code>, every column is optional.\n"
 "  "
 msgstr ""
+"\n"
+"    Nahraný soubor musí obsahovat první řádek s názvy sloupců. V názvech se "
+"nerozlišují\n"
+"    velká a malá písmena. Kromě <code>%s</code> je každý sloupec nepovinný.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:45
 msgid "Here are the columns you can set:"
-msgstr ""
+msgstr "Zde jsou sloupce, které lze nastavit:"
 
 # | msgid "File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
-#, fuzzy
 msgid "Field"
-msgstr "Soubor"
+msgstr "Pole"
 
 # | msgid "Links"
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
-#, fuzzy
 msgid "Alias"
-msgstr "Odkazy"
+msgstr "Alias"
 
 # | msgid "Distribution"
 #: assets/templates/bookmarks/import/form-csv.jet.html:51
-#, fuzzy
 msgid "Description"
-msgstr "Šíření"
+msgstr "Popis"
 
 # | msgid "Email Address"
 #: assets/templates/bookmarks/import/form-csv.jet.html:58
-#, fuzzy
 msgid "Link address"
-msgstr "E-mailová adresa"
+msgstr "Adresa odkazu"
 
 # | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/import/form-csv.jet.html:63
-#, fuzzy
 msgid "Bookmark title"
-msgstr "Štítky záložek"
+msgstr "Název záložky"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:68
 #, python-format
 msgid "Bookmark's archived state; only valid value is \"%s\""
-msgstr ""
+msgstr "Stav archivace záložky; jedinou platnou hodnotou je „%s“"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:73
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
 msgstr ""
+"Datum vytvoření, může to být časové razítko UNIXu nebo datum ve formátu "
+"RFC-3339"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:78
 msgid "A JSON encoded list of labels"
-msgstr ""
+msgstr "Seznam štítků kódovaný v JSONu"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:83
 msgid "Example"
-msgstr ""
+msgstr "Příklad"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
 msgid "Import Links from a GoodLinks export file"
@@ -1172,9 +1173,8 @@ msgstr "Importovat záložky prohlížeče, Pinboard, Instapaper"
 
 # | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/index.jet.html:40
-#, fuzzy
 msgid "Import Links from a CSV File and Instapaper"
-msgstr "Importovat z textového souboru"
+msgstr "Import odkazů ze souboru CSV a Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html:44
 msgid "Import your GoodLinks Articles"
@@ -1194,23 +1194,21 @@ msgstr "Ignorovat odkazy, které jsou již ve vašich záložkách"
 
 # | msgid "Archived Bookmarks"
 #: assets/templates/bookmarks/import/options.jet.html:21
-#, fuzzy
 msgid "Archive all links"
-msgstr "Archivované záložky"
+msgstr "Archivovat všechny odkazy"
 
 #: assets/templates/bookmarks/import/options.jet.html:23
 msgid "Moves all links to archive, regardless of their original status"
-msgstr ""
+msgstr "Přesune všechny odkazy do archivu bez ohledu na jejich původní stav"
 
 # | msgid "Mark as read"
 #: assets/templates/bookmarks/import/options.jet.html:27
-#, fuzzy
 msgid "Mark all links as read"
-msgstr "Označit jako přečtené"
+msgstr "Označit všechny odkazy jako přečtené"
 
 #: assets/templates/bookmarks/import/options.jet.html:29
 msgid "Marks all links as read, regardless of their original status"
-msgstr ""
+msgstr "Označí všechny odkazy jako přečtené bez ohledu na jejich původní stav"
 
 #: assets/templates/bookmarks/import/progress.jet.html:15
 msgid "Import operation will launch momentarily."
@@ -1241,9 +1239,8 @@ msgstr ""
 
 # | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/index.jet.html:1
-#, fuzzy
 msgid "Bookmark filters"
-msgstr "Štítky záložek"
+msgstr "Filtry záložek"
 
 #: assets/templates/bookmarks/index.jet.html:27
 msgid "Save a new link"
@@ -1782,9 +1779,8 @@ msgstr "Neplatný uživatel a/nebo heslo"
 
 # | msgid "Password ID"
 #: internal/auth/users/forms.go:68
-#, fuzzy
 msgid "password is empty"
-msgstr "ID hesla"
+msgstr "heslo je prázdné"
 
 #: internal/auth/users/forms.go:205
 msgid "Bookmarks : Read Only"
@@ -1821,9 +1817,8 @@ msgstr "Prázdný nebo neplatný soubor importu"
 
 # | msgid "File"
 #: internal/bookmarks/importer/csv.go:118
-#, fuzzy
 msgid "CSV File"
-msgstr "Soubor"
+msgstr "Soubor CSV"
 
 #: internal/bookmarks/importer/goodlinks.go:44
 msgid "GoodLinks Export File"
@@ -1851,7 +1846,7 @@ msgstr "Nebyl nalezen žádný token pro přístup"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:135
 msgid "Unable to process input data"
-msgstr ""
+msgstr "Nelze zpracovat vstupní data"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:376
 msgid "Article"
@@ -2060,7 +2055,7 @@ msgstr "musí být menší nebo rovno %d"
 #: pkg/forms/validators.go:398
 #, python-format
 msgid "%v is not one of %s"
-msgstr ""
+msgstr "%v nepatří mezi %s"
 
 #: pkg/strftime/strftime.go:23
 msgctxt "datetime_dl"
@@ -2309,4 +2304,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr "Nelze otevřít zip soubor"
-

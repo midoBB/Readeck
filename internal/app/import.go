@@ -63,7 +63,7 @@ func runImport(_ context.Context, args []string) error {
 	if clearData {
 		fmt.Fprintf( // nolint:errcheck
 			fs.Output(),
-			"❗ %sAttention!%s This will clear and replace all existing user data.\n",
+			"❗ %sAttention!%s This will remove all current users and their data.\n",
 			bold, colorReset,
 		)
 		if !confirmPrompt("Are you sure?", false) {

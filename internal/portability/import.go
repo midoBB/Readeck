@@ -82,6 +82,12 @@ func (imp *Importer) Load() error {
 		return err
 	}
 	return tx.Wrap(func() error {
+		if imp.clearData {
+			if err = imp.clearDB(tx); err != nil {
+				return err
+			}
+		}
+
 		for _, fn := range fnList {
 			if err = fn(tx, &data); err != nil {
 				return err
@@ -89,6 +95,17 @@ func (imp *Importer) Load() error {
 		}
 		return nil
 	})
+}
+
+func (imp *Importer) clearDB(tx *goqu.TxDatabase) error {
+	if _, err := tx.Delete(bookmarks.TableName).Executor().Exec(); err != nil {
+		return err
+	}
+
+	if _, err := tx.Delete(users.TableName).Executor().Exec(); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (imp *Importer) loadUsers(tx *goqu.TxDatabase, data *portableData) (err error) {
@@ -101,14 +118,6 @@ func (imp *Importer) loadUsers(tx *goqu.TxDatabase, data *portableData) (err err
 
 		if !slices.Contains(imp.usernames, item.Username) {
 			continue
-		}
-
-		if imp.clearData {
-			if _, err := tx.Delete(users.TableName).
-				Where(goqu.C("username").Eq(item.Username)).
-				Prepared(true).Executor().Exec(); err != nil {
-				return err
-			}
 		}
 
 		var count int64

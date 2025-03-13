@@ -6,6 +6,7 @@
 package app
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
 	"log/slog"
@@ -13,6 +14,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"strings"
 
 	"github.com/cristalhq/acmd"
 	"github.com/phsym/console-slog"
@@ -213,4 +215,30 @@ func createFolder(name string) error {
 	}
 
 	return nil
+}
+
+func confirmPrompt(label string, defaultV bool) bool {
+	choices := "Y/n"
+	if !defaultV {
+		choices = "y/N"
+	}
+
+	r := bufio.NewReader(os.Stdin)
+	var s string
+
+	for {
+		fmt.Fprintf(os.Stderr, "%s (%s) ", label, choices)
+		s, _ = r.ReadString('\n')
+		s = strings.TrimSpace(s)
+		if s == "" {
+			return defaultV
+		}
+		s = strings.ToLower(s)
+		if s == "y" || s == "yes" {
+			return true
+		}
+		if s == "n" || s == "no" {
+			return false
+		}
+	}
 }

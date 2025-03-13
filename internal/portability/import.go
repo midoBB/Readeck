@@ -7,7 +7,6 @@ package portability
 import (
 	"archive/zip"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"maps"
@@ -32,16 +31,18 @@ import (
 type Importer struct {
 	usernames []string
 	users     map[int]int
+	clearData bool
 	zr        *zip.Reader
 	output    io.Writer
 }
 
 // NewImporter creates a new [Importer].
-func NewImporter(zr *zip.Reader, usernames []string) (*Importer, error) {
+func NewImporter(zr *zip.Reader, usernames []string, clearData bool) (*Importer, error) {
 	return &Importer{
 		zr:        zr,
 		usernames: usernames,
 		users:     map[int]int{},
+		clearData: clearData,
 		output:    io.Discard,
 	}, nil
 }
@@ -102,17 +103,25 @@ func (imp *Importer) loadUsers(tx *goqu.TxDatabase, data *portableData) (err err
 			continue
 		}
 
-		var user *users.User
-		user, err = users.Users.GetOne(
+		if imp.clearData {
+			if _, err := tx.Delete(users.TableName).
+				Where(goqu.C("username").Eq(item.Username)).
+				Prepared(true).Executor().Exec(); err != nil {
+				return err
+			}
+		}
+
+		var count int64
+		count, err = tx.Select().From(users.TableName).Where(
 			goqu.Or(
 				goqu.C("username").Eq(item.Username),
 				goqu.C("email").Eq(item.Email),
 			),
-		)
-		if err != nil && !errors.Is(err, users.ErrNotFound) {
+		).Prepared(true).Count()
+		if err != nil {
 			return err
 		}
-		if user != nil {
+		if count > 0 {
 			fmt.Fprintf( // nolint:errcheck
 				imp.output,
 				"\tERR: user \"%s\" or \"%s\" already exists\n", item.Username, item.Email,
@@ -123,6 +132,7 @@ func (imp *Importer) loadUsers(tx *goqu.TxDatabase, data *portableData) (err err
 		originalID := item.ID
 		if item.ID, err = insertInto(tx, users.TableName, item, func(x *users.User) {
 			x.ID = 0
+			x.SetSeed()
 		}); err != nil {
 			return
 		}
@@ -148,6 +158,9 @@ func (imp *Importer) loadTokens(tx *goqu.TxDatabase, data *portableData) (err er
 		if item.ID, err = insertInto(tx, tokens.TableName, item, func(x *tokens.Token) {
 			x.ID = 0
 			x.UserID = ptrTo(imp.users[*x.UserID])
+			if !imp.clearData {
+				x.UID = base58.NewUUID()
+			}
 		}); err != nil {
 			return
 		}
@@ -173,6 +186,9 @@ func (imp *Importer) loadCredentials(tx *goqu.TxDatabase, data *portableData) (e
 		if item.ID, err = insertInto(tx, credentials.TableName, item, func(x *credentials.Credential) {
 			x.ID = 0
 			x.UserID = ptrTo(imp.users[*x.UserID])
+			if !imp.clearData {
+				x.UID = base58.NewUUID()
+			}
 		}); err != nil {
 			return
 		}
@@ -197,8 +213,10 @@ func (imp *Importer) loadCollections(tx *goqu.TxDatabase, data *portableData) (e
 
 		if item.ID, err = insertInto(tx, bookmarks.CollectionTable, item, func(x *bookmarks.Collection) {
 			x.ID = 0
-			x.UID = base58.NewUUID()
 			x.UserID = ptrTo(imp.users[*x.UserID])
+			if !imp.clearData {
+				x.UID = base58.NewUUID()
+			}
 		}); err != nil {
 			return
 		}
@@ -243,9 +261,11 @@ func (imp *Importer) loadBookmark(tx *goqu.TxDatabase, item *bookmarkItem) (err 
 
 	if b.ID, err = insertInto(tx, bookmarks.TableName, &b, func(x *bookmarks.Bookmark) {
 		x.ID = 0
-		x.UID = base58.NewUUID()
 		x.FilePath, _ = x.GetBaseFileURL()
 		x.UserID = ptrTo(imp.users[*x.UserID])
+		if !imp.clearData {
+			x.UID = base58.NewUUID()
+		}
 	}); err != nil {
 		return
 	}

@@ -21,6 +21,9 @@
 - Safari display bug with "details" HTML elements in bookmarks
 - Safari bug when creating highlights
 
+### Breaking changes
+- All bookmark internal URLs have changed
+
 ## [0.17.1] - 2025-01-15
 ### Fixed
 - Username validation during onboarding

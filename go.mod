@@ -17,7 +17,7 @@ require (
 	github.com/cristalhq/acmd v0.12.0
 	github.com/cristalhq/jwt/v3 v3.1.0
 	github.com/dop251/goja v0.0.0-20250309171923-bcd7cc6bf64c
-	github.com/dop251/goja_nodejs v0.0.0-20250309172600-86a40d630cdd
+	github.com/dop251/goja_nodejs v0.0.0-20250313154628-ba888e424a3a
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/gabriel-vasile/mimetype v1.4.8
 	github.com/go-chi/chi/v5 v5.2.1
@@ -36,7 +36,7 @@ require (
 	github.com/komkom/toml v0.1.2
 	github.com/leonelquinteros/gotext v1.7.1
 	github.com/mangoumbrella/goldmark-figure v1.0.0
-	github.com/ncruces/go-sqlite3 v0.24.0
+	github.com/ncruces/go-sqlite3 v0.24.1
 	github.com/phsym/console-slog v0.3.1
 	github.com/prometheus/client_golang v1.21.1
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
@@ -80,7 +80,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_model v0.6.1 // indirect
-	github.com/prometheus/common v0.62.0 // indirect
+	github.com/prometheus/common v0.63.0 // indirect
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/tetratelabs/wazero v1.9.0 // indirect
 	github.com/toorop/go-dkim v0.0.0-20250226130143-9025cce95817 // indirect

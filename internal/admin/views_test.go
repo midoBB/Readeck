@@ -80,34 +80,34 @@ func TestViews(t *testing.T) {
 					"group":    {"user"},
 				},
 				ExpectStatus:   303,
-				ExpectRedirect: `^/admin/users/\d+$`,
+				ExpectRedirect: `^/admin/users/\w+$`,
 			},
 
 			// Update user
 			RequestTest{
-				Target:         fmt.Sprintf("/admin/users/%d", u1.User.ID),
+				Target:         "/admin/users/" + u1.User.UID,
 				ExpectStatus:   200,
 				ExpectContains: "test1</h1>",
 			},
 			RequestTest{
 				Method:         "POST",
-				Target:         fmt.Sprintf("/admin/users/%d", u1.User.ID),
+				Target:         "/admin/users/" + u1.User.UID,
 				ExpectStatus:   303,
-				ExpectRedirect: fmt.Sprintf("/admin/users/%d", u1.User.ID),
+				ExpectRedirect: "/admin/users/" + u1.User.UID,
 			},
 			RequestTest{
-				Target:         fmt.Sprintf("/admin/users/%d", u1.User.ID),
+				Target:         "/admin/users/" + u1.User.UID,
 				ExpectStatus:   200,
 				ExpectContains: "<strong>User updated.</strong>",
 			},
 
 			// Udpate current user
 			RequestTest{
-				Target: fmt.Sprintf("/admin/users/%d", app.Users["admin"].User.ID),
+				Target: "/admin/users/" + app.Users["admin"].User.UID,
 			},
 			RequestTest{
 				Method: "POST",
-				Target: fmt.Sprintf("/admin/users/%d", app.Users["admin"].User.ID),
+				Target: "/admin/users/" + app.Users["admin"].User.UID,
 				Form: url.Values{
 					"username": {"test3@localhost"},
 					"password": {"1234"},
@@ -121,32 +121,32 @@ func TestViews(t *testing.T) {
 				},
 			},
 			RequestTest{
-				Target: fmt.Sprintf("/admin/users/%d", app.Users["admin"].User.ID),
+				Target: "/admin/users/" + app.Users["admin"].User.UID,
 			},
 			RequestTest{
 				Method:         "POST",
-				Target:         fmt.Sprintf("/admin/users/%d", app.Users["admin"].User.ID),
+				Target:         "/admin/users/" + app.Users["admin"].User.UID,
 				ExpectStatus:   303,
-				ExpectRedirect: fmt.Sprintf("/admin/users/%d", app.Users["admin"].User.ID),
+				ExpectRedirect: "/admin/users/" + app.Users["admin"].User.UID,
 			},
 			RequestTest{
-				Target:         fmt.Sprintf("/admin/users/%d", u1.User.ID),
+				Target:         "/admin/users/" + u1.User.UID,
 				ExpectStatus:   200,
 				ExpectContains: "<strong>User updated.</strong>",
 			},
 
 			// Delete user
 			RequestTest{
-				Target: fmt.Sprintf("/admin/users/%d", u1.User.ID),
+				Target: "/admin/users/" + u1.User.UID,
 			},
 			RequestTest{
 				Method:         "POST",
-				Target:         fmt.Sprintf("/admin/users/%d/delete", u1.User.ID),
+				Target:         fmt.Sprintf("/admin/users/%s/delete", u1.User.UID),
 				ExpectStatus:   303,
 				ExpectRedirect: "/admin/users",
 			},
 			RequestTest{
-				Target:         fmt.Sprintf("/admin/users/%d", u1.User.ID),
+				Target:         "/admin/users/" + u1.User.UID,
 				ExpectStatus:   200,
 				ExpectContains: "User will be removed in a few seconds",
 				Assert: func(t *testing.T, _ *Response) {
@@ -168,11 +168,11 @@ func TestViews(t *testing.T) {
 
 			// Cancel deletion
 			RequestTest{
-				Target: fmt.Sprintf("/admin/users/%d", u1.User.ID),
+				Target: "/admin/users/" + u1.User.UID,
 			},
 			RequestTest{
 				Method:         "POST",
-				Target:         fmt.Sprintf("/admin/users/%d/delete", u1.User.ID),
+				Target:         fmt.Sprintf("/admin/users/%s/delete", u1.User.UID),
 				Form:           url.Values{"cancel": {"1"}},
 				ExpectStatus:   303,
 				ExpectRedirect: "/admin/users",

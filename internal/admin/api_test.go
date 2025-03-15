@@ -5,7 +5,6 @@
 package admin_test
 
 import (
-	"fmt"
 	"testing"
 
 	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
@@ -84,7 +83,7 @@ func TestAPI(t *testing.T) {
 			},
 			RequestTest{
 				JSON:         true,
-				Target:       fmt.Sprintf("/api/admin/users/%d", u1.User.ID),
+				Target:       "/api/admin/users/" + u1.User.UID,
 				ExpectStatus: 200,
 				ExpectJSON: `{
 					"id": "<<PRESENCE>>",
@@ -100,7 +99,7 @@ func TestAPI(t *testing.T) {
 			},
 			RequestTest{
 				JSON:         true,
-				Target:       "/api/admin/users/999999",
+				Target:       "/api/admin/users/sdfgsgsgergergerge",
 				ExpectStatus: 404,
 				ExpectJSON:   `{"status":404,"message":"Not Found"}`,
 			},
@@ -330,11 +329,11 @@ func TestAPI(t *testing.T) {
 				},
 				ExpectStatus:   201,
 				ExpectJSON:     `{"status":201,"message":"User created"}`,
-				ExpectRedirect: `/api/admin/users/\d+`,
+				ExpectRedirect: `/api/admin/users/\w+`,
 			},
 			RequestTest{
 				Method:       "PATCH",
-				Target:       fmt.Sprintf("/api/admin/users/%d", u1.User.ID),
+				Target:       "/api/admin/users/" + u1.User.UID,
 				JSON:         map[string]string{},
 				ExpectStatus: 200,
 				ExpectJSON: `{
@@ -343,7 +342,7 @@ func TestAPI(t *testing.T) {
 			},
 			RequestTest{
 				Method: "PATCH",
-				Target: fmt.Sprintf("/api/admin/users/%d", u1.User.ID),
+				Target: "/api/admin/users/" + u1.User.UID,
 				JSON: map[string]string{
 					"username": "test3@localhost",
 					"email":    "test3",
@@ -388,7 +387,7 @@ func TestAPI(t *testing.T) {
 			},
 			RequestTest{
 				Method: "PATCH",
-				Target: fmt.Sprintf("/api/admin/users/%d", u1.User.ID),
+				Target: "/api/admin/users/" + u1.User.UID,
 				JSON: map[string]string{
 					"username": "test3",
 					"email":    "test3@localhost",
@@ -407,13 +406,13 @@ func TestAPI(t *testing.T) {
 			},
 			RequestTest{
 				Method:       "DELETE",
-				Target:       fmt.Sprintf("/api/admin/users/%d", u1.User.ID),
+				Target:       "/api/admin/users/" + u1.User.UID,
 				JSON:         true,
 				ExpectStatus: 204,
 			},
 			RequestTest{
 				Method:       "DELETE",
-				Target:       fmt.Sprintf("/api/admin/users/%d", app.Users["admin"].User.ID),
+				Target:       "/api/admin/users/" + app.Users["admin"].User.UID,
 				JSON:         true,
 				ExpectStatus: 409,
 				ExpectJSON: `{

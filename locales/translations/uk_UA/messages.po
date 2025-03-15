@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-02-18 07:09+0000\n"
-"PO-Revision-Date: 2025-03-12 11:21+0000\n"
+"PO-Revision-Date: 2025-03-14 14:21+0000\n"
 "Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
@@ -486,9 +486,8 @@ msgstr "з"
 
 # | msgid "Saved with Readeck"
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
-#, fuzzy
 msgid "Saved with"
-msgstr "Збережено Readeck"
+msgstr "Збережено за допомогою"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:8
 msgid "Share link"
@@ -795,15 +794,13 @@ msgstr "Компактний вигляд"
 
 # | msgid "Import bookmarks"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort bookmarks"
-msgstr "Імпортувати закладки"
+msgstr "Сортувати закладки"
 
 # | msgid "Options"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort options"
-msgstr "Параметри"
+msgstr "Параметри сортування"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Import and export"
@@ -952,22 +949,26 @@ msgid ""
 "    insensitive and, except for <code>%s</code>, every column is optional.\n"
 "  "
 msgstr ""
+"\n"
+"    Перший рядок завантажуваного файлу повинен містити назви стовпчиків. "
+"Назви стовпчиків\n"
+"    не залежать від регістру і всі стовпчики є необов'язковими, за винятком "
+"<code>%s</code>.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:45
 msgid "Here are the columns you can set:"
-msgstr ""
+msgstr "Стовпчики, які ви можете вказати:"
 
 # | msgid "File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
-#, fuzzy
 msgid "Field"
-msgstr "Файл"
+msgstr "Поле"
 
 # | msgid "Links"
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
-#, fuzzy
 msgid "Alias"
-msgstr "Посилання"
+msgstr "Псевдонім"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:51
 msgid "Description"
@@ -984,7 +985,7 @@ msgstr "Назва закладки"
 #: assets/templates/bookmarks/import/form-csv.jet.html:68
 #, python-format
 msgid "Bookmark's archived state; only valid value is \"%s\""
-msgstr ""
+msgstr "Архівний стан закладки; єдиним допустимим значенням є «%s»"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:73
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
@@ -1032,7 +1033,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:28
 msgid "Omnivore URL"
-msgstr "Omnivore URL"
+msgstr "URL Omnivore"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:30
 msgid "URL of your Omnivore homepage"
@@ -1134,7 +1135,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:33
 msgid "Wallabag URL"
-msgstr "Wallabag URL"
+msgstr "URL Wallabag"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:35
 msgid "URL of your Wallabag homepage"
@@ -1193,6 +1194,7 @@ msgstr "Архівувати всі посилання"
 #: assets/templates/bookmarks/import/options.jet.html:23
 msgid "Moves all links to archive, regardless of their original status"
 msgstr ""
+"Переміщує всі посилання в архів, незалежно від їхнього початкового стану"
 
 #: assets/templates/bookmarks/import/options.jet.html:27
 msgid "Mark all links as read"
@@ -1201,6 +1203,7 @@ msgstr "Позначити всі посилання як прочитані"
 #: assets/templates/bookmarks/import/options.jet.html:29
 msgid "Marks all links as read, regardless of their original status"
 msgstr ""
+"Позначає всі посилання як прочитані, незалежно від їхнього початкового стану"
 
 #: assets/templates/bookmarks/import/progress.jet.html:15
 msgid "Import operation will launch momentarily."
@@ -2045,7 +2048,7 @@ msgstr "має бути меншим або дорівнювати %d"
 #: pkg/forms/validators.go:398
 #, python-format
 msgid "%v is not one of %s"
-msgstr ""
+msgstr "%v не є одним із %s"
 
 #: pkg/strftime/strftime.go:23
 msgctxt "datetime_dl"

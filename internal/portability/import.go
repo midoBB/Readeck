@@ -142,6 +142,9 @@ func (imp *Importer) loadUsers(tx *goqu.TxDatabase, data *portableData) (err err
 		if item.ID, err = insertInto(tx, users.TableName, item, func(x *users.User) {
 			x.ID = 0
 			x.SetSeed()
+			if !imp.clearData || x.UID == "" {
+				x.UID = base58.NewUUID()
+			}
 		}); err != nil {
 			return
 		}
@@ -167,7 +170,7 @@ func (imp *Importer) loadTokens(tx *goqu.TxDatabase, data *portableData) (err er
 		if item.ID, err = insertInto(tx, tokens.TableName, item, func(x *tokens.Token) {
 			x.ID = 0
 			x.UserID = ptrTo(imp.users[*x.UserID])
-			if !imp.clearData {
+			if !imp.clearData || x.UID == "" {
 				x.UID = base58.NewUUID()
 			}
 		}); err != nil {
@@ -195,7 +198,7 @@ func (imp *Importer) loadCredentials(tx *goqu.TxDatabase, data *portableData) (e
 		if item.ID, err = insertInto(tx, credentials.TableName, item, func(x *credentials.Credential) {
 			x.ID = 0
 			x.UserID = ptrTo(imp.users[*x.UserID])
-			if !imp.clearData {
+			if !imp.clearData || x.UID == "" {
 				x.UID = base58.NewUUID()
 			}
 		}); err != nil {
@@ -223,7 +226,7 @@ func (imp *Importer) loadCollections(tx *goqu.TxDatabase, data *portableData) (e
 		if item.ID, err = insertInto(tx, bookmarks.CollectionTable, item, func(x *bookmarks.Collection) {
 			x.ID = 0
 			x.UserID = ptrTo(imp.users[*x.UserID])
-			if !imp.clearData {
+			if !imp.clearData || x.UID == "" {
 				x.UID = base58.NewUUID()
 			}
 		}); err != nil {
@@ -272,7 +275,7 @@ func (imp *Importer) loadBookmark(tx *goqu.TxDatabase, item *bookmarkItem) (err 
 		x.ID = 0
 		x.FilePath, _ = x.GetBaseFileURL()
 		x.UserID = ptrTo(imp.users[*x.UserID])
-		if !imp.clearData {
+		if !imp.clearData || x.UID == "" {
 			x.UID = base58.NewUUID()
 		}
 	}); err != nil {

@@ -7,8 +7,9 @@ package migrations
 import (
 	"io/fs"
 
-	"codeberg.org/readeck/readeck/pkg/base58"
 	"github.com/doug-martin/goqu/v9"
+
+	"codeberg.org/readeck/readeck/pkg/base58"
 )
 
 // M17useruid adds a "uid" column to the "user" table.

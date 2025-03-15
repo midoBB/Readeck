@@ -7,7 +7,6 @@ package admin
 import (
 	"log/slog"
 	"net/http"
-	"strconv"
 
 	"github.com/go-chi/chi/v5"
 
@@ -31,13 +30,13 @@ func newAdminViews(api *adminAPI) *adminViews {
 		r.With(api.withUserList).Get("/", h.main)
 		r.With(api.withUserList).Get("/users", h.userList)
 		r.Get("/users/add", h.userCreate)
-		r.With(api.withUser).Get("/users/{id:\\d+}", h.userInfo)
+		r.With(api.withUser).Get("/users/{uid:[a-zA-Z0-9]{18,22}}", h.userInfo)
 	})
 
 	r.With(api.srv.WithPermission("admin:users", "write")).Group(func(r chi.Router) {
 		r.Post("/users/add", h.userCreate)
-		r.With(api.withUser).Post("/users/{id:\\d+}", h.userInfo)
-		r.With(api.withUser).Post("/users/{id:\\d+}/delete", h.userDelete)
+		r.With(api.withUser).Post("/users/{uid:[a-zA-Z0-9]{18,22}}", h.userInfo)
+		r.With(api.withUser).Post("/users/{uid:[a-zA-Z0-9]{18,22}}/delete", h.userDelete)
 	})
 
 	return h
@@ -79,7 +78,7 @@ func (h *adminViews) userCreate(w http.ResponseWriter, r *http.Request) {
 				h.srv.Log(r).Error("", slog.Any("err", err))
 			} else {
 				h.srv.AddFlash(w, r, "success", tr.Gettext("User created."))
-				h.srv.Redirect(w, r, "./..", strconv.Itoa(u.ID))
+				h.srv.Redirect(w, r, "./..", u.UID)
 				return
 			}
 		}
@@ -118,7 +117,7 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 					sess.Payload.Seed = u.Seed
 				}
 				h.srv.AddFlash(w, r, "success", tr.Gettext("User updated."))
-				h.srv.Redirect(w, r, strconv.Itoa(u.ID))
+				h.srv.Redirect(w, r, u.UID)
 				return
 			}
 		}

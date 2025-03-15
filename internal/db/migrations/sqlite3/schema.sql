@@ -10,6 +10,7 @@ CREATE TABLE migration (
 
 CREATE TABLE IF NOT EXISTS user (
     id       integer  PRIMARY KEY AUTOINCREMENT,
+    uid      text     UNIQUE NOT NULL,
     created  datetime NOT NULL,
     updated  datetime NOT NULL,
     username text     UNIQUE NOT NULL,

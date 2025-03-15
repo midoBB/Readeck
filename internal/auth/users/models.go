@@ -20,6 +20,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/acls"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/db/types"
+	"codeberg.org/readeck/readeck/pkg/base58"
 )
 
 func init() {
@@ -51,6 +52,7 @@ var (
 // User is a user record in database.
 type User struct {
 	ID       int           `db:"id" goqu:"skipinsert,skipupdate"`
+	UID      string        `db:"uid"`
 	Created  time.Time     `db:"created" goqu:"skipupdate"`
 	Updated  time.Time     `db:"updated"`
 	Username string        `db:"username"`
@@ -104,6 +106,7 @@ func (m *Manager) Create(user *User) error {
 
 	user.Created = time.Now()
 	user.Updated = user.Created
+	user.UID = base58.NewUUID()
 	user.SetSeed()
 
 	ds := db.Q().Insert(TableName).

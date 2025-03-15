@@ -62,7 +62,7 @@ func TestPermissions(t *testing.T) {
 			},
 			RequestTest{
 				JSON:   true,
-				Target: fmt.Sprintf("/api/admin/users/%d", u1.User.ID),
+				Target: "/api/admin/users/" + u1.User.UID,
 				Assert: func(t *testing.T, r *Response) {
 					switch user {
 					case "admin":
@@ -76,7 +76,7 @@ func TestPermissions(t *testing.T) {
 			},
 			RequestTest{
 				Method: "PATCH",
-				Target: fmt.Sprintf("/api/admin/users/%d", u1.User.ID),
+				Target: "/api/admin/users/" + u1.User.UID,
 				JSON:   map[string]string{},
 				Assert: func(t *testing.T, r *Response) {
 					switch user {
@@ -91,7 +91,7 @@ func TestPermissions(t *testing.T) {
 			},
 			RequestTest{
 				Method: "DELETE",
-				Target: fmt.Sprintf("/api/admin/users/%d", u1.User.ID),
+				Target: "/api/admin/users/" + u1.User.UID,
 				JSON:   true,
 				Assert: func(t *testing.T, r *Response) {
 					switch user {
@@ -165,7 +165,7 @@ func TestPermissions(t *testing.T) {
 				},
 			},
 			RequestTest{
-				Target: fmt.Sprintf("/admin/users/%d", u2.User.ID),
+				Target: "/admin/users/" + u2.User.UID,
 				Assert: func(t *testing.T, r *Response) {
 					switch user {
 					case "admin":
@@ -180,7 +180,7 @@ func TestPermissions(t *testing.T) {
 			},
 			RequestTest{
 				Method: "POST",
-				Target: fmt.Sprintf("/admin/users/%d/delete", u2.User.ID),
+				Target: fmt.Sprintf("/admin/users/%s/delete", u2.User.UID),
 				Assert: func(t *testing.T, r *Response) {
 					switch user {
 					case "admin":

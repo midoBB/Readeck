@@ -10,6 +10,7 @@ CREATE TABLE migration (
 
 CREATE TABLE IF NOT EXISTS "user" (
     id       SERIAL       PRIMARY KEY,
+    uid      varchar(32)  UNIQUE NOT NULL,
     created  timestamptz  NOT NULL,
     updated  timestamptz  NOT NULL,
     username varchar(128) UNIQUE NOT NULL,

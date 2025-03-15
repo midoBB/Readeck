@@ -8,7 +8,6 @@ import (
 	"context"
 	"errors"
 	"net/http"
-	"strconv"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
@@ -39,13 +38,13 @@ func newAdminAPI(s *server.Server) *adminAPI {
 
 	r.With(api.srv.WithPermission("api:admin:users", "read")).Group(func(r chi.Router) {
 		r.With(api.withUserList).Get("/users", api.userList)
-		r.With(api.withUser).Get("/users/{id:\\d+}", api.userInfo)
+		r.With(api.withUser).Get("/users/{uid:[a-zA-Z0-9]{18,22}}", api.userInfo)
 	})
 
 	r.With(api.srv.WithPermission("api:admin:users", "write")).Group(func(r chi.Router) {
 		r.With(api.withUserList).Post("/users", api.userCreate)
-		r.With(api.withUser).Patch("/users/{id:\\d+}", api.userUpdate)
-		r.With(api.withUser).Delete("/users/{id:\\d+}", api.userDelete)
+		r.With(api.withUser).Patch("/users/{uid:[a-zA-Z0-9]{18,22}}", api.userUpdate)
+		r.With(api.withUser).Delete("/users/{uid:[a-zA-Z0-9]{18,22}}", api.userDelete)
 	})
 
 	return api
@@ -92,10 +91,10 @@ func (api *adminAPI) withUserList(next http.Handler) http.Handler {
 
 func (api *adminAPI) withUser(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		userid := chi.URLParam(r, "id")
+		userid := chi.URLParam(r, "uid")
 
 		u, err := users.Users.GetOne(
-			goqu.C("id").Eq(userid),
+			goqu.C("uid").Eq(userid),
 		)
 		if err != nil {
 			api.srv.Status(w, r, http.StatusNotFound)
@@ -153,7 +152,7 @@ func (api *adminAPI) userCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Location", api.srv.AbsoluteURL(r, ".", strconv.Itoa(u.ID)).String())
+	w.Header().Set("Location", api.srv.AbsoluteURL(r, ".", u.UID).String())
 	api.srv.TextMessage(w, r, http.StatusCreated, "User created")
 }
 
@@ -200,7 +199,7 @@ type userList struct {
 }
 
 type userItem struct {
-	ID        int                 `json:"id"`
+	ID        string              `json:"id"`
 	Href      string              `json:"href"`
 	Created   time.Time           `json:"created"`
 	Updated   time.Time           `json:"updated"`
@@ -213,8 +212,8 @@ type userItem struct {
 
 func newUserItem(s *server.Server, r *http.Request, u *users.User, base string) userItem {
 	return userItem{
-		ID:        u.ID,
-		Href:      s.AbsoluteURL(r, base, strconv.Itoa(u.ID)).String(),
+		ID:        u.UID,
+		Href:      s.AbsoluteURL(r, base, u.UID).String(),
 		Created:   u.Created,
 		Updated:   u.Updated,
 		Username:  u.Username,

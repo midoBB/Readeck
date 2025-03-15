@@ -17,7 +17,7 @@ require (
 	github.com/cristalhq/acmd v0.12.0
 	github.com/cristalhq/jwt/v3 v3.1.0
 	github.com/dop251/goja v0.0.0-20250309171923-bcd7cc6bf64c
-	github.com/dop251/goja_nodejs v0.0.0-20250313154628-ba888e424a3a
+	github.com/dop251/goja_nodejs v0.0.0-20250314160716-c55ecee183c0
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/gabriel-vasile/mimetype v1.4.8
 	github.com/go-chi/chi/v5 v5.2.1
@@ -41,7 +41,7 @@ require (
 	github.com/prometheus/client_golang v1.21.1
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/stretchr/testify v1.10.0
-	github.com/tdewolff/parse/v2 v2.7.20
+	github.com/tdewolff/parse/v2 v2.7.21
 	github.com/xhit/go-simple-mail/v2 v2.16.0
 	github.com/yuin/goldmark v1.7.1
 	github.com/yuin/goldmark-meta v1.1.0
@@ -68,7 +68,7 @@ require (
 	github.com/go-test/deep v1.1.0 // indirect
 	github.com/gogs/chardet v0.0.0-20211120154057-b7413eaefb8f // indirect
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
-	github.com/google/pprof v0.0.0-20250302191652-9094ed2288e7 // indirect
+	github.com/google/pprof v0.0.0-20250315033105-103756e64e1d // indirect
 	github.com/itchyny/timefmt-go v0.1.5 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect

@@ -6,7 +6,13 @@ import {Controller} from "@hotwired/stimulus"
 import {request} from "../lib/request"
 
 export default class extends Controller {
-  static targets = ["root", "controlls", "controllCreate", "controllUpdate"]
+  static targets = [
+    "root",
+    "controlls",
+    "controllCreate",
+    "controllUpdate",
+    "controllArrow",
+  ]
   static classes = ["hidden"]
   static values = {
     apiUrl: String,
@@ -20,11 +26,6 @@ export default class extends Controller {
     document.addEventListener("selectionchange", async (evt) => {
       await this.onSelectText(evt)
     })
-
-    // Prepare controll box
-    this.controllArrow = this.setupControll(
-      "ontouchstart" in document.documentElement ? "bottom" : "top",
-    )
   }
 
   canCreateValueChanged(value) {
@@ -57,6 +58,7 @@ export default class extends Controller {
     // We must wait for next tick so it won't trigger when the event triggers
     // from a click on an existing selection.
     await this.nextTick()
+    this.setupControll()
 
     this.annotation = new Annotation(this.rootTarget, document.getSelection())
     if (this.annotation.isValid()) {
@@ -69,16 +71,21 @@ export default class extends Controller {
   }
 
   /**
+   * setupControll adds the arrow to the controllsTarget elemet,
    *
    * @param {string} position
    * @returns {Element}
    */
-  setupControll(position) {
-    if (!this.hasControllsTarget) {
+  setupControll() {
+    if (!this.hasControllsTarget || this.hasControllArrowTarget) {
       return
     }
 
+    const position =
+      "ontouchstart" in document.documentElement ? "bottom" : "top"
+
     const arrow = document.createElement("div")
+    arrow.dataset.annotationsTarget = "controllArrow"
     const bt = "8px solid transparent"
     const bg = "8px solid var(--arrow-color)"
 
@@ -95,15 +102,10 @@ export default class extends Controller {
       arrow.style.borderBottom = bg
       this.controllsTarget.insertBefore(arrow, this.controllsTarget.firstChild)
     }
-
-    return arrow
   }
 
   setControllArrowColor(color) {
-    if (!this.controllArrow) {
-      return
-    }
-    this.controllArrow.style.setProperty("--arrow-color", color)
+    this.controllArrowTarget.style.setProperty("--arrow-color", color)
   }
 
   /**
@@ -116,7 +118,7 @@ export default class extends Controller {
     this.canUpdateValue = canUpdate
     await this.nextTick()
 
-    const position = this.controllArrow.dataset.position
+    const position = this.controllArrowTarget.dataset.position
 
     // Show controlls
     this.controllsTarget.classList.remove(this.hiddenClass)
@@ -154,10 +156,10 @@ export default class extends Controller {
     this.controllsTarget.style.left = `${x}px`
 
     // Set arrow position
-    if (!this.controllArrow) {
+    if (!this.hasControllArrowTarget) {
       return
     }
-    const arrowWidth = this.controllArrow.offsetWidth
+    const arrowWidth = this.controllArrowTarget.offsetWidth
     // prettier-ignore
     const arrowX = Math.max(
       arrowWidth / 2,
@@ -166,7 +168,7 @@ export default class extends Controller {
         w - arrowWidth - arrowWidth / 2,
       ),
     )
-    this.controllArrow.style.marginLeft = `${arrowX}px`
+    this.controllArrowTarget.style.marginLeft = `${arrowX}px`
   }
 
   async hideControlls() {

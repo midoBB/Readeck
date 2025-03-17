@@ -7,14 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-03-17 09:27+0000\n"
-"PO-Revision-Date: 2025-03-14 14:21+0000\n"
+"PO-Revision-Date: 2025-03-17 22:19+0000\n"
 "Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
+"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
+"application/uk/>\n"
 "Language: uk_UA\n"
-"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/application/uk/>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -1610,17 +1613,13 @@ msgstr "ID пароля"
 
 #: assets/templates/profile/credential.jet.html:56
 #: assets/templates/profile/token.jet.html:37
-#, fuzzy
-#| msgid "Patent use"
 msgid "Last used"
-msgstr "Використання патенту"
+msgstr "Востаннє використано"
 
 #: assets/templates/profile/credential.jet.html:57
 #: assets/templates/profile/token.jet.html:38
-#, fuzzy
-#| msgid "New User"
 msgid "never used"
-msgstr "Новий користувач"
+msgstr "Не використовувався"
 
 #: assets/templates/profile/credential.jet.html:69
 #: assets/templates/profile/token.jet.html:50
@@ -1660,10 +1659,9 @@ msgstr "Створити новий пароль застосунку"
 
 #: assets/templates/profile/credential_list.jet.html:48
 #: assets/templates/profile/token_list.jet.html:54
-#, fuzzy, python-format
-#| msgid "Created on: %s"
+#, python-format
 msgid "Last used on: %s"
-msgstr "Створено: %s"
+msgstr "Востаннє використано: %s"
 
 #: assets/templates/profile/credential_list.jet.html:56
 msgid "This password will be removed in a few seconds."
@@ -2286,4 +2284,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr "Не вдається відкрити файл zip"
-

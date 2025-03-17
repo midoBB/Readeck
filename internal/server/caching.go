@@ -95,6 +95,7 @@ func (s *Server) WriteLastModified(w http.ResponseWriter, r *http.Request, moder
 func (s *Server) WithCacheControl(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Cache-Control", "private")
+		w.Header().Add("Vary", "Accept")
 		next.ServeHTTP(w, r)
 	})
 }

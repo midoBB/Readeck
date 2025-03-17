@@ -5,6 +5,7 @@
 - Export command
 - Import command
 - Import from CSV and Instapaper
+- Last used dates on API Tokens and Application Passwords
 
 ### Improved
 - Mark imported archived bookmarks as read

@@ -6,17 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-02-18 07:09+0000\n"
+"POT-Creation-Date: 2025-03-17 09:27+0000\n"
 "PO-Revision-Date: 2025-02-19 10:21+0000\n"
 "Last-Translator: FrankDex <frankdex@users.noreply.translate.codeberg.org>\n"
-"Language-Team: German <https://translate.codeberg.org/projects/readeck/"
-"application/de/>\n"
 "Language: de_DE\n"
+"Language-Team: German <https://translate.codeberg.org/projects/readeck/application/de/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -118,8 +116,8 @@ msgstr "Nächste"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:35 internal/admin/views.go:63
-#: internal/admin/views.go:93 internal/admin/views.go:133
+#: assets/templates/profile/base.jet.html:35 internal/admin/views.go:62
+#: internal/admin/views.go:92 internal/admin/views.go:132
 msgid "Users"
 msgstr "Benutzer"
 
@@ -140,9 +138,9 @@ msgstr "Der Benutzer wird in ein paar Sekunden entfernt"
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:70
 #: assets/templates/bookmarks/label.jet.html:51
 #: assets/templates/profile/credential.jet.html:20
-#: assets/templates/profile/credential_list.jet.html:57
+#: assets/templates/profile/credential_list.jet.html:62
 #: assets/templates/profile/token.jet.html:20
-#: assets/templates/profile/token_list.jet.html:61
+#: assets/templates/profile/token_list.jet.html:68
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -182,10 +180,10 @@ msgstr "ändert sich nicht, wenn leer"
 #: assets/templates/admin/user.jet.html:52
 #: assets/templates/bookmarks/collection.jet.html:77
 #: assets/templates/bookmarks/collection_create.jet.html:30
-#: assets/templates/profile/credential.jet.html:83
+#: assets/templates/profile/credential.jet.html:88
 #: assets/templates/profile/index.jet.html:35
 #: assets/templates/profile/password.jet.html:36
-#: assets/templates/profile/token.jet.html:70
+#: assets/templates/profile/token.jet.html:75
 msgid "Save"
 msgstr "Speichern"
 
@@ -193,7 +191,7 @@ msgstr "Speichern"
 msgid "Delete this user"
 msgstr "Benutzer löschen"
 
-#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:94
+#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:93
 msgid "New User"
 msgstr "Neuer Benutzer"
 
@@ -206,8 +204,8 @@ msgid "Add a new user"
 msgstr "Einen neuen Benutzer hinzufügen"
 
 #: assets/templates/admin/user_list.jet.html:30
-#: assets/templates/profile/credential_list.jet.html:45
-#: assets/templates/profile/token_list.jet.html:47
+#: assets/templates/profile/credential_list.jet.html:46
+#: assets/templates/profile/token_list.jet.html:48
 #, python-format
 msgid "Created on: %s"
 msgstr "Erstellt am: %s"
@@ -526,7 +524,7 @@ msgstr "Dokumentation"
 
 #: assets/templates/bookmarks/collection.jet.html:67
 #: assets/templates/bookmarks/collection_create.jet.html:23
-#: assets/templates/profile/credential.jet.html:58
+#: assets/templates/profile/credential.jet.html:63
 msgid "Name"
 msgstr "Name"
 
@@ -658,9 +656,9 @@ msgctxt "bookmark"
 msgid "Loading"
 msgstr "Laden"
 
+# | msgid "%d min"
 #: assets/templates/bookmarks/components/card.jet.html:75
 #, fuzzy, python-format
-#| msgid "%d min"
 msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
@@ -854,10 +852,10 @@ msgstr "kein Sitename"
 msgid "Errors occurred during extraction."
 msgstr "Während der Extraktion sind Fehler aufgetreten."
 
+# | msgid "About %d min read"
 #: assets/templates/bookmarks/components/sidebar.jet.html:69
 #: assets/templates/epub/bookmark.jet.html:45
 #, fuzzy, python-format
-#| msgid "About %d min read"
 msgid "About %d minute read"
 msgid_plural "About %d minutes read"
 msgstr[0] "Etwa %d min Lesezeit"
@@ -934,8 +932,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Laden Sie eine CSV-Datei von Instapaper oder einer beliebigen CSV-Datei "
-"hoch, die dem unten angegebenen Format entspricht.\n"
+"    Laden Sie eine CSV-Datei von Instapaper oder einer beliebigen CSV-Datei hoch, die dem unten angegebenen Format entspricht.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
@@ -947,10 +944,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Die hochgeladene Datei muss eine erste Zeile mit den Spaltennamen "
-"enthalten. Spaltennamen sind Groß- und Kleinschreibung\n"
-"Unempfindlich und, mit Ausnahme von <code>%s</code>, ist jede Spalte "
-"optional.\n"
+"    Die hochgeladene Datei muss eine erste Zeile mit den Spaltennamen enthalten. Spaltennamen sind Groß- und Kleinschreibung\n"
+"Unempfindlich und, mit Ausnahme von <code>%s</code>, ist jede Spalte optional.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:45
@@ -981,14 +976,11 @@ msgstr "Lesezeichen Titel"
 #: assets/templates/bookmarks/import/form-csv.jet.html:68
 #, python-format
 msgid "Bookmark's archived state; only valid value is \"%s\""
-msgstr ""
-"Archivierter Status des Lesezeichens; der einzige gültige Wert ist \"%s\""
+msgstr "Archivierter Status des Lesezeichens; der einzige gültige Wert ist \"%s\""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:73
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
-msgstr ""
-"Erstellungsdatum, kann ein UNIX-Zeitstempel oder ein RFC-3339-formatiertes "
-"Datum sein"
+msgstr "Erstellungsdatum, kann ein UNIX-Zeitstempel oder ein RFC-3339-formatiertes Datum sein"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:78
 msgid "A JSON encoded list of labels"
@@ -1191,8 +1183,7 @@ msgstr "Alle Links archivieren"
 
 #: assets/templates/bookmarks/import/options.jet.html:23
 msgid "Moves all links to archive, regardless of their original status"
-msgstr ""
-"Verschiebt alle Links ins Archiv, unabhängig von ihrem ursprünglichen Status"
+msgstr "Verschiebt alle Links ins Archiv, unabhängig von ihrem ursprünglichen Status"
 
 #: assets/templates/bookmarks/import/options.jet.html:27
 msgid "Mark all links as read"
@@ -1200,8 +1191,7 @@ msgstr "Alle Links als gelesen markieren"
 
 #: assets/templates/bookmarks/import/options.jet.html:29
 msgid "Marks all links as read, regardless of their original status"
-msgstr ""
-"Markiert alle Links als gelesen, unabhängig von ihrem ursprünglichen Status"
+msgstr "Markiert alle Links als gelesen, unabhängig von ihrem ursprünglichen Status"
 
 #: assets/templates/bookmarks/import/progress.jet.html:15
 msgid "Import operation will launch momentarily."
@@ -1614,12 +1604,26 @@ msgstr "Merkmale"
 msgid "Password ID"
 msgstr "Kennwort-ID"
 
-#: assets/templates/profile/credential.jet.html:64
-#: assets/templates/profile/token.jet.html:45
+#: assets/templates/profile/credential.jet.html:56
+#: assets/templates/profile/token.jet.html:37
+#, fuzzy
+#| msgid "Patent use"
+msgid "Last used"
+msgstr "Patentnutzung"
+
+#: assets/templates/profile/credential.jet.html:57
+#: assets/templates/profile/token.jet.html:38
+#, fuzzy
+#| msgid "New User"
+msgid "never used"
+msgstr "Neuer Benutzer"
+
+#: assets/templates/profile/credential.jet.html:69
+#: assets/templates/profile/token.jet.html:50
 msgid "Enabled"
 msgstr "Ermöglicht"
 
-#: assets/templates/profile/credential.jet.html:70
+#: assets/templates/profile/credential.jet.html:75
 msgid ""
 "\n"
 "    You can limit the permissions granted to this password by choosing one or more\n"
@@ -1633,12 +1637,12 @@ msgstr ""
 " Lass alle Auswahlmöglichkeiten leer, um diesem Kennwort alle deine Berechtigungen zu erteilen.\n"
 "  "
 
-#: assets/templates/profile/credential.jet.html:78
-#: assets/templates/profile/token.jet.html:65
+#: assets/templates/profile/credential.jet.html:83
+#: assets/templates/profile/token.jet.html:70
 msgid "Roles"
 msgstr "Rollen"
 
-#: assets/templates/profile/credential.jet.html:86
+#: assets/templates/profile/credential.jet.html:91
 msgid "Delete password"
 msgstr "Kennwort löschen"
 
@@ -1650,7 +1654,14 @@ msgstr "Meine Anwendungskennwörter"
 msgid "Create a new Application Password"
 msgstr "Erstelle ein neues Anwendungskennwort"
 
-#: assets/templates/profile/credential_list.jet.html:51
+#: assets/templates/profile/credential_list.jet.html:48
+#: assets/templates/profile/token_list.jet.html:54
+#, fuzzy, python-format
+#| msgid "Created on: %s"
+msgid "Last used on: %s"
+msgstr "Erstellt am: %s"
+
+#: assets/templates/profile/credential_list.jet.html:56
 msgid "This password will be removed in a few seconds."
 msgstr "Das Kennwort wird in ein paar Sekunden entfernt."
 
@@ -1686,15 +1697,15 @@ msgstr "Token wird in ein paar Sekunden entfernt."
 msgid "Token ID"
 msgstr "Token-ID"
 
-#: assets/templates/profile/token.jet.html:39
+#: assets/templates/profile/token.jet.html:44
 msgid "Application"
 msgstr "Anwendung"
 
-#: assets/templates/profile/token.jet.html:51
+#: assets/templates/profile/token.jet.html:56
 msgid "Expires on"
 msgstr "Läuft ab am"
 
-#: assets/templates/profile/token.jet.html:57
+#: assets/templates/profile/token.jet.html:62
 msgid ""
 "\n"
 "    You can limit the permissions granted to this token by choosing one or more\n"
@@ -1708,19 +1719,19 @@ msgstr ""
 "\tLasse alle Auswahlmöglichkeiten leer, um diesem Token alle deine Berechtigungen zu erteilen.\n"
 "  "
 
-#: assets/templates/profile/token.jet.html:73
+#: assets/templates/profile/token.jet.html:78
 msgid "Delete token"
 msgstr "Token löschen"
 
-#: assets/templates/profile/token.jet.html:78
+#: assets/templates/profile/token.jet.html:83
 msgid "API authentication"
 msgstr "API-Authentifizierung"
 
-#: assets/templates/profile/token.jet.html:81
+#: assets/templates/profile/token.jet.html:86
 msgid "Your API token"
 msgstr "Dein API-Token"
 
-#: assets/templates/profile/token.jet.html:89
+#: assets/templates/profile/token.jet.html:94
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
 msgstr "Du kannst dieses Token verwenden, indem du es als <strong>Authorization: Bearer</strong>-HTTP-Header übergibst."
 
@@ -1747,20 +1758,20 @@ msgstr "Bitte lesen Sie die <a href=\"%s\">API-Dokumentation</a>, wenn Sie sie v
 msgid "Create a new API token"
 msgstr "Erstelle ein neues API-Token"
 
-#: assets/templates/profile/token_list.jet.html:48
+#: assets/templates/profile/token_list.jet.html:50
 #, python-format
 msgid "Expires on: %s"
 msgstr "Läuft ab am: %s"
 
-#: assets/templates/profile/token_list.jet.html:55
+#: assets/templates/profile/token_list.jet.html:62
 msgid "This token will be removed in a few seconds."
 msgstr "Dieses Token wird in ein paar Sekunden entfernt."
 
-#: internal/admin/views.go:81
+#: internal/admin/views.go:80
 msgid "User created."
 msgstr "Benutzer erstellt."
 
-#: internal/admin/views.go:120
+#: internal/admin/views.go:119
 msgid "User updated."
 msgstr "Benutzer aktualisiert."
 
@@ -2293,3 +2304,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr "Die ZIP-Datei kann nicht geöffnet werden"
+

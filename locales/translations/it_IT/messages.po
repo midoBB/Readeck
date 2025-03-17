@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-02-22 09:41+0000\n"
+"POT-Creation-Date: 2025-03-17 09:27+0000\n"
 "PO-Revision-Date: 2024-11-25 08:02+0000\n"
 "Last-Translator: Tommi <tommi@users.noreply.translate.codeberg.org>\n"
 "Language: it\n"
@@ -116,8 +116,8 @@ msgstr "Successivo"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:35 internal/admin/views.go:63
-#: internal/admin/views.go:93 internal/admin/views.go:133
+#: assets/templates/profile/base.jet.html:35 internal/admin/views.go:62
+#: internal/admin/views.go:92 internal/admin/views.go:132
 msgid "Users"
 msgstr "Utenti"
 
@@ -138,9 +138,9 @@ msgstr "L’utente sarà rimossə in alcuni secondi"
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:70
 #: assets/templates/bookmarks/label.jet.html:51
 #: assets/templates/profile/credential.jet.html:20
-#: assets/templates/profile/credential_list.jet.html:57
+#: assets/templates/profile/credential_list.jet.html:62
 #: assets/templates/profile/token.jet.html:20
-#: assets/templates/profile/token_list.jet.html:61
+#: assets/templates/profile/token_list.jet.html:68
 msgid "Cancel"
 msgstr "Annulla"
 
@@ -180,10 +180,10 @@ msgstr "non cambierà se lasciato vuoto"
 #: assets/templates/admin/user.jet.html:52
 #: assets/templates/bookmarks/collection.jet.html:77
 #: assets/templates/bookmarks/collection_create.jet.html:30
-#: assets/templates/profile/credential.jet.html:83
+#: assets/templates/profile/credential.jet.html:88
 #: assets/templates/profile/index.jet.html:35
 #: assets/templates/profile/password.jet.html:36
-#: assets/templates/profile/token.jet.html:70
+#: assets/templates/profile/token.jet.html:75
 msgid "Save"
 msgstr "Salva"
 
@@ -191,7 +191,7 @@ msgstr "Salva"
 msgid "Delete this user"
 msgstr "Rimuovi questə utente"
 
-#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:94
+#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:93
 msgid "New User"
 msgstr "Nuovə utente"
 
@@ -204,8 +204,8 @@ msgid "Add a new user"
 msgstr "Aggiungi unə nuovə utente"
 
 #: assets/templates/admin/user_list.jet.html:30
-#: assets/templates/profile/credential_list.jet.html:45
-#: assets/templates/profile/token_list.jet.html:47
+#: assets/templates/profile/credential_list.jet.html:46
+#: assets/templates/profile/token_list.jet.html:48
 #, python-format
 msgid "Created on: %s"
 msgstr "Creato il: %s"
@@ -526,7 +526,7 @@ msgstr "Documentazione"
 
 #: assets/templates/bookmarks/collection.jet.html:67
 #: assets/templates/bookmarks/collection_create.jet.html:23
-#: assets/templates/profile/credential.jet.html:58
+#: assets/templates/profile/credential.jet.html:63
 msgid "Name"
 msgstr "Nome"
 
@@ -658,9 +658,9 @@ msgctxt "bookmark"
 msgid "Loading"
 msgstr "In caricamento"
 
+# | msgid "%d min"
 #: assets/templates/bookmarks/components/card.jet.html:75
 #, fuzzy, python-format
-#| msgid "%d min"
 msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
@@ -860,10 +860,10 @@ msgstr "nessun nome sito"
 msgid "Errors occurred during extraction."
 msgstr "Sono avvenuti degli errori durante l’estrazione."
 
+# | msgid "About %d min read"
 #: assets/templates/bookmarks/components/sidebar.jet.html:69
 #: assets/templates/epub/bookmark.jet.html:45
 #, fuzzy, python-format
-#| msgid "About %d min read"
 msgid "About %d minute read"
 msgid_plural "About %d minutes read"
 msgstr[0] "Circa %d min di lettura"
@@ -1624,12 +1624,26 @@ msgstr "Proprietà"
 msgid "Password ID"
 msgstr "ID della password"
 
-#: assets/templates/profile/credential.jet.html:64
-#: assets/templates/profile/token.jet.html:45
+#: assets/templates/profile/credential.jet.html:56
+#: assets/templates/profile/token.jet.html:37
+#, fuzzy
+#| msgid "Patent use"
+msgid "Last used"
+msgstr "Uso per brevetti"
+
+#: assets/templates/profile/credential.jet.html:57
+#: assets/templates/profile/token.jet.html:38
+#, fuzzy
+#| msgid "New User"
+msgid "never used"
+msgstr "Nuovə utente"
+
+#: assets/templates/profile/credential.jet.html:69
+#: assets/templates/profile/token.jet.html:50
 msgid "Enabled"
 msgstr "Attivata"
 
-#: assets/templates/profile/credential.jet.html:70
+#: assets/templates/profile/credential.jet.html:75
 msgid ""
 "\n"
 "    You can limit the permissions granted to this password by choosing one or more\n"
@@ -1643,12 +1657,12 @@ msgstr ""
 "    Lascia vuote tutte le opzioni per garantire a questa password tutti i permessi che hai.\n"
 "  "
 
-#: assets/templates/profile/credential.jet.html:78
-#: assets/templates/profile/token.jet.html:65
+#: assets/templates/profile/credential.jet.html:83
+#: assets/templates/profile/token.jet.html:70
 msgid "Roles"
 msgstr "Ruoli"
 
-#: assets/templates/profile/credential.jet.html:86
+#: assets/templates/profile/credential.jet.html:91
 msgid "Delete password"
 msgstr "Elimina password"
 
@@ -1660,7 +1674,14 @@ msgstr "Le mie password dell’applicazione"
 msgid "Create a new Application Password"
 msgstr "Crea una nuova password dell’applicazione"
 
-#: assets/templates/profile/credential_list.jet.html:51
+#: assets/templates/profile/credential_list.jet.html:48
+#: assets/templates/profile/token_list.jet.html:54
+#, fuzzy, python-format
+#| msgid "Created on: %s"
+msgid "Last used on: %s"
+msgstr "Creato il: %s"
+
+#: assets/templates/profile/credential_list.jet.html:56
 msgid "This password will be removed in a few seconds."
 msgstr "Questa password sarà rimossa fra alcuni secondi."
 
@@ -1696,15 +1717,15 @@ msgstr "Il gettone sarà rimosso fra alcuni secondi."
 msgid "Token ID"
 msgstr "ID del gettone"
 
-#: assets/templates/profile/token.jet.html:39
+#: assets/templates/profile/token.jet.html:44
 msgid "Application"
 msgstr "Applicazione"
 
-#: assets/templates/profile/token.jet.html:51
+#: assets/templates/profile/token.jet.html:56
 msgid "Expires on"
 msgstr "Scade il"
 
-#: assets/templates/profile/token.jet.html:57
+#: assets/templates/profile/token.jet.html:62
 msgid ""
 "\n"
 "    You can limit the permissions granted to this token by choosing one or more\n"
@@ -1718,19 +1739,19 @@ msgstr ""
 "    Lascia vuote tutte le opzioni per garantire a questo token tutti i permessi che hai.\n"
 "  "
 
-#: assets/templates/profile/token.jet.html:73
+#: assets/templates/profile/token.jet.html:78
 msgid "Delete token"
 msgstr "Elimina gettone"
 
-#: assets/templates/profile/token.jet.html:78
+#: assets/templates/profile/token.jet.html:83
 msgid "API authentication"
 msgstr "Autenticazione API"
 
-#: assets/templates/profile/token.jet.html:81
+#: assets/templates/profile/token.jet.html:86
 msgid "Your API token"
 msgstr "Il tuo gettone API"
 
-#: assets/templates/profile/token.jet.html:89
+#: assets/templates/profile/token.jet.html:94
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
 msgstr "Puoi usare questo gettone passandolo come <strong>Authorization: Bearer</strong> in un header HTTP."
 
@@ -1757,20 +1778,20 @@ msgstr "Leggi la <a href=\"%s\">documentazione API</a> se intendi utilizzarla."
 msgid "Create a new API token"
 msgstr "Crea un nuovo gettone API"
 
-#: assets/templates/profile/token_list.jet.html:48
+#: assets/templates/profile/token_list.jet.html:50
 #, python-format
 msgid "Expires on: %s"
 msgstr "Scade il: %s"
 
-#: assets/templates/profile/token_list.jet.html:55
+#: assets/templates/profile/token_list.jet.html:62
 msgid "This token will be removed in a few seconds."
 msgstr "Questo token sarà rimosso fra alcuni secondi."
 
-#: internal/admin/views.go:81
+#: internal/admin/views.go:80
 msgid "User created."
 msgstr "Utente creato."
 
-#: internal/admin/views.go:120
+#: internal/admin/views.go:119
 msgid "User updated."
 msgstr "Utente aggiornato."
 

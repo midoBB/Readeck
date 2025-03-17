@@ -6,17 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-02-22 09:41+0000\n"
+"POT-Creation-Date: 2025-03-17 09:27+0000\n"
 "PO-Revision-Date: 2025-03-12 11:21+0000\n"
 "Last-Translator: Vistaus <vistaus@noreply.codeberg.org>\n"
-"Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/"
-"application/nl/>\n"
 "Language: nl_NL\n"
+"Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/application/nl/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -118,8 +116,8 @@ msgstr "Volgende"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:35 internal/admin/views.go:63
-#: internal/admin/views.go:93 internal/admin/views.go:133
+#: assets/templates/profile/base.jet.html:35 internal/admin/views.go:62
+#: internal/admin/views.go:92 internal/admin/views.go:132
 msgid "Users"
 msgstr "Gebruikers"
 
@@ -140,9 +138,9 @@ msgstr "De gebruiker wordt over enkele seconden verwijderd"
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:70
 #: assets/templates/bookmarks/label.jet.html:51
 #: assets/templates/profile/credential.jet.html:20
-#: assets/templates/profile/credential_list.jet.html:57
+#: assets/templates/profile/credential_list.jet.html:62
 #: assets/templates/profile/token.jet.html:20
-#: assets/templates/profile/token_list.jet.html:61
+#: assets/templates/profile/token_list.jet.html:68
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -182,10 +180,10 @@ msgstr "Laat leeg om niet te wĳzigen"
 #: assets/templates/admin/user.jet.html:52
 #: assets/templates/bookmarks/collection.jet.html:77
 #: assets/templates/bookmarks/collection_create.jet.html:30
-#: assets/templates/profile/credential.jet.html:83
+#: assets/templates/profile/credential.jet.html:88
 #: assets/templates/profile/index.jet.html:35
 #: assets/templates/profile/password.jet.html:36
-#: assets/templates/profile/token.jet.html:70
+#: assets/templates/profile/token.jet.html:75
 msgid "Save"
 msgstr "Opslaan"
 
@@ -193,7 +191,7 @@ msgstr "Opslaan"
 msgid "Delete this user"
 msgstr "Gebruiker verwijderen"
 
-#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:94
+#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:93
 msgid "New User"
 msgstr "Nieuwe gebruiker"
 
@@ -206,8 +204,8 @@ msgid "Add a new user"
 msgstr "Gebruiker toevoegen"
 
 #: assets/templates/admin/user_list.jet.html:30
-#: assets/templates/profile/credential_list.jet.html:45
-#: assets/templates/profile/token_list.jet.html:47
+#: assets/templates/profile/credential_list.jet.html:46
+#: assets/templates/profile/token_list.jet.html:48
 #, python-format
 msgid "Created on: %s"
 msgstr "Aangemaakt op %s"
@@ -527,7 +525,7 @@ msgstr "Documentatie"
 
 #: assets/templates/bookmarks/collection.jet.html:67
 #: assets/templates/bookmarks/collection_create.jet.html:23
-#: assets/templates/profile/credential.jet.html:58
+#: assets/templates/profile/credential.jet.html:63
 msgid "Name"
 msgstr "Naam"
 
@@ -936,8 +934,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Upload een csv-bestand vanuit Instapaper of elders dat overeenkomt met "
-"onderstaande opmaak.\n"
+"    Upload een csv-bestand vanuit Instapaper of elders dat overeenkomt met onderstaande opmaak.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
@@ -949,10 +946,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Het geüploade bestand dient over een eerste rij met kolomnamen te "
-"beschikken. Kolomnamen zijn\n"
-"    hoofdletterongevoelig en alle kolommen zijn optioneel, behalve "
-"<code>%s</code>.\n"
+"    Het geüploade bestand dient over een eerste rij met kolomnamen te beschikken. Kolomnamen zijn\n"
+"    hoofdletterongevoelig en alle kolommen zijn optioneel, behalve <code>%s</code>.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:45
@@ -991,9 +986,7 @@ msgstr "De archiefstatus van de bladwijzer - enige geldige waarde: ‘%s’"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:73
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
-msgstr ""
-"De aanmaakdatum - dit kan een UNIX-tijdstempel of een met RFC-3339 "
-"opgemaakte datum zijn"
+msgstr "De aanmaakdatum - dit kan een UNIX-tijdstempel of een met RFC-3339 opgemaakte datum zijn"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:78
 msgid "A JSON encoded list of labels"
@@ -1621,12 +1614,26 @@ msgstr "Eigenschappen"
 msgid "Password ID"
 msgstr "Wachtwoord-id"
 
-#: assets/templates/profile/credential.jet.html:64
-#: assets/templates/profile/token.jet.html:45
+#: assets/templates/profile/credential.jet.html:56
+#: assets/templates/profile/token.jet.html:37
+#, fuzzy
+#| msgid "Patent use"
+msgid "Last used"
+msgstr "Patentgebruik"
+
+#: assets/templates/profile/credential.jet.html:57
+#: assets/templates/profile/token.jet.html:38
+#, fuzzy
+#| msgid "New User"
+msgid "never used"
+msgstr "Nieuwe gebruiker"
+
+#: assets/templates/profile/credential.jet.html:69
+#: assets/templates/profile/token.jet.html:50
 msgid "Enabled"
 msgstr "Ingeschakeld"
 
-#: assets/templates/profile/credential.jet.html:70
+#: assets/templates/profile/credential.jet.html:75
 msgid ""
 "\n"
 "    You can limit the permissions granted to this password by choosing one or more\n"
@@ -1640,12 +1647,12 @@ msgstr ""
 "    Als je niets instelt, worden alle rechten toegekend.\n"
 "  "
 
-#: assets/templates/profile/credential.jet.html:78
-#: assets/templates/profile/token.jet.html:65
+#: assets/templates/profile/credential.jet.html:83
+#: assets/templates/profile/token.jet.html:70
 msgid "Roles"
 msgstr "Functies"
 
-#: assets/templates/profile/credential.jet.html:86
+#: assets/templates/profile/credential.jet.html:91
 msgid "Delete password"
 msgstr "Wachtwoord wissen"
 
@@ -1657,7 +1664,14 @@ msgstr "Mijn appwachtwoorden"
 msgid "Create a new Application Password"
 msgstr "Nieuw appwachtwoord"
 
-#: assets/templates/profile/credential_list.jet.html:51
+#: assets/templates/profile/credential_list.jet.html:48
+#: assets/templates/profile/token_list.jet.html:54
+#, fuzzy, python-format
+#| msgid "Created on: %s"
+msgid "Last used on: %s"
+msgstr "Aangemaakt op %s"
+
+#: assets/templates/profile/credential_list.jet.html:56
 msgid "This password will be removed in a few seconds."
 msgstr "Het wachtwoord wordt over enkele seconden gewist."
 
@@ -1693,15 +1707,15 @@ msgstr "De toegangssleutel wordt over enkele seconden gewist."
 msgid "Token ID"
 msgstr "Toegangssleutel"
 
-#: assets/templates/profile/token.jet.html:39
+#: assets/templates/profile/token.jet.html:44
 msgid "Application"
 msgstr "App"
 
-#: assets/templates/profile/token.jet.html:51
+#: assets/templates/profile/token.jet.html:56
 msgid "Expires on"
 msgstr "Vervalt op"
 
-#: assets/templates/profile/token.jet.html:57
+#: assets/templates/profile/token.jet.html:62
 msgid ""
 "\n"
 "    You can limit the permissions granted to this token by choosing one or more\n"
@@ -1715,19 +1729,19 @@ msgstr ""
 "    Als je niets instelt, worden alle rechten toegekend.\n"
 "  "
 
-#: assets/templates/profile/token.jet.html:73
+#: assets/templates/profile/token.jet.html:78
 msgid "Delete token"
 msgstr "Toegangssleutel wissen"
 
-#: assets/templates/profile/token.jet.html:78
+#: assets/templates/profile/token.jet.html:83
 msgid "API authentication"
 msgstr "Api-verificatie"
 
-#: assets/templates/profile/token.jet.html:81
+#: assets/templates/profile/token.jet.html:86
 msgid "Your API token"
 msgstr "Mijn api-sleutel"
 
-#: assets/templates/profile/token.jet.html:89
+#: assets/templates/profile/token.jet.html:94
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
 msgstr "Je kunt deze toegangssleutel gebruiken met behulp van de http-kop <strong>Authorization: Bearer</strong>."
 
@@ -1754,20 +1768,20 @@ msgstr "Neem de <a href=\"%s\">api-documentatie</a> door als je hiervan gebruik 
 msgid "Create a new API token"
 msgstr "Api-sleutel genereren"
 
-#: assets/templates/profile/token_list.jet.html:48
+#: assets/templates/profile/token_list.jet.html:50
 #, python-format
 msgid "Expires on: %s"
 msgstr "Vervalt op %s"
 
-#: assets/templates/profile/token_list.jet.html:55
+#: assets/templates/profile/token_list.jet.html:62
 msgid "This token will be removed in a few seconds."
 msgstr "Deze sleutel wordt over enkele seconden verwijderd."
 
-#: internal/admin/views.go:81
+#: internal/admin/views.go:80
 msgid "User created."
 msgstr "De gebruiker is aangemaakt."
 
-#: internal/admin/views.go:120
+#: internal/admin/views.go:119
 msgid "User updated."
 msgstr "De gebruiker is bijgewerkt."
 
@@ -2299,3 +2313,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr "Het zipbestand kan niet worden geopend"
+

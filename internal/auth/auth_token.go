@@ -9,6 +9,9 @@ import (
 	"log/slog"
 	"net/http"
 	"strings"
+	"time"
+
+	"github.com/doug-martin/goqu/v9"
 
 	"codeberg.org/readeck/readeck/internal/acls"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
@@ -43,6 +46,12 @@ func (p *TokenAuthProvider) Authenticate(w http.ResponseWriter, r *http.Request)
 	res, err := tokens.Tokens.GetUser(claims.ID)
 	if err != nil {
 		p.denyAccess(w)
+		return r, err
+	}
+
+	if err := res.Token.Update(goqu.Record{
+		"last_used": time.Now().UTC(),
+	}); err != nil {
 		return r, err
 	}
 

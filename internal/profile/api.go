@@ -158,7 +158,7 @@ func (api *profileAPI) withCredentialList(next http.Handler) http.Handler {
 			Where(
 				goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
 			).
-			Order(goqu.I("created").Desc()).
+			Order(goqu.C("last_used").Desc(), goqu.C("created").Desc()).
 			Limit(uint(pf.Limit())).
 			Offset(uint(pf.Offset()))
 
@@ -218,7 +218,7 @@ func (api *profileAPI) withTokenList(next http.Handler) http.Handler {
 			Where(
 				goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
 			).
-			Order(goqu.I("created").Desc()).
+			Order(goqu.C("last_used").Desc(), goqu.C("created").Desc()).
 			Limit(uint(pf.Limit())).
 			Offset(uint(pf.Offset()))
 
@@ -293,12 +293,13 @@ type credentialList struct {
 type credentialItem struct {
 	*credentials.Credential `json:"-"`
 
-	ID        string    `json:"id"`
-	Href      string    `json:"href"`
-	Created   time.Time `json:"created"`
-	IsEnabled bool      `json:"is_enabled"`
-	IsDeleted bool      `json:"is_deleted"`
-	Roles     []string  `json:"roles"`
+	ID        string     `json:"id"`
+	Href      string     `json:"href"`
+	Created   time.Time  `json:"created"`
+	LastUsed  *time.Time `json:"last_used"`
+	IsEnabled bool       `json:"is_enabled"`
+	IsDeleted bool       `json:"is_deleted"`
+	Roles     []string   `json:"roles"`
 }
 
 func newCredentialItem(s *server.Server, r *http.Request, c *credentials.Credential, base string) credentialItem {
@@ -307,6 +308,7 @@ func newCredentialItem(s *server.Server, r *http.Request, c *credentials.Credent
 		ID:         c.UID,
 		Href:       s.AbsoluteURL(r, base, c.UID).String(),
 		Created:    c.Created,
+		LastUsed:   c.LastUsed,
 		IsEnabled:  c.IsEnabled,
 		IsDeleted:  deleteCredentialTask.IsRunning(c.ID),
 		Roles:      c.Roles,
@@ -324,6 +326,7 @@ type tokenItem struct {
 	ID        string     `json:"id"`
 	Href      string     `json:"href"`
 	Created   time.Time  `json:"created"`
+	LastUsed  *time.Time `json:"last_used"`
 	Expires   *time.Time `json:"expires"`
 	IsEnabled bool       `json:"is_enabled"`
 	IsDeleted bool       `json:"is_deleted"`
@@ -336,6 +339,7 @@ func newTokenItem(s *server.Server, r *http.Request, t *tokens.Token, base strin
 		ID:        t.UID,
 		Href:      s.AbsoluteURL(r, base, t.UID).String(),
 		Created:   t.Created,
+		LastUsed:  t.LastUsed,
 		Expires:   t.Expires,
 		IsEnabled: t.IsEnabled,
 		IsDeleted: deleteTokenTask.IsRunning(t.ID),

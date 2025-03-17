@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-02-22 09:41+0000\n"
+"POT-Creation-Date: 2025-03-17 09:27+0000\n"
 "PO-Revision-Date: 2025-01-03 18:26+0000\n"
 "Last-Translator: User240803 <user240803@users.noreply.translate.codeberg.org>\n"
 "Language: hu_HU\n"
@@ -116,8 +116,8 @@ msgstr "Következő"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:35 internal/admin/views.go:63
-#: internal/admin/views.go:93 internal/admin/views.go:133
+#: assets/templates/profile/base.jet.html:35 internal/admin/views.go:62
+#: internal/admin/views.go:92 internal/admin/views.go:132
 msgid "Users"
 msgstr "Felhasználók"
 
@@ -138,9 +138,9 @@ msgstr "A felhasználó néhány másodpercen belül eltávolításra kerül"
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:70
 #: assets/templates/bookmarks/label.jet.html:51
 #: assets/templates/profile/credential.jet.html:20
-#: assets/templates/profile/credential_list.jet.html:57
+#: assets/templates/profile/credential_list.jet.html:62
 #: assets/templates/profile/token.jet.html:20
-#: assets/templates/profile/token_list.jet.html:61
+#: assets/templates/profile/token_list.jet.html:68
 msgid "Cancel"
 msgstr "Mégse"
 
@@ -180,10 +180,10 @@ msgstr "nem fog változni, ha üres"
 #: assets/templates/admin/user.jet.html:52
 #: assets/templates/bookmarks/collection.jet.html:77
 #: assets/templates/bookmarks/collection_create.jet.html:30
-#: assets/templates/profile/credential.jet.html:83
+#: assets/templates/profile/credential.jet.html:88
 #: assets/templates/profile/index.jet.html:35
 #: assets/templates/profile/password.jet.html:36
-#: assets/templates/profile/token.jet.html:70
+#: assets/templates/profile/token.jet.html:75
 msgid "Save"
 msgstr "Link mentése"
 
@@ -191,7 +191,7 @@ msgstr "Link mentése"
 msgid "Delete this user"
 msgstr "Ezen felhasználó törlése"
 
-#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:94
+#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:93
 msgid "New User"
 msgstr "Új felhasználó"
 
@@ -204,8 +204,8 @@ msgid "Add a new user"
 msgstr "Új felhasználó hozzáadása"
 
 #: assets/templates/admin/user_list.jet.html:30
-#: assets/templates/profile/credential_list.jet.html:45
-#: assets/templates/profile/token_list.jet.html:47
+#: assets/templates/profile/credential_list.jet.html:46
+#: assets/templates/profile/token_list.jet.html:48
 #, python-format
 msgid "Created on: %s"
 msgstr "Létrehozva ekkor: %s"
@@ -526,7 +526,7 @@ msgstr "Dokumentáció"
 
 #: assets/templates/bookmarks/collection.jet.html:67
 #: assets/templates/bookmarks/collection_create.jet.html:23
-#: assets/templates/profile/credential.jet.html:58
+#: assets/templates/profile/credential.jet.html:63
 msgid "Name"
 msgstr "Név"
 
@@ -658,9 +658,9 @@ msgctxt "bookmark"
 msgid "Loading"
 msgstr "Betöltés"
 
+# | msgid "%d min"
 #: assets/templates/bookmarks/components/card.jet.html:75
 #, fuzzy, python-format
-#| msgid "%d min"
 msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
@@ -859,10 +859,10 @@ msgstr "nincs oldalnév"
 msgid "Errors occurred during extraction."
 msgstr "A kivonatolás során hibák léptek fel."
 
+# | msgid "About %d min read"
 #: assets/templates/bookmarks/components/sidebar.jet.html:69
 #: assets/templates/epub/bookmark.jet.html:45
 #, fuzzy, python-format
-#| msgid "About %d min read"
 msgid "About %d minute read"
 msgid_plural "About %d minutes read"
 msgstr[0] "Mintegy %d perc olvasás"
@@ -1623,12 +1623,26 @@ msgstr "Tulajdonságok"
 msgid "Password ID"
 msgstr "Jelszó ID"
 
-#: assets/templates/profile/credential.jet.html:64
-#: assets/templates/profile/token.jet.html:45
+#: assets/templates/profile/credential.jet.html:56
+#: assets/templates/profile/token.jet.html:37
+#, fuzzy
+#| msgid "Patent use"
+msgid "Last used"
+msgstr "Szabadalom felhasználása"
+
+#: assets/templates/profile/credential.jet.html:57
+#: assets/templates/profile/token.jet.html:38
+#, fuzzy
+#| msgid "New User"
+msgid "never used"
+msgstr "Új felhasználó"
+
+#: assets/templates/profile/credential.jet.html:69
+#: assets/templates/profile/token.jet.html:50
 msgid "Enabled"
 msgstr "Engedélyezve"
 
-#: assets/templates/profile/credential.jet.html:70
+#: assets/templates/profile/credential.jet.html:75
 msgid ""
 "\n"
 "    You can limit the permissions granted to this password by choosing one or more\n"
@@ -1642,12 +1656,12 @@ msgstr ""
 "     Hagyja üresen az összes lehetőséget, ha minden engedélyt megad ehhez a jelszóhoz.\n"
 "  "
 
-#: assets/templates/profile/credential.jet.html:78
-#: assets/templates/profile/token.jet.html:65
+#: assets/templates/profile/credential.jet.html:83
+#: assets/templates/profile/token.jet.html:70
 msgid "Roles"
 msgstr "Szerepkörök"
 
-#: assets/templates/profile/credential.jet.html:86
+#: assets/templates/profile/credential.jet.html:91
 msgid "Delete password"
 msgstr "Jelszó törlése"
 
@@ -1659,7 +1673,14 @@ msgstr "Alkalmazás jelszavaim"
 msgid "Create a new Application Password"
 msgstr "Új alkalmazás jelszó létrehozása"
 
-#: assets/templates/profile/credential_list.jet.html:51
+#: assets/templates/profile/credential_list.jet.html:48
+#: assets/templates/profile/token_list.jet.html:54
+#, fuzzy, python-format
+#| msgid "Created on: %s"
+msgid "Last used on: %s"
+msgstr "Létrehozva ekkor: %s"
+
+#: assets/templates/profile/credential_list.jet.html:56
 msgid "This password will be removed in a few seconds."
 msgstr "Ez a jelszó néhány másodpercen belül eltávolításra kerül."
 
@@ -1695,15 +1716,15 @@ msgstr "A token néhány másodpercen belül eltávolításra kerül."
 msgid "Token ID"
 msgstr "Token ID"
 
-#: assets/templates/profile/token.jet.html:39
+#: assets/templates/profile/token.jet.html:44
 msgid "Application"
 msgstr "Alkalmazás"
 
-#: assets/templates/profile/token.jet.html:51
+#: assets/templates/profile/token.jet.html:56
 msgid "Expires on"
 msgstr "Lejár ekkor"
 
-#: assets/templates/profile/token.jet.html:57
+#: assets/templates/profile/token.jet.html:62
 msgid ""
 "\n"
 "    You can limit the permissions granted to this token by choosing one or more\n"
@@ -1717,19 +1738,19 @@ msgstr ""
 "    Hagyja üresen az összes választási lehetőséget, ha minden engedélyt megad a tokennek.\n"
 "  "
 
-#: assets/templates/profile/token.jet.html:73
+#: assets/templates/profile/token.jet.html:78
 msgid "Delete token"
 msgstr "Token törlése"
 
-#: assets/templates/profile/token.jet.html:78
+#: assets/templates/profile/token.jet.html:83
 msgid "API authentication"
 msgstr "API hitelesítés"
 
-#: assets/templates/profile/token.jet.html:81
+#: assets/templates/profile/token.jet.html:86
 msgid "Your API token"
 msgstr "Az Ön API tokenje"
 
-#: assets/templates/profile/token.jet.html:89
+#: assets/templates/profile/token.jet.html:94
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
 msgstr "Ezt a tokent úgy használhatja, hogy átadja mint <strong>Felhatalmazás: Bearer</strong> HTTP fejlécet."
 
@@ -1756,20 +1777,20 @@ msgstr "Kérjük, olvassa el a <a href=\"%s\">API dokumentációt</a>, ha haszn�
 msgid "Create a new API token"
 msgstr "Új API token létrehozása"
 
-#: assets/templates/profile/token_list.jet.html:48
+#: assets/templates/profile/token_list.jet.html:50
 #, python-format
 msgid "Expires on: %s"
 msgstr "Lejár ekkor: : %s"
 
-#: assets/templates/profile/token_list.jet.html:55
+#: assets/templates/profile/token_list.jet.html:62
 msgid "This token will be removed in a few seconds."
 msgstr "Ez a token néhány másodpercen belül eltávolításra kerül."
 
-#: internal/admin/views.go:81
+#: internal/admin/views.go:80
 msgid "User created."
 msgstr "Felhasználó létrehozva."
 
-#: internal/admin/views.go:120
+#: internal/admin/views.go:119
 msgid "User updated."
 msgstr "Felhasználó frissítve."
 

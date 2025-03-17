@@ -33,6 +33,11 @@ SPDX-License-Identifier: AGPL-3.0-only
     <div class="control">{{ .Token.UID }}</div>
   </div>
 
+  <div class="field field-h">
+    <label>{{ gettext("Last used") }}:</label>
+    <div class="control">{{ .Token.LastUsed ? date(.Token.LastUsed, "%c") : gettext("never used") }}</div>
+  </div>
+
   {{ yield textField(
     field=.Form.Get("application"),
     required=true,

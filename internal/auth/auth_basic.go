@@ -9,6 +9,9 @@ import (
 	"log/slog"
 	"net/http"
 	"strings"
+	"time"
+
+	"github.com/doug-martin/goqu/v9"
 
 	"codeberg.org/readeck/readeck/internal/acls"
 	"codeberg.org/readeck/readeck/internal/auth/credentials"
@@ -45,6 +48,12 @@ func (p *BasicAuthProvider) Authenticate(w http.ResponseWriter, r *http.Request)
 			slog.Error("fetching credentials", slog.Any("err", err))
 		}
 		p.denyAccess(w)
+		return r, err
+	}
+
+	if err := uc.Credential.Update(goqu.Record{
+		"last_used": time.Now().UTC(),
+	}); err != nil {
 		return r, err
 	}
 

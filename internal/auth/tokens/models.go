@@ -38,6 +38,7 @@ type Token struct {
 	UID         string        `db:"uid"`
 	UserID      *int          `db:"user_id"`
 	Created     time.Time     `db:"created" goqu:"skipupdate"`
+	LastUsed    *time.Time    `db:"last_used"`
 	Expires     *time.Time    `db:"expires"`
 	IsEnabled   bool          `db:"is_enabled"`
 	Application string        `db:"application"`
@@ -151,7 +152,7 @@ func (t *Token) IsExpired() bool {
 	if t.Expires == nil || t.Expires.IsZero() {
 		return false
 	}
-	return time.Now().After(*t.Expires)
+	return time.Now().UTC().After(*t.Expires)
 }
 
 // TokenAndUser is a result of a joint query on user and token tables.

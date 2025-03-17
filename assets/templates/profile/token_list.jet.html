@@ -43,9 +43,16 @@ SPDX-License-Identifier: AGPL-3.0-only
           {{ yield icon(name="o-cross", class="svgicon text-red-700") }}
         {{- end }}
         <strong class="link font-semibold" >{{ .ID }}</strong>
-        - <small>{{ .Application }}</small>
-        <small class="block">{{ gettext("Created on: %s", date(.Created, "%e %B %Y")) }}
-        {{- if .Expires }} ({{ gettext("Expires on: %s", date(.Expires, "%e %B %Y")) }}){{ end -}}
+        · {{ .Application }}
+        <small class="block">
+          {{ gettext("Created on: %s", date(.Created, pgettext("datetime", "%e %B %Y"))) }}
+          {{- if .Expires -}}
+            <br>{{ gettext("Expires on: %s", date(.Expires, pgettext("datetime", "%e %B %Y"))) }}
+            {{- if .IsExpired() }} · <strong class="font-semibold text-red-700">expired</strong>{{- end -}}
+          {{- end -}}
+          {{- if .LastUsed -}}
+            <br><strong class="font-semibold">{{ gettext("Last used on: %s", date(.LastUsed, "%c")) }}</strong>
+          {{- end -}}
         </small>
       </a>
       {{- if .IsDeleted -}}

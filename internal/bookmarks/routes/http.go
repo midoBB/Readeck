@@ -142,7 +142,7 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 
 	// Bookmark and label views
 	r.With(h.srv.WithPermission("bookmarks", "read")).Group(func(r chi.Router) {
-		r.With(h.withBaseContext, api.withDefaultLimit(24)).Group(func(r chi.Router) {
+		r.With(h.withBaseContext, api.withDefaultLimit(listDefaultLimit)).Group(func(r chi.Router) {
 			r.With(
 				api.withBookmarkOrdering,
 				api.withBookmarkList,
@@ -168,7 +168,7 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 	})
 
 	r.With(h.srv.WithPermission("bookmarks", "write")).Group(func(r chi.Router) {
-		r.With(h.withBaseContext, api.withDefaultLimit(24)).Group(func(r chi.Router) {
+		r.With(h.withBaseContext, api.withDefaultLimit(listDefaultLimit)).Group(func(r chi.Router) {
 			r.With(api.withBookmarkList).Post("/", h.bookmarkList)
 			r.With(api.withBookmark).Group(func(r chi.Router) {
 				r.Post("/{uid:[a-zA-Z0-9]{18,22}}", h.bookmarkUpdate)
@@ -184,7 +184,7 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 	// Collection views
 	r.Route("/collections", func(r chi.Router) {
 		r.With(h.srv.WithPermission("bookmarks:collections", "read")).Group(func(r chi.Router) {
-			r.With(h.withBaseContext, api.withDefaultLimit(24)).Group(func(r chi.Router) {
+			r.With(h.withBaseContext, api.withDefaultLimit(listDefaultLimit)).Group(func(r chi.Router) {
 				r.With(api.withColletionList).Get("/", h.collectionList)
 				r.With(
 					api.withCollection,
@@ -196,7 +196,7 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 		})
 
 		r.With(h.srv.WithPermission("bookmarks:collections", "write")).Group(func(r chi.Router) {
-			r.With(h.withBaseContext, api.withDefaultLimit(24)).Group(func(r chi.Router) {
+			r.With(h.withBaseContext, api.withDefaultLimit(listDefaultLimit)).Group(func(r chi.Router) {
 				r.With(api.withBookmarkList).Get("/add", h.collectionCreate)
 				r.With(api.withBookmarkList).Post("/add", h.collectionCreate)
 				r.With(

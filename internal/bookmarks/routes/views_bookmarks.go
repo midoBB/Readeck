@@ -29,6 +29,8 @@ type (
 	ctxBaseContextKey struct{}
 )
 
+const listDefaultLimit = 36
+
 func (h *viewsRouter) withBaseContext(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		count, err := bookmarks.Bookmarks.CountAll(auth.GetRequestUser(r))

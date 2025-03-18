@@ -6,8 +6,7 @@ package configs
 
 import (
 	"crypto/rand"
-	"io"
-	"math/big"
+	"encoding/base64"
 	"os"
 	"text/template"
 )
@@ -25,11 +24,6 @@ port = {{ .Server.Port }}
 [database]
 source = "{{ .Database.Source }}"
 `
-
-var keyChars = [][2]rune{
-	{0x30, 0x39}, {0x41, 0x54}, {0x61, 0x7a}, // latin alphabet
-	{0x21, 0x21}, {0x23, 0x26}, {0x2a, 0x2b}, // symbols
-}
 
 // WriteConfig writes configuration to a file.
 func WriteConfig(filename string) error {
@@ -52,28 +46,13 @@ func WriteConfig(filename string) error {
 }
 
 // GenerateKey returns a random key.
-func GenerateKey(minLen, maxLen int) string {
-	if minLen >= maxLen {
-		panic("maxLen must be greater then minLen")
-	}
-
-	runes := []rune{}
-	for _, table := range keyChars {
-		for i := table[0]; i <= table[1]; i++ {
-			runes = append(runes, i)
-		}
-	}
-
-	bn, _ := rand.Int(rand.Reader, big.NewInt(int64(maxLen-minLen)))
-	l := bn.Add(bn, big.NewInt(int64(minLen))).Int64()
-
-	b := make([]byte, l)
-	if _, err := io.ReadFull(rand.Reader, b); err != nil {
+func GenerateKey() string {
+	// 48 bytes = 384 bits
+	d := make([]byte, 48)
+	if _, err := rand.Read(d); err != nil {
 		panic(err)
 	}
-	for i := int64(0); i < l; i++ {
-		b[i] = byte(runes[b[i]%byte(len(runes))])
-	}
 
-	return string(b)
+	// 384/6 = 64 base64 characters
+	return base64.StdEncoding.EncodeToString(d)
 }

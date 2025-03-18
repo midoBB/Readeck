@@ -328,7 +328,7 @@ func (h *viewsRouter) annotationList(w http.ResponseWriter, r *http.Request) {
 func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		data := chi.URLParam(r, "id")
-		expires, id, err := bookmarks.DecryptID(data)
+		id, expires, err := bookmarks.DecodeID(data)
 		if err != nil {
 			h.srv.Log(r).Warn("shared bookmark", slog.Any("err", err))
 			h.srv.Status(w, r, 404)

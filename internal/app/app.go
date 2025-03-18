@@ -193,7 +193,7 @@ func initConfig(filename string) error {
 	// If secret key is empty, we're facing a new configuration file and
 	// must write it to a file.
 	if configs.Config.Main.SecretKey == "" {
-		configs.Config.Main.SecretKey = configs.GenerateKey(64, 96)
+		configs.Config.Main.SecretKey = configs.GenerateKey()
 		return configs.WriteConfig(filename)
 	}
 

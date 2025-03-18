@@ -33,6 +33,9 @@ func hkdfHashFunc() hash.Hash {
 
 // Expand call [hkdf.Expand] using the [KeyMaterial.prk] main key.
 func (km KeyMaterial) Expand(name string, keyLength int) ([]byte, error) {
+	if len(km.prk) != 32 {
+		panic("keys not initialized")
+	}
 	return hkdf.Expand(hkdfHashFunc, km.prk, name, keyLength)
 }
 

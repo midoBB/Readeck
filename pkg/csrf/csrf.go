@@ -10,15 +10,18 @@ package csrf
 
 import (
 	"context"
+	"crypto/rand"
+	"crypto/subtle"
 	"encoding/base64"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"slices"
 )
 
-const tokenLength = 32
+const tokenLength = 24 // 192 bits => 32 characters base64 string
 
 type contextKey struct {
 	name string
@@ -32,142 +35,150 @@ var (
 	safeMethods     = []string{"GET", "HEAD", "OPTIONS", "TRACE"}
 )
 
-type storagHandler interface {
+// StorageHandler describes a CSRF token store.
+type StorageHandler interface {
 	Load(r *http.Request, token any) error
 	Save(w http.ResponseWriter, r *http.Request, token any) error
 }
 
-type csrfHandler struct {
-	h            http.Handler
-	store        storagHandler
+// Handler provides the HTTP handler for CSRF protection.
+type Handler struct {
+	store        StorageHandler
 	fieldName    string
 	headerName   string
 	errorHandler func(w http.ResponseWriter, r *http.Request)
 }
 
 // Option describes a functional option for configuring the CSRF handler.
-type Option func(*csrfHandler)
+type Option func(*Handler)
 
 // WithFieldName sets the form field's name.
 func WithFieldName(name string) Option {
-	return func(ch *csrfHandler) {
+	return func(ch *Handler) {
 		ch.fieldName = name
 	}
 }
 
 // WithErrorHandler sets a custom error handler for rejected requests.
 func WithErrorHandler(h func(w http.ResponseWriter, r *http.Request)) Option {
-	return func(ch *csrfHandler) {
+	return func(ch *Handler) {
 		ch.errorHandler = h
 	}
 }
 
-// Protect is HTTP middleware that provides Cross-Site Request Forgery
-// protection.
+// NewCSRFHandler returns a [Handler] instance for a given storage handler.
+func NewCSRFHandler(cookie StorageHandler, options ...Option) *Handler {
+	h := &Handler{
+		store:        cookie,
+		fieldName:    "__csrf__",
+		headerName:   "X-CSRF-Token",
+		errorHandler: defaultErrorHandler,
+	}
+
+	for _, fn := range options {
+		fn(h)
+	}
+
+	return h
+}
+
+// Protect is the HTTP middleware that provides
+// Cross-Site Request Forgery protection.
 //
-// It securely generates a masked (unique-per-request) token that
-// can be embedded in the HTTP response (e.g. form field or HTTP header).
+// It securely generates a token that can be embedded in the HTTP response
+// (e.g. form field or HTTP header).
+// The token is not masked and it's up to any compression middleware to
+// implement BREACH mitigations.
 // The original token must be stored in a way that makes it innacessible to
-// the page's content. The default storage is an HTTP only, encrypted, cookie.
+// the page's content. The storage must implement [StorageHandler].
 // Requests that do not provide a matching token are served with an
-// HTTP 303 Forbidden response.
-func Protect(cookie storagHandler, options ...Option) func(next http.Handler) http.Handler {
-	return func(next http.Handler) http.Handler {
-		h := &csrfHandler{
-			h:            next,
-			store:        cookie,
-			fieldName:    "__csrf__",
-			headerName:   "X-CSRF-Token",
-			errorHandler: defaultErrorHandler,
-		}
+// HTTP 403 Forbidden response.
+func (h *Handler) Protect(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var token []byte
 
-		for _, fn := range options {
-			fn(h)
-		}
-
-		return h
-	}
-}
-
-// ServeHTTP implements [http.Handler] for the CSRF handler.
-func (ch *csrfHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	var token []byte
-
-	err := ch.store.Load(r, &token)
-	if err != nil || len(token) != tokenLength {
-		// If there was an error or no token at all, generate
-		// a new token and save it in the storage (normally in a cookie)
-		token, err = generateRandomBytes(tokenLength)
-		if err != nil {
-			ch.sendError(err, w, r)
-			return
-		}
-
-		// Save the new token
-		if err := ch.store.Save(w, r, token); err != nil {
-			ch.sendError(err, w, r)
-			return
-		}
-	}
-
-	masked := mask(token)
-
-	ctx := r.Context()
-	ctx = context.WithValue(ctx, ctxTokenKey, masked)
-	ctx = context.WithValue(ctx, ctxFieldNameKey, ch.fieldName)
-
-	r = r.WithContext(ctx)
-
-	if !slices.Contains(safeMethods, r.Method) {
-		if r.URL.Scheme == "https" {
-			referer, err := url.Parse(r.Referer())
-			if err != nil || referer.String() == "" {
-				ch.sendError(fmt.Errorf("%w %s", err, "invalid referrer"), w, r)
-				return
-			}
-
-			valid := referer.Scheme == r.URL.Scheme && referer.Host == r.URL.Host
-
-			if !valid {
-				ch.sendError(errors.New("referrer does not match"), w, r)
+		err := h.store.Load(r, &token)
+		if err != nil || len(token) != tokenLength {
+			// If there was an error or no token at all, generate
+			// a new token and save it in the storage (normally in a cookie)
+			if token, err = h.Renew(w, r); err != nil {
+				h.sendError(err, w, r)
 				return
 			}
 		}
 
-		rMasked, err := ch.requestToken(r)
-		if err != nil {
-			ch.sendError(fmt.Errorf("%w invalid token", err), w, r)
-			return
+		ctx := r.Context()
+		ctx = context.WithValue(ctx, ctxTokenKey, token)
+		ctx = context.WithValue(ctx, ctxFieldNameKey, h.fieldName)
+
+		r = r.WithContext(ctx)
+
+		if !slices.Contains(safeMethods, r.Method) {
+			if r.URL.Scheme == "https" {
+				referer, err := url.Parse(r.Referer())
+				if err != nil {
+					h.sendError(fmt.Errorf("%w %s", err, "invalid referrer"), w, r)
+					return
+				}
+				if referer.String() == "" {
+					h.sendError(errors.New("no referrer"), w, r)
+					return
+				}
+
+				valid := referer.Scheme == r.URL.Scheme && referer.Host == r.URL.Host
+
+				if !valid {
+					h.sendError(errors.New("referrer does not match"), w, r)
+					return
+				}
+			}
+
+			rToken, err := h.requestToken(r)
+			if err != nil {
+				h.sendError(fmt.Errorf("%w invalid token", err), w, r)
+				return
+			}
+
+			if len(rToken) != tokenLength {
+				h.sendError(errors.New("invalid token"), w, r)
+				return
+			}
+
+			// Finally, check that tokens match.
+			if subtle.ConstantTimeCompare(rToken, token) != 1 {
+				h.sendError(errors.New("token does not match"), w, r)
+				return
+			}
 		}
 
-		if len(rMasked) == 0 {
-			ch.sendError(errors.New("invalid token"), w, r)
-			return
-		}
-
-		rToken := unmask(rMasked)
-
-		if !compareTokens(rToken, token) {
-			ch.sendError(errors.New("token does not match"), w, r)
-			return
-		}
-	}
-
-	// Set the Vary: Cookie header to protect clients from caching the response.
-	w.Header().Add("Vary", "Cookie")
-
-	// Handle request
-	ch.h.ServeHTTP(w, r)
+		// Handle request
+		next.ServeHTTP(w, r)
+	})
 }
 
-func (ch *csrfHandler) requestToken(r *http.Request) ([]byte, error) {
+// Renew generates a new token and saves it in the storage (usually a cookie).
+func (h *Handler) Renew(w http.ResponseWriter, r *http.Request) ([]byte, error) {
+	token := make([]byte, tokenLength)
+	if _, err := io.ReadFull(rand.Reader, token); err != nil {
+		return nil, err
+	}
+
+	// Save the new token
+	if err := h.store.Save(w, r, token); err != nil {
+		return nil, err
+	}
+
+	return token, nil
+}
+
+func (h *Handler) requestToken(r *http.Request) ([]byte, error) {
 	// 1. check the header first
-	issued := r.Header.Get(ch.headerName)
+	issued := r.Header.Get(h.headerName)
 
 	// 2. fall back to the form value
 	// this takes care of multipart or regular forms.
 	if issued == "" {
-		issued = r.PostFormValue(ch.fieldName)
+		issued = r.PostFormValue(h.fieldName)
 	}
 
 	// return empty when no token was found
@@ -179,12 +190,12 @@ func (ch *csrfHandler) requestToken(r *http.Request) ([]byte, error) {
 	return b64.DecodeString(issued)
 }
 
-func (ch *csrfHandler) sendError(err error, w http.ResponseWriter, r *http.Request) {
+func (h *Handler) sendError(err error, w http.ResponseWriter, r *http.Request) {
 	ctx := context.WithValue(r.Context(), ctxErrorKey, err)
-	ch.errorHandler(w, r.WithContext(ctx))
+	h.errorHandler(w, r.WithContext(ctx))
 }
 
-// Token returns a masked CSRF token ready for passing into HTML template or
+// Token returns a CSRF token ready for passing into HTML template or
 // a JSON response body. An empty token will be returned if the middleware
 // has not been applied (which will fail subsequent validation).
 func Token(r *http.Request) string {

@@ -19,7 +19,10 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-type cookieStore func() []byte
+type (
+	cookieStore func() []byte
+	noopStore   struct{}
+)
 
 func mustHexDecode(s string) []byte {
 	res, err := hex.DecodeString(s)
@@ -29,20 +32,28 @@ func mustHexDecode(s string) []byte {
 	return res
 }
 
-func (f cookieStore) Load(_ *http.Request, token any) error {
+func (s cookieStore) Load(_ *http.Request, token any) error {
 	if t, ok := token.(*[]byte); ok {
-		*t = f()
+		*t = s()
 	}
 	return nil
 }
 
-func (f cookieStore) Save(w http.ResponseWriter, _ *http.Request, token any) error {
+func (s cookieStore) Save(w http.ResponseWriter, _ *http.Request, token any) error {
 	w.Header().Set("x-token", hex.EncodeToString(token.([]byte)))
 	return nil
 }
 
+func (s noopStore) Load(_ *http.Request, _ any) error {
+	return nil
+}
+
+func (s noopStore) Save(_ http.ResponseWriter, _ *http.Request, _ any) error {
+	return nil
+}
+
 var (
-	okToken = mustHexDecode("cbcade8b75409fab4a9c762dd3c2e84ab22760521bb17475a160837d84c89aa7")
+	okToken = mustHexDecode("41680df3178004cd56c1810295bc7a79012e6e1afa671621")
 	okStore = cookieStore(func() []byte {
 		return okToken
 	})
@@ -64,11 +75,13 @@ func testRequest(store cookieStore,
 		w := httptest.NewRecorder()
 		var err error
 
-		handler := Protect(store, WithErrorHandler(func(w http.ResponseWriter, r *http.Request) {
-			err = GetError(r)
-			w.WriteHeader(412)
-		}))(mux)
-
+		handler := NewCSRFHandler(
+			store,
+			WithErrorHandler(func(w http.ResponseWriter, r *http.Request) {
+				err = GetError(r)
+				w.WriteHeader(412)
+			}),
+		).Protect(mux)
 		handler.ServeHTTP(w, r)
 		assert.Equal(200, w.Result().StatusCode)
 
@@ -80,14 +93,17 @@ func testRequest(store cookieStore,
 	}
 }
 
-func TestMaskUnmaskTokens(t *testing.T) {
-	assert := require.New(t)
-	realToken, err := generateRandomBytes(tokenLength)
-	assert.NoError(err)
+func BenchmarkRenew(b *testing.B) {
+	handler := NewCSRFHandler(noopStore{})
+	r := httptest.NewRequest("GET", "/", nil)
+	w := httptest.NewRecorder()
 
-	issued := mask(realToken)
-	unmasked := unmask(issued)
-	assert.True(compareTokens(unmasked, realToken))
+	for b.Loop() {
+		_, err := handler.Renew(w, r)
+		if err != nil {
+			b.Fatal(err)
+		}
+	}
 }
 
 func TestCSRF(t *testing.T) {
@@ -105,9 +121,9 @@ func TestCSRF(t *testing.T) {
 	t.Run("with header token", testRequest(
 		okStore,
 		func(assert *require.Assertions, r *http.Request) {
-			masked, err := b64.DecodeString(Token(r))
+			token, err := b64.DecodeString(Token(r))
 			assert.NoError(err)
-			assert.Equal(okToken, unmask(masked))
+			assert.Equal(okToken, token)
 			r.Method = "POST"
 			r.Header.Set("X-CSRF-Token", Token(r))
 		},
@@ -119,9 +135,9 @@ func TestCSRF(t *testing.T) {
 	t.Run("https with header token", testRequest(
 		okStore,
 		func(assert *require.Assertions, r *http.Request) {
-			masked, err := b64.DecodeString(Token(r))
+			token, err := b64.DecodeString(Token(r))
 			assert.NoError(err)
-			assert.Equal(okToken, unmask(masked))
+			assert.Equal(okToken, token)
 			r.Method = "POST"
 			r.URL.Scheme = "https"
 			r.URL.Host = "example.net"
@@ -170,8 +186,8 @@ func TestCSRF(t *testing.T) {
 		okStore,
 		func(_ *require.Assertions, r *http.Request) {
 			r.Method = "POST"
-			masked := Token(r)
-			m, _ := b64.DecodeString(masked)
+			token := Token(r)
+			m, _ := b64.DecodeString(token)
 			m[18] ^= m[18]
 
 			r.Header.Set("X-CSRF-Token", b64.EncodeToString(m))
@@ -239,7 +255,7 @@ func TestCSRF(t *testing.T) {
 		},
 		func(assert *require.Assertions, w *httptest.ResponseRecorder, err error) {
 			assert.Equal(412, w.Result().StatusCode)
-			assert.ErrorContains(err, "invalid referrer")
+			assert.ErrorContains(err, "no referrer")
 		},
 	))
 

@@ -18,6 +18,7 @@ import (
 type Payload struct {
 	Seed        int            `json:"s"`
 	User        int            `json:"u"`
+	LastUpdate  time.Time      `json:"lu"`
 	Flashes     []FlashMessage `json:"f"`
 	Preferences Preferences    `json:"p"`
 }
@@ -30,8 +31,7 @@ type FlashMessage struct {
 
 // Preferences contains the user session preferences.
 type Preferences struct {
-	LastUpdate          time.Time `json:"u"`
-	BookmarkListDisplay string    `json:"bld"`
+	BookmarkListDisplay string `json:"bld"`
 }
 
 // Session is a unique session.
@@ -50,6 +50,10 @@ func New(h *securecookie.Handler, r *http.Request) (*Session, error) {
 		Payload: new(Payload),
 		IsNew:   true,
 	}
+
+	// New session, we set the [Payload.LastUpdate] to now
+	// in order to invalidate the HTTP cache.
+	s.Payload.LastUpdate = time.Now()
 
 	err := s.handler.Load(r, s.Payload)
 	if err == nil {

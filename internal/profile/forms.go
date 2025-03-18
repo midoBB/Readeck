@@ -262,7 +262,7 @@ func (f sessionPrefForm) updateSession(payload *sessions.Payload) (res map[strin
 	}
 
 	if len(res) > 0 {
-		payload.Preferences.LastUpdate = time.Now()
+		payload.LastUpdate = time.Now()
 	}
 
 	return

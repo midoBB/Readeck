@@ -6,13 +6,13 @@
 package csp
 
 import (
+	"crypto/rand"
 	"encoding/hex"
 	"fmt"
+	"io"
 	"net/http"
 	"slices"
 	"strings"
-
-	"github.com/google/uuid"
 )
 
 // CSP source values.
@@ -77,6 +77,10 @@ func (p Policy) Write(h http.Header) {
 // MakeNonce returns a random nonce value.
 // It's a 128bit hex string based on a random UUIDv4.
 func MakeNonce() string {
-	u := uuid.New()
-	return hex.EncodeToString(u[:])
+	n := make([]byte, 16)
+	_, err := io.ReadFull(rand.Reader, n)
+	if err != nil {
+		panic(err)
+	}
+	return hex.EncodeToString(n)
 }

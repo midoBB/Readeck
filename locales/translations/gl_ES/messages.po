@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-02-22 09:41+0000\n"
-"PO-Revision-Date: 2025-03-19 07:21+0000\n"
+"PO-Revision-Date: 2025-03-20 06:22+0000\n"
 "Last-Translator: ghose <ghose@noreply.codeberg.org>\n"
 "Language-Team: Galician <https://translate.codeberg.org/projects/readeck/"
 "application/gl/>\n"
@@ -22,92 +22,92 @@ msgstr ""
 
 #: assets/templates/_layouts/sidemenu.jet.html:30
 msgid "Secondary Menu"
-msgstr ""
+msgstr "Menú secundario"
 
 #: assets/templates/_layouts/sidemenu.jet.html:46
 msgid "Close menu"
-msgstr ""
+msgstr "Fechar menú"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Quick access menu"
-msgstr ""
+msgstr "Menú de acceso rápido"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Home Page"
-msgstr ""
+msgstr "Páxina de inicio"
 
 #: assets/templates/_libs/forms.jet.html:1
 #: assets/templates/_libs/forms.jet.html:33
 msgid "Required"
-msgstr ""
+msgstr "Requerido"
 
 #: assets/templates/_libs/forms.jet.html:10
 msgid "Errors"
-msgstr ""
+msgstr "Erros"
 
 #: assets/templates/_libs/forms.jet.html:16
 msgid "Please check your form for errors."
-msgstr ""
+msgstr "Revisa os erros do formulario."
 
 #: assets/templates/_libs/forms.jet.html:212
 msgid "The previous"
-msgstr ""
+msgstr "O anterior"
 
 #: assets/templates/_libs/forms.jet.html:221
 msgid "Day(s)"
-msgstr ""
+msgstr "Día(s)"
 
 #: assets/templates/_libs/forms.jet.html:222
 msgid "Week(s)"
-msgstr ""
+msgstr "Semana(s)"
 
 #: assets/templates/_libs/forms.jet.html:223
 msgid "Month(s)"
-msgstr ""
+msgstr "Mes(es)"
 
 #: assets/templates/_libs/forms.jet.html:224
 msgid "Year(s)"
-msgstr ""
+msgstr "Ano(s)"
 
 #: assets/templates/_libs/forms.jet.html:227
 msgctxt "word"
 msgid "or"
-msgstr ""
+msgstr "ou"
 
 #: assets/templates/_libs/forms.jet.html:255
 msgid "Select or drop file"
-msgstr ""
+msgstr "Selecciona ou solta un ficheiro"
 
 #: assets/templates/_libs/forms.jet.html:259
 msgid "remove"
-msgstr ""
+msgstr "retirar"
 
 #: assets/templates/_libs/pagination.jet.html:1
 msgid "Go to previous page"
-msgstr ""
+msgstr "Ir á páxina anterior"
 
 #: assets/templates/_libs/pagination.jet.html:1
 #, python-format
 msgid "Go to page %d"
-msgstr ""
+msgstr "Ir á páxina %d"
 
 #: assets/templates/_libs/pagination.jet.html:1
 msgid "Go to next page"
-msgstr ""
+msgstr "Ir á páxina seguinte"
 
 #: assets/templates/_libs/pagination.jet.html:10
 msgctxt "page"
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #: assets/templates/_libs/pagination.jet.html:15
 msgctxt "page"
 msgid "Next"
-msgstr ""
+msgstr "Seguinte"
 
 #: assets/templates/admin/user.jet.html:19
 msgid "User will be removed in a few seconds"
-msgstr ""
+msgstr "Eliminarase a usuaria nuns segundos"
 
 #: assets/templates/admin/user.jet.html:31
 #: assets/templates/admin/user_create.jet.html:20
@@ -115,19 +115,19 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:41
 #: assets/templates/profile/index.jet.html:20
 msgid "Username"
-msgstr ""
+msgstr "Identificador"
 
 #: assets/templates/admin/user.jet.html:37
 #: assets/templates/admin/user_create.jet.html:26
 #: assets/templates/auth/onboarding.jet.html:37
 #: assets/templates/auth/recover.jet.html:29
 msgid "Email address"
-msgstr ""
+msgstr "Enderezo de correo"
 
 #: assets/templates/admin/user.jet.html:41
 #: assets/templates/admin/user_create.jet.html:31
 msgid "Group"
-msgstr ""
+msgstr "Grupo"
 
 #: assets/templates/admin/user.jet.html:46
 #: assets/templates/admin/user_create.jet.html:36
@@ -136,11 +136,11 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:48
 #: assets/templates/profile/base.jet.html:17 internal/profile/views.go:134
 msgid "Password"
-msgstr ""
+msgstr "Contrasinal"
 
 #: assets/templates/admin/user.jet.html:49
 msgid "will not change if empty"
-msgstr ""
+msgstr "non cambiará se está baleiro"
 
 #: assets/templates/admin/user.jet.html:52
 #: assets/templates/bookmarks/collection.jet.html:77
@@ -150,46 +150,46 @@ msgstr ""
 #: assets/templates/profile/password.jet.html:36
 #: assets/templates/profile/token.jet.html:70
 msgid "Save"
-msgstr ""
+msgstr "Gardar"
 
 #: assets/templates/admin/user.jet.html:55
 msgid "Delete this user"
-msgstr ""
+msgstr "Eliminar esta usuaria"
 
 #: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:94
 msgid "New User"
-msgstr ""
+msgstr "Nova usuaria"
 
 #: assets/templates/admin/user_create.jet.html:42
 msgid "Create user"
-msgstr ""
+msgstr "Crear usuaria"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
 #: assets/templates/profile/base.jet.html:35 internal/admin/views.go:63
 #: internal/admin/views.go:93 internal/admin/views.go:133
 msgid "Users"
-msgstr ""
+msgstr "Usuarias"
 
 #: assets/templates/admin/user_list.jet.html:14
 msgid "Add a new user"
-msgstr ""
+msgstr "Engadir unha nova usuaria"
 
 #: assets/templates/admin/user_list.jet.html:30
 #: assets/templates/profile/credential_list.jet.html:45
 #: assets/templates/profile/token_list.jet.html:47
 #, python-format
 msgid "Created on: %s"
-msgstr ""
+msgstr "Creada o: %s"
 
 #: assets/templates/admin/user_list.jet.html:31
 #, python-format
 msgid "Last update: %s"
-msgstr ""
+msgstr "Última actualización: %s"
 
 #: assets/templates/admin/user_list.jet.html:38
 msgid "This user will be removed in a few seconds."
-msgstr ""
+msgstr "Vaise eliminar esta usuaria nuns segundos."
 
 #: assets/templates/admin/user.jet.html:20
 #: assets/templates/admin/user_list.jet.html:44
@@ -208,43 +208,43 @@ msgstr ""
 #: assets/templates/profile/token.jet.html:20
 #: assets/templates/profile/token_list.jet.html:61
 msgid "Cancel"
-msgstr ""
+msgstr "Desbotar"
 
 #: assets/templates/auth/login.jet.html:9
 #: assets/templates/auth/login.jet.html:37
 msgid "Sign in"
-msgstr ""
+msgstr "Acceder"
 
 #: assets/templates/auth/login.jet.html:12
 msgid "Sign in to Readeck"
-msgstr ""
+msgstr "Accede a Readeck"
 
 #: assets/templates/auth/login.jet.html:22
 msgid "Username or email address"
-msgstr ""
+msgstr "Identificador ou enderezo de correo"
 
 #: assets/templates/auth/login.jet.html:41
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Esqueceches o contrasinal?"
 
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:71
 msgid "Welcome to Readeck!"
-msgstr ""
+msgstr "Ben vida a Readeck!"
 
 #: assets/templates/auth/onboarding.jet.html:15
 msgid "We're delighted to have you on board; one more step and you're good to go."
-msgstr ""
+msgstr "Agrádanos contar contigo; un paso máis e xa podes comezar."
 
 #: assets/templates/auth/onboarding.jet.html:32
 #: assets/templates/auth/recover.jet.html:56
 #: assets/templates/profile/password.jet.html:32
 msgid "must be at least 8 characters long"
-msgstr ""
+msgstr "ten que ter 8 caracteres polo menos"
 
 #: assets/templates/auth/onboarding.jet.html:39
 msgid "Please note:"
-msgstr ""
+msgstr "Ten en conta:"
 
 #: assets/templates/auth/onboarding.jet.html:40
 msgid ""

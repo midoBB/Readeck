@@ -10,17 +10,24 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
-// ListenAndServe start an HTTP server only to serve the /metrics route.
+// ListenAndServe start an HTTP server only to serve the /metrics and /debug routes.
 func ListenAndServe(host string, port int) error {
-	mux := http.NewServeMux()
-	mux.Handle("/metrics", promhttp.Handler())
+	r := chi.NewRouter()
+
+	// Metrics
+	r.Handle("/metrics", promhttp.Handler())
+
+	// Profiler
+	r.Mount("/debug", middleware.Profiler())
 
 	s := &http.Server{
 		Addr:              fmt.Sprintf("%s:%d", host, port),
-		Handler:           mux,
+		Handler:           r,
 		ReadHeaderTimeout: time.Second * 1,
 	}
 

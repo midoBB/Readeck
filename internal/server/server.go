@@ -75,11 +75,6 @@ func (s *Server) Init() {
 	s.AddRoute("/api/sys", s.sysRoutes())
 	s.AddRoute("/logger", s.loggerRoutes())
 
-	// Add the profiler in dev mode
-	if configs.Config.Main.DevMode {
-		s.AddRoute("/debug", s.debugRoutes())
-	}
-
 	// web manifest
 	s.AddRoute("/manifest.webmanifest", s.manifestRoutes())
 
@@ -254,13 +249,6 @@ func (s *Server) loggerRoutes() http.Handler {
 	r := chi.NewRouter()
 	r.Post("/csp-report", s.cspReport)
 
-	return r
-}
-
-func (s *Server) debugRoutes() http.Handler {
-	r := s.AuthenticatedRouter()
-	r.Use(s.WithPermission("system", "read"))
-	r.Mount("/", middleware.Profiler())
 	return r
 }
 

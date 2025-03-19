@@ -409,11 +409,11 @@ def compile(_):
                 continue
             nb_translated += 1
 
-        pct = nb_translated / total_strings
+        pct = float(nb_translated / total_strings)
         count_info = "{:>4}/{:<4} {:>4}%".format(
             nb_translated, total_strings, round(pct * 100)
         )
-        if pct < COMPLETION_CUTOFF:
+        if round(pct, 2) < COMPLETION_CUTOFF:
             print(f"[-] {code} {count_info}")
             continue
 

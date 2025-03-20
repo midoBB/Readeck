@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-03-17 09:27+0000\n"
+"POT-Creation-Date: 2025-03-20 06:17+0000\n"
 "PO-Revision-Date: 2024-11-22 18:25+0000\n"
 "Last-Translator: Anonymous <anonymous@users.noreply.translate.codeberg.org>\n"
 "Language: es_ES\n"
@@ -386,17 +386,17 @@ msgid "Favorites"
 msgstr "Favoritos"
 
 #: assets/templates/bookmarks/base.jet.html:41
-#: internal/bookmarks/routes/views_bookmarks.go:112
+#: internal/bookmarks/routes/views_bookmarks.go:114
 msgid "Articles"
 msgstr "Artículos"
 
 #: assets/templates/bookmarks/base.jet.html:47
-#: internal/bookmarks/routes/views_bookmarks.go:116
+#: internal/bookmarks/routes/views_bookmarks.go:118
 msgid "Videos"
 msgstr "Videos"
 
 #: assets/templates/bookmarks/base.jet.html:53
-#: internal/bookmarks/routes/views_bookmarks.go:114
+#: internal/bookmarks/routes/views_bookmarks.go:116
 msgid "Pictures"
 msgstr "Imágenes"
 
@@ -1559,18 +1559,18 @@ msgstr "Ajustes"
 
 #: assets/templates/profile/base.jet.html:14 internal/profile/views.go:98
 #: internal/profile/views.go:133 internal/profile/views.go:178
-#: internal/profile/views.go:243 internal/profile/views.go:274
-#: internal/profile/views.go:334
+#: internal/profile/views.go:246 internal/profile/views.go:277
+#: internal/profile/views.go:337
 msgid "Profile"
 msgstr "Perfil"
 
 #: assets/templates/profile/base.jet.html:21 internal/profile/views.go:179
-#: internal/profile/views.go:244
+#: internal/profile/views.go:247
 msgid "Application Passwords"
 msgstr "Contraseñas de la aplicación"
 
-#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:275
-#: internal/profile/views.go:335
+#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:278
+#: internal/profile/views.go:338
 msgid "API Tokens"
 msgstr "API Tokens"
 
@@ -1611,17 +1611,17 @@ msgstr "Propiedades"
 msgid "Password ID"
 msgstr "ID de contraseña"
 
+# | msgid "Patent use"
 #: assets/templates/profile/credential.jet.html:56
 #: assets/templates/profile/token.jet.html:37
 #, fuzzy
-#| msgid "Patent use"
 msgid "Last used"
 msgstr "Uso de patentes"
 
+# | msgid "New User"
 #: assets/templates/profile/credential.jet.html:57
 #: assets/templates/profile/token.jet.html:38
 #, fuzzy
-#| msgid "New User"
 msgid "never used"
 msgstr "Nuevo Usuario"
 
@@ -1653,6 +1653,21 @@ msgstr "Roles"
 msgid "Delete password"
 msgstr "Borrar contraseña"
 
+#: assets/templates/profile/credential.jet.html:95
+#: assets/templates/profile/credential.jet.html:103
+#, fuzzy
+#| msgid "New password"
+msgid "Refresh password"
+msgstr "Nueva contraseña"
+
+#: assets/templates/profile/credential.jet.html:97
+msgid ""
+"\n"
+"      If you forgot your application password or simply want to change it,\n"
+"      you can refresh it to get a new one.\n"
+"    "
+msgstr ""
+
 #: assets/templates/profile/credential_list.jet.html:10
 msgid "My Application Passwords"
 msgstr "Contraseñas de mi aplicación"
@@ -1661,10 +1676,10 @@ msgstr "Contraseñas de mi aplicación"
 msgid "Create a new Application Password"
 msgstr "Crear una nueva contraseña de aplicación"
 
+# | msgid "Created on: %s"
 #: assets/templates/profile/credential_list.jet.html:48
 #: assets/templates/profile/token_list.jet.html:54
 #, fuzzy, python-format
-#| msgid "Created on: %s"
 msgid "Last used on: %s"
 msgstr "Creado en: %s"
 
@@ -1691,6 +1706,16 @@ msgstr "Cambiar mi contraseña"
 #: assets/templates/profile/password.jet.html:21
 msgid "Current password"
 msgstr "Contraseña actual"
+
+#: assets/templates/profile/token.jet.html:1
+#, fuzzy
+#| msgid "API Token"
+msgid "copy token"
+msgstr "Token de API"
+
+#: assets/templates/profile/token.jet.html:1
+msgid "copy HTTP header"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:9
 msgid "API Token"
@@ -1738,9 +1763,13 @@ msgstr "Autenticación de API"
 msgid "Your API token"
 msgstr "Tu token de API"
 
-#: assets/templates/profile/token.jet.html:94
+#: assets/templates/profile/token.jet.html:96
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
 msgstr "Puede usar este token pasándolo como un encabezado HTTP <strong>Authorization: Bearer</strong> ."
+
+#: assets/templates/profile/token.jet.html:98
+msgid "HTTP Header"
+msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
@@ -1959,23 +1988,23 @@ msgstr "Colección ebook - %s"
 msgid "Browse collection: %s"
 msgstr "Explorar la colección: %s"
 
-#: internal/bookmarks/routes/views_bookmarks.go:97
+#: internal/bookmarks/routes/views_bookmarks.go:99
 msgid "All your Bookmarks"
 msgstr "Todos tus marcadores"
 
-#: internal/bookmarks/routes/views_bookmarks.go:102
+#: internal/bookmarks/routes/views_bookmarks.go:104
 msgid "Bookmark Search"
 msgstr "Búsqueda de marcadores"
 
-#: internal/bookmarks/routes/views_bookmarks.go:106 internal/opds/http.go:58
+#: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:58
 msgid "Unread Bookmarks"
 msgstr "Marcadores no leídos"
 
-#: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:62
+#: internal/bookmarks/routes/views_bookmarks.go:110 internal/opds/http.go:62
 msgid "Archived Bookmarks"
 msgstr "Marcadores archivados"
 
-#: internal/bookmarks/routes/views_bookmarks.go:110 internal/opds/http.go:66
+#: internal/bookmarks/routes/views_bookmarks.go:112 internal/opds/http.go:66
 msgid "Favorite Bookmarks"
 msgstr "Marcadores favoritos"
 
@@ -2021,19 +2050,19 @@ msgstr ""
 msgid "An error occurred while creating your password."
 msgstr "Se ha producido un error al crear la contraseña."
 
-#: internal/profile/views.go:229
+#: internal/profile/views.go:232
 msgid "Password was updated."
 msgstr "Se actualizó la contraseña."
 
-#: internal/profile/views.go:290
+#: internal/profile/views.go:293
 msgid "An error occurred while creating your token."
 msgstr "Se ha producido un error al crear el token."
 
-#: internal/profile/views.go:295
+#: internal/profile/views.go:298
 msgid "New token created."
 msgstr "Nuevo token creado."
 
-#: internal/profile/views.go:314
+#: internal/profile/views.go:317
 msgid "Token was updated."
 msgstr "Se actualizó el token."
 

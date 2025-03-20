@@ -6,17 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-03-17 09:27+0000\n"
+"POT-Creation-Date: 2025-03-20 06:17+0000\n"
 "PO-Revision-Date: 2025-03-19 07:21+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
-"Language-Team: Chinese (Simplified Han script) <https://"
-"translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
 "Language: zh_CN\n"
+"Language-Team: Chinese (Simplified Han script) <https://translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -390,17 +388,17 @@ msgid "Favorites"
 msgstr "收藏"
 
 #: assets/templates/bookmarks/base.jet.html:41
-#: internal/bookmarks/routes/views_bookmarks.go:112
+#: internal/bookmarks/routes/views_bookmarks.go:114
 msgid "Articles"
 msgstr "文章"
 
 #: assets/templates/bookmarks/base.jet.html:47
-#: internal/bookmarks/routes/views_bookmarks.go:116
+#: internal/bookmarks/routes/views_bookmarks.go:118
 msgid "Videos"
 msgstr "视频"
 
 #: assets/templates/bookmarks/base.jet.html:53
-#: internal/bookmarks/routes/views_bookmarks.go:114
+#: internal/bookmarks/routes/views_bookmarks.go:116
 msgid "Pictures"
 msgstr "图片"
 
@@ -1547,18 +1545,18 @@ msgstr "设置"
 
 #: assets/templates/profile/base.jet.html:14 internal/profile/views.go:98
 #: internal/profile/views.go:133 internal/profile/views.go:178
-#: internal/profile/views.go:243 internal/profile/views.go:274
-#: internal/profile/views.go:334
+#: internal/profile/views.go:246 internal/profile/views.go:277
+#: internal/profile/views.go:337
 msgid "Profile"
 msgstr "个人资料"
 
 #: assets/templates/profile/base.jet.html:21 internal/profile/views.go:179
-#: internal/profile/views.go:244
+#: internal/profile/views.go:247
 msgid "Application Passwords"
 msgstr "应用程序密码"
 
-#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:275
-#: internal/profile/views.go:335
+#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:278
+#: internal/profile/views.go:338
 msgid "API Tokens"
 msgstr "API 令牌"
 
@@ -1637,6 +1635,21 @@ msgstr "角色"
 msgid "Delete password"
 msgstr "删除密码"
 
+#: assets/templates/profile/credential.jet.html:95
+#: assets/templates/profile/credential.jet.html:103
+#, fuzzy
+#| msgid "New password"
+msgid "Refresh password"
+msgstr "新密码"
+
+#: assets/templates/profile/credential.jet.html:97
+msgid ""
+"\n"
+"      If you forgot your application password or simply want to change it,\n"
+"      you can refresh it to get a new one.\n"
+"    "
+msgstr ""
+
 #: assets/templates/profile/credential_list.jet.html:10
 msgid "My Application Passwords"
 msgstr "我的应用程序密码"
@@ -1674,6 +1687,16 @@ msgstr "更改我的密码"
 #: assets/templates/profile/password.jet.html:21
 msgid "Current password"
 msgstr "当前密码"
+
+#: assets/templates/profile/token.jet.html:1
+#, fuzzy
+#| msgid "API Token"
+msgid "copy token"
+msgstr "API 令牌"
+
+#: assets/templates/profile/token.jet.html:1
+msgid "copy HTTP header"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:9
 msgid "API Token"
@@ -1721,9 +1744,13 @@ msgstr "API 验证"
 msgid "Your API token"
 msgstr "您的 API 令牌"
 
-#: assets/templates/profile/token.jet.html:94
+#: assets/templates/profile/token.jet.html:96
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
 msgstr "您可以通过将其作为 <strong>验证：Bearer</strong> HTTP 标头传递来使用此令牌。"
+
+#: assets/templates/profile/token.jet.html:98
+msgid "HTTP Header"
+msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
@@ -1938,23 +1965,23 @@ msgstr "收藏集电子书 - %s"
 msgid "Browse collection: %s"
 msgstr "浏览收藏集：%s"
 
-#: internal/bookmarks/routes/views_bookmarks.go:97
+#: internal/bookmarks/routes/views_bookmarks.go:99
 msgid "All your Bookmarks"
 msgstr "全部书签"
 
-#: internal/bookmarks/routes/views_bookmarks.go:102
+#: internal/bookmarks/routes/views_bookmarks.go:104
 msgid "Bookmark Search"
 msgstr "书签搜索"
 
-#: internal/bookmarks/routes/views_bookmarks.go:106 internal/opds/http.go:58
+#: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:58
 msgid "Unread Bookmarks"
 msgstr "未读书签"
 
-#: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:62
+#: internal/bookmarks/routes/views_bookmarks.go:110 internal/opds/http.go:62
 msgid "Archived Bookmarks"
 msgstr "已归档书签"
 
-#: internal/bookmarks/routes/views_bookmarks.go:110 internal/opds/http.go:66
+#: internal/bookmarks/routes/views_bookmarks.go:112 internal/opds/http.go:66
 msgid "Favorite Bookmarks"
 msgstr "已收藏书签"
 
@@ -2000,19 +2027,19 @@ msgstr "错误：您无法创建更多凭据。"
 msgid "An error occurred while creating your password."
 msgstr "创建密码时出错。"
 
-#: internal/profile/views.go:229
+#: internal/profile/views.go:232
 msgid "Password was updated."
 msgstr "密码已更新。"
 
-#: internal/profile/views.go:290
+#: internal/profile/views.go:293
 msgid "An error occurred while creating your token."
 msgstr "创建令牌时出错。"
 
-#: internal/profile/views.go:295
+#: internal/profile/views.go:298
 msgid "New token created."
 msgstr "新令牌已创建。"
 
-#: internal/profile/views.go:314
+#: internal/profile/views.go:317
 msgid "Token was updated."
 msgstr "令牌已更新。"
 
@@ -2294,3 +2321,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr "无法打开 zip 文件"
+

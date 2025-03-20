@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-03-17 09:27+0000\n"
+"POT-Creation-Date: 2025-03-20 06:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -370,17 +370,17 @@ msgid "Favorites"
 msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:41
-#: internal/bookmarks/routes/views_bookmarks.go:112
+#: internal/bookmarks/routes/views_bookmarks.go:114
 msgid "Articles"
 msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:47
-#: internal/bookmarks/routes/views_bookmarks.go:116
+#: internal/bookmarks/routes/views_bookmarks.go:118
 msgid "Videos"
 msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:53
-#: internal/bookmarks/routes/views_bookmarks.go:114
+#: internal/bookmarks/routes/views_bookmarks.go:116
 msgid "Pictures"
 msgstr ""
 
@@ -1443,18 +1443,18 @@ msgstr ""
 
 #: assets/templates/profile/base.jet.html:14 internal/profile/views.go:98
 #: internal/profile/views.go:133 internal/profile/views.go:178
-#: internal/profile/views.go:243 internal/profile/views.go:274
-#: internal/profile/views.go:334
+#: internal/profile/views.go:246 internal/profile/views.go:277
+#: internal/profile/views.go:337
 msgid "Profile"
 msgstr ""
 
 #: assets/templates/profile/base.jet.html:21 internal/profile/views.go:179
-#: internal/profile/views.go:244
+#: internal/profile/views.go:247
 msgid "Application Passwords"
 msgstr ""
 
-#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:275
-#: internal/profile/views.go:335
+#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:278
+#: internal/profile/views.go:338
 msgid "API Tokens"
 msgstr ""
 
@@ -1524,6 +1524,19 @@ msgstr ""
 msgid "Delete password"
 msgstr ""
 
+#: assets/templates/profile/credential.jet.html:95
+#: assets/templates/profile/credential.jet.html:103
+msgid "Refresh password"
+msgstr ""
+
+#: assets/templates/profile/credential.jet.html:97
+msgid ""
+"\n"
+"      If you forgot your application password or simply want to change it,\n"
+"      you can refresh it to get a new one.\n"
+"    "
+msgstr ""
+
 #: assets/templates/profile/credential_list.jet.html:10
 msgid "My Application Passwords"
 msgstr ""
@@ -1560,6 +1573,14 @@ msgstr ""
 
 #: assets/templates/profile/password.jet.html:21
 msgid "Current password"
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:1
+msgid "copy token"
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:1
+msgid "copy HTTP header"
 msgstr ""
 
 #: assets/templates/profile/token.jet.html:9
@@ -1603,8 +1624,12 @@ msgstr ""
 msgid "Your API token"
 msgstr ""
 
-#: assets/templates/profile/token.jet.html:94
+#: assets/templates/profile/token.jet.html:96
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:98
+msgid "HTTP Header"
 msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:10
@@ -1817,23 +1842,23 @@ msgstr ""
 msgid "Browse collection: %s"
 msgstr ""
 
-#: internal/bookmarks/routes/views_bookmarks.go:97
+#: internal/bookmarks/routes/views_bookmarks.go:99
 msgid "All your Bookmarks"
 msgstr ""
 
-#: internal/bookmarks/routes/views_bookmarks.go:102
+#: internal/bookmarks/routes/views_bookmarks.go:104
 msgid "Bookmark Search"
 msgstr ""
 
-#: internal/bookmarks/routes/views_bookmarks.go:106 internal/opds/http.go:58
+#: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:58
 msgid "Unread Bookmarks"
 msgstr ""
 
-#: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:62
+#: internal/bookmarks/routes/views_bookmarks.go:110 internal/opds/http.go:62
 msgid "Archived Bookmarks"
 msgstr ""
 
-#: internal/bookmarks/routes/views_bookmarks.go:110 internal/opds/http.go:66
+#: internal/bookmarks/routes/views_bookmarks.go:112 internal/opds/http.go:66
 msgid "Favorite Bookmarks"
 msgstr ""
 
@@ -1879,19 +1904,19 @@ msgstr ""
 msgid "An error occurred while creating your password."
 msgstr ""
 
-#: internal/profile/views.go:229
+#: internal/profile/views.go:232
 msgid "Password was updated."
 msgstr ""
 
-#: internal/profile/views.go:290
+#: internal/profile/views.go:293
 msgid "An error occurred while creating your token."
 msgstr ""
 
-#: internal/profile/views.go:295
+#: internal/profile/views.go:298
 msgid "New token created."
 msgstr ""
 
-#: internal/profile/views.go:314
+#: internal/profile/views.go:317
 msgid "Token was updated."
 msgstr ""
 

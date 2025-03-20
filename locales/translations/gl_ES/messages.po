@@ -1,27 +1,36 @@
-# Translations template for Readeck.
+# Galician (Spain) translations for Readeck.
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-02-22 09:41+0000\n"
+"POT-Creation-Date: 2025-03-20 06:17+0000\n"
 "PO-Revision-Date: 2025-03-19 07:21+0000\n"
 "Last-Translator: ghose <ghose@noreply.codeberg.org>\n"
-"Language-Team: Galician <https://translate.codeberg.org/projects/readeck/"
-"application/gl/>\n"
 "Language: gl_ES\n"
+"Language-Team: Galician <https://translate.codeberg.org/projects/readeck/application/gl/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
+
+#: assets/templates/_layouts/sidemenu.jet.html:29
+#: assets/templates/bookmarks/bookmark.jet.html:26
+#: assets/templates/error.jet.html:12
+msgid "Menu"
+msgstr ""
 
 #: assets/templates/_layouts/sidemenu.jet.html:30
 msgid "Secondary Menu"
+msgstr ""
+
+#: assets/templates/_layouts/sidemenu.jet.html:31
+#: assets/templates/bookmarks/bookmark.jet.html:27
+#: assets/templates/error.jet.html:13
+msgid "Main content"
 msgstr ""
 
 #: assets/templates/_layouts/sidemenu.jet.html:46
@@ -105,8 +114,34 @@ msgctxt "page"
 msgid "Next"
 msgstr ""
 
+#: assets/templates/admin/user.jet.html:9
+#: assets/templates/admin/user_list.jet.html:9
+#: assets/templates/profile/base.jet.html:35 internal/admin/views.go:62
+#: internal/admin/views.go:92 internal/admin/views.go:132
+msgid "Users"
+msgstr ""
+
 #: assets/templates/admin/user.jet.html:19
 msgid "User will be removed in a few seconds"
+msgstr ""
+
+#: assets/templates/admin/user.jet.html:20
+#: assets/templates/admin/user_list.jet.html:44
+#: assets/templates/bookmarks/collection.jet.html:22
+#: assets/templates/bookmarks/components/card.jet.html:101
+#: assets/templates/bookmarks/import/form-browser.jet.html:49
+#: assets/templates/bookmarks/import/form-csv.jet.html:35
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:35
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:44
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
+#: assets/templates/bookmarks/import/form-text.jet.html:36
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:70
+#: assets/templates/bookmarks/label.jet.html:51
+#: assets/templates/profile/credential.jet.html:20
+#: assets/templates/profile/credential_list.jet.html:62
+#: assets/templates/profile/token.jet.html:20
+#: assets/templates/profile/token_list.jet.html:68
+msgid "Cancel"
 msgstr ""
 
 #: assets/templates/admin/user.jet.html:31
@@ -145,10 +180,10 @@ msgstr ""
 #: assets/templates/admin/user.jet.html:52
 #: assets/templates/bookmarks/collection.jet.html:77
 #: assets/templates/bookmarks/collection_create.jet.html:30
-#: assets/templates/profile/credential.jet.html:83
+#: assets/templates/profile/credential.jet.html:88
 #: assets/templates/profile/index.jet.html:35
 #: assets/templates/profile/password.jet.html:36
-#: assets/templates/profile/token.jet.html:70
+#: assets/templates/profile/token.jet.html:75
 msgid "Save"
 msgstr ""
 
@@ -156,7 +191,7 @@ msgstr ""
 msgid "Delete this user"
 msgstr ""
 
-#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:94
+#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:93
 msgid "New User"
 msgstr ""
 
@@ -164,20 +199,13 @@ msgstr ""
 msgid "Create user"
 msgstr ""
 
-#: assets/templates/admin/user.jet.html:9
-#: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:35 internal/admin/views.go:63
-#: internal/admin/views.go:93 internal/admin/views.go:133
-msgid "Users"
-msgstr ""
-
 #: assets/templates/admin/user_list.jet.html:14
 msgid "Add a new user"
 msgstr ""
 
 #: assets/templates/admin/user_list.jet.html:30
-#: assets/templates/profile/credential_list.jet.html:45
-#: assets/templates/profile/token_list.jet.html:47
+#: assets/templates/profile/credential_list.jet.html:46
+#: assets/templates/profile/token_list.jet.html:48
 #, python-format
 msgid "Created on: %s"
 msgstr ""
@@ -189,25 +217,6 @@ msgstr ""
 
 #: assets/templates/admin/user_list.jet.html:38
 msgid "This user will be removed in a few seconds."
-msgstr ""
-
-#: assets/templates/admin/user.jet.html:20
-#: assets/templates/admin/user_list.jet.html:44
-#: assets/templates/bookmarks/collection.jet.html:22
-#: assets/templates/bookmarks/components/card.jet.html:101
-#: assets/templates/bookmarks/import/form-browser.jet.html:49
-#: assets/templates/bookmarks/import/form-csv.jet.html:35
-#: assets/templates/bookmarks/import/form-goodlinks.jet.html:35
-#: assets/templates/bookmarks/import/form-omnivore.jet.html:44
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
-#: assets/templates/bookmarks/import/form-text.jet.html:36
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:70
-#: assets/templates/bookmarks/label.jet.html:51
-#: assets/templates/profile/credential.jet.html:20
-#: assets/templates/profile/credential_list.jet.html:57
-#: assets/templates/profile/token.jet.html:20
-#: assets/templates/profile/token_list.jet.html:61
-msgid "Cancel"
 msgstr ""
 
 #: assets/templates/auth/login.jet.html:9
@@ -251,8 +260,7 @@ msgid ""
 "\n"
 "  Your email address is optional and will never leave this installation.\n"
 "  It will never be collected, transferred or sold.\n"
-"  It will <strong>only</strong> be used, should you need it, for password"
-" recovery and internal notifications.\n"
+"  It will <strong>only</strong> be used, should you need it, for password recovery and internal notifications.\n"
 "  "
 msgstr ""
 
@@ -328,17 +336,20 @@ msgstr ""
 #: assets/templates/bookmarks/annotation_list.jet.html:18
 msgid ""
 "\n"
-"        Once you start highlighting parts of your saved articles, they "
-"will appear on this page\n"
+"        Once you start highlighting parts of your saved articles, they will appear on this page\n"
 "        for you to easily find them.\n"
 "      "
 msgstr ""
 
 #: assets/templates/bookmarks/annotation_list.jet.html:23
 #, python-format
-msgid ""
-"Read more about highlights in the <a class=\"%s\" "
-"href=\"%s\">documentation</a>."
+msgid "Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</a>."
+msgstr ""
+
+#: assets/templates/bookmarks/base.jet.html:9
+#: assets/templates/bookmarks/bookmark.jet.html:15
+#: assets/templates/menu.jet.html:20
+msgid "Bookmarks"
 msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:24
@@ -358,17 +369,17 @@ msgid "Favorites"
 msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:41
-#: internal/bookmarks/routes/views_bookmarks.go:112
+#: internal/bookmarks/routes/views_bookmarks.go:114
 msgid "Articles"
 msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:47
-#: internal/bookmarks/routes/views_bookmarks.go:116
+#: internal/bookmarks/routes/views_bookmarks.go:118
 msgid "Videos"
 msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:53
-#: internal/bookmarks/routes/views_bookmarks.go:114
+#: internal/bookmarks/routes/views_bookmarks.go:116
 msgid "Pictures"
 msgstr ""
 
@@ -380,6 +391,12 @@ msgstr ""
 #: assets/templates/bookmarks/base.jet.html:65
 #: assets/templates/bookmarks/components/sidebar.jet.html:101
 msgid "Highlights"
+msgstr ""
+
+#: assets/templates/bookmarks/base.jet.html:67
+#: assets/templates/bookmarks/collection.jet.html:11
+#: assets/templates/bookmarks/collection.jet.html:33
+msgid "Collections"
 msgstr ""
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
@@ -458,12 +475,6 @@ msgstr ""
 msgid "Share: %s"
 msgstr ""
 
-#: assets/templates/bookmarks/base.jet.html:67
-#: assets/templates/bookmarks/collection.jet.html:11
-#: assets/templates/bookmarks/collection.jet.html:33
-msgid "Collections"
-msgstr ""
-
 #: assets/templates/bookmarks/collection.jet.html:16
 #, python-format
 msgid "Collection %s"
@@ -485,9 +496,16 @@ msgstr ""
 msgid "Filters"
 msgstr ""
 
+#: assets/templates/bookmarks/collection.jet.html:59
+#: assets/templates/bookmarks/index.jet.html:143
+#: assets/templates/menu.jet.html:43 docs/http.go:177 docs/http.go:243
+#: docs/http.go:281
+msgid "Documentation"
+msgstr ""
+
 #: assets/templates/bookmarks/collection.jet.html:67
 #: assets/templates/bookmarks/collection_create.jet.html:23
-#: assets/templates/profile/credential.jet.html:58
+#: assets/templates/profile/credential.jet.html:63
 msgid "Name"
 msgstr ""
 
@@ -537,9 +555,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/collection_list.jet.html:39
 #, python-format
-msgid ""
-"Read more about collections in the <a class=\"%s\" "
-"href=\"%s\">documentation</a>."
+msgid "Read more about collections in the <a class=\"%s\" href=\"%s\">documentation</a>."
 msgstr ""
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
@@ -557,28 +573,6 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as read"
-msgstr ""
-
-#: assets/templates/bookmarks/components/actions.jet.html:15
-#: assets/templates/bookmarks/components/card.jet.html:92
-msgid "This bookmark will be removed in a few seconds."
-msgstr ""
-
-#: assets/templates/bookmarks/components/actions.jet.html:24
-msgid "Undo"
-msgstr ""
-
-#: assets/templates/bookmarks/components/actions.jet.html:58
-#: assets/templates/bookmarks/components/list_actions.jet.html:72
-msgid "Download EPUB"
-msgstr ""
-
-#: assets/templates/bookmarks/components/actions.jet.html:60
-msgid "Share by Link"
-msgstr ""
-
-#: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
-msgid "Saved with Readeck"
 msgstr ""
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
@@ -603,6 +597,28 @@ msgstr ""
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
 #: assets/templates/bookmarks/components/card.jet.html:10
 msgid "Add to favorites"
+msgstr ""
+
+#: assets/templates/bookmarks/components/actions.jet.html:15
+#: assets/templates/bookmarks/components/card.jet.html:92
+msgid "This bookmark will be removed in a few seconds."
+msgstr ""
+
+#: assets/templates/bookmarks/components/actions.jet.html:24
+msgid "Undo"
+msgstr ""
+
+#: assets/templates/bookmarks/components/actions.jet.html:58
+#: assets/templates/bookmarks/components/list_actions.jet.html:72
+msgid "Download EPUB"
+msgstr ""
+
+#: assets/templates/bookmarks/components/actions.jet.html:60
+msgid "Share by Link"
+msgstr ""
+
+#: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
+msgid "Saved with Readeck"
 msgstr ""
 
 #: assets/templates/bookmarks/components/card.jet.html:1
@@ -662,6 +678,12 @@ msgstr ""
 msgid "Site"
 msgstr ""
 
+#: assets/templates/bookmarks/components/filters.jet.html:29
+#: assets/templates/bookmarks/import/options.jet.html:10
+#: assets/templates/bookmarks/label.jet.html:10
+msgid "Label"
+msgstr ""
+
 #: assets/templates/bookmarks/components/filters.jet.html:34
 msgid "From date"
 msgstr ""
@@ -681,6 +703,26 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:55
 msgid "Is Favorite"
+msgstr ""
+
+#: assets/templates/bookmarks/components/filters.jet.html:59
+#: assets/templates/bookmarks/components/filters.jet.html:68
+#: assets/templates/bookmarks/components/filters.jet.html:78
+#: assets/templates/bookmarks/components/filters.jet.html:88
+#: assets/templates/bookmarks/components/filters.jet.html:98
+#: assets/templates/bookmarks/components/reader_control.jet.html:127
+#: assets/templates/bookmarks/components/reader_control.jet.html:152
+msgid "yes"
+msgstr ""
+
+#: assets/templates/bookmarks/components/filters.jet.html:60
+#: assets/templates/bookmarks/components/filters.jet.html:69
+#: assets/templates/bookmarks/components/filters.jet.html:79
+#: assets/templates/bookmarks/components/filters.jet.html:89
+#: assets/templates/bookmarks/components/filters.jet.html:99
+#: assets/templates/bookmarks/components/reader_control.jet.html:127
+#: assets/templates/bookmarks/components/reader_control.jet.html:152
+msgid "no"
 msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:64
@@ -768,26 +810,6 @@ msgstr ""
 msgid "Justify"
 msgstr ""
 
-#: assets/templates/bookmarks/components/filters.jet.html:59
-#: assets/templates/bookmarks/components/filters.jet.html:68
-#: assets/templates/bookmarks/components/filters.jet.html:78
-#: assets/templates/bookmarks/components/filters.jet.html:88
-#: assets/templates/bookmarks/components/filters.jet.html:98
-#: assets/templates/bookmarks/components/reader_control.jet.html:127
-#: assets/templates/bookmarks/components/reader_control.jet.html:152
-msgid "yes"
-msgstr ""
-
-#: assets/templates/bookmarks/components/filters.jet.html:60
-#: assets/templates/bookmarks/components/filters.jet.html:69
-#: assets/templates/bookmarks/components/filters.jet.html:79
-#: assets/templates/bookmarks/components/filters.jet.html:89
-#: assets/templates/bookmarks/components/filters.jet.html:99
-#: assets/templates/bookmarks/components/reader_control.jet.html:127
-#: assets/templates/bookmarks/components/reader_control.jet.html:152
-msgid "no"
-msgstr ""
-
 #: assets/templates/bookmarks/components/reader_control.jet.html:141
 msgid "Hyphenation"
 msgstr ""
@@ -872,8 +894,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
 "\n"
-"    Upload a CSV file from Instapaper or any CSV that matches the format "
-"specified bellow.\n"
+"    Upload a CSV file from Instapaper or any CSV that matches the format specified bellow.\n"
 "  "
 msgstr ""
 
@@ -881,10 +902,8 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"    The uploaded file must contain a first row with the column names. "
-"Column names are case\n"
-"    insensitive and, except for <code>%s</code>, every column is "
-"optional.\n"
+"    The uploaded file must contain a first row with the column names. Column names are case\n"
+"    insensitive and, except for <code>%s</code>, every column is optional.\n"
 "  "
 msgstr ""
 
@@ -948,8 +967,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:15
 msgid ""
 "\n"
-"    To import your articles from Omnivore, you must first create an API "
-"Key in your\n"
+"    To import your articles from Omnivore, you must first create an API Key in your\n"
 "    Omnivore's settings and enter it in the the form below.\n"
 "  "
 msgstr ""
@@ -991,10 +1009,8 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:27
 msgid ""
 "\n"
-"    Please note that Pocket does not allow the article content to be "
-"exported.\n"
-"    This could lead to different results in Readeck than what you "
-"currently\n"
+"    Please note that Pocket does not allow the article content to be exported.\n"
+"    This could lead to different results in Readeck than what you currently\n"
 "    see in Pocket.\n"
 "  "
 msgstr ""
@@ -1007,8 +1023,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-text.jet.html:15
 msgid ""
 "\n"
-"    Upload a text file that contains one link per line and Readeck will "
-"fetch\n"
+"    Upload a text file that contains one link per line and Readeck will fetch\n"
 "    all of them and save them in your bookmark list.\n"
 "  "
 msgstr ""
@@ -1021,10 +1036,8 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:15
 msgid ""
 "\n"
-"    To import your articles from Wallabag, you must first create an API "
-"client\n"
-"    in Wallabag's <strong>API clients management</strong> menu. This will"
-" give you\n"
+"    To import your articles from Wallabag, you must first create an API client\n"
+"    in Wallabag's <strong>API clients management</strong> menu. This will give you\n"
 "    a <strong>Client ID</strong> and <strong>Client secret</strong>.\n"
 "  "
 msgstr ""
@@ -1059,8 +1072,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/index.jet.html:25
 msgid ""
 "\n"
-"    Here you can import your existing bookmark collection from various "
-"sources into Readeck.\n"
+"    Here you can import your existing bookmark collection from various sources into Readeck.\n"
 "  "
 msgstr ""
 
@@ -1124,8 +1136,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"      Your bookmarks are now available in your <a class=\"%s\" "
-"href=\"%s\">bookmark list</a>.\n"
+"      Your bookmarks are now available in your <a class=\"%s\" href=\"%s\">bookmark list</a>.\n"
 "      "
 msgstr ""
 
@@ -1144,29 +1155,22 @@ msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:49
 #, python-format
-msgid ""
-"\"%s\" is not a valid address. Did you mean to search your bookmarks for "
-"%s?"
+msgid "\"%s\" is not a valid address. Did you mean to search your bookmarks for %s?"
 msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:73
-msgid ""
-"You don't have any bookmarks yet.<br> Copy a link in the field above and "
-"start saving."
+msgid "You don't have any bookmarks yet.<br> Copy a link in the field above and start saving."
 msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:75
 #, python-format
-msgid ""
-"Read more about bookmarks in the <a class=\"%s\" "
-"href=\"%s\">documentation</a>."
+msgid "Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentation</a>."
 msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:81
 msgid ""
 "\n"
-"          Would you like to import from a similar tool or from a file "
-"with existing bookmarks?\n"
+"          Would you like to import from a similar tool or from a file with existing bookmarks?\n"
 "          Try Readeck's import tool.\n"
 "        "
 msgstr ""
@@ -1201,12 +1205,6 @@ msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:158
 msgid "Create a collection"
-msgstr ""
-
-#: assets/templates/bookmarks/components/filters.jet.html:29
-#: assets/templates/bookmarks/import/options.jet.html:10
-#: assets/templates/bookmarks/label.jet.html:10
-msgid "Label"
 msgstr ""
 
 #: assets/templates/bookmarks/label.jet.html:37
@@ -1246,9 +1244,7 @@ msgid "System Information"
 msgstr ""
 
 #: assets/templates/docs/about.jet.html:20
-msgid ""
-"Here are your current system information. Please include them if you "
-"report a bug."
+msgid "Here are your current system information. Please include them if you report a bug."
 msgstr ""
 
 #: assets/templates/docs/about.jet.html:31
@@ -1356,13 +1352,13 @@ msgstr ""
 msgid "Readeck includes and/or uses the following open source assets:"
 msgstr ""
 
-#: assets/templates/docs/base.jet.html:9
-msgid "Readeck Help"
-msgstr ""
-
 #: assets/templates/docs/api-docs.jet.html:8
 #: assets/templates/docs/base.jet.html:21
 msgid "API Documentation"
+msgstr ""
+
+#: assets/templates/docs/base.jet.html:9
+msgid "Readeck Help"
 msgstr ""
 
 #: assets/templates/docs/base.jet.html:28
@@ -1411,18 +1407,6 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: assets/templates/_layouts/sidemenu.jet.html:29
-#: assets/templates/bookmarks/bookmark.jet.html:26
-#: assets/templates/error.jet.html:12
-msgid "Menu"
-msgstr ""
-
-#: assets/templates/_layouts/sidemenu.jet.html:31
-#: assets/templates/bookmarks/bookmark.jet.html:27
-#: assets/templates/error.jet.html:13
-msgid "Main content"
-msgstr ""
-
 #: assets/templates/error.jet.html:22
 msgid "Permission denied."
 msgstr ""
@@ -1447,12 +1431,6 @@ msgstr ""
 msgid "Open menu"
 msgstr ""
 
-#: assets/templates/bookmarks/base.jet.html:9
-#: assets/templates/bookmarks/bookmark.jet.html:15
-#: assets/templates/menu.jet.html:20
-msgid "Bookmarks"
-msgstr ""
-
 #: assets/templates/menu.jet.html:33
 msgid "Change color theme"
 msgstr ""
@@ -1461,27 +1439,20 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: assets/templates/bookmarks/collection.jet.html:59
-#: assets/templates/bookmarks/index.jet.html:143
-#: assets/templates/menu.jet.html:43 docs/http.go:177 docs/http.go:243
-#: docs/http.go:281
-msgid "Documentation"
-msgstr ""
-
 #: assets/templates/profile/base.jet.html:14 internal/profile/views.go:98
 #: internal/profile/views.go:133 internal/profile/views.go:178
-#: internal/profile/views.go:243 internal/profile/views.go:274
-#: internal/profile/views.go:334
+#: internal/profile/views.go:246 internal/profile/views.go:277
+#: internal/profile/views.go:337
 msgid "Profile"
 msgstr ""
 
 #: assets/templates/profile/base.jet.html:21 internal/profile/views.go:179
-#: internal/profile/views.go:244
+#: internal/profile/views.go:247
 msgid "Application Passwords"
 msgstr ""
 
-#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:275
-#: internal/profile/views.go:335
+#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:278
+#: internal/profile/views.go:338
 msgid "API Tokens"
 msgstr ""
 
@@ -1496,8 +1467,7 @@ msgstr ""
 #: assets/templates/profile/credential.jet.html:27
 msgid ""
 "\n"
-"    Your application password was created. Please copy the password below"
-" and write it down\n"
+"    Your application password was created. Please copy the password below and write it down\n"
 "    or store it in a password manager.\n"
 "  "
 msgstr ""
@@ -1519,29 +1489,50 @@ msgstr ""
 msgid "Password ID"
 msgstr ""
 
-#: assets/templates/profile/credential.jet.html:64
-#: assets/templates/profile/token.jet.html:45
+#: assets/templates/profile/credential.jet.html:56
+#: assets/templates/profile/token.jet.html:37
+msgid "Last used"
+msgstr ""
+
+#: assets/templates/profile/credential.jet.html:57
+#: assets/templates/profile/token.jet.html:38
+msgid "never used"
+msgstr ""
+
+#: assets/templates/profile/credential.jet.html:69
+#: assets/templates/profile/token.jet.html:50
 msgid "Enabled"
 msgstr ""
 
-#: assets/templates/profile/credential.jet.html:70
+#: assets/templates/profile/credential.jet.html:75
 msgid ""
 "\n"
-"    You can limit the permissions granted to this password by choosing "
-"one or more\n"
+"    You can limit the permissions granted to this password by choosing one or more\n"
 "    group of permissions below.<br>\n"
-"    Leave all the choices blank to grant all your permissions to this "
-"password.\n"
+"    Leave all the choices blank to grant all your permissions to this password.\n"
 "  "
 msgstr ""
 
-#: assets/templates/profile/credential.jet.html:78
-#: assets/templates/profile/token.jet.html:65
+#: assets/templates/profile/credential.jet.html:83
+#: assets/templates/profile/token.jet.html:70
 msgid "Roles"
 msgstr ""
 
-#: assets/templates/profile/credential.jet.html:86
+#: assets/templates/profile/credential.jet.html:91
 msgid "Delete password"
+msgstr ""
+
+#: assets/templates/profile/credential.jet.html:95
+#: assets/templates/profile/credential.jet.html:103
+msgid "Refresh password"
+msgstr ""
+
+#: assets/templates/profile/credential.jet.html:97
+msgid ""
+"\n"
+"      If you forgot your application password or simply want to change it,\n"
+"      you can refresh it to get a new one.\n"
+"    "
 msgstr ""
 
 #: assets/templates/profile/credential_list.jet.html:10
@@ -1552,7 +1543,13 @@ msgstr ""
 msgid "Create a new Application Password"
 msgstr ""
 
-#: assets/templates/profile/credential_list.jet.html:51
+#: assets/templates/profile/credential_list.jet.html:48
+#: assets/templates/profile/token_list.jet.html:54
+#, python-format
+msgid "Last used on: %s"
+msgstr ""
+
+#: assets/templates/profile/credential_list.jet.html:56
 msgid "This password will be removed in a few seconds."
 msgstr ""
 
@@ -1576,6 +1573,14 @@ msgstr ""
 msgid "Current password"
 msgstr ""
 
+#: assets/templates/profile/token.jet.html:1
+msgid "copy token"
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:1
+msgid "copy HTTP header"
+msgstr ""
+
 #: assets/templates/profile/token.jet.html:9
 msgid "API Token"
 msgstr ""
@@ -1588,41 +1593,41 @@ msgstr ""
 msgid "Token ID"
 msgstr ""
 
-#: assets/templates/profile/token.jet.html:39
+#: assets/templates/profile/token.jet.html:44
 msgid "Application"
 msgstr ""
 
-#: assets/templates/profile/token.jet.html:51
+#: assets/templates/profile/token.jet.html:56
 msgid "Expires on"
 msgstr ""
 
-#: assets/templates/profile/token.jet.html:57
+#: assets/templates/profile/token.jet.html:62
 msgid ""
 "\n"
-"    You can limit the permissions granted to this token by choosing one "
-"or more\n"
+"    You can limit the permissions granted to this token by choosing one or more\n"
 "    group of permissions below.<br>\n"
-"    Leave all the choices blank to grant all your permissions to this "
-"token.\n"
+"    Leave all the choices blank to grant all your permissions to this token.\n"
 "  "
 msgstr ""
 
-#: assets/templates/profile/token.jet.html:73
+#: assets/templates/profile/token.jet.html:78
 msgid "Delete token"
 msgstr ""
 
-#: assets/templates/profile/token.jet.html:78
+#: assets/templates/profile/token.jet.html:83
 msgid "API authentication"
 msgstr ""
 
-#: assets/templates/profile/token.jet.html:81
+#: assets/templates/profile/token.jet.html:86
 msgid "Your API token"
 msgstr ""
 
-#: assets/templates/profile/token.jet.html:89
-msgid ""
-"You can use this token by passing it as an <strong>Authorization: "
-"Bearer</strong> HTTP header."
+#: assets/templates/profile/token.jet.html:96
+msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:98
+msgid "HTTP Header"
 msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:10
@@ -1632,36 +1637,33 @@ msgstr ""
 #: assets/templates/profile/token_list.jet.html:16
 msgid ""
 "\n"
-"  An API Token is a key that grants you (or another tool like a browser "
-"extension)\n"
+"  An API Token is a key that grants you (or another tool like a browser extension)\n"
 "  access to the Readeck API.\n"
 msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:20
 #, python-format
-msgid ""
-"Please read the <a href=\"%s\">API Documentation</a> if you plan to use "
-"it."
+msgid "Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
 msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:26
 msgid "Create a new API token"
 msgstr ""
 
-#: assets/templates/profile/token_list.jet.html:48
+#: assets/templates/profile/token_list.jet.html:50
 #, python-format
 msgid "Expires on: %s"
 msgstr ""
 
-#: assets/templates/profile/token_list.jet.html:55
+#: assets/templates/profile/token_list.jet.html:62
 msgid "This token will be removed in a few seconds."
 msgstr ""
 
-#: internal/admin/views.go:81
+#: internal/admin/views.go:80
 msgid "User created."
 msgstr ""
 
-#: internal/admin/views.go:120
+#: internal/admin/views.go:119
 msgid "User updated."
 msgstr ""
 
@@ -1838,23 +1840,23 @@ msgstr ""
 msgid "Browse collection: %s"
 msgstr ""
 
-#: internal/bookmarks/routes/views_bookmarks.go:97
+#: internal/bookmarks/routes/views_bookmarks.go:99
 msgid "All your Bookmarks"
 msgstr ""
 
-#: internal/bookmarks/routes/views_bookmarks.go:102
+#: internal/bookmarks/routes/views_bookmarks.go:104
 msgid "Bookmark Search"
 msgstr ""
 
-#: internal/bookmarks/routes/views_bookmarks.go:106 internal/opds/http.go:58
+#: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:58
 msgid "Unread Bookmarks"
 msgstr ""
 
-#: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:62
+#: internal/bookmarks/routes/views_bookmarks.go:110 internal/opds/http.go:62
 msgid "Archived Bookmarks"
 msgstr ""
 
-#: internal/bookmarks/routes/views_bookmarks.go:110 internal/opds/http.go:66
+#: internal/bookmarks/routes/views_bookmarks.go:112 internal/opds/http.go:66
 msgid "Favorite Bookmarks"
 msgstr ""
 
@@ -1900,19 +1902,19 @@ msgstr ""
 msgid "An error occurred while creating your password."
 msgstr ""
 
-#: internal/profile/views.go:229
+#: internal/profile/views.go:232
 msgid "Password was updated."
 msgstr ""
 
-#: internal/profile/views.go:290
+#: internal/profile/views.go:293
 msgid "An error occurred while creating your token."
 msgstr ""
 
-#: internal/profile/views.go:295
+#: internal/profile/views.go:298
 msgid "New token created."
 msgstr ""
 
-#: internal/profile/views.go:314
+#: internal/profile/views.go:317
 msgid "Token was updated."
 msgstr ""
 
@@ -2163,3 +2165,4 @@ msgstr "%d/%m/%Y"
 msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
+

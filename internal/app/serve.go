@@ -15,6 +15,7 @@ import (
 	"net/url"
 	"os"
 	"os/signal"
+	"strconv"
 	"syscall"
 	"time"
 
@@ -89,7 +90,10 @@ func runServer(_ context.Context, args []string) error {
 	}
 
 	srv := &http.Server{
-		Addr:              fmt.Sprintf("%s:%d", configs.Config.Server.Host, configs.Config.Server.Port),
+		Addr: net.JoinHostPort(
+			configs.Config.Server.Host,
+			strconv.Itoa(configs.Config.Server.Port),
+		),
 		Handler:           s.Router,
 		MaxHeaderBytes:    1 << 20,
 		ReadHeaderTimeout: time.Second * 5,

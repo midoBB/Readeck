@@ -6,8 +6,9 @@
 package metrics
 
 import (
-	"fmt"
+	"net"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/go-chi/chi/v5"
@@ -26,7 +27,7 @@ func ListenAndServe(host string, port int) error {
 	r.Mount("/debug", middleware.Profiler())
 
 	s := &http.Server{
-		Addr:              fmt.Sprintf("%s:%d", host, port),
+		Addr:              net.JoinHostPort(host, strconv.Itoa(port)),
 		Handler:           r,
 		ReadHeaderTimeout: time.Second * 1,
 	}

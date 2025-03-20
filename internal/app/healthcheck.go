@@ -10,6 +10,7 @@ import (
 	"flag"
 	"fmt"
 	"net"
+	"strconv"
 
 	"github.com/cristalhq/acmd"
 
@@ -42,10 +43,9 @@ func runHealthcheck(_ context.Context, args []string) error {
 	}
 
 	// Try to open a TCP connection to the HTTP server.
-	conn, err := net.Dial("tcp", fmt.Sprintf(
-		"%s:%d",
+	conn, err := net.Dial("tcp", net.JoinHostPort(
 		configs.Config.Server.Host,
-		configs.Config.Server.Port,
+		strconv.Itoa(configs.Config.Server.Port),
 	))
 	if err != nil {
 		return errors.Join(err, errors.New("Readeck server does not answer"))

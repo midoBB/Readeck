@@ -7,9 +7,11 @@ package migrations
 import (
 	"database/sql/driver"
 	"encoding/json"
+	"errors"
 	"io/fs"
 	"log/slog"
 	"os"
+	"path"
 	"path/filepath"
 	"time"
 
@@ -67,10 +69,15 @@ func (a m16BbookmarkAnnotations) Value() (driver.Value, error) {
 // base-58 encoded ones. It then renames all files in the data/bookmarks folder
 // so they match the new IDs.
 func M16uuidFields(db *goqu.TxDatabase, _ fs.FS) error {
-	type postUpdate func(table string, ids []int) error
+	type postUpdate func(table string, id int) error
 	var updateTable func(table string, column string, fn postUpdate) error
 
-	rootPath := filepath.Join(configs.Config.Main.DataDirectory, "bookmarks")
+	renameMap := [][2]string{}
+
+	type rowUpdate struct {
+		id  int
+		uid string
+	}
 
 	type bookmarkFile struct {
 		ID          int                     `db:"id"`
@@ -79,64 +86,34 @@ func M16uuidFields(db *goqu.TxDatabase, _ fs.FS) error {
 		Annotations m16BbookmarkAnnotations `db:"annotations"`
 	}
 
-	renameBookmarkFile := func(table string, ids []int) error {
-		var records []bookmarkFile
+	renameBookmarkFile := func(table string, id int) error {
+		var bf bookmarkFile
 
-		ds := db.Select().From(table).Where(goqu.C("id").In(ids))
-		if err := ds.ScanStructs(&records); err != nil {
+		if _, err := db.Select().From(table).Where(goqu.C("id").Eq(id)).ScanStruct(&bf); err != nil {
 			return err
 		}
 
 		// Update annotations
-		for _, x := range records {
-			if len(x.Annotations) == 0 {
-				continue
+		record := map[string]any{}
+		if len(bf.Annotations) > 0 {
+			for i := range bf.Annotations {
+				bf.Annotations[i].ID = base58.NewUUID()
 			}
-
-			for i := range x.Annotations {
-				x.Annotations[i].ID = base58.NewUUID()
-			}
-			if _, err := db.Update(table).Set(map[string]any{
-				"annotations": x.Annotations,
-			}).Where(goqu.C("id").Eq(x.ID)).Executor().Exec(); err != nil {
-				return err
-			}
+			record["annotations"] = bf.Annotations
 		}
 
 		// Update file_path
-		pathCases := goqu.Case()
-		nameMap := map[string]string{}
+		newPath := path.Join(bf.UID[0:2], bf.UID)
+		record["file_path"] = newPath
 
-		for _, x := range records {
-			newPath := filepath.Join(x.UID[0:2], x.UID)
-			pathCases = pathCases.When(goqu.C("id").Eq(x.ID), newPath)
-			nameMap[x.FilePath] = newPath
-		}
-
-		if _, err := db.Update(table).Set(goqu.Record{"file_path": pathCases}).Executor().Exec(); err != nil {
+		if _, err := db.Update(table).
+			Set(record).
+			Where(goqu.C("id").Eq(bf.ID)).
+			Executor().Exec(); err != nil {
 			return err
 		}
 
-		// Move files
-		for oldPath, newPath := range nameMap {
-			oldPath = filepath.Join(rootPath, oldPath+".zip")
-			newPath = filepath.Join(rootPath, newPath+".zip")
-			slog.Debug("moving files",
-				slog.String("old", oldPath),
-				slog.String("new", newPath),
-			)
-
-			// Move file
-			if err := os.MkdirAll(filepath.Dir(newPath), 0o750); err != nil {
-				return err
-			}
-			if err := os.Rename(oldPath, newPath); err != nil {
-				return err
-			}
-
-			// Remove old parent directory (will err if not empty)
-			_ = os.Remove(filepath.Dir(oldPath))
-		}
+		renameMap = append(renameMap, [2]string{bf.FilePath, newPath})
 
 		return nil
 	}
@@ -147,8 +124,7 @@ func M16uuidFields(db *goqu.TxDatabase, _ fs.FS) error {
 			return err
 		}
 
-		c := goqu.Case()
-		ids := []int{}
+		updates := []rowUpdate{}
 
 		for ds.Next() {
 			var id int
@@ -157,24 +133,28 @@ func M16uuidFields(db *goqu.TxDatabase, _ fs.FS) error {
 				return err
 			}
 			newUID := base58.NewUUID()
-			c = c.When(goqu.C("id").Eq(id), newUID)
-			ids = append(ids, id)
+			updates = append(updates, rowUpdate{
+				id:  id,
+				uid: newUID,
+			})
 		}
 
-		// Stop when nothing needs updating
-		if len(c.GetWhens()) == 0 {
-			return nil
+		for _, x := range updates {
+			if _, err = db.Update(table).Set(goqu.Record{
+				column: x.uid,
+			}).Where(
+				goqu.C("id").Eq(x.id),
+			).Executor().Exec(); err != nil {
+				return err
+			}
+			if fn != nil {
+				if err = fn(table, x.id); err != nil {
+					return err
+				}
+			}
 		}
 
-		if _, err := db.Update(table).Set(goqu.Record{column: c}).Executor().Exec(); err != nil {
-			return err
-		}
-
-		if fn == nil {
-			return nil
-		}
-
-		return fn(table, ids)
+		return nil
 	}
 
 	tables := []struct {
@@ -194,5 +174,56 @@ func M16uuidFields(db *goqu.TxDatabase, _ fs.FS) error {
 		}
 	}
 
-	return nil
+	// Database operations are done, we can now proceed with renaming files.
+	curroot := filepath.Join(configs.Config.Main.DataDirectory, "bookmarks")
+	newroot := filepath.Join(configs.Config.Main.DataDirectory, "bookmarks-new")
+
+	// Create a new bookmark folder
+	if err := os.Mkdir(newroot, 0o750); err != nil {
+		return err
+	}
+
+	// We hardlink new bookmark files into a new folder.
+	// If something goes wrong, the new folder is removed and
+	// the DB transaction is rolledback.
+	if err := func() error {
+		for _, x := range renameMap {
+			oldpath, newpath := x[0], x[1]
+			newpath = filepath.Join(newroot, newpath) + ".zip"
+			oldpath = filepath.Join(curroot, oldpath) + ".zip"
+
+			slog.Debug("link file",
+				slog.String("old", oldpath),
+				slog.String("new", newpath),
+			)
+
+			_, err := os.Stat(oldpath)
+			if errors.Is(err, os.ErrNotExist) {
+				slog.Warn("file does not exist", slog.String("path", oldpath))
+			}
+
+			if err = os.MkdirAll(filepath.Dir(newpath), 0o750); err != nil {
+				return err
+			}
+
+			// Hardlink new file
+			if err := os.Link(oldpath, newpath); err != nil {
+				if !errors.Is(err, os.ErrExist) {
+					return err
+				}
+			}
+		}
+		return nil
+	}(); err != nil {
+		if err := os.RemoveAll(newroot); err != nil {
+			slog.Error("removing new folder", slog.String("path", newroot))
+		}
+		return err
+	}
+
+	// Remove old bookmark folder and rename the new one
+	if err := os.RemoveAll(curroot); err != nil {
+		return err
+	}
+	return os.Rename(newroot, curroot)
 }

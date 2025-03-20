@@ -75,7 +75,7 @@ func (p Policy) Write(h http.Header) {
 }
 
 // MakeNonce returns a random nonce value.
-// It's a 128bit hex string based on a random UUIDv4.
+// It's an hex encoded 128-bit random value.
 func MakeNonce() string {
 	n := make([]byte, 16)
 	_, err := io.ReadFull(rand.Reader, n)

@@ -161,7 +161,7 @@ func (v *profileViews) userSession(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	sess.Save(r, w)
+	sess.Save(w, r)
 	v.srv.Render(w, r, http.StatusOK, updated)
 }
 
@@ -191,7 +191,7 @@ func (v *profileViews) credentialCreate(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	c, passphrase, err := credentials.Credentials.GenerateCredential(auth.GetRequestUser(r).ID)
+	c, passphrase, err := credentials.Credentials.GenerateCredential(auth.GetRequestUser(r))
 	if err != nil {
 		v.srv.Log(r).Error("server error", slog.Any("err", err))
 		v.srv.AddFlash(w, r, "error", tr.Gettext("An error occurred while creating your password."))
@@ -223,9 +223,12 @@ func (v *profileViews) credentialInfo(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		forms.Bind(f, r)
 		if f.IsValid() {
-			if err := f.updateCredential(ci.Credential); err != nil {
+			if passphrase, err := f.updateCredential(ci.Credential); err != nil {
 				v.srv.Log(r).Error("", slog.Any("err", err))
 			} else {
+				if passphrase != "" {
+					v.srv.AddFlash(w, r, "_passphrase", passphrase)
+				}
 				v.srv.AddFlash(w, r, "success", tr.Gettext("Password was updated."))
 				v.srv.Redirect(w, r, ci.UID)
 				return
@@ -319,16 +322,16 @@ func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
 
-	jwt, err := tokens.NewJwtToken(ti.UID)
+	token, err := tokens.EncodeToken(ti.UID)
 	if err != nil {
 		v.srv.Status(w, r, http.StatusInternalServerError)
 		return
 	}
 
 	ctx := server.TC{
-		"Token": ti,
-		"JWT":   jwt,
-		"Form":  f,
+		"Token":   ti,
+		"Encoded": token,
+		"Form":    f,
 	}
 	ctx.SetBreadcrumbs([][2]string{
 		{tr.Gettext("Profile"), v.srv.AbsoluteURL(r, "/profile").String()},

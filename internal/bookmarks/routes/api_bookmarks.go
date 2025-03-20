@@ -837,7 +837,7 @@ func (api *apiRouter) withSharedLink(next http.Handler) http.Handler {
 			time.Duration(configs.Config.Bookmarks.PublicShareTTL) * time.Hour,
 		)
 
-		rr, err := bookmarks.EncryptID(uint64(b.ID), expires)
+		rr, err := bookmarks.EncodeID(uint64(b.ID), expires)
 		if err != nil {
 			api.srv.Error(w, r, err)
 			return

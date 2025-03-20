@@ -6,9 +6,6 @@
 package configs
 
 import (
-	"crypto/ed25519"
-	"crypto/hmac"
-	"crypto/sha512"
 	"encoding/json"
 	"fmt"
 	"log/slog"
@@ -31,12 +28,6 @@ var (
 
 	trustedProxies     []*net.IPNet
 	extractorDeniedIPs []*net.IPNet
-
-	cookieHk []byte
-	cookieBk []byte
-	csrfKey  []byte
-	jwtSk    ed25519.PrivateKey
-	jwtPk    ed25519.PublicKey
 )
 
 func init() {
@@ -55,7 +46,6 @@ type config struct {
 	Worker       configWorker    `json:"worker"`
 	Metrics      configMetrics   `json:"metrics"`
 	Commissioned bool            `json:"-"`
-	secretKey    []byte
 }
 
 type configMain struct {
@@ -236,7 +226,7 @@ var Config = config{
 		Port: 8000,
 		Session: configSession{
 			CookieName: "sxid",
-			MaxAge:     86400 * 30, // 60 days
+			MaxAge:     86400 * 30, // 30 days
 		},
 		TrustedProxies: []configIPNet{
 			newConfigIPNet("127.0.0.0/8"),
@@ -308,9 +298,8 @@ func InitConfiguration() {
 
 	// Pad the secret key with its own checksum to have a
 	// long enough byte list.
-	h := sha512.Sum512([]byte(Config.Main.SecretKey))
-	Config.secretKey = append([]byte(Config.Main.SecretKey), h[:]...)
 
+	// Load encryption and signing keys
 	loadKeys()
 
 	// Load the IP ranges
@@ -323,50 +312,6 @@ func InitConfiguration() {
 	for i, x := range Config.Extractor.DeniedIPs {
 		extractorDeniedIPs[i] = x.IPNet
 	}
-}
-
-// loadKeys prepares all the keys derivated from the configuration's
-// secret key.
-func loadKeys() {
-	cookieHk = HashValue([]byte("cookie-hash-key"))[32:64]
-	cookieBk = HashValue([]byte("cookie-block-key"))[32:64]
-	csrfKey = HashValue([]byte("csrf-key"))[32:64]
-
-	jwtSk = ed25519.NewKeyFromSeed(Config.secretKey[32:64])
-	jwtPk = jwtSk.Public().(ed25519.PublicKey)
-}
-
-// HashValue returns the hash of the given value, encoded using the
-// main secret key.
-func HashValue(s []byte) []byte {
-	mac := hmac.New(sha512.New, Config.secretKey)
-	mac.Write(s)
-	return mac.Sum(nil)
-}
-
-// CookieHashKey returns the key used by session cookies.
-func CookieHashKey() []byte {
-	return cookieHk
-}
-
-// CookieBlockKey returns the key used by session cookies.
-func CookieBlockKey() []byte {
-	return cookieBk
-}
-
-// CsrfKey returns the key used by CSRF protection.
-func CsrfKey() []byte {
-	return csrfKey
-}
-
-// JwtSk returns the private key for JWT handlers.
-func JwtSk() ed25519.PrivateKey {
-	return jwtSk
-}
-
-// JwtPk returns the public key for JWT handlers.
-func JwtPk() ed25519.PublicKey {
-	return jwtPk
 }
 
 // TrustedProxies returns the value of Config.Server.TrustedProxies

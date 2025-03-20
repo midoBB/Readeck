@@ -5,55 +5,52 @@
 package sessions_test
 
 import (
+	"crypto/rand"
+	"io"
+	"net/http"
 	"net/http/httptest"
 	"testing"
-	"time"
 
 	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/internal/sessions"
+	"codeberg.org/readeck/readeck/pkg/securecookie"
 )
 
 func TestSession(t *testing.T) {
-	hk := []byte("aaa0defe5d2839cbc46fc4f080cd7adc")
-	bk := []byte("aaa0defe5d2839cbc46fc4f080cd7adc")
+	k := make([]byte, 32)
+	_, _ = io.ReadFull(rand.Reader, k)
+	h := securecookie.NewHandler(securecookie.Key(k))
 
 	t.Run("new session", func(t *testing.T) {
 		assert := require.New(t)
-		handler := sessions.NewHandler("sid", hk, bk)
 
 		r := httptest.NewRequest("GET", "/", nil)
-		session, err := handler.New(r)
-		assert.NoError(err)
+		session, err := sessions.New(h, r)
+		assert.ErrorIs(err, http.ErrNoCookie)
 		assert.True(session.IsNew)
 	})
 
 	t.Run("load session", func(t *testing.T) {
 		assert := require.New(t)
-		handler := sessions.NewHandler("sid", hk, bk,
-			sessions.MaxAge(60),
-			sessions.Path("/test"),
-		)
 
 		r := httptest.NewRequest("GET", "/test", nil)
 		w := httptest.NewRecorder()
-		session, err := handler.New(r)
-		assert.NoError(err)
+		session, err := sessions.New(h, r)
+		assert.ErrorIs(err, http.ErrNoCookie)
 		assert.True(session.IsNew)
 
 		session.Payload.User = 2
 		session.AddFlash("info", "woot")
-		assert.NoError(session.Save(r, w))
+		assert.NoError(session.Save(w, r))
 		assert.Len(w.Result().Cookies(), 1)
 
 		cookie := w.Result().Cookies()[0]
-		assert.Equal("/test", cookie.Path)
-		assert.True(cookie.HttpOnly)
 
 		// Load the session
 		r = httptest.NewRequest("GET", "/test", nil)
 		r.AddCookie(cookie)
-		session, err = handler.New(r)
+		session, err = sessions.New(h, r)
 		assert.NoError(err)
 		assert.False(session.IsNew)
 		assert.Equal(2, session.Payload.User)
@@ -62,14 +59,10 @@ func TestSession(t *testing.T) {
 
 	t.Run("flash", func(t *testing.T) {
 		assert := require.New(t)
-		handler := sessions.NewHandler("sid", hk, bk,
-			sessions.MaxAge(60),
-			sessions.Path("/test"),
-		)
 
 		r := httptest.NewRequest("GET", "/", nil)
-		session, err := handler.New(r)
-		assert.NoError(err)
+		session, err := sessions.New(h, r)
+		assert.ErrorIs(err, http.ErrNoCookie)
 		session.AddFlash("info", "woot")
 
 		assert.Len(session.Payload.Flashes, 1)
@@ -80,41 +73,5 @@ func TestSession(t *testing.T) {
 		assert.Equal([]sessions.FlashMessage{
 			{"info", "woot"},
 		}, flashes)
-	})
-
-	t.Run("ttl", func(t *testing.T) {
-		assert := require.New(t)
-		handler := sessions.NewHandler("sid", hk, bk,
-			sessions.MaxAge(1),
-			sessions.Path("/test"),
-		)
-
-		r := httptest.NewRequest("GET", "/test", nil)
-		w := httptest.NewRecorder()
-		session, err := handler.New(r)
-		assert.NoError(err)
-		assert.True(session.IsNew)
-
-		err = session.Save(r, w)
-		assert.NoError(err)
-		assert.Len(w.Result().Cookies(), 1)
-
-		cookie := w.Result().Cookies()[0]
-
-		// Load the session
-		r = httptest.NewRequest("GET", "/test", nil)
-		r.AddCookie(cookie)
-		session, err = handler.New(r)
-		assert.NoError(err)
-		assert.False(session.IsNew)
-
-		// Cannot use the cookie after expiration, event if forged
-		time.Sleep(2 * time.Second)
-		r = httptest.NewRequest("GET", "/test", nil)
-		r.AddCookie(cookie)
-		session, err = handler.New(r)
-		assert.True(session.IsNew)
-		assert.Error(err)
-		assert.Equal("securecookie: expired timestamp", err.Error())
 	})
 }

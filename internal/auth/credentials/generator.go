@@ -6,7 +6,9 @@ package credentials
 
 import (
 	"bufio"
+	cryptorand "crypto/rand"
 	"embed"
+	"encoding/binary"
 	"fmt"
 	"io"
 	"math/rand/v2"
@@ -41,7 +43,9 @@ func MakePassphrase(size int) (string, error) {
 
 	s := f.(io.ReadSeeker)
 
-	choice := rand.Perm(len(wordIndex))
+	r := rand.New(&cryptorandSource{}) //nolint:gosec
+
+	choice := r.Perm(len(wordIndex))
 	res := make([]string, size)
 	for i := range res {
 		if _, err = s.Seek(int64(wordIndex[choice[i]][0]), io.SeekStart); err != nil {
@@ -55,4 +59,14 @@ func MakePassphrase(size int) (string, error) {
 	}
 
 	return strings.Join(res, " "), nil
+}
+
+type cryptorandSource struct{}
+
+func (c *cryptorandSource) Uint64() uint64 {
+	var b [8]byte
+	if _, err := io.ReadFull(cryptorand.Reader, b[:]); err != nil {
+		panic(err)
+	}
+	return binary.LittleEndian.Uint64(b[:])
 }

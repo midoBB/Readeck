@@ -82,22 +82,27 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <h2 class="title text-h3">{{ gettext("API authentication") }}</h2>
 
-<div class="w-full mb-6" data-controller="clipboard">
+<div class="w-full mb-6 field" data-controller="clipboard">
   <label class="font-semibold">{{ gettext("Your API token") }}</label>
-  <button class="link" type="button" data-action="clipboard#copy">
-    {{- yield icon(name="o-copy") -}}
-  </button>
-  <textarea readonly="1" class="form-textarea w-full h-24"
-  data-clipboard-target="content">{{ .JWT }}</textarea>
+  <span class="inline-flex w-full form-input p-0">
+    <input type="text" readonly class="grow p-2 rounded ring-0 ring-offset-0" data-clipboard-target="content" value="{{ .Encoded }}">
+    <button class="btn btn-primary rounded-none rounded-r" type="button" data-action="clipboard#copy"
+     title="{{ gettext(`copy token`) }}">
+      {{- yield icon(name="o-copy") -}}
+    </button>
+  </span>
 </div>
 
 <p class="mb-2">{{ gettext("You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header.")|raw }}</p>
-<div class="w-full mb-4" data-controller="clipboard">
-  <label class="font-semibold">HTTP Header</label>
-  <button class="link" type="button" data-action="clipboard#copy">
-    {{- yield icon(name="o-copy") -}}
-  </button>
-  <textarea readonly="1" class="form-textarea w-full h-28"
-  data-clipboard-target="content">Authorization: Bearer {{ .JWT }}</textarea>
+<div class="w-full mb-6 field" data-controller="clipboard">
+  <label class="font-semibold">{{ gettext("HTTP Header") }}</label>
+  <span class="inline-flex w-full form-input p-0">
+    <input type="text" readonly class="grow rounded p-2 ring-0 ring-offset-0" data-clipboard-target="content"
+     value="Authorization: Bearer {{ .Encoded }}">
+    <button class="btn btn-primary rounded-none rounded-r" type="button" data-action="clipboard#copy"
+     title="{{ gettext(`copy HTTP header`) }}">
+      {{- yield icon(name="o-copy") -}}
+    </button>
+  </span>
 </div>
 {{ end }}

@@ -17,13 +17,18 @@
 - Updated Go to 1.24
 - New SQLite, CGO-free driver. Important: it won't run with `MemoryDenyWriteExecute=yes` in the systemd service file.
 - New internal form API
+- New secure cookie for session and CSRF protection
 
 ### Fixed
 - Safari display bug with "details" HTML elements in bookmarks
-- Safari bug when creating highlights
+- Regression with Safari when creating highlights
 
 ### Breaking changes
 - All bookmark internal URLs have changed
+- New API token format. Previous token format won't work anymore.
+- New secret key derivation scheme. Application password must be refreshed.
+- When using the browser extension, you must logout and login again.
+- `MemoryDenyWriteExecute=yes` must be removed from the systemd service (see above).
 
 ## [0.17.1] - 2025-01-15
 ### Fixed

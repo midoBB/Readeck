@@ -5,7 +5,6 @@
 package configs
 
 import (
-	"fmt"
 	"log/slog"
 	"os"
 	"testing"
@@ -13,24 +12,16 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestGenerateKey(t *testing.T) {
-	lengths := [][2]int{
-		{8, 10},
-		{10, 20},
+func FuzzGenerateKey(f *testing.F) {
+	for i := range 50 {
+		f.Add(i)
 	}
 
-	for _, test := range lengths {
-		t.Run(fmt.Sprintf("%d - %d", test[0], test[1]), func(t *testing.T) {
-			k := GenerateKey(test[0], test[1])
-			require.GreaterOrEqual(t, len(k), test[0])
-			require.LessOrEqual(t, len(k), test[1])
-		})
-	}
-
-	t.Run("error", func(t *testing.T) {
-		require.Panics(t, func() {
-			_ = GenerateKey(5, 5)
-		})
+	f.Fuzz(func(t *testing.T, _ int) {
+		k := GenerateKey()
+		if len(k) != 64 {
+			t.Fatalf("wrong length, got: %d, wanted %d", len(k), 64)
+		}
 	})
 }
 

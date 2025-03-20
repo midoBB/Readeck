@@ -37,13 +37,13 @@ func (p *TokenAuthProvider) Authenticate(w http.ResponseWriter, r *http.Request)
 		return r, errors.New("invalid authentication header")
 	}
 
-	claims, err := tokens.GetJwtClaims(token)
+	uid, err := tokens.DecodeToken(token)
 	if err != nil {
 		p.denyAccess(w)
 		return r, err
 	}
 
-	res, err := tokens.Tokens.GetUser(claims.ID)
+	res, err := tokens.Tokens.GetUser(uid)
 	if err != nil {
 		p.denyAccess(w)
 		return r, err
@@ -57,7 +57,7 @@ func (p *TokenAuthProvider) Authenticate(w http.ResponseWriter, r *http.Request)
 
 	if res.Token.IsExpired() {
 		p.denyAccess(w)
-		return r, nil
+		return r, errors.New("expired token")
 	}
 
 	return SetRequestAuthInfo(r, &Info{

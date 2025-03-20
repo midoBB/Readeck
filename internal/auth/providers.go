@@ -7,7 +7,10 @@ package auth
 
 import (
 	"context"
+	"log/slog"
 	"net/http"
+
+	"github.com/go-chi/chi/v5/middleware"
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
 )
@@ -127,6 +130,10 @@ func Required(next http.Handler) http.Handler {
 		provider := GetRequestProvider(r)
 		r, err := provider.Authenticate(w, r)
 		if err != nil {
+			slog.Error("authentication error",
+				slog.String("@id", middleware.GetReqID(r.Context())),
+				slog.Any("err", err),
+			)
 			w.WriteHeader(http.StatusForbidden)
 			return
 		}
@@ -134,6 +141,15 @@ func Required(next http.Handler) http.Handler {
 		if GetRequestUser(r).IsAnonymous() {
 			w.WriteHeader(http.StatusForbidden)
 			return
+		}
+
+		if slog.Default().Enabled(context.Background(), slog.LevelDebug) {
+			authInfo := GetRequestAuthInfo(r)
+			slog.Debug("authenticated user",
+				slog.String("provider", authInfo.Provider.Name),
+				slog.String("id", authInfo.Provider.ID),
+				slog.String("user", authInfo.User.Username),
+			)
 		}
 
 		next.ServeHTTP(w, r)

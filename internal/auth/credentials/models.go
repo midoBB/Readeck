@@ -7,7 +7,6 @@
 package credentials
 
 import (
-	"encoding/binary"
 	"errors"
 	"strings"
 	"time"
@@ -100,7 +99,7 @@ func (m *Manager) GetUser(username, password string) (*UserCredential, error) {
 	// Prepare the credential and hash the given password for
 	// the query against the credential table
 	c := &Credential{UserID: &u.ID}
-	hash, err := c.HashPassword(password)
+	hash, err := HashPassword(u, password)
 	if err != nil {
 		return nil, err
 	}
@@ -147,21 +146,18 @@ func (m *Manager) Create(c *Credential) error {
 }
 
 // GenerateCredential creates a new credential with a random name and passphrase.
-// It returns the Credential instance, the unencrypted passphrase and an error if any.
-func (m *Manager) GenerateCredential(userID int) (c *Credential, passphrase string, err error) {
+// It returns the [Credential] instance, the unencrypted passphrase and an error if any.
+func (m *Manager) GenerateCredential(user *users.User) (c *Credential, cleartext string, err error) {
 	var name string
-	if passphrase, err = MakePassphrase(6); err != nil {
-		return
-	}
 	if name, err = MakePassphrase(2); err != nil {
 		return
 	}
 	c = &Credential{
-		UserID:    &userID,
+		UserID:    &user.ID,
 		IsEnabled: true,
 		Name:      cases.Title(language.AmericanEnglish).String(name),
 	}
-	if c.Password, err = c.HashPassword(passphrase); err != nil {
+	if cleartext, err = c.NewPassphrase(user); err != nil {
 		c = nil
 		return
 	}
@@ -171,7 +167,7 @@ func (m *Manager) GenerateCredential(userID int) (c *Credential, passphrase stri
 }
 
 // Update updates some user values.
-func (c *Credential) Update(v interface{}) error {
+func (c *Credential) Update(v any) error {
 	if c.ID == 0 {
 		return errors.New("no ID")
 	}
@@ -198,14 +194,27 @@ func (c *Credential) Delete() error {
 	return err
 }
 
-// HashPassword returns a new hashed password.
-func (c *Credential) HashPassword(password string) (string, error) {
-	if c.UserID == nil {
-		return "", errors.New("no user id")
+// NewPassphrase creates a new passphrase and adds its hash to the
+// [Credential.Password] field.
+// It returns the cleartext passphrase.
+func (c *Credential) NewPassphrase(user *users.User) (cleartext string, err error) {
+	if cleartext, err = MakePassphrase(6); err != nil {
+		return "", err
 	}
+	if c.Password, err = HashPassword(user, cleartext); err != nil {
+		return "", err
+	}
+	return cleartext, nil
+}
 
-	// We create a salt based on the user ID, using the main secret key to get a strong hash.
-	salt := configs.HashValue(binary.AppendVarint([]byte{}, int64(*c.UserID)))[16:48]
+// HashPassword returns a new hashed password.
+func HashPassword(user *users.User, password string) (string, error) {
+	// We create a salt based on the user UID, expanding the main PRK
+	// so we have a per user salt.
+	salt, err := configs.Keys.Expand("credential_"+user.UID, 16)
+	if err != nil {
+		return "", err
+	}
 
 	// Direct call to argon2 hashing, using the salt and strong defaults
 	return argon2.Argon2(password, salt, argonTime, argonMemory, argonThreads), nil

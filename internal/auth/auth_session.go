@@ -42,7 +42,7 @@ func (p *SessionAuthProvider) Authenticate(w http.ResponseWriter, r *http.Reques
 
 	// At this point, the user is granted access.
 	// We renew its session for another max age duration.
-	sess.Save(r, w)
+	sess.Save(w, r)
 	return SetRequestAuthInfo(r, &Info{
 		Provider: &ProviderInfo{
 			Name: "http session",
@@ -72,7 +72,6 @@ func (p *SessionAuthProvider) checkSession(sess *sessions.Session) (u *users.Use
 }
 
 func (p *SessionAuthProvider) clearSession(sess *sessions.Session, w http.ResponseWriter, r *http.Request) {
-	sess.MaxAge = -1
-	sess.Save(r, w)
+	sess.Clear(w, r)
 	p.UnauthorizedHandler(w, r)
 }

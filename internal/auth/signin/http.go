@@ -82,7 +82,10 @@ func (h *authHandler) login(w http.ResponseWriter, r *http.Request) {
 				sess := h.srv.GetSession(r)
 				sess.Payload.User = user.ID
 				sess.Payload.Seed = user.Seed
-				sess.Save(r, w)
+				sess.Save(w, r)
+
+				// Renew CSRF token
+				h.srv.RenewCsrf(w, r)
 
 				// Get redirection from a form "redirect" parameter
 				// Since it goes to Redirect(), it will be sanitized there
@@ -109,12 +112,12 @@ func (h *authHandler) login(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *authHandler) logout(w http.ResponseWriter, r *http.Request) {
+	// Clear session
 	sess := h.srv.GetSession(r)
-	sess.MaxAge = -1
-	if err := sess.Save(r, w); err != nil {
-		h.srv.Error(w, r, err)
-		return
-	}
+	sess.Clear(w, r)
+
+	// Renew CSRF token
+	h.srv.RenewCsrf(w, r)
 
 	h.srv.Redirect(w, r, "/login")
 }

@@ -19,7 +19,6 @@ import (
 	"time"
 
 	"github.com/CloudyKit/jet/v6"
-	"github.com/gorilla/csrf"
 	"github.com/skip2/go-qrcode"
 
 	"codeberg.org/readeck/readeck/assets"
@@ -27,6 +26,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/profile/preferences"
 	"codeberg.org/readeck/readeck/locales"
+	"codeberg.org/readeck/readeck/pkg/csrf"
 	"codeberg.org/readeck/readeck/pkg/glob"
 	"codeberg.org/readeck/readeck/pkg/libjet"
 	"codeberg.org/readeck/readeck/pkg/strftime"

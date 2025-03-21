@@ -22,7 +22,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/locales"
-	"codeberg.org/readeck/readeck/pkg/csp"
+	"codeberg.org/readeck/readeck/pkg/http/csp"
 )
 
 type (

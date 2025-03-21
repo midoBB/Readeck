@@ -17,7 +17,7 @@ import (
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/server"
-	"codeberg.org/readeck/readeck/pkg/csp"
+	"codeberg.org/readeck/readeck/pkg/http/csp"
 )
 
 type ctxNameKey struct{}

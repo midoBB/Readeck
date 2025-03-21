@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"testing"
 
-	"codeberg.org/readeck/readeck/pkg/csp"
+	"codeberg.org/readeck/readeck/pkg/http/csp"
 	"github.com/stretchr/testify/require"
 )
 

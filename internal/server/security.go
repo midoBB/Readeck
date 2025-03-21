@@ -17,8 +17,9 @@ import (
 	"strings"
 
 	"codeberg.org/readeck/readeck/configs"
-	"codeberg.org/readeck/readeck/pkg/csp"
+	"codeberg.org/readeck/readeck/pkg/http/csp"
 	"codeberg.org/readeck/readeck/pkg/http/forwarded"
+	"codeberg.org/readeck/readeck/pkg/http/permissions"
 )
 
 type (
@@ -181,6 +182,8 @@ func GetCSPHeader(r *http.Request) csp.Policy {
 
 // SetSecurityHeaders adds some headers to improve client side security.
 func (s *Server) SetSecurityHeaders(next http.Handler) http.Handler {
+	permissionsPolicy := permissions.DefaultPolicy.String()
+
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var nonce string
 		if nonce = r.Header.Get("x-turbo-nonce"); nonce == "" {
@@ -193,7 +196,7 @@ func (s *Server) SetSecurityHeaders(next http.Handler) http.Handler {
 		policy.Add("report-uri", s.AbsoluteURL(r, "/logger/csp-report").String())
 
 		policy.Write(w.Header())
-		w.Header().Set("Permissions-Policy", "interest-cohort=()")
+		w.Header().Set(permissions.HeaderName, permissionsPolicy)
 		w.Header().Set("Referrer-Policy", "same-origin, strict-origin")
 		w.Header().Add("X-Frame-Options", "DENY")
 		w.Header().Add("X-Content-Type-Options", "nosniff")

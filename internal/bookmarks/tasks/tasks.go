@@ -291,7 +291,7 @@ func extractPageHandler(data interface{}) {
 		meta.ExtractFavicon,
 		meta.ExtractPicture,
 		contentscripts.LoadSiteConfig,
-		contentscripts.ReplaceStrings,
+		conditionnalProcessor(params.FindMain, contentscripts.ReplaceStrings),
 		// Only when the page is not in cache
 		conditionnalProcessor(!ex.IsInCache(b.URL), contentscripts.FindContentPage),
 		conditionnalProcessor(!ex.IsInCache(b.URL), contentscripts.FindNextPage),
@@ -299,8 +299,8 @@ func extractPageHandler(data interface{}) {
 		contentscripts.ExtractDate,
 		// Default is true but the request can override this
 		conditionnalProcessor(params.FindMain, contentscripts.ExtractBody),
-		contentscripts.StripTags,
-		contentscripts.GoToNextPage,
+		conditionnalProcessor(params.FindMain, contentscripts.StripTags),
+		conditionnalProcessor(params.FindMain, contentscripts.GoToNextPage),
 		contents.ExtractInlineSVGs,
 		contents.Readability(),
 		CleanDomProcessor,

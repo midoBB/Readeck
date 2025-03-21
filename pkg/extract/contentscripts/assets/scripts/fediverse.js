@@ -22,7 +22,27 @@ exports.processMeta = function () {
     return
   }
 
+  // Store the date
   $.meta["html.date"] = notes[0].published
+
+  if ($.readability === false) {
+    return
+  }
+
+  // Filter notes by their context, everything that does not announce a toot
+  // is to be removed in order to avoid fetching wordpress "notes".
+  if (!Array.isArray(notes[0].context) || notes[0].context.length == 0) {
+    return
+  }
+  const tootContext = notes[0].context.find((x) => {
+    if (typeof x != "object") {
+      return false
+    }
+    return x.toot !== undefined
+  })
+  if (!tootContext) {
+    return
+  }
 
   // Only one post and the first attachment is a video, document is a video.
   const isVideo =
@@ -47,7 +67,6 @@ exports.processMeta = function () {
       notes[0].attachment.shift()
       break
     case isPicture:
-      console.log(JSON.stringify(notes, null, "  "))
       $.type = "photo"
       $.meta["x.picture_url"] = notes[0].attachment[0].url
       notes[0].attachment.shift()
@@ -84,6 +103,7 @@ function loadNotes(url, notes) {
   const data = rsp.json()
 
   const note = {
+    context: data["@context"],
     published: data.published,
     attachment: data.attachment || [],
     html: data.content,

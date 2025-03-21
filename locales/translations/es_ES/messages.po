@@ -6,15 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-03-20 06:17+0000\n"
-"PO-Revision-Date: 2024-11-22 18:25+0000\n"
-"Last-Translator: Anonymous <anonymous@users.noreply.translate.codeberg.org>\n"
+"POT-Creation-Date: 2025-03-17 09:27+0000\n"
+"PO-Revision-Date: 2025-03-20 06:22+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fito@noreply.codeberg.org>\n"
+"Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/"
+"application/es/>\n"
 "Language: es_ES\n"
-"Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/application/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -35,7 +37,7 @@ msgstr "Contenido principal"
 
 #: assets/templates/_layouts/sidemenu.jet.html:46
 msgid "Close menu"
-msgstr ""
+msgstr "Cerrar menú"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Quick access menu"
@@ -419,12 +421,12 @@ msgstr "Colecciones"
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:80
 msgid "Close panel"
-msgstr ""
+msgstr "Cerrar panel"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:111
 msgid "Bookmark information"
-msgstr ""
+msgstr "Información del marcador"
 
 #: assets/templates/bookmarks/bookmark.jet.html:12
 msgid "Bookmark loading"
@@ -437,7 +439,7 @@ msgstr "El marcador se está cargando"
 #: assets/templates/bookmarks/bookmark_missing.jet.html:9
 #: assets/templates/bookmarks/bookmark_missing.jet.html:14
 msgid "Bookmark not found"
-msgstr ""
+msgstr "No se encontró el marcador"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:13
 msgid "Shared link"
@@ -477,7 +479,7 @@ msgstr "Compartido por %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:66
 msgid "with"
-msgstr ""
+msgstr "con"
 
 # | msgid "Saved with Readeck"
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
@@ -513,7 +515,7 @@ msgstr "Editar"
 #: assets/templates/bookmarks/index.jet.html:137
 #: assets/templates/bookmarks/index.jet.html:140
 msgid "Filters"
-msgstr ""
+msgstr "Filtros"
 
 #: assets/templates/bookmarks/collection.jet.html:59
 #: assets/templates/bookmarks/index.jet.html:143
@@ -595,11 +597,11 @@ msgstr "Eliminar este marcador"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as unread"
-msgstr ""
+msgstr "Marcar como no leído"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as read"
-msgstr ""
+msgstr "Marcar como leído"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
@@ -671,19 +673,19 @@ msgstr "Eliminar resaltado(s)"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
-msgstr ""
+msgstr "Amarillo"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:48
 msgid "Red"
-msgstr ""
+msgstr "Rojo"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:49
 msgid "Blue"
-msgstr ""
+msgstr "Azul"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:50
 msgid "Green"
-msgstr ""
+msgstr "Verde"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:54
 msgid "Highlight"
@@ -726,7 +728,7 @@ msgstr "Tipo"
 #: assets/templates/bookmarks/components/filters.jet.html:50
 msgctxt "filter"
 msgid "Progress"
-msgstr ""
+msgstr "Progreso"
 
 #: assets/templates/bookmarks/components/filters.jet.html:55
 msgid "Is Favorite"
@@ -762,11 +764,11 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:84
 msgid "With Labels"
-msgstr ""
+msgstr "Con etiquetas"
 
 #: assets/templates/bookmarks/components/filters.jet.html:94
 msgid "With Errors"
-msgstr ""
+msgstr "Con errores"
 
 #: assets/templates/bookmarks/components/labels.jet.html:1
 msgid "Remove label"
@@ -829,7 +831,7 @@ msgstr "Fuente"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:54
 msgid "Width"
-msgstr ""
+msgstr "Anchura"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:75
 msgid "Size"
@@ -841,11 +843,11 @@ msgstr "Altura de línea"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:116
 msgid "Justify"
-msgstr ""
+msgstr "Justificar"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:141
 msgid "Hyphenation"
-msgstr ""
+msgstr "Silabación"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:1
 #: assets/templates/bookmarks/components/sidebar.jet.html:49
@@ -1457,7 +1459,7 @@ msgstr "Ayuda de Readeck"
 
 #: assets/templates/docs/base.jet.html:28
 msgid "Changelog"
-msgstr ""
+msgstr "Novedades"
 
 #: assets/templates/emails/recover.tmpl:8
 #, python-format
@@ -1555,7 +1557,7 @@ msgstr "Cambiar el tema de color"
 
 #: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:9
 msgid "Settings"
-msgstr "Ajustes"
+msgstr "Configuración"
 
 #: assets/templates/profile/base.jet.html:14 internal/profile/views.go:98
 #: internal/profile/views.go:133 internal/profile/views.go:178
@@ -1611,19 +1613,16 @@ msgstr "Propiedades"
 msgid "Password ID"
 msgstr "ID de contraseña"
 
-# | msgid "Patent use"
 #: assets/templates/profile/credential.jet.html:56
 #: assets/templates/profile/token.jet.html:37
-#, fuzzy
 msgid "Last used"
-msgstr "Uso de patentes"
+msgstr "Último uso"
 
 # | msgid "New User"
 #: assets/templates/profile/credential.jet.html:57
 #: assets/templates/profile/token.jet.html:38
-#, fuzzy
 msgid "never used"
-msgstr "Nuevo Usuario"
+msgstr "jamás usado"
 
 #: assets/templates/profile/credential.jet.html:69
 #: assets/templates/profile/token.jet.html:50
@@ -2344,4 +2343,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr ""
-

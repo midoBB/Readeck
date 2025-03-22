@@ -7,14 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-03-22 08:42+0000\n"
-"PO-Revision-Date: 2025-03-22 08:30+0000\n"
+"PO-Revision-Date: 2025-03-23 09:21+0000\n"
 "Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
+"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
+"application/uk/>\n"
 "Language: uk_UA\n"
-"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/application/uk/>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -48,7 +51,7 @@ msgstr "Головна"
 #: assets/templates/_libs/forms.jet.html:1
 #: assets/templates/_libs/forms.jet.html:33
 msgid "Required"
-msgstr "Обов'язково"
+msgstr "Обов’язково"
 
 #: assets/templates/_libs/forms.jet.html:10
 msgid "Errors"
@@ -150,7 +153,7 @@ msgstr "Скасувати"
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:41
 #: assets/templates/profile/index.jet.html:20
 msgid "Username"
-msgstr "Ім'я користувача"
+msgstr "Ім’я користувача"
 
 #: assets/templates/admin/user.jet.html:37
 #: assets/templates/admin/user_create.jet.html:26
@@ -230,7 +233,7 @@ msgstr "Увійти до Readeck"
 
 #: assets/templates/auth/login.jet.html:22
 msgid "Username or email address"
-msgstr "Ім'я користувача або електронна адреса"
+msgstr "Ім’я користувача або електронна адреса"
 
 #: assets/templates/auth/login.jet.html:41
 msgid "Forgot your password?"
@@ -264,9 +267,11 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"  Ваша електронна адреса не є обов’язковою та залишиться лише в межах цієї інсталяції.\n"
+"  Ваша електронна адреса не є обов’язковою та залишиться лише в межах цієї "
+"інсталяції.\n"
 "  Вона ніколи не буде зібрана, передана чи продана.\n"
-"  Її буде використано <strong>лише</strong> у разі вашої потреби відновлення паролю та для внутрішніх сповіщень.\n"
+"  Її буде використано <strong>лише</strong> у разі вашої потреби відновлення "
+"пароля та для внутрішніх сповіщень.\n"
 "  "
 
 #: assets/templates/auth/onboarding.jet.html:47
@@ -275,7 +280,7 @@ msgstr "Завершити встановлення"
 
 #: assets/templates/auth/recover.jet.html:9
 msgid "Password recovery"
-msgstr "Відновлення паролю"
+msgstr "Відновлення пароля"
 
 #: assets/templates/auth/recover.jet.html:21
 msgid "No worries, it happens to anyone."
@@ -290,9 +295,10 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"        Будь ласка, вкажіть електронну адресу, яку ви використовували під час створення\n"
+"        Будь ласка, вкажіть електронну адресу, яку ви використовували під "
+"час створення\n"
 "        облікового запису, і ми надішлемо вам повідомлення з посиланням\n"
-"        для відновлення паролю.\n"
+"        для відновлення пароля.\n"
 "      "
 
 #: assets/templates/auth/recover.jet.html:32
@@ -356,7 +362,8 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"        Як тільки ви почнете виділяти частини ваших збережених статей, вони з'являться на цій сторінці\n"
+"        Як тільки ви почнете виділяти частини ваших збережених статей, вони "
+"з’являться на цій сторінці\n"
 "        щоб ви легко знайшли їх.\n"
 "      "
 
@@ -527,7 +534,7 @@ msgstr "Документація"
 #: assets/templates/bookmarks/collection_create.jet.html:23
 #: assets/templates/profile/credential.jet.html:63
 msgid "Name"
-msgstr "Ім'я"
+msgstr "Назва"
 
 #: assets/templates/bookmarks/collection.jet.html:79
 msgid "Delete collection"
@@ -578,7 +585,7 @@ msgstr "Зображення з міткою «кіт»"
 
 #: assets/templates/bookmarks/collection_list.jet.html:36
 msgid "The articles that contain \"shelter\" in their title"
-msgstr "Статті, які містять «притулок» у своїй назві"
+msgstr "Статті, які містять «притулок» у заголовку"
 
 #: assets/templates/bookmarks/collection_list.jet.html:39
 #, python-format
@@ -633,7 +640,7 @@ msgstr "Цю закладку буде видалено через кілька 
 
 #: assets/templates/bookmarks/components/actions.jet.html:24
 msgid "Undo"
-msgstr "Відмінити"
+msgstr "Скасувати"
 
 #: assets/templates/bookmarks/components/actions.jet.html:58
 #: assets/templates/bookmarks/components/list_actions.jet.html:72
@@ -696,7 +703,7 @@ msgstr "Пошук"
 
 #: assets/templates/bookmarks/components/filters.jet.html:14
 msgid "Title"
-msgstr "Назва"
+msgstr "Заголовок"
 
 #: assets/templates/bookmarks/components/filters.jet.html:19
 msgid "Author"
@@ -885,7 +892,7 @@ msgid ""
 msgstr ""
 "\n"
 "    У вашому вебпереглядачі експортуйте закладки як HTML файл.<br>\n"
-"    Завантажте цей файл у форму нижче, і Readeck створить та витягне\n"
+"    Завантажте цей файл у форму нижче і Readeck створить та витягне\n"
 "    кожну закладку, яка є у файлі.\n"
 "  "
 
@@ -946,8 +953,10 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Перший рядок завантажуваного файлу повинен містити назви стовпчиків. Назви стовпчиків\n"
-"    не залежать від регістру і всі стовпчики є необов'язковими, за винятком <code>%s</code>.\n"
+"    Перший рядок завантажуваного файлу повинен містити назви стовпчиків. "
+"Назви стовпчиків\n"
+"    не залежать від регістру і всі стовпчики є необов’язковими, за винятком "
+"<code>%s</code>.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:45
@@ -1111,8 +1120,10 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Щоб імпортувати свої статті з Wallabag, спершу необхідно створити клієнта API\n"
-"    в меню <strong>Керування клієнтами API</strong> Wallabag. Так ви отримаєте\n"
+"    Щоб імпортувати свої статті з Wallabag, спершу необхідно створити клієнт "
+"API\n"
+"    в меню <strong>Керування клієнтами API</strong> Wallabag. Так ви "
+"отримаєте\n"
 "    <strong>ID клієнта</strong> та <strong>Секрет клієнта</strong>.\n"
 "  "
 
@@ -1153,7 +1164,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Тут ви можете імпортувати свою наявну колекцію закладок із різних ресурсів у Readeck.\n"
+"    Тут ви можете імпортувати в Readeck свою наявну колекцію закладок із "
+"різних ресурсів.\n"
 "  "
 
 #: assets/templates/bookmarks/import/index.jet.html:36
@@ -1258,7 +1270,8 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          Ви хочете імпортувати зі схожого інструменту або файлу з існуючими закладками?\n"
+"          Ви хочете імпортувати зі схожого інструмента або файлу з існуючими "
+"закладками?\n"
 "          Спробуйте утиліту імпорту Readeck.\n"
 "        "
 
@@ -1505,14 +1518,16 @@ msgstr ""
 "Ви (або хтось інший) ввели цю електронну адресу під час спроби\n"
 "змінити пароль облікового запису Readeck (%s).\n"
 "\n"
-"Однак ця електронна адреса не пов'язана з жодним обліковим записом,\n"
+"Однак ця електронна адреса не пов’язана з жодним обліковим записом,\n"
 "тому спроба змінити пароль не вдалася.\n"
 "\n"
 "Якщо ви користувач Readeck на %s і ви\n"
-"очікували на цей лист, будь ласка, спробуйте ще раз, використовуючи електронну адресу,\n"
+"очікували на цей лист, будь ласка, спробуйте ще раз, використовуючи "
+"електронну адресу,\n"
 "яку ви вказали під час створення свого облікового запису.\n"
 "\n"
-"Якщо ви не є користувачем Readeck, будь ласка, проігноруйте це повідомлення.\n"
+"Якщо ви не є користувачем Readeck, будь ласка, проігноруйте це повідомлення."
+"\n"
 
 #: assets/templates/emails/recover.tmpl:38
 msgid "Kind regards"
@@ -1611,7 +1626,7 @@ msgstr "ID пароля"
 #: assets/templates/profile/credential.jet.html:56
 #: assets/templates/profile/token.jet.html:37
 msgid "Last used"
-msgstr "Востаннє використано"
+msgstr "Останній використаний"
 
 #: assets/templates/profile/credential.jet.html:57
 #: assets/templates/profile/token.jet.html:38
@@ -1780,7 +1795,9 @@ msgstr ""
 #: assets/templates/profile/token_list.jet.html:20
 #, python-format
 msgid "Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
-msgstr "Будь ласка, прочитайте <a href=\"%s\">Документацію API</a>, якщо ви плануєте використовувати його."
+msgstr ""
+"Будь ласка, прочитайте <a href=\"%s\">Документацію API</a>, якщо ви плануєте "
+"його використовувати."
 
 #: assets/templates/profile/token_list.jet.html:26
 msgid "Create a new API token"
@@ -1813,19 +1830,19 @@ msgstr "Пароль не вказано"
 
 #: internal/auth/users/forms.go:205
 msgid "Bookmarks : Read Only"
-msgstr "Закладки : Лише для читання"
+msgstr "Закладки: лише читання"
 
 #: internal/auth/users/forms.go:206
 msgid "Bookmarks : Write Only"
-msgstr "Закладки : Лише для запису"
+msgstr "Закладки: лише запис"
 
 #: internal/auth/users/forms.go:207
 msgid "Admin : Read Only"
-msgstr "Адміністратор : Лише для читання"
+msgstr "Адміністратор: лише читання"
 
 #: internal/auth/users/forms.go:208
 msgid "Admin : Write Only"
-msgstr "Адміністратор : Лише для запису"
+msgstr "Адміністратор: лише запис"
 
 #: internal/bookmarks/importer/browser.go:51
 msgid "Browser Bookmarks"
@@ -1896,7 +1913,7 @@ msgstr "Не переглянуто"
 #: internal/bookmarks/routes/forms_bookmarks.go:386
 msgctxt "status"
 msgid "In-Progress"
-msgstr "Виконується"
+msgstr "У процесі"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:387
 msgctxt "status"
@@ -1926,12 +1943,12 @@ msgstr "Опубліковано, спочатку найдавніші"
 #: internal/bookmarks/routes/forms_bookmarks.go:625
 msgctxt "sort"
 msgid "Title, A to Z"
-msgstr "Назва, А-Я"
+msgstr "Заголовок, А-Я"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:626
 msgctxt "sort"
 msgid "Title, Z to A"
-msgstr "Назва, Я-А"
+msgstr "Заголовок, Я-А"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:627
 msgctxt "sort"
@@ -1946,12 +1963,12 @@ msgstr "Назва сайту, Я-А"
 #: internal/bookmarks/routes/forms_bookmarks.go:629
 msgctxt "sort"
 msgid "Duration, shortest first"
-msgstr "Тривалість, спочатку найкоротші"
+msgstr "Час читання, спочатку найкоротші"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:630
 msgctxt "sort"
 msgid "Duration, longest first"
-msgstr "Тривалість, спочатку найдовші"
+msgstr "Час читання, спочатку найдовші"
 
 #: internal/bookmarks/routes/opds.go:56
 msgid "Readeck Bookmarks"
@@ -2016,7 +2033,7 @@ msgstr "Усі закладки"
 
 #: internal/profile/forms.go:33
 msgid "invalid username and/or email"
-msgstr "неправильне ім'я користувача і/або електронна адреса"
+msgstr "неправильне ім’я користувача і/або електронна адреса"
 
 #: internal/profile/forms.go:34
 msgid "invalid password"
@@ -2060,7 +2077,7 @@ msgstr "сталася непередбачена помилка"
 
 #: pkg/forms/validators.go:18
 msgid "field is required"
-msgstr "обов'язкове поле"
+msgstr "обов’язкове поле"
 
 #: pkg/forms/validators.go:20
 msgid "not a valid email address"
@@ -2113,7 +2130,7 @@ msgstr "Четвер"
 #: pkg/strftime/strftime.go:28
 msgctxt "datetime_dl"
 msgid "Friday"
-msgstr "П'ятниця"
+msgstr "П’ятниця"
 
 #: pkg/strftime/strftime.go:29
 msgctxt "datetime_dl"
@@ -2310,4 +2327,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr "Не вдається відкрити файл zip"
-

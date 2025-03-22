@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck CZ 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-03-22 08:42+0000\n"
-"PO-Revision-Date: 2025-03-19 07:21+0000\n"
+"PO-Revision-Date: 2025-03-23 09:21+0000\n"
 "Last-Translator: Joedmin <joedmin@joedmin.cz>\n"
+"Language-Team: Czech <https://translate.codeberg.org/projects/readeck/"
+"application/cs/>\n"
 "Language: cs_CZ\n"
-"Language-Team: Czech <https://translate.codeberg.org/projects/readeck/application/cs/>\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -1658,9 +1660,8 @@ msgstr "Odstranit heslo"
 # | msgid "New password"
 #: assets/templates/profile/credential.jet.html:95
 #: assets/templates/profile/credential.jet.html:103
-#, fuzzy
 msgid "Refresh password"
-msgstr "Nové heslo"
+msgstr "Obnovit heslo"
 
 #: assets/templates/profile/credential.jet.html:97
 msgid ""
@@ -1669,6 +1670,11 @@ msgid ""
 "      you can refresh it to get a new one.\n"
 "    "
 msgstr ""
+"\n"
+"      Pokud jste zapomněli heslo k aplikaci nebo ho jen chcete změnit, "
+"můžete\n"
+" heslo obnovit a získat nové.\n"
+"    "
 
 #: assets/templates/profile/credential_list.jet.html:10
 msgid "My Application Passwords"
@@ -1710,13 +1716,12 @@ msgstr "Aktuální heslo"
 
 # | msgid "API Token"
 #: assets/templates/profile/token.jet.html:1
-#, fuzzy
 msgid "copy token"
-msgstr "Token API"
+msgstr "kopírovat token"
 
 #: assets/templates/profile/token.jet.html:1
 msgid "copy HTTP header"
-msgstr ""
+msgstr "kopírovat HTTP hlavičku"
 
 #: assets/templates/profile/token.jet.html:9
 msgid "API Token"
@@ -1770,7 +1775,7 @@ msgstr "Tento token můžete použít jeho předáním jako HTTP hlavičky <stro
 
 #: assets/templates/profile/token.jet.html:98
 msgid "HTTP Header"
-msgstr ""
+msgstr "HTTP hlavička"
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
@@ -2343,4 +2348,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr "Nelze otevřít zip soubor"
-

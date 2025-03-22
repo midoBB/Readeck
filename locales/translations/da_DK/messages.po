@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-03-20 06:17+0000\n"
+"POT-Creation-Date: 2025-03-22 08:42+0000\n"
 "PO-Revision-Date: 2024-12-02 15:55+0000\n"
 "Last-Translator: toooobeeee <toooobeeee@users.noreply.translate.codeberg.org>\n"
 "Language: da_DK\n"
@@ -1633,10 +1633,10 @@ msgstr ""
 msgid "Delete password"
 msgstr ""
 
+# | msgid "New password"
 #: assets/templates/profile/credential.jet.html:95
 #: assets/templates/profile/credential.jet.html:103
 #, fuzzy
-#| msgid "New password"
 msgid "Refresh password"
 msgstr "Nyt kodeord"
 
@@ -1687,9 +1687,9 @@ msgstr ""
 msgid "Current password"
 msgstr ""
 
+# | msgid "Copy the link"
 #: assets/templates/profile/token.jet.html:1
 #, fuzzy
-#| msgid "Copy the link"
 msgid "copy token"
 msgstr "Kopier linket"
 

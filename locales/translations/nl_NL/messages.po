@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-03-20 06:17+0000\n"
+"POT-Creation-Date: 2025-03-22 08:42+0000\n"
 "PO-Revision-Date: 2025-03-19 07:21+0000\n"
 "Last-Translator: Vistaus <vistaus@noreply.codeberg.org>\n"
 "Language: nl_NL\n"
@@ -1652,10 +1652,10 @@ msgstr "Functies"
 msgid "Delete password"
 msgstr "Wachtwoord wissen"
 
+# | msgid "New password"
 #: assets/templates/profile/credential.jet.html:95
 #: assets/templates/profile/credential.jet.html:103
 #, fuzzy
-#| msgid "New password"
 msgid "Refresh password"
 msgstr "Nieuw wachtwoord"
 
@@ -1705,9 +1705,9 @@ msgstr "Wachtwoord wĳzigen"
 msgid "Current password"
 msgstr "Huidig wachtwoord"
 
+# | msgid "API Token"
 #: assets/templates/profile/token.jet.html:1
 #, fuzzy
-#| msgid "API Token"
 msgid "copy token"
 msgstr "Api-toegangssleutel"
 

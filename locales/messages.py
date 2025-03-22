@@ -334,6 +334,7 @@ def extract(_):
         write_po(
             fp,
             template,
+            width=None,
             sort_by_file=True,
             include_lineno=True,
             ignore_obsolete=True,

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-03-20 06:17+0000\n"
+"POT-Creation-Date: 2025-03-22 08:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -248,8 +248,7 @@ msgid ""
 "\n"
 "  Your email address is optional and will never leave this installation.\n"
 "  It will never be collected, transferred or sold.\n"
-"  It will <strong>only</strong> be used, should you need it, for password"
-" recovery and internal notifications.\n"
+"  It will <strong>only</strong> be used, should you need it, for password recovery and internal notifications.\n"
 "  "
 msgstr ""
 
@@ -325,17 +324,14 @@ msgstr ""
 #: assets/templates/bookmarks/annotation_list.jet.html:18
 msgid ""
 "\n"
-"        Once you start highlighting parts of your saved articles, they "
-"will appear on this page\n"
+"        Once you start highlighting parts of your saved articles, they will appear on this page\n"
 "        for you to easily find them.\n"
 "      "
 msgstr ""
 
 #: assets/templates/bookmarks/annotation_list.jet.html:23
 #, python-format
-msgid ""
-"Read more about highlights in the <a class=\"%s\" "
-"href=\"%s\">documentation</a>."
+msgid "Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</a>."
 msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:24
@@ -534,9 +530,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/collection_list.jet.html:39
 #, python-format
-msgid ""
-"Read more about collections in the <a class=\"%s\" "
-"href=\"%s\">documentation</a>."
+msgid "Read more about collections in the <a class=\"%s\" href=\"%s\">documentation</a>."
 msgstr ""
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
@@ -869,8 +863,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
 "\n"
-"    Upload a CSV file from Instapaper or any CSV that matches the format "
-"specified bellow.\n"
+"    Upload a CSV file from Instapaper or any CSV that matches the format specified bellow.\n"
 "  "
 msgstr ""
 
@@ -878,10 +871,8 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"    The uploaded file must contain a first row with the column names. "
-"Column names are case\n"
-"    insensitive and, except for <code>%s</code>, every column is "
-"optional.\n"
+"    The uploaded file must contain a first row with the column names. Column names are case\n"
+"    insensitive and, except for <code>%s</code>, every column is optional.\n"
 "  "
 msgstr ""
 
@@ -945,8 +936,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:15
 msgid ""
 "\n"
-"    To import your articles from Omnivore, you must first create an API "
-"Key in your\n"
+"    To import your articles from Omnivore, you must first create an API Key in your\n"
 "    Omnivore's settings and enter it in the the form below.\n"
 "  "
 msgstr ""
@@ -988,10 +978,8 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:27
 msgid ""
 "\n"
-"    Please note that Pocket does not allow the article content to be "
-"exported.\n"
-"    This could lead to different results in Readeck than what you "
-"currently\n"
+"    Please note that Pocket does not allow the article content to be exported.\n"
+"    This could lead to different results in Readeck than what you currently\n"
 "    see in Pocket.\n"
 "  "
 msgstr ""
@@ -1004,8 +992,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-text.jet.html:15
 msgid ""
 "\n"
-"    Upload a text file that contains one link per line and Readeck will "
-"fetch\n"
+"    Upload a text file that contains one link per line and Readeck will fetch\n"
 "    all of them and save them in your bookmark list.\n"
 "  "
 msgstr ""
@@ -1018,10 +1005,8 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:15
 msgid ""
 "\n"
-"    To import your articles from Wallabag, you must first create an API "
-"client\n"
-"    in Wallabag's <strong>API clients management</strong> menu. This will"
-" give you\n"
+"    To import your articles from Wallabag, you must first create an API client\n"
+"    in Wallabag's <strong>API clients management</strong> menu. This will give you\n"
 "    a <strong>Client ID</strong> and <strong>Client secret</strong>.\n"
 "  "
 msgstr ""
@@ -1056,8 +1041,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/index.jet.html:25
 msgid ""
 "\n"
-"    Here you can import your existing bookmark collection from various "
-"sources into Readeck.\n"
+"    Here you can import your existing bookmark collection from various sources into Readeck.\n"
 "  "
 msgstr ""
 
@@ -1121,8 +1105,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"      Your bookmarks are now available in your <a class=\"%s\" "
-"href=\"%s\">bookmark list</a>.\n"
+"      Your bookmarks are now available in your <a class=\"%s\" href=\"%s\">bookmark list</a>.\n"
 "      "
 msgstr ""
 
@@ -1141,29 +1124,22 @@ msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:49
 #, python-format
-msgid ""
-"\"%s\" is not a valid address. Did you mean to search your bookmarks for "
-"%s?"
+msgid "\"%s\" is not a valid address. Did you mean to search your bookmarks for %s?"
 msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:73
-msgid ""
-"You don't have any bookmarks yet.<br> Copy a link in the field above and "
-"start saving."
+msgid "You don't have any bookmarks yet.<br> Copy a link in the field above and start saving."
 msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:75
 #, python-format
-msgid ""
-"Read more about bookmarks in the <a class=\"%s\" "
-"href=\"%s\">documentation</a>."
+msgid "Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentation</a>."
 msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:81
 msgid ""
 "\n"
-"          Would you like to import from a similar tool or from a file "
-"with existing bookmarks?\n"
+"          Would you like to import from a similar tool or from a file with existing bookmarks?\n"
 "          Try Readeck's import tool.\n"
 "        "
 msgstr ""
@@ -1243,9 +1219,7 @@ msgid "System Information"
 msgstr ""
 
 #: assets/templates/docs/about.jet.html:20
-msgid ""
-"Here are your current system information. Please include them if you "
-"report a bug."
+msgid "Here are your current system information. Please include them if you report a bug."
 msgstr ""
 
 #: assets/templates/docs/about.jet.html:31
@@ -1493,8 +1467,7 @@ msgstr ""
 #: assets/templates/profile/credential.jet.html:27
 msgid ""
 "\n"
-"    Your application password was created. Please copy the password below"
-" and write it down\n"
+"    Your application password was created. Please copy the password below and write it down\n"
 "    or store it in a password manager.\n"
 "  "
 msgstr ""
@@ -1534,11 +1507,9 @@ msgstr ""
 #: assets/templates/profile/credential.jet.html:75
 msgid ""
 "\n"
-"    You can limit the permissions granted to this password by choosing "
-"one or more\n"
+"    You can limit the permissions granted to this password by choosing one or more\n"
 "    group of permissions below.<br>\n"
-"    Leave all the choices blank to grant all your permissions to this "
-"password.\n"
+"    Leave all the choices blank to grant all your permissions to this password.\n"
 "  "
 msgstr ""
 
@@ -1559,8 +1530,7 @@ msgstr ""
 #: assets/templates/profile/credential.jet.html:97
 msgid ""
 "\n"
-"      If you forgot your application password or simply want to change "
-"it,\n"
+"      If you forgot your application password or simply want to change it,\n"
 "      you can refresh it to get a new one.\n"
 "    "
 msgstr ""
@@ -1634,11 +1604,9 @@ msgstr ""
 #: assets/templates/profile/token.jet.html:62
 msgid ""
 "\n"
-"    You can limit the permissions granted to this token by choosing one "
-"or more\n"
+"    You can limit the permissions granted to this token by choosing one or more\n"
 "    group of permissions below.<br>\n"
-"    Leave all the choices blank to grant all your permissions to this "
-"token.\n"
+"    Leave all the choices blank to grant all your permissions to this token.\n"
 "  "
 msgstr ""
 
@@ -1655,9 +1623,7 @@ msgid "Your API token"
 msgstr ""
 
 #: assets/templates/profile/token.jet.html:96
-msgid ""
-"You can use this token by passing it as an <strong>Authorization: "
-"Bearer</strong> HTTP header."
+msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
 msgstr ""
 
 #: assets/templates/profile/token.jet.html:98
@@ -1671,16 +1637,13 @@ msgstr ""
 #: assets/templates/profile/token_list.jet.html:16
 msgid ""
 "\n"
-"  An API Token is a key that grants you (or another tool like a browser "
-"extension)\n"
+"  An API Token is a key that grants you (or another tool like a browser extension)\n"
 "  access to the Readeck API.\n"
 msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:20
 #, python-format
-msgid ""
-"Please read the <a href=\"%s\">API Documentation</a> if you plan to use "
-"it."
+msgid "Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
 msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:26

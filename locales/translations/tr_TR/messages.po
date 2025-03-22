@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-03-20 06:17+0000\n"
+"POT-Creation-Date: 2025-03-22 08:42+0000\n"
 "PO-Revision-Date: 2025-02-08 10:04+0000\n"
 "Last-Translator: misketmuskat <misketmuskat@users.noreply.translate.codeberg.org>\n"
 "Language: tr_TR\n"
@@ -1547,10 +1547,10 @@ msgstr ""
 msgid "Delete password"
 msgstr ""
 
+# | msgid "New password"
 #: assets/templates/profile/credential.jet.html:95
 #: assets/templates/profile/credential.jet.html:103
 #, fuzzy
-#| msgid "New password"
 msgid "Refresh password"
 msgstr "Yeni parola"
 

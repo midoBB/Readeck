@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-03-22 08:42+0000\n"
-"PO-Revision-Date: 2025-03-19 07:21+0000\n"
+"PO-Revision-Date: 2025-03-23 09:21+0000\n"
 "Last-Translator: Vistaus <vistaus@noreply.codeberg.org>\n"
+"Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/"
+"application/nl/>\n"
 "Language: nl_NL\n"
-"Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/application/nl/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -1655,9 +1657,8 @@ msgstr "Wachtwoord wissen"
 # | msgid "New password"
 #: assets/templates/profile/credential.jet.html:95
 #: assets/templates/profile/credential.jet.html:103
-#, fuzzy
 msgid "Refresh password"
-msgstr "Nieuw wachtwoord"
+msgstr "Nieuw wachtwoord opvragen"
 
 #: assets/templates/profile/credential.jet.html:97
 msgid ""
@@ -1666,6 +1667,11 @@ msgid ""
 "      you can refresh it to get a new one.\n"
 "    "
 msgstr ""
+"\n"
+"      Als je je appwachtwoord vergeten bent of gewoon een ander wachtwoord "
+"wilt instellen,\n"
+"      dan kun je een nieuw wachtwoord opvragen.\n"
+"    "
 
 #: assets/templates/profile/credential_list.jet.html:10
 msgid "My Application Passwords"
@@ -1707,13 +1713,12 @@ msgstr "Huidig wachtwoord"
 
 # | msgid "API Token"
 #: assets/templates/profile/token.jet.html:1
-#, fuzzy
 msgid "copy token"
-msgstr "Api-toegangssleutel"
+msgstr "Toegangssleutel kopiëren"
 
 #: assets/templates/profile/token.jet.html:1
 msgid "copy HTTP header"
-msgstr ""
+msgstr "Http-kop kopiëren"
 
 #: assets/templates/profile/token.jet.html:9
 msgid "API Token"
@@ -1767,7 +1772,7 @@ msgstr "Je kunt deze toegangssleutel gebruiken met behulp van de http-kop <stron
 
 #: assets/templates/profile/token.jet.html:98
 msgid "HTTP Header"
-msgstr ""
+msgstr "Http-kop"
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
@@ -2337,4 +2342,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr "Het zipbestand kan niet worden geopend"
-

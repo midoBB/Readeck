@@ -202,9 +202,17 @@ export default class extends Controller {
 
     // Enable turbo frame and wait for it to be reloaded.
     // The content being reloaded with morph, we need to clear all selections.
+    const scrollTop = document.scrollingElement.scrollTop
     this.element.disabled = false
     window.getSelection().removeAllRanges()
     await this.element.loaded
+
+    // Safari/Webkit bug. An element would scroll back to the top.
+    // Morphing was a solution but has a bug where some content would
+    // be removed. Hence, this hack that seems to work.
+    window.setTimeout(() => {
+      document.scrollingElement.scrollTo(0, scrollTop)
+    }, 50)
   }
 
   /**

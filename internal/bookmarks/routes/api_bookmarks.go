@@ -99,7 +99,7 @@ func (api *apiRouter) bookmarkArticle(w http.ResponseWriter, r *http.Request) {
 				"HTML": buf,
 				"Out":  w,
 			},
-			map[string]string{"method": "morph"},
+			nil,
 		)
 		api.srv.RenderTurboStream(w, r,
 			"/bookmarks/components/sidebar", "replace",

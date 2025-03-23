@@ -126,8 +126,9 @@
   }
 
   .bookmark-sidebar {
-    @apply w-col-6 h-screen sticky overflow-y-auto z-30;
+    @apply h-screen sticky overflow-y-auto z-30;
     @apply border-l border-l-gray-200;
+    @apply flex-grow-0 flex-shrink-0 basis-col-6;
 
     @screen lg {
       @apply top-0;

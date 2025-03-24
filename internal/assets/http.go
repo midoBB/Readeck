@@ -21,7 +21,7 @@ import (
 	"codeberg.org/readeck/readeck/assets"
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/server"
-	"codeberg.org/readeck/readeck/pkg/accept"
+	"codeberg.org/readeck/readeck/pkg/http/accept"
 )
 
 var reAssetHashed = regexp.MustCompile(`\.[a-z0-9]{8}\.[a-z]+$`)

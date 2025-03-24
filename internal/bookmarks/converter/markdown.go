@@ -27,7 +27,7 @@ import (
 	"gopkg.in/yaml.v3"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
-	"codeberg.org/readeck/readeck/pkg/accept"
+	"codeberg.org/readeck/readeck/pkg/http/accept"
 	"codeberg.org/readeck/readeck/pkg/utils"
 )
 

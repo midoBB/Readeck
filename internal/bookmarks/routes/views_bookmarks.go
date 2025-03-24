@@ -366,6 +366,9 @@ func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
 				ct["Username"] = bu.User.Username
 				ct["Item"] = item
 
+				w.Header().Add("readeck-original", item.URL)
+				server.NewLink(item.URL).WithRel("original").Write(w)
+				server.NewLink(item.URL).WithRel("cite-as").Write(w)
 				h.srv.WriteLastModified(w, r, bu.Bookmark)
 				h.srv.WriteEtag(w, r, bu.Bookmark)
 			}

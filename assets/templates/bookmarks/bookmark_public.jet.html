@@ -53,7 +53,7 @@ SPDX-License-Identifier: AGPL-3.0-only
             {{- end -}}
           {{- end -}}
           {{- yield line_icon(icon="o-link-ext") content -}}
-            <a href="{{ .Item.URL }}" class="link" target="_blank">{{ .Item.Domain }}</a>
+            <a href="{{ .Item.URL }}" class="link" target="_blank" rel="original">{{ .Item.Domain }}</a>
           {{- end -}}
           {{- if .Item.ReadingTime > 0 -}}
             {{- yield line_icon(icon="o-clock") content -}}
@@ -106,7 +106,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{- end -}}
 
       <div class="max-w-3xl mx-auto mt-4 mb-8 flex gap-2 items-center">
-        <p class="flex-grow"><a class="link break-all" href="{{ .Item.URL }}">{{ .Item.URL }}</a></p>
+        <p class="flex-grow"><a class="link break-all" href="{{ .Item.URL }}" target="_blank" rel="original">{{ .Item.URL }}</a></p>
         <img src="{{ qrcode(.Item.URL, -2, `#1e485b`) }}" alt="" class="rounded bg-white p-2">
       </div>
     {{- end -}}

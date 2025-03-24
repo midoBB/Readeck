@@ -3,117 +3,150 @@ SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
 
 SPDX-License-Identifier: AGPL-3.0-only
 *}
-{{ extends "/base" }}
+{{- import "/_libs/common" -}}
 {{ import "./components/common" }}
 
-{{- block title() -}}
+<!DOCTYPE html>
+<html lang="{{ translator.Tag }}" class="overscroll-none scroll-pt-20 max-sm:scroll-pt-40">
+<head>
+  <meta charset="UTF-8">
+  <title>
   {{- if isset(.Item) -}}
     {{ .Item.Title }}
   {{- else -}}
     {{ gettext("Shared link") }}
-  {{- end -}}
-{{- end -}}
+  {{- end -}} - Readeck</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csp-nonce" content="{{ cspNonce }}" />
+  <meta name="robots" content="noindex nofollow noarchive">
 
-{{- block body() -}}
-  <div class="px-4">
-    {{- if !isset(.Item) -}}
-      <div class="max-w-3xl mx-auto my-8">
-        <h1 class="text-3xl text-center">
-          {{- if .Status == 404 -}}
-            {{ gettext("Page not found") }}
-          {{- else if .Status == 410 -}}
-            {{ gettext("Page has expired") }}
-          {{- end -}}
-        </h1>
-      </div>
-    {{- else -}}
-      <div class="max-w-3xl mx-auto my-8">
-        <h1 class="my-4 font-lora text-3xl max-sm:text-2xl"
-        dir="{{ default(.Item.TextDirection, `ltr`) }}">{{ .Item.Title }}</h1>
+  <link rel="stylesheet" href="{{ assetURL(`bundle.css`) }}" nonce="{{ cspNonce }}">
+  {{ if .Item.Type == "video" && isset(.Item.Resources.image) && .Item.Embed -}}
+    <script type="module" src="{{ assetURL(`public.js`) }}" nonce="{{ cspNonce }}"></script>
+  {{- end }}
 
-        <ul class="mb-4">
-          <li class="flex items-center gap-1 mb-2">
-          {{- if isset(.Item.Resources.icon) -}}
-            <img class="inline w-5 h-auto"
-            alt="" src="{{ .Item.Resources.icon.Src }}"
-            width="{{ .Item.Resources.icon.Width }}"
-            height="{{ .Item.Resources.icon.Height }}">
-          {{- end -}}
-          <strong class="overflow-hidden text-ellipsis" title="{{ default(.Item.SiteName, `no site name`) }}"
-          dir="{{ default(.Item.TextDirection, `ltr`) }}">{{ default(.Item.SiteName, "no site name") }}</strong>
-          </li>
-          {{- if !empty(.Item.Published) -}}
-            {{- yield line_icon(icon="o-calendar") content -}}
-              {{ gettext("Published on %s", date(.Item.Published, "%e %B %Y")) }}
-            {{- end -}}
-          {{- end -}}
-          {{- if !empty(.Item.Authors) -}}
-            {{- yield line_icon(icon="o-pen") content -}}
-              {{ gettext("By %s", join(.Item.Authors, ", ")) }}
-            {{- end -}}
-          {{- end -}}
-          {{- yield line_icon(icon="o-link-ext") content -}}
-            <a href="{{ .Item.URL }}" class="link" target="_blank" rel="original">{{ .Item.Domain }}</a>
-          {{- end -}}
-          {{- if .Item.ReadingTime > 0 -}}
-            {{- yield line_icon(icon="o-clock") content -}}
-              {{ gettext("%d min", .Item.ReadingTime) }}
-            {{- end -}}
-          {{- end -}}
-        </ul>
+  <link rel="icon" href="{{ assetURL(`img/fi/favicon.ico`) }}" sizes="48x48">
+  <link rel="icon" href="{{ assetURL(`img/fi/favicon.svg`) }}" sizes="any" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{{ assetURL(`img/fi/apple-touch-icon.png`) }}">
+</head>
 
-        <p class="my-4 text-right">{{ gettext("Shared by %s", .Username) }}
-          {{ gettext("with") }}
-          <a class="link" href="https://readeck.org/">Readeck {{ yield icon(name="o-logo-square") }}</a>
-        </p>
+<body
+ class="
+  no-js bg-app-bg text-app-fg font-sans leading-tight tracking-normal
+  relative
+  print:text-black print:bg-white
+  overscroll-none
+ "
+ >
+<script nonce="{{ cspNonce }}">
+if ('noModule' in HTMLScriptElement.prototype) {
+  document.body.classList.remove("no-js")
+  document.body.classList.add("js")
+}
+</script>
 
-        <hr>
-
-        {{- if !empty(.Item.Description) -}}
-          <p class="my-4 text-lg leading-tight text-justify font-lora italic"
-              dir="{{ default(.Item.TextDirection, "ltr") }}">{{ .Item.Description }}</p>
+<div class="px-4">
+  {{- if !isset(.Item) -}}
+    <div class="max-w-3xl mx-auto my-8">
+      <h1 class="text-3xl text-center">
+        {{- if .Status == 404 -}}
+          {{ gettext("Page not found") }}
+        {{- else if .Status == 410 -}}
+          {{ gettext("Page has expired") }}
         {{- end -}}
-      </div>
+      </h1>
+    </div>
+  {{- else -}}
+    <div class="max-w-3xl mx-auto my-8">
+      <h1 class="my-4 font-lora text-3xl max-sm:text-2xl"
+      dir="{{ default(.Item.TextDirection, `ltr`) }}">{{ .Item.Title }}</h1>
 
-      {{- if .Item.Type == "photo" && isset(.Item.Resources.image) -}}
-        <figure class="mb-8 max-w-5xl mx-auto">
+      <ul class="mb-4">
+        <li class="flex items-center gap-1 mb-2">
+        {{- if isset(.Item.Resources.icon) -}}
+          <img class="inline w-5 h-auto"
+          alt="" src="{{ .Item.Resources.icon.Src }}"
+          width="{{ .Item.Resources.icon.Width }}"
+          height="{{ .Item.Resources.icon.Height }}">
+        {{- end -}}
+        <strong class="overflow-hidden text-ellipsis" title="{{ default(.Item.SiteName, `no site name`) }}"
+        dir="{{ default(.Item.TextDirection, `ltr`) }}">{{ default(.Item.SiteName, "no site name") }}</strong>
+        </li>
+        {{- if !empty(.Item.Published) -}}
+          {{- yield line_icon(icon="o-calendar") content -}}
+            {{ gettext("Published on %s", date(.Item.Published, "%e %B %Y")) }}
+          {{- end -}}
+        {{- end -}}
+        {{- if !empty(.Item.Authors) -}}
+          {{- yield line_icon(icon="o-pen") content -}}
+            {{ gettext("By %s", join(.Item.Authors, ", ")) }}
+          {{- end -}}
+        {{- end -}}
+        {{- yield line_icon(icon="o-link-ext") content -}}
+          <a href="{{ .Item.URL }}" class="link" target="_blank" rel="original">{{ .Item.Domain }}</a>
+        {{- end -}}
+        {{- if .Item.ReadingTime > 0 -}}
+          {{- yield line_icon(icon="o-clock") content -}}
+            {{ gettext("%d min", .Item.ReadingTime) }}
+          {{- end -}}
+        {{- end -}}
+      </ul>
+
+      <p class="my-4 text-right">{{ gettext("Shared by %s", .Username) }}
+        {{ gettext("with") }}
+        <a class="link" href="https://readeck.org/">Readeck {{ yield icon(name="o-logo-square") }}</a>
+      </p>
+
+      <hr>
+
+      {{- if !empty(.Item.Description) -}}
+        <p class="my-4 text-lg leading-tight text-justify font-lora italic"
+            dir="{{ default(.Item.TextDirection, "ltr") }}">{{ .Item.Description }}</p>
+      {{- end -}}
+    </div>
+
+    {{- if .Item.Type == "photo" && isset(.Item.Resources.image) -}}
+      <figure class="mb-8 max-w-5xl mx-auto">
+        <img alt="" src="{{ .Item.Resources.image.Src }}"
+        class="mx-auto rounded"
+        width="{{ .Item.Resources.image.Width }}" height="{{ .Item.Resources.image.Height }}">
+      </figure>
+    {{- else if .Item.Type == "video" && isset(.Item.Resources.image) && .Item.Embed -}}
+      <div class="max-w-4xl mx-auto">
+        <div class="video-player mb-8" data-controller="video">
           <img alt="" src="{{ .Item.Resources.image.Src }}"
-          class="mx-auto rounded"
           width="{{ .Item.Resources.image.Width }}" height="{{ .Item.Resources.image.Height }}">
-        </figure>
-      {{- else if .Item.Type == "video" && isset(.Item.Resources.image) && .Item.Embed -}}
-        <div class="max-w-4xl mx-auto">
-          <div class="video-player mb-8" data-controller="video">
-            <img alt="" src="{{ .Item.Resources.image.Src }}"
-            width="{{ .Item.Resources.image.Width }}" height="{{ .Item.Resources.image.Height }}">
-            <template data-video-target="embed">
-              {{- raw(.Item.Embed) -}}
-            </template>
-            <template data-video-target="play">
-              <button class="play-button" data-action="click->video#play">
-                <span></span>
-              </button>
-            </template>
-          </div>
+          <template data-video-target="embed">
+            {{- raw(.Item.Embed) -}}
+          </template>
+          <template data-video-target="play">
+            <button class="play-button" data-action="click->video#play">
+              <span></span>
+            </button>
+          </template>
         </div>
-      {{- end -}}
-
-      {{- if .Item.HasArticle -}}
-        <main class="max-w-3xl mx-auto mt-16 prose font-lora text-lg leading-normal overflow-x-auto"
-        dir="{{ default(.Item.TextDirection, "ltr") }}">
-          {{- unsafeWrite(.HTML) -}}
-        </main>
-      {{- end -}}
-
-      <div class="max-w-3xl mx-auto mt-4 mb-8 flex gap-2 items-center">
-        <p class="flex-grow"><a class="link break-all" href="{{ .Item.URL }}" target="_blank" rel="original">{{ .Item.URL }}</a></p>
-        <img src="{{ qrcode(.Item.URL, -2, `#1e485b`) }}" alt="" class="rounded bg-white p-2">
       </div>
     {{- end -}}
 
-    <p class="max-w-3xl mx-auto my-8 pt-4 border-t text-right">
-      {{ gettext("Saved with") }}
-      <a class="link" href="https://readeck.org/">Readeck {{ yield icon(name="o-logo-square") }}</a>
-    </p>
-  </div>
-{{- end -}}
+    {{- if .Item.HasArticle -}}
+      <main class="max-w-3xl mx-auto mt-16 prose font-lora text-lg leading-normal overflow-x-auto"
+      dir="{{ default(.Item.TextDirection, "ltr") }}">
+        {{- unsafeWrite(.HTML) -}}
+      </main>
+    {{- end -}}
+
+    <div class="max-w-3xl mx-auto mt-4 mb-8 flex gap-2 items-center">
+      <p class="flex-grow"><a class="link break-all" href="{{ .Item.URL }}" target="_blank" rel="original">{{ .Item.URL }}</a></p>
+      <img src="{{ qrcode(.Item.URL, -2, `#1e485b`) }}" alt="" class="rounded bg-white p-2">
+    </div>
+  {{- end -}}
+
+  <p class="max-w-3xl mx-auto my-8 pt-4 border-t text-right">
+    {{ gettext("Saved with") }}
+    <a class="link" href="https://readeck.org/">Readeck {{ yield icon(name="o-logo-square") }}</a>
+  </p>
+</div>
+
+</body>
+</html>

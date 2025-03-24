@@ -23,6 +23,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/http/csp"
 )
 
 type (
@@ -397,12 +398,16 @@ func (h *publicViewsRouter) get(w http.ResponseWriter, r *http.Request) {
 
 		ct["HTML"] = article
 
-		// Set CSP for video playback
+		// Harden CSP
+		policy := server.GetCSPHeader(r).Clone()
+		policy.Set("connect-src", csp.None)
+		policy.Set("form-action", csp.None)
+
+		// Relax CSP for video playback
 		if item.Type == "video" && item.EmbedHostname != "" {
-			policy := server.GetCSPHeader(r).Clone()
 			policy.Add("frame-src", item.EmbedHostname)
-			policy.Write(w.Header())
 		}
+		policy.Write(w.Header())
 	}
 
 	h.srv.RenderTemplate(w, r, status, "bookmarks/bookmark_public", ct)

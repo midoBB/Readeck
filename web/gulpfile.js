@@ -138,28 +138,52 @@ function clean_all(done) {
 
 // js_bundle creates the JS bundle file using esbuild.
 function js_bundle() {
-  return gulp
-    .src("src/main.js")
-    .pipe(
-      gulpEsbuild({
-        sourcemap: "inline",
-        outfile: "bundle.js",
-        bundle: true,
-        format: "esm",
-        platform: "browser",
-        metafile: false,
-        minifyIdentifiers: true,
-        minifyWhitespace: true,
-        logLevel: "warning",
-        plugins: [stimulusPlugin()],
-      }),
-    )
-    .pipe(gulpSourcemaps.init({loadMaps: true})) // This extracts the inline sourcemap
-    .pipe(hashName())
-    .pipe(gulpSourcemaps.write("."))
-    .pipe(destCompress("gz"))
-    .pipe(destCompress("br"))
-    .pipe(gulp.dest(DEST))
+  return ordered([
+    gulp
+      .src("src/main.js")
+      .pipe(
+        gulpEsbuild({
+          sourcemap: "inline",
+          outfile: "bundle.js",
+          bundle: true,
+          format: "esm",
+          platform: "browser",
+          metafile: false,
+          minifyIdentifiers: true,
+          minifyWhitespace: true,
+          logLevel: "warning",
+          plugins: [stimulusPlugin()],
+        }),
+      )
+      .pipe(gulpSourcemaps.init({loadMaps: true})) // This extracts the inline sourcemap
+      .pipe(hashName())
+      .pipe(gulpSourcemaps.write("."))
+      .pipe(destCompress("gz"))
+      .pipe(destCompress("br"))
+      .pipe(gulp.dest(DEST)),
+    gulp
+      .src("src/public.js")
+      .pipe(
+        gulpEsbuild({
+          sourcemap: "inline",
+          outfile: "public.js",
+          bundle: true,
+          format: "esm",
+          platform: "browser",
+          metafile: false,
+          minifyIdentifiers: true,
+          minifyWhitespace: true,
+          logLevel: "warning",
+          plugins: [stimulusPlugin()],
+        }),
+      )
+      .pipe(gulpSourcemaps.init({loadMaps: true})) // This extracts the inline sourcemap
+      .pipe(hashName())
+      .pipe(gulpSourcemaps.write("."))
+      .pipe(destCompress("gz"))
+      .pipe(destCompress("br"))
+      .pipe(gulp.dest(DEST)),
+  ])
 }
 
 // css_bundle creates the CSS bundle.

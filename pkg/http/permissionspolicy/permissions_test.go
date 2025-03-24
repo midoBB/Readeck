@@ -2,32 +2,32 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package permissions_test
+package permissionspolicy_test
 
 import (
 	"net/http"
 	"testing"
 
-	"codeberg.org/readeck/readeck/pkg/http/permissions"
+	"codeberg.org/readeck/readeck/pkg/http/permissionspolicy"
 	"github.com/stretchr/testify/require"
 )
 
 func TestPP(t *testing.T) {
 	assert := require.New(t)
 
-	p := permissions.Policy{}
+	p := permissionspolicy.Policy{}
 	assert.Equal("", p.String())
 
-	p.Add(permissions.Microphone, "*")
+	p.Add(permissionspolicy.Microphone, "*")
 	assert.Equal(`microphone=(*)`, p.String())
 
-	p.Add(permissions.Microphone, `"http://example.net"`)
+	p.Add(permissionspolicy.Microphone, `"http://example.net"`)
 	assert.Equal(`microphone=(* "http://example.net")`, p.String())
 
-	p.Set(permissions.Accelerometer)
+	p.Set(permissionspolicy.Accelerometer)
 	assert.Equal(`accelerometer=(), microphone=(* "http://example.net")`, p.String())
 
-	p.Set(permissions.Microphone)
+	p.Set(permissionspolicy.Microphone)
 	assert.Equal(`accelerometer=(), microphone=()`, p.String())
 
 	header := http.Header{}

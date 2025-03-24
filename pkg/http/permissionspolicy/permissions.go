@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-// Package permissions provides simple tools to create and modify a Permissions Policy.
-package permissions
+// Package permissionspolicy provides simple tools to create and modify a Permissions Policy.
+package permissionspolicy
 
 import (
 	"fmt"

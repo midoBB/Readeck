@@ -133,6 +133,7 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 		meta.ExtractOembed,
 		contentscripts.ProcessMeta,
 		meta.SetDropProperties,
+		bookmark_tasks.OriginalLinkProcessor,
 		meta.ExtractFavicon,
 		meta.ExtractPicture,
 		contentscripts.LoadSiteConfig,

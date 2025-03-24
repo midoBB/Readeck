@@ -6,6 +6,7 @@ package tasks
 
 import (
 	"context"
+	"log/slog"
 	"net/url"
 	"slices"
 
@@ -14,9 +15,61 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/pkg/bleach"
 	"codeberg.org/readeck/readeck/pkg/extract"
+	"codeberg.org/readeck/readeck/pkg/http/linkheader"
 )
 
 type ctxExtractLinksKey struct{}
+
+// OriginalLinkProcessor looks for a rel=original link in HTTP headers.
+// If it finds one, it sets the extracted URL to the original one.
+// In the special case where a "readeck-original" header is present, it
+// fully swaps the extracted page to its original version.
+func OriginalLinkProcessor(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+	if m.Step() != extract.StepDom || m.Position() > 0 {
+		return next
+	}
+
+	// Look for Readeck-Original and Link rel=original headers.
+	var original linkheader.Link
+	originalURL := m.Extractor.Drop().Header.Get("readeck-original")
+	for _, l := range linkheader.ParseLink(m.Extractor.Drop().Header) {
+		if l.Rel == "original" {
+			original = l
+			break
+		}
+	}
+	if original.URL == "" {
+		return next
+	}
+
+	u, err := url.Parse(original.URL)
+	if err != nil {
+		m.Log().Error("cannot parse URL",
+			slog.String("url", original.URL),
+			slog.Any("err", err),
+		)
+		return next
+	}
+
+	// The link URL equals the "readeck-original" header value.
+	// We can then fully swap the requested page.
+	if original.URL == originalURL {
+		m.Log().Debug("found readeck-originl header", slog.String("url", originalURL))
+		if err = m.Extractor.ReplaceDrop(u); err != nil {
+			m.Log().Error("cannot replace page", slog.Any("err", err))
+			return nil
+		}
+
+		m.ResetPosition()
+		return nil
+	}
+
+	m.Log().Debug("found original link", slog.String("uri", original.URL))
+	m.Extractor.Drop().SetURL(u)
+	m.Extractor.Drop().Site = u.Hostname()
+
+	return next
+}
 
 // CleanDomProcessor is a last pass of cleaning on the resulting DOM node.
 // It removes unwanted attributes, empty tags and set some defaults.

@@ -288,6 +288,7 @@ func extractPageHandler(data interface{}) {
 		meta.ExtractOembed,
 		contentscripts.ProcessMeta,
 		meta.SetDropProperties,
+		OriginalLinkProcessor,
 		meta.ExtractFavicon,
 		meta.ExtractPicture,
 		contentscripts.LoadSiteConfig,

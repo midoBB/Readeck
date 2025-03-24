@@ -7,21 +7,23 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-03-22 08:42+0000\n"
-"PO-Revision-Date: 2024-11-28 11:39+0000\n"
-"Last-Translator: enricpineda <enricpineda@users.noreply.translate.codeberg.org>\n"
-"Language: ca\n"
-"Language-Team: Catalan <https://translate.codeberg.org/projects/readeck/application/ca/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"PO-Revision-Date: 2025-03-23 09:21+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fito@noreply.codeberg.org>\n"
+"Language-Team: Catalan <https://translate.codeberg.org/projects/readeck/"
+"application/ca/>\n"
+"Language: ca_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
 #: assets/templates/bookmarks/bookmark.jet.html:26
 #: assets/templates/error.jet.html:12
 msgid "Menu"
-msgstr ""
+msgstr "Menú"
 
 #: assets/templates/_layouts/sidemenu.jet.html:30
 msgid "Secondary Menu"
@@ -31,11 +33,11 @@ msgstr "Menú secundari"
 #: assets/templates/bookmarks/bookmark.jet.html:27
 #: assets/templates/error.jet.html:13
 msgid "Main content"
-msgstr ""
+msgstr "Contingut principal"
 
 #: assets/templates/_layouts/sidemenu.jet.html:46
 msgid "Close menu"
-msgstr "Tancar el menú"
+msgstr "Tanca el menú"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Quick access menu"
@@ -56,27 +58,27 @@ msgstr "Errors"
 
 #: assets/templates/_libs/forms.jet.html:16
 msgid "Please check your form for errors."
-msgstr "Si us plau, revisa el formulari."
+msgstr "Reviseu el formulari per a eliminar errors."
 
 #: assets/templates/_libs/forms.jet.html:212
 msgid "The previous"
-msgstr "Els darrer"
+msgstr "Els darrers"
 
 #: assets/templates/_libs/forms.jet.html:221
 msgid "Day(s)"
-msgstr "Dia/es"
+msgstr "Dies"
 
 #: assets/templates/_libs/forms.jet.html:222
 msgid "Week(s)"
-msgstr "Setmana/es"
+msgstr "Setmanes"
 
 #: assets/templates/_libs/forms.jet.html:223
 msgid "Month(s)"
-msgstr "Mes/os"
+msgstr "Mesos"
 
 #: assets/templates/_libs/forms.jet.html:224
 msgid "Year(s)"
-msgstr "Any/s"
+msgstr "Anys"
 
 #: assets/templates/_libs/forms.jet.html:227
 msgctxt "word"
@@ -85,7 +87,7 @@ msgstr "o"
 
 #: assets/templates/_libs/forms.jet.html:255
 msgid "Select or drop file"
-msgstr "Selecciona o deixa anar un fitxer"
+msgstr "Seleccioneu o deixeu anar un fitxer"
 
 #: assets/templates/_libs/forms.jet.html:259
 msgid "remove"
@@ -123,7 +125,7 @@ msgstr "Usuaris"
 
 #: assets/templates/admin/user.jet.html:19
 msgid "User will be removed in a few seconds"
-msgstr "L'usuari serà eliminat en breus segons"
+msgstr "L'usuari s'eliminarà en breus segons"
 
 #: assets/templates/admin/user.jet.html:20
 #: assets/templates/admin/user_list.jet.html:44
@@ -142,7 +144,7 @@ msgstr "L'usuari serà eliminat en breus segons"
 #: assets/templates/profile/token.jet.html:20
 #: assets/templates/profile/token_list.jet.html:68
 msgid "Cancel"
-msgstr "Cancel·lar"
+msgstr "Cancel·la"
 
 #: assets/templates/admin/user.jet.html:31
 #: assets/templates/admin/user_create.jet.html:20
@@ -157,7 +159,7 @@ msgstr "Nom d'usuari"
 #: assets/templates/auth/onboarding.jet.html:37
 #: assets/templates/auth/recover.jet.html:29
 msgid "Email address"
-msgstr "Correu electrònic"
+msgstr "Adreça electrònica"
 
 #: assets/templates/admin/user.jet.html:41
 #: assets/templates/admin/user_create.jet.html:31
@@ -185,23 +187,23 @@ msgstr "no canviarà si està buida"
 #: assets/templates/profile/password.jet.html:36
 #: assets/templates/profile/token.jet.html:75
 msgid "Save"
-msgstr "Guardar"
+msgstr "Desa"
 
 #: assets/templates/admin/user.jet.html:55
 msgid "Delete this user"
-msgstr "Eliminar l'usuari"
+msgstr "Suprimeix l'usuari"
 
 #: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:93
 msgid "New User"
-msgstr "Nou usuari"
+msgstr "Usuari nou"
 
 #: assets/templates/admin/user_create.jet.html:42
 msgid "Create user"
-msgstr "Crear usuari"
+msgstr "Crea un usuari"
 
 #: assets/templates/admin/user_list.jet.html:14
 msgid "Add a new user"
-msgstr "Afegir un nou usuari"
+msgstr "Afegeix un usuari nou"
 
 #: assets/templates/admin/user_list.jet.html:30
 #: assets/templates/profile/credential_list.jet.html:46
@@ -217,7 +219,7 @@ msgstr "Darrera actualització: %s"
 
 #: assets/templates/admin/user_list.jet.html:38
 msgid "This user will be removed in a few seconds."
-msgstr "Aquest usuari serà eliminat en breus segons."
+msgstr "Aquest usuari s'eliminarà en breus segons."
 
 #: assets/templates/auth/login.jet.html:9
 #: assets/templates/auth/login.jet.html:37
@@ -234,12 +236,12 @@ msgstr "Nom d'usuari o correu electrònic"
 
 #: assets/templates/auth/login.jet.html:41
 msgid "Forgot your password?"
-msgstr "Has oblidat la contrasenya?"
+msgstr "Heu oblidat la contrasenya?"
 
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:71
 msgid "Welcome to Readeck!"
-msgstr "Benvingut a Readeck!"
+msgstr "Us donem la benvinguda al Readeck."
 
 #: assets/templates/auth/onboarding.jet.html:15
 msgid "We're delighted to have you on board; one more step and you're good to go."
@@ -483,9 +485,8 @@ msgstr "amb"
 
 # | msgid "Saved with Readeck"
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
-#, fuzzy
 msgid "Saved with"
-msgstr "Gravat amb Readeck"
+msgstr "Desat amb el"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:8
 msgid "Share link"
@@ -522,7 +523,7 @@ msgstr "Filtres"
 #: assets/templates/menu.jet.html:43 docs/http.go:177 docs/http.go:243
 #: docs/http.go:281
 msgid "Documentation"
-msgstr ""
+msgstr "Documentació"
 
 #: assets/templates/bookmarks/collection.jet.html:67
 #: assets/templates/bookmarks/collection_create.jet.html:23
@@ -597,11 +598,11 @@ msgstr "Esborra aquest marcador"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as unread"
-msgstr ""
+msgstr "Marca com a no llegit"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as read"
-msgstr ""
+msgstr "Marca com a llegit"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
@@ -647,7 +648,7 @@ msgstr "Comparteix mitjançant enllaç"
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
 msgid "Saved with Readeck"
-msgstr "Gravat amb Readeck"
+msgstr "Desat amb el Readeck"
 
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Go to original page"
@@ -673,19 +674,19 @@ msgstr "Treure destacat/s"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
-msgstr ""
+msgstr "Groc"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:48
 msgid "Red"
-msgstr ""
+msgstr "Vermell"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:49
 msgid "Blue"
-msgstr ""
+msgstr "Blau"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:50
 msgid "Green"
-msgstr ""
+msgstr "Verd"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:54
 msgid "Highlight"
@@ -711,7 +712,7 @@ msgstr "Lloc web"
 #: assets/templates/bookmarks/import/options.jet.html:10
 #: assets/templates/bookmarks/label.jet.html:10
 msgid "Label"
-msgstr ""
+msgstr "Etiqueta"
 
 #: assets/templates/bookmarks/components/filters.jet.html:34
 msgid "From date"
@@ -728,7 +729,7 @@ msgstr "Tipus"
 #: assets/templates/bookmarks/components/filters.jet.html:50
 msgctxt "filter"
 msgid "Progress"
-msgstr ""
+msgstr "Progrés"
 
 #: assets/templates/bookmarks/components/filters.jet.html:55
 msgid "Is Favorite"
@@ -742,7 +743,7 @@ msgstr "és Favorit"
 #: assets/templates/bookmarks/components/reader_control.jet.html:127
 #: assets/templates/bookmarks/components/reader_control.jet.html:152
 msgid "yes"
-msgstr ""
+msgstr "sí"
 
 #: assets/templates/bookmarks/components/filters.jet.html:60
 #: assets/templates/bookmarks/components/filters.jet.html:69
@@ -752,7 +753,7 @@ msgstr ""
 #: assets/templates/bookmarks/components/reader_control.jet.html:127
 #: assets/templates/bookmarks/components/reader_control.jet.html:152
 msgid "no"
-msgstr ""
+msgstr "no"
 
 #: assets/templates/bookmarks/components/filters.jet.html:64
 msgid "Is Archived"
@@ -792,19 +793,17 @@ msgstr "Vista compacta"
 
 # | msgid "Bookmarks"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort bookmarks"
-msgstr "Marcadors"
+msgstr "Ordena els marcadors"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Sort options"
-msgstr ""
+msgstr "Opcions d'ordenació"
 
 # | msgid "Export and Share"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Import and export"
-msgstr "Exporta i comparteix"
+msgstr "Importa i exporta"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:9
 msgid "You can share the following link with your friends."
@@ -817,7 +816,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/public_share.jet.html:22
 msgid "Copy the link"
-msgstr ""
+msgstr "Copia l'enllaç"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:25
 msgid "Go back to the bookmark"
@@ -825,15 +824,15 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
-msgstr ""
+msgstr "Lletra tipogràfica"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:54
 msgid "Width"
-msgstr ""
+msgstr "Amplada"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:75
 msgid "Size"
-msgstr ""
+msgstr "Mida"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:96
 msgid "Line height"
@@ -841,11 +840,11 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:116
 msgid "Justify"
-msgstr ""
+msgstr "Justifica"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:141
 msgid "Hyphenation"
-msgstr ""
+msgstr "Partició de mots"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:1
 #: assets/templates/bookmarks/components/sidebar.jet.html:49
@@ -855,7 +854,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:13
 msgid "Errors occurred during extraction."
-msgstr ""
+msgstr "S'han produït errors durant l'extracció."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:69
 #: assets/templates/epub/bookmark.jet.html:45
@@ -871,7 +870,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:135
 msgid "Links"
-msgstr ""
+msgstr "Enllaços"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:9
 msgid "Import your Browser's Bookmarks"
@@ -888,11 +887,11 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:22
 msgid "Instructions for Firefox"
-msgstr ""
+msgstr "Instruccions per al Firefox"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:23
 msgid "Instructions for Chrome"
-msgstr ""
+msgstr "Instruccions per al Chrome"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:34
 #: assets/templates/bookmarks/import/form-csv.jet.html:27
@@ -900,11 +899,11 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:42
 #: assets/templates/bookmarks/import/form-text.jet.html:28
 msgid "File"
-msgstr ""
+msgstr "Fitxer"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:42
 msgid "Convert section titles to labels"
-msgstr ""
+msgstr "Converteix títols de seccions en etiquetes"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:44
 msgid "Adds a label on links, based on their section title"
@@ -918,11 +917,11 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-text.jet.html:35
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:69
 msgid "Import Bookmarks"
-msgstr ""
+msgstr "Importa adreces d'interès"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
 msgid "Import Links from a CSV File"
-msgstr ""
+msgstr "Importa enllaços des d'un fitxer CSV"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
@@ -1019,7 +1018,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:36
 msgid "API Key"
-msgstr ""
+msgstr "Clau de l'API"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:50
@@ -1218,11 +1217,11 @@ msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:88
 msgid "Import links and articles"
-msgstr ""
+msgstr "Importa enllaços i articles"
 
 #: assets/templates/bookmarks/index.jet.html:111
 msgid "Import bookmarks"
-msgstr ""
+msgstr "Importa adreces d'interès"
 
 #: assets/templates/bookmarks/index.jet.html:120
 msgid "Your search query yielded <strong>no results</strong>."
@@ -1238,19 +1237,19 @@ msgstr[1] ""
 #: assets/templates/bookmarks/index.jet.html:153
 msgctxt "action"
 msgid "Search"
-msgstr ""
+msgstr "Cerca"
 
 #: assets/templates/bookmarks/index.jet.html:155
 msgid "Reset search"
-msgstr ""
+msgstr "Reinicialitza la cerca"
 
 #: assets/templates/bookmarks/index.jet.html:158
 msgid "Create a collection"
-msgstr ""
+msgstr "Crea una col·lecció"
 
 #: assets/templates/bookmarks/label.jet.html:37
 msgid "Delete"
-msgstr ""
+msgstr "Suprimeix"
 
 #: assets/templates/bookmarks/label.jet.html:50
 msgid "Label will be removed in a few seconds."
@@ -2236,4 +2235,3 @@ msgstr ""
 
 #~ msgid "About %d min read"
 #~ msgstr ""
-

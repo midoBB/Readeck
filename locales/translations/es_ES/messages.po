@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-03-22 08:42+0000\n"
-"PO-Revision-Date: 2025-03-20 06:22+0000\n"
+"PO-Revision-Date: 2025-03-23 09:21+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fito@noreply.codeberg.org>\n"
+"Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/"
+"application/es/>\n"
 "Language: es_ES\n"
-"Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/application/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -481,9 +483,8 @@ msgstr "con"
 
 # | msgid "Saved with Readeck"
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
-#, fuzzy
 msgid "Saved with"
-msgstr "Guardado con Readeck"
+msgstr "Guardado con"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:8
 msgid "Share link"
@@ -569,11 +570,11 @@ msgstr "Los artículos no leídos (sin fotos ni vídeos)"
 
 #: assets/templates/bookmarks/collection_list.jet.html:34
 msgid "The archived articles from \"wikipedia.org\""
-msgstr "Los artículos archivados de \"wikipedia.org\""
+msgstr "Los artículos archivados de «wikipedia.org»"
 
 #: assets/templates/bookmarks/collection_list.jet.html:35
 msgid "The pictures with the label \"cat\""
-msgstr "Las fotos con la etiqueta \"gato\""
+msgstr "Las fotos con la etiqueta «gato»"
 
 #: assets/templates/bookmarks/collection_list.jet.html:36
 msgid "The articles that contain \"shelter\" in their title"
@@ -605,13 +606,13 @@ msgstr "Marcar como leído"
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Remove from archive"
-msgstr ""
+msgstr "Quitar del archivo"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Move to archive"
-msgstr ""
+msgstr "Mover al archivo"
 
 #: assets/templates/bookmarks/components/actions.jet.html:9
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
@@ -658,12 +659,12 @@ msgstr "Cargando"
 
 # | msgid "%d min"
 #: assets/templates/bookmarks/components/card.jet.html:75
-#, fuzzy, python-format
+#, python-format
 msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
-msgstr[0] "%d minutos"
-msgstr[1] ""
+msgstr[0] "%d min"
+msgstr[1] "%d min"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
@@ -790,25 +791,22 @@ msgstr "Vista compacta"
 
 # | msgid "Import bookmarks"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort bookmarks"
-msgstr "Importar marcadores"
+msgstr "Ordenar marcadores"
 
 # | msgid "Options"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort options"
-msgstr "Opciones"
+msgstr "Opciones de ordenación"
 
 # | msgid "Import links and articles"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Import and export"
-msgstr "Importar enlaces y artículos"
+msgstr "Importar y exportar"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:9
 msgid "You can share the following link with your friends."
-msgstr "Puedes compartir el siguiente enlace con tus amigos."
+msgstr "Puede compartir el siguiente enlace con sus amigos."
 
 #: assets/templates/bookmarks/components/public_share.jet.html:10
 #, python-format
@@ -825,7 +823,7 @@ msgstr "Volver al marcador"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
-msgstr "Fuente"
+msgstr "Tipo de letra"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:54
 msgid "Width"
@@ -910,11 +908,11 @@ msgstr "Archivo"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:42
 msgid "Convert section titles to labels"
-msgstr ""
+msgstr "Convertir títulos de sección en etiquetas"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:44
 msgid "Adds a label on links, based on their section title"
-msgstr ""
+msgstr "Añade una etiqueta a los enlaces en función del título de sección"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:48
 #: assets/templates/bookmarks/import/form-csv.jet.html:34
@@ -928,9 +926,8 @@ msgstr "Importar marcadores"
 
 # | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
-#, fuzzy
 msgid "Import Links from a CSV File"
-msgstr "Importar enlaces desde un archivo de texto"
+msgstr "Importar enlaces desde un archivo CSV"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
@@ -950,13 +947,12 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:45
 msgid "Here are the columns you can set:"
-msgstr ""
+msgstr "Estas son las columnas que puede establecer:"
 
 # | msgid "File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
-#, fuzzy
 msgid "Field"
-msgstr "Archivo"
+msgstr "Campo"
 
 # | msgid "Links"
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
@@ -966,42 +962,41 @@ msgstr "Enlaces"
 
 # | msgid "Distribution"
 #: assets/templates/bookmarks/import/form-csv.jet.html:51
-#, fuzzy
 msgid "Description"
-msgstr "Distribución"
+msgstr "Descripción"
 
 # | msgid "Email Address"
 #: assets/templates/bookmarks/import/form-csv.jet.html:58
-#, fuzzy
 msgid "Link address"
-msgstr "Dirección de correo electrónico"
+msgstr "Dirección del enlace"
 
 # | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/import/form-csv.jet.html:63
-#, fuzzy
 msgid "Bookmark title"
-msgstr "Etiquetas de marcadores"
+msgstr "Título del marcador"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:68
 #, python-format
 msgid "Bookmark's archived state; only valid value is \"%s\""
-msgstr ""
+msgstr "Estado archivado del marcador; el único valor válido es «%s»"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:73
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
 msgstr ""
+"Fecha de creación; puede ser un cronomarcador UNIX o una fecha en formato "
+"RFC-3339"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:78
 msgid "A JSON encoded list of labels"
-msgstr ""
+msgstr "Una lista de etiquetas codificada como JSON"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:83
 msgid "Example"
-msgstr ""
+msgstr "Ejemplo"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
 msgid "Import Links from a GoodLinks export file"
-msgstr ""
+msgstr "Importar enlaces desde un archivo de exportación de GoodLinks"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:15
 msgid ""
@@ -1013,7 +1008,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:47
 msgid "Import your Omnivore Articles"
-msgstr ""
+msgstr "Importar sus artículos de Omnivore"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:15
 msgid ""
@@ -1025,20 +1020,20 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:28
 msgid "Omnivore URL"
-msgstr ""
+msgstr "URL de Omnivore"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:30
 msgid "URL of your Omnivore homepage"
-msgstr ""
+msgstr "URL de su página de Omnivore"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:36
 msgid "API Key"
-msgstr ""
+msgstr "Clave de API"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:50
 msgid "Import your Pocket Articles"
-msgstr ""
+msgstr "Importar sus artículos de Pocket"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
 #, python-format
@@ -1166,7 +1161,7 @@ msgstr "Importar enlaces desde un archivo de texto"
 
 #: assets/templates/bookmarks/import/index.jet.html:44
 msgid "Import your GoodLinks Articles"
-msgstr ""
+msgstr "Importar sus artículos de GoodLinks"
 
 #: assets/templates/bookmarks/import/options.jet.html:7
 msgid "Options"
@@ -1174,7 +1169,7 @@ msgstr "Opciones"
 
 #: assets/templates/bookmarks/import/options.jet.html:12
 msgid "A label to add to all imported bookmarks"
-msgstr ""
+msgstr "Una etiqueta que añadir a todos los marcadores importados"
 
 #: assets/templates/bookmarks/import/options.jet.html:16
 msgid "Ignore links already in your bookmarks"
@@ -1182,9 +1177,8 @@ msgstr "Ignora los enlaces que ya están en tus marcadores"
 
 # | msgid "Archived Bookmarks"
 #: assets/templates/bookmarks/import/options.jet.html:21
-#, fuzzy
 msgid "Archive all links"
-msgstr "Marcadores archivados"
+msgstr "Archivar todos los enlaces"
 
 #: assets/templates/bookmarks/import/options.jet.html:23
 msgid "Moves all links to archive, regardless of their original status"
@@ -1192,7 +1186,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/options.jet.html:27
 msgid "Mark all links as read"
-msgstr ""
+msgstr "Marcar todos los enlaces como leídos"
 
 #: assets/templates/bookmarks/import/options.jet.html:29
 msgid "Marks all links as read, regardless of their original status"
@@ -1227,9 +1221,8 @@ msgstr ""
 
 # | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/index.jet.html:1
-#, fuzzy
 msgid "Bookmark filters"
-msgstr "Etiquetas de marcadores"
+msgstr "Filtros de marcadores"
 
 #: assets/templates/bookmarks/index.jet.html:27
 msgid "Save a new link"
@@ -1243,7 +1236,7 @@ msgstr "Guardar enlace"
 #: assets/templates/bookmarks/index.jet.html:49
 #, python-format
 msgid "\"%s\" is not a valid address. Did you mean to search your bookmarks for %s?"
-msgstr "\"%s\" no es una dirección válida. ¿Querías buscar %s en tus marcadores?"
+msgstr "«%s» no es una dirección válida. ¿Quería buscar %s en sus marcadores?"
 
 #: assets/templates/bookmarks/index.jet.html:73
 msgid "You don't have any bookmarks yet.<br> Copy a link in the field above and start saving."
@@ -1252,7 +1245,9 @@ msgstr "Todavía no tienes ningún marcador.<br> Copie un enlace en el campo de 
 #: assets/templates/bookmarks/index.jet.html:75
 #, python-format
 msgid "Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentation</a>."
-msgstr "Obtén más información sobre los marcadores en la <a class=\"%s\" href=\"%s\">documentación</a>."
+msgstr ""
+"Conozca más sobre los marcadores en la <a class=\"%s\" href=\"%s\""
+">documentación</a>."
 
 #: assets/templates/bookmarks/index.jet.html:81
 msgid ""
@@ -1343,27 +1338,27 @@ msgstr "Esta es la información actual de su sistema. Por favor, inclúyelos si 
 
 #: assets/templates/docs/about.jet.html:31
 msgid "Project"
-msgstr ""
+msgstr "Proyecto"
 
 #: assets/templates/docs/about.jet.html:34
 msgid "Main website"
-msgstr ""
+msgstr "Sitio web principal"
 
 #: assets/templates/docs/about.jet.html:35
 msgid "Sources and issues"
-msgstr ""
+msgstr "Código e informes"
 
 #: assets/templates/docs/about.jet.html:36
 msgid "How to contribute"
-msgstr ""
+msgstr "Cómo contribuir"
 
 #: assets/templates/docs/about.jet.html:37
 msgid "Community Forum"
-msgstr ""
+msgstr "Foro comunitario"
 
 #: assets/templates/docs/about.jet.html:38
 msgid "Matrix Chat"
-msgstr ""
+msgstr "Charla en Matrix"
 
 #: assets/templates/docs/about.jet.html:41
 msgid "License"
@@ -1372,7 +1367,7 @@ msgstr "Licencia"
 #: assets/templates/docs/about.jet.html:43
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
-msgstr "Readeck se distribuye bajo los términos de la licencia \"%s\""
+msgstr "Readeck se distribuye en virtud de la licencia «%s»"
 
 #: assets/templates/docs/about.jet.html:47
 msgid "Here's a short summary of the license conditions:"
@@ -1653,9 +1648,8 @@ msgstr "Borrar contraseña"
 # | msgid "New password"
 #: assets/templates/profile/credential.jet.html:95
 #: assets/templates/profile/credential.jet.html:103
-#, fuzzy
 msgid "Refresh password"
-msgstr "Nueva contraseña"
+msgstr "Actualizar contraseña"
 
 #: assets/templates/profile/credential.jet.html:97
 msgid ""
@@ -1706,13 +1700,12 @@ msgstr "Contraseña actual"
 
 # | msgid "API Token"
 #: assets/templates/profile/token.jet.html:1
-#, fuzzy
 msgid "copy token"
-msgstr "Token de API"
+msgstr "copiar ficha"
 
 #: assets/templates/profile/token.jet.html:1
 msgid "copy HTTP header"
-msgstr ""
+msgstr "copiar cabecera HTTP"
 
 #: assets/templates/profile/token.jet.html:9
 msgid "API Token"
@@ -1766,7 +1759,7 @@ msgstr "Puede usar este token pasándolo como un encabezado HTTP <strong>Authori
 
 #: assets/templates/profile/token.jet.html:98
 msgid "HTTP Header"
-msgstr ""
+msgstr "Cabecera HTTP"
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
@@ -1785,7 +1778,7 @@ msgstr ""
 #: assets/templates/profile/token_list.jet.html:20
 #, python-format
 msgid "Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
-msgstr "Por favor, lea la documentación de la <a href=\"%s\">API</a> si planea utilizarla."
+msgstr "Lea la documentación de la <a href=\"%s\">API</a> si planea utilizarla."
 
 #: assets/templates/profile/token_list.jet.html:26
 msgid "Create a new API token"
@@ -1814,9 +1807,8 @@ msgstr "Usuario y/o contraseña no válidos"
 
 # | msgid "Password ID"
 #: internal/auth/users/forms.go:68
-#, fuzzy
 msgid "password is empty"
-msgstr "ID de contraseña"
+msgstr "la contraseña está vacía"
 
 #: internal/auth/users/forms.go:205
 msgid "Bookmarks : Read Only"
@@ -1840,7 +1832,7 @@ msgstr "Marcadores del navegador"
 
 #: internal/bookmarks/importer/browser.go:75
 msgid "Unable to read HTML content"
-msgstr ""
+msgstr "No se puede leer el contenido HTML"
 
 #: internal/bookmarks/importer/browser.go:129
 #: internal/bookmarks/importer/csv.go:142
@@ -1853,17 +1845,16 @@ msgstr "Archivo de importación vacío o no válido"
 
 # | msgid "File"
 #: internal/bookmarks/importer/csv.go:118
-#, fuzzy
 msgid "CSV File"
-msgstr "Archivo"
+msgstr "Archivo CSV"
 
 #: internal/bookmarks/importer/goodlinks.go:44
 msgid "GoodLinks Export File"
-msgstr ""
+msgstr "Archivo de exportación de GoodLinks"
 
 #: internal/bookmarks/importer/omnivore.go:247
 msgid "Invalid API Key"
-msgstr ""
+msgstr "Clave de API no válida"
 
 #: internal/bookmarks/importer/text.go:24
 msgid "Text File"
@@ -1883,7 +1874,7 @@ msgstr "No se encontró ningún token de acceso"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:135
 msgid "Unable to process input data"
-msgstr ""
+msgstr "No se pueden procesar los datos de entrada"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:376
 msgid "Article"
@@ -1905,7 +1896,7 @@ msgstr ""
 #: internal/bookmarks/routes/forms_bookmarks.go:386
 msgctxt "status"
 msgid "In-Progress"
-msgstr ""
+msgstr "En curso"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:387
 msgctxt "status"
@@ -2341,4 +2332,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr ""
-

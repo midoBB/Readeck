@@ -7,21 +7,23 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-03-22 08:42+0000\n"
-"PO-Revision-Date: 2025-01-04 04:13+0000\n"
-"Last-Translator: mateusjdev <mateusjdev@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2025-03-24 06:20+0000\n"
+"Last-Translator: soaresluciano <soaresluciano@noreply.codeberg.org>\n"
+"Language-Team: Portuguese (Brazil) <https://translate.codeberg.org/projects/"
+"readeck/application/pt_BR/>\n"
 "Language: pt_BR\n"
-"Language-Team: Portuguese (Brazil) <https://translate.codeberg.org/projects/readeck/application/pt_BR/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
 #: assets/templates/bookmarks/bookmark.jet.html:26
 #: assets/templates/error.jet.html:12
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: assets/templates/_layouts/sidemenu.jet.html:30
 msgid "Secondary Menu"
@@ -31,7 +33,7 @@ msgstr "Menu secundário"
 #: assets/templates/bookmarks/bookmark.jet.html:27
 #: assets/templates/error.jet.html:13
 msgid "Main content"
-msgstr ""
+msgstr "Conteúdo principal"
 
 #: assets/templates/_layouts/sidemenu.jet.html:46
 msgid "Close menu"
@@ -369,7 +371,7 @@ msgstr "Leia mais sobre as marcações na <a class=\"%s\" href=\"%s\">documenta�
 #: assets/templates/bookmarks/bookmark.jet.html:15
 #: assets/templates/menu.jet.html:20
 msgid "Bookmarks"
-msgstr ""
+msgstr "Marcadores"
 
 #: assets/templates/bookmarks/base.jet.html:24
 msgid "All"
@@ -416,7 +418,7 @@ msgstr "Marcações"
 #: assets/templates/bookmarks/collection.jet.html:11
 #: assets/templates/bookmarks/collection.jet.html:33
 msgid "Collections"
-msgstr ""
+msgstr "Coleções"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:80
@@ -434,116 +436,116 @@ msgstr "Carregando favorito"
 
 #: assets/templates/bookmarks/bookmark.jet.html:43
 msgid "Bookmark is loading"
-msgstr ""
+msgstr "Marcador carregando"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html:9
 #: assets/templates/bookmarks/bookmark_missing.jet.html:14
 msgid "Bookmark not found"
-msgstr ""
+msgstr "Marcador não encontrado"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:13
 msgid "Shared link"
-msgstr ""
+msgstr "Link compartilhado"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:23
 msgid "Page not found"
-msgstr ""
+msgstr "Página não encontrada"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:25
 msgid "Page has expired"
-msgstr ""
+msgstr "Página expirou"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:47
 #: assets/templates/bookmarks/components/sidebar.jet.html:56
 #: assets/templates/epub/bookmark.jet.html:37
 #, python-format
 msgid "Published on %s"
-msgstr ""
+msgstr "Publicado em %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:52
 #: assets/templates/bookmarks/components/sidebar.jet.html:61
 #: assets/templates/epub/bookmark.jet.html:40
 #, python-format
 msgid "By %s"
-msgstr ""
+msgstr "Por %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:60
 #, python-format
 msgid "%d min"
-msgstr ""
+msgstr "%d min"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:65
 #, python-format
 msgid "Shared by %s"
-msgstr ""
+msgstr "Compartilhado por %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:66
 msgid "with"
-msgstr ""
+msgstr "com"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
 msgid "Saved with"
-msgstr ""
+msgstr "Salvo com"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:8
 msgid "Share link"
-msgstr ""
+msgstr "Compartilhar link"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:19
 #, python-format
 msgid "Share: %s"
-msgstr ""
+msgstr "Compartilhar: %s"
 
 #: assets/templates/bookmarks/collection.jet.html:16
 #, python-format
 msgid "Collection %s"
-msgstr ""
+msgstr "Coleção %s"
 
 #: assets/templates/bookmarks/collection.jet.html:21
 msgid "Collection will be removed in a few seconds."
-msgstr ""
+msgstr "A coleção será removida em alguns segundos."
 
 #: assets/templates/bookmarks/collection.jet.html:42
 #: assets/templates/bookmarks/collection.jet.html:54
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: assets/templates/bookmarks/collection.jet.html:56
 #: assets/templates/bookmarks/index.jet.html:104
 #: assets/templates/bookmarks/index.jet.html:137
 #: assets/templates/bookmarks/index.jet.html:140
 msgid "Filters"
-msgstr ""
+msgstr "Filtros"
 
 #: assets/templates/bookmarks/collection.jet.html:59
 #: assets/templates/bookmarks/index.jet.html:143
 #: assets/templates/menu.jet.html:43 docs/http.go:177 docs/http.go:243
 #: docs/http.go:281
 msgid "Documentation"
-msgstr ""
+msgstr "Documentação"
 
 #: assets/templates/bookmarks/collection.jet.html:67
 #: assets/templates/bookmarks/collection_create.jet.html:23
 #: assets/templates/profile/credential.jet.html:63
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: assets/templates/bookmarks/collection.jet.html:79
 msgid "Delete collection"
-msgstr ""
+msgstr "Deletar coleção"
 
 #: assets/templates/bookmarks/collection_create.jet.html:9
 msgid "New Collection"
-msgstr ""
+msgstr "Nova coleção"
 
 #: assets/templates/bookmarks/collection_list.jet.html:9
 #: internal/opds/http.go:74
 msgid "Bookmark Collections"
-msgstr ""
+msgstr "Coleções de marcadores"
 
 #: assets/templates/bookmarks/collection_list.jet.html:15
 msgid "Create a new collection"
-msgstr ""
+msgstr "Criar nova coleção"
 
 #: assets/templates/bookmarks/collection_list.jet.html:24
 msgid ""
@@ -558,7 +560,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/collection_list.jet.html:33
 msgid "The unread articles (no photos or videos)"
-msgstr ""
+msgstr "Os artigos não lidos (sem fotos ou vídeos)"
 
 #: assets/templates/bookmarks/collection_list.jet.html:34
 msgid "The archived articles from \"wikipedia.org\""
@@ -2211,4 +2213,3 @@ msgstr ""
 
 #~ msgid "About %d min read"
 #~ msgstr ""
-

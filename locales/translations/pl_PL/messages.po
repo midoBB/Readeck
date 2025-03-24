@@ -7,14 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-03-22 08:42+0000\n"
-"PO-Revision-Date: 2024-11-23 20:07+0000\n"
+"PO-Revision-Date: 2025-03-23 09:21+0000\n"
 "Last-Translator: Eryk Michalak <gnu.ewm@protonmail.com>\n"
+"Language-Team: Polish <https://translate.codeberg.org/projects/readeck/"
+"application/pl/>\n"
 "Language: pl_PL\n"
-"Language-Team: Polish <https://translate.codeberg.org/projects/readeck/application/pl/>\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -264,10 +267,11 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"  Twój adres email jest opcjonalny i nigdy nie opuści ten instalacji.\n"
-"  Nigdy nie będzie zbierany, transferowany i sprzedawany.\n"
-"  Będzie użyty <strong>tylko</strong> gdy będziesz go potrzebował, w celu\n"
-"  odzyskiwania hasła i wewnętrznych powiadomień.\n"
+"  Podanie adresu e-mail jest opcjonalne. Jeśli podasz nam swój adres e-mail "
+"nigdy nie zostanie on nikomu przekazany.\n"
+"  Twoje dane nigdy nie będą zbierane, transferowane ani sprzedawane.\n"
+"  Twój adres e-mail zostanie użyty <strong>tylko</strong> w celu "
+"odzyskiwania hasła i wewnętrznych powiadomień.\n"
 "  "
 
 #: assets/templates/auth/onboarding.jet.html:47
@@ -484,9 +488,8 @@ msgstr "z"
 
 # | msgid "Saved with Readeck"
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
-#, fuzzy
 msgid "Saved with"
-msgstr "Zapisane w Readeck"
+msgstr "Zapisane za pomocą"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:8
 msgid "Share link"
@@ -598,11 +601,11 @@ msgstr "Usuń tą zakładkę"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as unread"
-msgstr ""
+msgstr "Oznacz jako nieprzeczytane"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as read"
-msgstr ""
+msgstr "Oznacz jako przczytane"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
@@ -661,13 +664,13 @@ msgstr "Wczytywanie"
 
 # | msgid "%d min"
 #: assets/templates/bookmarks/components/card.jet.html:75
-#, fuzzy, python-format
+#, python-format
 msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
 msgstr[0] "%d min"
-msgstr[1] ""
-msgstr[2] ""
+msgstr[1] "%d min"
+msgstr[2] "%d min"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
@@ -675,19 +678,19 @@ msgstr "Usuń podkreślenie(-a)"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
-msgstr ""
+msgstr "Żółty"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:48
 msgid "Red"
-msgstr ""
+msgstr "Czerwony"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:49
 msgid "Blue"
-msgstr ""
+msgstr "Niebieski"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:50
 msgid "Green"
-msgstr ""
+msgstr "Zielony"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:54
 msgid "Highlight"
@@ -730,7 +733,7 @@ msgstr "Typ"
 #: assets/templates/bookmarks/components/filters.jet.html:50
 msgctxt "filter"
 msgid "Progress"
-msgstr ""
+msgstr "Postęp"
 
 #: assets/templates/bookmarks/components/filters.jet.html:55
 msgid "Is Favorite"
@@ -794,21 +797,18 @@ msgstr "Widok kompaktowy"
 
 # | msgid "Import bookmarks"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort bookmarks"
-msgstr "Importuj zakładki"
+msgstr "Sortuj zakładki"
 
 # | msgid "Options"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort options"
-msgstr "Opcje"
+msgstr "Opcje sortowania"
 
 # | msgid "Import links and articles"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Import and export"
-msgstr "Importuj linki i artykuły"
+msgstr "Import i eksport"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:9
 msgid "You can share the following link with your friends."
@@ -833,7 +833,7 @@ msgstr "Czcionka"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:54
 msgid "Width"
-msgstr ""
+msgstr "Szerokość"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:75
 msgid "Size"
@@ -849,7 +849,7 @@ msgstr "Wyjustuj"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:141
 msgid "Hyphenation"
-msgstr ""
+msgstr "Używanie łącznika"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:1
 #: assets/templates/bookmarks/components/sidebar.jet.html:49
@@ -864,12 +864,12 @@ msgstr "W czasie wczytywania pojawiły się błędy."
 # | msgid "About %d min read"
 #: assets/templates/bookmarks/components/sidebar.jet.html:69
 #: assets/templates/epub/bookmark.jet.html:45
-#, fuzzy, python-format
+#, python-format
 msgid "About %d minute read"
 msgid_plural "About %d minutes read"
-msgstr[0] "Około %d min czytania"
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Około %d minuta czytania"
+msgstr[1] "Około %d minuty czytania"
+msgstr[2] "Około %d minut czytania"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:104
 msgid "Start selecting text in the article to create a new highlight."
@@ -919,7 +919,7 @@ msgstr "Zamień tytuły sekcji na etykiety"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:44
 msgid "Adds a label on links, based on their section title"
-msgstr ""
+msgstr "Dodaj etykiety do linków na podstawie nazw ich sekcji"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:48
 #: assets/templates/bookmarks/import/form-csv.jet.html:34
@@ -933,9 +933,8 @@ msgstr "Importuj zakładki"
 
 # | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
-#, fuzzy
 msgid "Import Links from a CSV File"
-msgstr "Importuj linki z pliku tekstowego"
+msgstr "Importuj linki z pliku CSV"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
@@ -943,6 +942,10 @@ msgid ""
 "    Upload a CSV file from Instapaper or any CSV that matches the format specified bellow.\n"
 "  "
 msgstr ""
+"\n"
+"    Prześlij plik CSV z Instapaper lub dowolny plik CSV, który pasuje do "
+"formatu poniżej.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
 #, python-format
@@ -955,25 +958,22 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:45
 msgid "Here are the columns you can set:"
-msgstr ""
+msgstr "Kolumny, które możesz dostosować:"
 
 # | msgid "File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
-#, fuzzy
 msgid "Field"
-msgstr "Plik"
+msgstr "Pole"
 
 # | msgid "Links"
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
-#, fuzzy
 msgid "Alias"
-msgstr "Linki"
+msgstr "Alias"
 
 # | msgid "Distribution"
 #: assets/templates/bookmarks/import/form-csv.jet.html:51
-#, fuzzy
 msgid "Description"
-msgstr "Dystrybucja"
+msgstr "Opis"
 
 # | msgid "Email Address"
 #: assets/templates/bookmarks/import/form-csv.jet.html:58
@@ -983,9 +983,8 @@ msgstr "Adres email"
 
 # | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/import/form-csv.jet.html:63
-#, fuzzy
 msgid "Bookmark title"
-msgstr "Etykiety zakładek"
+msgstr "Tytuł zakładki"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:68
 #, python-format
@@ -1002,7 +1001,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:83
 msgid "Example"
-msgstr ""
+msgstr "Przykład"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
 msgid "Import Links from a GoodLinks export file"
@@ -1034,7 +1033,7 @@ msgstr "Adres URL Omnivore"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:30
 msgid "URL of your Omnivore homepage"
-msgstr ""
+msgstr "URL strony głównej Omnivore"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:36
 msgid "API Key"
@@ -1166,9 +1165,8 @@ msgstr ""
 
 # | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/index.jet.html:40
-#, fuzzy
 msgid "Import Links from a CSV File and Instapaper"
-msgstr "Importuj linki z pliku tekstowego"
+msgstr "Importuj linki z pliku CSV i Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html:44
 msgid "Import your GoodLinks Articles"
@@ -1188,9 +1186,8 @@ msgstr "Ignoruj linki już istniejące w twoich zakładkach"
 
 # | msgid "Archived Bookmarks"
 #: assets/templates/bookmarks/import/options.jet.html:21
-#, fuzzy
 msgid "Archive all links"
-msgstr "Zarchiwizowane zakładki"
+msgstr "Zarchiwizuj wszystkie linki"
 
 #: assets/templates/bookmarks/import/options.jet.html:23
 msgid "Moves all links to archive, regardless of their original status"
@@ -1198,7 +1195,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/options.jet.html:27
 msgid "Mark all links as read"
-msgstr ""
+msgstr "Oznacz wszystkie linki jako przeczytane"
 
 #: assets/templates/bookmarks/import/options.jet.html:29
 msgid "Marks all links as read, regardless of their original status"
@@ -1233,9 +1230,8 @@ msgstr ""
 
 # | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/index.jet.html:1
-#, fuzzy
 msgid "Bookmark filters"
-msgstr "Etykiety zakładek"
+msgstr "Filtry zakładek"
 
 #: assets/templates/bookmarks/index.jet.html:27
 msgid "Save a new link"
@@ -1358,7 +1354,7 @@ msgstr "Główna strona internetowa"
 
 #: assets/templates/docs/about.jet.html:35
 msgid "Sources and issues"
-msgstr ""
+msgstr "Kod źródłowy i zgłoszenia"
 
 #: assets/templates/docs/about.jet.html:36
 msgid "How to contribute"
@@ -1621,16 +1617,14 @@ msgstr "ID hasła"
 # | msgid "Patent use"
 #: assets/templates/profile/credential.jet.html:56
 #: assets/templates/profile/token.jet.html:37
-#, fuzzy
 msgid "Last used"
-msgstr "Wykorzystanie w patentach"
+msgstr "Ostatnio używane"
 
 # | msgid "New User"
 #: assets/templates/profile/credential.jet.html:57
 #: assets/templates/profile/token.jet.html:38
-#, fuzzy
 msgid "never used"
-msgstr "Nowy użytkownik"
+msgstr "nigdy nie używane"
 
 #: assets/templates/profile/credential.jet.html:69
 #: assets/templates/profile/token.jet.html:50
@@ -1686,9 +1680,9 @@ msgstr "Stwórz nowe hasło aplikacji"
 # | msgid "Created on: %s"
 #: assets/templates/profile/credential_list.jet.html:48
 #: assets/templates/profile/token_list.jet.html:54
-#, fuzzy, python-format
+#, python-format
 msgid "Last used on: %s"
-msgstr "Utworzono: %s"
+msgstr "Ostatnio użyto: %s"
 
 #: assets/templates/profile/credential_list.jet.html:56
 msgid "This password will be removed in a few seconds."
@@ -1716,13 +1710,12 @@ msgstr "Obecne hasło"
 
 # | msgid "API Token"
 #: assets/templates/profile/token.jet.html:1
-#, fuzzy
 msgid "copy token"
-msgstr "Token API"
+msgstr "kopiuj token"
 
 #: assets/templates/profile/token.jet.html:1
 msgid "copy HTTP header"
-msgstr ""
+msgstr "kopiuj nagłówek HTTP"
 
 #: assets/templates/profile/token.jet.html:9
 msgid "API Token"
@@ -1776,7 +1769,7 @@ msgstr "Możesz użyć tego tokena przekazując go jako nagłówek HTTP <strong>
 
 #: assets/templates/profile/token.jet.html:98
 msgid "HTTP Header"
-msgstr ""
+msgstr "Nagłówek HTTP"
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
@@ -1824,9 +1817,8 @@ msgstr "Niepoprawny użytkownik i/lub hasło"
 
 # | msgid "Password ID"
 #: internal/auth/users/forms.go:68
-#, fuzzy
 msgid "password is empty"
-msgstr "ID hasła"
+msgstr "hasło jest puste"
 
 #: internal/auth/users/forms.go:205
 msgid "Bookmarks : Read Only"
@@ -1850,7 +1842,7 @@ msgstr "Zakładki przeglądarki"
 
 #: internal/bookmarks/importer/browser.go:75
 msgid "Unable to read HTML content"
-msgstr ""
+msgstr "Nie udało się odczytać zawartości HTML"
 
 #: internal/bookmarks/importer/browser.go:129
 #: internal/bookmarks/importer/csv.go:142
@@ -1863,9 +1855,8 @@ msgstr "Pusty lub niepoprawny plik tekstowy"
 
 # | msgid "File"
 #: internal/bookmarks/importer/csv.go:118
-#, fuzzy
 msgid "CSV File"
-msgstr "Plik"
+msgstr "Plik CSV"
 
 #: internal/bookmarks/importer/goodlinks.go:44
 msgid "GoodLinks Export File"
@@ -1915,12 +1906,12 @@ msgstr ""
 #: internal/bookmarks/routes/forms_bookmarks.go:386
 msgctxt "status"
 msgid "In-Progress"
-msgstr ""
+msgstr "W trakcie"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:387
 msgctxt "status"
 msgid "Completed"
-msgstr ""
+msgstr "Ukończone"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:621
 msgctxt "sort"
@@ -1965,12 +1956,12 @@ msgstr "Nazwa strony, od Z do A"
 #: internal/bookmarks/routes/forms_bookmarks.go:629
 msgctxt "sort"
 msgid "Duration, shortest first"
-msgstr ""
+msgstr "Długość, najpierw najkrótsze"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:630
 msgctxt "sort"
 msgid "Duration, longest first"
-msgstr ""
+msgstr "Długość, najpierw najdłuższe"
 
 #: internal/bookmarks/routes/opds.go:56
 msgid "Readeck Bookmarks"
@@ -2351,4 +2342,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr ""
-

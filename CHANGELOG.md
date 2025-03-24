@@ -12,6 +12,9 @@
 - Option to archive and/or mark read all imported bookmarks
 - Reading time pluralization, by [@zull](https://codeberg.org/zull)
 - Case insensitive label suggestions
+- Exhaustive and restrictive Permissions-Policy headers
+- Extraction of pages on Wordpress with the activitypub plugin
+- Extraction of pages with a Link `<url>; rel="original"` header
 
 ### Changed
 - Updated Go to 1.24

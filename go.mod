@@ -16,7 +16,7 @@ require (
 	github.com/casbin/casbin/v2 v2.104.0
 	github.com/cristalhq/acmd v0.12.0
 	github.com/dop251/goja v0.0.0-20250309171923-bcd7cc6bf64c
-	github.com/dop251/goja_nodejs v0.0.0-20250314160716-c55ecee183c0
+	github.com/dop251/goja_nodejs v0.0.0-20250325151027-56d2092bee9a
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/gabriel-vasile/mimetype v1.4.8
 	github.com/go-chi/chi/v5 v5.2.1

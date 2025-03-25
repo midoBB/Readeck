@@ -3,10 +3,10 @@ SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
 
 SPDX-License-Identifier: AGPL-3.0-only
 *}
-{{- block icon(name, class="svgicon", svgClass="w-4 h-4", viewBox="0 0 100 100", attrs=attrList()) -}}
+{{- block icon(name, src="img/icons.svg", class="svgicon", svgClass="w-4 h-4", viewBox="0 0 100 100", attrs=attrList()) -}}
 <span class="{{ class }}" {{ attrs }}><svg xmlns="http://www.w3.org/2000/svg"
 viewbox="{{ viewBox }}" class="inline-block {{ svgClass }}"><use
-href="{{ assetURL(`img/icons.svg`) }}#{{ name }}"></use></svg></span>
+href="{{ assetURL(src) }}#{{ name }}"></use></svg></span>
 {{- end -}}
 
 {{- block csrfField() -}}

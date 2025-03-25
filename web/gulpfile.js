@@ -264,10 +264,9 @@ function css_epub() {
     .pipe(gulp.dest(DEST))
 }
 
-// icon_sprite creates the icon sprite file
-function icon_sprite() {
+function icon_sprite(src, dst) {
   // Icons are defined in this file
-  const icons = JSON.parse(fs.readFileSync("./media/icons.json"))
+  const icons = JSON.parse(fs.readFileSync(src))
 
   return gulp
     .src(Object.values(icons))
@@ -295,11 +294,19 @@ function icon_sprite() {
       }),
     )
     .pipe(gulpSvgStore())
-    .pipe(gulpRename("img/icons.svg"))
+    .pipe(gulpRename(dst))
     .pipe(hashName())
     .pipe(destCompress("gz"))
     .pipe(destCompress("br"))
     .pipe(gulp.dest(DEST))
+}
+
+// icon_bundle creates the icon bundle files
+function icon_bundle() {
+  return ordered([
+    icon_sprite("./media/icons.json", "img/icons.svg"),
+    icon_sprite("./media/logos.json", "img/logos.svg"),
+  ])
 }
 
 // copy_files copies some files to the destination.
@@ -377,7 +384,7 @@ const full_build = gulp.series(
   clean_all,
   gulp.parallel(
     js_bundle, //
-    icon_sprite,
+    icon_bundle,
     copy_files,
     css_bundle,
     css_epub,
@@ -417,7 +424,7 @@ function watch_media() {
     ["media/**/*"],
     gulp.series(
       clean_media, //
-      icon_sprite,
+      icon_bundle,
       copy_files,
       write_manifest,
     ),
@@ -428,7 +435,7 @@ exports.clean = clean_all
 exports.js = js_bundle
 exports.css = gulp.series(clean_css, css_bundle, css_epub)
 exports.epub = css_epub
-exports.icons = icon_sprite
+exports.icons = icon_bundle
 exports.copy = copy_files
 
 exports["watch:css"] = watch_css

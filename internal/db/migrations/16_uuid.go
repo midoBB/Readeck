@@ -200,6 +200,7 @@ func M16uuidFields(db *goqu.TxDatabase, _ fs.FS) error {
 			_, err := os.Stat(oldpath)
 			if errors.Is(err, os.ErrNotExist) {
 				slog.Warn("file does not exist", slog.String("path", oldpath))
+				continue
 			}
 
 			if err = os.MkdirAll(filepath.Dir(newpath), 0o750); err != nil {

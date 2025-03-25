@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-03-22 08:42+0000\n"
-"PO-Revision-Date: 2025-03-25 09:21+0000\n"
-"Last-Translator: ghose <ghose@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-03-26 01:36+0000\n"
+"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language-Team: Galician <https://translate.codeberg.org/projects/readeck/"
 "application/gl/>\n"
 "Language: gl_ES\n"
@@ -476,7 +476,7 @@ msgstr "Por %s"
 #: assets/templates/bookmarks/bookmark_public.jet.html:60
 #, python-format
 msgid "%d min"
-msgstr "%s min"
+msgstr "%d min"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:65
 #, python-format
@@ -863,7 +863,7 @@ msgstr "Erros ao extraer o contido."
 #, python-format
 msgid "About %d minute read"
 msgid_plural "About %d minutes read"
-msgstr[0] "Uns %s minutos de lectura"
+msgstr[0] "Uns %d minutos de lectura"
 msgstr[1] ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:104

@@ -5,6 +5,10 @@ SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{ extends "/_layouts/sidemenu" }}
 
+{{- block head() -}}
+  <meta name="turbo-refresh-scroll" content="preserve">
+{{- end -}}
+
 {{- block sideMenu() -}}
 {{- yield sideMenuTitle() content -}}{{ gettext("Bookmarks") }}{{- end }}
 
@@ -20,51 +24,53 @@ SPDX-License-Identifier: AGPL-3.0-only
   </div>
 </form>
 
-<menu class="my-4">
-  {{ yield sideMenuItem(name=gettext("All"), path="/bookmarks", icon="o-library",
-                        nbItems=.Count.Total,
-                        current=pathIs("/bookmarks")) }}
-  {{ yield sideMenuItem(name=gettext("Unread"), path="/bookmarks/unread", icon="o-check-off",
-                        nbItems=.Count.Unread,
-                        current=pathIs("/bookmarks/unread")) }}
-  {{ yield sideMenuItem(name=gettext("Archive"), path="/bookmarks/archives", icon="o-archive-off",
-                        nbItems=.Count.Archived,
-                        current=pathIs("/bookmarks/archives")) }}
-  {{ yield sideMenuItem(name=gettext("Favorites"), path="/bookmarks/favorites", icon="o-favorite-off",
-                        nbItems=.Count.Marked,
-                        current=pathIs("/bookmarks/favorites")) }}
-</menu>
-
-{{- if isset(.Count) }}
+<turbo-frame id="bookmarks-sidemenu">
   <menu class="my-4">
-    {{- if isset(.Count.ByType.article) && .Count.ByType.article > 0 }}
-      {{ yield sideMenuItem(name=gettext("Articles"), path="/bookmarks/articles", icon="o-file",
-                            nbItems=.Count.ByType.article,
-                            current=pathIs("/bookmarks/articles")) }}
-    {{- end -}}
-
-    {{- if isset(.Count.ByType.video) && .Count.ByType.video > 0 }}
-      {{ yield sideMenuItem(name=gettext("Videos"), path="/bookmarks/videos", icon="o-video",
-                            nbItems=.Count.ByType.video,
-                            current=pathIs("/bookmarks/videos")) }}
-    {{- end -}}
-
-    {{- if isset(.Count.ByType.photo) && .Count.ByType.photo > 0 }}
-      {{ yield sideMenuItem(name=gettext("Pictures"), path="/bookmarks/pictures", icon="o-photo",
-                            nbItems=.Count.ByType.photo,
-                            current=pathIs("/bookmarks/pictures")) }}
-    {{- end -}}
+    {{ yield sideMenuItem(name=gettext("All"), path="/bookmarks", icon="o-library",
+                          nbItems=.Count.Total,
+                          current=pathIs("/bookmarks")) }}
+    {{ yield sideMenuItem(name=gettext("Unread"), path="/bookmarks/unread", icon="o-check-off",
+                          nbItems=.Count.Unread,
+                          current=pathIs("/bookmarks/unread")) }}
+    {{ yield sideMenuItem(name=gettext("Archive"), path="/bookmarks/archives", icon="o-archive-off",
+                          nbItems=.Count.Archived,
+                          current=pathIs("/bookmarks/archives")) }}
+    {{ yield sideMenuItem(name=gettext("Favorites"), path="/bookmarks/favorites", icon="o-favorite-off",
+                          nbItems=.Count.Marked,
+                          current=pathIs("/bookmarks/favorites")) }}
   </menu>
-{{ end -}}
 
-<hr class="w-[25%] border-gray-200 mx-auto">
+  {{- if isset(.Count) }}
+    <menu class="my-4">
+      {{- if isset(.Count.ByType.article) && .Count.ByType.article > 0 }}
+        {{ yield sideMenuItem(name=gettext("Articles"), path="/bookmarks/articles", icon="o-file",
+                              nbItems=.Count.ByType.article,
+                              current=pathIs("/bookmarks/articles")) }}
+      {{- end -}}
 
-<menu class="mt-4">
-  {{ yield sideMenuItem(name=gettext("Labels"), path="/bookmarks/labels", icon="o-label",
-                        current=pathIs("/bookmarks/labels", "/bookmarks/labels/*")) }}
-  {{ yield sideMenuItem(name=gettext("Highlights"), path="/bookmarks/highlights", icon="o-highlight",
-                        current=pathIs("/bookmarks/highlights")) }}
-  {{ yield sideMenuItem(name=gettext("Collections"), path="/bookmarks/collections", icon="o-collection",
-                        current=pathIs("/bookmarks/collections", "/bookmarks/collections/*")) }}
-</menu>
+      {{- if isset(.Count.ByType.video) && .Count.ByType.video > 0 }}
+        {{ yield sideMenuItem(name=gettext("Videos"), path="/bookmarks/videos", icon="o-video",
+                              nbItems=.Count.ByType.video,
+                              current=pathIs("/bookmarks/videos")) }}
+      {{- end -}}
+
+      {{- if isset(.Count.ByType.photo) && .Count.ByType.photo > 0 }}
+        {{ yield sideMenuItem(name=gettext("Pictures"), path="/bookmarks/pictures", icon="o-photo",
+                              nbItems=.Count.ByType.photo,
+                              current=pathIs("/bookmarks/pictures")) }}
+      {{- end -}}
+    </menu>
+  {{ end -}}
+
+  <hr class="w-[25%] border-gray-200 mx-auto">
+
+  <menu class="mt-4">
+    {{ yield sideMenuItem(name=gettext("Labels"), path="/bookmarks/labels", icon="o-label",
+                          current=pathIs("/bookmarks/labels", "/bookmarks/labels/*")) }}
+    {{ yield sideMenuItem(name=gettext("Highlights"), path="/bookmarks/highlights", icon="o-highlight",
+                          current=pathIs("/bookmarks/highlights")) }}
+    {{ yield sideMenuItem(name=gettext("Collections"), path="/bookmarks/collections", icon="o-collection",
+                          current=pathIs("/bookmarks/collections", "/bookmarks/collections/*")) }}
+  </menu>
+</turbo-frame>
 {{- end -}}

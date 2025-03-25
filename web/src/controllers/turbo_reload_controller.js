@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 
 import {Controller} from "@hotwired/stimulus"
+import {visit} from "@hotwired/turbo"
 
 // This controller listens for turbo:submit-end events
 // and reload the frame with the ID given by data-turbo-reload-frame-id-value
@@ -24,17 +25,16 @@ export default class extends Controller {
     )
   }
 
-  async reloadFrame(evt) {
+  reloadFrame(evt) {
     if (evt.target != this.element) {
       return
     }
-    let el = document.getElementById(this.frameIdValue)
-    if (!el) {
-      return
+
+    const options = {action: "replace"}
+    if (this.hasFrameIdValue) {
+      options.frame = this.frameIdValue
     }
 
-    el.src = document.location.href
-    await el.loaded
-    el.src = null
+    visit(document.location.href, options)
   }
 }

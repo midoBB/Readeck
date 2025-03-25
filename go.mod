@@ -26,7 +26,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/hlandau/passlib v1.0.11
 	github.com/itchyny/gojq v0.12.14
-	github.com/jackc/pgx/v5 v5.7.3
+	github.com/jackc/pgx/v5 v5.7.4
 	github.com/jarcoal/httpmock v1.3.1
 	github.com/kinbiko/jsonassert v1.1.1
 	github.com/klauspost/compress v1.18.0
@@ -83,7 +83,7 @@ require (
 	github.com/tetratelabs/wazero v1.9.0 // indirect
 	github.com/toorop/go-dkim v0.0.0-20250226130143-9025cce95817 // indirect
 	golang.org/x/sys v0.31.0 // indirect
-	google.golang.org/protobuf v1.36.5 // indirect
+	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect
 	gopkg.in/hlandau/measurable.v1 v1.0.1 // indirect
 	gopkg.in/hlandau/passlib.v1 v1.0.11 // indirect

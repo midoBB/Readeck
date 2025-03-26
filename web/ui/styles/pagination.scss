@@ -5,6 +5,7 @@
 .paginator {
   container-name: paginator;
   container-type: inline-size;
+  contain: layout;
 
   @apply my-4 flex items-center justify-center;
 

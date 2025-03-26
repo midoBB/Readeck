@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-03-22 08:42+0000\n"
-"PO-Revision-Date: 2025-03-26 01:36+0000\n"
-"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-03-27 06:21+0000\n"
+"Last-Translator: ghose <ghose@noreply.codeberg.org>\n"
 "Language-Team: Galician <https://translate.codeberg.org/projects/readeck/"
 "application/gl/>\n"
 "Language: gl_ES\n"
@@ -337,7 +337,7 @@ msgstr "Actuliza o contrasinal"
 
 #: assets/templates/auth/recover.jet.html:62
 msgid "Your password has been changed."
-msgstr "Mudouse o contrasinal"
+msgstr "Mudouse o contrasinal."
 
 #: assets/templates/auth/recover.jet.html:63
 msgid "Go to the sign in page"
@@ -368,7 +368,7 @@ msgstr ""
 #, python-format
 msgid "Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</a>."
 msgstr ""
-"Aprende máis sobre os destacados na  <a class=\"%s\" href=\"%s\""
+"Aprende máis sobre os destacados na <a class=\"%s\" href=\"%s\""
 ">documentación</a>."
 
 #: assets/templates/bookmarks/base.jet.html:9
@@ -670,7 +670,7 @@ msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
 msgstr[0] "%d min"
-msgstr[1] ""
+msgstr[1] "%d min"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
@@ -846,7 +846,7 @@ msgstr "Xustificado"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:141
 msgid "Hyphenation"
-msgstr ""
+msgstr "Separación"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:1
 #: assets/templates/bookmarks/components/sidebar.jet.html:49
@@ -863,8 +863,8 @@ msgstr "Erros ao extraer o contido."
 #, python-format
 msgid "About %d minute read"
 msgid_plural "About %d minutes read"
-msgstr[0] "Uns %d minutos de lectura"
-msgstr[1] ""
+msgstr[0] "Arredor de %d minuto de lectura"
+msgstr[1] "Arredor de %d minutos de lectura"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:104
 msgid "Start selecting text in the article to create a new highlight."
@@ -1025,7 +1025,8 @@ msgid ""
 msgstr ""
 "\n"
 "    Para importar os artigos de Omnivore, primeiro tes que crear unha Clave "
-"API nos axustes de Omnivore e escribila aquí no formulario inferior.\n"
+"API\n"
+"    nos axustes de Omnivore e escribila aquí no formulario inferior.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:28
@@ -1078,11 +1079,15 @@ msgid ""
 "    see in Pocket.\n"
 "  "
 msgstr ""
+"\n"
+"    Ten en conta que Pocket non permite exportar o contido do artigo.\n"
+"    Debido a isto o contido podería verse de xeito diferente en Pocket.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32
 msgid "Import Links from a Text File"
-msgstr ""
+msgstr "Importar ligazóns desde un ficheiro de texto"
 
 #: assets/templates/bookmarks/import/form-text.jet.html:15
 msgid ""
@@ -1091,11 +1096,16 @@ msgid ""
 "    all of them and save them in your bookmark list.\n"
 "  "
 msgstr ""
+"\n"
+"    Sube un ficheiro de texto cunha ligazón por liña e Readeck vainos baixar "
+"todos\n"
+"e gardar na túa lista de marcadores.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:53
 msgid "Import your Wallabag Articles"
-msgstr ""
+msgstr "Importar artigos desde Wallabag"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:15
 msgid ""
@@ -1105,6 +1115,13 @@ msgid ""
 "    a <strong>Client ID</strong> and <strong>Client secret</strong>.\n"
 "  "
 msgstr ""
+"\n"
+"    Para importar os teus artigos desde Wallabag primeiro debes crear un "
+"cliente API\n"
+"    no menú da <strong>xestión de clientes API</strong> de Wallabag.\n"
+"    Obterás un <strong>ID de cliente</strong> e un <strong>Secreto do "
+"cliente</strong>.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:21
 msgid ""
@@ -1112,26 +1129,29 @@ msgid ""
 "    You can then enter all the necessary information in the form below.\n"
 "  "
 msgstr ""
+"\n"
+"    Poderás entón escribir aquí no formulario eses datos necesarios.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:33
 msgid "Wallabag URL"
-msgstr ""
+msgstr "URL de Wallabag"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:35
 msgid "URL of your Wallabag homepage"
-msgstr ""
+msgstr "URL da páxina de inicio do teu Wallabag"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:55
 msgid "Client ID"
-msgstr ""
+msgstr "ID do cliente"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:62
 msgid "Client Secret"
-msgstr ""
+msgstr "Secreto do cliente"
 
 #: assets/templates/bookmarks/import/index.jet.html:9
 msgid "Import your Bookmarks"
-msgstr ""
+msgstr "Importa os teus Marcadores"
 
 #: assets/templates/bookmarks/import/index.jet.html:25
 msgid ""
@@ -1139,62 +1159,66 @@ msgid ""
 "    Here you can import your existing bookmark collection from various sources into Readeck.\n"
 "  "
 msgstr ""
+"\n"
+"    Aquí podes importar en Readeck a túa colección de marcadores desde "
+"varias orixes.\n"
+"  "
 
 #: assets/templates/bookmarks/import/index.jet.html:36
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
-msgstr ""
+msgstr "Importa os Marcadores do navegador, Pinboard, Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html:40
 msgid "Import Links from a CSV File and Instapaper"
-msgstr ""
+msgstr "Importa ligazóns desde un ficheiro CSV e Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html:44
 msgid "Import your GoodLinks Articles"
-msgstr ""
+msgstr "Importa os artigos desde GoodLinks"
 
 #: assets/templates/bookmarks/import/options.jet.html:7
 msgid "Options"
-msgstr ""
+msgstr "Opcións"
 
 #: assets/templates/bookmarks/import/options.jet.html:12
 msgid "A label to add to all imported bookmarks"
-msgstr ""
+msgstr "Etiqueta a engadir a todos os artigos importados"
 
 #: assets/templates/bookmarks/import/options.jet.html:16
 msgid "Ignore links already in your bookmarks"
-msgstr ""
+msgstr "Ignorar ligazóns que xa están nos teus marcadores"
 
 #: assets/templates/bookmarks/import/options.jet.html:21
 msgid "Archive all links"
-msgstr ""
+msgstr "Arquivar todas as ligazóns"
 
 #: assets/templates/bookmarks/import/options.jet.html:23
 msgid "Moves all links to archive, regardless of their original status"
-msgstr ""
+msgstr "Move todas as ligazóns a un arquivo, sen importar o seu estado orixinal"
 
 #: assets/templates/bookmarks/import/options.jet.html:27
 msgid "Mark all links as read"
-msgstr ""
+msgstr "Marcar todas as ligazóns como lidas"
 
 #: assets/templates/bookmarks/import/options.jet.html:29
 msgid "Marks all links as read, regardless of their original status"
-msgstr ""
+msgstr "Marca todas as ligazóns como lidas, sen importar o seu estado orixinal"
 
 #: assets/templates/bookmarks/import/progress.jet.html:15
 msgid "Import operation will launch momentarily."
-msgstr ""
+msgstr "A importación vaise iniciar nuns intres."
 
 #: assets/templates/bookmarks/import/progress.jet.html:17
 msgid "Import operation has started!"
-msgstr ""
+msgstr "Comezou a importación!"
 
 #: assets/templates/bookmarks/import/progress.jet.html:21
 msgid "You can keep using Readeck while the import is running."
-msgstr ""
+msgstr "Podes seguir usando Readeck mentres continúa a importación."
 
 #: assets/templates/bookmarks/import/progress.jet.html:24
 msgid "Import is finished!"
-msgstr ""
+msgstr "Rematou a importación!"
 
 #: assets/templates/bookmarks/import/progress.jet.html:25
 #, python-format
@@ -1203,33 +1227,41 @@ msgid ""
 "      Your bookmarks are now available in your <a class=\"%s\" href=\"%s\">bookmark list</a>.\n"
 "      "
 msgstr ""
+"\n"
+"      Os teus marcadores están dispoñibles na <a class=\"%s\" href=\"%s\""
+">lista de marcadores</a>.\n"
+"      "
 
 #: assets/templates/bookmarks/index.jet.html:1
 msgid "Bookmark filters"
-msgstr ""
+msgstr "Filtros dos marcadores"
 
 #: assets/templates/bookmarks/index.jet.html:27
 msgid "Save a new link"
-msgstr ""
+msgstr "Gardar nova ligazón"
 
 #: assets/templates/bookmarks/index.jet.html:40
 msgctxt "button"
 msgid "Save link"
-msgstr ""
+msgstr "Gardar ligazón"
 
 #: assets/templates/bookmarks/index.jet.html:49
 #, python-format
 msgid "\"%s\" is not a valid address. Did you mean to search your bookmarks for %s?"
-msgstr ""
+msgstr "«%s» non é un enderezo válido. Queres buscar %s nos teus marcadores?"
 
 #: assets/templates/bookmarks/index.jet.html:73
 msgid "You don't have any bookmarks yet.<br> Copy a link in the field above and start saving."
 msgstr ""
+"Aínda non tes marcadores.<b>Pega unha ligazón na caixa de texto superior e "
+"garda o artigo."
 
 #: assets/templates/bookmarks/index.jet.html:75
 #, python-format
 msgid "Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentation</a>."
 msgstr ""
+"Aprende máis sobre os marcadores na <a class=\"%s\" href=\"%s\""
+">documentación</a>."
 
 #: assets/templates/bookmarks/index.jet.html:81
 msgid ""
@@ -1238,50 +1270,55 @@ msgid ""
 "          Try Readeck's import tool.\n"
 "        "
 msgstr ""
+"\n"
+"          Queres importar desde un servizo similar ou desde un ficheiro que "
+"inclúe marcadores?\n"
+"        Probar a ferramenta de importación de Readeck.\n"
+"        "
 
 #: assets/templates/bookmarks/index.jet.html:88
 msgid "Import links and articles"
-msgstr ""
+msgstr "Importar ligazóns e artigos"
 
 #: assets/templates/bookmarks/index.jet.html:111
 msgid "Import bookmarks"
-msgstr ""
+msgstr "Importar marcadores"
 
 #: assets/templates/bookmarks/index.jet.html:120
 msgid "Your search query yielded <strong>no results</strong>."
-msgstr ""
+msgstr "A busca <strong>non obtivo resultados</strong>."
 
 #: assets/templates/bookmarks/index.jet.html:122
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "A busca obtivo <strong>%d resultado</strong>."
+msgstr[1] "A busca obtivo <strong>%d resultados</strong>."
 
 #: assets/templates/bookmarks/index.jet.html:153
 msgctxt "action"
 msgid "Search"
-msgstr ""
+msgstr "Buscar"
 
 #: assets/templates/bookmarks/index.jet.html:155
 msgid "Reset search"
-msgstr ""
+msgstr "Restablecer busca"
 
 #: assets/templates/bookmarks/index.jet.html:158
 msgid "Create a collection"
-msgstr ""
+msgstr "Crear unha colección"
 
 #: assets/templates/bookmarks/label.jet.html:37
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #: assets/templates/bookmarks/label.jet.html:50
 msgid "Label will be removed in a few seconds."
-msgstr ""
+msgstr "Nuns segundos vaise eliminar a etiqueta."
 
 #: assets/templates/bookmarks/labels.jet.html:8
 msgid "Bookmark Labels"
-msgstr ""
+msgstr "Etiquetas dos marcadores"
 
 #: assets/templates/bookmarks/labels.jet.html:14
 msgid ""
@@ -1289,145 +1326,150 @@ msgid ""
 "  Labels let your organize your bookmarks the way you want.\n"
 "  You can set anything to a label, including emojis!\n"
 msgstr ""
+"\n"
+"  As etiquetas permítenche organizar os marcadores ao teu xeito.\n"
+"  Podes escribir o que queiras na etiqueta, incluso emojis!\n"
 
 #: assets/templates/docs/about.jet.html:8
 #: assets/templates/docs/base.jet.html:27 docs/http.go:244
 msgid "About Readeck"
-msgstr ""
+msgstr "Sobre Readeck"
 
 #: assets/templates/docs/about.jet.html:14
 msgid "Version:"
-msgstr ""
+msgstr "Versión:"
 
 #: assets/templates/docs/about.jet.html:15
 msgid "Built Date:"
-msgstr ""
+msgstr "Data da versión:"
 
 #: assets/templates/docs/about.jet.html:18
 msgid "System Information"
-msgstr ""
+msgstr "Información do Sistema"
 
 #: assets/templates/docs/about.jet.html:20
 msgid "Here are your current system information. Please include them if you report a bug."
 msgstr ""
+"Esta é a información sobre o sistema. Inclúea no informe se acontece algún "
+"problema."
 
 #: assets/templates/docs/about.jet.html:31
 msgid "Project"
-msgstr ""
+msgstr "Proxecto"
 
 #: assets/templates/docs/about.jet.html:34
 msgid "Main website"
-msgstr ""
+msgstr "Sitio web"
 
 #: assets/templates/docs/about.jet.html:35
 msgid "Sources and issues"
-msgstr ""
+msgstr "Código e incidencias"
 
 #: assets/templates/docs/about.jet.html:36
 msgid "How to contribute"
-msgstr ""
+msgstr "Colaborar"
 
 #: assets/templates/docs/about.jet.html:37
 msgid "Community Forum"
-msgstr ""
+msgstr "Foro da comunidade"
 
 #: assets/templates/docs/about.jet.html:38
 msgid "Matrix Chat"
-msgstr ""
+msgstr "Parola en Matrix"
 
 #: assets/templates/docs/about.jet.html:41
 msgid "License"
-msgstr ""
+msgstr "Licenza"
 
 #: assets/templates/docs/about.jet.html:43
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
-msgstr ""
+msgstr "Readeck distribúese baixo os termos da licenza «%s»"
 
 #: assets/templates/docs/about.jet.html:47
 msgid "Here's a short summary of the license conditions:"
-msgstr ""
+msgstr "Este é un pequeno resumo das condicións da licenza:"
 
 #: assets/templates/docs/about.jet.html:52
 msgid "Permissions"
-msgstr ""
+msgstr "Permisos"
 
 #: assets/templates/docs/about.jet.html:53
 msgid "Conditions"
-msgstr ""
+msgstr "Condicións"
 
 #: assets/templates/docs/about.jet.html:54
 msgid "Limitations"
-msgstr ""
+msgstr "Limitacións"
 
 #: assets/templates/docs/about.jet.html:62
 msgid "Commercial use"
-msgstr ""
+msgstr "Uso comercial"
 
 #: assets/templates/docs/about.jet.html:65
 msgid "Distribution"
-msgstr ""
+msgstr "Distribución"
 
 #: assets/templates/docs/about.jet.html:68
 msgid "Modification"
-msgstr ""
+msgstr "Modificación"
 
 #: assets/templates/docs/about.jet.html:71
 msgid "Patent use"
-msgstr ""
+msgstr "Uso de patentes"
 
 #: assets/templates/docs/about.jet.html:74
 msgid "Private use"
-msgstr ""
+msgstr "Uso privado"
 
 #: assets/templates/docs/about.jet.html:81
 msgid "Disclose source"
-msgstr ""
+msgstr "Exposición do código"
 
 #: assets/templates/docs/about.jet.html:84
 msgid "License and copyright notice"
-msgstr ""
+msgstr "Licenza e aviso sobre dereito de copia"
 
 #: assets/templates/docs/about.jet.html:87
 msgid "Network use is distribution"
-msgstr ""
+msgstr "Uso na rede é distribución"
 
 #: assets/templates/docs/about.jet.html:90
 msgid "Same license"
-msgstr ""
+msgstr "Mesma licenza"
 
 #: assets/templates/docs/about.jet.html:93
 msgid "State changes"
-msgstr ""
+msgstr "Informar dos cambios"
 
 #: assets/templates/docs/about.jet.html:100
 msgid "Liability"
-msgstr ""
+msgstr "Responsabilidade"
 
 #: assets/templates/docs/about.jet.html:103
 msgid "Warranty"
-msgstr ""
+msgstr "Garantía"
 
 #: assets/templates/docs/about.jet.html:130
 msgid "Third-Party Licenses"
-msgstr ""
+msgstr "Licenzas de terceiras partes"
 
 #: assets/templates/docs/about.jet.html:132
 msgid "Readeck includes and/or uses the following open source assets:"
-msgstr ""
+msgstr "Readeck inclúe e/ou usa os seguintes elementos de código aberto:"
 
 #: assets/templates/docs/api-docs.jet.html:8
 #: assets/templates/docs/base.jet.html:21
 msgid "API Documentation"
-msgstr ""
+msgstr "Documentación da API"
 
 #: assets/templates/docs/base.jet.html:9
 msgid "Readeck Help"
-msgstr ""
+msgstr "Axuda de Readeck"
 
 #: assets/templates/docs/base.jet.html:28
 msgid "Changelog"
-msgstr ""
+msgstr "Rexistro dos cambios"
 
 #: assets/templates/emails/recover.tmpl:8
 #, python-format
@@ -1443,6 +1485,16 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"\n"
+"Ola,\n"
+"\n"
+"Ti (ou alguén) escribiu este enderezo de correo para intentar\n"
+"cambiar o contrasinal dunha conta Readeck (%s).\n"
+"\n"
+"Se agardabas este correo, por favor preme nesta ligazón para\n"
+"establecer un novo contrasinal para a túa conta.\n"
+"\n"
+"%s\n"
 
 #: assets/templates/emails/recover.tmpl:21
 #, python-format
@@ -1462,71 +1514,85 @@ msgid ""
 "\n"
 "If you are not a Readeck user, please ignore this message.\n"
 msgstr ""
+"\n"
+"Ola,\n"
+"\n"
+"Ti (ou alguén) escribiu este enderezo de correo para intentar\n"
+"cambiar o contrasinal dunha conta Readeck (%s).\n"
+"\n"
+"Emporiso, este correo non está asociado a ningunha conta\n"
+"polo que o intento de cambio fallou.\n"
+"\n"
+"Se utilizas Readeck en %s e agardabas\n"
+"por este correo, por favor inténtao usando o\n"
+"enderezo utilizado no momento de crear a conta.\n"
+"\n"
+"Se non utilizas Readeck, ignora esta mensaxe por favor.\n"
 
 #: assets/templates/emails/recover.tmpl:38
 msgid "Kind regards"
-msgstr ""
+msgstr "Recibe un saúdo"
 
 #: assets/templates/error.jet.html:8
 msgid "Error"
-msgstr ""
+msgstr "Erro"
 
 #: assets/templates/error.jet.html:22
 msgid "Permission denied."
-msgstr ""
+msgstr "Permiso rexeitado."
 
 #: assets/templates/error.jet.html:24
 msgid "Page not found."
-msgstr ""
+msgstr "Non se atopa a páxina."
 
 #: assets/templates/error.jet.html:26
 msgid "An error occurred."
-msgstr ""
+msgstr "Houbo un fallo."
 
 #: assets/templates/menu.jet.html:1
 msgid "Change theme"
-msgstr ""
+msgstr "Cambiar o decorado"
 
 #: assets/templates/menu.jet.html:1 assets/templates/menu.jet.html:48
 msgid "Sign out"
-msgstr ""
+msgstr "Fechar a sesión"
 
 #: assets/templates/menu.jet.html:10
 msgid "Open menu"
-msgstr ""
+msgstr "Abrir menú"
 
 #: assets/templates/menu.jet.html:33
 msgid "Change color theme"
-msgstr ""
+msgstr "Cambiar a cor do decorado"
 
 #: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:9
 msgid "Settings"
-msgstr ""
+msgstr "Axustes"
 
 #: assets/templates/profile/base.jet.html:14 internal/profile/views.go:98
 #: internal/profile/views.go:133 internal/profile/views.go:178
 #: internal/profile/views.go:246 internal/profile/views.go:277
 #: internal/profile/views.go:337
 msgid "Profile"
-msgstr ""
+msgstr "Perfil"
 
 #: assets/templates/profile/base.jet.html:21 internal/profile/views.go:179
 #: internal/profile/views.go:247
 msgid "Application Passwords"
-msgstr ""
+msgstr "Contrasinais das aplicacións"
 
 #: assets/templates/profile/base.jet.html:26 internal/profile/views.go:278
 #: internal/profile/views.go:338
 msgid "API Tokens"
-msgstr ""
+msgstr "Tokens da API"
 
 #: assets/templates/profile/credential.jet.html:9
 msgid "Application Password"
-msgstr ""
+msgstr "Contrasinal da aplicación"
 
 #: assets/templates/profile/credential.jet.html:19
 msgid "Password will be removed in a few seconds."
-msgstr ""
+msgstr "Nuns segundos vaise eliminar o contrasinal."
 
 #: assets/templates/profile/credential.jet.html:27
 msgid ""
@@ -1535,38 +1601,43 @@ msgid ""
 "    or store it in a password manager.\n"
 "  "
 msgstr ""
+"\n"
+"    Creouse un contrasinal para a aplicación. Copia o contrasinal inferior e "
+"gárdao de xeito seguro\n"
+"    nun xestor de contrasinais.\n"
+"  "
 
 #: assets/templates/profile/credential.jet.html:32
 msgid "Your password:"
-msgstr ""
+msgstr "O contrasinal:"
 
 #: assets/templates/profile/credential.jet.html:39
 msgid "Copy"
-msgstr ""
+msgstr "Copiar"
 
 #: assets/templates/profile/credential.jet.html:44
 #: assets/templates/profile/token.jet.html:25
 msgid "Properties"
-msgstr ""
+msgstr "Propiedades"
 
 #: assets/templates/profile/credential.jet.html:51
 msgid "Password ID"
-msgstr ""
+msgstr "ID do contrasinal"
 
 #: assets/templates/profile/credential.jet.html:56
 #: assets/templates/profile/token.jet.html:37
 msgid "Last used"
-msgstr ""
+msgstr "Último uso"
 
 #: assets/templates/profile/credential.jet.html:57
 #: assets/templates/profile/token.jet.html:38
 msgid "never used"
-msgstr ""
+msgstr "nunca utilizado"
 
 #: assets/templates/profile/credential.jet.html:69
 #: assets/templates/profile/token.jet.html:50
 msgid "Enabled"
-msgstr ""
+msgstr "Activado"
 
 #: assets/templates/profile/credential.jet.html:75
 msgid ""
@@ -1576,20 +1647,27 @@ msgid ""
 "    Leave all the choices blank to grant all your permissions to this password.\n"
 "  "
 msgstr ""
+"\n"
+"    Podes limitar os permisos concedidos a este contrasinal elexindo un ou "
+"varios niveis\n"
+"    de permisos.<br>\n"
+"    Deixa todo sen marcar para conceder todos os permisos a este "
+"contrasinal\n"
+"  "
 
 #: assets/templates/profile/credential.jet.html:83
 #: assets/templates/profile/token.jet.html:70
 msgid "Roles"
-msgstr ""
+msgstr "Roles"
 
 #: assets/templates/profile/credential.jet.html:91
 msgid "Delete password"
-msgstr ""
+msgstr "Eliminar contrasinal"
 
 #: assets/templates/profile/credential.jet.html:95
 #: assets/templates/profile/credential.jet.html:103
 msgid "Refresh password"
-msgstr ""
+msgstr "Actualizar contrasinal"
 
 #: assets/templates/profile/credential.jet.html:97
 msgid ""
@@ -1598,72 +1676,76 @@ msgid ""
 "      you can refresh it to get a new one.\n"
 "    "
 msgstr ""
+"\n"
+"      Se esqueciches o contrasinal da aplicación ou só queres cambialo,\n"
+"    podes actualizalo para obter un novo.\n"
+"    "
 
 #: assets/templates/profile/credential_list.jet.html:10
 msgid "My Application Passwords"
-msgstr ""
+msgstr "Contrasinais das Aplicacións"
 
 #: assets/templates/profile/credential_list.jet.html:23
 msgid "Create a new Application Password"
-msgstr ""
+msgstr "Crear un novo contrasinal de aplicación"
 
 #: assets/templates/profile/credential_list.jet.html:48
 #: assets/templates/profile/token_list.jet.html:54
 #, python-format
 msgid "Last used on: %s"
-msgstr ""
+msgstr "Último uso: %s"
 
 #: assets/templates/profile/credential_list.jet.html:56
 msgid "This password will be removed in a few seconds."
-msgstr ""
+msgstr "Vaise eliminar o contrasinal nuns segundos."
 
 #: assets/templates/profile/index.jet.html:9
 msgid "My profile"
-msgstr ""
+msgstr "O meu perfil"
 
 #: assets/templates/profile/index.jet.html:26
 msgid "Email Address"
-msgstr ""
+msgstr "Enderezo de correo"
 
 #: assets/templates/profile/index.jet.html:31
 msgid "Language"
-msgstr ""
+msgstr "Idioma"
 
 #: assets/templates/profile/password.jet.html:9
 msgid "Change my password"
-msgstr ""
+msgstr "Cambiar contrasinal"
 
 #: assets/templates/profile/password.jet.html:21
 msgid "Current password"
-msgstr ""
+msgstr "Contrasinal actual"
 
 #: assets/templates/profile/token.jet.html:1
 msgid "copy token"
-msgstr ""
+msgstr "copiar token"
 
 #: assets/templates/profile/token.jet.html:1
 msgid "copy HTTP header"
-msgstr ""
+msgstr "copiar cabeceira HTTP"
 
 #: assets/templates/profile/token.jet.html:9
 msgid "API Token"
-msgstr ""
+msgstr "Token da API"
 
 #: assets/templates/profile/token.jet.html:19
 msgid "Token will be removed in a few seconds."
-msgstr ""
+msgstr "Nuns segundos vaise eliminar o token."
 
 #: assets/templates/profile/token.jet.html:32
 msgid "Token ID"
-msgstr ""
+msgstr "ID do token"
 
 #: assets/templates/profile/token.jet.html:44
 msgid "Application"
-msgstr ""
+msgstr "Aplicación"
 
 #: assets/templates/profile/token.jet.html:56
 msgid "Expires on"
-msgstr ""
+msgstr "Caduca o"
 
 #: assets/templates/profile/token.jet.html:62
 msgid ""
@@ -1673,30 +1755,37 @@ msgid ""
 "    Leave all the choices blank to grant all your permissions to this token.\n"
 "  "
 msgstr ""
+"\n"
+"    Podes limitar os permisos concedidos a este token elixindo un ou máis\n"
+"    dos permisos aquí indicados.<br>\n"
+"    Deixa sen marcar todas as opcións para conceder todos os permisos.\n"
+"  "
 
 #: assets/templates/profile/token.jet.html:78
 msgid "Delete token"
-msgstr ""
+msgstr "Eliminar token"
 
 #: assets/templates/profile/token.jet.html:83
 msgid "API authentication"
-msgstr ""
+msgstr "Autenticación na API"
 
 #: assets/templates/profile/token.jet.html:86
 msgid "Your API token"
-msgstr ""
+msgstr "Token para API"
 
 #: assets/templates/profile/token.jet.html:96
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
 msgstr ""
+"Podes usar este token enviándoo na cabeceira HTTP como un "
+"<strong>Authorization: Bearer</strong>."
 
 #: assets/templates/profile/token.jet.html:98
 msgid "HTTP Header"
-msgstr ""
+msgstr "Cabeceira HTTP"
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
-msgstr ""
+msgstr "Tokens da API"
 
 #: assets/templates/profile/token_list.jet.html:16
 msgid ""
@@ -1704,64 +1793,68 @@ msgid ""
 "  An API Token is a key that grants you (or another tool like a browser extension)\n"
 "  access to the Readeck API.\n"
 msgstr ""
+"\n"
+"  Un Token da API é unha clave que che concede a ti (ou a outra ferramenta "
+"como un complemento do navegador)\n"
+"  acceso á API de Readeck.\n"
 
 #: assets/templates/profile/token_list.jet.html:20
 #, python-format
 msgid "Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
-msgstr ""
+msgstr "Le a <a href=\"%s\">Documentación da API</a> se tes pensado utilizalo."
 
 #: assets/templates/profile/token_list.jet.html:26
 msgid "Create a new API token"
-msgstr ""
+msgstr "Crear un novo token da API"
 
 #: assets/templates/profile/token_list.jet.html:50
 #, python-format
 msgid "Expires on: %s"
-msgstr ""
+msgstr "Caduca o: %s"
 
 #: assets/templates/profile/token_list.jet.html:62
 msgid "This token will be removed in a few seconds."
-msgstr ""
+msgstr "Nuns segundos vaise eliminar o token."
 
 #: internal/admin/views.go:80
 msgid "User created."
-msgstr ""
+msgstr "Creouse a usuaria."
 
 #: internal/admin/views.go:119
 msgid "User updated."
-msgstr ""
+msgstr "Actualizouse a usuaria."
 
 #: internal/auth/signin/forms.go:17
 msgid "Invalid user and/or password"
-msgstr ""
+msgstr "Credenciais non válidas"
 
 #: internal/auth/users/forms.go:68
 msgid "password is empty"
-msgstr ""
+msgstr "o contrasinal está baleiro"
 
 #: internal/auth/users/forms.go:205
 msgid "Bookmarks : Read Only"
-msgstr ""
+msgstr "Marcadores: Só lectura"
 
 #: internal/auth/users/forms.go:206
 msgid "Bookmarks : Write Only"
-msgstr ""
+msgstr "Marcadores: Só escritura"
 
 #: internal/auth/users/forms.go:207
 msgid "Admin : Read Only"
-msgstr ""
+msgstr "Admin: Só lectura"
 
 #: internal/auth/users/forms.go:208
 msgid "Admin : Write Only"
-msgstr ""
+msgstr "Admin: Só escritura"
 
 #: internal/bookmarks/importer/browser.go:51
 msgid "Browser Bookmarks"
-msgstr ""
+msgstr "Marcadores do Navegador"
 
 #: internal/bookmarks/importer/browser.go:75
 msgid "Unable to read HTML content"
-msgstr ""
+msgstr "Non se puido ler o contido HTML"
 
 #: internal/bookmarks/importer/browser.go:129
 #: internal/bookmarks/importer/csv.go:142
@@ -1770,283 +1863,283 @@ msgstr ""
 #: internal/bookmarks/importer/csv.go:167
 #: internal/bookmarks/importer/importer.go:45
 msgid "Empty or invalid import file"
-msgstr ""
+msgstr "Ficheiro de importación non válido ou baleiro"
 
 #: internal/bookmarks/importer/csv.go:118
 msgid "CSV File"
-msgstr ""
+msgstr "Ficheiro CSV"
 
 #: internal/bookmarks/importer/goodlinks.go:44
 msgid "GoodLinks Export File"
-msgstr ""
+msgstr "Ficheiro de exportación GoodLinks"
 
 #: internal/bookmarks/importer/omnivore.go:247
 msgid "Invalid API Key"
-msgstr ""
+msgstr "Clave API non válida"
 
 #: internal/bookmarks/importer/text.go:24
 msgid "Text File"
-msgstr ""
+msgstr "Ficheiro de texto"
 
 #: internal/bookmarks/importer/wallabag.go:238
 msgid "Invalid URL"
-msgstr ""
+msgstr "URL non válido"
 
 #: internal/bookmarks/importer/wallabag.go:243
 msgid "Invalid credentials"
-msgstr ""
+msgstr "Credenciais incorrectas"
 
 #: internal/bookmarks/importer/wallabag.go:254
 msgid "No access token found"
-msgstr ""
+msgstr "Non hai token de acceso"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:135
 msgid "Unable to process input data"
-msgstr ""
+msgstr "Non se puideron procesar os datos"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:376
 msgid "Article"
-msgstr ""
+msgstr "Artigo"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:377
 msgid "Picture"
-msgstr ""
+msgstr "Imaxe"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:378
 msgid "Video"
-msgstr ""
+msgstr "Vídeo"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:385
 msgctxt "status"
 msgid "Unviewed"
-msgstr ""
+msgstr "Sen ver"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:386
 msgctxt "status"
 msgid "In-Progress"
-msgstr ""
+msgstr "En proceso"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:387
 msgctxt "status"
 msgid "Completed"
-msgstr ""
+msgstr "Completado"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:621
 msgctxt "sort"
 msgid "Added, most recent first"
-msgstr ""
+msgstr "Engadido, máis recente primeiro"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:622
 msgctxt "sort"
 msgid "Added, oldest first"
-msgstr ""
+msgstr "Engadido, máis antigo primeiro"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:623
 msgctxt "sort"
 msgid "Published, most recent first"
-msgstr ""
+msgstr "Publicado, máis recente primeiro"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:624
 msgctxt "sort"
 msgid "Published, oldest first"
-msgstr ""
+msgstr "Publicado, máis antigo primeiro"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:625
 msgctxt "sort"
 msgid "Title, A to Z"
-msgstr ""
+msgstr "Título, A a Z"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:626
 msgctxt "sort"
 msgid "Title, Z to A"
-msgstr ""
+msgstr "Título, Z a A"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:627
 msgctxt "sort"
 msgid "Site Name, A to Z"
-msgstr ""
+msgstr "Nome da web, A a Z"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:628
 msgctxt "sort"
 msgid "Site Name, Z to A"
-msgstr ""
+msgstr "Nome da web, Z a A"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:629
 msgctxt "sort"
 msgid "Duration, shortest first"
-msgstr ""
+msgstr "Duración, máis curto primeiro"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:630
 msgctxt "sort"
 msgid "Duration, longest first"
-msgstr ""
+msgstr "Duración, máis longo primeiro"
 
 #: internal/bookmarks/routes/opds.go:56
 msgid "Readeck Bookmarks"
-msgstr ""
+msgstr "Marcadores de Readeck"
 
 #: internal/bookmarks/routes/opds.go:101
 msgid "Readeck Bookmark Collections"
-msgstr ""
+msgstr "Coleccións de Marcadores Readeck"
 
 #: internal/bookmarks/routes/opds.go:138
 #, python-format
 msgid "Readeck Collection: %s"
-msgstr ""
+msgstr "Colección Readeck: %s"
 
 #: internal/bookmarks/routes/opds.go:144
 #, python-format
 msgid "Collection ebook - %s"
-msgstr ""
+msgstr "eBook da colección - %s"
 
 #: internal/bookmarks/routes/opds.go:151
 #, python-format
 msgid "Browse collection: %s"
-msgstr ""
+msgstr "Explorar colección: %s"
 
 #: internal/bookmarks/routes/views_bookmarks.go:99
 msgid "All your Bookmarks"
-msgstr ""
+msgstr "Todos os Marcadores"
 
 #: internal/bookmarks/routes/views_bookmarks.go:104
 msgid "Bookmark Search"
-msgstr ""
+msgstr "Buscar marcador"
 
 #: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:58
 msgid "Unread Bookmarks"
-msgstr ""
+msgstr "Marcadores sen ler"
 
 #: internal/bookmarks/routes/views_bookmarks.go:110 internal/opds/http.go:62
 msgid "Archived Bookmarks"
-msgstr ""
+msgstr "Marcadores arquivados"
 
 #: internal/bookmarks/routes/views_bookmarks.go:112 internal/opds/http.go:66
 msgid "Favorite Bookmarks"
-msgstr ""
+msgstr "Marcadores favoritos"
 
 #: internal/bookmarks/routes/views_collections.go:79
 msgid "Collection updated."
-msgstr ""
+msgstr "Actualizouse a colección."
 
 #: internal/bookmarks/routes/views_import.go:28
 #: internal/bookmarks/routes/views_import.go:37
 #: internal/bookmarks/routes/views_import.go:68
 msgid "Import"
-msgstr ""
+msgstr "Importar"
 
 #: internal/bookmarks/routes/views_import.go:29
 msgid "Progress"
-msgstr ""
+msgstr "Progreso"
 
 #: internal/opds/http.go:70
 msgid "All Bookmarks"
-msgstr ""
+msgstr "Todos os marcadores"
 
 #: internal/profile/forms.go:33
 msgid "invalid username and/or email"
-msgstr ""
+msgstr "identificador e/ou correo non válidos"
 
 #: internal/profile/forms.go:34
 msgid "invalid password"
-msgstr ""
+msgstr "contrasinal non válido"
 
 #: internal/profile/views.go:86
 msgid "Profile updated."
-msgstr ""
+msgstr "Perfil actualizado."
 
 #: internal/profile/views.go:121
 msgid "Your password was changed."
-msgstr ""
+msgstr "Cambiouse o contrasinal."
 
 #: internal/profile/views.go:189
 msgid "Error: you cannot create more credentials."
-msgstr ""
+msgstr "Erro: non podes crear máis credenciais."
 
 #: internal/profile/views.go:197
 msgid "An error occurred while creating your password."
-msgstr ""
+msgstr "Houbo un fallo ao crear o contrasinal."
 
 #: internal/profile/views.go:232
 msgid "Password was updated."
-msgstr ""
+msgstr "Actualizouse o contrasinal."
 
 #: internal/profile/views.go:293
 msgid "An error occurred while creating your token."
-msgstr ""
+msgstr "Houbo un fallo ao crear o token."
 
 #: internal/profile/views.go:298
 msgid "New token created."
-msgstr ""
+msgstr "Creouse o novo token."
 
 #: internal/profile/views.go:317
 msgid "Token was updated."
-msgstr ""
+msgstr "Actualizouse o token."
 
 #: pkg/forms/forms.go:28
 msgid "an unexpected error has occurred"
-msgstr ""
+msgstr "houbo un erro non agardado"
 
 #: pkg/forms/validators.go:18
 msgid "field is required"
-msgstr ""
+msgstr "requírese este dato"
 
 #: pkg/forms/validators.go:20
 msgid "not a valid email address"
-msgstr ""
+msgstr "enderezo de correo non válido"
 
 #: pkg/forms/validators.go:22
 msgid "invalid URL"
-msgstr ""
+msgstr "URL non válido"
 
 #: pkg/forms/validators.go:331
 #, python-format
 msgid "must be greater or equal than %d"
-msgstr ""
+msgstr "ten que ser igual ou maior de %d"
 
 #: pkg/forms/validators.go:339
 #, python-format
 msgid "must be lower or equal than %d"
-msgstr ""
+msgstr "ten que ser igual ou inferior de %d"
 
 #: pkg/forms/validators.go:398
 #, python-format
 msgid "%v is not one of %s"
-msgstr ""
+msgstr "%v non é un de %s"
 
 #: pkg/strftime/strftime.go:23
 msgctxt "datetime_dl"
 msgid "Sunday"
-msgstr ""
+msgstr "Domingo"
 
 #: pkg/strftime/strftime.go:24
 msgctxt "datetime_dl"
 msgid "Monday"
-msgstr ""
+msgstr "Luns"
 
 #: pkg/strftime/strftime.go:25
 msgctxt "datetime_dl"
 msgid "Tuesday"
-msgstr ""
+msgstr "Martes"
 
 #: pkg/strftime/strftime.go:26
 msgctxt "datetime_dl"
 msgid "Wednesday"
-msgstr ""
+msgstr "Mércores"
 
 #: pkg/strftime/strftime.go:27
 msgctxt "datetime_dl"
 msgid "Thursday"
-msgstr ""
+msgstr "Xoves"
 
 #: pkg/strftime/strftime.go:28
 msgctxt "datetime_dl"
 msgid "Friday"
-msgstr ""
+msgstr "Venres"
 
 #: pkg/strftime/strftime.go:29
 msgctxt "datetime_dl"
 msgid "Saturday"
-msgstr ""
+msgstr "Sábado"
 
 #: pkg/strftime/strftime.go:33
 msgctxt "datetime_ds"
@@ -2214,10 +2307,10 @@ msgid "p.m."
 msgstr "pm"
 
 #: pkg/strftime/strftime.go:75
-#, fuzzy, python-format
+#, python-format
 msgctxt "datetime"
 msgid "%a %b %e %H:%M:%S %y"
-msgstr "%a %b %e %H:%M:%S %y"
+msgstr "%a %e de %b %H:%M:%S %y"
 
 #: pkg/strftime/strftime.go:76
 #, python-format

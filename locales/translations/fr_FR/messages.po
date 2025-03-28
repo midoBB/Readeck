@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-03-22 08:42+0000\n"
-"PO-Revision-Date: 2025-03-22 08:30+0000\n"
-"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-03-29 03:21+0000\n"
+"Last-Translator: OniriCorpe <oniricorpe@noreply.codeberg.org>\n"
+"Language-Team: French <https://translate.codeberg.org/projects/readeck/"
+"application/fr/>\n"
 "Language: fr_FR\n"
-"Language-Team: French <https://translate.codeberg.org/projects/readeck/application/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -1265,14 +1267,14 @@ msgstr "Importer des bookmarks"
 
 #: assets/templates/bookmarks/index.jet.html:120
 msgid "Your search query yielded <strong>no results</strong>."
-msgstr "Votre recherche n'a retourné <strong>aucun résultat</strong>."
+msgstr "Votre recherche n'a donné <strong>aucun résultat</strong>."
 
 #: assets/templates/bookmarks/index.jet.html:122
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
-msgstr[0] "Votre recherche a retourné <strong>%d résultat</strong>."
-msgstr[1] "Votre recherche a retourné <strong>%d résultats</strong>."
+msgstr[0] "Votre recherche a donné <strong>%d résultat</strong>."
+msgstr[1] "Votre recherche a donné <strong>%d résultats</strong>."
 
 #: assets/templates/bookmarks/index.jet.html:153
 msgctxt "action"
@@ -1320,7 +1322,7 @@ msgstr "Version :"
 
 #: assets/templates/docs/about.jet.html:15
 msgid "Built Date:"
-msgstr "Date de création :"
+msgstr "Date de la compilation :"
 
 #: assets/templates/docs/about.jet.html:18
 msgid "System Information"
@@ -1328,7 +1330,9 @@ msgstr "Informations système"
 
 #: assets/templates/docs/about.jet.html:20
 msgid "Here are your current system information. Please include them if you report a bug."
-msgstr "Voici vos informations système. Merci de les inclure si vous signalez un problem."
+msgstr ""
+"Voici vos informations système. Merci de les inclure si vous signalez un "
+"problème."
 
 #: assets/templates/docs/about.jet.html:31
 msgid "Project"
@@ -1340,7 +1344,7 @@ msgstr "Site principal"
 
 #: assets/templates/docs/about.jet.html:35
 msgid "Sources and issues"
-msgstr "Sources et rapports"
+msgstr "Sources et rapports de bugs"
 
 #: assets/templates/docs/about.jet.html:36
 msgid "How to contribute"
@@ -1365,7 +1369,7 @@ msgstr "Readeck est distribué selon les termes de la licence \"%s\""
 
 #: assets/templates/docs/about.jet.html:47
 msgid "Here's a short summary of the license conditions:"
-msgstr "Voici un résumé sommaire des conditions de la licence :"
+msgstr "Voici un résumé rapide des conditions de la licence :"
 
 #: assets/templates/docs/about.jet.html:52
 msgid "Permissions"
@@ -1446,7 +1450,7 @@ msgstr "Aide Readeck"
 
 #: assets/templates/docs/base.jet.html:28
 msgid "Changelog"
-msgstr "Changelog"
+msgstr "Historique des modifications"
 
 #: assets/templates/emails/recover.tmpl:8
 #, python-format
@@ -1632,7 +1636,7 @@ msgstr ""
 #: assets/templates/profile/credential.jet.html:83
 #: assets/templates/profile/token.jet.html:70
 msgid "Roles"
-msgstr "Roles"
+msgstr "Rôles"
 
 #: assets/templates/profile/credential.jet.html:91
 msgid "Delete password"
@@ -2324,4 +2328,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr "Impossible d'ouvrir le fichier zip"
-

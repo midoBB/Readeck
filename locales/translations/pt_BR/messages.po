@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-03-22 08:42+0000\n"
-"PO-Revision-Date: 2025-03-24 06:20+0000\n"
+"PO-Revision-Date: 2025-04-01 13:21+0000\n"
 "Last-Translator: soaresluciano <soaresluciano@noreply.codeberg.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.codeberg.org/projects/"
 "readeck/application/pt_BR/>\n"
@@ -564,11 +564,11 @@ msgstr "Os artigos não lidos (sem fotos ou vídeos)"
 
 #: assets/templates/bookmarks/collection_list.jet.html:34
 msgid "The archived articles from \"wikipedia.org\""
-msgstr ""
+msgstr "Os artigos arquivados da \"wikipedia.org\""
 
 #: assets/templates/bookmarks/collection_list.jet.html:35
 msgid "The pictures with the label \"cat\""
-msgstr ""
+msgstr "As imagens com a etiqueta \"gato\""
 
 #: assets/templates/bookmarks/collection_list.jet.html:36
 msgid "The articles that contain \"shelter\" in their title"
@@ -581,75 +581,75 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
 msgid "Export and Share"
-msgstr ""
+msgstr "Exportar e compartilhar"
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Delete this bookmark"
-msgstr ""
+msgstr "Deletar este marcador"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as unread"
-msgstr ""
+msgstr "Marcar com não lido"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as read"
-msgstr ""
+msgstr "Marcar como lido"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Remove from archive"
-msgstr ""
+msgstr "Remover do arquivo"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Move to archive"
-msgstr ""
+msgstr "Mover para o arquivo"
 
 #: assets/templates/bookmarks/components/actions.jet.html:9
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
 #: assets/templates/bookmarks/components/card.jet.html:10
 msgid "Remove from favorites"
-msgstr ""
+msgstr "Remover dos favoritos"
 
 #: assets/templates/bookmarks/components/actions.jet.html:9
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
 #: assets/templates/bookmarks/components/card.jet.html:10
 msgid "Add to favorites"
-msgstr ""
+msgstr "Adicionar aos favoritos"
 
 #: assets/templates/bookmarks/components/actions.jet.html:15
 #: assets/templates/bookmarks/components/card.jet.html:92
 msgid "This bookmark will be removed in a few seconds."
-msgstr ""
+msgstr "Esse marcador será removido em alguns segundos."
 
 #: assets/templates/bookmarks/components/actions.jet.html:24
 msgid "Undo"
-msgstr ""
+msgstr "Desfazer"
 
 #: assets/templates/bookmarks/components/actions.jet.html:58
 #: assets/templates/bookmarks/components/list_actions.jet.html:72
 msgid "Download EPUB"
-msgstr ""
+msgstr "Download EPUB"
 
 #: assets/templates/bookmarks/components/actions.jet.html:60
 msgid "Share by Link"
-msgstr ""
+msgstr "Compartilhar via Link"
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
 msgid "Saved with Readeck"
-msgstr ""
+msgstr "Salvo com Readeck"
 
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Go to original page"
-msgstr ""
+msgstr "Ir para a página original"
 
 #: assets/templates/bookmarks/components/card.jet.html:33
 msgctxt "bookmark"
 msgid "Loading"
-msgstr ""
+msgstr "Carregando"
 
 #: assets/templates/bookmarks/components/card.jet.html:75
 #, python-format
@@ -661,39 +661,39 @@ msgstr[1] ""
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
-msgstr ""
+msgstr "Remover Marcação(ões)"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
-msgstr ""
+msgstr "Amarelo"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:48
 msgid "Red"
-msgstr ""
+msgstr "Vermelho"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:49
 msgid "Blue"
-msgstr ""
+msgstr "Azul"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:50
 msgid "Green"
-msgstr ""
+msgstr "Verde"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:54
 msgid "Highlight"
-msgstr ""
+msgstr "Marcação"
 
 #: assets/templates/bookmarks/components/filters.jet.html:9
 msgid "Search"
-msgstr ""
+msgstr "Busca"
 
 #: assets/templates/bookmarks/components/filters.jet.html:14
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: assets/templates/bookmarks/components/filters.jet.html:19
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
 #: assets/templates/bookmarks/components/filters.jet.html:24
 msgid "Site"
@@ -703,7 +703,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/options.jet.html:10
 #: assets/templates/bookmarks/label.jet.html:10
 msgid "Label"
-msgstr ""
+msgstr "Etiqueta"
 
 #: assets/templates/bookmarks/components/filters.jet.html:34
 msgid "From date"
@@ -715,12 +715,12 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:45
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: assets/templates/bookmarks/components/filters.jet.html:50
 msgctxt "filter"
 msgid "Progress"
-msgstr ""
+msgstr "Progresso"
 
 #: assets/templates/bookmarks/components/filters.jet.html:55
 msgid "Is Favorite"
@@ -734,7 +734,7 @@ msgstr ""
 #: assets/templates/bookmarks/components/reader_control.jet.html:127
 #: assets/templates/bookmarks/components/reader_control.jet.html:152
 msgid "yes"
-msgstr ""
+msgstr "sim"
 
 #: assets/templates/bookmarks/components/filters.jet.html:60
 #: assets/templates/bookmarks/components/filters.jet.html:69
@@ -744,7 +744,7 @@ msgstr ""
 #: assets/templates/bookmarks/components/reader_control.jet.html:127
 #: assets/templates/bookmarks/components/reader_control.jet.html:152
 msgid "no"
-msgstr ""
+msgstr "não"
 
 #: assets/templates/bookmarks/components/filters.jet.html:64
 msgid "Is Archived"
@@ -756,43 +756,43 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:84
 msgid "With Labels"
-msgstr ""
+msgstr "Com etiquetas"
 
 #: assets/templates/bookmarks/components/filters.jet.html:94
 msgid "With Errors"
-msgstr ""
+msgstr "Com erros"
 
 #: assets/templates/bookmarks/components/labels.jet.html:1
 msgid "Remove label"
-msgstr ""
+msgstr "Remover etiqueta"
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:1
 msgid "Add a label"
-msgstr ""
+msgstr "Adicionar uma etiqueta"
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:35
 msgid "Add label"
-msgstr ""
+msgstr "Adicionar etiqueta"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Grid view"
-msgstr ""
+msgstr "Visualização de grade"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Compact view"
-msgstr ""
+msgstr "Visualização compacta"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Sort bookmarks"
-msgstr ""
+msgstr "Ordenar marcadores"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Sort options"
-msgstr ""
+msgstr "Ordenar opções"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Import and export"
-msgstr ""
+msgstr "Importar e exportar"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:9
 msgid "You can share the following link with your friends."

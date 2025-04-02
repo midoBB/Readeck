@@ -45,6 +45,17 @@ func (c *pgConnector) Version() string {
 	return res
 }
 
+func (c *pgConnector) DiskUsage() (int64, error) {
+	var sizeBytes int64
+	if _, err := Q().Select(
+		goqu.Func("pg_database_size",
+			goqu.Func("current_database"))).
+		ScanVal(&sizeBytes); err != nil {
+		panic(err)
+	}
+	return sizeBytes, nil
+}
+
 func (c *pgConnector) HasTable(name string) (bool, error) {
 	ds := Q().Select(goqu.Func("to_regclass", name))
 

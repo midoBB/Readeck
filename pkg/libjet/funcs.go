@@ -70,16 +70,22 @@ var funcMap = map[string]jet.Func{
 	"shortText": func(args jet.Arguments) reflect.Value {
 		args.RequireNumOfArguments("shortText", 2, 2)
 		s := ToString(args.Get(0))
-		maxChars := ToInt(args.Get(1))
+		maxChars := ToInt[int](args.Get(1))
 
 		return reflect.ValueOf(utils.ShortText(s, maxChars))
 	},
 	"shortURL": func(args jet.Arguments) reflect.Value {
 		args.RequireNumOfArguments("shortText", 2, 2)
 		s := ToString(args.Get(0))
-		maxChars := ToInt(args.Get(1))
+		maxChars := ToInt[int](args.Get(1))
 
 		return reflect.ValueOf(utils.ShortURL(s, maxChars))
+	},
+	"humanReadable": func(args jet.Arguments) reflect.Value {
+		args.RequireNumOfArguments("sizeBytes", 1, 1)
+		i := ToInt[int64](args.Get(0))
+
+		return reflect.ValueOf(utils.FormatBytes(i))
 	},
 	"attrList": func(args jet.Arguments) reflect.Value {
 		if args.NumOfArguments()%2 > 0 {
@@ -212,7 +218,7 @@ func ToString(v reflect.Value) string {
 }
 
 // ToInt returns a value as an integer value.
-func ToInt(v reflect.Value) int {
+func ToInt[T int | int32 | int64](v reflect.Value) T {
 	val, isNil := Indirect(v)
 	if isNil || val == nil {
 		return 0
@@ -220,9 +226,13 @@ func ToInt(v reflect.Value) int {
 
 	switch v := val.(type) {
 	case float32, float64:
-		return int(v.(float64))
+		return T(v.(float64))
+	case int64:
+		return T(v)
+	case int32:
+		return T(v)
 	case int:
-		return v
+		return T(v)
 	}
 
 	panic("value is not a number")

@@ -133,6 +133,18 @@ func (c *sqliteConnector) Version() string {
 	return res
 }
 
+func (c *sqliteConnector) DiskUsage() (int64, error) {
+	var sizeBytes int64
+	if _, err := Q().Select(
+		goqu.L("page_count * page_size")).
+		From(goqu.L("pragma_page_count()")).
+		CrossJoin(goqu.L("pragma_page_size()")).
+		ScanVal(&sizeBytes); err != nil {
+		panic(err)
+	}
+	return sizeBytes, nil
+}
+
 func (c *sqliteConnector) HasTable(name string) (bool, error) {
 	ds := Q().Select(goqu.C("name")).
 		From(goqu.T("sqlite_master")).

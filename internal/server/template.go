@@ -197,7 +197,7 @@ func (s *Server) initTemplates() {
 		size := 240
 		clr := "#000000"
 		if args.NumOfArguments() > 1 {
-			size = libjet.ToInt(args.Get(1))
+			size = libjet.ToInt[int](args.Get(1))
 		}
 
 		if args.NumOfArguments() > 2 {

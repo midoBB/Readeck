@@ -6,6 +6,8 @@
 package utils
 
 import (
+	"fmt"
+	"math"
 	"net/url"
 	"path"
 	"strings"
@@ -93,4 +95,16 @@ func Slug(s string) string {
 		buf = buf[:i]
 	}
 	return string(buf)
+}
+
+// FormatBytes returns a human readable size in IEC format.
+func FormatBytes(s int64) string {
+	sizes := []string{"B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB"}
+	e := math.Floor(math.Log(float64(s)) / math.Log(1024))
+	suffix := sizes[int(e)]
+
+	return fmt.Sprintf("%.2f %s",
+		math.Floor(float64(s)/math.Pow(1024, e)*10+0.5)/10,
+		suffix,
+	)
 }

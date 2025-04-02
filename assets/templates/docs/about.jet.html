@@ -26,6 +26,8 @@ SPDX-License-Identifier: AGPL-3.0-only
     <li>Go Version: {{ .GoVersion }}</li>
     <li>Database Connector: {{ .DBConnecter }}</li>
     <li>Database Version: {{ .DBVersion }}</li>
+    <li>Database Size: {{ humanReadable(.DBSize) }}</li>
+    <li>Bookmarks Disk Usage: {{ humanReadable(.DiskUsage) }}</li>
   </ul>
 
   <h2 class="title text-h2">{{ gettext("Project") }}</h2>

@@ -22,6 +22,8 @@ import (
 	"codeberg.org/readeck/readeck/assets"
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/metrics"
 )
 
@@ -202,26 +204,39 @@ func (s *Server) sysRoutes() http.Handler {
 		Sys        uint64 `json:"sys"`
 		NumGC      uint32 `json:"numgc"`
 	}
-
-	type sysInfo struct {
-		Version   string    `json:"version"`
-		BuildDate time.Time `json:"build_date"`
-		OS        string    `json:"os"`
-		Platform  string    `json:"platform"`
-		Hostname  string    `json:"hostname"`
-		CPUs      int       `json:"cpus"`
-		GoVersion string    `json:"go_version"`
-		Mem       memInfo   `json:"mem"`
+	type storageInfo struct {
+		Database  uint64 `json:"database"`
+		Bookmarks uint64 `json:"bookmarks"`
 	}
 
-	bToMb := func(b uint64) uint64 {
-		return b / 1024 / 1024
+	type sysInfo struct {
+		Version   string      `json:"version"`
+		BuildDate time.Time   `json:"build_date"`
+		OS        string      `json:"os"`
+		Platform  string      `json:"platform"`
+		Hostname  string      `json:"hostname"`
+		CPUs      int         `json:"cpus"`
+		GoVersion string      `json:"go_version"`
+		Mem       memInfo     `json:"mem"`
+		DiskUsage storageInfo `json:"disk_usage"`
 	}
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		var m runtime.MemStats
 		runtime.ReadMemStats(&m)
 		host, _ := os.Hostname()
+
+		var err error
+		usage := storageInfo{}
+		usage.Database, err = db.Driver().DiskUsage()
+		if err != nil {
+			s.Error(w, r, err)
+		}
+
+		usage.Bookmarks, err = bookmarks.Bookmarks.DiskUsage()
+		if err != nil {
+			s.Error(w, r, err)
+		}
 
 		res := sysInfo{
 			Version:   configs.Version(),
@@ -232,11 +247,12 @@ func (s *Server) sysRoutes() http.Handler {
 			CPUs:      runtime.NumCPU(),
 			GoVersion: runtime.Version(),
 			Mem: memInfo{
-				Alloc:      bToMb(m.Alloc),
-				TotalAlloc: bToMb(m.TotalAlloc),
-				Sys:        bToMb(m.Sys),
+				Alloc:      m.Alloc,
+				TotalAlloc: m.TotalAlloc,
+				Sys:        m.Sys,
 				NumGC:      m.NumGC,
 			},
+			DiskUsage: usage,
 		}
 
 		s.Render(w, r, 200, res)

@@ -45,8 +45,8 @@ func (c *pgConnector) Version() string {
 	return res
 }
 
-func (c *pgConnector) DiskUsage() (int64, error) {
-	var sizeBytes int64
+func (c *pgConnector) DiskUsage() (uint64, error) {
+	var sizeBytes uint64
 	if _, err := Q().Select(
 		goqu.Func("pg_database_size",
 			goqu.Func("current_database"))).

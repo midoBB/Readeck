@@ -388,6 +388,27 @@ func (m *BookmarkManager) RenameLabel(u *users.User, oldLabel, newLabel string) 
 	return
 }
 
+// DiskUsage returns the total size of bookmarks on disk, as int64.
+func (m *BookmarkManager) DiskUsage() (uint64, error) {
+	dir := StoragePath()
+	var totalSize uint64
+
+	err := filepath.Walk(dir, func(_ string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if !info.IsDir() {
+			totalSize += uint64(info.Size())
+		}
+		return nil
+	})
+	if err != nil {
+		return 0, err
+	}
+
+	return totalSize, nil
+}
+
 // Update updates some bookmark values.
 func (b *Bookmark) Update(v interface{}) error {
 	if b.ID == 0 {
@@ -611,25 +632,4 @@ type AnnotationQueryResult struct {
 	Text     string           `db:"annotation_text"`
 	Created  types.TimeString `db:"annotation_created"`
 	Color    string           `db:"annotation_color"`
-}
-
-// DiskUsage returns the total size of bookmarks on disk, as int64.
-func DiskUsage() (int64, error) {
-	dir := StoragePath()
-	var totalSize int64
-
-	err := filepath.Walk(dir, func(_ string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-		if !info.IsDir() {
-			totalSize += info.Size()
-		}
-		return nil
-	})
-	if err != nil {
-		return 0, err
-	}
-
-	return totalSize, nil
 }

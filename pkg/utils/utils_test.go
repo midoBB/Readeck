@@ -5,6 +5,7 @@
 package utils_test
 
 import (
+	"math"
 	"strconv"
 	"testing"
 
@@ -45,7 +46,7 @@ func TestShortURL(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		t.Run(strconv.Itoa(i), func(t *testing.T) {
+		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
 			res := utils.ShortURL(test.Src, 40)
 			require.Equal(t, test.Expected, res)
 		})
@@ -67,9 +68,30 @@ func TestSlug(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		t.Run(strconv.Itoa(i), func(t *testing.T) {
+		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
 			res := utils.Slug(test.Text)
 			require.Equal(t, test.Expected, res)
+		})
+	}
+}
+
+func TestFormatBytes(t *testing.T) {
+	tests := []struct {
+		s        uint64
+		expected string
+	}{
+		{100, "100 B"},
+		{1000, "1000 B"},
+		{1024, "1.00 KiB"},
+		{1024 * 1024 * 5, "5.00 MiB"},
+		{uint64(math.Pow(1024, 3) * 2.1), "2.10 GiB"},
+		{858492928, "818.70 MiB"},
+	}
+
+	for i, test := range tests {
+		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
+			res := utils.FormatBytes(test.s)
+			require.Equal(t, test.expected, res)
 		})
 	}
 }

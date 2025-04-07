@@ -35,7 +35,7 @@ type Connector interface {
 	Version() string
 
 	// Size returns the database size.
-	DiskUsage() (int64, error)
+	DiskUsage() (uint64, error)
 
 	// HasTable checks if a given table exists in the
 	// database. It's used by the migration system.

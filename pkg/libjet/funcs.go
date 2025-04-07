@@ -83,7 +83,7 @@ var funcMap = map[string]jet.Func{
 	},
 	"humanReadable": func(args jet.Arguments) reflect.Value {
 		args.RequireNumOfArguments("sizeBytes", 1, 1)
-		i := ToInt[int64](args.Get(0))
+		i := ToInt[uint64](args.Get(0))
 
 		return reflect.ValueOf(utils.FormatBytes(i))
 	},
@@ -218,7 +218,7 @@ func ToString(v reflect.Value) string {
 }
 
 // ToInt returns a value as an integer value.
-func ToInt[T int | int32 | int64](v reflect.Value) T {
+func ToInt[T int | int32 | int64 | uint | uint32 | uint64](v reflect.Value) T {
 	val, isNil := Indirect(v)
 	if isNil || val == nil {
 		return 0
@@ -232,6 +232,12 @@ func ToInt[T int | int32 | int64](v reflect.Value) T {
 	case int32:
 		return T(v)
 	case int:
+		return T(v)
+	case uint64:
+		return T(v)
+	case uint32:
+		return T(v)
+	case uint:
 		return T(v)
 	}
 

@@ -133,8 +133,8 @@ func (c *sqliteConnector) Version() string {
 	return res
 }
 
-func (c *sqliteConnector) DiskUsage() (int64, error) {
-	var sizeBytes int64
+func (c *sqliteConnector) DiskUsage() (uint64, error) {
+	var sizeBytes uint64
 	if _, err := Q().Select(
 		goqu.L("page_count * page_size")).
 		From(goqu.L("pragma_page_count()")).

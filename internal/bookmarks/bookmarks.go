@@ -612,3 +612,24 @@ type AnnotationQueryResult struct {
 	Created  types.TimeString `db:"annotation_created"`
 	Color    string           `db:"annotation_color"`
 }
+
+// DiskUsage returns the total size of bookmarks on disk, as int64.
+func DiskUsage() (int64, error) {
+	dir := StoragePath()
+	var totalSize int64
+
+	err := filepath.Walk(dir, func(_ string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if !info.IsDir() {
+			totalSize += info.Size()
+		}
+		return nil
+	})
+	if err != nil {
+		return 0, err
+	}
+
+	return totalSize, nil
+}

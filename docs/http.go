@@ -19,6 +19,7 @@ import (
 	"github.com/komkom/toml"
 
 	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/locales"
@@ -225,6 +226,17 @@ func (h *helpHandlers) serveAbout(w http.ResponseWriter, r *http.Request) {
 		return strings.Compare(strings.ToLower(a.Name), strings.ToLower(b.Name))
 	})
 
+	dbUsageVal, err := db.Driver().DiskUsage()
+	if err != nil {
+		h.srv.Error(w, r, err)
+		return
+	}
+	diskUsageVal, err := bookmarks.DiskUsage()
+	if err != nil {
+		h.srv.Error(w, r, err)
+		return
+	}
+
 	section, tag := h.getSection(r)
 	tr := locales.LoadTranslation(tag)
 	ctx := server.TC{
@@ -238,6 +250,8 @@ func (h *helpHandlers) serveAbout(w http.ResponseWriter, r *http.Request) {
 		"GoVersion":   runtime.Version(),
 		"DBConnecter": db.Driver().Name(),
 		"DBVersion":   db.Driver().Version(),
+		"DBSize":      dbUsageVal,
+		"DiskUsage":   diskUsageVal,
 	}
 	ctx.SetBreadcrumbs([][2]string{
 		{tr.Gettext("Documentation"), h.srv.AbsoluteURL(r, "/docs", tag, "/").String()},

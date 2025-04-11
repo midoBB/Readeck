@@ -11,9 +11,9 @@ Readeck fournit un catalogue d'e-book de tous vos bookmarks, organisés selon la
     - e-book de la collection
     - naviguer dans la collection
 
-Chaque section, à l’exception des Collections, fournit les bookmarks en tant qu’e-book.
+Chaque section, à l'exception des Collections, fournit les bookmarks en tant qu'e-book.
 
-Dans la section d’une collection, vous pouvez télécharger l’intégralité de celle-ci sous forme d’un seul e-book.
+Dans la section d'une collection, vous pouvez télécharger l'intégralité de celle-ci sous forme d'un seul e-book.
 
 ## Accès au catalogue
 

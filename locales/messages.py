@@ -21,7 +21,7 @@ from babel.messages.mofile import write_mo
 from babel.messages.pofile import read_po, write_po
 
 # Percentage of translated content under which a translation won't be loaded.
-COMPLETION_CUTOFF = 0.9
+COMPLETION_CUTOFF = 0.89
 
 HERE = Path(__file__).parent
 ROOT = (HERE / "..").resolve()

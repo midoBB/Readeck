@@ -80,6 +80,7 @@ func TestFormatBytes(t *testing.T) {
 		s        uint64
 		expected string
 	}{
+		{0, "0 B"},
 		{100, "100 B"},
 		{1000, "1000 B"},
 		{1024, "1.00 KiB"},

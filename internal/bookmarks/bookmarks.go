@@ -393,6 +393,13 @@ func (m *BookmarkManager) DiskUsage() (uint64, error) {
 	dir := StoragePath()
 	var totalSize uint64
 
+	if _, err := os.Lstat(dir); err != nil {
+		if errors.Is(err, os.ErrNotExist) {
+			return 0, nil
+		}
+		return 0, err
+	}
+
 	err := filepath.Walk(dir, func(_ string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err

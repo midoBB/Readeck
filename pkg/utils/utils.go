@@ -99,6 +99,10 @@ func Slug(s string) string {
 
 // FormatBytes returns a human readable size in IEC format.
 func FormatBytes(s uint64) string {
+	if s == 0 {
+		return "0 B"
+	}
+
 	sizes := []string{"B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB"}
 	e := math.Floor(math.Log(float64(s)) / math.Log(1024))
 	suffix := sizes[int(e)]

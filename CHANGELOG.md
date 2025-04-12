@@ -6,6 +6,9 @@
 - Import command
 - Import from CSV and Instapaper
 - Last used dates on API Tokens and Application Passwords
+- Show disk usage in the "about Readeck" page, by [@Pontoporeia](https://codeberg.org/Pontoporeia)
+- Spanish (español de España) translation
+- Galician (galego) translation
 
 ### Improved
 - Mark imported archived bookmarks as read

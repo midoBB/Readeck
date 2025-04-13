@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-03-22 08:42+0000\n"
-"PO-Revision-Date: 2024-11-25 08:02+0000\n"
-"Last-Translator: Tommi <tommi@users.noreply.translate.codeberg.org>\n"
-"Language: it\n"
-"Language-Team: Italian <https://translate.codeberg.org/projects/readeck/application/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"PO-Revision-Date: 2025-04-13 10:21+0000\n"
+"Last-Translator: zull <zull@noreply.codeberg.org>\n"
+"Language-Team: Italian <https://translate.codeberg.org/projects/readeck/"
+"application/it/>\n"
+"Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -483,9 +485,8 @@ msgstr "con"
 
 # | msgid "Saved with Readeck"
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
-#, fuzzy
 msgid "Saved with"
-msgstr "Salvato con Readeck"
+msgstr "Salvato con"
 
 #: assets/templates/bookmarks/bookmark_shared.jet.html:8
 msgid "Share link"
@@ -597,11 +598,11 @@ msgstr "Elimina questo bookmark"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as unread"
-msgstr ""
+msgstr "Segna come non letto"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as read"
-msgstr ""
+msgstr "Segna come letto"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
@@ -660,12 +661,12 @@ msgstr "In caricamento"
 
 # | msgid "%d min"
 #: assets/templates/bookmarks/components/card.jet.html:75
-#, fuzzy, python-format
+#, python-format
 msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
-msgstr[0] "%d minuti"
-msgstr[1] ""
+msgstr[0] "%d minuto"
+msgstr[1] "%d minuti"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
@@ -673,19 +674,19 @@ msgstr "Rimuovi parte/i evidenziata/e"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
-msgstr ""
+msgstr "Giallo"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:48
 msgid "Red"
-msgstr ""
+msgstr "Rosso"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:49
 msgid "Blue"
-msgstr ""
+msgstr "Blu"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:50
 msgid "Green"
-msgstr ""
+msgstr "Verde"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:54
 msgid "Highlight"
@@ -728,7 +729,7 @@ msgstr "Tipo"
 #: assets/templates/bookmarks/components/filters.jet.html:50
 msgctxt "filter"
 msgid "Progress"
-msgstr ""
+msgstr "Progresso"
 
 #: assets/templates/bookmarks/components/filters.jet.html:55
 msgid "Is Favorite"
@@ -792,21 +793,18 @@ msgstr "Vista compatta"
 
 # | msgid "Import bookmarks"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort bookmarks"
-msgstr "Importa dei bookmark"
+msgstr "Ordina i bookmark"
 
 # | msgid "Options"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort options"
-msgstr "Opzioni"
+msgstr "Opzioni ordine"
 
 # | msgid "Import links and articles"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Import and export"
-msgstr "Importa link e articoli"
+msgstr "Importa ed esporta"
 
 #: assets/templates/bookmarks/components/public_share.jet.html:9
 msgid "You can share the following link with your friends."
@@ -831,7 +829,7 @@ msgstr "Font"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:54
 msgid "Width"
-msgstr ""
+msgstr "Larghezza"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:75
 msgid "Size"
@@ -846,7 +844,6 @@ msgid "Justify"
 msgstr "Giustifica"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:141
-#, fuzzy
 msgid "Hyphenation"
 msgstr "Andare a capo"
 
@@ -863,11 +860,11 @@ msgstr "Sono avvenuti degli errori durante l’estrazione."
 # | msgid "About %d min read"
 #: assets/templates/bookmarks/components/sidebar.jet.html:69
 #: assets/templates/epub/bookmark.jet.html:45
-#, fuzzy, python-format
+#, python-format
 msgid "About %d minute read"
 msgid_plural "About %d minutes read"
-msgstr[0] "Circa %d min di lettura"
-msgstr[1] ""
+msgstr[0] "Circa %d minuto di lettura"
+msgstr[1] "Circa %d minuti di lettura"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:104
 msgid "Start selecting text in the article to create a new highlight."
@@ -931,9 +928,8 @@ msgstr "Importa i bookmark"
 
 # | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
-#, fuzzy
 msgid "Import Links from a CSV File"
-msgstr "Importa dei link da un file di testo"
+msgstr "Importa dei link da un file CSV"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
@@ -941,6 +937,10 @@ msgid ""
 "    Upload a CSV file from Instapaper or any CSV that matches the format specified bellow.\n"
 "  "
 msgstr ""
+"\n"
+"    Carica un file CSV da Instapaper o da qualunque CSV che corrisponda al "
+"formato specificato di seguito.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
 #, python-format
@@ -950,57 +950,59 @@ msgid ""
 "    insensitive and, except for <code>%s</code>, every column is optional.\n"
 "  "
 msgstr ""
+"\n"
+"    Il file caricato deve contenere una prima riga con i nomi della colonna. "
+"I nomi delle colonne are case\n"
+"    insensitive e, salvo per <code>%s</code>, ogni colonna è opzionale.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:45
 msgid "Here are the columns you can set:"
-msgstr ""
+msgstr "Ecco le colonne che puoi impostare:"
 
 # | msgid "File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
-#, fuzzy
 msgid "Field"
-msgstr "File"
+msgstr "Campo"
 
 # | msgid "Links"
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
-#, fuzzy
 msgid "Alias"
-msgstr "Link"
+msgstr "Alias"
 
 # | msgid "Distribution"
 #: assets/templates/bookmarks/import/form-csv.jet.html:51
-#, fuzzy
 msgid "Description"
-msgstr "Distribuzione"
+msgstr "Descrizione"
 
 # | msgid "Email Address"
 #: assets/templates/bookmarks/import/form-csv.jet.html:58
-#, fuzzy
 msgid "Link address"
-msgstr "Indirizzo email"
+msgstr "Indirizzo del link"
 
 # | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/import/form-csv.jet.html:63
-#, fuzzy
 msgid "Bookmark title"
-msgstr "Etichette del bookmark"
+msgstr "Titolo del bookmark"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:68
 #, python-format
 msgid "Bookmark's archived state; only valid value is \"%s\""
-msgstr ""
+msgstr "Stato del bookmark archiviato; l’unico valore possibile è “%s”"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:73
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
 msgstr ""
+"Data di creazione, può essere un UNIX timestamp o una data formattata in "
+"RFC-3339"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:78
 msgid "A JSON encoded list of labels"
-msgstr ""
+msgstr "Una lista di etichette in formato JSON"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:83
 msgid "Example"
-msgstr ""
+msgstr "Esempio"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
 msgid "Import Links from a GoodLinks export file"
@@ -1171,9 +1173,8 @@ msgstr "Importa bookmark dal tuo browser, Pinboard, o Instapaper"
 
 # | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/index.jet.html:40
-#, fuzzy
 msgid "Import Links from a CSV File and Instapaper"
-msgstr "Importa dei link da un file di testo"
+msgstr "Importa dei link da un file CSV o Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html:44
 msgid "Import your GoodLinks Articles"
@@ -1193,21 +1194,22 @@ msgstr "Ignora i link già salvati fra i tuoi bookmark"
 
 # | msgid "Archived Bookmarks"
 #: assets/templates/bookmarks/import/options.jet.html:21
-#, fuzzy
 msgid "Archive all links"
-msgstr "Bookmark archiviati"
+msgstr "Archivia tutti i link"
 
 #: assets/templates/bookmarks/import/options.jet.html:23
 msgid "Moves all links to archive, regardless of their original status"
 msgstr ""
+"Sposta tutti i link in archivio, indipendentemente dal loro stato originale"
 
 #: assets/templates/bookmarks/import/options.jet.html:27
 msgid "Mark all links as read"
-msgstr ""
+msgstr "Segna tutti i link come letti"
 
 #: assets/templates/bookmarks/import/options.jet.html:29
 msgid "Marks all links as read, regardless of their original status"
 msgstr ""
+"Segna tutti i link come letti, indipendentemente dal loro stato originale"
 
 #: assets/templates/bookmarks/import/progress.jet.html:15
 msgid "Import operation will launch momentarily."
@@ -1238,9 +1240,8 @@ msgstr ""
 
 # | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/index.jet.html:1
-#, fuzzy
 msgid "Bookmark filters"
-msgstr "Etichette del bookmark"
+msgstr "Filtri dei bookmark"
 
 #: assets/templates/bookmarks/index.jet.html:27
 msgid "Save a new link"
@@ -1627,16 +1628,14 @@ msgstr "ID della password"
 # | msgid "Patent use"
 #: assets/templates/profile/credential.jet.html:56
 #: assets/templates/profile/token.jet.html:37
-#, fuzzy
 msgid "Last used"
-msgstr "Uso per brevetti"
+msgstr "Ultimo utilizzo"
 
 # | msgid "New User"
 #: assets/templates/profile/credential.jet.html:57
 #: assets/templates/profile/token.jet.html:38
-#, fuzzy
 msgid "never used"
-msgstr "Nuovə utente"
+msgstr "Mai usato"
 
 #: assets/templates/profile/credential.jet.html:69
 #: assets/templates/profile/token.jet.html:50
@@ -1669,9 +1668,8 @@ msgstr "Elimina password"
 # | msgid "New password"
 #: assets/templates/profile/credential.jet.html:95
 #: assets/templates/profile/credential.jet.html:103
-#, fuzzy
 msgid "Refresh password"
-msgstr "Nuova password"
+msgstr "Rinnova la password"
 
 #: assets/templates/profile/credential.jet.html:97
 msgid ""
@@ -1680,6 +1678,11 @@ msgid ""
 "      you can refresh it to get a new one.\n"
 "    "
 msgstr ""
+"\n"
+"      Se hai dimenticato la password dell’applicazione o vuoi semplicemente "
+"cambiarla,\n"
+"      puoi aggiornarla per ottenerne una nuova.\n"
+"    "
 
 #: assets/templates/profile/credential_list.jet.html:10
 msgid "My Application Passwords"
@@ -1692,9 +1695,9 @@ msgstr "Crea una nuova password dell’applicazione"
 # | msgid "Created on: %s"
 #: assets/templates/profile/credential_list.jet.html:48
 #: assets/templates/profile/token_list.jet.html:54
-#, fuzzy, python-format
+#, python-format
 msgid "Last used on: %s"
-msgstr "Creato il: %s"
+msgstr "Ultimo utilizzo: %s"
 
 #: assets/templates/profile/credential_list.jet.html:56
 msgid "This password will be removed in a few seconds."
@@ -1722,13 +1725,12 @@ msgstr "Password attuale"
 
 # | msgid "API Token"
 #: assets/templates/profile/token.jet.html:1
-#, fuzzy
 msgid "copy token"
-msgstr "Gettone API"
+msgstr "Copia il gettone"
 
 #: assets/templates/profile/token.jet.html:1
 msgid "copy HTTP header"
-msgstr ""
+msgstr "copia header HTTP"
 
 #: assets/templates/profile/token.jet.html:9
 msgid "API Token"
@@ -1782,7 +1784,7 @@ msgstr "Puoi usare questo gettone passandolo come <strong>Authorization: Bearer<
 
 #: assets/templates/profile/token.jet.html:98
 msgid "HTTP Header"
-msgstr ""
+msgstr "Header HTTP"
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
@@ -1830,9 +1832,8 @@ msgstr "Utente o password non validi"
 
 # | msgid "Password ID"
 #: internal/auth/users/forms.go:68
-#, fuzzy
 msgid "password is empty"
-msgstr "ID della password"
+msgstr "la password è vuota"
 
 #: internal/auth/users/forms.go:205
 msgid "Bookmarks : Read Only"
@@ -1856,7 +1857,7 @@ msgstr "Segnalibri del browser"
 
 #: internal/bookmarks/importer/browser.go:75
 msgid "Unable to read HTML content"
-msgstr ""
+msgstr "Impossibile leggere contenuto HTML"
 
 #: internal/bookmarks/importer/browser.go:129
 #: internal/bookmarks/importer/csv.go:142
@@ -1869,9 +1870,8 @@ msgstr "File d’importazione vuoto o non valido"
 
 # | msgid "File"
 #: internal/bookmarks/importer/csv.go:118
-#, fuzzy
 msgid "CSV File"
-msgstr "File"
+msgstr "File CSV"
 
 #: internal/bookmarks/importer/goodlinks.go:44
 msgid "GoodLinks Export File"
@@ -1899,7 +1899,7 @@ msgstr "Nessun gettone d’accesso trovato"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:135
 msgid "Unable to process input data"
-msgstr ""
+msgstr "Impossibile processare i dati inseriti"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:376
 msgid "Article"
@@ -1916,17 +1916,17 @@ msgstr "Video"
 #: internal/bookmarks/routes/forms_bookmarks.go:385
 msgctxt "status"
 msgid "Unviewed"
-msgstr ""
+msgstr "Non visualizzato"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:386
 msgctxt "status"
 msgid "In-Progress"
-msgstr ""
+msgstr "In corso"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:387
 msgctxt "status"
 msgid "Completed"
-msgstr ""
+msgstr "Completato"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:621
 msgctxt "sort"
@@ -2057,7 +2057,7 @@ msgstr "La tua password è stata cambiata."
 
 #: internal/profile/views.go:189
 msgid "Error: you cannot create more credentials."
-msgstr ""
+msgstr "Errore: non puoi creare ulteriori credenziali."
 
 #: internal/profile/views.go:197
 msgid "An error occurred while creating your password."
@@ -2108,7 +2108,7 @@ msgstr "deve essere minore o uguale a %d"
 #: pkg/forms/validators.go:398
 #, python-format
 msgid "%v is not one of %s"
-msgstr ""
+msgstr "%v non è in %s"
 
 #: pkg/strftime/strftime.go:23
 msgctxt "datetime_dl"
@@ -2354,4 +2354,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr ""
-

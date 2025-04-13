@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+### Fixed
+- Fatal error on "About Readeck" page with fresh install
+
+### Improved
+- Use current list ordering when exporting EPUBs
+
 ## [0.18.0] - 2025-04-12
 ### Added
 - Export command

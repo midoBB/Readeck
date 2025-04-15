@@ -127,8 +127,25 @@ func (adapter *pocketFileAdapter) loadBookmarkRows(f *zip.File) error {
 	defer r.Close() //nolint:errcheck
 
 	cr := csv.NewReader(r)
-	if _, err := cr.Read(); err != nil {
+	header, err := cr.Read()
+	if err != nil {
 		return err
+	}
+
+	var idxTitle, idxURL, idxTime, idxTags, idxStatus int
+	for i, x := range header {
+		switch x {
+		case "title":
+			idxTitle = i
+		case "url":
+			idxURL = i
+		case "time_added":
+			idxTime = i
+		case "tags":
+			idxTags = i
+		case "status":
+			idxStatus = i
+		}
 	}
 
 	for {
@@ -139,11 +156,11 @@ func (adapter *pocketFileAdapter) loadBookmarkRows(f *zip.File) error {
 		if err != nil {
 			continue
 		}
-		if len(record) < 6 {
+		if len(record) != len(header) {
 			continue
 		}
 
-		uri, err := url.Parse(record[1])
+		uri, err := url.Parse(record[idxURL])
 		if err != nil {
 			continue
 		}
@@ -160,22 +177,22 @@ func (adapter *pocketFileAdapter) loadBookmarkRows(f *zip.File) error {
 		item := pocketBookmarkItem{
 			Created:    time.Now(),
 			Link:       uri.String(),
-			IsArchived: record[5] == "archive",
+			IsArchived: record[idxStatus] == "archive",
 			Labels:     types.Strings{},
 		}
 
-		title := strings.TrimSpace(record[0])
+		title := strings.TrimSpace(record[idxTitle])
 		if title != item.Link {
 			item.Title = title
 		}
 
-		for _, label := range strings.Split(record[4], "|") {
+		for _, label := range strings.Split(record[idxTags], "|") {
 			if label = strings.TrimSpace(label); label != "" {
 				item.Labels = append(item.Labels, label)
 			}
 		}
 
-		ts, err := strconv.Atoi(record[2])
+		ts, err := strconv.Atoi(record[idxTime])
 		if err == nil {
 			item.Created = time.Unix(int64(ts), 0)
 		}

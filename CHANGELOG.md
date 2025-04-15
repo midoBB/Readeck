@@ -3,9 +3,10 @@
 ## [Unreleased]
 ### Fixed
 - Fatal error on "About Readeck" page with fresh install
+- Pocket import adapter
 
 ### Improved
-- Use current list ordering when exporting EPUBs
+- Use current list ordering when exporting EPUBs, by [@knightpp](https://codeberg.org/knightpp)
 
 ## [0.18.0] - 2025-04-12
 ### Added

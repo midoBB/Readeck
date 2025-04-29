@@ -26,8 +26,6 @@ GO ?= go
 export CGO_ENABLED ?= 0
 export GOOS?=
 export GOARCH?=
-export GOAMD64 ?= v2
-export GOARM64 ?= v8.0
 
 SITECONFIG_SRC=./ftr-site-config
 SITECONFIG_DEST=pkg/extract/contentscripts/assets/site-config

@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+### Changed
+- Removed AMD64=v2 build optimisation
+
 ### Fixed
 - Fatal error on "About Readeck" page with fresh install
 - Pocket import adapter

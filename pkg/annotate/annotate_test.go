@@ -85,7 +85,7 @@ func TestFunctions(t *testing.T) {
 		}
 
 		for i, test := range tests {
-			t.Run(strconv.Itoa(i), func(t *testing.T) {
+			t.Run(strconv.Itoa(i+1), func(t *testing.T) {
 				assert := require.New(t)
 				node, offset, err := getTextNodeBoundary(root, test.selector, test.offset)
 				if test.err != "" {
@@ -153,7 +153,7 @@ func TestFunctions(t *testing.T) {
 		}
 
 		for i, test := range tests {
-			t.Run(strconv.Itoa(i), func(t *testing.T) {
+			t.Run(strconv.Itoa(i+1), func(t *testing.T) {
 				assert := require.New(t)
 				selector, offset, err := getSelector(root, test.node, test.child)
 				if test.err != "" {
@@ -355,7 +355,7 @@ func TestAnnotation(t *testing.T) {
 		}
 
 		for i, test := range tests {
-			t.Run(strconv.Itoa(i), func(t *testing.T) {
+			t.Run(strconv.Itoa(i+1), func(t *testing.T) {
 				assert := require.New(t)
 				a := NewAnnotation(root, test.startSelector, test.startOffset, test.endSelector, test.endOffset)
 				r, err := a.ToRange()
@@ -423,7 +423,7 @@ func TestAnnotation(t *testing.T) {
 		}
 
 		for i, test := range tests {
-			t.Run(strconv.Itoa(i), func(t *testing.T) {
+			t.Run(strconv.Itoa(i+1), func(t *testing.T) {
 				assert := require.New(t)
 				a := NewAnnotation(root, test.startSelector, test.startOffset, test.endSelector, test.endOffset)
 				r, err := a.ToRange(test.validators...)
@@ -532,7 +532,7 @@ func TestAnnotation(t *testing.T) {
 		}
 
 		for i, test := range tests {
-			t.Run(strconv.Itoa(i), func(t *testing.T) {
+			t.Run(strconv.Itoa(i+1), func(t *testing.T) {
 				assert := require.New(t)
 				doc := loadDocument()
 				root := dom.QuerySelector(doc, "body")
@@ -598,6 +598,17 @@ func TestAddAnnotation(t *testing.T) {
 		},
 		{
 			[]*Annotation{
+				NewAnnotation(nil, "p[1]", 1, "p[1]", 15),
+				NewAnnotation(nil, "p[1]", 15, "p[1]", 23),
+			},
+			[][3]string{
+				{"./p[1]/my-annotation[1]", "Lorem ip", "0"},
+				{"./p[1]/my-annotation[2]", "sum dolo", "1"},
+			},
+			"",
+		},
+		{
+			[]*Annotation{
 				NewAnnotation(nil, "p[1]", 34, "p[1]", 62),
 				NewAnnotation(nil, "p[1]", 87, "p[1]", 109),
 			},
@@ -619,7 +630,7 @@ func TestAddAnnotation(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		t.Run(strconv.Itoa(i), func(t *testing.T) {
+		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
 			assert := require.New(t)
 			doc := loadDocument()
 			root := dom.QuerySelector(doc, "body")
@@ -638,6 +649,7 @@ func TestAddAnnotation(t *testing.T) {
 				assert.EqualError(err, test.err)
 				return
 			}
+			assert.NoError(err)
 
 			nodes := htmlquery.Find(root, "//my-annotation")
 			assert.Equal(len(test.expected), len(nodes))
@@ -649,6 +661,62 @@ func TestAddAnnotation(t *testing.T) {
 				assert.Equal(expected[1], strings.TrimSpace(n.FirstChild.Data))
 				assert.Equal(expected[2], dom.GetAttribute(n, "data-annotation-id"))
 			}
+		})
+	}
+}
+
+func TestContiguity(t *testing.T) {
+	contents := "<p>12<span>3<b>45</b>67</span>89</p>"
+
+	tests := []struct {
+		annotations []*Annotation
+		expect      string
+	}{
+		{
+			[]*Annotation{
+				NewAnnotation(nil, "p[1]", 0, "p[1]", 9),
+			},
+			"<body><p><abc>12</abc><span><abc>3</abc><b><abc>45</abc></b><abc>67</abc></span><abc>89</abc></p></body>",
+		},
+		{
+			[]*Annotation{
+				NewAnnotation(nil, "p[1]", 2, "p[1]", 4),
+			},
+			"<body><p>12<span><abc>3</abc><b><abc>4</abc>5</b>67</span>89</p></body>",
+		},
+		{
+			[]*Annotation{
+				NewAnnotation(nil, "p[1]/span[1]/b[1]", 2, "p[1]", 9),
+			},
+			"<body><p>12<span>3<b>45</b><abc>67</abc></span><abc>89</abc></p></body>",
+		},
+		{
+			[]*Annotation{
+				NewAnnotation(nil, "p[1]/span[1]", 1, "p[1]/span[1]", 3),
+			},
+			"<body><p>12<span>3<b><abc>45</abc></b><abc></abc>67</span>89</p></body>",
+		},
+		{
+			[]*Annotation{
+				NewAnnotation(nil, "p[1]", 9, "p[1]", 9),
+			},
+			"<body><p>12<span>3<b>45</b>67</span>89</p></body>",
+		},
+	}
+
+	for i, test := range tests {
+		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
+			doc, _ := html.Parse(strings.NewReader(contents))
+			root := dom.QuerySelector(doc, "body")
+			assert := require.New(t)
+			for _, a := range test.annotations {
+				err := AddAnnotation(root, "abc", a.startSelector, a.startOffset, a.endSelector, a.endOffset)
+				assert.NoError(err)
+			}
+
+			w := new(bytes.Buffer)
+			html.Render(w, root)
+			assert.Equal(test.expect, w.String())
 		})
 	}
 }

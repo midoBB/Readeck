@@ -172,6 +172,12 @@ func (a *Annotation) ToRange(validators ...func(*AnnotationRange) error) (r *Ann
 // Wrap insert annotation elements around the range text nodes.
 func (r *AnnotationRange) Wrap(options ...WrapCallback) {
 	for i, node := range r.textNodes {
+		ln := len([]rune(node.Data))
+		if i == 0 && r.startOffset == ln {
+			// Discard empty start node
+			continue
+		}
+
 		// Start offset
 		s := 0
 		if i == 0 {
@@ -179,7 +185,7 @@ func (r *AnnotationRange) Wrap(options ...WrapCallback) {
 		}
 
 		// End offset
-		e := len([]rune(node.Data))
+		e := ln
 		if i+1 == len(r.textNodes) {
 			e = r.endOffset
 		}
@@ -208,9 +214,11 @@ func getTextNodeBoundary(root *html.Node, selector string, index int) (*html.Nod
 	var textNode *html.Node
 	offset := 0
 	consummed := 0
-	walkTextNodes(e, func(n *html.Node) {
+
+	nodes := getAllTextNodes(e)
+	for i, n := range nodes {
 		if textNode != nil {
-			return
+			break
 		}
 		runesLength := len([]rune(n.Data))
 		if index <= consummed+runesLength {
@@ -218,7 +226,16 @@ func getTextNodeBoundary(root *html.Node, selector string, index int) (*html.Nod
 			textNode = n
 		}
 		consummed += runesLength
-	})
+
+		if index == consummed {
+			// When we reach the end of a node, we can actually move the cursor to the
+			// next one.
+			if i+1 < len(nodes) {
+				textNode = nil
+				offset = 0
+			}
+		}
+	}
 
 	if textNode == nil {
 		return nil, 0, newError(`index "%d" is out of range`, index)
@@ -294,6 +311,22 @@ func walkTextNodes(node *html.Node, callback func(*html.Node)) {
 		}
 		walkTextNodes(child, callback)
 	}
+}
+
+// getAllTextNodes returns a list of all text nodes found in the given
+// node, recursively.
+func getAllTextNodes(node *html.Node) []*html.Node {
+	res := []*html.Node{}
+	for child := node.FirstChild; child != nil; child = child.NextSibling {
+		switch child.Type {
+		case html.TextNode:
+			res = append(res, child)
+		case html.ElementNode:
+			res = append(res, getAllTextNodes(child)...)
+		}
+	}
+
+	return res
 }
 
 // wrapTextNode replace the given text node with a wrap text node

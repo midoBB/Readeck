@@ -1,15 +1,16 @@
 # Changelog
 
-## [Unreleased]
-### Changed
-- Removed AMD64=v2 build optimisation
-
+## [0.18.1] - 2025-04-30
 ### Fixed
 - Fatal error on "About Readeck" page with fresh install
 - Pocket import adapter
+- Bug with contiguous highlights not displaying properly (or at all)
+- `href` value in bookmark list (API)
 
 ### Improved
 - Use current list ordering when exporting EPUBs, by [@knightpp](https://codeberg.org/knightpp)
+- Removed forced server port in container image, by [@martenlienen](https://codeberg.org/martenlienen)
+- Removed AMD64=v2 build optimisation
 
 ## [0.18.0] - 2025-04-12
 ### Added

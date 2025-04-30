@@ -238,7 +238,13 @@ func (h *viewsRouter) bookmarkShare(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *viewsRouter) labelList(w http.ResponseWriter, r *http.Request) {
+	base := h.srv.AbsoluteURL(r, "/bookmarks")
+	base.Scheme = ""
+	base.Host = ""
 	labels := r.Context().Value(ctxLabelListKey{}).([]*labelItem)
+	for _, item := range labels {
+		item.setURLs(base)
+	}
 
 	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
 	ctx["Labels"] = labels

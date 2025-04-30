@@ -267,7 +267,7 @@ labels:
           schema:
             type: array
             items:
-              $ref: "#/components/schemas/labelSummary"
+              $ref: "#/components/schemas/labelInfo"
 
 # GET /bookmarks/labels/{name}
 labelInfo:

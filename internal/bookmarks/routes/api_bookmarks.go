@@ -27,7 +27,6 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/converter"
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
-	"codeberg.org/readeck/readeck/internal/db/exp"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/annotate"
 	"codeberg.org/readeck/readeck/pkg/forms"
@@ -305,47 +304,35 @@ func (api *apiRouter) bookmarkResource(w http.ResponseWriter, r *http.Request) {
 
 // labelList returns the list of all labels.
 func (api *apiRouter) labelList(w http.ResponseWriter, r *http.Request) {
-	res := r.Context().Value(ctxLabelListKey{}).([]*labelItem)
-	for i, item := range res {
-		u := api.srv.AbsoluteURL(r, ".")
-		u.Path += item.Name.Path()
-		res[i].Href = u.String()
+	base := api.srv.AbsoluteURL(r, "/api/bookmarks")
+	labels := r.Context().Value(ctxLabelListKey{}).([]*labelItem)
+	for _, item := range labels {
+		item.setURLs(base)
 	}
-
-	api.srv.Render(w, r, http.StatusOK, res)
+	api.srv.Render(w, r, http.StatusOK, labels)
 }
 
 // labelInfo return the information about a label.
 func (api *apiRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 	label := r.Context().Value(ctxLabelKey{}).(string)
-	ds := bookmarks.Bookmarks.Query().
-		Select("id").
+	ds := bookmarks.Bookmarks.GetLabels().
 		Where(
 			goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
+			goqu.I("name").Eq(label),
 		)
-	ds = exp.JSONListFilter(ds, goqu.I("b.labels").Eq(label))
-	count, err := ds.Count()
+
+	var res labelItem
+	exists, err := ds.ScanStruct(&res)
 	if err != nil {
 		api.srv.Error(w, r, err)
-		return
 	}
-
-	if count == 0 {
+	if !exists {
 		api.srv.Status(w, r, http.StatusNotFound)
 		return
 	}
+	res.setURLs(api.srv.AbsoluteURL(r, "/api/bookmarks"))
 
-	u := api.srv.AbsoluteURL(r, "/api/bookmarks")
-	q := u.Query()
-	q.Add("labels", strconv.Quote(label))
-	u.RawQuery = q.Encode()
-
-	api.srv.Render(w, r, http.StatusOK, map[string]interface{}{
-		"name":           label,
-		"count":          count,
-		"href":           api.srv.AbsoluteURL(r).String(),
-		"href_bookmarks": u.String(),
-	})
+	api.srv.Render(w, r, http.StatusOK, res)
 }
 
 func (api *apiRouter) labelUpdate(w http.ResponseWriter, r *http.Request) {
@@ -1117,9 +1104,15 @@ func (bi *bookmarkItem) setEmbed() error {
 }
 
 type labelItem struct {
-	Name  labelString `json:"name"`
-	Count int         `json:"count"`
-	Href  string      `json:"href"`
+	Name          labelString `db:"name"  json:"name"`
+	Count         int         `db:"count" json:"count"`
+	Href          string      `db:"-"     json:"href"`
+	HrefBookmarks string      `db:"-"     json:"href_bookmarks"`
+}
+
+func (i *labelItem) setURLs(bookmarkBase *url.URL) {
+	i.Href = bookmarkBase.JoinPath("labels", i.Name.Path()).String()
+	i.HrefBookmarks = bookmarkBase.String() + "?" + url.Values{"labels": []string{strconv.Quote(string(i.Name))}}.Encode()
 }
 
 type labelString string

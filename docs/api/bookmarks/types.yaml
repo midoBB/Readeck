@@ -290,7 +290,7 @@ schemas:
         type: string
         description: New label list
 
-  labelSummary:
+  labelInfo:
     properties:
       name:
         type: string
@@ -302,16 +302,10 @@ schemas:
         type: string
         format: uri
         description: Link to the label info
-
-  labelInfo:
-    allOf:
-      - $ref: "#/components/schemas/labelSummary"
-      - type: object
-        properties:
-          href_bookmarks:
-            type: string
-            format: uri
-            description: Link to the bookmarks with this label
+      href_bookmarks:
+        type: string
+        format: uri
+        description: Link to the bookmarks with this label
 
   labelUpdate:
     properties:

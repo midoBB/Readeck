@@ -1,0 +1,37 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@id='main-content']/article[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//a[@class='m-from-author__name']"
+  ],
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "t-content__dates",
+    "t-content__authors",
+    "m-interstitial",
+    "a-read-more",
+    "m-em-flash",
+    "t-content__shares",
+    "o-self-promo"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": {
+    "User-Agent": "Mastodon/4.3.2 (http.rb/5.2.0; +https://mastodon.social/) Bot"
+  },
+  "tests": [
+    {
+      "url": "https://www.rfi.fr/fr/europe/20250210-en-europe-les-%C3%A9trangers-premi%C3%A8res-victimes-de-l-intelligence-artificielle",
+      "contains": []
+    }
+  ]
+}

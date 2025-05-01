@@ -29,6 +29,7 @@
     "//footer",
     "//form",
     "//div[starts-with(@id, \"qanda-\")]",
+    "//button",
     "//figure[contains(@data-spacefinder-type, \"NewsletterSignup\")]",
     "//figure[@data-atom-type=\"qanda\" or @data-atom-type=\"profile\"]",
     "//div[@data-print-layout=\"hide\"]",
@@ -61,7 +62,24 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "‘",
+      "'"
+    ],
+    [
+      "’",
+      "'"
+    ],
+    [
+      "“",
+      "\""
+    ],
+    [
+      "”",
+      "\""
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {

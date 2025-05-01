@@ -1,23 +1,34 @@
 {
-  "title_selectors": [
-    "//h1[@class=\"title\"]"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[@class=\"column-2\"]"
+    "//div[@id='frameInner']/article"
   ],
-  "date_selectors": [
-    "//p[@class=\"dateline\"]",
-    "//p[@class=\"dateline\"]"
-  ],
-  "author_selectors": [
-    "//div[@class=\"innerbyline\"]/a",
-    "//div[@class=\"innerbyline\"]/a"
-  ],
+  "date_selectors": null,
+  "author_selectors": null,
   "strip_selectors": [
-    "//div[@class=\"innerbyline\"]/a",
-    "//p[@class=\"dateline\"]"
+    "//button",
+    "//svg",
+    "//aside",
+    "//div[@data-island-hydrate-component=\"BylineWithSocial\"]",
+    "//div[@data-island-hydrate-component=\"Byline\"]"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "next-article-element",
+    "icon-placeholder",
+    "article-bottom",
+    "social-share",
+    "sc-buvPDS",
+    "sc-bJBgwP",
+    "sc-bkSUFG",
+    "sc-erUUZj",
+    "sc-cnVHiu",
+    "sc-jxOSlx",
+    "sc-xyOoZ",
+    "sc-ilJxFg",
+    "sc-jSCfdx",
+    "sc-doohEh",
+    "readMoreVariants"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -28,6 +39,14 @@
   "replace_strings": null,
   "http_headers": null,
   "tests": [
+    {
+      "url": "https://www.standard.co.uk/culture/music/elton-john-brandi-carlile-collaboration-future-b1221509.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.standard.co.uk/lifestyle/john-cleese-spouse-divorce-advice-lorraine-b1222581.html",
+      "contains": []
+    },
     {
       "url": "http://www.standard.co.uk/lifestyle/esmagazine/grace-and-flavour-pizarro-7938350.html",
       "contains": []

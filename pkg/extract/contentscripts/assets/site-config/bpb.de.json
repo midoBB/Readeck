@@ -1,0 +1,66 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//main/article[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//header",
+    "//footer",
+    "//a[contains(@text(), 'Interner Link:')]",
+    "//a[contains(@class, 'styled-link--internal')]",
+    "//figure//div[@class='bpb-lightbox']",
+    "//div[@class='bpb-lightbox-gallery']",
+    "//a[@rel='license']/self::a | //a[@rel='license']/preceding-sibling::text()"
+  ],
+  "strip_id_or_class": [
+    "a-visually-hidden",
+    "styled-link--internal",
+    "scroller-gallery__link-interactive"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cbpb-picture",
+      "\u003cimg"
+    ],
+    [
+      "\u003c/bpb-picture\u003e",
+      ""
+    ],
+    [
+      "\u003cbpb-lightbox\u003e",
+      "\u003cdiv class=\"bpb-lightbox\"\u003e"
+    ],
+    [
+      "\u003c/bpb-lightbox\u003e",
+      "\u003c/div\u003e"
+    ],
+    [
+      "\u003cbpb-lightbox-gallery id",
+      "\u003cdiv class=\"bpb-lightbox-gallery\" id"
+    ],
+    [
+      "\u003c/bpb-lightbox-gallery\u003e",
+      "\u003c/div\u003e"
+    ],
+    [
+      "\u003ctemplate slot=\"description\"\u003e",
+      "\u003cfigcapture slot=\"description\"\u003e"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.bpb.de/themen/nationalsozialismus-zweiter-weltkrieg/der-zweite-weltkrieg/199397/der-weg-in-den-krieg/",
+      "contains": []
+    }
+  ]
+}

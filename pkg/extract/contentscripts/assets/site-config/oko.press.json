@@ -1,0 +1,47 @@
+{
+  "title_selectors": [
+    "//h1"
+  ],
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' mt-16 ')]",
+    "//div[contains(@class, \"column\")]/section/p | //div[contains(@class, \"column\")]/*[self::p or self::h2] | //figure[@data-layout='column']"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//button",
+    "//a[contains(@href, '/autor/')]/parent::div/parent::div",
+    "//a[contains(@href, '/autor/')]/parent::li/parent::ul/parent::div",
+    "//div[@id='end-of-content']/following-sibling::text() | //div[@id='end-of-content']/following-sibling::*",
+    "//img[contains(@src, 'data:image/')]"
+  ],
+  "strip_id_or_class": [
+    "banner-content",
+    "hidden",
+    "print:hidden"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "noscript\u003e",
+      "div\u003e"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://oko.press/czy-da-sie-przewidziec-zawal-serca",
+      "contains": []
+    },
+    {
+      "url": "https://oko.press/odstraszanie-nuklearne-w-europie",
+      "contains": []
+    }
+  ]
+}

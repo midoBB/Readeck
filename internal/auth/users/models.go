@@ -11,6 +11,7 @@ import (
 	"errors"
 	"log/slog"
 	"math/rand/v2"
+	"strconv"
 	"strings"
 	"time"
 
@@ -151,13 +152,15 @@ func (u *User) Delete() error {
 	return err
 }
 
-// GetSumStrings returns the string used to generate the etag
-// of the user.
+// GetSumStrings implements Etager interface.
 func (u *User) GetSumStrings() []string {
-	return []string{u.Updated.String()}
+	return []string{
+		strconv.Itoa(u.ID),
+		strconv.FormatInt(u.Updated.Unix(), 10),
+	}
 }
 
-// GetLastModified returns the last modified times.
+// GetLastModified implements LastModer interface.
 func (u *User) GetLastModified() []time.Time {
 	return []time.Time{u.Updated}
 }

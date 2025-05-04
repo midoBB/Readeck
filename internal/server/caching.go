@@ -5,7 +5,6 @@
 package server
 
 import (
-	"fmt"
 	"hash/crc64"
 	"net/http"
 	"sort"
@@ -47,18 +46,19 @@ func (s *Server) WriteEtag(w http.ResponseWriter, r *http.Request, taggers ...Et
 	}
 
 	h := crc64.New(crc64.MakeTable(crc64.ISO))
+	h.Write([]byte(strconv.FormatInt(configs.BuildTime().Unix(), 10)))
+
+	if user := auth.GetRequestUser(r); user.ID != 0 {
+		taggers = append(taggers, user)
+	}
+	if sess := s.GetSession(r); sess != nil {
+		taggers = append(taggers, sess)
+	}
+
 	for _, tager := range taggers {
 		for _, x := range tager.GetSumStrings() {
 			h.Write([]byte(x))
 		}
-	}
-	h.Write([]byte(configs.BuildTime().String()))
-
-	if user := auth.GetRequestUser(r); user.ID != 0 {
-		fmt.Fprint(h, user.ID, user.GetLastModified()[0].Unix()) //nolint:errcheck
-	}
-	if sess := s.GetSession(r); sess != nil {
-		fmt.Fprint(h, sess.Payload.LastUpdate.Unix()) //nolint:errcheck
 	}
 
 	w.Header().Set("Etag", strconv.FormatUint(h.Sum64(), 16))
@@ -81,7 +81,7 @@ func (s *Server) WriteLastModified(w http.ResponseWriter, r *http.Request, moder
 		mtimes = append(mtimes, user.GetLastModified()...)
 	}
 	if sess := s.GetSession(r); sess != nil {
-		mtimes = append(mtimes, sess.Payload.LastUpdate)
+		mtimes = append(mtimes, sess.GetLastModified()...)
 	}
 
 	sort.Slice(mtimes, func(i, j int) bool {

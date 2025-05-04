@@ -9,6 +9,7 @@ package sessions
 
 import (
 	"net/http"
+	"strconv"
 	"time"
 
 	"codeberg.org/readeck/readeck/pkg/securecookie"
@@ -76,6 +77,16 @@ func (s *Session) Clear(w http.ResponseWriter, r *http.Request) {
 // AddFlash add a new flash message to the session.
 func (s *Session) AddFlash(typ, msg string) {
 	s.Payload.Flashes = append(s.Payload.Flashes, FlashMessage{typ, msg})
+}
+
+// GetSumStrings implements Etager interface.
+func (s *Session) GetSumStrings() []string {
+	return []string{strconv.FormatInt(s.Payload.LastUpdate.Unix(), 10)}
+}
+
+// GetLastModified implement LastModer interface.
+func (s *Session) GetLastModified() []time.Time {
+	return []time.Time{s.Payload.LastUpdate}
 }
 
 // Flashes retrieves the flash messages from the session

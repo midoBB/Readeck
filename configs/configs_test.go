@@ -26,29 +26,27 @@ func FuzzGenerateKey(f *testing.F) {
 }
 
 func TestEnvVars(t *testing.T) {
-	cf := config{}
-
 	tests := []struct {
 		name   string
 		value  string
-		expect func(*require.Assertions, error)
+		expect func(*require.Assertions, config, error)
 	}{
-		{"READECK_LOG_LEVEL", "warn", func(assert *require.Assertions, err error) {
+		{"READECK_LOG_LEVEL", "warn", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
 			assert.Equal(slog.LevelWarn, cf.Main.LogLevel)
 		}},
-		{"READECK_DEV_MODE", "1", func(assert *require.Assertions, err error) {
+		{"READECK_DEV_MODE", "1", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
 			assert.True(cf.Main.DevMode)
 		}},
-		{"READECK_DEV_MODE", "0", func(assert *require.Assertions, err error) {
+		{"READECK_DEV_MODE", "0", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
 			assert.False(cf.Main.DevMode)
 		}},
-		{"READECK_DEV_MODE", "abc", func(assert *require.Assertions, err error) {
+		{"READECK_DEV_MODE", "abc", func(assert *require.Assertions, cf config, err error) {
 			assert.ErrorContains(err, "invalid syntax")
 		}},
-		{"READECK_SECRET_KEY", "abcdefghijkl", func(assert *require.Assertions, err error) {
+		{"READECK_SECRET_KEY", "abcdefghijkl", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
 			assert.Equal("abcdefghijkl", cf.Main.SecretKey)
 
@@ -56,7 +54,7 @@ func TestEnvVars(t *testing.T) {
 			assert.Equal("", v)
 			assert.False(exists)
 		}},
-		{"READECK_DATA_DIRECTORY", "/srv/data/readeck", func(assert *require.Assertions, err error) {
+		{"READECK_DATA_DIRECTORY", "/srv/data/readeck", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
 			assert.Equal("/srv/data/readeck", cf.Main.DataDirectory)
 
@@ -64,19 +62,28 @@ func TestEnvVars(t *testing.T) {
 			assert.Equal("", v)
 			assert.False(exists)
 		}},
-		{"READECK_SERVER_HOST", "localhost", func(assert *require.Assertions, err error) {
+		{"READECK_SERVER_BASE_URL", "http://example.net/", func(assert *require.Assertions, cf config, err error) {
+			assert.NoError(err)
+			assert.Equal("http://example.net/", cf.Server.BaseURL.String())
+		}},
+		{"READECK_SERVER_BASE_URL", "https://example.net/.//app///", func(assert *require.Assertions, cf config, err error) {
+			assert.NoError(err)
+			cf.Server.BaseURL.normalize()
+			assert.Equal("https://example.net/app/", cf.Server.BaseURL.String())
+		}},
+		{"READECK_SERVER_HOST", "localhost", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
 			assert.Equal("localhost", cf.Server.Host)
 		}},
-		{"READECK_SERVER_PORT", "8000", func(assert *require.Assertions, err error) {
+		{"READECK_SERVER_PORT", "8000", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
 			assert.Equal(8000, cf.Server.Port)
 		}},
-		{"READECK_SERVER_PREFIX", "/app", func(assert *require.Assertions, err error) {
+		{"READECK_SERVER_PREFIX", "/app", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
 			assert.Equal("/app", cf.Server.Prefix)
 		}},
-		{"READECK_TRUSTED_PROXIES", "127.0.0.2,192.168.0.1/26,fd00:abcd::/64", func(assert *require.Assertions, err error) {
+		{"READECK_TRUSTED_PROXIES", "127.0.0.2,192.168.0.1/26,fd00:abcd::/64", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
 			r := []string{}
 			for _, x := range cf.Server.TrustedProxies {
@@ -88,11 +95,11 @@ func TestEnvVars(t *testing.T) {
 			assert.Equal("", v)
 			assert.False(exists)
 		}},
-		{"READECK_ALLOWED_HOSTS", "example.net,example.com", func(assert *require.Assertions, err error) {
+		{"READECK_ALLOWED_HOSTS", "example.net,example.com", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
 			assert.Equal([]string{"example.net", "example.com"}, cf.Server.AllowedHosts)
 		}},
-		{"READECK_DATABASE_SOURCE", "sqlite3::memory", func(assert *require.Assertions, err error) {
+		{"READECK_DATABASE_SOURCE", "sqlite3::memory", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
 			assert.Equal("sqlite3::memory", cf.Database.Source)
 
@@ -100,11 +107,11 @@ func TestEnvVars(t *testing.T) {
 			assert.Equal("", v)
 			assert.False(exists)
 		}},
-		{"READECK_PUBLIC_SHARE_TTL", "48", func(assert *require.Assertions, err error) {
+		{"READECK_PUBLIC_SHARE_TTL", "48", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
 			assert.Equal(48, cf.Bookmarks.PublicShareTTL)
 		}},
-		{"READECK_WORKER_DSN", "memory://", func(assert *require.Assertions, err error) {
+		{"READECK_WORKER_DSN", "memory://", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
 			assert.Equal("memory://", cf.Worker.DSN)
 
@@ -112,19 +119,19 @@ func TestEnvVars(t *testing.T) {
 			assert.Equal("", v)
 			assert.False(exists)
 		}},
-		{"READECK_WORKER_NUMBER", "10", func(assert *require.Assertions, err error) {
+		{"READECK_WORKER_NUMBER", "10", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
 			assert.Equal(10, cf.Worker.NumWorkers)
 		}},
-		{"READECK_WORKER_START", "true", func(assert *require.Assertions, err error) {
+		{"READECK_WORKER_START", "true", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
 			assert.True(cf.Worker.StartWorker)
 		}},
-		{"READECK_METRICS_HOST", "::1", func(assert *require.Assertions, err error) {
+		{"READECK_METRICS_HOST", "::1", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
 			assert.Equal("::1", cf.Metrics.Host)
 		}},
-		{"READECK_METRICS_PORT", "8002", func(assert *require.Assertions, err error) {
+		{"READECK_METRICS_PORT", "8002", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
 			assert.Equal(8002, cf.Metrics.Port)
 		}},
@@ -132,9 +139,10 @@ func TestEnvVars(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
+			cf := config{}
 			t.Setenv(test.name, test.value)
 			err := cf.LoadEnv()
-			test.expect(require.New(t), err)
+			test.expect(require.New(t), cf, err)
 		})
 	}
 
@@ -154,6 +162,7 @@ func TestEnvVars(t *testing.T) {
 		for k, v := range envMap {
 			t.Setenv(k, v)
 		}
+		cf := config{}
 		err := cf.LoadEnv()
 
 		assert := require.New(t)

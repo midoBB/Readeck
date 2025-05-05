@@ -12,7 +12,9 @@ import (
 	"net"
 	"net/url"
 	"os"
+	"path"
 	"runtime"
+	"strings"
 	"time"
 
 	"github.com/araddon/dateparse"
@@ -58,6 +60,7 @@ type configMain struct {
 type configServer struct {
 	Host           string        `json:"host" env:"SERVER_HOST"`
 	Port           int           `json:"port" env:"SERVER_PORT"`
+	BaseURL        *configURL    `json:"base_url" env:"SERVER_BASE_URL"`
 	Prefix         string        `json:"prefix" env:"SERVER_PREFIX"`
 	TrustedProxies []configIPNet `json:"trusted_proxies" env:"TRUSTED_PROXIES,unset"`
 	AllowedHosts   []string      `json:"allowed_hosts" env:"ALLOWED_HOSTS"`
@@ -107,6 +110,10 @@ type configMetrics struct {
 	Port int    `json:"port" env:"METRICS_PORT"`
 }
 
+type configURL struct {
+	*url.URL
+}
+
 type configIPNet struct {
 	*net.IPNet
 }
@@ -127,6 +134,36 @@ func (c *config) LoadEnv() error {
 		Prefix:                "READECK_",
 		UseFieldNameByDefault: false,
 	})
+}
+
+// UnmarshalJSON implements [encoding.json.Unmarshaler].
+func (cu *configURL) UnmarshalJSON(d []byte) (err error) {
+	var s string
+	if err = json.Unmarshal(d, &s); err != nil {
+		return err
+	}
+
+	cu.URL, err = url.Parse(s)
+	return err
+}
+
+// UnmarshalText implements [encoding.TextUnmarshaler].
+func (cu *configURL) UnmarshalText(text []byte) (err error) {
+	cu.URL, err = url.Parse(string(text))
+	return err
+}
+
+func (cu *configURL) normalize() {
+	cu.URL.Fragment = ""
+	cu.URL.Path = path.Clean("/" + cu.URL.Path)
+	if !strings.HasSuffix(cu.URL.Path, "/") {
+		cu.URL.Path += "/"
+	}
+}
+
+// IsHTTP returns true when the URL has an http(s) scheme and a host.
+func (cu *configURL) IsHTTP() bool {
+	return (cu.Scheme == "http" || cu.Scheme == "https") && cu.Host != ""
 }
 
 func newConfigIPNet(v string) configIPNet {
@@ -296,8 +333,12 @@ func InitConfiguration() {
 		Config.Email.FromNoReply = Config.Email.From
 	}
 
-	// Pad the secret key with its own checksum to have a
-	// long enough byte list.
+	if Config.Server.BaseURL != nil {
+		Config.Server.BaseURL.normalize()
+		if Config.Server.BaseURL.Path != "/" {
+			Config.Server.Prefix = Config.Server.BaseURL.Path
+		}
+	}
 
 	// Load encryption and signing keys
 	loadKeys()

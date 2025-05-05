@@ -113,19 +113,40 @@ func (s *Server) InitRequest(next http.Handler) http.Handler {
 		// First, always remove the port from RenoteAddr
 		r.RemoteAddr, _, _ = net.SplitHostPort(r.RemoteAddr)
 		remoteIP := net.ParseIP(r.RemoteAddr)
-		trusted := slices.ContainsFunc(configs.TrustedProxies(), func(ip *net.IPNet) bool {
-			return ip.Contains(remoteIP)
-		})
 
-		// Set host
-		if trusted {
-			if err := setHost(r); err != nil {
-				s.Log(r).Error("server error", slog.Any("err", err))
-				s.Status(w, r, http.StatusBadRequest)
-				return
+		if configs.Config.Server.BaseURL != nil && configs.Config.Server.BaseURL.IsHTTP() {
+			// If a baseURL is set, set scheme and host from it.
+			r.URL.Scheme = configs.Config.Server.BaseURL.Scheme
+			r.URL.Host = configs.Config.Server.BaseURL.Host
+		} else {
+			// otherwise, we'll use information sent by the client.
+			trusted := slices.ContainsFunc(configs.TrustedProxies(), func(ip *net.IPNet) bool {
+				return ip.Contains(remoteIP)
+			})
+
+			// Set host
+			if trusted {
+				if err := setHost(r); err != nil {
+					s.Log(r).Error("server error", slog.Any("err", err))
+					s.Status(w, r, http.StatusBadRequest)
+					return
+				}
+			}
+			r.URL.Host = r.Host
+
+			// Set scheme
+			r.URL.Scheme = "http"
+			if trusted {
+				setProto(r)
+			} else if r.TLS != nil {
+				r.URL.Scheme = "https"
+			}
+
+			// Set real IP
+			if trusted {
+				setIP(r, configs.TrustedProxies())
 			}
 		}
-		r.URL.Host = r.Host
 
 		// Check host
 		if !configs.Config.Main.DevMode {
@@ -134,19 +155,6 @@ func (s *Server) InitRequest(next http.Handler) http.Handler {
 				s.Status(w, r, http.StatusBadRequest)
 				return
 			}
-		}
-
-		// Set scheme
-		r.URL.Scheme = "http"
-		if trusted {
-			setProto(r)
-		} else if r.TLS != nil {
-			r.URL.Scheme = "https"
-		}
-
-		// Set real IP
-		if trusted {
-			setIP(r, configs.TrustedProxies())
 		}
 
 		next.ServeHTTP(w, r)

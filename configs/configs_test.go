@@ -43,7 +43,7 @@ func TestEnvVars(t *testing.T) {
 			assert.NoError(err)
 			assert.False(cf.Main.DevMode)
 		}},
-		{"READECK_DEV_MODE", "abc", func(assert *require.Assertions, cf config, err error) {
+		{"READECK_DEV_MODE", "abc", func(assert *require.Assertions, _ config, err error) {
 			assert.ErrorContains(err, "invalid syntax")
 		}},
 		{"READECK_SECRET_KEY", "abcdefghijkl", func(assert *require.Assertions, cf config, err error) {

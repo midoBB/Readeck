@@ -24,7 +24,7 @@ func ParseLink(header http.Header) (links []Link) {
 		for link := range strings.SplitSeq(s, ",") {
 			link = strings.TrimSpace(link)
 			parts := strings.Split(link, ";")
-			if parts[0][0] != '<' || parts[0][len(parts[0])-1] != '>' {
+			if len(parts[0]) < 2 || parts[0][0] != '<' || parts[0][len(parts[0])-1] != '>' {
 				continue
 			}
 			l := Link{

@@ -57,6 +57,16 @@ func TestParser(t *testing.T) {
 				{URL: "https://example.org/", Rel: "alternate", Type: "text/xml"},
 			},
 		},
+		{
+			[]string{
+				`<https://example.net/>; rel=original; foo="test",`,
+				`<https://example.org/>;rel=alternate;type="text/xml";garbage`,
+			},
+			[]linkheader.Link{
+				{URL: "https://example.net/", Rel: "original"},
+				{URL: "https://example.org/", Rel: "alternate", Type: "text/xml"},
+			},
+		},
 	}
 
 	for i, test := range tests {

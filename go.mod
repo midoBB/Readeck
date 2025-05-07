@@ -25,14 +25,14 @@ require (
 	github.com/go-shiori/go-readability v0.0.0-20250217085726-9f5bf5ca7612
 	github.com/google/uuid v1.6.0
 	github.com/hlandau/passlib v1.0.11
-	github.com/itchyny/gojq v0.12.14
+	github.com/itchyny/gojq v0.12.17
 	github.com/jackc/pgx/v5 v5.7.4
-	github.com/jarcoal/httpmock v1.3.1
-	github.com/kinbiko/jsonassert v1.1.1
+	github.com/jarcoal/httpmock v1.4.0
+	github.com/kinbiko/jsonassert v1.2.0
 	github.com/klauspost/compress v1.18.0
 	github.com/komkom/toml v0.1.2
 	github.com/leonelquinteros/gotext v1.7.1
-	github.com/mangoumbrella/goldmark-figure v1.0.0
+	github.com/mangoumbrella/goldmark-figure v1.2.0
 	github.com/ncruces/go-sqlite3 v0.25.1
 	github.com/phsym/console-slog v0.3.1
 	github.com/prometheus/client_golang v1.22.0
@@ -40,7 +40,7 @@ require (
 	github.com/stretchr/testify v1.10.0
 	github.com/tdewolff/parse/v2 v2.7.23
 	github.com/xhit/go-simple-mail/v2 v2.16.0
-	github.com/yuin/goldmark v1.7.1
+	github.com/yuin/goldmark v1.7.11
 	github.com/yuin/goldmark-meta v1.1.0
 	golang.org/x/crypto v0.38.0
 	golang.org/x/image v0.27.0
@@ -67,7 +67,7 @@ require (
 	github.com/gogs/chardet v0.0.0-20211120154057-b7413eaefb8f // indirect
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
 	github.com/google/pprof v0.0.0-20250501235452-c0086092b71a // indirect
-	github.com/itchyny/timefmt-go v0.1.5 // indirect
+	github.com/itchyny/timefmt-go v0.1.6 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect

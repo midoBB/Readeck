@@ -42,12 +42,12 @@ require (
 	github.com/xhit/go-simple-mail/v2 v2.16.0
 	github.com/yuin/goldmark v1.7.1
 	github.com/yuin/goldmark-meta v1.1.0
-	golang.org/x/crypto v0.37.0
-	golang.org/x/image v0.26.0
-	golang.org/x/net v0.39.0
-	golang.org/x/sync v0.13.0
-	golang.org/x/term v0.31.0
-	golang.org/x/text v0.24.0
+	golang.org/x/crypto v0.38.0
+	golang.org/x/image v0.27.0
+	golang.org/x/net v0.40.0
+	golang.org/x/sync v0.14.0
+	golang.org/x/term v0.32.0
+	golang.org/x/text v0.25.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -82,7 +82,7 @@ require (
 	github.com/prometheus/procfs v0.16.1 // indirect
 	github.com/tetratelabs/wazero v1.9.0 // indirect
 	github.com/toorop/go-dkim v0.0.0-20250226130143-9025cce95817 // indirect
-	golang.org/x/sys v0.32.0 // indirect
+	golang.org/x/sys v0.33.0 // indirect
 	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect
 	gopkg.in/hlandau/measurable.v1 v1.0.1 // indirect

@@ -77,7 +77,7 @@ def create_pr(api_url: str, api_token: str, repository: str, branch_name: str):
 
 
 def update_go_dependencies():
-    check_call(["go", "get", "-t", "-u", "-v"])
+    check_call(["go", "get", "-t", "-u", "-v", "./..."])
     check_call(["go", "mod", "tidy"])
 
 

@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [0.18.2] - 2025-05-07
 ### Added
 - server.base_url setting
 

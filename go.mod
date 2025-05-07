@@ -6,8 +6,7 @@ toolchain go1.24.2
 
 require (
 	github.com/CloudyKit/jet/v6 v6.3.1
-	github.com/JohannesKaufmann/html-to-markdown v1.6.0
-	github.com/PuerkitoBio/goquery v1.10.3
+	github.com/JohannesKaufmann/html-to-markdown/v2 v2.3.2
 	github.com/antchfx/htmlquery v1.3.4
 	github.com/antchfx/xmlquery v1.4.4
 	github.com/anthonynsimon/bild v0.14.0
@@ -53,6 +52,7 @@ require (
 
 require (
 	github.com/CloudyKit/fastprinter v0.0.0-20200109182630-33d98a066a53 // indirect
+	github.com/JohannesKaufmann/dom v0.2.0 // indirect
 	github.com/andybalholm/cascadia v1.3.3 // indirect
 	github.com/antchfx/xpath v1.3.4 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
@@ -71,6 +71,7 @@ require (
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
+	github.com/kr/text v0.1.0 // indirect
 	github.com/lib/pq v1.10.9 // indirect
 	github.com/mattn/go-sqlite3 v1.14.24 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect

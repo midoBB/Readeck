@@ -99,7 +99,7 @@ func (t *titleExtract) Transform(doc *ast.Document, reader text.Reader, ctx pars
 		if !ok || n.Level != 1 {
 			return ast.WalkContinue, nil
 		}
-		ctx.Set(ctxTitleKey, string(n.Text(reader.Source())))
+		ctx.Set(ctxTitleKey, string(n.Lines().Value(reader.Source())))
 
 		return ast.WalkStop, nil
 	})

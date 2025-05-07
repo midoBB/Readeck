@@ -19,16 +19,27 @@ import (
 	"strings"
 	"time"
 
-	html2md "github.com/JohannesKaufmann/html-to-markdown"
-	"github.com/JohannesKaufmann/html-to-markdown/plugin"
-	"github.com/PuerkitoBio/goquery"
+	"github.com/JohannesKaufmann/html-to-markdown/v2/converter"
+	"github.com/JohannesKaufmann/html-to-markdown/v2/plugin/base"
+	"github.com/JohannesKaufmann/html-to-markdown/v2/plugin/commonmark"
+	"github.com/JohannesKaufmann/html-to-markdown/v2/plugin/table"
 	"github.com/gabriel-vasile/mimetype"
+	"golang.org/x/net/html"
 	"golang.org/x/net/idna"
 	"gopkg.in/yaml.v3"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/pkg/http/accept"
 	"codeberg.org/readeck/readeck/pkg/utils"
+)
+
+var html2md = converter.NewConverter(
+	converter.WithPlugins(
+		base.NewBasePlugin(),
+		commonmark.NewCommonmarkPlugin(),
+		table.NewTablePlugin(),
+		&html2mdAnnotationPlugin{},
+	),
 )
 
 // MarkdownExporter is an content exporter that produces markdown.
@@ -64,26 +75,20 @@ func NewMarkdownExporter(baseURL *url.URL, mediaBaseURL *url.URL) MarkdownExport
 // If the request contains "Accept: multipart/alternative", it returns a multipart response
 // that contains images for the exported bookmarks.
 func (e MarkdownExporter) Export(ctx context.Context, w io.Writer, r *http.Request, bookmarks []*bookmarks.Bookmark) error {
-	converter := html2md.NewConverter("", true, nil)
-	converter.Use(plugin.Strikethrough(""))
-	converter.Use(plugin.Table())
-	converter.Use(plugin.GitHubFlavored())
-	converter.Use(mdAnnotation())
-
 	ctx = WithAnnotationTag(ctx, "rd-annotation", nil)
 
 	accepted := accept.NegotiateContentType(r.Header, []string{"text/markdown", "application/zip", "multipart/alternative"}, "text/markdown")
 	switch accepted {
 	case "application/zip":
-		return e.exportZip(ctx, w, converter, bookmarks)
+		return e.exportZip(ctx, w, bookmarks)
 	case "multipart/alternative":
-		return e.exportMultipart(ctx, w, converter, bookmarks)
+		return e.exportMultipart(ctx, w, bookmarks)
 	default:
-		return e.exportTextOnly(ctx, w, converter, bookmarks)
+		return e.exportTextOnly(ctx, w, bookmarks)
 	}
 }
 
-func (e MarkdownExporter) exportTextOnly(ctx context.Context, w io.Writer, converter *html2md.Converter, bookmarks []*bookmarks.Bookmark) error {
+func (e MarkdownExporter) exportTextOnly(ctx context.Context, w io.Writer, bookmarks []*bookmarks.Bookmark) error {
 	if w, ok := w.(http.ResponseWriter); ok {
 		w.Header().Set("Content-Type", "text/markdown; charset=utf-8")
 	}
@@ -95,14 +100,14 @@ func (e MarkdownExporter) exportTextOnly(ctx context.Context, w io.Writer, conve
 		if i > 0 {
 			fmt.Fprint(w, "\n------------------------------------------------------------\nn") //nolint:errcheck
 		}
-		if err := e.writeArticle(c, w, converter, b, len(bookmarks) == 1); err != nil {
+		if err := e.writeArticle(c, w, b, len(bookmarks) == 1); err != nil {
 			slog.Error("export", slog.Any("err", err))
 		}
 	}
 	return nil
 }
 
-func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, converter *html2md.Converter, bookmarks []*bookmarks.Bookmark) error {
+func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, bookmarks []*bookmarks.Bookmark) error {
 	mp := multipart.NewWriter(w)
 	defer mp.Close() //nolint:errcheck
 	if w, ok := w.(http.ResponseWriter); ok {
@@ -125,7 +130,7 @@ func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, conv
 			if err != nil {
 				return err
 			}
-			if err := e.writeArticle(ctx, part, converter, b, true); err != nil {
+			if err := e.writeArticle(ctx, part, b, true); err != nil {
 				return err
 			}
 
@@ -162,7 +167,7 @@ func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, conv
 	return nil
 }
 
-func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, converter *html2md.Converter, bookmarks []*bookmarks.Bookmark) error {
+func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarks []*bookmarks.Bookmark) error {
 	zw := zip.NewWriter(w)
 	defer zw.Close() //nolint:errcheck
 
@@ -215,7 +220,7 @@ func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, converter 
 			if err != nil {
 				return err
 			}
-			if err := e.writeArticle(ctx, fd, converter, b, true); err != nil {
+			if err := e.writeArticle(ctx, fd, b, true); err != nil {
 				return err
 			}
 
@@ -258,13 +263,8 @@ func (e MarkdownExporter) getImageURL(ctx context.Context, b *bookmarks.Bookmark
 	return e.mediaBaseURL.JoinPath(b.FilePath, "img", path.Base(name)).String()
 }
 
-func (e MarkdownExporter) writeArticle(ctx context.Context, w io.Writer, converter *html2md.Converter, b *bookmarks.Bookmark, withMeta bool) error {
+func (e MarkdownExporter) writeArticle(ctx context.Context, w io.Writer, b *bookmarks.Bookmark, withMeta bool) error {
 	r, err := e.GetArticle(ctx, b)
-	if err != nil {
-		return err
-	}
-
-	buf, err := converter.ConvertReader(r)
 	if err != nil {
 		return err
 	}
@@ -301,7 +301,12 @@ func (e MarkdownExporter) writeArticle(ctx context.Context, w io.Writer, convert
 		fmt.Fprintf(intro, "[Video on %s](%s)\n\n", b.SiteName, b.URL)
 	}
 
-	_, err = io.Copy(w, io.MultiReader(intro, &buf))
+	md, err := html2md.ConvertReader(r)
+	if err != nil {
+		return err
+	}
+
+	_, err = io.Copy(w, io.MultiReader(intro, bytes.NewReader(md)))
 	return err
 }
 
@@ -333,23 +338,29 @@ func (e MarkdownExporter) writeResource(mp *multipart.Writer, resource *zip.File
 	return err
 }
 
-// mdAnnotation is an html-to-markdown plugin that converts rd-annotation tags
+// html2mdAnnotationPlugin is an html-to-markdown plugin that converts rd-annotation tags
 // to "=={content}==" form, that's compatible with at least Obsidian.
-func mdAnnotation() html2md.Plugin {
-	return func(_ *html2md.Converter) []html2md.Rule {
-		return []html2md.Rule{
-			{
-				Filter: []string{"rd-annotation"},
-				Replacement: func(content string, selec *goquery.Selection, _ *html2md.Options) *string {
-					content = strings.TrimSpace(content)
-					if content == "" {
-						return &content
-					}
-					content = "==" + content + "=="
-					content = html2md.AddSpaceIfNessesary(selec, content)
-					return &content
-				},
-			},
-		}
+type html2mdAnnotationPlugin struct{}
+
+func (s *html2mdAnnotationPlugin) Name() string {
+	return "annotation"
+}
+
+func (s *html2mdAnnotationPlugin) Init(conv *converter.Converter) error {
+	conv.Register.RendererFor("rd-annotation", converter.TagTypeInline, s.render, converter.PriorityStandard)
+	return nil
+}
+
+func (s *html2mdAnnotationPlugin) render(ctx converter.Context, w converter.Writer, n *html.Node) converter.RenderStatus {
+	buf := new(bytes.Buffer)
+	ctx.RenderChildNodes(ctx, buf, n)
+	content := buf.String()
+
+	if strings.TrimSpace(content) == "" {
+		w.WriteString(content) // nolint:errcheck
+		return converter.RenderSuccess
 	}
+	w.WriteString("==" + content + "==") // nolint:errcheck
+
+	return converter.RenderSuccess
 }

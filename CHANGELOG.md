@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased]
+### Added
+- server.base_url setting
+
+### Fixed
+- Extraction error when a page contains empty link header value
+
+
 ## [0.18.1] - 2025-04-30
 ### Fixed
 - Fatal error on "About Readeck" page with fresh install

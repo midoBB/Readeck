@@ -32,12 +32,12 @@ require (
 	github.com/komkom/toml v0.1.2
 	github.com/leonelquinteros/gotext v1.7.1
 	github.com/mangoumbrella/goldmark-figure v1.2.0
-	github.com/ncruces/go-sqlite3 v0.25.1
+	github.com/ncruces/go-sqlite3 v0.25.2
 	github.com/phsym/console-slog v0.3.1
 	github.com/prometheus/client_golang v1.22.0
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/stretchr/testify v1.10.0
-	github.com/tdewolff/parse/v2 v2.7.23
+	github.com/tdewolff/parse/v2 v2.8.0
 	github.com/xhit/go-simple-mail/v2 v2.16.0
 	github.com/yuin/goldmark v1.7.11
 	github.com/yuin/goldmark-meta v1.1.0

@@ -59,6 +59,12 @@ SPDX-License-Identifier: AGPL-3.0-only
             {{ if hasPermission("bookmarks", "export") -}}
               <li><a class="link" href="{{ urlFor(`/bookmarks`, .ID, `/share/link`) }}"
                data-action="menu#toggle">{{ yield icon(name="o-link") }} {{ gettext("Share by Link") }}</a></li>
+              {{ if hasPermission("email", "send") -}}
+                <li><a class="link" href="{{ urlFor(`/bookmarks`, .ID, `/share/email`) }}?format=html"
+                  data-action="menu#toggle">{{ yield icon(name="o-email") }} {{ gettext("Send article by Email") }}</a></li>
+                <li><a class="link" href="{{ urlFor(`/bookmarks`, .ID, `/share/email`) }}?format=epub"
+                  data-action="menu#toggle">{{ yield icon(name="o-email") }} {{ gettext("Send e-book by Email") }}</a></li>
+              {{- end }}
             {{- end }}
           </ul>
         </details>

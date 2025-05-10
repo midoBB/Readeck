@@ -173,6 +173,13 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 						r.With(
 							api.withShareLink,
 						).Get("/link", h.bookmarkShareLink)
+						r.With(
+							api.srv.WithPermission("email", "send"),
+							api.withShareEmail,
+						).Route("/email", func(r chi.Router) {
+							r.Get("/", h.bookmarkShareEmail)
+							r.Post("/", h.bookmarkShareEmail)
+						})
 					})
 			})
 

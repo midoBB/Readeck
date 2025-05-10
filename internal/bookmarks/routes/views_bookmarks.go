@@ -244,6 +244,34 @@ func (h *viewsRouter) bookmarkShareLink(w http.ResponseWriter, r *http.Request) 
 	h.srv.RenderTemplate(w, r, http.StatusCreated, "bookmarks/bookmark_share_link", ctx)
 }
 
+func (h *viewsRouter) bookmarkShareEmail(w http.ResponseWriter, r *http.Request) {
+	info := r.Context().Value(ctxSharedInfoKey{}).(emailShareInfo)
+	tc := server.TC{
+		"Form":  info.Form,
+		"Title": info.Title,
+		"ID":    info.ID,
+		"Sent":  false,
+	}
+
+	format := r.URL.Query()["format"]
+	if len(format) > 0 {
+		info.Form.Get("format").Set(format[len(format)-1])
+	}
+
+	if r.Method == http.MethodPost {
+		tc["Sent"] = info.Error == nil && info.Form.IsValid()
+	}
+
+	if h.srv.IsTurboRequest(r) {
+		h.srv.RenderTurboStream(w, r,
+			"/bookmarks/components/share_email", "replace",
+			"bookmark-share-"+info.ID, tc, nil)
+		return
+	}
+
+	h.srv.RenderTemplate(w, r, http.StatusOK, "bookmarks/bookmark_share_email", tc)
+}
+
 func (h *viewsRouter) labelList(w http.ResponseWriter, r *http.Request) {
 	base := h.srv.AbsoluteURL(r, "/bookmarks")
 	base.Scheme = ""

@@ -5,68 +5,36 @@
 package server
 
 import (
-	"encoding/base64"
-	"errors"
 	"fmt"
 	"html"
-	"image/color"
-	"io"
-	"io/fs"
 	"net/http"
-	"os"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/CloudyKit/jet/v6"
-	"github.com/skip2/go-qrcode"
 
-	"codeberg.org/readeck/readeck/assets"
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/profile/preferences"
-	"codeberg.org/readeck/readeck/locales"
+	"codeberg.org/readeck/readeck/internal/templates"
 	"codeberg.org/readeck/readeck/pkg/csrf"
 	"codeberg.org/readeck/readeck/pkg/glob"
 	"codeberg.org/readeck/readeck/pkg/libjet"
-	"codeberg.org/readeck/readeck/pkg/strftime"
 )
 
 // TC is a simple type to carry template context.
-type TC map[string]interface{}
+type TC map[string]any
 
 // SetBreadcrumbs sets the current page's breadcrumbs.
 func (tc TC) SetBreadcrumbs(items [][2]string) {
 	tc["Breadcrumbs"] = items
 }
 
-// tplLoader implements a jet.Loader using fs.FS so we can use it
-// with embed fs.
-type tplLoader struct {
-	fs.FS
-}
-
-// Exists returns true if the template exists in the filesystem.
-func (l *tplLoader) Exists(templatePath string) bool {
-	_, err := l.Open(templatePath)
-	return err == nil && !os.IsNotExist(err)
-}
-
-// Open opens the template at the give path.
-func (l *tplLoader) Open(templatePath string) (io.ReadCloser, error) {
-	templatePath = strings.TrimPrefix(templatePath, "/")
-	return l.FS.Open(templatePath)
-}
-
 // views holds all the views (templates).
 var views *jet.Set
 
 func init() {
-	loader := &tplLoader{assets.TemplatesFS()}
-	views = jet.NewSet(
-		loader,
-		jet.WithTemplateNameExtensions([]string{"", ".jet.html"}),
-	)
+	views = templates.Catalog()
 }
 
 // GetTemplate returns a template from the current views.
@@ -124,37 +92,6 @@ func (s *Server) RenderTurboStream(
 
 // initTemplates add global functions to the views.
 func (s *Server) initTemplates() {
-	for k, v := range libjet.FuncMap() {
-		views.AddGlobalFunc(k, v)
-	}
-
-	for k, v := range libjet.VarMap() {
-		views.AddGlobal(k, v)
-	}
-
-	views.AddGlobalFunc("date", func(args jet.Arguments) reflect.Value {
-		args.RequireNumOfArguments("date", 2, 2)
-		v, isNil := libjet.Indirect(args.Get(0))
-		if isNil {
-			return reflect.ValueOf("")
-		}
-
-		date, ok := v.(time.Time)
-		if !ok {
-			panic("first argument must be a time.Time value or pointer")
-		}
-
-		var result string
-		tr, ok := args.Runtime().Resolve("translator").Interface().(*locales.Locale)
-		if !ok {
-			result = strftime.Strftime(libjet.ToString(args.Get(1)), date)
-		} else {
-			result = strftime.New(tr).Strftime(libjet.ToString(args.Get(1)), date)
-		}
-
-		return reflect.ValueOf(result)
-	})
-
 	views.AddGlobalFunc("assetURL", func(args jet.Arguments) reflect.Value {
 		args.RequireNumOfArguments("assetURL", 1, 1)
 		name := args.Get(0).String()
@@ -191,32 +128,6 @@ func (s *Server) initTemplates() {
 		}
 		return reflect.ValueOf(auth.HasPermission(r, obj, act))
 	})
-	views.AddGlobalFunc("qrcode", func(args jet.Arguments) reflect.Value {
-		args.RequireNumOfArguments("qrcode", 1, 3)
-		value := args.Get(0).String()
-		size := 240
-		clr := "#000000"
-		if args.NumOfArguments() > 1 {
-			size = libjet.ToInt[int](args.Get(1))
-		}
-
-		if args.NumOfArguments() > 2 {
-			clr = libjet.ToString(args.Get(2))
-		}
-
-		qr, err := qrcode.New(value, qrcode.Medium)
-		if err != nil {
-			panic(err)
-		}
-		qr.ForegroundColor, _ = parseHexColor(clr)
-		qr.DisableBorder = true
-		buf, err := qr.PNG(size)
-		if err != nil {
-			panic(err)
-		}
-
-		return reflect.ValueOf("data:image/png;base64," + base64.StdEncoding.EncodeToString(buf))
-	})
 }
 
 // TemplateVars returns the default variables set for a template
@@ -245,20 +156,4 @@ func (s *Server) TemplateVars(r *http.Request) jet.VarMap {
 		Set("ngettext", tr.Ngettext).
 		Set("pgettext", tr.Pgettext).
 		Set("npgettext", tr.Npgettext)
-}
-
-func parseHexColor(s string) (c color.RGBA, err error) {
-	c.A = 255
-	switch len(s) {
-	case 7:
-		_, err = fmt.Sscanf(s, "#%02x%02x%02x", &c.R, &c.G, &c.B)
-	case 4:
-		_, err = fmt.Sscanf(s, "#%01x%01x%01x", &c.R, &c.G, &c.B)
-		c.R *= 17
-		c.G *= 17
-		c.B *= 17
-	default:
-		err = errors.New("invalid length")
-	}
-	return
 }

@@ -16,7 +16,7 @@ func TestPP(t *testing.T) {
 	assert := require.New(t)
 
 	p := permissionspolicy.Policy{}
-	assert.Equal("", p.String())
+	assert.Empty(p.String())
 
 	p.Add(permissionspolicy.Microphone, "*")
 	assert.Equal(`microphone=(*)`, p.String())

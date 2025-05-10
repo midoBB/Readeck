@@ -1,19 +1,46 @@
+version: "2"
+run:
+  concurrency: 4
+  build-tags:
+    - netgo
+    - osusergo
+    - -ldflags="-s -w"
+    - -trimpath
+  issues-exit-code: 1
+  tests: true
+
+output:
+  formats:
+    tab:
+      path: stdout
+      colors: false
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+formatters:
+  enable:
+    - gofumpt
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+
 linters:
-  # enable-all: true
-  disable-all: true
-  fast: true
+  default: none
   enable:
     - bodyclose
+    - copyloopvar
     - dupl
     - errcheck
-    - copyloopvar
     - gocognit
     - gocritic
     - gocyclo
     - godot
-    - gofumpt
     - gosec
-    - gosimple
     - govet
     - misspell
     - perfsprint
@@ -21,117 +48,91 @@ linters:
     - sloglint
     - staticcheck
     - testifylint
-    - typecheck
     - unused
-
-run:
-  concurrency: 4
-  timeout: 2m
-  issues-exit-code: 1
-  tests: true
-  build-tags:
-    - netgo
-    - osusergo
-    - -ldflags="-s -w"
-    - -trimpath
-
-output:
-  formats:
-    - format: tab
-  sort-results: true
-
-issues:
-  exclude-use-default: false
-  max-issues-per-linter: 0
-  max-same-issues: 0
-
-linters-settings:
-  errcheck:
-    check-type-assertions: false
-    check-blank: false
-    exclude-functions:
-      # We don't care about writing to buffers
-      - io.Copy(*strings.Builder)
-      - (*strings.Replacer).WriteString(*bytes.Buffer)
-      - fmt.Fprint(os.Stdout)
-      - fmt.Fprintln(os.Stdout)
-      - golang.org/x/net/html.Render(*bytes.Buffer)
-      - (*github.com/fatih/color.Color).Fprint(*bytes.Buffer)
-      - (*github.com/fatih/color.Color).Fprintf(*bytes.Buffer)
-
-      # It's okay not to check http writes
-      - (net/http.ResponseWriter).Write
-      - fmt.Fprint(net/http.ResponseWriter)
-      - fmt.Fprintf(net/http.ResponseWriter)
-      - fmt.Fprintln(net/http.ResponseWriter)
-      - io.Copy(net/http.ResponseWriter)
-      - io.WriteString(net/http.ResponseWriter)
-      - (*strings.Replacer).WriteString(net/http.ResponseWriter)
-      - (*codeberg.org/readeck/readeck/internal/server.Server).AddFlash
-      - (*codeberg.org/readeck/readeck/internal/sessions.Session).Save
-
-      # For some defer *.Close()
-      - (net/http.File).Close
-      - (*archive/zip.ReadCloser).Close
-
-  sloglint:
-    attr-only: true
-    args-on-sep-lines: true
-    key-naming-case: snake
-    forbidden-keys:
-      - time
-      - level
-      - msg
-      - source
-
-  gocognit:
-    min-complexity: 60
-
-  gocyclo:
-    min-complexity: 30
-
-  gosec:
-    excludes:
-      - G104 # we already have errcheck with more fine-grained tuning
-      - G115
-      - G304
-    config:
-      G304:
-
-
-  misspell:
-    locale: US
-
-  revive:
-    severity: warning
-    rules:
-      - name: blank-imports
-      - name: comment-spacings
-      - name: context-as-argument
-      - name: context-keys-type
-      - name: defer
-      - name: dot-imports
-      - name: error-return
-      - name: error-strings
-      - name: error-naming
-      - name: errorf
-      - name: exported
-      - name: if-return
-      - name: increment-decrement
-      - name: var-naming
-      - name: var-declaration
-      - name: package-comments
-      - name: range
-      - name: receiver-naming
-      - name: time-naming
-      - name: unexported-return
-      - name: indent-error-flow
-      - name: errorf
-      - name: empty-block
-      - name: superfluous-else
-      - name: unused-parameter
-      - name: unreachable-code
-      - name: redefines-builtin-id
-
-  testifylint:
-    enable-all: true
+  settings:
+    errcheck:
+      check-type-assertions: false
+      check-blank: false
+      exclude-functions:
+        - io.Copy(*strings.Builder)
+        - (*strings.Replacer).WriteString(*bytes.Buffer)
+        - fmt.Fprint(os.Stdout)
+        - fmt.Fprintln(os.Stdout)
+        - golang.org/x/net/html.Render(*bytes.Buffer)
+        - (*github.com/fatih/color.Color).Fprint(*bytes.Buffer)
+        - (*github.com/fatih/color.Color).Fprintf(*bytes.Buffer)
+        - (net/http.ResponseWriter).Write
+        - fmt.Fprint(net/http.ResponseWriter)
+        - fmt.Fprintf(net/http.ResponseWriter)
+        - fmt.Fprintln(net/http.ResponseWriter)
+        - io.Copy(net/http.ResponseWriter)
+        - io.WriteString(net/http.ResponseWriter)
+        - (*strings.Replacer).WriteString(net/http.ResponseWriter)
+        - (*codeberg.org/readeck/readeck/internal/server.Server).AddFlash
+        - (*codeberg.org/readeck/readeck/internal/sessions.Session).Save
+        - (net/http.File).Close
+        - (*archive/zip.ReadCloser).Close
+    gocognit:
+      min-complexity: 60
+    gocyclo:
+      min-complexity: 30
+    gosec:
+      excludes:
+        - G104
+        - G115
+        - G304
+      config:
+        G304: null
+    misspell:
+      locale: US
+    revive:
+      severity: warning
+      rules:
+        - name: blank-imports
+        - name: comment-spacings
+        - name: context-as-argument
+        - name: context-keys-type
+        - name: defer
+        - name: dot-imports
+        - name: error-return
+        - name: error-strings
+        - name: error-naming
+        - name: errorf
+        - name: exported
+        - name: if-return
+        - name: increment-decrement
+        - name: var-naming
+        - name: var-declaration
+        - name: package-comments
+        - name: range
+        - name: receiver-naming
+        - name: time-naming
+        - name: unexported-return
+        - name: indent-error-flow
+        - name: errorf
+        - name: empty-block
+        - name: superfluous-else
+        - name: unused-parameter
+        - name: unreachable-code
+        - name: redefines-builtin-id
+    sloglint:
+      attr-only: true
+      key-naming-case: snake
+      forbidden-keys:
+        - time
+        - level
+        - msg
+        - source
+      args-on-sep-lines: true
+    staticcheck:
+      checks:
+        - all
+        - "-ST1005"
+    testifylint:
+      enable-all: true
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$

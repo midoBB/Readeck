@@ -504,7 +504,7 @@ func NewResponse(rec *httptest.ResponseRecorder, req *http.Request) (*Response, 
 
 	// When an HTML response is received, parse it
 	switch {
-	case strings.HasPrefix(r.Response.Header.Get("content-type"), "text/html"):
+	case strings.HasPrefix(r.Header.Get("content-type"), "text/html"):
 		r.HTML, err = html.Parse(bytes.NewReader(r.Body))
 		if err != nil {
 			return nil, err
@@ -515,7 +515,7 @@ func NewResponse(rec *httptest.ResponseRecorder, req *http.Request) (*Response, 
 		if n != nil {
 			r.CsrfToken = dom.GetAttribute(n, "content")
 		}
-	case strings.HasPrefix(r.Response.Header.Get("content-type"), "application/json"):
+	case strings.HasPrefix(r.Header.Get("content-type"), "application/json"):
 		err := json.Unmarshal(r.Body, &r.JSON)
 		if err != nil {
 			return nil, err

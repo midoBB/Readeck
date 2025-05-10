@@ -530,6 +530,6 @@ func newCacheEntry(data []byte) *cacheEntry {
 // Close implement io.ReadCloser on a cache entry.
 // It rewinds the reader's position.
 func (cr *cacheEntry) Close() (err error) {
-	_, err = cr.Reader.Seek(0, 0)
+	_, err = cr.Seek(0, 0)
 	return
 }

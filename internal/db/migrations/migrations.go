@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-//revive:disable:package-comments
+// Package migrations provides database migrations as SQL files and compiled functions.
 package migrations
 
 import (

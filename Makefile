@@ -33,7 +33,7 @@ SITECONFIG_DEST=pkg/extract/contentscripts/assets/site-config
 
 FILE_COMPOSE_PKG ?= codeberg.org/readeck/file-compose@latest
 GOLANGCI_PKG ?= github.com/golangci/golangci-lint/cmd/golangci-lint@v1.64.5
-AIR_PKG ?= github.com/air-verse/air@v1.61.1
+AIR_PKG ?= github.com/air-verse/air@v1.61.7
 SLOC_PKG ?= github.com/boyter/scc/v3@v3.4.0
 
 # -------------------------------------------------------------------

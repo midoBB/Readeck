@@ -551,7 +551,7 @@ func TestAnnotation(t *testing.T) {
 				// println(s.String())
 
 				nodes := htmlquery.Find(root, "//x-annotation")
-				assert.Equal(len(test.expected), len(nodes))
+				assert.Len(nodes, len(test.expected))
 
 				for _, expected := range test.expected {
 					n := htmlquery.FindOne(root, expected[0])
@@ -652,7 +652,7 @@ func TestAddAnnotation(t *testing.T) {
 			assert.NoError(err)
 
 			nodes := htmlquery.Find(root, "//my-annotation")
-			assert.Equal(len(test.expected), len(nodes))
+			assert.Len(nodes, len(test.expected))
 
 			for _, expected := range test.expected {
 				n := htmlquery.FindOne(root, expected[0])

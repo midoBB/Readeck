@@ -7,7 +7,7 @@ package app
 import (
 	"log/slog"
 
-	. "github.com/phsym/console-slog" //nolint:revive
+	. "github.com/phsym/console-slog" //nolint:revive,staticcheck
 )
 
 type devLogTheme struct{}

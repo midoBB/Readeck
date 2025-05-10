@@ -54,7 +54,7 @@ func TestZipRW(t *testing.T) {
 
 	t.Run("initial content", func(t *testing.T) {
 		assert := require.New(t)
-		assert.EqualValues(
+		assert.Exactly(
 			[]string{
 				"test/",
 				"test/foo/",
@@ -112,7 +112,7 @@ func TestZipRW(t *testing.T) {
 
 		assert.NoError(z.Close())
 
-		assert.EqualValues(
+		assert.Exactly(
 			[]string{
 				"test/",
 				"test/foo/",

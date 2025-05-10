@@ -277,7 +277,7 @@ func (api *profileAPI) tokenList(w http.ResponseWriter, r *http.Request) {
 
 func (api *profileAPI) tokenDelete(w http.ResponseWriter, r *http.Request) {
 	ti := r.Context().Value(ctxtTokenKey{}).(tokenItem)
-	if err := ti.Token.Delete(); err != nil {
+	if err := ti.Delete(); err != nil {
 		api.srv.Error(w, r, err)
 		return
 	}

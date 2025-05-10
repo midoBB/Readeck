@@ -198,7 +198,7 @@ func TestDropMeta(t *testing.T) {
 	assert.Equal("foo", m.LookupGet("meta1"))
 
 	assert.Equal([]string{}, m.Lookup("meta2"))
-	assert.Equal("", m.LookupGet("meta2"))
+	assert.Empty(m.LookupGet("meta2"))
 
 	m.Add("meta2", "m2a")
 	m.Add("meta2", "m2b")

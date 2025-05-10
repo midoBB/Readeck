@@ -167,8 +167,8 @@ func parseTokens(rd io.Reader) [][]token {
 	// Cut the list on space tokens
 	tok := s.scan()
 	for tok.kind != EOF {
-		switch {
-		case tok.kind == SPACE:
+		switch tok.kind {
+		case SPACE:
 			// A space will "flush" the current token list and add
 			// a new empty list to the result.
 			// The token is discarded; we don't need it anymore.
@@ -263,7 +263,7 @@ type SearchQuery struct {
 	Terms []SearchTerm
 }
 
-// Strings returns the query as a string.
+// String returns the query as a string.
 func (q SearchQuery) String() string {
 	b := strings.Builder{}
 	for i, t := range q.Terms {

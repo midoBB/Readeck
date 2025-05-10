@@ -189,7 +189,7 @@ func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarkLi
 	}
 
 	copyFromZip := func(src *zip.File, destName string) error {
-		src.FileHeader.Name = destName
+		src.Name = destName
 		fd, err := zw.CreateRaw(&src.FileHeader)
 		if err != nil {
 			return err

@@ -143,7 +143,7 @@ func TestPicture(t *testing.T) {
 		assert := require.New(t)
 		p, _ := NewPicture("/img", base)
 
-		assert.Equal("", p.Encoded())
+		assert.Empty(p.Encoded())
 
 		err := p.Load(nil, 100, "")
 		assert.NoError(err)

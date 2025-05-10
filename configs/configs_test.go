@@ -51,7 +51,7 @@ func TestEnvVars(t *testing.T) {
 			assert.Equal("abcdefghijkl", cf.Main.SecretKey)
 
 			v, exists := os.LookupEnv("READECK_SECRET_KEY")
-			assert.Equal("", v)
+			assert.Empty(v)
 			assert.False(exists)
 		}},
 		{"READECK_DATA_DIRECTORY", "/srv/data/readeck", func(assert *require.Assertions, cf config, err error) {
@@ -59,7 +59,7 @@ func TestEnvVars(t *testing.T) {
 			assert.Equal("/srv/data/readeck", cf.Main.DataDirectory)
 
 			v, exists := os.LookupEnv("READECK_DATA_DIRECTORY")
-			assert.Equal("", v)
+			assert.Empty(v)
 			assert.False(exists)
 		}},
 		{"READECK_SERVER_BASE_URL", "http://example.net/", func(assert *require.Assertions, cf config, err error) {
@@ -92,7 +92,7 @@ func TestEnvVars(t *testing.T) {
 			assert.Equal([]string{"127.0.0.2/32", "192.168.0.0/26", "fd00:abcd::/64"}, r)
 
 			v, exists := os.LookupEnv("READECK_TRUSTED_PROXIES")
-			assert.Equal("", v)
+			assert.Empty(v)
 			assert.False(exists)
 		}},
 		{"READECK_ALLOWED_HOSTS", "example.net,example.com", func(assert *require.Assertions, cf config, err error) {
@@ -104,7 +104,7 @@ func TestEnvVars(t *testing.T) {
 			assert.Equal("sqlite3::memory", cf.Database.Source)
 
 			v, exists := os.LookupEnv("READECK_DATABASE_SOURCE")
-			assert.Equal("", v)
+			assert.Empty(v)
 			assert.False(exists)
 		}},
 		{"READECK_MAIL_FROM", "", func(assert *require.Assertions, cf config, err error) {
@@ -135,7 +135,7 @@ func TestEnvVars(t *testing.T) {
 			assert.Equal("memory://", cf.Worker.DSN)
 
 			v, exists := os.LookupEnv("READECK_WORKER_DSN")
-			assert.Equal("", v)
+			assert.Empty(v)
 			assert.False(exists)
 		}},
 		{"READECK_WORKER_NUMBER", "10", func(assert *require.Assertions, cf config, err error) {
@@ -198,7 +198,7 @@ func TestEnvVars(t *testing.T) {
 
 		for k := range envMap {
 			v, exists := os.LookupEnv(k)
-			assert.Equal("", v)
+			assert.Empty(v)
 			assert.False(exists)
 		}
 	})

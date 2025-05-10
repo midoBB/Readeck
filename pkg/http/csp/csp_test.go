@@ -17,7 +17,7 @@ func TestCSP(t *testing.T) {
 
 	p := csp.Policy{}
 
-	assert.Equal("", p.String())
+	assert.Empty(p.String())
 
 	p.Add("default-src", csp.None, csp.Self)
 	assert.Equal("default-src 'none' 'self'", p.String())

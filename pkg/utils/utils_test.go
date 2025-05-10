@@ -85,7 +85,7 @@ func TestFormatBytes(t *testing.T) {
 		{1000, "1000 B"},
 		{1024, "1.00 KiB"},
 		{1024 * 1024 * 5, "5.00 MiB"},
-		{uint64(math.Pow(1024, 3) * 2.1), "2.10 GiB"},
+		{uint64(math.Pow(1024, 3) * 2.1), "2.10 GiB"}, // nolint:staticcheck
 		{858492928, "818.70 MiB"},
 	}
 

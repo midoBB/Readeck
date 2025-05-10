@@ -191,10 +191,10 @@ func (cu *configURL) UnmarshalText(text []byte) (err error) {
 }
 
 func (cu *configURL) normalize() {
-	cu.URL.Fragment = ""
-	cu.URL.Path = path.Clean("/" + cu.URL.Path)
-	if !strings.HasSuffix(cu.URL.Path, "/") {
-		cu.URL.Path += "/"
+	cu.Fragment = ""
+	cu.Path = path.Clean("/" + cu.Path)
+	if !strings.HasSuffix(cu.Path, "/") {
+		cu.Path += "/"
 	}
 }
 

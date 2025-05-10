@@ -117,7 +117,7 @@ func TestHttp(t *testing.T) {
 		assert.NoError(err)
 		srv.ServeHTTP(w, r)
 		assert.Equal(http.StatusOK, w.Result().StatusCode)
-		assert.Equal("", w.Body.String())
+		assert.Empty(w.Body.String())
 	})
 
 	//nolint:bodyclose

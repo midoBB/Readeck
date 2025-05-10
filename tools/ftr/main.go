@@ -224,7 +224,7 @@ var lineRE = regexp.MustCompile(`^(.+?)(?:\((.+)\))?:\s*(.*)$`)
 
 func parseLine(line string) ([3]string, error) {
 	if !lineRE.MatchString(line) {
-		return [3]string{}, errors.New("Cannot parse line")
+		return [3]string{}, errors.New("cannot parse line")
 	}
 
 	m := lineRE.FindAllStringSubmatch(line, -1)
@@ -253,7 +253,7 @@ func simpleBoolValue(v *bool) entryParser {
 
 func setHeaderValue(cfg *Config, i int, entries [][3]string) error {
 	if entries[i][1] == "" {
-		return fmt.Errorf("Header value not set (%s)", entries[i][2])
+		return fmt.Errorf("header value not set (%s)", entries[i][2])
 	}
 
 	if cfg.HTTPHeaders == nil {
@@ -272,22 +272,22 @@ func setReplaceString(cfg *Config, i int, entries [][3]string) error {
 			return nil
 		}
 		if i-1 < 0 {
-			return fmt.Errorf("No preceding find_string entry before replace_string: %s", line[2])
+			return fmt.Errorf("no preceding find_string entry before replace_string: %s", line[2])
 		}
 		prev := entries[i-1]
 		if prev[0] != "find_string" {
-			return fmt.Errorf("Invalid preceding entry before replace_string: %s", line[2])
+			return fmt.Errorf("invalid preceding entry before replace_string: %s", line[2])
 		}
 	case "find_string":
 		if i+1 >= len(entries) {
-			return fmt.Errorf("No subsequent replace_string entry after find_string: %s", line[2])
+			return fmt.Errorf("no subsequent replace_string entry after find_string: %s", line[2])
 		}
 		next := entries[i+1]
 		if next[0] != "replace_string" {
-			return fmt.Errorf("Invalid subsequent entry after find_string: %s", line[2])
+			return fmt.Errorf("invalid subsequent entry after find_string: %s", line[2])
 		}
 		if next[1] != "" {
-			return fmt.Errorf("Invalid subsequent entry after find_string: %s", line[2])
+			return fmt.Errorf("invalid subsequent entry after find_string: %s", line[2])
 		}
 		cfg.ReplaceStrings = append(cfg.ReplaceStrings, [2]string{line[2], next[2]})
 	}

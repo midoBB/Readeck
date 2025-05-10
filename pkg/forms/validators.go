@@ -304,7 +304,7 @@ func TypedValidator[T any](validator func(T) bool, err error) ValueValidator[T] 
 // IsEmail performs a rough check of the email address. That is, it
 // only checks for the presence of "@", only once and in the string.
 var IsEmail = TypedValidator(func(v string) bool {
-	return strings.Count(v, "@") == 1 && !(strings.HasPrefix(v, "@") || strings.HasSuffix(v, "@"))
+	return strings.Count(v, "@") == 1 && !strings.HasPrefix(v, "@") && !strings.HasSuffix(v, "@")
 }, ErrInvalidEmail)
 
 // IsURL checks that the input value is a valid URL

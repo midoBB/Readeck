@@ -218,9 +218,6 @@ func (u *User) Permissions() []string {
 // HasPermission returns true if the user can perform "act" action
 // on "obj" object.
 func (u *User) HasPermission(obj, act string) bool {
-	if u.Group == "" {
-		return false
-	}
 	r, err := acls.Check(u.Group, obj, act)
 	if err != nil {
 		slog.Error("ACL check error", slog.Any("err", err))
@@ -233,7 +230,14 @@ func (u *User) HasPermission(obj, act string) bool {
 type UserSettings struct {
 	DebugInfo      bool           `json:"debug_info"`
 	Lang           string         `json:"lang"`
+	EmailSettings  EmailSettings  `json:"email_settings"`
 	ReaderSettings ReaderSettings `json:"reader_settings"`
+}
+
+// EmailSettings contains the user's email settings.
+type EmailSettings struct {
+	ReplyTo string `json:"reply_to"`
+	EpubTo  string `json:"epub_to"`
 }
 
 // ReaderSettings contains the reader settings.

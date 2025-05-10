@@ -1,11 +1,10 @@
-{{- /*
+{*
 SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
 
 SPDX-License-Identifier: AGPL-3.0-only
-*/ -}}
-
-{{- if .RecoverLink -}}
-{{ .Loc.Gettext `
+*}
+{{- if isset(.RecoverLink) -}}
+{{- gettext(`
 Hi,
 
 You (or someone else) entered this email address when trying to
@@ -15,10 +14,9 @@ If you are expecting this email, please follow this link to set
 a new password for your readeck account.
 
 %s
-` .SiteURL .RecoverLink }}
-
+`, .SiteURL, .RecoverLink)|unsafe() -}}
 {{- else -}}
-{{ .Loc.Gettext `
+{{- gettext(`
 Hi,
 
 You (or someone else) entered this email address when trying to
@@ -32,13 +30,5 @@ expecting this email, please try again using the email address
 you used when creating your account.
 
 If you are not a Readeck user, please ignore this message.
-` .SiteURL .SiteURL }}
-{{- end }}
-
-{{ .Loc.Gettext "Kind regards" }},
-
--- 
-Readeck
-Self hosted bookmark manager
-{{ .SiteURL }}
-https://readeck.org/
+`, .SiteURL, .SiteURL)|unsafe() -}}
+{{- end -}}

@@ -12,7 +12,6 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	"codeberg.org/readeck/readeck/internal/auth"
-	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -43,12 +42,12 @@ func newAuthHandler(s *server.Server) *authHandler {
 	r.Get("/", h.login)
 	r.Post("/", h.login)
 
-	if email.CanSendEmail() {
-		r.Get("/recover", h.recover)
-		r.Post("/recover", h.recover)
-		r.Get("/recover/{code}", h.recover)
-		r.Post("/recover/{code}", h.recover)
-	}
+	r.With(s.WithPermission("email", "send")).Route("/recover", func(r chi.Router) {
+		r.Get("/", h.recover)
+		r.Post("/", h.recover)
+		r.Get("/{code}", h.recover)
+		r.Post("/{code}", h.recover)
+	})
 
 	// Authenticated routes
 	ar := chi.NewRouter()

@@ -13,7 +13,7 @@ href="{{ assetURL(src) }}#{{ name }}"></use></svg></span>
 <span class="hidden"><input type="hidden" name="{{ csrfName }}" value="{{ csrfToken }}"></span>
 {{- end -}}
 
-{{- block message(type="info", removable=false, delay=0) -}}
+{{- block message(type="info", removable=false, delay=0, class="") -}}
 {{- icon := "o-info" -}}
 {{- color := "text-blue-800" -}}
 {{- bg := "bg-blue-50" -}}
@@ -35,11 +35,7 @@ href="{{ assetURL(src) }}#{{ name }}"></use></svg></span>
   {{- bg_from = "from-red-700" -}}
   {{- bg_via = "via-red-100" -}}
 {{- end -}}
-<div class="
-  group flex gap-2 p-4 overflow-hidden items-baseline
-  {{ bg }} rounded my-6 w-full border {{ border }}
-  bg-gradient-to-r from-[0.25rem] via-[0.25rem] {{ bg_from }} {{ bg_via }}
-  transition-all duration-300 ease-in-out"
+<div class="message {{ bg }} {{ border }} {{ bg_from }} {{ bg_via }} {{ class }}"
  {{- if removable || delay > 0 -}} data-controller="remover" {{- end -}} data-remover-delay-value="{{ delay }}"
 >
   <div>
@@ -50,8 +46,8 @@ href="{{ assetURL(src) }}#{{ name }}"></use></svg></span>
   </div>
   {{- if removable -}}
     <div class="-mt-2 -mr-2">
-      <button data-action="remover#remove">
-        {{ yield icon(name="o-cross", class="text-gray-300 group-hf:text-red-700", svgClass="h-5 w-5") }}
+      <button data-action="remover#remove" class="remover">
+        {{ yield icon(name="o-cross", class="", svgClass="h-5 w-5") }}
       </button>
     </div>
   {{- end -}}

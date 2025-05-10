@@ -71,7 +71,16 @@ func newAPIRouter(s *server.Server) *apiRouter {
 			r.Get("/", api.bookmarkInfo)
 			r.Get("/article", api.bookmarkArticle)
 			r.Get("/annotations", api.bookmarkAnnotations)
-			r.With(api.withSharedLink).Post("/share", api.bookmarkShare)
+			r.With(api.srv.WithPermission("api:bookmarks", "export")).Route(
+				"/share", func(r chi.Router) {
+					r.With(
+						api.withShareLink,
+					).Get("/link", api.bookmarkShareLink)
+					r.With(
+						api.srv.WithPermission("email", "send"),
+						api.withShareEmail,
+					).Post("/email", api.bookmarkShareEmail)
+				})
 			r.Get("/x/*", api.bookmarkResource)
 		})
 
@@ -153,12 +162,27 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 				api.withBookmarkOrdering,
 				api.withBookmarkList,
 			).Get("/{filter:(unread|archives|favorites|articles|videos|pictures)}", h.bookmarkList)
+
 			r.With(
 				api.srv.WithCustomErrorTemplate(404, "/bookmarks/bookmark_missing"),
 				api.withBookmark,
-			).Get("/{uid:[a-zA-Z0-9]{18,22}}", h.bookmarkInfo)
-			r.With(api.withBookmark, api.withSharedLink).
-				Post("/{uid:[a-zA-Z0-9]{18,22}}/share", h.bookmarkShare)
+			).Route("/{uid:[a-zA-Z0-9]{18,22}}", func(r chi.Router) {
+				r.Get("/", h.bookmarkInfo)
+				r.With(h.srv.WithPermission("bookmarks", "export")).Route(
+					"/share", func(r chi.Router) {
+						r.With(
+							api.withShareLink,
+						).Get("/link", h.bookmarkShareLink)
+						r.With(
+							api.srv.WithPermission("email", "send"),
+							api.withShareEmail,
+						).Route("/email", func(r chi.Router) {
+							r.Get("/", h.bookmarkShareEmail)
+							r.Post("/", h.bookmarkShareEmail)
+						})
+					})
+			})
+
 			r.With(api.withLabelList).Get("/labels", h.labelList)
 			r.With(api.withLabel, api.withBookmarkOrdering, api.withBookmarkList).
 				Get("/labels/{label}", h.labelInfo)

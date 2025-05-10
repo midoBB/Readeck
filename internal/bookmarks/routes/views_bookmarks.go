@@ -224,8 +224,8 @@ func (h *viewsRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 	h.srv.Redirect(w, r, redir)
 }
 
-func (h *viewsRouter) bookmarkShare(w http.ResponseWriter, r *http.Request) {
-	info := r.Context().Value(ctxSharedInfoKey{}).(sharedBookmarkItem)
+func (h *viewsRouter) bookmarkShareLink(w http.ResponseWriter, r *http.Request) {
+	info := r.Context().Value(ctxSharedInfoKey{}).(linkShareInfo)
 
 	ctx := server.TC{
 		"URL":     info.URL,
@@ -234,7 +234,47 @@ func (h *viewsRouter) bookmarkShare(w http.ResponseWriter, r *http.Request) {
 		"ID":      info.ID,
 	}
 
-	h.srv.RenderTemplate(w, r, http.StatusCreated, "bookmarks/bookmark_shared", ctx)
+	if h.srv.IsTurboRequest(r) {
+		h.srv.RenderTurboStream(w, r,
+			"/bookmarks/components/share_link", "replace",
+			"bookmark-share-"+info.ID, info, nil)
+		return
+	}
+
+	h.srv.RenderTemplate(w, r, http.StatusCreated, "bookmarks/bookmark_share_link", ctx)
+}
+
+func (h *viewsRouter) bookmarkShareEmail(w http.ResponseWriter, r *http.Request) {
+	info := r.Context().Value(ctxSharedInfoKey{}).(emailShareInfo)
+	tc := server.TC{
+		"Form":  info.Form,
+		"Title": info.Title,
+		"ID":    info.ID,
+		"Sent":  false,
+	}
+
+	// Get format from query string
+	if format := r.URL.Query().Get("format"); format != "" {
+		info.Form.Get("format").Set(format)
+	}
+
+	// Set default email address when sending an EPUB
+	if u := auth.GetRequestUser(r); u != nil && info.Form.Get("format").String() == "epub" && info.Form.Get("email").String() == "" {
+		info.Form.Get("email").Set(u.Settings.EmailSettings.EpubTo)
+	}
+
+	if r.Method == http.MethodPost {
+		tc["Sent"] = info.Error == nil && info.Form.IsValid()
+	}
+
+	if h.srv.IsTurboRequest(r) {
+		h.srv.RenderTurboStream(w, r,
+			"/bookmarks/components/share_email", "replace",
+			"bookmark-share-"+info.ID, tc, nil)
+		return
+	}
+
+	h.srv.RenderTemplate(w, r, http.StatusOK, "bookmarks/bookmark_share_email", tc)
 }
 
 func (h *viewsRouter) labelList(w http.ResponseWriter, r *http.Request) {

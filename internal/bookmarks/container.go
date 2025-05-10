@@ -6,7 +6,6 @@ package bookmarks
 
 import (
 	"archive/zip"
-	"fmt"
 	"io"
 	"os"
 	"path"
@@ -94,8 +93,8 @@ func (c *BookmarkContainer) ReplaceLinks(orig, repl string) (err error) {
 	args := []string{}
 	for _, x := range c.ListResources() {
 		args = append(args,
-			fmt.Sprintf("%s/%s", orig, path.Base(x.Name)),
-			fmt.Sprintf("%s/%s", repl, path.Base(x.Name)),
+			orig+path.Base(x.Name),
+			repl+path.Base(x.Name),
 		)
 	}
 

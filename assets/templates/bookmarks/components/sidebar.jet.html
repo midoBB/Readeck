@@ -78,12 +78,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   {{ include "./actions" .Item }}
 
-  {* publicly share a bookmark *}
-  <form id="share-form" action="{{ urlFor(`./share`) }}" method="post"
-    class="hidden"
-    data-controller="turbo-form"
-    data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .Item.ID, `share`) }}"
-  >{{ yield csrfField() }}</form>
+  {* sharing frame *}
   <div class="print:hidden
     [&>turbo-frame:not(.hidden)]:block [&>turbo-frame]:my-4 [&>turbo-frame]:p-4
     [&>turbo-frame]:shadow-lg [&>turbo-frame]:bg-gray-100

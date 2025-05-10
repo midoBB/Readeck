@@ -49,6 +49,11 @@ func TestCheckPermission(t *testing.T) {
 		{"staff", "bookmarks", "read", true},
 		{"user", "bookmarks", "read", true},
 		{"", "bookmarks", "read", false},
+
+		{"admin", "email", "send", true},
+		{"staff", "email", "send", true},
+		{"user", "email", "send", true},
+		{"", "email", "send", true},
 	}
 
 	for _, test := range tests {

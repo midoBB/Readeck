@@ -37,7 +37,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   <button class="btn btn-default block mt-6 w-full rounded-md" type="submit">{{ gettext("Sign in") }}</button>
 </form>
 
-{{- if canSendEmail -}}
+{{- if hasPermission("email", "send") -}}
   <p class="mt-4 text-center"><a href="{{ urlFor(`/login/recover`) }}" class="link">{{ gettext("Forgot your password?") }}</a></p>
 {{- end -}}
 {{ end }}

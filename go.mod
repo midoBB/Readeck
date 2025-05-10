@@ -11,6 +11,7 @@ require (
 	github.com/antchfx/xmlquery v1.4.4
 	github.com/anthonynsimon/bild v0.14.0
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
+	github.com/aymerick/douceur v0.2.0
 	github.com/caarlos0/env/v11 v11.3.1
 	github.com/casbin/casbin/v2 v2.105.0
 	github.com/cristalhq/acmd v0.12.0
@@ -38,7 +39,7 @@ require (
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/stretchr/testify v1.10.0
 	github.com/tdewolff/parse/v2 v2.8.0
-	github.com/xhit/go-simple-mail/v2 v2.16.0
+	github.com/wneessen/go-mail v0.6.2
 	github.com/yuin/goldmark v1.7.11
 	github.com/yuin/goldmark-meta v1.1.0
 	golang.org/x/crypto v0.38.0
@@ -53,6 +54,7 @@ require (
 require (
 	github.com/CloudyKit/fastprinter v0.0.0-20200109182630-33d98a066a53 // indirect
 	github.com/JohannesKaufmann/dom v0.2.0 // indirect
+	github.com/PuerkitoBio/goquery v1.10.3 // indirect
 	github.com/andybalholm/cascadia v1.3.3 // indirect
 	github.com/antchfx/xpath v1.3.4 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
@@ -62,11 +64,12 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/dlclark/regexp2 v1.11.5 // indirect
+	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/go-sourcemap/sourcemap v2.1.4+incompatible // indirect
-	github.com/go-test/deep v1.1.0 // indirect
 	github.com/gogs/chardet v0.0.0-20211120154057-b7413eaefb8f // indirect
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
 	github.com/google/pprof v0.0.0-20250501235452-c0086092b71a // indirect
+	github.com/gorilla/css v1.0.1 // indirect
 	github.com/itchyny/timefmt-go v0.1.6 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
@@ -82,7 +85,6 @@ require (
 	github.com/prometheus/common v0.63.0 // indirect
 	github.com/prometheus/procfs v0.16.1 // indirect
 	github.com/tetratelabs/wazero v1.9.0 // indirect
-	github.com/toorop/go-dkim v0.0.0-20250226130143-9025cce95817 // indirect
 	golang.org/x/sys v0.33.0 // indirect
 	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect

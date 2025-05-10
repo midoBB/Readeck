@@ -20,6 +20,7 @@ import (
 	"github.com/phsym/console-slog"
 
 	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/internal/acls"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/db"
@@ -129,6 +130,12 @@ func InitApp() {
 
 	// Init email sending
 	email.InitSender()
+	if !email.CanSendEmail() {
+		// If we can't send email, remnove the mail permission.
+		if _, err = acls.DeleteRole("/email/send"); err != nil {
+			panic(err)
+		}
+	}
 
 	// Set the commissioned flag
 	nbUser, err := users.Users.Count()

@@ -270,17 +270,21 @@ func (api *apiRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
-func (api *apiRouter) bookmarkShare(w http.ResponseWriter, r *http.Request) {
-	info := r.Context().Value(ctxSharedInfoKey{}).(sharedBookmarkItem)
+// bookmarkShareLink returns a publicly shared bookmark link.
+func (api *apiRouter) bookmarkShareLink(w http.ResponseWriter, r *http.Request) {
+	info := r.Context().Value(ctxSharedInfoKey{}).(linkShareInfo)
+	api.srv.Render(w, r, http.StatusCreated, info)
+}
 
-	if api.srv.IsTurboRequest(r) {
-		api.srv.RenderTurboStream(w, r,
-			"/bookmarks/components/public_share", "replace",
-			"bookmark-share-"+info.ID, info, nil)
+// bookmarkShareEmail sends a bookmark by email.
+func (api *apiRouter) bookmarkShareEmail(w http.ResponseWriter, r *http.Request) {
+	info := r.Context().Value(ctxSharedInfoKey{}).(emailShareInfo)
+	if !info.Form.IsValid() {
+		api.srv.Render(w, r, 0, info.Form) // status is already set by the middleware
 		return
 	}
 
-	api.srv.Render(w, r, http.StatusCreated, info)
+	api.srv.TextMessage(w, r, http.StatusOK, "Email sent to "+info.Form.Get("email").String())
 }
 
 // bookmarkResource is the route returning any resource
@@ -806,7 +810,7 @@ func (api *apiRouter) withLabelList(next http.Handler) http.Handler {
 	})
 }
 
-func (api *apiRouter) withSharedLink(next http.Handler) http.Handler {
+func (api *apiRouter) withShareLink(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Disable HTTP caching
 		api.srv.WriteLastModified(w, r)
@@ -828,7 +832,7 @@ func (api *apiRouter) withSharedLink(next http.Handler) http.Handler {
 			return
 		}
 
-		info := sharedBookmarkItem{
+		info := linkShareInfo{
 			URL:     api.srv.AbsoluteURL(r, "/@b", rr).String(),
 			Expires: expires,
 			Title:   b.Title,
@@ -836,6 +840,43 @@ func (api *apiRouter) withSharedLink(next http.Handler) http.Handler {
 		}
 		ctx := context.WithValue(r.Context(), ctxSharedInfoKey{}, info)
 		w.Header().Set("Location", info.URL)
+		next.ServeHTTP(w, r.WithContext(ctx))
+	})
+}
+
+func (api *apiRouter) withShareEmail(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Disable HTTP caching
+		api.srv.WriteLastModified(w, r)
+		api.srv.WriteEtag(w, r)
+
+		b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
+		if b.State != bookmarks.StateLoaded {
+			api.srv.Error(w, r, errors.New("bookmark not loaded yet"))
+			return
+		}
+
+		info := emailShareInfo{
+			Form:  newShareForm(api.srv.Locale(r)),
+			Title: b.Title,
+			ID:    b.UID,
+		}
+
+		if r.Method == http.MethodPost {
+			forms.Bind(info.Form, r)
+
+			if info.Form.IsValid() {
+				info.Error = info.Form.sendBookmark(r, api.srv, b)
+			}
+			if info.Error != nil {
+				api.srv.Log(r).Error("could not send email", slog.Any("err", info.Error))
+			}
+			if !info.Form.IsValid() {
+				w.WriteHeader(http.StatusUnprocessableEntity)
+			}
+		}
+
+		ctx := context.WithValue(r.Context(), ctxSharedInfoKey{}, info)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
@@ -1012,8 +1053,8 @@ func (bi bookmarkItem) getArticle() (*strings.Reader, error) {
 
 	// Set resource URL replacer, for images
 	ctx = converter.WithURLReplacer(ctx,
-		"./_resources",
-		bi.mediaURL.String()+"/_resources",
+		"./_resources/",
+		bi.mediaURL.String()+"/_resources/",
 	)
 	// Set annotation tag and callback
 	ctx = converter.WithAnnotationTag(ctx, bi.annotationTag, bi.annotationCallback)
@@ -1156,9 +1197,16 @@ func newAnnotationItem(s *server.Server, r *http.Request, a *bookmarks.Annotatio
 	return res
 }
 
-type sharedBookmarkItem struct {
+type linkShareInfo struct {
 	URL     string    `json:"url"`
 	Expires time.Time `json:"expires"`
 	Title   string    `json:"title"`
 	ID      string    `json:"id"`
+}
+
+type emailShareInfo struct {
+	Form  *shareForm
+	Title string
+	ID    string
+	Error error
 }

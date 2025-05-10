@@ -46,6 +46,10 @@ func newProfileForm(tr forms.Translator) *profileForm {
 			forms.Trim,
 			forms.ChoicesPairs(locales.Available()),
 		),
+		forms.NewTextField("settings_email_reply_to",
+			forms.Trim, forms.Optional[string](forms.IsEmail)),
+		forms.NewTextField("settings_email_epub_to",
+			forms.Trim, forms.Optional[string](forms.IsEmail)),
 		forms.NewIntegerField("settings_reader_width",
 			forms.RequiredOrNil, forms.Gte(1), forms.Lte(3),
 		),
@@ -71,6 +75,8 @@ func (f *profileForm) setUser(u *users.User) {
 	f.Get("username").Set(u.Username)
 	f.Get("email").Set(u.Email)
 	f.Get("settings_lang").Set(u.Settings.Lang)
+	f.Get("settings_email_reply_to").Set(u.Settings.EmailSettings.ReplyTo)
+	f.Get("settings_email_epub_to").Set(u.Settings.EmailSettings.EpubTo)
 }
 
 // Validate performs extra validation.
@@ -135,6 +141,15 @@ func (f *profileForm) updateUser(u *users.User) (res map[string]interface{}, err
 				u.Settings.ReaderSettings.Justify = field.Value().(int)
 			case "hyphenation":
 				u.Settings.ReaderSettings.Hyphenation = field.Value().(int)
+			}
+			res["settings"] = u.Settings
+		case strings.HasPrefix(n, "settings_email_"):
+			name := strings.TrimPrefix(n, "settings_email_")
+			switch name {
+			case "reply_to":
+				u.Settings.EmailSettings.ReplyTo = field.String()
+			case "epub_to":
+				u.Settings.EmailSettings.EpubTo = field.String()
 			}
 			res["settings"] = u.Settings
 		case n == "settings_lang":

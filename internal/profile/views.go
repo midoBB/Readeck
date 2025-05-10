@@ -10,6 +10,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
+	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/auth/credentials"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
@@ -92,7 +93,8 @@ func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ctx := server.TC{
-		"Form": f,
+		"Form":     f,
+		"MailFrom": configs.Config.Email.FromNoReply.Addr(),
 	}
 	ctx.SetBreadcrumbs([][2]string{
 		{tr.Gettext("Profile")},

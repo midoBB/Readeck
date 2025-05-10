@@ -171,7 +171,7 @@ serve:
 		--build.args_bin "serve" \
 		--build.exclude_dir "" \
 		--build.include_dir "assets,configs,docs,locales,internal,pkg" \
-		--build.include_ext "go,html,json,js,po,tmpl,toml" \
+		--build.include_ext "go,html,json,js,md,po,tmpl,toml" \
 		--build.delay 2000
 
 # Watch the docs/src folder and rebuild the documentation

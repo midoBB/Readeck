@@ -164,10 +164,6 @@ func Required(next http.Handler) http.Handler {
 func HasPermission(r *http.Request, obj, act string) bool {
 	info := GetRequestAuthInfo(r)
 
-	if info.User.IsAnonymous() {
-		return false
-	}
-
 	// Checked the scoped permissions if any
 	// Note that the provider permission must be in the user's scope
 	// to succeed.

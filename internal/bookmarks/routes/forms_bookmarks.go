@@ -19,11 +19,15 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 	goquexp "github.com/doug-martin/goqu/v9/exp"
+	"github.com/wneessen/go-mail"
 
+	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/bookmarks/converter"
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/db/exp"
+	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/searchstring"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/locales"
@@ -640,3 +644,75 @@ var validateTimeToken = forms.ValueValidatorFunc[string](func(_ forms.Field, val
 	}
 	return nil
 })
+
+type shareForm struct {
+	*forms.Form
+}
+
+func newShareForm(tr forms.Translator) *shareForm {
+	return &shareForm{
+		Form: forms.Must(
+			forms.WithTranslator(context.Background(), tr),
+			forms.NewTextField("email",
+				forms.Trim,
+				forms.Required,
+				forms.IsEmail,
+			),
+			forms.NewTextField("format",
+				forms.Trim,
+				forms.Choices(
+					forms.Choice("Article", "html"),
+					forms.Choice("E-Book", "epub"),
+				),
+				forms.Default("html"),
+			),
+		),
+	}
+}
+
+func (f *shareForm) sendBookmark(r *http.Request, srv *server.Server, b *bookmarks.Bookmark) (err error) {
+	if !f.IsBound() {
+		err = errors.New("form is not bound")
+		return
+	}
+
+	var exporter converter.Exporter
+	var options []email.MessageOption
+	if u := auth.GetRequestUser(r); u != nil && u.Settings.EmailSettings.ReplyTo != "" {
+		options = []email.MessageOption{
+			func(msg *mail.Msg) error {
+				return msg.ReplyTo(u.Settings.EmailSettings.ReplyTo)
+			},
+		}
+	}
+
+	switch f.Get("format").String() {
+	case "html":
+		exporter = converter.NewHTMLEmailExporter(
+			f.Get("email").String(),
+			srv.AbsoluteURL(r, "/"),
+			srv.TemplateVars(r),
+			options...,
+		)
+	case "epub":
+		exporter = converter.NewEPUBEmailExporter(
+			f.Get("email").String(),
+			srv.AbsoluteURL(r, "/"),
+			srv.TemplateVars(r),
+			options...,
+		)
+	}
+
+	if exporter == nil {
+		err = errors.New("no exporter")
+		f.AddErrors("", forms.ErrUnexpected)
+		return
+	}
+
+	if err = exporter.Export(context.Background(), nil, r, []*bookmarks.Bookmark{b}); err != nil {
+		f.AddErrors("", forms.ErrUnexpected)
+		return
+	}
+
+	return
+}

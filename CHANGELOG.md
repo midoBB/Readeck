@@ -1,12 +1,17 @@
 # Changelog
 
+## [Unreleased]
+### Added
+- share a bookmark by email
+  - send the bookmark's content as a message
+  - send the bookmark as an EPUB attachment
+
 ## [0.18.2] - 2025-05-07
 ### Added
 - server.base_url setting
 
 ### Fixed
 - Extraction error when a page contains empty link header value
-
 
 ## [0.18.1] - 2025-04-30
 ### Fixed

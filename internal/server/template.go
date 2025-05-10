@@ -14,7 +14,6 @@ import (
 	"github.com/CloudyKit/jet/v6"
 
 	"codeberg.org/readeck/readeck/internal/auth"
-	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/profile/preferences"
 	"codeberg.org/readeck/readeck/internal/templates"
 	"codeberg.org/readeck/readeck/pkg/csrf"
@@ -141,7 +140,6 @@ func (s *Server) TemplateVars(r *http.Request) jet.VarMap {
 
 	return make(jet.VarMap).
 		Set("basePath", s.BasePath).
-		Set("canSendEmail", email.CanSendEmail()).
 		Set("csrfName", csrfFieldName).
 		Set("csrfToken", csrf.Token(r)).
 		Set("currentPath", s.CurrentPath(r)).

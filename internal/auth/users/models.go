@@ -218,9 +218,6 @@ func (u *User) Permissions() []string {
 // HasPermission returns true if the user can perform "act" action
 // on "obj" object.
 func (u *User) HasPermission(obj, act string) bool {
-	if u.Group == "" {
-		return false
-	}
 	r, err := acls.Check(u.Group, obj, act)
 	if err != nil {
 		slog.Error("ACL check error", slog.Any("err", err))

@@ -34,6 +34,10 @@ var views *jet.Set
 func InitSender() {
 	views = templates.Catalog()
 
+	if Sender != nil { // Sender can be set by the test runner
+		return
+	}
+
 	if configs.Config.Email.Debug {
 		Sender = &StdOutSender{}
 	} else if configs.Config.Email.Host != "" {

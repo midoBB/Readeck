@@ -71,6 +71,11 @@ func InGroup(src, dest string) bool {
 	return i > 0
 }
 
+// DeleteRole deletes a role. Returns false if a role does not exist.
+func DeleteRole(name string) (bool, error) {
+	return enforcer.DeleteRole(name)
+}
+
 func init() {
 	var err error
 	enforcer, err = newEnforcer()

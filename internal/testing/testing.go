@@ -248,23 +248,24 @@ func NewTestApp(t *testing.T) *TestApp {
 
 	configs.InitConfiguration()
 
-	app.InitApp()
-	configs.Config.Commissioned = true
-
 	// Init test app
 	ta := &TestApp{
 		TmpDir: tmpDir,
 		Users:  make(map[string]*TestUser),
 	}
 
-	// Load data
-	fixtures := loadFixtures(t)
-	ta.Users = fixtures.users
-
-	// Email sender
+	// Email sender before init app
 	configs.Config.Email.Host = "localhost"
 	email.InitSender()
 	email.Sender = ta
+
+	// Init application
+	app.InitApp()
+	configs.Config.Commissioned = true
+
+	// Load data
+	fixtures := loadFixtures(t)
+	ta.Users = fixtures.users
 
 	// Start event manager
 	startEventManager()

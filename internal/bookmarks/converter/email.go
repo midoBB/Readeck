@@ -60,7 +60,7 @@ func (e HTMLEmailExporter) Export(ctx context.Context, _ io.Writer, _ *http.Requ
 
 	// Prepare message
 	msg, err := email.NewMsg(
-		configs.Config.Email.FromNoReply,
+		configs.Config.Email.FromNoReply.String(),
 		e.to,
 		"[Readeck] "+utils.ShortText(b.Title, 80),
 		append(
@@ -165,7 +165,7 @@ func (e EPUBEmailExporter) Export(ctx context.Context, _ io.Writer, r *http.Requ
 	b := bookmarkList[0]
 
 	msg, err := email.NewMsg(
-		configs.Config.Email.FromNoReply,
+		configs.Config.Email.FromNoReply.String(),
 		e.to,
 		"[Readeck EPUB] "+utils.ShortText(b.Title, 80),
 		append(

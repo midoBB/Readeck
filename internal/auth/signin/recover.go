@@ -129,7 +129,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 		}
 
 		msg, err := email.NewMsg(
-			configs.Config.Email.FromNoReply,
+			configs.Config.Email.FromNoReply.String(),
 			f.Get("email").String(),
 			"[Readeck] Password Recovery",
 			email.WithMDTemplate(

@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"log/slog"
 	"net"
+	"net/mail"
 	"net/url"
 	"os"
 	"path"
@@ -81,15 +82,15 @@ type configBookmarks struct {
 }
 
 type configEmail struct {
-	Debug       bool   `json:"debug" env:"MAIL_DEBUG,unset"`
-	Host        string `json:"host" env:"MAIL_HOST,unset"`
-	Port        int    `json:"port" env:"MAIL_PORT,unset"`
-	Username    string `json:"username" env:"MAIL_USERNAME,unset"`
-	Password    string `json:"password" env:"MAIL_PASSWORD,unset"`
-	Encryption  string `json:"encryption" env:"MAIL_ENCRYPTION,unset"`
-	Insecure    bool   `json:"insecure" env:"MAIL_INSECURE,unset"`
-	From        string `json:"from" env:"MAIL_FROM,unset"`
-	FromNoReply string `json:"from_noreply" env:"MAIL_FROMNOREPLY,unset"`
+	Debug       bool            `json:"debug" env:"MAIL_DEBUG,unset"`
+	Host        string          `json:"host" env:"MAIL_HOST,unset"`
+	Port        int             `json:"port" env:"MAIL_PORT,unset"`
+	Username    string          `json:"username" env:"MAIL_USERNAME,unset"`
+	Password    string          `json:"password" env:"MAIL_PASSWORD,unset"`
+	Encryption  string          `json:"encryption" env:"MAIL_ENCRYPTION,unset"`
+	Insecure    bool            `json:"insecure" env:"MAIL_INSECURE,unset"`
+	From        configEmailAddr `json:"from" env:"MAIL_FROM,unset"`
+	FromNoReply configEmailAddr `json:"from_noreply" env:"MAIL_FROMNOREPLY,unset"`
 }
 
 type configWorker struct {
@@ -108,6 +109,10 @@ type configExtractor struct {
 type configMetrics struct {
 	Host string `json:"host" env:"METRICS_HOST"`
 	Port int    `json:"port" env:"METRICS_PORT"`
+}
+
+type configEmailAddr struct {
+	*mail.Address
 }
 
 type configURL struct {
@@ -134,6 +139,38 @@ func (c *config) LoadEnv() error {
 		Prefix:                "READECK_",
 		UseFieldNameByDefault: false,
 	})
+}
+
+func (a *configEmailAddr) parse(s string) (err error) {
+	if strings.TrimSpace(s) == "" {
+		a.Address = &mail.Address{}
+	}
+	a.Address, err = mail.ParseAddress(s)
+	return err
+}
+
+func (a *configEmailAddr) setDefault() {
+	if a.Address == nil || a.Address.Address == "" {
+		a.Address = &mail.Address{Address: "unconfigured@localhost"}
+	}
+}
+
+func (a *configEmailAddr) Addr() string {
+	return a.Address.Address
+}
+
+// UnmarshalJSON implements [encoding.json.Unmarshaler].
+func (a *configEmailAddr) UnmarshalJSON(d []byte) (err error) {
+	var s string
+	if err = json.Unmarshal(d, &s); err != nil {
+		return err
+	}
+	return a.parse(s)
+}
+
+// UnmarshalText implements [encoding.TextUnmarshaler].
+func (a *configEmailAddr) UnmarshalText(text []byte) (err error) {
+	return a.parse(string(text))
 }
 
 // UnmarshalJSON implements [encoding.json.Unmarshaler].
@@ -326,12 +363,8 @@ func InitConfiguration() {
 		Config.Database.Source = fmt.Sprintf("sqlite3:%s/db.sqlite3", Config.Main.DataDirectory)
 	}
 
-	if Config.Email.From == "" {
-		Config.Email.From = "noreply@" + Config.Server.Host
-	}
-	if Config.Email.FromNoReply == "" {
-		Config.Email.FromNoReply = Config.Email.From
-	}
+	Config.Email.From.setDefault()
+	Config.Email.FromNoReply.setDefault()
 
 	if Config.Server.BaseURL != nil {
 		Config.Server.BaseURL.normalize()

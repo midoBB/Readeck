@@ -94,7 +94,7 @@ func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
 
 	ctx := server.TC{
 		"Form":     f,
-		"MailFrom": configs.Config.Email.FromNoReply,
+		"MailFrom": configs.Config.Email.FromNoReply.Addr(),
 	}
 	ctx.SetBreadcrumbs([][2]string{
 		{tr.Gettext("Profile")},

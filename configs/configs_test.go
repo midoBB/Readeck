@@ -107,6 +107,25 @@ func TestEnvVars(t *testing.T) {
 			assert.Equal("", v)
 			assert.False(exists)
 		}},
+		{"READECK_MAIL_FROM", "", func(assert *require.Assertions, cf config, err error) {
+			assert.NoError(err)
+			assert.Nil(cf.Email.From.Address)
+		}},
+		{"READECK_MAIL_FROM", "test@example.net", func(assert *require.Assertions, cf config, err error) {
+			assert.NoError(err)
+			assert.Equal("test@example.net", cf.Email.From.Addr())
+			assert.Equal("<test@example.net>", cf.Email.From.String())
+		}},
+		{"READECK_MAIL_FROM", "Readeck <test@example.net>", func(assert *require.Assertions, cf config, err error) {
+			assert.NoError(err)
+			assert.Equal("test@example.net", cf.Email.From.Addr())
+			assert.Equal(`"Readeck" <test@example.net>`, cf.Email.From.String())
+		}},
+		{"READECK_MAIL_FROM", "test@example.net (Readeck)", func(assert *require.Assertions, cf config, err error) {
+			assert.NoError(err)
+			assert.Equal("test@example.net", cf.Email.From.Addr())
+			assert.Equal(`"Readeck" <test@example.net>`, cf.Email.From.String())
+		}},
 		{"READECK_PUBLIC_SHARE_TTL", "48", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
 			assert.Equal(48, cf.Bookmarks.PublicShareTTL)
@@ -156,7 +175,7 @@ func TestEnvVars(t *testing.T) {
 			"READECK_MAIL_ENCRYPTION":  "starttls",
 			"READECK_MAIL_INSECURE":    "true",
 			"READECK_MAIL_FROM":        "alice@example.net",
-			"READECK_MAIL_FROMNOREPLY": "noreply@example.net",
+			"READECK_MAIL_FROMNOREPLY": "Readeck <noreply@example.net>",
 		}
 
 		for k, v := range envMap {
@@ -174,8 +193,8 @@ func TestEnvVars(t *testing.T) {
 		assert.Equal("1234", cf.Email.Password)
 		assert.Equal("starttls", cf.Email.Encryption)
 		assert.True(cf.Email.Insecure)
-		assert.Equal("alice@example.net", cf.Email.From)
-		assert.Equal("noreply@example.net", cf.Email.FromNoReply)
+		assert.Equal("alice@example.net", cf.Email.From.Addr())
+		assert.Equal("noreply@example.net", cf.Email.FromNoReply.Addr())
 
 		for k := range envMap {
 			v, exists := os.LookupEnv(k)

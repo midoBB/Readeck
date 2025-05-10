@@ -289,6 +289,7 @@ METHODS = {
     "_test.go": None,
     ".go": extract_go,
     ".jet.html": extract_jet,
+    ".jet.md": extract_jet,
     ".tmpl": extract_tmpl,
 }
 

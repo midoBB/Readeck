@@ -30,7 +30,7 @@ import (
 	"github.com/itchyny/gojq"
 	"github.com/kinbiko/jsonassert"
 	"github.com/stretchr/testify/require"
-	mail "github.com/xhit/go-simple-mail/v2"
+	"github.com/wneessen/go-mail"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/app"
@@ -263,6 +263,7 @@ func NewTestApp(t *testing.T) *TestApp {
 
 	// Email sender
 	configs.Config.Email.Host = "localhost"
+	email.InitSender()
 	email.Sender = ta
 
 	// Start event manager
@@ -295,8 +296,10 @@ func (ta *TestApp) Close(t *testing.T) {
 }
 
 // SendEmail implements email.sender interface and stores the last sent message.
-func (ta *TestApp) SendEmail(m *mail.Email) error {
-	ta.LastEmail = m.GetMessage()
+func (ta *TestApp) SendEmail(msg *mail.Msg) error {
+	buf := new(bytes.Buffer)
+	msg.WriteTo(buf) // nolint:errcheck
+	ta.LastEmail = buf.String()
 	return nil
 }
 

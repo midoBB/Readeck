@@ -245,23 +245,28 @@ function css_bundle() {
     .pipe(gulp.dest(DEST))
 }
 
-// css_epub create the css file used for epub export
-function css_epub() {
+// css_extra create the css files used as internal assets (epub, email)
+function css_extra() {
   const processors = [
     require("postcss-import"),
     require("./ui/plugins/prose"),
     require("autoprefixer"),
   ]
 
-  return gulp
-    .src([
-      "ui/epub/stylesheet.scss", //
-    ])
-    .pipe(gulpSourcemaps.init())
-    .pipe(sassCompiler().on("error", sassCompiler.logError))
-    .pipe(gulpRename("epub.css"))
-    .pipe(gulpPostcss(processors))
-    .pipe(gulp.dest(DEST))
+  return ordered(
+    [
+      {src: "ui/epub/stylesheet.scss", dest: "epub.css"},
+      {src: "ui/email/stylesheet.scss", dest: "email.css"},
+    ].map((x) => {
+      return gulp
+        .src(x.src)
+        .pipe(gulpSourcemaps.init())
+        .pipe(sassCompiler().on("error", sassCompiler.logError))
+        .pipe(gulpRename(x.dest))
+        .pipe(gulpPostcss(processors))
+        .pipe(gulp.dest(DEST))
+    }),
+  )
 }
 
 function icon_sprite(src, dst) {
@@ -387,7 +392,7 @@ const full_build = gulp.series(
     icon_bundle,
     copy_files,
     css_bundle,
-    css_epub,
+    css_extra,
   ),
   write_manifest,
 )
@@ -413,7 +418,7 @@ function watch_css() {
     gulp.series(
       clean_css, //
       css_bundle,
-      css_epub,
+      css_extra,
       write_manifest,
     ),
   )
@@ -433,8 +438,8 @@ function watch_media() {
 
 exports.clean = clean_all
 exports.js = js_bundle
-exports.css = gulp.series(clean_css, css_bundle, css_epub)
-exports.epub = css_epub
+exports.css = gulp.series(clean_css, css_bundle, css_extra)
+exports.epub = css_extra
 exports.icons = icon_bundle
 exports.copy = copy_files
 

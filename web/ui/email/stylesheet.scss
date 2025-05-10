@@ -1,0 +1,340 @@
+// SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
+@use "sass:math";
+
+$line-height: 1.5;
+$gray-default: #e4dfdc;
+$gray-light: #f6f4f2;
+$radius: 4px;
+
+body {
+  margin: 0;
+  padding: 0;
+}
+div.body {
+  font-family: Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
+  font-size: 16px;
+  background-color: #fcfbfb;
+  color: #000;
+  padding: 1em;
+}
+div.container,
+div.footer {
+  max-width: 54em;
+  margin: 0 auto;
+}
+div.content {
+  padding: 1em;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+div.footer {
+  margin-top: 1em;
+  text-align: center;
+  font-size: 0.8em;
+}
+
+a {
+  color: #096f86;
+}
+
+img,
+figure {
+  display: block;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ------------------------------------------------------------------
+    Article Info Box
+    --------------------------------------------------------------- */
+h1.title {
+  font-size: 1.8em;
+  margin: 0;
+}
+
+p.desc {
+  margin-top: $line-height * 0.5em;
+  font-style: italic;
+  font-size: 0.9em;
+  text-indent: 0;
+}
+
+ul.info {
+  margin-top: $line-height * 1em;
+  margin-bottom: $line-height * 2em;
+  list-style: none;
+  border: 1px solid $gray-default;
+  border-radius: $radius;
+  padding: $line-height * 0.25em $line-height * 0.5em;
+  font-size: 0.9em;
+
+  li {
+    margin: 0.25em 0;
+  }
+}
+
+table.info {
+  border-collapse: separate;
+  border-spacing: 0.5em;
+
+  td {
+    vertical-align: top;
+  }
+}
+
+/* ------------------------------------------------------------------
+    Pictures
+    --------------------------------------------------------------- */
+div.main.photo img {
+  margin: 0 auto 2em auto;
+}
+
+.prose {
+  line-height: $line-height;
+
+  h1 {
+    @flow-block;
+    font-size: 1.8em;
+  }
+
+  h2 {
+    @flow-block;
+    font-size: 1.6em;
+  }
+
+  h3 {
+    @flow-block;
+    font-size: 1.4em;
+  }
+
+  h4 {
+    @flow-block;
+    font-size: 1.2em;
+  }
+
+  h5 {
+    @flow-block;
+    font-size: 1em;
+  }
+
+  h6 {
+    @flow-block;
+    font-size: 0.9em;
+  }
+
+  p,
+  blockquote,
+  address,
+  figure,
+  hr {
+    @flow-block;
+    padding: 0;
+  }
+
+  strong,
+  time,
+  b {
+    font-weight: bold;
+  }
+
+  em,
+  dfn,
+  i {
+    font-style: italic;
+  }
+
+  sub,
+  sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+
+  sup {
+    top: -0.5em;
+  }
+
+  sub {
+    bottom: -0.25em;
+  }
+
+  small {
+    font-size: 80%;
+  }
+
+  blockquote {
+    padding: $line-height * 1em;
+    background: $gray-light;
+    border-left: 5px solid $gray-default;
+
+    *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  cite {
+    font-style: italic;
+  }
+
+  pre {
+    @flow-block;
+    padding: math.div($line-height, 0.9) * 1em;
+    font-size: 0.9em;
+    border: 1px solid $gray-default;
+    background: $gray-light;
+    white-space: pre-wrap;
+    overflow-x: auto;
+
+    code {
+      padding: 0;
+      border: 0;
+      background-color: transparent;
+      color: inherit;
+    }
+  }
+
+  code,
+  kbd,
+  samp,
+  var {
+    font-size: 0.875em;
+    line-height: 1;
+    padding: 1px 3px;
+    border-radius: $radius;
+    background-color: $gray-light;
+  }
+
+  img,
+  figure {
+    max-width: 100%;
+  }
+
+  img {
+    border-radius: $radius;
+    margin-bottom: $line-height * 0.5em;
+  }
+
+  figure {
+    display: inline-block;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+
+    img,
+    svg,
+    pre {
+      display: block;
+      margin: 0 auto;
+    }
+
+    figcaption {
+      @vertical-flow;
+      font-size: 0.9em;
+    }
+
+    *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  ul,
+  ol,
+  dl {
+    @flow-block;
+    padding: 0;
+  }
+
+  ul,
+  ol {
+    list-style-position: outside;
+    padding-left: 2em;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  li {
+    p,
+    ul,
+    ol {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    img {
+      display: inline-block;
+    }
+  }
+
+  dl {
+    dt {
+      font-weight: bold;
+    }
+
+    dd {
+      margin: 0 0 0 $line-height * 1em;
+      padding: 0;
+    }
+  }
+
+  table {
+    @flow-block;
+    margin-top: -2px;
+    display: flow-root;
+    overflow-x: auto;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    caption,
+    tbody,
+    thead,
+    tfoot {
+      max-width: 100%;
+    }
+  }
+
+  caption {
+    font-style: italic;
+    margin-bottom: 0;
+  }
+
+  td,
+  th {
+    @vertical-flow;
+    padding: $line-height * 0.25em;
+    vertical-align: top;
+    min-width: 2em;
+    text-align: left;
+    border: 1px solid $gray-default;
+  }
+
+  th {
+    font-weight: bold;
+    background-color: $gray-light;
+  }
+
+  thead tr:last-child th {
+    border-bottom-color: #000;
+  }
+
+  tfoot {
+    td,
+    th {
+      font-style: italic;
+    }
+  }
+}

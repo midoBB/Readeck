@@ -39,6 +39,15 @@ Copyright (c) 2015-2017 Aaron Raddon
 """
 
 [[licenses]]
+name = "douceur"
+license = "MIT"
+author = "Aymerick Jehanne"
+url = "https://github.com/aymerick/douceur"
+copyright = """
+Copyright (c) 2015 Aymerick JEHANNE
+"""
+
+[[licenses]]
 name = "casbin"
 license = "Apache-2.0"
 author = "The casbin Authors"
@@ -196,12 +205,12 @@ Copyright (c) 2015 Taco de Wolff
 """
 
 [[licenses]]
-name = "go-simple-mail"
+name = "go-mail"
 license = "MIT"
-author = "Santiago De la Cruz"
-url = "https://github.com/xhit/go-simple-mail"
+author = "The go-mail Authors"
+url = "https://github.com/wneessen/go-mail"
 copyright = """
-Copyright (c) 2019 Santiago De la Cruz
+Copyright (c) 2022-2025 The go-mail Authors
 """
 
 [[licenses]]

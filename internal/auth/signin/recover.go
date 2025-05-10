@@ -21,7 +21,6 @@ import (
 	"codeberg.org/readeck/readeck/internal/bus"
 	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/server"
-	"codeberg.org/readeck/readeck/locales"
 	"codeberg.org/readeck/readeck/pkg/base58"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -119,7 +118,6 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 		mailTc := server.TC{
 			"SiteURL":   h.srv.AbsoluteURL(r, "/"),
 			"EmailAddr": f.Get("email").String(),
-			"Loc":       locales.LoadTranslation("en-US"),
 		}
 		code := base58.NewUUID()
 		if user != nil {
@@ -128,15 +126,25 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 			}
 
 			mailTc["RecoverLink"] = h.srv.AbsoluteURL(r, "/login/recover", code)
-			mailTc["Loc"] = locales.LoadTranslation(user.Settings.Lang)
 		}
-		err = email.SendEmail(
-			fmt.Sprintf("Readeck <%s>", configs.Config.Email.FromNoReply),
+
+		msg, err := email.NewMsg(
+			configs.Config.Email.FromNoReply,
 			f.Get("email").String(),
-			"Password recovery",
-			"recover.tmpl", mailTc,
+			"[Readeck] Password Recovery",
+			email.WithMDTemplate(
+				"/emails/recover.jet.md",
+				h.srv.TemplateVars(r),
+				mailTc,
+			),
 		)
 		if err != nil {
+			h.srv.Error(w, r, err)
+			return
+		}
+
+		if err = email.Sender.SendEmail(msg); err != nil {
+			h.srv.Error(w, r, err)
 			return
 		}
 

@@ -63,6 +63,7 @@ generate: web-build docs-build
 # Setup prepares the environment
 .PHONY: setup
 setup:
+	$(GO) mod download
 	${MAKE} -C web setup
 
 # Build the server

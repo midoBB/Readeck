@@ -46,19 +46,19 @@ func NewEPUBExporter(baseURL *url.URL, templateVars jet.VarMap) EPUBExporter {
 
 // Export implements [Exporter].
 // It writes an EPUB file on the provided [io.Writer].
-func (e EPUBExporter) Export(ctx context.Context, w io.Writer, _ *http.Request, bookmarks []*bookmarks.Bookmark) error {
+func (e EPUBExporter) Export(ctx context.Context, w io.Writer, _ *http.Request, bookmarkList []*bookmarks.Bookmark) error {
 	// Define a title, date and filename
 	title := "Readeck Bookmarks"
 	date := time.Now()
 	if e.Collection != nil {
 		title = e.Collection.Name
-	} else if len(bookmarks) == 1 {
-		title = bookmarks[0].Title
-		date = bookmarks[0].Created
+	} else if len(bookmarkList) == 1 {
+		title = bookmarkList[0].Title
+		date = bookmarkList[0].Created
 	}
 
 	id := ""
-	for _, x := range bookmarks {
+	for _, x := range bookmarkList {
 		id += x.UID
 	}
 
@@ -85,7 +85,7 @@ func (e EPUBExporter) Export(ctx context.Context, w io.Writer, _ *http.Request, 
 	}()
 
 	ctx = WithURLReplacer(ctx, "./_resources/", "./Images/")
-	for _, b := range bookmarks {
+	for _, b := range bookmarkList {
 		if err = m.addBookmark(ctx, e, b, e.templateVars); err != nil {
 			return err
 		}

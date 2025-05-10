@@ -270,6 +270,7 @@ func (api *apiRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
+// bookmarkShareLink returns a publicly shared bookmark link.
 func (api *apiRouter) bookmarkShareLink(w http.ResponseWriter, r *http.Request) {
 	info := r.Context().Value(ctxSharedInfoKey{}).(sharedBookmarkItem)
 
@@ -281,6 +282,17 @@ func (api *apiRouter) bookmarkShareLink(w http.ResponseWriter, r *http.Request) 
 	}
 
 	api.srv.Render(w, r, http.StatusCreated, info)
+}
+
+// bookmarkShareEmail sends a bookmark by email.
+func (api *apiRouter) bookmarkShareEmail(w http.ResponseWriter, r *http.Request) {
+	info := r.Context().Value(ctxSharedInfoKey{}).(emailShareInfo)
+	if !info.Form.IsValid() {
+		api.srv.Render(w, r, 0, info.Form) // status is already set by the middleware
+		return
+	}
+
+	api.srv.TextMessage(w, r, http.StatusOK, "Email sent to "+info.Form.Get("email").String())
 }
 
 // bookmarkResource is the route returning any resource
@@ -840,6 +852,43 @@ func (api *apiRouter) withSharedLink(next http.Handler) http.Handler {
 	})
 }
 
+func (api *apiRouter) withShareEmail(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Disable HTTP caching
+		api.srv.WriteLastModified(w, r)
+		api.srv.WriteEtag(w, r)
+
+		b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
+		if b.State != bookmarks.StateLoaded {
+			api.srv.Error(w, r, errors.New("bookmark not loaded yet"))
+			return
+		}
+
+		info := emailShareInfo{
+			Form:  newShareForm(api.srv.Locale(r)),
+			Title: b.Title,
+			ID:    b.UID,
+		}
+
+		if r.Method == http.MethodPost {
+			forms.Bind(info.Form, r)
+
+			if info.Form.IsValid() {
+				info.Error = info.Form.sendBookmark(r, api.srv, b)
+			}
+			if info.Error != nil {
+				api.srv.Log(r).Error("could not send email", slog.Any("err", info.Error))
+			}
+			if !info.Form.IsValid() {
+				w.WriteHeader(http.StatusUnprocessableEntity)
+			}
+		}
+
+		ctx := context.WithValue(r.Context(), ctxSharedInfoKey{}, info)
+		next.ServeHTTP(w, r.WithContext(ctx))
+	})
+}
+
 // bookmarkList is a paginated list of BookmarkItem instances.
 type bookmarkList struct {
 	items      []*bookmarks.Bookmark
@@ -1161,4 +1210,11 @@ type sharedBookmarkItem struct {
 	Expires time.Time `json:"expires"`
 	Title   string    `json:"title"`
 	ID      string    `json:"id"`
+}
+
+type emailShareInfo struct {
+	Form  *shareForm
+	Title string
+	ID    string
+	Error error
 }

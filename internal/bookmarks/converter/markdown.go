@@ -74,40 +74,40 @@ func NewMarkdownExporter(baseURL *url.URL, mediaBaseURL *url.URL) MarkdownExport
 // It can write text only articles (the default) separated by an horizontal rule.
 // If the request contains "Accept: multipart/alternative", it returns a multipart response
 // that contains images for the exported bookmarks.
-func (e MarkdownExporter) Export(ctx context.Context, w io.Writer, r *http.Request, bookmarks []*bookmarks.Bookmark) error {
+func (e MarkdownExporter) Export(ctx context.Context, w io.Writer, r *http.Request, bookmarkList []*bookmarks.Bookmark) error {
 	ctx = WithAnnotationTag(ctx, "rd-annotation", nil)
 
 	accepted := accept.NegotiateContentType(r.Header, []string{"text/markdown", "application/zip", "multipart/alternative"}, "text/markdown")
 	switch accepted {
 	case "application/zip":
-		return e.exportZip(ctx, w, bookmarks)
+		return e.exportZip(ctx, w, bookmarkList)
 	case "multipart/alternative":
-		return e.exportMultipart(ctx, w, bookmarks)
+		return e.exportMultipart(ctx, w, bookmarkList)
 	default:
-		return e.exportTextOnly(ctx, w, bookmarks)
+		return e.exportTextOnly(ctx, w, bookmarkList)
 	}
 }
 
-func (e MarkdownExporter) exportTextOnly(ctx context.Context, w io.Writer, bookmarks []*bookmarks.Bookmark) error {
+func (e MarkdownExporter) exportTextOnly(ctx context.Context, w io.Writer, bookmarkList []*bookmarks.Bookmark) error {
 	if w, ok := w.(http.ResponseWriter); ok {
 		w.Header().Set("Content-Type", "text/markdown; charset=utf-8")
 	}
 
-	for i, b := range bookmarks {
+	for i, b := range bookmarkList {
 		c := WithURLReplacer(ctx, "./_resources/",
 			e.mediaBaseURL.JoinPath(b.FilePath, "_resources/").String(),
 		)
 		if i > 0 {
 			fmt.Fprint(w, "\n------------------------------------------------------------\nn") //nolint:errcheck
 		}
-		if err := e.writeArticle(c, w, b, len(bookmarks) == 1); err != nil {
+		if err := e.writeArticle(c, w, b, len(bookmarkList) == 1); err != nil {
 			slog.Error("export", slog.Any("err", err))
 		}
 	}
 	return nil
 }
 
-func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, bookmarks []*bookmarks.Bookmark) error {
+func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, bookmarkList []*bookmarks.Bookmark) error {
 	mp := multipart.NewWriter(w)
 	defer mp.Close() //nolint:errcheck
 	if w, ok := w.(http.ResponseWriter); ok {
@@ -117,7 +117,7 @@ func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, book
 	ctx = WithURLReplacer(ctx, "./_resources/", "")
 	ctx = context.WithValue(ctx, ctxExportTypeKey, "multipart")
 
-	for _, b := range bookmarks {
+	for _, b := range bookmarkList {
 		if err := func() error {
 			slug := utils.Slug(b.Title)
 			part, err := mp.CreatePart(textproto.MIMEHeader{
@@ -167,7 +167,7 @@ func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, book
 	return nil
 }
 
-func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarks []*bookmarks.Bookmark) error {
+func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarkList []*bookmarks.Bookmark) error {
 	zw := zip.NewWriter(w)
 	defer zw.Close() //nolint:errcheck
 
@@ -202,7 +202,7 @@ func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarks 
 		return err
 	}
 
-	for _, b := range bookmarks {
+	for _, b := range bookmarkList {
 		d, _ := idna.ToASCII(b.Site)
 		root := fmt.Sprintf("%s/%s-%s-%s",
 			basePath,

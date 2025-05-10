@@ -7,6 +7,7 @@ package email
 
 import (
 	"bytes"
+	"crypto/tls"
 	"errors"
 	"fmt"
 	"io"
@@ -215,6 +216,11 @@ func (s *SMTPSender) SendEmail(msg *mail.Msg) error {
 		configs.Config.Email.Host,
 		mail.WithPort(configs.Config.Email.Port),
 		mail.WithTimeout(time.Second*10),
+		mail.WithTLSConfig(&tls.Config{
+			ServerName:         configs.Config.Email.Host,
+			MinVersion:         mail.DefaultTLSMinVersion,
+			InsecureSkipVerify: configs.Config.Email.Insecure, //nolint:gosec
+		}),
 	)
 	if err != nil {
 		return err
@@ -231,6 +237,8 @@ func (s *SMTPSender) SendEmail(msg *mail.Msg) error {
 		client.SetTLSPolicy(mail.TLSMandatory)
 	case "ssltls":
 		client.SetSSL(true)
+	case "none":
+		client.SetTLSPolicy(mail.NoTLS)
 	default:
 		client.SetTLSPolicy(mail.TLSOpportunistic)
 	}

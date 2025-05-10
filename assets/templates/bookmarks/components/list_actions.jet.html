@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     <div
       class="btn-group"
       data-controller="styler-option request"
-      data-styler-option-styler-outlet="[data-controller='styler']"
+      data-styler-option-styler-outlet="[data-controller~='styler']"
       data-request-url-value="{{ urlFor(`/profile/session`) }}"
       data-request-method-value="post"
     >
@@ -26,6 +26,13 @@ SPDX-License-Identifier: AGPL-3.0-only
       data-choice-value="bookmark-list--compact"
       data-action="styler-option#setChoice"
       >{{ yield icon(name="o-list") }}</button>
+      <button class="btn-outlined py-1 data-[current]:btn-primary"
+      title="{{ gettext(`Mosaic view`) }}"
+      type="button" value="mosaic"
+      data-styler-option-target="choices"
+      data-choice-value="bookmark-list--mosaic"
+      data-action="styler-option#setChoice"
+      >{{ yield icon(name="o-mosaic") }}</button>
 
       <input type="hidden"
         name="bookmark_list_display"

@@ -58,6 +58,7 @@ var (
 	bookmarkListLayouts = []string{
 		"grid",
 		"compact",
+		"mosaic",
 	}
 )
 

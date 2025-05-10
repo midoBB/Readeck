@@ -5,6 +5,7 @@
 - share a bookmark by email
   - send the bookmark's content as a message
   - send the bookmark as an EPUB attachment
+- mosaic view (image wall on bookmark list)
 
 ## [0.18.2] - 2025-05-07
 ### Added

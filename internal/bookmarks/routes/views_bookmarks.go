@@ -253,9 +253,14 @@ func (h *viewsRouter) bookmarkShareEmail(w http.ResponseWriter, r *http.Request)
 		"Sent":  false,
 	}
 
-	format := r.URL.Query()["format"]
-	if len(format) > 0 {
-		info.Form.Get("format").Set(format[len(format)-1])
+	// Get format from query string
+	if format := r.URL.Query().Get("format"); format != "" {
+		info.Form.Get("format").Set(format)
+	}
+
+	// Set default email address when sending an EPUB
+	if u := auth.GetRequestUser(r); u != nil && info.Form.Get("format").String() == "epub" && info.Form.Get("email").String() == "" {
+		info.Form.Get("email").Set(u.Settings.EmailSettings.EpubTo)
 	}
 
 	if r.Method == http.MethodPost {

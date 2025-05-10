@@ -230,7 +230,14 @@ func (u *User) HasPermission(obj, act string) bool {
 type UserSettings struct {
 	DebugInfo      bool           `json:"debug_info"`
 	Lang           string         `json:"lang"`
+	EmailSettings  EmailSettings  `json:"email_settings"`
 	ReaderSettings ReaderSettings `json:"reader_settings"`
+}
+
+// EmailSettings contains the user's email settings.
+type EmailSettings struct {
+	ReplyTo string `json:"reply_to"`
+	EpubTo  string `json:"epub_to"`
 }
 
 // ReaderSettings contains the reader settings.

@@ -1,0 +1,23 @@
+// SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
+@layer components {
+  .message {
+    @apply flex gap-2 p-4 overflow-hidden items-baseline;
+    @apply rounded my-6 w-full border;
+    @apply bg-gradient-to-r from-[0.25rem] via-[0.25rem];
+    @apply transition-all duration-300 ease-in-out;
+
+    button.remover {
+      @apply text-gray-300;
+    }
+
+    &:hover,
+    &:focus-within {
+      button.remover {
+        @apply text-red-700;
+      }
+    }
+  }
+}

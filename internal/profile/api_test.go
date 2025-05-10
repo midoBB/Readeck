@@ -95,7 +95,9 @@ func TestAPI(t *testing.T) {
 						"settings_reader_font_size": "<<PRESENCE>>",
 						"settings_reader_line_height": "<<PRESENCE>>",
 						"settings_reader_justify": "<<PRESENCE>>",
-						"settings_reader_hyphenation": "<<PRESENCE>>"
+						"settings_reader_hyphenation": "<<PRESENCE>>",
+						"settings_email_epub_to": "<<PRESENCE>>",
+						"settings_email_reply_to": "<<PRESENCE>>"
 					}
 				}`,
 		},
@@ -133,7 +135,9 @@ func TestAPI(t *testing.T) {
 						"settings_reader_font_size": "<<PRESENCE>>",
 						"settings_reader_line_height": "<<PRESENCE>>",
 						"settings_reader_justify": "<<PRESENCE>>",
-						"settings_reader_hyphenation": "<<PRESENCE>>"
+						"settings_reader_hyphenation": "<<PRESENCE>>",
+						"settings_email_epub_to": "<<PRESENCE>>",
+						"settings_email_reply_to": "<<PRESENCE>>"
 					}
 				}`,
 		},

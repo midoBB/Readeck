@@ -19,12 +19,15 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 	goquexp "github.com/doug-martin/goqu/v9/exp"
+	"github.com/wneessen/go-mail"
 
+	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/converter"
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/db/exp"
+	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/searchstring"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/locales"
@@ -674,6 +677,14 @@ func (f *shareForm) sendBookmark(r *http.Request, srv *server.Server, b *bookmar
 	}
 
 	var exporter converter.Exporter
+	var options []email.MessageOption
+	if u := auth.GetRequestUser(r); u != nil && u.Settings.EmailSettings.ReplyTo != "" {
+		options = []email.MessageOption{
+			func(msg *mail.Msg) error {
+				return msg.ReplyTo(u.Settings.EmailSettings.ReplyTo)
+			},
+		}
+	}
 
 	switch f.Get("format").String() {
 	case "html":
@@ -681,12 +692,14 @@ func (f *shareForm) sendBookmark(r *http.Request, srv *server.Server, b *bookmar
 			f.Get("email").String(),
 			srv.AbsoluteURL(r, "/"),
 			srv.TemplateVars(r),
+			options...,
 		)
 	case "epub":
 		exporter = converter.NewEPUBEmailExporter(
 			f.Get("email").String(),
 			srv.AbsoluteURL(r, "/"),
 			srv.TemplateVars(r),
+			options...,
 		)
 	}
 

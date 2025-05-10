@@ -94,8 +94,8 @@ func (e MarkdownExporter) exportTextOnly(ctx context.Context, w io.Writer, bookm
 	}
 
 	for i, b := range bookmarks {
-		c := WithURLReplacer(ctx, "./_resources",
-			e.mediaBaseURL.JoinPath(b.FilePath, "_resources").String(),
+		c := WithURLReplacer(ctx, "./_resources/",
+			e.mediaBaseURL.JoinPath(b.FilePath, "_resources/").String(),
 		)
 		if i > 0 {
 			fmt.Fprint(w, "\n------------------------------------------------------------\nn") //nolint:errcheck
@@ -114,7 +114,7 @@ func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, book
 		w.Header().Set("Content-Type", `multipart/alternative; boundary="`+mp.Boundary()+`"`)
 	}
 
-	ctx = WithURLReplacer(ctx, "./_resources", ".")
+	ctx = WithURLReplacer(ctx, "./_resources/", "")
 	ctx = context.WithValue(ctx, ctxExportTypeKey, "multipart")
 
 	for _, b := range bookmarks {
@@ -181,7 +181,7 @@ func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarks 
 		))
 	}
 
-	ctx = WithURLReplacer(ctx, "./_resources", ".")
+	ctx = WithURLReplacer(ctx, "./_resources/", "")
 	ctx = context.WithValue(ctx, ctxExportTypeKey, "multipart")
 
 	if _, err := zw.Create(basePath + "/"); err != nil {

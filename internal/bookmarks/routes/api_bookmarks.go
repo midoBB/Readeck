@@ -1012,8 +1012,8 @@ func (bi bookmarkItem) getArticle() (*strings.Reader, error) {
 
 	// Set resource URL replacer, for images
 	ctx = converter.WithURLReplacer(ctx,
-		"./_resources",
-		bi.mediaURL.String()+"/_resources",
+		"./_resources/",
+		bi.mediaURL.String()+"/_resources/",
 	)
 	// Set annotation tag and callback
 	ctx = converter.WithAnnotationTag(ctx, bi.annotationTag, bi.annotationCallback)

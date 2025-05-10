@@ -84,7 +84,7 @@ func (e EPUBExporter) Export(ctx context.Context, w io.Writer, _ *http.Request, 
 		m.Close() //nolint:errcheck
 	}()
 
-	ctx = WithURLReplacer(ctx, "./_resources", "./Images")
+	ctx = WithURLReplacer(ctx, "./_resources/", "./Images/")
 	for _, b := range bookmarks {
 		if err = m.addBookmark(ctx, e, b, e.templateVars); err != nil {
 			return err

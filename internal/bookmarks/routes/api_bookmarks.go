@@ -270,7 +270,7 @@ func (api *apiRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
-func (api *apiRouter) bookmarkShare(w http.ResponseWriter, r *http.Request) {
+func (api *apiRouter) bookmarkShareLink(w http.ResponseWriter, r *http.Request) {
 	info := r.Context().Value(ctxSharedInfoKey{}).(sharedBookmarkItem)
 
 	if api.srv.IsTurboRequest(r) {

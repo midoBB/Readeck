@@ -25,7 +25,7 @@ func TestBookmarkAPIShare(t *testing.T) {
 	RunRequestSequence(t, client, "user",
 		RequestTest{
 			Method:       "POST",
-			Target:       "/api/bookmarks/{{(index .User.Bookmarks 0).UID}}/share",
+			Target:       "/api/bookmarks/{{(index .User.Bookmarks 0).UID}}/share/link",
 			JSON:         true,
 			ExpectStatus: 201,
 			Assert: func(_ *testing.T, r *Response) {

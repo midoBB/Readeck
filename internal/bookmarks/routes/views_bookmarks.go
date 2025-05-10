@@ -224,7 +224,7 @@ func (h *viewsRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 	h.srv.Redirect(w, r, redir)
 }
 
-func (h *viewsRouter) bookmarkShare(w http.ResponseWriter, r *http.Request) {
+func (h *viewsRouter) bookmarkShareLink(w http.ResponseWriter, r *http.Request) {
 	info := r.Context().Value(ctxSharedInfoKey{}).(sharedBookmarkItem)
 
 	ctx := server.TC{

@@ -251,6 +251,7 @@ func newSessionPrefForm(tr forms.Translator) *sessionPrefForm {
 			forms.Choices(
 				forms.Choice("grid", "grid"),
 				forms.Choice("compact", "compact"),
+				forms.Choice("mosaic", "mosaic"),
 			),
 		),
 	)}

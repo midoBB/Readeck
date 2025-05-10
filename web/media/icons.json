@@ -44,6 +44,7 @@
   "o-menu":         "node_modules/boxicons/svg/regular/bx-menu.svg",
   "o-menu-dots":    "node_modules/boxicons/svg/regular/bx-dots-vertical-rounded.svg",
   "o-minus":        "node_modules/boxicons/svg/regular/bx-minus.svg",
+  "o-mosaic":       "node_modules/@mdi/svg/svg/collage.svg",
   "o-pen":          "node_modules/boxicons/svg/regular/bx-pen.svg",
   "o-pencil":       "node_modules/boxicons/svg/solid/bxs-pencil.svg",
   "o-photo":        "node_modules/boxicons/svg/regular/bx-image.svg",

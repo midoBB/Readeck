@@ -219,7 +219,8 @@
 
 // Grid display
 .bookmark-list {
-  .bookmark-list--grid {
+  .bookmark-list--grid,
+  .bookmark-list--mosaic {
     --col-number: 1;
     grid-template-columns: repeat(var(--col-number), minmax(0, 1fr));
 
@@ -511,6 +512,159 @@
 
       &--spinner {
         @apply text-left;
+      }
+    }
+  }
+}
+
+// Mosaic display
+.bookmark-list--mosaic {
+  @apply grid gap-1.5;
+  grid-template-columns: repeat(auto-fill, minmax(theme("spacing.col-5"), 1fr));
+
+  .bookmark-card {
+    display: grid;
+    position: relative;
+    grid-template-areas:
+      "spinner"
+      "title"
+      "deleted"
+      "actions";
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto auto auto;
+
+    @apply aspect-[4/3] rounded;
+
+    &--labels,
+    &--ico,
+    &--meta {
+      @apply hidden;
+    }
+
+    &--spinner {
+      @apply flex-col pt-6;
+    }
+
+    > .svgicon,
+    &--title,
+    &--progress,
+    &--actions {
+      opacity: 0;
+    }
+
+    > .svgicon {
+      @apply absolute z-10 top-1 left-1 flex items-center justify-center;
+      @apply w-6 h-6 rounded-full;
+      @apply bg-black bg-opacity-25 text-white;
+    }
+
+    &--img {
+      > img {
+        z-index: -1;
+        @apply absolute top-0 left-0;
+        @apply w-full aspect-[4/3] object-cover object-center filter;
+        @apply rounded;
+      }
+    }
+    &[data-loading="true"] .bookmark-card--img {
+      > img {
+        opacity: 0.2;
+      }
+    }
+
+    &--title {
+      @apply px-2 py-1 text-white bg-black/60;
+
+      a::after {
+        @apply absolute top-0 bottom-0 left-0 right-0;
+        z-index: 1;
+        content: "";
+      }
+    }
+
+    &--actions {
+      @apply self-end;
+      @apply p-2 m-0;
+      @apply z-10;
+      @apply rounded-b;
+      @apply text-white bg-black/60;
+
+      @apply flex items-end gap-x-3;
+
+      form {
+        @apply inline-flex gap-x-2;
+      }
+
+      form:nth-of-type(1) {
+        @apply flex-grow;
+      }
+
+      @screen touch {
+        form {
+          @apply gap-x-4;
+        }
+      }
+    }
+
+    &--progress {
+      grid-area: auto;
+      @apply absolute z-10 top-1 right-1 fill-black/40 stroke-white;
+    }
+
+    &--deleted {
+      grid-area: deleted;
+      @apply p-2 bg-black/60;
+
+      & > span {
+        @apply text-red-300;
+      }
+
+      form {
+        z-index: 10;
+      }
+    }
+
+    // Card in deleted state
+    &[data-deleted="true"] {
+      .bookmark-card--img,
+      .bookmark-card--ico,
+      .bookmark-card--title,
+      .bookmark-card--meta,
+      .bookmark-card--labels {
+        opacity: unset;
+      }
+    }
+
+    &:hover,
+    &:focus-within {
+      & > .svgicon,
+      .bookmark-card--title,
+      .bookmark-card--progress,
+      .bookmark-card--actions {
+        opacity: 1;
+      }
+
+      .bookmark-card--title {
+        a {
+          @apply text-white/90 hover:text-white focus:text-primary-500;
+        }
+      }
+
+      .bookmark-card--img {
+        > img {
+          @apply contrast-105 brightness-95;
+        }
+      }
+
+      .bookmark-card--actions {
+        form button,
+        form a {
+          @apply text-white hf:text-primary-500;
+
+          &[name="is_deleted"] {
+            @apply hf:text-btn-danger;
+          }
+        }
       }
     }
   }

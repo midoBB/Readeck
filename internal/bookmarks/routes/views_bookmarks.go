@@ -225,7 +225,7 @@ func (h *viewsRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *viewsRouter) bookmarkShareLink(w http.ResponseWriter, r *http.Request) {
-	info := r.Context().Value(ctxSharedInfoKey{}).(sharedBookmarkItem)
+	info := r.Context().Value(ctxSharedInfoKey{}).(linkShareInfo)
 
 	ctx := server.TC{
 		"URL":     info.URL,
@@ -234,7 +234,14 @@ func (h *viewsRouter) bookmarkShareLink(w http.ResponseWriter, r *http.Request) 
 		"ID":      info.ID,
 	}
 
-	h.srv.RenderTemplate(w, r, http.StatusCreated, "bookmarks/bookmark_shared", ctx)
+	if h.srv.IsTurboRequest(r) {
+		h.srv.RenderTurboStream(w, r,
+			"/bookmarks/components/share_link", "replace",
+			"bookmark-share-"+info.ID, info, nil)
+		return
+	}
+
+	h.srv.RenderTemplate(w, r, http.StatusCreated, "bookmarks/bookmark_share_link", ctx)
 }
 
 func (h *viewsRouter) labelList(w http.ResponseWriter, r *http.Request) {

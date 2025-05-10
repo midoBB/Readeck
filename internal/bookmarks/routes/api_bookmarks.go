@@ -272,15 +272,7 @@ func (api *apiRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 
 // bookmarkShareLink returns a publicly shared bookmark link.
 func (api *apiRouter) bookmarkShareLink(w http.ResponseWriter, r *http.Request) {
-	info := r.Context().Value(ctxSharedInfoKey{}).(sharedBookmarkItem)
-
-	if api.srv.IsTurboRequest(r) {
-		api.srv.RenderTurboStream(w, r,
-			"/bookmarks/components/public_share", "replace",
-			"bookmark-share-"+info.ID, info, nil)
-		return
-	}
-
+	info := r.Context().Value(ctxSharedInfoKey{}).(linkShareInfo)
 	api.srv.Render(w, r, http.StatusCreated, info)
 }
 
@@ -818,7 +810,7 @@ func (api *apiRouter) withLabelList(next http.Handler) http.Handler {
 	})
 }
 
-func (api *apiRouter) withSharedLink(next http.Handler) http.Handler {
+func (api *apiRouter) withShareLink(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Disable HTTP caching
 		api.srv.WriteLastModified(w, r)
@@ -840,7 +832,7 @@ func (api *apiRouter) withSharedLink(next http.Handler) http.Handler {
 			return
 		}
 
-		info := sharedBookmarkItem{
+		info := linkShareInfo{
 			URL:     api.srv.AbsoluteURL(r, "/@b", rr).String(),
 			Expires: expires,
 			Title:   b.Title,
@@ -1205,7 +1197,7 @@ func newAnnotationItem(s *server.Server, r *http.Request, a *bookmarks.Annotatio
 	return res
 }
 
-type sharedBookmarkItem struct {
+type linkShareInfo struct {
 	URL     string    `json:"url"`
 	Expires time.Time `json:"expires"`
 	Title   string    `json:"title"`

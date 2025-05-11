@@ -87,7 +87,7 @@ func TestFunctions(t *testing.T) {
 		for i, test := range tests {
 			t.Run(strconv.Itoa(i+1), func(t *testing.T) {
 				assert := require.New(t)
-				node, offset, err := getTextNodeBoundary(root, test.selector, test.offset)
+				node, offset, err := getTextNodeBoundary(boundaryStart, root, test.selector, test.offset)
 				if test.err != "" {
 					assert.EqualError(err, test.err)
 				} else {
@@ -674,6 +674,12 @@ func TestContiguity(t *testing.T) {
 	}{
 		{
 			[]*Annotation{
+				NewAnnotation(nil, "p[1]", 0, "p[1]", 2),
+			},
+			"<body><p><abc>12</abc><span>3<b>45</b>67</span>89</p></body>",
+		},
+		{
+			[]*Annotation{
 				NewAnnotation(nil, "p[1]", 0, "p[1]", 9),
 			},
 			"<body><p><abc>12</abc><span><abc>3</abc><b><abc>45</abc></b><abc>67</abc></span><abc>89</abc></p></body>",
@@ -694,7 +700,7 @@ func TestContiguity(t *testing.T) {
 			[]*Annotation{
 				NewAnnotation(nil, "p[1]/span[1]", 1, "p[1]/span[1]", 3),
 			},
-			"<body><p>12<span>3<b><abc>45</abc></b><abc></abc>67</span>89</p></body>",
+			"<body><p>12<span>3<b><abc>45</abc></b>67</span>89</p></body>",
 		},
 		{
 			[]*Annotation{

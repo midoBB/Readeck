@@ -17,6 +17,13 @@ import (
 
 const defaultTagName = "x-annotation"
 
+type boundaryType int
+
+const (
+	boundaryStart boundaryType = iota
+	boundaryEnd
+)
+
 type nodeList []*html.Node
 
 // Annotation holds raw information about an annotation. It contains only selectors and offset used
@@ -113,11 +120,11 @@ func (a *Annotation) ToRange(validators ...func(*AnnotationRange) error) (r *Ann
 	r = &AnnotationRange{root: a.root}
 
 	// Get range boundaries
-	if r.startContainer, r.startOffset, err = getTextNodeBoundary(a.root, a.startSelector, a.startOffset); err != nil {
+	if r.startContainer, r.startOffset, err = getTextNodeBoundary(boundaryStart, a.root, a.startSelector, a.startOffset); err != nil {
 		return nil, err
 	}
 
-	if r.endContainer, r.endOffset, err = getTextNodeBoundary(a.root, a.endSelector, a.endOffset); err != nil {
+	if r.endContainer, r.endOffset, err = getTextNodeBoundary(boundaryEnd, a.root, a.endSelector, a.endOffset); err != nil {
 		return nil, err
 	}
 
@@ -202,7 +209,7 @@ func (r *AnnotationRange) Wrap(options ...WrapCallback) {
 
 // getTextNodeBoundary returns a range (text node and offset), given a specific selector and an offset.
 // The offset parameter is from the very beginning of the selector.
-func getTextNodeBoundary(root *html.Node, selector string, index int) (*html.Node, int, error) {
+func getTextNodeBoundary(bt boundaryType, root *html.Node, selector string, index int) (*html.Node, int, error) {
 	e, err := htmlquery.Query(root, "./"+selector)
 	if err != nil {
 		return nil, 0, err
@@ -230,7 +237,7 @@ func getTextNodeBoundary(root *html.Node, selector string, index int) (*html.Nod
 		if index == consummed {
 			// When we reach the end of a node, we can actually move the cursor to the
 			// next one.
-			if i+1 < len(nodes) {
+			if bt == boundaryStart && i+1 < len(nodes) {
 				textNode = nil
 				offset = 0
 			}

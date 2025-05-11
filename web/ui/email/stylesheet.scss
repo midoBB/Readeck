@@ -98,6 +98,7 @@ div.main.photo img {
 
 .prose {
   line-height: $line-height;
+  overflow-wrap: break-word;
 
   h1 {
     @flow-block;

@@ -17,6 +17,8 @@ $line-height: 1.5;
   }
 
   .prose {
+    overflow-wrap: break-word;
+
     h1 {
       @flow-block;
       font-size: 1.8em;

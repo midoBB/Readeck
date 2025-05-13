@@ -114,7 +114,7 @@ schemas:
       reading_time:
         type: integer
         minimum: 0
-        description: | 
+        description: |
           Duration of the article, in minutes. Either the actual duration for a
           video or a reading time based on the word count.
       resources:
@@ -164,6 +164,29 @@ schemas:
           width:
             type: integer
             description: Image width
+
+bookmarkCount:
+  type: object
+  description: Summary counts of bookmarks
+  properties:
+    total:
+      type: integer
+      description: Number of bookmarks
+    unread:
+      type: integer
+      description: Number of unread bookmarks
+    archived:
+      type: integer
+      description: Number of archived bookmarks
+    marked:
+      type: integer
+      description: Number of marked bookmarks
+    by_type:
+      type: object
+      description: Breakdown of bookmarks by type
+      additionalProperties:
+        type: integer
+
 
   bookmarkInfo:
     allOf:

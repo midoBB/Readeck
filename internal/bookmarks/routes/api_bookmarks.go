@@ -46,6 +46,22 @@ type (
 	ctxDefaultLimitKey      struct{}
 )
 
+func (api *apiRouter) bookmarkCount(w http.ResponseWriter, r *http.Request) {
+	count, err := bookmarks.Bookmarks.CountAll(auth.GetRequestUser(r))
+	if err != nil {
+		api.srv.Error(w, r, err)
+		return
+	}
+	result := bookmarkCount{
+		Total:    count.Total,
+		Unread:   count.Unread,
+		Archived: count.Archived,
+		Marked:   count.Marked,
+		ByType:   count.ByType,
+	}
+	api.srv.Render(w, r, http.StatusOK, result)
+}
+
 // bookmarkList renders a paginated list of the connected
 // user bookmarks in JSON.
 func (api *apiRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
@@ -349,7 +365,11 @@ func (api *apiRouter) labelUpdate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ids, err := bookmarks.Bookmarks.RenameLabel(auth.GetRequestUser(r), label, f.Get("name").String())
+	ids, err := bookmarks.Bookmarks.RenameLabel(
+		auth.GetRequestUser(r),
+		label,
+		f.Get("name").String(),
+	)
 	if err != nil {
 		api.srv.Error(w, r, err)
 		return
@@ -602,7 +622,11 @@ func (api *apiRouter) withCollectionFilters(next http.Handler) http.Handler {
 		ctx = filters.saveContext(ctx)
 
 		if ctx.Value(ctxBookmarkOrderKey{}) == nil {
-			ctx = context.WithValue(ctx, ctxBookmarkOrderKey{}, orderExpressionList{goqu.T("b").Col("created").Desc()})
+			ctx = context.WithValue(
+				ctx,
+				ctxBookmarkOrderKey{},
+				orderExpressionList{goqu.T("b").Col("created").Desc()},
+			)
 		}
 
 		next.ServeHTTP(w, r.WithContext(ctx))
@@ -897,6 +921,14 @@ func (bl bookmarkList) GetSumStrings() []string {
 	return r
 }
 
+type bookmarkCount struct {
+	Total    int            `json:"total"`
+	Unread   int            `json:"unread"`
+	Archived int            `json:"archived"`
+	Marked   int            `json:"marked"`
+	ByType   map[string]int `json:"by_type"`
+}
+
 // bookmarkItem is a serialized bookmark instance that can
 // be used directly on the API or by an HTML template.
 type bookmarkItem struct {
@@ -950,7 +982,12 @@ type bookmarkFile struct {
 }
 
 // newBookmarkItem builds a BookmarkItem from a Bookmark instance.
-func newBookmarkItem(s *server.Server, r *http.Request, b *bookmarks.Bookmark, base string) bookmarkItem {
+func newBookmarkItem(
+	s *server.Server,
+	r *http.Request,
+	b *bookmarks.Bookmark,
+	base string,
+) bookmarkItem {
 	res := bookmarkItem{
 		Bookmark:      b,
 		ID:            b.UID,
@@ -1033,14 +1070,20 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *bookmarks.Bookmark, b
 	}
 
 	if v, ok := b.Files["props"]; ok {
-		res.Resources["props"] = &bookmarkFile{Src: s.AbsoluteURL(r, base, b.UID, "x", v.Name).String()}
+		res.Resources["props"] = &bookmarkFile{
+			Src: s.AbsoluteURL(r, base, b.UID, "x", v.Name).String(),
+		}
 	}
 	if v, ok := b.Files["log"]; ok {
-		res.Resources["log"] = &bookmarkFile{Src: s.AbsoluteURL(r, base, b.UID, "x", v.Name).String()}
+		res.Resources["log"] = &bookmarkFile{
+			Src: s.AbsoluteURL(r, base, b.UID, "x", v.Name).String(),
+		}
 	}
 	if _, ok := b.Files["article"]; ok {
 		res.HasArticle = true
-		res.Resources["article"] = &bookmarkFile{Src: s.AbsoluteURL(r, base, b.UID, "article").String()}
+		res.Resources["article"] = &bookmarkFile{
+			Src: s.AbsoluteURL(r, base, b.UID, "article").String(),
+		}
 	}
 
 	return res
@@ -1102,7 +1145,11 @@ func (bi *bookmarkItem) setEmbed() error {
 		dom.SetAttribute(embed, "allowfullscreen", "true")
 		dom.SetAttribute(embed, "referrerpolicy", "no-referrer")
 		dom.SetAttribute(embed, "sandbox", "allow-scripts allow-same-origin")
-		dom.SetAttribute(embed, "allow", "accelerometer 'none'; ambient-light-sensor 'none'; autoplay 'none'; battery 'none'; browsing-topics 'none'; camera 'none'; display-capture 'none'; domain-agent 'none'; document-domain 'none'; encrypted-media 'none'; execution-while-not-rendered 'none'; execution-while-out-of-viewport ''; gamepad 'none'; geolocation 'none'; gyroscope 'none'; hid 'none'; identity-credentials-get 'none'; idle-detection 'none'; local-fonts 'none'; magnetometer 'none'; microphone 'none'; midi 'none'; otp-credentials 'none'; payment 'none'; publickey-credentials-create 'none'; publickey-credentials-get 'none'; screen-wake-lock 'none'; serial 'none'; speaker-selection 'none'; usb 'none'; window-management 'none'; xr-spatial-tracking 'none'")
+		dom.SetAttribute(
+			embed,
+			"allow",
+			"accelerometer 'none'; ambient-light-sensor 'none'; autoplay 'none'; battery 'none'; browsing-topics 'none'; camera 'none'; display-capture 'none'; domain-agent 'none'; document-domain 'none'; encrypted-media 'none'; execution-while-not-rendered 'none'; execution-while-out-of-viewport ''; gamepad 'none'; geolocation 'none'; gyroscope 'none'; hid 'none'; identity-credentials-get 'none'; idle-detection 'none'; local-fonts 'none'; magnetometer 'none'; microphone 'none'; midi 'none'; otp-credentials 'none'; payment 'none'; publickey-credentials-create 'none'; publickey-credentials-get 'none'; screen-wake-lock 'none'; serial 'none'; speaker-selection 'none'; usb 'none'; window-management 'none'; xr-spatial-tracking 'none'",
+		)
 		dom.SetAttribute(embed, "csp", "sandbox allow-scripts allow-same-origin")
 		bi.Embed = dom.OuterHTML(embed)
 		bi.EmbedHostname = src.Hostname()
@@ -1153,7 +1200,9 @@ type labelItem struct {
 
 func (i *labelItem) setURLs(bookmarkBase *url.URL) {
 	i.Href = bookmarkBase.JoinPath("labels", i.Name.Path()).String()
-	i.HrefBookmarks = bookmarkBase.String() + "?" + url.Values{"labels": []string{strconv.Quote(string(i.Name))}}.Encode()
+	i.HrefBookmarks = bookmarkBase.String() + "?" + url.Values{
+		"labels": []string{strconv.Quote(string(i.Name))},
+	}.Encode()
 }
 
 type labelString string
@@ -1181,10 +1230,15 @@ type annotationItem struct {
 	BookmarkSiteName string    `json:"bookmark_site_name"`
 }
 
-func newAnnotationItem(s *server.Server, r *http.Request, a *bookmarks.AnnotationQueryResult) annotationItem {
+func newAnnotationItem(
+	s *server.Server,
+	r *http.Request,
+	a *bookmarks.AnnotationQueryResult,
+) annotationItem {
 	res := annotationItem{
-		ID:               a.ID,
-		Href:             s.AbsoluteURL(r, "/api/bookmarks", a.Bookmark.UID, "annotations", a.ID).String(),
+		ID: a.ID,
+		Href: s.AbsoluteURL(r, "/api/bookmarks", a.Bookmark.UID, "annotations", a.ID).
+			String(),
 		Text:             a.Text,
 		Created:          time.Time(a.Created),
 		Color:            a.Color,

@@ -115,6 +115,13 @@ paths:
         - "traits.yaml#.deferred"
         - "bookmarks/routes.yaml#.create"
 
+  /bookmarks/count:
+    get:
+      tags: [bookmarks]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "bookmarks/routes.yaml#.count"
+
   /bookmarks/{id}:
     $merge:
       - "bookmarks/routes.yaml#.withBookmark"

@@ -149,6 +149,17 @@ list:
             type: array
             items:
               $ref: "#/components/schemas/bookmarkSummary"
+# GET /bookmarks/count
+count:
+  summary: Bookmark Count
+  description: Returns the number of bookmarks in the database.
+  responses:
+    "200":
+      description: Number of bookmarks
+      content:
+        application/json:
+          schema:
+            $ref:  "#/components/schemas/bookmarkCount"
 
 # POST /bookmarks
 create:

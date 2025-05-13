@@ -1,0 +1,8 @@
+# SPDX-FileCopyrightText: 2025 mohamed hamdi <haamdi@outlook.com>
+#
+# SPDX-License-Identifier: ISC
+
+[tools]
+go = "1.24.1"
+make = "4.4.1"
+node = "22.14.0"

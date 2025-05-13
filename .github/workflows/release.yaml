@@ -1,0 +1,56 @@
+# SPDX-FileCopyrightText: 2025 mohamed hamdi <haamdi@outlook.com>
+#
+# SPDX-License-Identifier: ISC
+
+name: Release on Tag
+
+on:
+  push:
+    tags:
+      - '*'      # any new tag
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      OUTNAME: readeck
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Install tools with Mise
+        uses: jdx/mise-action@v2
+        with:
+          install: true
+          cache: true
+
+      - name: Bootstrap Go & Web deps
+        run: |
+          make setup
+
+      - name: Build web assets
+        run: make generate
+
+      - name: Build Linux amd64
+        run: |
+          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+            make xbuild/linux/amd64
+
+      - name: Build Linux arm64
+        run: |
+          CGO_ENABLED=0 GOOS=linux GOARCH=arm64 \
+            make xbuild/linux/arm64
+
+      - name: Build Linux armv7
+        run: |
+          CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 \
+            make xbuild
+
+      - name: Publish Release with assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*linux-amd64
+            dist/*linux-arm64
+            dist/*linux-arm

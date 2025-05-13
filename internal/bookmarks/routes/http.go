@@ -67,6 +67,7 @@ func newAPIRouter(s *server.Server) *apiRouter {
 			api.withCollectionFilters,
 			api.withBookmarkList,
 		).Get("/", api.bookmarkList)
+		r.With(api.withBookmarkList).Get("/count", api.bookmarkCount)
 		r.With(api.withBookmark).Route("/{uid:[a-zA-Z0-9]{18,22}}", func(r chi.Router) {
 			r.Get("/", api.bookmarkInfo)
 			r.Get("/article", api.bookmarkArticle)
@@ -112,8 +113,14 @@ func newAPIRouter(s *server.Server) *apiRouter {
 			r.Patch("/{uid:[a-zA-Z0-9]{18,22}}", api.bookmarkUpdate)
 			r.Delete("/{uid:[a-zA-Z0-9]{18,22}}", api.bookmarkDelete)
 			r.Post("/{uid:[a-zA-Z0-9]{18,22}}/annotations", api.annotationCreate)
-			r.Patch("/{uid:[a-zA-Z0-9]{18,22}}/annotations/{id:[a-zA-Z0-9]{18,22}}", api.annotationUpdate)
-			r.Delete("/{uid:[a-zA-Z0-9]{18,22}}/annotations/{id:[a-zA-Z0-9]{18,22}}", api.annotationDelete)
+			r.Patch(
+				"/{uid:[a-zA-Z0-9]{18,22}}/annotations/{id:[a-zA-Z0-9]{18,22}}",
+				api.annotationUpdate,
+			)
+			r.Delete(
+				"/{uid:[a-zA-Z0-9]{18,22}}/annotations/{id:[a-zA-Z0-9]{18,22}}",
+				api.annotationDelete,
+			)
 		})
 		r.With(api.withLabel).Patch("/labels/{label}", api.labelUpdate)
 		r.With(api.withLabel).Delete("/labels/{label}", api.labelDelete)
@@ -121,16 +128,18 @@ func newAPIRouter(s *server.Server) *apiRouter {
 
 	// Collection API
 	r.Route("/collections", func(r chi.Router) {
-		r.With(api.srv.WithPermission("api:bookmarks:collections", "read")).Group(func(r chi.Router) {
-			r.With(api.withColletionList).Get("/", api.collectionList)
-			r.With(api.withCollection).Get("/{uid:[a-zA-Z0-9]{18,22}}", api.collectionInfo)
-		})
+		r.With(api.srv.WithPermission("api:bookmarks:collections", "read")).
+			Group(func(r chi.Router) {
+				r.With(api.withColletionList).Get("/", api.collectionList)
+				r.With(api.withCollection).Get("/{uid:[a-zA-Z0-9]{18,22}}", api.collectionInfo)
+			})
 
-		r.With(api.srv.WithPermission("api:bookmarks:collections", "write")).Group(func(r chi.Router) {
-			r.Post("/", api.collectionCreate)
-			r.With(api.withCollection).Patch("/{uid:[a-zA-Z0-9]{18,22}}", api.collectionUpdate)
-			r.With(api.withCollection).Delete("/{uid:[a-zA-Z0-9]{18,22}}", api.collectionDelete)
-		})
+		r.With(api.srv.WithPermission("api:bookmarks:collections", "write")).
+			Group(func(r chi.Router) {
+				r.Post("/", api.collectionCreate)
+				r.With(api.withCollection).Patch("/{uid:[a-zA-Z0-9]{18,22}}", api.collectionUpdate)
+				r.With(api.withCollection).Delete("/{uid:[a-zA-Z0-9]{18,22}}", api.collectionDelete)
+			})
 	})
 
 	// Import API
@@ -209,30 +218,32 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 	// Collection views
 	r.Route("/collections", func(r chi.Router) {
 		r.With(h.srv.WithPermission("bookmarks:collections", "read")).Group(func(r chi.Router) {
-			r.With(h.withBaseContext, api.withDefaultLimit(listDefaultLimit)).Group(func(r chi.Router) {
-				r.With(api.withColletionList).Get("/", h.collectionList)
-				r.With(
-					api.withCollection,
-					api.withCollectionFilters,
-					api.withBookmarkOrdering,
-					api.withBookmarkList,
-				).Get("/{uid:[a-zA-Z0-9]{18,22}}", h.collectionInfo)
-			})
+			r.With(h.withBaseContext, api.withDefaultLimit(listDefaultLimit)).
+				Group(func(r chi.Router) {
+					r.With(api.withColletionList).Get("/", h.collectionList)
+					r.With(
+						api.withCollection,
+						api.withCollectionFilters,
+						api.withBookmarkOrdering,
+						api.withBookmarkList,
+					).Get("/{uid:[a-zA-Z0-9]{18,22}}", h.collectionInfo)
+				})
 		})
 
 		r.With(h.srv.WithPermission("bookmarks:collections", "write")).Group(func(r chi.Router) {
-			r.With(h.withBaseContext, api.withDefaultLimit(listDefaultLimit)).Group(func(r chi.Router) {
-				r.With(api.withBookmarkList).Get("/add", h.collectionCreate)
-				r.With(api.withBookmarkList).Post("/add", h.collectionCreate)
-				r.With(
-					api.withCollection,
-					api.withCollectionFilters,
-					api.withBookmarkList,
-				).Post("/{uid:[a-zA-Z0-9]{18,22}}", h.collectionInfo)
-				r.With(
-					api.withCollection,
-				).Post("/{uid:[a-zA-Z0-9]{18,22}}/delete", h.collectionDelete)
-			})
+			r.With(h.withBaseContext, api.withDefaultLimit(listDefaultLimit)).
+				Group(func(r chi.Router) {
+					r.With(api.withBookmarkList).Get("/add", h.collectionCreate)
+					r.With(api.withBookmarkList).Post("/add", h.collectionCreate)
+					r.With(
+						api.withCollection,
+						api.withCollectionFilters,
+						api.withBookmarkList,
+					).Post("/{uid:[a-zA-Z0-9]{18,22}}", h.collectionInfo)
+					r.With(
+						api.withCollection,
+					).Post("/{uid:[a-zA-Z0-9]{18,22}}/delete", h.collectionDelete)
+				})
 		})
 	})
 
@@ -263,40 +274,43 @@ func newSharedViewsRouter(api *apiRouter) *publicViewsRouter {
 // directly from the zip file and returns the requested file's content.
 func mediaRoutes(_ *server.Server) http.Handler {
 	r := chi.NewRouter()
-	r.Get("/{prefix:[a-zA-Z0-9]{2}}/{fname:[a-zA-Z0-9]+}/{p:^(img|_resources)$}/{name}", func(w http.ResponseWriter, r *http.Request) {
-		p := path.Join(
-			chi.URLParam(r, "p"),
-			chi.URLParam(r, "name"),
-		)
-		p = path.Clean(p)
+	r.Get(
+		"/{prefix:[a-zA-Z0-9]{2}}/{fname:[a-zA-Z0-9]+}/{p:^(img|_resources)$}/{name}",
+		func(w http.ResponseWriter, r *http.Request) {
+			p := path.Join(
+				chi.URLParam(r, "p"),
+				chi.URLParam(r, "name"),
+			)
+			p = path.Clean(p)
 
-		r2 := new(http.Request)
-		*r2 = *r
-		r2.URL = new(url.URL)
-		*r2.URL = *r.URL
-		r2.URL.Path = p
+			r2 := new(http.Request)
+			*r2 = *r
+			r2.URL = new(url.URL)
+			*r2.URL = *r.URL
+			r2.URL.Path = p
 
-		zipfile := path.Join(
-			bookmarks.StoragePath(),
-			chi.URLParam(r, "prefix"),
-			chi.URLParam(r, "fname")+".zip",
-		)
+			zipfile := path.Join(
+				bookmarks.StoragePath(),
+				chi.URLParam(r, "prefix"),
+				chi.URLParam(r, "fname")+".zip",
+			)
 
-		fs := zipfs.HTTPZipFile(zipfile)
-		fs.ServeHTTP(w, r2, func(w http.ResponseWriter, status int) {
-			// Anything that comes from a bookmark resource needs a strict policy
-			// We allow unsafe-inline for SVG embed styles
-			csp.Policy{
-				"base-uri":    {csp.None},
-				"default-src": {csp.None},
-				"style-src":   {csp.UnsafeInline},
-			}.Write(w.Header())
+			fs := zipfs.HTTPZipFile(zipfile)
+			fs.ServeHTTP(w, r2, func(w http.ResponseWriter, status int) {
+				// Anything that comes from a bookmark resource needs a strict policy
+				// We allow unsafe-inline for SVG embed styles
+				csp.Policy{
+					"base-uri":    {csp.None},
+					"default-src": {csp.None},
+					"style-src":   {csp.UnsafeInline},
+				}.Write(w.Header())
 
-			if status == http.StatusOK {
-				w.Header().Set("Cache-Control", `public, max-age=31536000`)
-			}
-		})
-	})
+				if status == http.StatusOK {
+					w.Header().Set("Cache-Control", `public, max-age=31536000`)
+				}
+			})
+		},
+	)
 
 	return r
 }

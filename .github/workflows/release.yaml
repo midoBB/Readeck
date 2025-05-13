@@ -12,8 +12,6 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    env:
-      OUTNAME: readeck
 
     steps:
       - name: Check out code

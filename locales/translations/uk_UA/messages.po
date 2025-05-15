@@ -6,18 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-03-22 08:42+0000\n"
+"POT-Creation-Date: 2025-05-15 06:16+0000\n"
 "PO-Revision-Date: 2025-03-23 09:21+0000\n"
 "Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
-"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
-"application/uk/>\n"
 "Language: uk_UA\n"
+"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/application/uk/>\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.10.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -139,7 +136,7 @@ msgstr "Користувача буде видалено через кілька
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
 #: assets/templates/bookmarks/import/form-text.jet.html:36
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:70
-#: assets/templates/bookmarks/label.jet.html:51
+#: assets/templates/bookmarks/label.jet.html:52
 #: assets/templates/profile/credential.jet.html:20
 #: assets/templates/profile/credential_list.jet.html:62
 #: assets/templates/profile/token.jet.html:20
@@ -151,7 +148,7 @@ msgstr "Скасувати"
 #: assets/templates/admin/user_create.jet.html:20
 #: assets/templates/auth/onboarding.jet.html:24
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:41
-#: assets/templates/profile/index.jet.html:20
+#: assets/templates/profile/index.jet.html:22
 msgid "Username"
 msgstr "Ім’я користувача"
 
@@ -172,7 +169,7 @@ msgstr "Група"
 #: assets/templates/auth/login.jet.html:30
 #: assets/templates/auth/onboarding.jet.html:29
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:48
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:134
+#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:136
 msgid "Password"
 msgstr "Пароль"
 
@@ -181,10 +178,10 @@ msgid "will not change if empty"
 msgstr "не зміниться, якщо пусте"
 
 #: assets/templates/admin/user.jet.html:52
-#: assets/templates/bookmarks/collection.jet.html:77
+#: assets/templates/bookmarks/collection.jet.html:78
 #: assets/templates/bookmarks/collection_create.jet.html:30
 #: assets/templates/profile/credential.jet.html:88
-#: assets/templates/profile/index.jet.html:35
+#: assets/templates/profile/index.jet.html:80
 #: assets/templates/profile/password.jet.html:36
 #: assets/templates/profile/token.jet.html:75
 msgid "Save"
@@ -267,11 +264,9 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"  Ваша електронна адреса не є обов’язковою та залишиться лише в межах цієї "
-"інсталяції.\n"
+"  Ваша електронна адреса не є обов’язковою та залишиться лише в межах цієї інсталяції.\n"
 "  Вона ніколи не буде зібрана, передана чи продана.\n"
-"  Її буде використано <strong>лише</strong> у разі вашої потреби відновлення "
-"пароля та для внутрішніх сповіщень.\n"
+"  Її буде використано <strong>лише</strong> у разі вашої потреби відновлення пароля та для внутрішніх сповіщень.\n"
 "  "
 
 #: assets/templates/auth/onboarding.jet.html:47
@@ -295,8 +290,7 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"        Будь ласка, вкажіть електронну адресу, яку ви використовували під "
-"час створення\n"
+"        Будь ласка, вкажіть електронну адресу, яку ви використовували під час створення\n"
 "        облікового запису, і ми надішлемо вам повідомлення з посиланням\n"
 "        для відновлення пароля.\n"
 "      "
@@ -362,8 +356,7 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"        Як тільки ви почнете виділяти частини ваших збережених статей, вони "
-"з’являться на цій сторінці\n"
+"        Як тільки ви почнете виділяти частини ваших збережених статей, вони з’являться на цій сторінці\n"
 "        щоб ви легко знайшли їх.\n"
 "      "
 
@@ -372,54 +365,54 @@ msgstr ""
 msgid "Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</a>."
 msgstr "Прочитайте більше про виділення в <a class=\"%s\" href=\"%s\">документації</a>."
 
-#: assets/templates/bookmarks/base.jet.html:9
+#: assets/templates/bookmarks/base.jet.html:13
 #: assets/templates/bookmarks/bookmark.jet.html:15
 #: assets/templates/menu.jet.html:20
 msgid "Bookmarks"
 msgstr "Закладки"
 
-#: assets/templates/bookmarks/base.jet.html:24
+#: assets/templates/bookmarks/base.jet.html:29
 msgid "All"
 msgstr "Усе"
 
-#: assets/templates/bookmarks/base.jet.html:27
+#: assets/templates/bookmarks/base.jet.html:32
 msgid "Unread"
 msgstr "Непрочитані"
 
-#: assets/templates/bookmarks/base.jet.html:30
+#: assets/templates/bookmarks/base.jet.html:35
 msgid "Archive"
 msgstr "Архів"
 
-#: assets/templates/bookmarks/base.jet.html:33
+#: assets/templates/bookmarks/base.jet.html:38
 msgid "Favorites"
 msgstr "Обране"
 
-#: assets/templates/bookmarks/base.jet.html:41
-#: internal/bookmarks/routes/views_bookmarks.go:114
+#: assets/templates/bookmarks/base.jet.html:46
+#: internal/bookmarks/routes/views_bookmarks.go:115
 msgid "Articles"
 msgstr "Статті"
 
-#: assets/templates/bookmarks/base.jet.html:47
-#: internal/bookmarks/routes/views_bookmarks.go:118
+#: assets/templates/bookmarks/base.jet.html:52
+#: internal/bookmarks/routes/views_bookmarks.go:119
 msgid "Videos"
 msgstr "Відео"
 
-#: assets/templates/bookmarks/base.jet.html:53
-#: internal/bookmarks/routes/views_bookmarks.go:116
+#: assets/templates/bookmarks/base.jet.html:58
+#: internal/bookmarks/routes/views_bookmarks.go:117
 msgid "Pictures"
 msgstr "Зображення"
 
-#: assets/templates/bookmarks/base.jet.html:63
-#: assets/templates/bookmarks/components/sidebar.jet.html:96
+#: assets/templates/bookmarks/base.jet.html:68
+#: assets/templates/bookmarks/components/sidebar.jet.html:91
 msgid "Labels"
 msgstr "Мітки"
 
-#: assets/templates/bookmarks/base.jet.html:65
-#: assets/templates/bookmarks/components/sidebar.jet.html:101
+#: assets/templates/bookmarks/base.jet.html:70
+#: assets/templates/bookmarks/components/sidebar.jet.html:96
 msgid "Highlights"
 msgstr "Виділення"
 
-#: assets/templates/bookmarks/base.jet.html:67
+#: assets/templates/bookmarks/base.jet.html:72
 #: assets/templates/bookmarks/collection.jet.html:11
 #: assets/templates/bookmarks/collection.jet.html:33
 msgid "Collections"
@@ -448,59 +441,68 @@ msgstr "Закладка завантажується"
 msgid "Bookmark not found"
 msgstr "Закладку не знайдено"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:13
+#: assets/templates/bookmarks/bookmark_public.jet.html:17
 msgid "Shared link"
 msgstr "Спільне посилання"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:23
+#: assets/templates/bookmarks/bookmark_public.jet.html:54
 msgid "Page not found"
 msgstr "Сторінку не знайдено"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:25
+#: assets/templates/bookmarks/bookmark_public.jet.html:56
 msgid "Page has expired"
 msgstr "Термін дії сторінки закінчився"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:47
+#: assets/templates/bookmarks/bookmark_public.jet.html:78
 #: assets/templates/bookmarks/components/sidebar.jet.html:56
+#: assets/templates/emails/bookmark.jet.html:20
 #: assets/templates/epub/bookmark.jet.html:37
 #, python-format
 msgid "Published on %s"
 msgstr "Опубліковано %s"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:52
+#: assets/templates/bookmarks/bookmark_public.jet.html:83
 #: assets/templates/bookmarks/components/sidebar.jet.html:61
+#: assets/templates/emails/bookmark.jet.html:23
 #: assets/templates/epub/bookmark.jet.html:40
 #, python-format
 msgid "By %s"
 msgstr "Автор %s"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:60
+#: assets/templates/bookmarks/bookmark_public.jet.html:91
 #, python-format
 msgid "%d min"
 msgstr "%d хв"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:65
+#: assets/templates/bookmarks/bookmark_public.jet.html:96
 #, python-format
 msgid "Shared by %s"
 msgstr "Поділились %s"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:66
+#: assets/templates/bookmarks/bookmark_public.jet.html:97
 msgid "with"
 msgstr "з"
 
 # | msgid "Saved with Readeck"
-#: assets/templates/bookmarks/bookmark_public.jet.html:115
+#: assets/templates/bookmarks/bookmark_public.jet.html:146
 msgid "Saved with"
 msgstr "Збережено за допомогою"
 
-#: assets/templates/bookmarks/bookmark_shared.jet.html:8
-msgid "Share link"
+# | msgid "Share by Link"
+#: assets/templates/bookmarks/bookmark_share_email.jet.html:8
+#, fuzzy
+msgid "Share by email"
 msgstr "Поділитися посиланням"
 
-#: assets/templates/bookmarks/bookmark_shared.jet.html:19
+#: assets/templates/bookmarks/bookmark_share_email.jet.html:18
+#: assets/templates/bookmarks/bookmark_share_link.jet.html:19
 #, python-format
 msgid "Share: %s"
 msgstr "Поділитись: %s"
+
+#: assets/templates/bookmarks/bookmark_share_link.jet.html:8
+msgid "Share link"
+msgstr "Поділитися посиланням"
 
 #: assets/templates/bookmarks/collection.jet.html:16
 #, python-format
@@ -512,31 +514,31 @@ msgid "Collection will be removed in a few seconds."
 msgstr "Колекцію буде видалено через кілька секунд."
 
 #: assets/templates/bookmarks/collection.jet.html:42
-#: assets/templates/bookmarks/collection.jet.html:54
+#: assets/templates/bookmarks/collection.jet.html:55
 msgid "Edit"
 msgstr "Редагувати"
 
-#: assets/templates/bookmarks/collection.jet.html:56
+#: assets/templates/bookmarks/collection.jet.html:57
 #: assets/templates/bookmarks/index.jet.html:104
-#: assets/templates/bookmarks/index.jet.html:137
-#: assets/templates/bookmarks/index.jet.html:140
+#: assets/templates/bookmarks/index.jet.html:138
+#: assets/templates/bookmarks/index.jet.html:141
 msgid "Filters"
 msgstr "Фільтри"
 
-#: assets/templates/bookmarks/collection.jet.html:59
-#: assets/templates/bookmarks/index.jet.html:143
-#: assets/templates/menu.jet.html:43 docs/http.go:177 docs/http.go:243
-#: docs/http.go:281
+#: assets/templates/bookmarks/collection.jet.html:60
+#: assets/templates/bookmarks/index.jet.html:144
+#: assets/templates/menu.jet.html:43 docs/http.go:178 docs/http.go:257
+#: docs/http.go:295
 msgid "Documentation"
 msgstr "Документація"
 
-#: assets/templates/bookmarks/collection.jet.html:67
+#: assets/templates/bookmarks/collection.jet.html:68
 #: assets/templates/bookmarks/collection_create.jet.html:23
 #: assets/templates/profile/credential.jet.html:63
 msgid "Name"
 msgstr "Назва"
 
-#: assets/templates/bookmarks/collection.jet.html:79
+#: assets/templates/bookmarks/collection.jet.html:80
 msgid "Delete collection"
 msgstr "Видалити колекцію"
 
@@ -643,13 +645,21 @@ msgid "Undo"
 msgstr "Скасувати"
 
 #: assets/templates/bookmarks/components/actions.jet.html:58
-#: assets/templates/bookmarks/components/list_actions.jet.html:72
+#: assets/templates/bookmarks/components/list_actions.jet.html:79
 msgid "Download EPUB"
 msgstr "Завантажити EPUB"
 
-#: assets/templates/bookmarks/components/actions.jet.html:60
+#: assets/templates/bookmarks/components/actions.jet.html:61
 msgid "Share by Link"
 msgstr "Поділитися посиланням"
+
+#: assets/templates/bookmarks/components/actions.jet.html:64
+msgid "Send article by Email"
+msgstr ""
+
+#: assets/templates/bookmarks/components/actions.jet.html:66
+msgid "Send e-book by Email"
+msgstr ""
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
 msgid "Saved with Readeck"
@@ -796,6 +806,12 @@ msgstr "Вигляд сітки"
 msgid "Compact view"
 msgstr "Компактний вигляд"
 
+# | msgid "Grid view"
+#: assets/templates/bookmarks/components/list_actions.jet.html:1
+#, fuzzy
+msgid "Mosaic view"
+msgstr "Вигляд сітки"
+
 # | msgid "Import bookmarks"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Sort bookmarks"
@@ -809,23 +825,6 @@ msgstr "Параметри сортування"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Import and export"
 msgstr "Імпорт і експорт"
-
-#: assets/templates/bookmarks/components/public_share.jet.html:9
-msgid "You can share the following link with your friends."
-msgstr "Ви можете поділитися наступним посиланням з друзями."
-
-#: assets/templates/bookmarks/components/public_share.jet.html:10
-#, python-format
-msgid "It expires on %s"
-msgstr "Спливає %s"
-
-#: assets/templates/bookmarks/components/public_share.jet.html:22
-msgid "Copy the link"
-msgstr "Скопіювати посилання"
-
-#: assets/templates/bookmarks/components/public_share.jet.html:25
-msgid "Go back to the bookmark"
-msgstr "Повернутися до закладки"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
@@ -851,8 +850,54 @@ msgstr "Вирівняти"
 msgid "Hyphenation"
 msgstr "Перенос"
 
+#: assets/templates/bookmarks/components/share_email.jet.html:16
+msgid "Sends this bookmark's content in the message."
+msgstr ""
+
+#: assets/templates/bookmarks/components/share_email.jet.html:18
+msgid "Sends this bookmarks as an attached EPUB file."
+msgstr ""
+
+# | msgid "From date"
+#: assets/templates/bookmarks/components/share_email.jet.html:30
+#, fuzzy
+msgid "Format"
+msgstr "Від дати"
+
+#: assets/templates/bookmarks/components/share_email.jet.html:40
+msgid "Send To"
+msgstr ""
+
+#: assets/templates/bookmarks/components/share_email.jet.html:45
+msgid "Send email"
+msgstr ""
+
+#: assets/templates/bookmarks/components/share_email.jet.html:49
+#, python-format
+msgid "The bookmark was sent to %s"
+msgstr ""
+
+#: assets/templates/bookmarks/components/share_email.jet.html:56
+#: assets/templates/bookmarks/components/share_link.jet.html:25
+msgid "Go back to the bookmark"
+msgstr "Повернутися до закладки"
+
+#: assets/templates/bookmarks/components/share_link.jet.html:9
+msgid "You can share the following link with your friends."
+msgstr "Ви можете поділитися наступним посиланням з друзями."
+
+#: assets/templates/bookmarks/components/share_link.jet.html:10
+#, python-format
+msgid "It expires on %s"
+msgstr "Спливає %s"
+
+#: assets/templates/bookmarks/components/share_link.jet.html:22
+msgid "Copy the link"
+msgstr "Скопіювати посилання"
+
 #: assets/templates/bookmarks/components/sidebar.jet.html:1
 #: assets/templates/bookmarks/components/sidebar.jet.html:49
+#: assets/templates/emails/bookmark.jet.html:16
 #: assets/templates/epub/bookmark.jet.html:34
 msgid "no site name"
 msgstr "немає назви сайту"
@@ -862,6 +907,7 @@ msgid "Errors occurred during extraction."
 msgstr "Під час витягу виникли помилки."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:69
+#: assets/templates/emails/bookmark.jet.html:27
 #: assets/templates/epub/bookmark.jet.html:45
 #, python-format
 msgid "About %d minute read"
@@ -870,11 +916,11 @@ msgstr[0] "Приблизно %d хвилина читання"
 msgstr[1] "Приблизно %d хвилини читання"
 msgstr[2] "Приблизно %d хвилин читання"
 
-#: assets/templates/bookmarks/components/sidebar.jet.html:104
+#: assets/templates/bookmarks/components/sidebar.jet.html:99
 msgid "Start selecting text in the article to create a new highlight."
 msgstr "Почніть вибирати текст у статті, щоб створити нове виділення."
 
-#: assets/templates/bookmarks/components/sidebar.jet.html:135
+#: assets/templates/bookmarks/components/sidebar.jet.html:130
 msgid "Links"
 msgstr "Посилання"
 
@@ -953,10 +999,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Перший рядок завантажуваного файлу повинен містити назви стовпчиків. "
-"Назви стовпчиків\n"
-"    не залежать від регістру і всі стовпчики є необов’язковими, за винятком "
-"<code>%s</code>.\n"
+"    Перший рядок завантажуваного файлу повинен містити назви стовпчиків. Назви стовпчиків\n"
+"    не залежать від регістру і всі стовпчики є необов’язковими, за винятком <code>%s</code>.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:45
@@ -1120,10 +1164,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Щоб імпортувати свої статті з Wallabag, спершу необхідно створити клієнт "
-"API\n"
-"    в меню <strong>Керування клієнтами API</strong> Wallabag. Так ви "
-"отримаєте\n"
+"    Щоб імпортувати свої статті з Wallabag, спершу необхідно створити клієнт API\n"
+"    в меню <strong>Керування клієнтами API</strong> Wallabag. Так ви отримаєте\n"
 "    <strong>ID клієнта</strong> та <strong>Секрет клієнта</strong>.\n"
 "  "
 
@@ -1164,8 +1206,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Тут ви можете імпортувати в Readeck свою наявну колекцію закладок із "
-"різних ресурсів.\n"
+"    Тут ви можете імпортувати в Readeck свою наявну колекцію закладок із різних ресурсів.\n"
 "  "
 
 #: assets/templates/bookmarks/import/index.jet.html:36
@@ -1270,8 +1311,7 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          Ви хочете імпортувати зі схожого інструмента або файлу з існуючими "
-"закладками?\n"
+"          Ви хочете імпортувати зі схожого інструмента або файлу з існуючими закладками?\n"
 "          Спробуйте утиліту імпорту Readeck.\n"
 "        "
 
@@ -1279,15 +1319,15 @@ msgstr ""
 msgid "Import links and articles"
 msgstr "Імпортувати посилання та статті"
 
-#: assets/templates/bookmarks/index.jet.html:111
+#: assets/templates/bookmarks/index.jet.html:112
 msgid "Import bookmarks"
 msgstr "Імпортувати закладки"
 
-#: assets/templates/bookmarks/index.jet.html:120
+#: assets/templates/bookmarks/index.jet.html:121
 msgid "Your search query yielded <strong>no results</strong>."
 msgstr "Ваш пошуковий запит не дав <strong>жодних результатів</strong>."
 
-#: assets/templates/bookmarks/index.jet.html:122
+#: assets/templates/bookmarks/index.jet.html:123
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
@@ -1295,16 +1335,16 @@ msgstr[0] "Ваш пошуковий запит дав <strong>%d результ
 msgstr[1] "Ваш пошуковий запит дав <strong>%d результати</strong>."
 msgstr[2] "Ваш пошуковий запит дав <strong>%d результатів</strong>."
 
-#: assets/templates/bookmarks/index.jet.html:153
+#: assets/templates/bookmarks/index.jet.html:154
 msgctxt "action"
 msgid "Search"
 msgstr "Пошук"
 
-#: assets/templates/bookmarks/index.jet.html:155
+#: assets/templates/bookmarks/index.jet.html:156
 msgid "Reset search"
 msgstr "Скинути пошук"
 
-#: assets/templates/bookmarks/index.jet.html:158
+#: assets/templates/bookmarks/index.jet.html:159
 msgid "Create a collection"
 msgstr "Створити колекцію"
 
@@ -1312,7 +1352,7 @@ msgstr "Створити колекцію"
 msgid "Delete"
 msgstr "Видалити"
 
-#: assets/templates/bookmarks/label.jet.html:50
+#: assets/templates/bookmarks/label.jet.html:51
 msgid "Label will be removed in a few seconds."
 msgstr "Мітку буде видалено через кілька секунд."
 
@@ -1331,7 +1371,7 @@ msgstr ""
 "  До мітки можна додати будь-що, зокрема емодзі!\n"
 
 #: assets/templates/docs/about.jet.html:8
-#: assets/templates/docs/base.jet.html:27 docs/http.go:244
+#: assets/templates/docs/base.jet.html:27 docs/http.go:258
 msgid "About Readeck"
 msgstr "Про Readeck"
 
@@ -1351,108 +1391,108 @@ msgstr "Інформація про систему"
 msgid "Here are your current system information. Please include them if you report a bug."
 msgstr "Тут знаходиться поточна інформація про вашу систему. Будь ласка, вкажіть її, якщо повідомляєте про помилку."
 
-#: assets/templates/docs/about.jet.html:31
+#: assets/templates/docs/about.jet.html:33
 msgid "Project"
 msgstr "Проєкт"
 
-#: assets/templates/docs/about.jet.html:34
+#: assets/templates/docs/about.jet.html:36
 msgid "Main website"
 msgstr "Головний вебсайт"
 
-#: assets/templates/docs/about.jet.html:35
+#: assets/templates/docs/about.jet.html:37
 msgid "Sources and issues"
 msgstr "Джерела та задачі"
 
-#: assets/templates/docs/about.jet.html:36
+#: assets/templates/docs/about.jet.html:38
 msgid "How to contribute"
 msgstr "Як долучитися"
 
-#: assets/templates/docs/about.jet.html:37
+#: assets/templates/docs/about.jet.html:39
 msgid "Community Forum"
 msgstr "Форум спільноти"
 
-#: assets/templates/docs/about.jet.html:38
+#: assets/templates/docs/about.jet.html:40
 msgid "Matrix Chat"
 msgstr "Чат Matrix"
 
-#: assets/templates/docs/about.jet.html:41
+#: assets/templates/docs/about.jet.html:43
 msgid "License"
 msgstr "Ліцензія"
 
-#: assets/templates/docs/about.jet.html:43
+#: assets/templates/docs/about.jet.html:45
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
 msgstr "Readeck розповсюджується на умовах ліцензії «%s»"
 
-#: assets/templates/docs/about.jet.html:47
+#: assets/templates/docs/about.jet.html:49
 msgid "Here's a short summary of the license conditions:"
 msgstr "Ось короткий огляд ліцензійних умов:"
 
-#: assets/templates/docs/about.jet.html:52
+#: assets/templates/docs/about.jet.html:54
 msgid "Permissions"
 msgstr "Дозволи"
 
-#: assets/templates/docs/about.jet.html:53
+#: assets/templates/docs/about.jet.html:55
 msgid "Conditions"
 msgstr "Умови"
 
-#: assets/templates/docs/about.jet.html:54
+#: assets/templates/docs/about.jet.html:56
 msgid "Limitations"
 msgstr "Обмеження"
 
-#: assets/templates/docs/about.jet.html:62
+#: assets/templates/docs/about.jet.html:64
 msgid "Commercial use"
 msgstr "Комерційне використання"
 
-#: assets/templates/docs/about.jet.html:65
+#: assets/templates/docs/about.jet.html:67
 msgid "Distribution"
 msgstr "Розповсюдження"
 
-#: assets/templates/docs/about.jet.html:68
+#: assets/templates/docs/about.jet.html:70
 msgid "Modification"
 msgstr "Модифікація"
 
-#: assets/templates/docs/about.jet.html:71
+#: assets/templates/docs/about.jet.html:73
 msgid "Patent use"
 msgstr "Використання патенту"
 
-#: assets/templates/docs/about.jet.html:74
+#: assets/templates/docs/about.jet.html:76
 msgid "Private use"
 msgstr "Приватне використання"
 
-#: assets/templates/docs/about.jet.html:81
+#: assets/templates/docs/about.jet.html:83
 msgid "Disclose source"
 msgstr "Оприлюднення джерела"
 
-#: assets/templates/docs/about.jet.html:84
+#: assets/templates/docs/about.jet.html:86
 msgid "License and copyright notice"
 msgstr "Ліцензія та повідомлення про авторські права"
 
-#: assets/templates/docs/about.jet.html:87
+#: assets/templates/docs/about.jet.html:89
 msgid "Network use is distribution"
 msgstr "Мережеве використання — це розповсюдження"
 
-#: assets/templates/docs/about.jet.html:90
+#: assets/templates/docs/about.jet.html:92
 msgid "Same license"
 msgstr "Та сама ліцензія"
 
-#: assets/templates/docs/about.jet.html:93
+#: assets/templates/docs/about.jet.html:95
 msgid "State changes"
 msgstr "Зміни стану"
 
-#: assets/templates/docs/about.jet.html:100
+#: assets/templates/docs/about.jet.html:102
 msgid "Liability"
 msgstr "Відповідальність"
 
-#: assets/templates/docs/about.jet.html:103
+#: assets/templates/docs/about.jet.html:105
 msgid "Warranty"
 msgstr "Гарантія"
 
-#: assets/templates/docs/about.jet.html:130
+#: assets/templates/docs/about.jet.html:132
 msgid "Third-Party Licenses"
 msgstr "Сторонні ліцензії"
 
-#: assets/templates/docs/about.jet.html:132
+#: assets/templates/docs/about.jet.html:134
 msgid "Readeck includes and/or uses the following open source assets:"
 msgstr "Readeck містить та/або використовує такі ресурси з відкритим кодом:"
 
@@ -1469,7 +1509,16 @@ msgstr "Допомога Readeck"
 msgid "Changelog"
 msgstr "Журнал змін"
 
-#: assets/templates/emails/recover.tmpl:8
+#: assets/templates/emails/bookmark_epub.jet.md:6
+#, python-format
+msgid ""
+"\n"
+"Hi,\n"
+"\n"
+"Here is your ebook for: **%s**\n"
+msgstr ""
+
+#: assets/templates/emails/recover.jet.md:7
 #, python-format
 msgid ""
 "\n"
@@ -1494,7 +1543,7 @@ msgstr ""
 "\n"
 "%s\n"
 
-#: assets/templates/emails/recover.tmpl:21
+#: assets/templates/emails/recover.jet.md:19
 #, python-format
 msgid ""
 "\n"
@@ -1522,16 +1571,10 @@ msgstr ""
 "тому спроба змінити пароль не вдалася.\n"
 "\n"
 "Якщо ви користувач Readeck на %s і ви\n"
-"очікували на цей лист, будь ласка, спробуйте ще раз, використовуючи "
-"електронну адресу,\n"
+"очікували на цей лист, будь ласка, спробуйте ще раз, використовуючи електронну адресу,\n"
 "яку ви вказали під час створення свого облікового запису.\n"
 "\n"
-"Якщо ви не є користувачем Readeck, будь ласка, проігноруйте це повідомлення."
-"\n"
-
-#: assets/templates/emails/recover.tmpl:38
-msgid "Kind regards"
-msgstr "З повагою"
+"Якщо ви не є користувачем Readeck, будь ласка, проігноруйте це повідомлення.\n"
 
 #: assets/templates/error.jet.html:8
 msgid "Error"
@@ -1569,20 +1612,20 @@ msgstr "Змінити колірну тему"
 msgid "Settings"
 msgstr "Налаштування"
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:98
-#: internal/profile/views.go:133 internal/profile/views.go:178
-#: internal/profile/views.go:246 internal/profile/views.go:277
-#: internal/profile/views.go:337
+#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:100
+#: internal/profile/views.go:135 internal/profile/views.go:180
+#: internal/profile/views.go:248 internal/profile/views.go:279
+#: internal/profile/views.go:339
 msgid "Profile"
 msgstr "Профіль"
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:179
-#: internal/profile/views.go:247
+#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:181
+#: internal/profile/views.go:249
 msgid "Application Passwords"
 msgstr "Паролі застосунків"
 
-#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:278
-#: internal/profile/views.go:338
+#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:280
+#: internal/profile/views.go:340
 msgid "API Tokens"
 msgstr "Токени API"
 
@@ -1700,13 +1743,56 @@ msgstr "Цей пароль буде видалено через кілька с
 msgid "My profile"
 msgstr "Мій профіль"
 
-#: assets/templates/profile/index.jet.html:26
+# | msgid "Settings"
+#: assets/templates/profile/index.jet.html:19
+#, fuzzy
+msgid "Base settings"
+msgstr "Налаштування"
+
+#: assets/templates/profile/index.jet.html:28
 msgid "Email Address"
 msgstr "Електронна адреса"
 
-#: assets/templates/profile/index.jet.html:31
+#: assets/templates/profile/index.jet.html:33
 msgid "Language"
 msgstr "Мова"
+
+# | msgid "Settings"
+#: assets/templates/profile/index.jet.html:48
+#, fuzzy
+msgid "Email settings"
+msgstr "Налаштування"
+
+#: assets/templates/profile/index.jet.html:49
+msgid ""
+"\n"
+"    These, optional, parameters are used when Readeck sends emails.\n"
+"    "
+msgstr ""
+
+#: assets/templates/profile/index.jet.html:55
+msgid "Reply To"
+msgstr ""
+
+#: assets/templates/profile/index.jet.html:56
+msgid "Add this email address in your outgoing emails so recipients can reply."
+msgstr ""
+
+#: assets/templates/profile/index.jet.html:61
+msgid "Send EPUB to"
+msgstr ""
+
+#: assets/templates/profile/index.jet.html:62
+msgid "This address is used to prefill the recipient when you send an e-book by email."
+msgstr ""
+
+#: assets/templates/profile/index.jet.html:69
+msgid ""
+"\n"
+"        If you plan to send e-books to a Kindle device, you must approve the\n"
+"        following email address within your Kindle Account:\n"
+"        "
+msgstr ""
 
 #: assets/templates/profile/password.jet.html:9
 msgid "Change my password"
@@ -1795,9 +1881,7 @@ msgstr ""
 #: assets/templates/profile/token_list.jet.html:20
 #, python-format
 msgid "Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
-msgstr ""
-"Будь ласка, прочитайте <a href=\"%s\">Документацію API</a>, якщо ви плануєте "
-"його використовувати."
+msgstr "Будь ласка, прочитайте <a href=\"%s\">Документацію API</a>, якщо ви плануєте його використовувати."
 
 #: assets/templates/profile/token_list.jet.html:26
 msgid "Create a new API token"
@@ -1889,83 +1973,83 @@ msgstr "Неправильні облікові дані"
 msgid "No access token found"
 msgstr "Не знайдено токен доступу"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:135
+#: internal/bookmarks/routes/forms_bookmarks.go:139
 msgid "Unable to process input data"
 msgstr "Не вдається обробити вхідні дані"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:376
+#: internal/bookmarks/routes/forms_bookmarks.go:380
 msgid "Article"
 msgstr "Стаття"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:377
+#: internal/bookmarks/routes/forms_bookmarks.go:381
 msgid "Picture"
 msgstr "Зображення"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:378
+#: internal/bookmarks/routes/forms_bookmarks.go:382
 msgid "Video"
 msgstr "Відео"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:385
+#: internal/bookmarks/routes/forms_bookmarks.go:389
 msgctxt "status"
 msgid "Unviewed"
 msgstr "Не переглянуто"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:386
+#: internal/bookmarks/routes/forms_bookmarks.go:390
 msgctxt "status"
 msgid "In-Progress"
 msgstr "У процесі"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:387
+#: internal/bookmarks/routes/forms_bookmarks.go:391
 msgctxt "status"
 msgid "Completed"
 msgstr "Завершено"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:621
+#: internal/bookmarks/routes/forms_bookmarks.go:625
 msgctxt "sort"
 msgid "Added, most recent first"
 msgstr "Додано, спочатку найновіші"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:622
+#: internal/bookmarks/routes/forms_bookmarks.go:626
 msgctxt "sort"
 msgid "Added, oldest first"
 msgstr "Додано, спочатку найдавніші"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:623
+#: internal/bookmarks/routes/forms_bookmarks.go:627
 msgctxt "sort"
 msgid "Published, most recent first"
 msgstr "Опубліковано, спочатку найновіші"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:624
+#: internal/bookmarks/routes/forms_bookmarks.go:628
 msgctxt "sort"
 msgid "Published, oldest first"
 msgstr "Опубліковано, спочатку найдавніші"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:625
+#: internal/bookmarks/routes/forms_bookmarks.go:629
 msgctxt "sort"
 msgid "Title, A to Z"
 msgstr "Заголовок, А-Я"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:626
+#: internal/bookmarks/routes/forms_bookmarks.go:630
 msgctxt "sort"
 msgid "Title, Z to A"
 msgstr "Заголовок, Я-А"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:627
+#: internal/bookmarks/routes/forms_bookmarks.go:631
 msgctxt "sort"
 msgid "Site Name, A to Z"
 msgstr "Назва сайту, А-Я"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:628
+#: internal/bookmarks/routes/forms_bookmarks.go:632
 msgctxt "sort"
 msgid "Site Name, Z to A"
 msgstr "Назва сайту, Я-А"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:629
+#: internal/bookmarks/routes/forms_bookmarks.go:633
 msgctxt "sort"
 msgid "Duration, shortest first"
 msgstr "Час читання, спочатку найкоротші"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:630
+#: internal/bookmarks/routes/forms_bookmarks.go:634
 msgctxt "sort"
 msgid "Duration, longest first"
 msgstr "Час читання, спочатку найдовші"
@@ -1993,23 +2077,23 @@ msgstr "Електронна книга колекції - %s"
 msgid "Browse collection: %s"
 msgstr "Переглянути колекцію: %s"
 
-#: internal/bookmarks/routes/views_bookmarks.go:99
+#: internal/bookmarks/routes/views_bookmarks.go:100
 msgid "All your Bookmarks"
 msgstr "Усі ваші закладки"
 
-#: internal/bookmarks/routes/views_bookmarks.go:104
+#: internal/bookmarks/routes/views_bookmarks.go:105
 msgid "Bookmark Search"
 msgstr "Пошук закладок"
 
-#: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:58
+#: internal/bookmarks/routes/views_bookmarks.go:109 internal/opds/http.go:58
 msgid "Unread Bookmarks"
 msgstr "Непрочитані закладки"
 
-#: internal/bookmarks/routes/views_bookmarks.go:110 internal/opds/http.go:62
+#: internal/bookmarks/routes/views_bookmarks.go:111 internal/opds/http.go:62
 msgid "Archived Bookmarks"
 msgstr "Архівовані закладки"
 
-#: internal/bookmarks/routes/views_bookmarks.go:112 internal/opds/http.go:66
+#: internal/bookmarks/routes/views_bookmarks.go:113 internal/opds/http.go:66
 msgid "Favorite Bookmarks"
 msgstr "Обрані закладки"
 
@@ -2039,35 +2123,35 @@ msgstr "неправильне ім’я користувача і/або еле
 msgid "invalid password"
 msgstr "неправильний пароль"
 
-#: internal/profile/views.go:86
+#: internal/profile/views.go:87
 msgid "Profile updated."
 msgstr "Профіль оновлено."
 
-#: internal/profile/views.go:121
+#: internal/profile/views.go:123
 msgid "Your password was changed."
 msgstr "Ваш пароль змінено."
 
-#: internal/profile/views.go:189
+#: internal/profile/views.go:191
 msgid "Error: you cannot create more credentials."
 msgstr "Помилка: ви не можете створити більше облікових даних."
 
-#: internal/profile/views.go:197
+#: internal/profile/views.go:199
 msgid "An error occurred while creating your password."
 msgstr "Під час створення вашого пароля виникла помилка."
 
-#: internal/profile/views.go:232
+#: internal/profile/views.go:234
 msgid "Password was updated."
 msgstr "Пароль оновлено."
 
-#: internal/profile/views.go:293
+#: internal/profile/views.go:295
 msgid "An error occurred while creating your token."
 msgstr "Під час створення вашого токена виникла помилка."
 
-#: internal/profile/views.go:298
+#: internal/profile/views.go:300
 msgid "New token created."
 msgstr "Новий токен створено."
 
-#: internal/profile/views.go:317
+#: internal/profile/views.go:319
 msgid "Token was updated."
 msgstr "Токен оновлено."
 
@@ -2327,3 +2411,7 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Unable to open zip file"
 #~ msgstr "Не вдається відкрити файл zip"
+
+#~ msgid "Kind regards"
+#~ msgstr "З повагою"
+

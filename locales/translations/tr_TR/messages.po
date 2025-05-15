@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-15 06:16+0000\n"
+"POT-Creation-Date: 2025-05-15 06:30+0000\n"
 "PO-Revision-Date: 2025-02-08 10:04+0000\n"
 "Last-Translator: misketmuskat <misketmuskat@users.noreply.translate.codeberg.org>\n"
 "Language: tr_TR\n"
@@ -852,7 +852,7 @@ msgid "Send To"
 msgstr ""
 
 #: assets/templates/bookmarks/components/share_email.jet.html:45
-msgid "Send email"
+msgid "Send message"
 msgstr ""
 
 #: assets/templates/bookmarks/components/share_email.jet.html:49
@@ -2309,5 +2309,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Kind regards"
+#~ msgstr ""
+
+#~ msgid "Send email"
 #~ msgstr ""
 

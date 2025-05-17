@@ -63,7 +63,7 @@ The domain of the current extraction. Note that it's different from the host nam
 
 The value is always in its Unicode form regardless of the initial input.
 
-#### `$.hostname` (read only)
+#### `$.host` (read only)
 
 The host name of the current extraction.
 

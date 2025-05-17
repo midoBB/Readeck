@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-15 06:30+0000\n"
-"PO-Revision-Date: 2025-03-23 09:21+0000\n"
+"PO-Revision-Date: 2025-05-16 09:04+0000\n"
 "Last-Translator: Vistaus <vistaus@noreply.codeberg.org>\n"
+"Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/"
+"application/nl/>\n"
 "Language: nl_NL\n"
-"Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/application/nl/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -490,9 +492,8 @@ msgstr "Bewaard met"
 
 # | msgid "Share by Link"
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:8
-#, fuzzy
 msgid "Share by email"
-msgstr "Delen via link"
+msgstr "Delen via e-mail"
 
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:18
 #: assets/templates/bookmarks/bookmark_share_link.jet.html:19
@@ -655,11 +656,11 @@ msgstr "Delen via link"
 
 #: assets/templates/bookmarks/components/actions.jet.html:64
 msgid "Send article by Email"
-msgstr ""
+msgstr "Artikel versturen via e-mail"
 
 #: assets/templates/bookmarks/components/actions.jet.html:66
 msgid "Send e-book by Email"
-msgstr ""
+msgstr "E-boek versturen via e-mail"
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
 msgid "Saved with Readeck"
@@ -807,9 +808,8 @@ msgstr "Compacte weergave"
 
 # | msgid "Grid view"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Mosaic view"
-msgstr "Roosterweergave"
+msgstr "Tegelweergave"
 
 # | msgid "Import bookmarks"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
@@ -852,30 +852,29 @@ msgstr "Interpunctie"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:16
 msgid "Sends this bookmark's content in the message."
-msgstr ""
+msgstr "Verstuur de inhoud van deze bladwijzer via een bericht."
 
 #: assets/templates/bookmarks/components/share_email.jet.html:18
 msgid "Sends this bookmarks as an attached EPUB file."
-msgstr ""
+msgstr "Verstuur deze bladwijzers als bijgevoegd epub-bestand."
 
 # | msgid "From date"
 #: assets/templates/bookmarks/components/share_email.jet.html:30
-#, fuzzy
 msgid "Format"
-msgstr "Vanaf datum"
+msgstr "Formaat"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:40
 msgid "Send To"
-msgstr ""
+msgstr "Versturen naar"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:45
 msgid "Send message"
-msgstr ""
+msgstr "Bericht versturen"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:49
 #, python-format
 msgid "The bookmark was sent to %s"
-msgstr ""
+msgstr "De bladwijzer is verstuurd naar %s"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:56
 #: assets/templates/bookmarks/components/share_link.jet.html:25
@@ -1523,6 +1522,10 @@ msgid ""
 "\n"
 "Here is your ebook for: **%s**\n"
 msgstr ""
+"\n"
+"Hoi,\n"
+"\n"
+"Hier is je e-boek van: **%s**\n"
 
 #: assets/templates/emails/recover.jet.md:7
 #, python-format
@@ -1752,9 +1755,8 @@ msgstr "Mijn profiel"
 
 # | msgid "Settings"
 #: assets/templates/profile/index.jet.html:19
-#, fuzzy
 msgid "Base settings"
-msgstr "Instellingen"
+msgstr "Algemene instellingen"
 
 #: assets/templates/profile/index.jet.html:28
 msgid "Email Address"
@@ -1766,9 +1768,8 @@ msgstr "Taal"
 
 # | msgid "Settings"
 #: assets/templates/profile/index.jet.html:48
-#, fuzzy
 msgid "Email settings"
-msgstr "Instellingen"
+msgstr "E-mailinstellingen"
 
 #: assets/templates/profile/index.jet.html:49
 msgid ""
@@ -1776,22 +1777,25 @@ msgid ""
 "    These, optional, parameters are used when Readeck sends emails.\n"
 "    "
 msgstr ""
+"\n"
+"    Deze optionele opties worden gebruikt bij het versturen van e-mails.\n"
+"    "
 
 #: assets/templates/profile/index.jet.html:55
 msgid "Reply To"
-msgstr ""
+msgstr "Antwoordadres"
 
 #: assets/templates/profile/index.jet.html:56
 msgid "Add this email address in your outgoing emails so recipients can reply."
-msgstr ""
+msgstr "Naar dit e-mailadres kunnen gebruikers antwoorden versturen."
 
 #: assets/templates/profile/index.jet.html:61
 msgid "Send EPUB to"
-msgstr ""
+msgstr "Epub versturen naar"
 
 #: assets/templates/profile/index.jet.html:62
 msgid "This address is used to prefill the recipient when you send an e-book by email."
-msgstr ""
+msgstr "Dit adres wordt gebruikt als ontvanger van het e-boek."
 
 #: assets/templates/profile/index.jet.html:69
 msgid ""
@@ -1800,6 +1804,11 @@ msgid ""
 "        following email address within your Kindle Account:\n"
 "        "
 msgstr ""
+"\n"
+"        Als je van plan bent om e-boeken naar een Kindle-apparaat te "
+"versturen,\n"
+"        dan moet je eerst dit e-mailadres bevestigen via je Kindle-account:\n"
+"        "
 
 #: assets/templates/profile/password.jet.html:9
 msgid "Change my password"
@@ -2446,4 +2455,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Send email"
 #~ msgstr ""
-

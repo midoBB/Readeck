@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-15 06:30+0000\n"
-"PO-Revision-Date: 2025-02-11 15:21+0000\n"
+"PO-Revision-Date: 2025-05-19 21:58+0000\n"
 "Last-Translator: Jorge Santos <kkillermachine@gmail.com>\n"
+"Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/"
+"projects/readeck/application/pt_PT/>\n"
 "Language: pt_PT\n"
-"Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/projects/readeck/application/pt_PT/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -485,13 +487,11 @@ msgstr "com"
 
 # | msgid "Saved with Readeck"
 #: assets/templates/bookmarks/bookmark_public.jet.html:146
-#, fuzzy
 msgid "Saved with"
 msgstr "Guardado com Readeck"
 
 # | msgid "Share by Link"
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:8
-#, fuzzy
 msgid "Share by email"
 msgstr "Partilhar por link"
 
@@ -677,7 +677,7 @@ msgstr "A carregar"
 
 # | msgid "%d min"
 #: assets/templates/bookmarks/components/card.jet.html:75
-#, fuzzy, python-format
+#, python-format
 msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
@@ -809,25 +809,21 @@ msgstr "Visualização compacta"
 
 # | msgid "Grid view"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Mosaic view"
-msgstr "Visualização em grelha"
+msgstr "Visualização em Mosaico"
 
 # | msgid "Import bookmarks"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort bookmarks"
-msgstr "Importar favoritos"
+msgstr "Classificar favoritos"
 
 # | msgid "Options"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort options"
-msgstr "Opções"
+msgstr "Opções de classificação"
 
 # | msgid "Import links and articles"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Import and export"
 msgstr "Importar links e artigos"
 
@@ -2420,7 +2416,7 @@ msgstr "%a %b %e %H:%M:%S %y"
 #, python-format
 msgctxt "datetime"
 msgid "%m/%d/%Y"
-msgstr "%d/%m/%Y"
+msgstr "%d,/%m, /%Y"
 
 #: pkg/strftime/strftime.go:77
 msgctxt "datetime"
@@ -2450,4 +2446,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Send email"
 #~ msgstr ""
-

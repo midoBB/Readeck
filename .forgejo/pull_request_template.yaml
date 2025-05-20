@@ -1,0 +1,61 @@
+---
+
+name: Pull Request
+about: New Pull Request
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing to Readeck! ❤️
+
+  - type: checkboxes
+    id: noai
+    attributes:
+      label: Did you code it yourself?
+      description: |
+        Any AI made (even partially) contribution will be rejected.
+        It's OK to ask humans for help though 🙂
+      options:
+        - label: I didn't use any AI tool to produce this contribution.
+          required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: Summary?
+      description: |
+        Tell us what your contribution does, the problem it solves or the new feature it brings.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: tests
+    attributes:
+      label: Did you add tests?
+      description: |
+        When relevant, did you add tests to your contribution?
+      options:
+        - label: I added tests to my contribution
+
+  - type: dropdown
+    id: test_run
+    attributes:
+      label: Did you run the tests?
+      description: |
+        Did you run the test suite and did it finish successfully?
+      options:
+        - I didn't run the tests
+        - The tests finished successfully
+        - The tests finished with errors
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this contribution, you agree to follow our [Code of Conduct](https://codeberg.org/readeck/readeck/src/branch/main/CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

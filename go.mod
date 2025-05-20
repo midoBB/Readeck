@@ -26,7 +26,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/hlandau/passlib v1.0.11
 	github.com/itchyny/gojq v0.12.17
-	github.com/jackc/pgx/v5 v5.7.4
+	github.com/jackc/pgx/v5 v5.7.5
 	github.com/jarcoal/httpmock v1.4.0
 	github.com/kinbiko/jsonassert v1.2.0
 	github.com/klauspost/compress v1.18.0
@@ -38,9 +38,9 @@ require (
 	github.com/prometheus/client_golang v1.22.0
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/stretchr/testify v1.10.0
-	github.com/tdewolff/parse/v2 v2.8.0
+	github.com/tdewolff/parse/v2 v2.8.1
 	github.com/wneessen/go-mail v0.6.2
-	github.com/yuin/goldmark v1.7.11
+	github.com/yuin/goldmark v1.7.12
 	github.com/yuin/goldmark-meta v1.1.0
 	golang.org/x/crypto v0.38.0
 	golang.org/x/image v0.27.0

@@ -12,7 +12,7 @@ body:
   - type: checkboxes
     id: noai
     attributes:
-      label: Did you code it yourself?
+      label: Did you write it yourself?
       description: |
         Any AI made (even partially) contribution will be rejected.
         It's OK to ask humans for help though 🙂

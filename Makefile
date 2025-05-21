@@ -229,7 +229,7 @@ xbuild-linux: CC=
 xbuild-linux: CGO_ENABLED=1
 xbuild-linux: LDFLAGS=-linkmode external -extldflags "-static" -s -w
 xbuild-linux: XGO_FLAGS=
-xbuild-linux: XGO_TARGET="linux/amd64,linux/386,linux/arm-7,linux/arm64"
+xbuild-linux: XGO_TARGET="linux/amd64,linux/386,linux/arm,linux/arm64"
 xbuild-linux: xbuild
 	touch $(DIST)/.xbuild-linux
 

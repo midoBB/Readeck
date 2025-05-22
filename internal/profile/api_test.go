@@ -90,6 +90,7 @@ func TestAPI(t *testing.T) {
 							]
 						},
 						"settings_lang": "<<PRESENCE>>",
+						"settings_addon_reminder": "<<PRESENCE>>",
 						"settings_reader_width": "<<PRESENCE>>",
 						"settings_reader_font": "<<PRESENCE>>",
 						"settings_reader_font_size": "<<PRESENCE>>",
@@ -130,6 +131,7 @@ func TestAPI(t *testing.T) {
 							]
 						},
 						"settings_lang": "<<PRESENCE>>",
+						"settings_addon_reminder": "<<PRESENCE>>",
 						"settings_reader_width": "<<PRESENCE>>",
 						"settings_reader_font": "<<PRESENCE>>",
 						"settings_reader_font_size": "<<PRESENCE>>",

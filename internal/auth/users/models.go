@@ -230,6 +230,7 @@ func (u *User) HasPermission(obj, act string) bool {
 type UserSettings struct {
 	DebugInfo      bool           `json:"debug_info"`
 	Lang           string         `json:"lang"`
+	AddonReminder  bool           `json:"addon_reminder"`
 	EmailSettings  EmailSettings  `json:"email_settings"`
 	ReaderSettings ReaderSettings `json:"reader_settings"`
 }
@@ -250,32 +251,23 @@ type ReaderSettings struct {
 	Hyphenation int    `json:"hyphenation"`
 }
 
-func (rs *ReaderSettings) setDefaults() {
-	if rs.Font == "" {
-		rs.Font = "lora"
-	}
-	if rs.FontSize <= 0 {
-		rs.FontSize = 3
-	}
-	if rs.LineHeight <= 0 {
-		rs.LineHeight = 3
-	}
-}
-
 // Scan loads a UserSettings instance from a column.
-func (s *UserSettings) Scan(value interface{}) error {
+func (s *UserSettings) Scan(value any) error {
 	if value == nil {
 		return nil
 	}
+
+	// Default values
+	s.AddonReminder = true
+	s.ReaderSettings.Font = "lora"
+	s.ReaderSettings.FontSize = 3
+	s.ReaderSettings.LineHeight = 3
 
 	v, err := types.JSONBytes(value)
 	if err != nil {
 		return err
 	}
 	json.Unmarshal(v, s) //nolint:errcheck
-
-	s.ReaderSettings.setDefaults()
-
 	return nil
 }
 

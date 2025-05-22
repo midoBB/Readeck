@@ -46,6 +46,7 @@ func newProfileForm(tr forms.Translator) *profileForm {
 			forms.Trim,
 			forms.ChoicesPairs(locales.Available()),
 		),
+		forms.NewBooleanField("settings_addon_reminder"),
 		forms.NewTextField("settings_email_reply_to",
 			forms.Trim, forms.Optional[string](forms.IsEmail)),
 		forms.NewTextField("settings_email_epub_to",
@@ -154,6 +155,9 @@ func (f *profileForm) updateUser(u *users.User) (res map[string]interface{}, err
 			res["settings"] = u.Settings
 		case n == "settings_lang":
 			u.Settings.Lang = field.String()
+			res["settings"] = u.Settings
+		case n == "settings_addon_reminder":
+			u.Settings.AddonReminder = field.Value().(bool)
 			res["settings"] = u.Settings
 		case n == "email" && field.String() != u.Email:
 			res["email"] = field.String()

@@ -43,4 +43,7 @@ module.exports = plugin(function ({addVariant, config, e}) {
     ":merge(.group):focus-visible &",
     ":merge(.group):focus-within &",
   ])
+
+  addVariant("firefox", "@supports (-moz-appearance:none)")
+  addVariant("chrome", "@supports (-webkit-app-region: inherit)")
 })

@@ -30,36 +30,36 @@ SPDX-License-Identifier: AGPL-3.0-only
     <form action="{{ urlFor(`/bookmarks`) }}" method="post"
        data-controller="turbo-form"
        data-turbo-frame="_top">
-        {{ yield csrfField() }}
-        <div class="flex p-1 form-input rounded-full border">
-          <input type="text" name="url" id="create-url" size="15"
-           class="leading-tight w-full rounded-full px-4 py-2 bg-gray-light focus-visible:bg-gray-light text-gray-dark ring-0 ring-offset-0"
-           value="{{ string(.Form.Get(`url`).String()) }}" placeholder="https://" />
-          <button type="submit" class="whitespace-nowrap btn btn-primary rounded-full pl-0.5 py-0 inline-flex gap-1 items-center leading-none">
-            {{ yield icon(name="o-create", class="text-yellow-400 dark:text-yellow-600", svgClass="h-8 w-8") }}
-            <span>{{ pgettext("button", "Save link") }}</span>
-          </button>
-        </div>
+      {{ yield csrfField() }}
+      <div class="flex p-1 form-input rounded-full border">
+        <input type="text" name="url" id="create-url" size="15"
+          class="leading-tight w-full rounded-full px-4 py-2 bg-gray-light focus-visible:bg-gray-light text-gray-dark ring-0 ring-offset-0"
+          value="{{ string(.Form.Get(`url`).String()) }}" placeholder="https://" />
+        <button type="submit" class="whitespace-nowrap btn btn-primary rounded-full pl-0.5 py-0 inline-flex gap-1 items-center leading-none">
+          {{ yield icon(name="o-create", class="text-yellow-400 dark:text-yellow-600", svgClass="h-8 w-8") }}
+          <span>{{ pgettext("button", "Save link") }}</span>
+        </button>
+      </div>
 
-        {{- if .Form.Errors() -}}
-          {{ range .Form.Errors() }}<p class="ml-4 text-red-700"><strong>{{ .Error() }}</strong></p>{{- end -}}
+      {{- if .Form.Errors() -}}
+        {{ range .Form.Errors() }}<p class="ml-4 text-red-700"><strong>{{ .Error() }}</strong></p>{{- end -}}
+      {{- end -}}
+      {{- if .MaybeSearch -}}
+        {{- yield message() content -}}
+        {{ gettext(`"%s" is not a valid address. Did you mean to search your bookmarks for %s?`,
+          html(.Form.Get(`url`).String()),
+          `<a data-turbo-frame="_top" href="` + urlFor(`/bookmarks`) + `?bf=1&search=` + url(.Form.Get(`url`).String()) + `"` +
+          `class="link font-bold">` + html(.Form.Get(`url`).String()) + `</a>`,
+        )|unsafe }}
         {{- end -}}
-        {{- if .MaybeSearch -}}
-          {{- yield message() content -}}
-          {{ gettext(`"%s" is not a valid address. Did you mean to search your bookmarks for %s?`,
-            html(.Form.Get(`url`).String()),
-            `<a data-turbo-frame="_top" href="` + urlFor(`/bookmarks`) + `?bf=1&search=` + url(.Form.Get(`url`).String()) + `"` +
-            `class="link font-bold">` + html(.Form.Get(`url`).String()) + `</a>`,
-          )|unsafe }}
-          {{- end -}}
-        {{- else if .Form.Get("url").Errors() -}}
-          {{- yield message(type="error") content -}}
-            <ul>
-              {{ range .Form.Get("url").Errors() }}<li>{{ . }}</li>{{ end }}
-            </ul>
-          {{- end -}}
+      {{- else if .Form.Get("url").Errors() -}}
+        {{- yield message(type="error") content -}}
+          <ul>
+            {{ range .Form.Get("url").Errors() }}<li>{{ . }}</li>{{ end }}
+          </ul>
         {{- end -}}
-      </form>
+      {{- end -}}
+    </form>
   </div>
 
   {{- if .Count.Total == 0 -}}
@@ -78,15 +78,40 @@ SPDX-License-Identifier: AGPL-3.0-only
           urlFor(`/docs`),
         )|raw }}</p>
 
-        <p class="mb-4">{{ gettext(`
-          Would you like to import from a similar tool or from a file with existing bookmarks?
-          Try Readeck's import tool.
-        `) }}</p>
-        <p class="flex justify-center">
-          <a class="btn btn-primary rounded-full p-4" href="{{ urlFor(`/bookmarks/import`) }}">
-            {{- yield icon(name="o-import") }}
-            {{ gettext("Import links and articles") }}</a>
-        </p>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="hidden chrome:flex firefox:flex flex-col">
+            <h3 class="title text-xl">
+              {{- yield icon(name="o-extension", class="text-green-600", svgClass="h-6 w-6") }}
+              {{ gettext("Readeck Browser Extension") -}}
+            </h3>
+            <p class="mb-1 grow">{{ gettext(`
+            With the Browser Extension, you can save pages, images and selections
+            directly from your browser!`
+            ) }}</p>
+            <p class="flex justify-start">
+              <a class="btn btn-primary btn-outlined rounded-full py-2 px-4" target="_blank"
+               href="https://readeck.org/en/extension">
+                {{- gettext("Learn more") -}}
+            </a></p>
+          </div>
+
+          <div class="flex flex-col">
+            <h3 class="title text-xl">
+              {{- yield icon(name="o-import", class="text-yellow-600", svgClass="h-6 w-6") }}
+              {{ gettext("Import existing bookmarks") -}}
+            </h3>
+            <p class="mb-4 grow">{{ gettext(`
+              Would you like to import from a similar tool or from a file with existing bookmarks?
+              Try Readeck's import tool.
+            `) }}</p>
+            <p class="flex justify-start">
+              <a class="btn btn-primary btn-outlined rounded-full py-2 px-4"
+               href="{{ urlFor(`/bookmarks/import`) }}">
+                {{- gettext("Import links and articles") -}}
+              </a>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   {{- end -}}

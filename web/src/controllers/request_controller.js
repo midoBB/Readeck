@@ -40,10 +40,10 @@ export default class extends Controller {
       // Set the body based on the form elements when the event receiver
       // is a form.
       const form = event.currentTarget
-      options.body = {}
+      options.body = new FormData()
       for (let e of form.elements) {
         if (!!e.name) {
-          options.body[e.name] = getValue(e.value)
+          options.body.set(e.name, e.value)
         }
       }
     } else if (
@@ -51,10 +51,8 @@ export default class extends Controller {
       event.currentTarget.value !== undefined
     ) {
       // Otherwise, anything with a name and value attribute does the job.
-      options.body = {}
-      options.body[event.currentTarget.name] = getValue(
-        event.currentTarget.value,
-      )
+      options.body = new FormData()
+      options.body.set(event.currentTarget.name, event.currentTarget.value)
     }
 
     const rsp = await request(src, options)
@@ -64,11 +62,4 @@ export default class extends Controller {
 
     this.dispatch(event.params.eventName || "done")
   }
-}
-
-function getValue(value) {
-  if (!isNaN(value) && value !== "") {
-    return Number(value)
-  }
-  return value
 }

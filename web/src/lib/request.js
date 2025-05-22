@@ -22,7 +22,12 @@ async function request(path, options) {
 
   if (body) {
     // Automatic body serialization only when content-type is not set
-    if (typeof body == "object" && !reqOptions.headers.has("content-type")) {
+    // or body is not a FormData
+    if (
+      typeof body == "object" &&
+      !(body instanceof FormData) &&
+      !reqOptions.headers.has("content-type")
+    ) {
       reqOptions.body = JSON.stringify(body)
       reqOptions.headers.set("Content-Type", "application/json")
     } else {

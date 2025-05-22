@@ -10,7 +10,6 @@ See it as a bookmark manager and a read later tool.
 
 ![Readeck Bookmark List](./screenshots/bookmark-list.webp)
 
-
 ## Contents
 
 - [Features](#features)
@@ -18,7 +17,6 @@ See it as a bookmark manager and a read later tool.
 - [FAQ](#faq)
 - [Under the hood](#under-the-hood)
 - [License](#license)
-
 
 ## Features
 
@@ -52,7 +50,7 @@ Want to keep something for later while browsing? No need to copy and paste a lin
 
 ### 📖 E-Book export
 
-What's best than reading your collected articles on your e-reader? You can export any article to an e-book file (EPUB). You can even export a collection to a single book!
+What's better than reading your collected articles on your e-reader? You can export any article to an e-book file (EPUB). You can even export a collection to a single book!
 
 On top of that, you can directly access Readeck's catalog and collections from your e-reader if it supports OPDS.
 
@@ -62,14 +60,13 @@ Whether you need to find a vague piece of text from an article, or all the artic
 
 ### 🚀 Fast!
 
-Readeck is a modern take on so called boring, but proven, technology pieces. It guaranties very quick response times and a smooth user experience.
+Readeck is a modern take on so-called boring, but proven, technology pieces. It guarantees very quick response times and a smooth user experience.
 
 ### 🔒 Built for your privacy and long term archival
 
 Will this article you like be online next year? In 10 year? Maybe not; maybe it's all gone, text and images. For this reason, and for your privacy, text and images are all stored in your Readeck instance the moment you save a link.
 
 With the exception of videos, not a single request is made from your browser to an external website.
-
 
 ## How to test or install
 
@@ -105,25 +102,23 @@ Readeck is distributed as a single binary file. Using it is almost as easy as a 
 
 ### First time launch
 
-Once Readeck has started, it is accessible on: \
+Once Readeck has started, it is accessible at: \
 **[http://localhost:8000/](http://localhost:8000/)**
-
 
 ### Installation for production
 
 More documentation is coming but if you already know how deploy containers or new services on a server (ie. with systemd), it should be quite straightforward.
 
-
 ## FAQ
 
 ### I can't save a link or it's incomplete
 
-Readeck usually can save the vast majority of news or blog articles but it sometimes fails to do so. The most common reasons are:
+Readeck usually can save the vast majority of news or blog articles, but it sometimes fails to do so. The most common reasons are:
 
-- The page is behind a paywall,
-- The page needs JavaScript to render its content,
-- Your server is blocked,
-- The content extractor fails.
+- The page is behind a paywall
+- The page needs JavaScript to render its content
+- Your server is blocked
+- The content extractor fails
 
 The most common solution to these problems is to install and use the [Browser Extension](https://readeck.org/en/download/). The extension sends the page's full content to Readeck, so anything can be saved. Moreover, it lets you select the exact content you want to save.
 
@@ -131,15 +126,15 @@ If a page really doesn't work at all, please [open an issue](https://codeberg.or
 
 ### Can I share a saved bookmark with a public link?
 
-Yes you can, for a limited time. On each article you can generate a link that'll be valid for 24 hours. You can generate a new link as many times as you want but it will always expire. You can also export or print an article to a PDF file.
+Yes, you can, for a limited time. On each article you can generate a link that'll be valid for 24 hours. You can generate a new link as many times as you want but it will always expire. You can also export or print an article to a PDF file.
 
 ### Is there a system to store my (paywall) website credentials?
 
 There isn't, for several reasons:
 
-- To safely store credentials without giving access to anyone but the user is next to impossible,
-- Such a system relies on web scrapping and is prone to break too often,
-- It might go against websites TOS.
+- To safely store credentials without giving access to anyone but the user is next to impossible
+- Such a system relies on web scraping and is prone to break too often
+- It might go against websites' terms of service
 
 Again, the [Browser Extension](https://readeck.org/en/download/) will let you save any content you can access from your web browser.
 
@@ -172,7 +167,6 @@ If you think you found a security issue in Readeck, **please DO NOT create an is
 
 Send an email to security@readeck.com and you'll receive a follow-up as soon as possible.
 
-
 ## Under the hood
 
 Readeck was born out of frustration (and COVID lock-downs) from the tools that don't save everything related to the saved content, primarily images.
@@ -194,22 +188,21 @@ Readeck is written in [Go](https://go.dev/) and all its content is rendered serv
 
 This has proven to be a great combination when performance really matters.
 
-
 ## License
 
 Readeck is distributed under the terms of the [GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0.html). Here's a short summary of the license conditions:
 
 - Permissions
   - **Commercial use** \
-      The licensed material and derivatives may be used for commercial purposes.
+     The licensed material and derivatives may be used for commercial purposes.
   - **Distribution** \
-      The licensed material may be distributed.
+     The licensed material may be distributed.
   - **Modification** \
-      The licensed material may be modified.
+     The licensed material may be modified.
   - **Patent use** \
-      This license provides an express grant of patent rights from contributors.
+     This license provides an express grant of patent rights from contributors.
   - **Private use** \
-      The licensed material may be used and modified in private.
+     The licensed material may be used and modified in private.
 - Conditions
   - **Disclose source** \
     Source code must be made available when the licensed material is distributed.

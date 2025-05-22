@@ -7,14 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-22 19:03+0000\n"
-"PO-Revision-Date: 2025-05-17 06:02+0000\n"
+"PO-Revision-Date: 2025-05-23 06:31+0000\n"
 "Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
+"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
+"application/uk/>\n"
 "Language: uk_UA\n"
-"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/application/uk/>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -420,7 +423,7 @@ msgstr "Колекції"
 
 #: assets/templates/bookmarks/base.jet.html:88
 msgid "Did you know?"
-msgstr ""
+msgstr "А ви знали?"
 
 #: assets/templates/bookmarks/base.jet.html:89
 #: assets/templates/bookmarks/index.jet.html:87
@@ -429,15 +432,19 @@ msgid ""
 "            With the Browser Extension, you can save pages, images and selections\n"
 "            directly from your browser!"
 msgstr ""
+"\n"
+"            За допомогою розширення можна зберігати сторінки, зображення і "
+"виділення\n"
+"            безпосередньо з браузера!"
 
 #: assets/templates/bookmarks/base.jet.html:96
 #: assets/templates/bookmarks/index.jet.html:94
 msgid "Learn more"
-msgstr ""
+msgstr "Дізнатися більше"
 
 #: assets/templates/bookmarks/base.jet.html:105
 msgid "Don't remind me"
-msgstr ""
+msgstr "Більше не нагадувати"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:80
@@ -1322,22 +1329,14 @@ msgid "Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentatio
 msgstr "Докладніше про закладки читайте в <a class=\"%s\" href=\"%s\">документації</a>."
 
 #: assets/templates/bookmarks/index.jet.html:85
-#, fuzzy
-#| msgid "Readeck Bookmark Collections"
 msgid "Readeck Browser Extension"
-msgstr "Колекції закладок Readeck"
+msgstr "Розширення Readeck для браузера"
 
 #: assets/templates/bookmarks/index.jet.html:101
-#, fuzzy
-#| msgid "Import bookmarks"
 msgid "Import existing bookmarks"
-msgstr "Імпортувати закладки"
+msgstr "Імпортувати наявні закладки"
 
 #: assets/templates/bookmarks/index.jet.html:103
-#, fuzzy
-#| msgid "" "\n" "          Would you like to import from a similar tool or
-#| from a file with existing bookmarks?\n" "          Try Readeck's import
-#| tool.\n" "        "
 msgid ""
 "\n"
 "              Would you like to import from a similar tool or from a file with existing bookmarks?\n"
@@ -1345,9 +1344,10 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"          Ви хочете імпортувати зі схожого інструмента або файлу з існуючими закладками?\n"
+"              Ви хочете імпортувати зі схожого інструмента або файлу з "
+"існуючими закладками?\n"
 "          Спробуйте утиліту імпорту Readeck.\n"
-"        "
+"            "
 
 #: assets/templates/bookmarks/index.jet.html:110
 msgid "Import links and articles"
@@ -2460,4 +2460,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Send email"
 #~ msgstr ""
-

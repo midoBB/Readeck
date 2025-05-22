@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-15 06:30+0000\n"
+"POT-Creation-Date: 2025-05-22 19:03+0000\n"
 "PO-Revision-Date: 2025-04-01 13:21+0000\n"
 "Last-Translator: soaresluciano <soaresluciano@noreply.codeberg.org>\n"
 "Language: pt_BR\n"
@@ -418,6 +418,27 @@ msgstr "Marcações"
 msgid "Collections"
 msgstr "Coleções"
 
+#: assets/templates/bookmarks/base.jet.html:88
+msgid "Did you know?"
+msgstr ""
+
+#: assets/templates/bookmarks/base.jet.html:89
+#: assets/templates/bookmarks/index.jet.html:87
+msgid ""
+"\n"
+"            With the Browser Extension, you can save pages, images and selections\n"
+"            directly from your browser!"
+msgstr ""
+
+#: assets/templates/bookmarks/base.jet.html:96
+#: assets/templates/bookmarks/index.jet.html:94
+msgid "Learn more"
+msgstr ""
+
+#: assets/templates/bookmarks/base.jet.html:105
+msgid "Don't remind me"
+msgstr ""
+
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:80
 msgid "Close panel"
@@ -518,14 +539,14 @@ msgid "Edit"
 msgstr "Editar"
 
 #: assets/templates/bookmarks/collection.jet.html:57
-#: assets/templates/bookmarks/index.jet.html:104
-#: assets/templates/bookmarks/index.jet.html:138
-#: assets/templates/bookmarks/index.jet.html:141
+#: assets/templates/bookmarks/index.jet.html:129
+#: assets/templates/bookmarks/index.jet.html:163
+#: assets/templates/bookmarks/index.jet.html:166
 msgid "Filters"
 msgstr "Filtros"
 
 #: assets/templates/bookmarks/collection.jet.html:60
-#: assets/templates/bookmarks/index.jet.html:144
+#: assets/templates/bookmarks/index.jet.html:169
 #: assets/templates/menu.jet.html:43 docs/http.go:178 docs/http.go:257
 #: docs/http.go:295
 msgid "Documentation"
@@ -1243,43 +1264,53 @@ msgstr ""
 msgid "Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentation</a>."
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:81
-msgid ""
-"\n"
-"          Would you like to import from a similar tool or from a file with existing bookmarks?\n"
-"          Try Readeck's import tool.\n"
-"        "
+#: assets/templates/bookmarks/index.jet.html:85
+msgid "Readeck Browser Extension"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:88
+#: assets/templates/bookmarks/index.jet.html:101
+#, fuzzy
+#| msgid "Sort bookmarks"
+msgid "Import existing bookmarks"
+msgstr "Ordenar marcadores"
+
+#: assets/templates/bookmarks/index.jet.html:103
+msgid ""
+"\n"
+"              Would you like to import from a similar tool or from a file with existing bookmarks?\n"
+"              Try Readeck's import tool.\n"
+"            "
+msgstr ""
+
+#: assets/templates/bookmarks/index.jet.html:110
 msgid "Import links and articles"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:112
+#: assets/templates/bookmarks/index.jet.html:137
 msgid "Import bookmarks"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:121
+#: assets/templates/bookmarks/index.jet.html:146
 msgid "Your search query yielded <strong>no results</strong>."
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:123
+#: assets/templates/bookmarks/index.jet.html:148
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/templates/bookmarks/index.jet.html:154
+#: assets/templates/bookmarks/index.jet.html:179
 msgctxt "action"
 msgid "Search"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:156
+#: assets/templates/bookmarks/index.jet.html:181
 msgid "Reset search"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:159
+#: assets/templates/bookmarks/index.jet.html:184
 msgid "Create a collection"
 msgstr ""
 
@@ -2311,5 +2342,12 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Send email"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "          Would you like to import from a similar tool or from a file with existing bookmarks?\n"
+#~ "          Try Readeck's import tool.\n"
+#~ "        "
 #~ msgstr ""
 

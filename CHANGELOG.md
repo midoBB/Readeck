@@ -6,6 +6,10 @@
   - send the bookmark's content as a message
   - send the bookmark as an EPUB attachment
 - mosaic view (image wall on bookmark list)
+- browser extension calls to action (onboarding and sidebar)
+
+### Changed
+- Reverted the SQLite driver to its CGO version
 
 ## [0.18.2] - 2025-05-07
 ### Added

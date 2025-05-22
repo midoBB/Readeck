@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-22 19:03+0000\n"
-"PO-Revision-Date: 2025-04-28 23:53+0000\n"
-"Last-Translator: elmau <elmau@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-05-23 06:31+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fito@noreply.codeberg.org>\n"
+"Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/"
+"application/es/>\n"
 "Language: es_ES\n"
-"Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/application/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -344,7 +346,7 @@ msgstr "Marcadores destacados"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:17
 msgid "You don't have any highlights yet."
-msgstr "Todavía no tienes ningún destacado."
+msgstr "Todavía no tiene ningún destacado."
 
 #: assets/templates/bookmarks/annotation_list.jet.html:18
 msgid ""
@@ -354,8 +356,9 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"        Una vez que comiences a resaltar partes de tus artículos guardados, aparecerán en esta página\n"
-"        para que los encuentres fácilmente.\n"
+"        Una vez que comience a resaltar partes de sus artículos guardados, "
+"aparecerán en esta página\n"
+"        para que los encuentre fácilmente.\n"
 "      "
 
 #: assets/templates/bookmarks/annotation_list.jet.html:23
@@ -418,7 +421,7 @@ msgstr "Colecciones"
 
 #: assets/templates/bookmarks/base.jet.html:88
 msgid "Did you know?"
-msgstr ""
+msgstr "¿Lo sabía?"
 
 #: assets/templates/bookmarks/base.jet.html:89
 #: assets/templates/bookmarks/index.jet.html:87
@@ -427,15 +430,18 @@ msgid ""
 "            With the Browser Extension, you can save pages, images and selections\n"
 "            directly from your browser!"
 msgstr ""
+"\n"
+"            Con la extensión, puede guardar páginas, imágenes y selecciones\n"
+"            directamente desde el navegador."
 
 #: assets/templates/bookmarks/base.jet.html:96
 #: assets/templates/bookmarks/index.jet.html:94
 msgid "Learn more"
-msgstr ""
+msgstr "Más información"
 
 #: assets/templates/bookmarks/base.jet.html:105
 msgid "Don't remind me"
-msgstr ""
+msgstr "No recordármelo"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:80
@@ -509,9 +515,8 @@ msgstr "Guardado con"
 
 # | msgid "Share by Link"
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:8
-#, fuzzy
 msgid "Share by email"
-msgstr "Compartir por enlace"
+msgstr "Compartir por correo electrónico"
 
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:18
 #: assets/templates/bookmarks/bookmark_share_link.jet.html:19
@@ -559,11 +564,11 @@ msgstr "Nombre"
 
 #: assets/templates/bookmarks/collection.jet.html:80
 msgid "Delete collection"
-msgstr "Borrar colección"
+msgstr "Eliminar colección"
 
 #: assets/templates/bookmarks/collection_create.jet.html:9
 msgid "New Collection"
-msgstr "Nueva Colección"
+msgstr "Colección nueva"
 
 #: assets/templates/bookmarks/collection_list.jet.html:9
 #: internal/opds/http.go:74
@@ -1334,9 +1339,7 @@ msgstr "Importar marcadores"
 
 #: assets/templates/bookmarks/index.jet.html:103
 #, fuzzy
-#| msgid "" "\n" "          Would you like to import from a similar tool or
-#| from a file with existing bookmarks?\n" "          Try Readeck's import
-#| tool.\n" "        "
+#| msgid "" "\n" "
 msgid ""
 "\n"
 "              Would you like to import from a similar tool or from a file with existing bookmarks?\n"
@@ -2477,4 +2480,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Send email"
 #~ msgstr ""
-

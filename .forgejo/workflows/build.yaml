@@ -93,6 +93,11 @@ jobs:
         HOME: /workspace
 
     steps:
+      - name: Build production image
+        working-directory: /workspace/workdir
+        run: |
+          make build-prod
+
       - name: Build container image
         working-directory: /workspace/workdir
         run: |

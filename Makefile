@@ -207,6 +207,17 @@ web-watch:
 # Unless you plan to build a full release, you don't need to use
 # these targets.
 
+# Build readeck for production use (linux amd64 v3 only, no SQLite)
+.PHONY: build-prod
+build-prod: CGO_ENABLED=0
+build-prod: LDFLAGS=-s -w
+build-prod: GOOS=linux
+build-prod: GOARCH=amd64
+build-prod: export GOAMD64=v3
+build-prod: BUILD_TAGS=netgo osusergo nosqlite
+build-prod: OUTFILE_NAME=readeck-$(VERSION)-$(GOOS)-$(GOARCH)-prod
+build-prod: build
+
 # Builds Readeck using xgo.
 .PHONY: xbuild
 xbuild: | $(DIST)/.generate

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-23 06:30+0000\n"
+"POT-Creation-Date: 2025-05-23 18:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -452,17 +452,14 @@ msgstr ""
 msgid "%d min"
 msgstr ""
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:96
-#, python-format
-msgid "Shared by %s"
-msgstr ""
-
 #: assets/templates/bookmarks/bookmark_public.jet.html:97
-msgid "with"
+#, python-format
+msgid "Shared by %s with %s"
 msgstr ""
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:146
-msgid "Saved with"
+#: assets/templates/bookmarks/bookmark_public.jet.html:150
+#, python-format
+msgid "Saved with %s"
 msgstr ""
 
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:8
@@ -710,6 +707,26 @@ msgstr ""
 msgid "Is Favorite"
 msgstr ""
 
+#: assets/templates/bookmarks/components/filters.jet.html:59
+#: assets/templates/bookmarks/components/filters.jet.html:68
+#: assets/templates/bookmarks/components/filters.jet.html:78
+#: assets/templates/bookmarks/components/filters.jet.html:88
+#: assets/templates/bookmarks/components/filters.jet.html:98
+#: assets/templates/bookmarks/components/reader_control.jet.html:127
+#: assets/templates/bookmarks/components/reader_control.jet.html:152
+msgid "yes"
+msgstr ""
+
+#: assets/templates/bookmarks/components/filters.jet.html:60
+#: assets/templates/bookmarks/components/filters.jet.html:69
+#: assets/templates/bookmarks/components/filters.jet.html:79
+#: assets/templates/bookmarks/components/filters.jet.html:89
+#: assets/templates/bookmarks/components/filters.jet.html:99
+#: assets/templates/bookmarks/components/reader_control.jet.html:127
+#: assets/templates/bookmarks/components/reader_control.jet.html:152
+msgid "no"
+msgstr ""
+
 #: assets/templates/bookmarks/components/filters.jet.html:64
 msgid "Is Archived"
 msgstr ""
@@ -780,26 +797,6 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:116
 msgid "Justify"
-msgstr ""
-
-#: assets/templates/bookmarks/components/filters.jet.html:59
-#: assets/templates/bookmarks/components/filters.jet.html:68
-#: assets/templates/bookmarks/components/filters.jet.html:78
-#: assets/templates/bookmarks/components/filters.jet.html:88
-#: assets/templates/bookmarks/components/filters.jet.html:98
-#: assets/templates/bookmarks/components/reader_control.jet.html:127
-#: assets/templates/bookmarks/components/reader_control.jet.html:152
-msgid "yes"
-msgstr ""
-
-#: assets/templates/bookmarks/components/filters.jet.html:60
-#: assets/templates/bookmarks/components/filters.jet.html:69
-#: assets/templates/bookmarks/components/filters.jet.html:79
-#: assets/templates/bookmarks/components/filters.jet.html:89
-#: assets/templates/bookmarks/components/filters.jet.html:99
-#: assets/templates/bookmarks/components/reader_control.jet.html:127
-#: assets/templates/bookmarks/components/reader_control.jet.html:152
-msgid "no"
 msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:141
@@ -1003,11 +1000,6 @@ msgstr ""
 msgid "API Key"
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:50
-msgid "Import your Pocket Articles"
-msgstr ""
-
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
 #, python-format
 msgid ""
@@ -1034,26 +1026,8 @@ msgid ""
 "  "
 msgstr ""
 
-#: assets/templates/bookmarks/import/form-browser.jet.html:34
-#: assets/templates/bookmarks/import/form-csv.jet.html:27
-#: assets/templates/bookmarks/import/form-goodlinks.jet.html:27
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:42
-#: assets/templates/bookmarks/import/form-text.jet.html:28
-msgid "File"
-msgstr ""
-
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:44
 msgid "Note: upload the ZIP file directly, not its contents"
-msgstr ""
-
-#: assets/templates/bookmarks/import/form-browser.jet.html:48
-#: assets/templates/bookmarks/import/form-csv.jet.html:34
-#: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
-#: assets/templates/bookmarks/import/form-omnivore.jet.html:43
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
-#: assets/templates/bookmarks/import/form-text.jet.html:35
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:69
-msgid "Import Bookmarks"
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
@@ -1067,6 +1041,24 @@ msgid ""
 "    Upload a text file that contains one link per line and Readeck will fetch\n"
 "    all of them and save them in your bookmark list.\n"
 "  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:34
+#: assets/templates/bookmarks/import/form-csv.jet.html:27
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:27
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:42
+#: assets/templates/bookmarks/import/form-text.jet.html:28
+msgid "File"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:48
+#: assets/templates/bookmarks/import/form-csv.jet.html:34
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:43
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
+#: assets/templates/bookmarks/import/form-text.jet.html:35
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:69
+msgid "Import Bookmarks"
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:9
@@ -1127,6 +1119,11 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/index.jet.html:44
 msgid "Import your GoodLinks Articles"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:50
+msgid "Import your Pocket Articles"
 msgstr ""
 
 #: assets/templates/bookmarks/import/options.jet.html:7
@@ -1565,28 +1562,8 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-#: assets/templates/profile/credential.jet.html:44
-#: assets/templates/profile/token.jet.html:25
-msgid "Properties"
-msgstr ""
-
 #: assets/templates/profile/credential.jet.html:51
 msgid "Password ID"
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:56
-#: assets/templates/profile/token.jet.html:37
-msgid "Last used"
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:57
-#: assets/templates/profile/token.jet.html:38
-msgid "never used"
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:69
-#: assets/templates/profile/token.jet.html:50
-msgid "Enabled"
 msgstr ""
 
 #: assets/templates/profile/credential.jet.html:75
@@ -1596,11 +1573,6 @@ msgid ""
 "    group of permissions below.<br>\n"
 "    Leave all the choices blank to grant all your permissions to this password.\n"
 "  "
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:83
-#: assets/templates/profile/token.jet.html:70
-msgid "Roles"
 msgstr ""
 
 #: assets/templates/profile/credential.jet.html:91
@@ -1626,12 +1598,6 @@ msgstr ""
 
 #: assets/templates/profile/credential_list.jet.html:23
 msgid "Create a new Application Password"
-msgstr ""
-
-#: assets/templates/profile/credential_list.jet.html:48
-#: assets/templates/profile/token_list.jet.html:54
-#, python-format
-msgid "Last used on: %s"
 msgstr ""
 
 #: assets/templates/profile/credential_list.jet.html:56
@@ -1713,12 +1679,32 @@ msgstr ""
 msgid "Token will be removed in a few seconds."
 msgstr ""
 
+#: assets/templates/profile/credential.jet.html:44
+#: assets/templates/profile/token.jet.html:25
+msgid "Properties"
+msgstr ""
+
 #: assets/templates/profile/token.jet.html:32
 msgid "Token ID"
 msgstr ""
 
+#: assets/templates/profile/credential.jet.html:56
+#: assets/templates/profile/token.jet.html:37
+msgid "Last used"
+msgstr ""
+
+#: assets/templates/profile/credential.jet.html:57
+#: assets/templates/profile/token.jet.html:38
+msgid "never used"
+msgstr ""
+
 #: assets/templates/profile/token.jet.html:44
 msgid "Application"
+msgstr ""
+
+#: assets/templates/profile/credential.jet.html:69
+#: assets/templates/profile/token.jet.html:50
+msgid "Enabled"
 msgstr ""
 
 #: assets/templates/profile/token.jet.html:56
@@ -1732,6 +1718,11 @@ msgid ""
 "    group of permissions below.<br>\n"
 "    Leave all the choices blank to grant all your permissions to this token.\n"
 "  "
+msgstr ""
+
+#: assets/templates/profile/credential.jet.html:83
+#: assets/templates/profile/token.jet.html:70
+msgid "Roles"
 msgstr ""
 
 #: assets/templates/profile/token.jet.html:78
@@ -1777,6 +1768,12 @@ msgstr ""
 #: assets/templates/profile/token_list.jet.html:50
 #, python-format
 msgid "Expires on: %s"
+msgstr ""
+
+#: assets/templates/profile/credential_list.jet.html:48
+#: assets/templates/profile/token_list.jet.html:54
+#, python-format
+msgid "Last used on: %s"
 msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:62

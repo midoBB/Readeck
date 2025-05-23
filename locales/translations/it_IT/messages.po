@@ -6,17 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-23 06:30+0000\n"
+"POT-Creation-Date: 2025-05-23 18:50+0000\n"
 "PO-Revision-Date: 2025-05-23 18:49+0000\n"
 "Last-Translator: Tommi <tommi@noreply.codeberg.org>\n"
-"Language-Team: Italian <https://translate.codeberg.org/projects/readeck/"
-"application/it/>\n"
 "Language: it_IT\n"
+"Language-Team: Italian <https://translate.codeberg.org/projects/readeck/application/it/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -432,8 +430,7 @@ msgid ""
 "            directly from your browser!"
 msgstr ""
 "\n"
-"            Con l’estensione per il browser, puoi salvare pagine, immagini e "
-"selezioni\n"
+"            Con l’estensione per il browser, puoi salvare pagine, immagini e selezioni\n"
 "            direttamente dal tuo browser!"
 
 #: assets/templates/bookmarks/base.jet.html:96
@@ -501,18 +498,17 @@ msgstr "Di %s"
 msgid "%d min"
 msgstr "%d minuti"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:96
-#, python-format
-msgid "Shared by %s"
+#: assets/templates/bookmarks/bookmark_public.jet.html:97
+#, fuzzy, python-format
+#| msgid "Shared by %s"
+msgid "Shared by %s with %s"
 msgstr "Condiviso da %s"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:97
-msgid "with"
-msgstr "con"
-
 # | msgid "Saved with Readeck"
-#: assets/templates/bookmarks/bookmark_public.jet.html:146
-msgid "Saved with"
+#: assets/templates/bookmarks/bookmark_public.jet.html:150
+#, fuzzy, python-format
+#| msgid "Saved with"
+msgid "Saved with %s"
 msgstr "Salvato con"
 
 # | msgid "Share by Link"
@@ -1362,8 +1358,7 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"              Vuoi importare da un servizio simile o da un file con bookmark "
-"esistenti?\n"
+"              Vuoi importare da un servizio simile o da un file con bookmark esistenti?\n"
 "          Prova lo strumento di importazione di Readeck.\n"
 "            "
 
@@ -1836,9 +1831,7 @@ msgstr "Rispondi a"
 
 #: assets/templates/profile/index.jet.html:56
 msgid "Add this email address in your outgoing emails so recipients can reply."
-msgstr ""
-"Aggiungi questo indirizzo email alle tue email in uscita, in modo che i "
-"destinatari possano rispondere."
+msgstr "Aggiungi questo indirizzo email alle tue email in uscita, in modo che i destinatari possano rispondere."
 
 #: assets/templates/profile/index.jet.html:61
 msgid "Send EPUB to"
@@ -1846,9 +1839,7 @@ msgstr "Invia EPUB a"
 
 #: assets/templates/profile/index.jet.html:62
 msgid "This address is used to prefill the recipient when you send an e-book by email."
-msgstr ""
-"Questo indirizzo è usato per precompilare l’indirizzo di destinazione quando "
-"invii un ebook via email."
+msgstr "Questo indirizzo è usato per precompilare l’indirizzo di destinazione quando invii un ebook via email."
 
 #: assets/templates/profile/index.jet.html:69
 msgid ""
@@ -1858,8 +1849,7 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"        Se pianifichi di inviare ebook a un dispositivo Kindle, devi "
-"approvare\n"
+"        Se pianifichi di inviare ebook a un dispositivo Kindle, devi approvare\n"
 "        il seguente indirizzo email nel tuo account Kindle:\n"
 "        "
 
@@ -2508,3 +2498,7 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Send email"
 #~ msgstr ""
+
+#~ msgid "with"
+#~ msgstr "con"
+

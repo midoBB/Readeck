@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-23 06:30+0000\n"
+"POT-Creation-Date: 2025-05-23 18:50+0000\n"
 "PO-Revision-Date: 2025-04-01 13:21+0000\n"
 "Last-Translator: soaresluciano <soaresluciano@noreply.codeberg.org>\n"
 "Language: pt_BR\n"
@@ -495,17 +495,16 @@ msgstr "Por %s"
 msgid "%d min"
 msgstr "%d min"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:96
-#, python-format
-msgid "Shared by %s"
+#: assets/templates/bookmarks/bookmark_public.jet.html:97
+#, fuzzy, python-format
+#| msgid "Shared by %s"
+msgid "Shared by %s with %s"
 msgstr "Compartilhado por %s"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:97
-msgid "with"
-msgstr "com"
-
-#: assets/templates/bookmarks/bookmark_public.jet.html:146
-msgid "Saved with"
+#: assets/templates/bookmarks/bookmark_public.jet.html:150
+#, fuzzy, python-format
+#| msgid "Saved with"
+msgid "Saved with %s"
 msgstr "Salvo com"
 
 # | msgid "Share by Link"
@@ -2354,4 +2353,7 @@ msgstr ""
 #~ "          Try Readeck's import tool.\n"
 #~ "        "
 #~ msgstr ""
+
+#~ msgid "with"
+#~ msgstr "com"
 

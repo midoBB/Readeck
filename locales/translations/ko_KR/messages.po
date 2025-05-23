@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-23 06:30+0000\n"
+"POT-Creation-Date: 2025-05-23 18:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language: ko\n"
@@ -476,17 +476,14 @@ msgstr ""
 msgid "%d min"
 msgstr ""
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:96
-#, python-format
-msgid "Shared by %s"
-msgstr ""
-
 #: assets/templates/bookmarks/bookmark_public.jet.html:97
-msgid "with"
+#, python-format
+msgid "Shared by %s with %s"
 msgstr ""
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:146
-msgid "Saved with"
+#: assets/templates/bookmarks/bookmark_public.jet.html:150
+#, python-format
+msgid "Saved with %s"
 msgstr ""
 
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:8
@@ -2298,5 +2295,14 @@ msgstr ""
 #~ "          Would you like to import from a similar tool or from a file with existing bookmarks?\n"
 #~ "          Try Readeck's import tool.\n"
 #~ "        "
+#~ msgstr ""
+
+#~ msgid "Shared by %s"
+#~ msgstr ""
+
+#~ msgid "with"
+#~ msgstr ""
+
+#~ msgid "Saved with"
 #~ msgstr ""
 

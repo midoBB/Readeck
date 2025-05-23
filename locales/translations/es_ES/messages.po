@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-22 19:03+0000\n"
+"POT-Creation-Date: 2025-05-23 06:30+0000\n"
 "PO-Revision-Date: 2025-04-28 23:53+0000\n"
 "Last-Translator: elmau <elmau@noreply.codeberg.org>\n"
 "Language: es_ES\n"
@@ -83,11 +83,11 @@ msgctxt "word"
 msgid "or"
 msgstr "o"
 
-#: assets/templates/_libs/forms.jet.html:255
+#: assets/templates/_libs/forms.jet.html:256
 msgid "Select or drop file"
 msgstr "Seleccionar o soltar archivo"
 
-#: assets/templates/_libs/forms.jet.html:259
+#: assets/templates/_libs/forms.jet.html:260
 msgid "remove"
 msgstr "eliminar"
 
@@ -133,7 +133,7 @@ msgstr "El usuario será eliminado en unos segundos"
 #: assets/templates/bookmarks/import/form-csv.jet.html:35
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:35
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:44
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:51
 #: assets/templates/bookmarks/import/form-text.jet.html:36
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:70
 #: assets/templates/bookmarks/label.jet.html:52
@@ -990,7 +990,7 @@ msgstr "Añade una etiqueta a los enlaces en función del título de sección"
 #: assets/templates/bookmarks/import/form-csv.jet.html:34
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:43
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:49
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
 #: assets/templates/bookmarks/import/form-text.jet.html:35
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:69
 msgid "Import Bookmarks"
@@ -1146,6 +1146,10 @@ msgstr ""
 "    Esto podría conducir a resultados diferentes en Readeck de los que actualmente\n"
 "    ver en Bolsillo.\n"
 "  "
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:44
+msgid "Note: upload the ZIP file directly, not its contents"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32
@@ -1320,23 +1324,23 @@ msgstr "Todavía no tienes ningún marcador.<br> Copie un enlace en el campo de 
 msgid "Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentation</a>."
 msgstr "Conozca más sobre los marcadores en la <a class=\"%s\" href=\"%s\">documentación</a>."
 
+# | msgid "Readeck Bookmark Collections"
 #: assets/templates/bookmarks/index.jet.html:85
 #, fuzzy
-#| msgid "Readeck Bookmark Collections"
 msgid "Readeck Browser Extension"
 msgstr "Colecciones de marcadores de Readeck"
 
+# | msgid "Import bookmarks"
 #: assets/templates/bookmarks/index.jet.html:101
 #, fuzzy
-#| msgid "Import bookmarks"
 msgid "Import existing bookmarks"
 msgstr "Importar marcadores"
 
+# | msgid "" "\n" "          Would you like to import from a similar tool or
+# | from a file with existing bookmarks?\n" "          Try Readeck's import
+# | tool.\n" "        "
 #: assets/templates/bookmarks/index.jet.html:103
 #, fuzzy
-#| msgid "" "\n" "          Would you like to import from a similar tool or
-#| from a file with existing bookmarks?\n" "          Try Readeck's import
-#| tool.\n" "        "
 msgid ""
 "\n"
 "              Would you like to import from a similar tool or from a file with existing bookmarks?\n"

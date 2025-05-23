@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-22 19:03+0000\n"
+"POT-Creation-Date: 2025-05-23 06:30+0000\n"
 "PO-Revision-Date: 2025-02-08 10:04+0000\n"
 "Last-Translator: misketmuskat <misketmuskat@users.noreply.translate.codeberg.org>\n"
 "Language: tr_TR\n"
@@ -83,11 +83,11 @@ msgctxt "word"
 msgid "or"
 msgstr "veya"
 
-#: assets/templates/_libs/forms.jet.html:255
+#: assets/templates/_libs/forms.jet.html:256
 msgid "Select or drop file"
 msgstr "Dosya seç/bırak"
 
-#: assets/templates/_libs/forms.jet.html:259
+#: assets/templates/_libs/forms.jet.html:260
 msgid "remove"
 msgstr "sil"
 
@@ -133,7 +133,7 @@ msgstr "Kullanıcı birkaç saniye içinde silinecek"
 #: assets/templates/bookmarks/import/form-csv.jet.html:35
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:35
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:44
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:51
 #: assets/templates/bookmarks/import/form-text.jet.html:36
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:70
 #: assets/templates/bookmarks/label.jet.html:52
@@ -968,7 +968,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-csv.jet.html:34
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:43
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:49
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
 #: assets/templates/bookmarks/import/form-text.jet.html:35
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:69
 msgid "Import Bookmarks"
@@ -1102,6 +1102,10 @@ msgid ""
 "    This could lead to different results in Readeck than what you currently\n"
 "    see in Pocket.\n"
 "  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:44
+msgid "Note: upload the ZIP file directly, not its contents"
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9

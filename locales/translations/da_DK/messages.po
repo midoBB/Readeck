@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-22 19:03+0000\n"
+"POT-Creation-Date: 2025-05-23 06:30+0000\n"
 "PO-Revision-Date: 2024-12-02 15:55+0000\n"
 "Last-Translator: toooobeeee <toooobeeee@users.noreply.translate.codeberg.org>\n"
 "Language: da_DK\n"
@@ -83,11 +83,11 @@ msgctxt "word"
 msgid "or"
 msgstr "eller"
 
-#: assets/templates/_libs/forms.jet.html:255
+#: assets/templates/_libs/forms.jet.html:256
 msgid "Select or drop file"
 msgstr "Vælg eller drop fil"
 
-#: assets/templates/_libs/forms.jet.html:259
+#: assets/templates/_libs/forms.jet.html:260
 msgid "remove"
 msgstr "fjern"
 
@@ -133,7 +133,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-csv.jet.html:35
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:35
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:44
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:51
 #: assets/templates/bookmarks/import/form-text.jet.html:36
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:70
 #: assets/templates/bookmarks/label.jet.html:52
@@ -995,7 +995,7 @@ msgstr "Tilføjer label til links, baseret på deres afsnits titel"
 #: assets/templates/bookmarks/import/form-csv.jet.html:34
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:43
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:49
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
 #: assets/templates/bookmarks/import/form-text.jet.html:35
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:69
 msgid "Import Bookmarks"
@@ -1156,6 +1156,10 @@ msgstr ""
 "    Dette kunne medføre forskellige resultater i Readeck end hvad du ser i Pocket\n"
 "    i øjeblikket.\n"
 "  "
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:44
+msgid "Note: upload the ZIP file directly, not its contents"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32
@@ -1337,17 +1341,17 @@ msgstr "Læs mere om bogmærker i <a class=\"%s\" href=\"%s\">dokumentationen</a
 msgid "Readeck Browser Extension"
 msgstr ""
 
+# | msgid "Import bookmarks"
 #: assets/templates/bookmarks/index.jet.html:101
 #, fuzzy
-#| msgid "Import bookmarks"
 msgid "Import existing bookmarks"
 msgstr "Importér bogmærker"
 
+# | msgid "" "\n" "          Would you like to import from a similar tool or
+# | from a file with existing bookmarks?\n" "          Try Readeck's import
+# | tool.\n" "        "
 #: assets/templates/bookmarks/index.jet.html:103
 #, fuzzy
-#| msgid "" "\n" "          Would you like to import from a similar tool or
-#| from a file with existing bookmarks?\n" "          Try Readeck's import
-#| tool.\n" "        "
 msgid ""
 "\n"
 "              Would you like to import from a similar tool or from a file with existing bookmarks?\n"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CZ 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-22 19:03+0000\n"
+"POT-Creation-Date: 2025-05-23 06:30+0000\n"
 "PO-Revision-Date: 2025-05-16 09:04+0000\n"
 "Last-Translator: Joedmin <joedmin@joedmin.cz>\n"
 "Language: cs_CZ\n"
@@ -83,11 +83,11 @@ msgctxt "word"
 msgid "or"
 msgstr "nebo"
 
-#: assets/templates/_libs/forms.jet.html:255
+#: assets/templates/_libs/forms.jet.html:256
 msgid "Select or drop file"
 msgstr "Vyberte nebo přetáhněte soubor"
 
-#: assets/templates/_libs/forms.jet.html:259
+#: assets/templates/_libs/forms.jet.html:260
 msgid "remove"
 msgstr "odebrat"
 
@@ -133,7 +133,7 @@ msgstr "Uživatel bude za několik sekund odebrán"
 #: assets/templates/bookmarks/import/form-csv.jet.html:35
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:35
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:44
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:51
 #: assets/templates/bookmarks/import/form-text.jet.html:36
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:70
 #: assets/templates/bookmarks/label.jet.html:52
@@ -989,7 +989,7 @@ msgstr "Přidá popisek k odkazům na základě jejich nadpisu sekce"
 #: assets/templates/bookmarks/import/form-csv.jet.html:34
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:43
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:49
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
 #: assets/templates/bookmarks/import/form-text.jet.html:35
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:69
 msgid "Import Bookmarks"
@@ -1155,6 +1155,10 @@ msgstr ""
 "    To by mohlo vést k jiným výsledkům v Readecku, než co aktuálně\n"
 "    vidíte v Pocketu.\n"
 "  "
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:44
+msgid "Note: upload the ZIP file directly, not its contents"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32
@@ -1330,23 +1334,23 @@ msgstr "Zatím nemáte žádné záložky.<br> Zkopírujte odkaz do výše uvede
 msgid "Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentation</a>."
 msgstr "Přečtěte si více o záložkách v <a class=\"%s\" href=\"%s\">dokumentaci</a>."
 
+# | msgid "Readeck Bookmark Collections"
 #: assets/templates/bookmarks/index.jet.html:85
 #, fuzzy
-#| msgid "Readeck Bookmark Collections"
 msgid "Readeck Browser Extension"
 msgstr "Sbírky záložek Readecku"
 
+# | msgid "Import bookmarks"
 #: assets/templates/bookmarks/index.jet.html:101
 #, fuzzy
-#| msgid "Import bookmarks"
 msgid "Import existing bookmarks"
 msgstr "Importovat záložky"
 
+# | msgid "" "\n" "          Would you like to import from a similar tool or
+# | from a file with existing bookmarks?\n" "          Try Readeck's import
+# | tool.\n" "        "
 #: assets/templates/bookmarks/index.jet.html:103
 #, fuzzy
-#| msgid "" "\n" "          Would you like to import from a similar tool or
-#| from a file with existing bookmarks?\n" "          Try Readeck's import
-#| tool.\n" "        "
 msgid ""
 "\n"
 "              Would you like to import from a similar tool or from a file with existing bookmarks?\n"

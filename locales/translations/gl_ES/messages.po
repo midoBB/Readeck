@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-22 19:03+0000\n"
-"PO-Revision-Date: 2025-05-23 06:31+0000\n"
+"PO-Revision-Date: 2025-05-23 11:09+0000\n"
 "Last-Translator: ghose <ghose@noreply.codeberg.org>\n"
 "Language-Team: Galician <https://translate.codeberg.org/projects/readeck/"
 "application/gl/>\n"
@@ -1151,7 +1151,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:44
 msgid "Note: upload the ZIP file directly, not its contents"
-msgstr ""
+msgstr "Nota: sube o ficheiro ZIP directamente, non o seu contido"
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32

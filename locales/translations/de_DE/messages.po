@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-23 06:30+0000\n"
-"PO-Revision-Date: 2025-05-23 11:09+0000\n"
-"Last-Translator: ckafi <ckafi@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-05-23 18:49+0000\n"
+"Last-Translator: altruizine <altruizine@noreply.codeberg.org>\n"
 "Language-Team: German <https://translate.codeberg.org/projects/readeck/"
 "application/de/>\n"
 "Language: de_DE\n"
@@ -432,7 +432,7 @@ msgid ""
 "            directly from your browser!"
 msgstr ""
 "\n"
-"            Mit der Browser Erweiterung kannst du Seiten, Bilder und "
+"            Mit der Browser-Erweiterung kannst du Seiten, Bilder und "
 "Markierungen\n"
 "            direkt von deinem Browser aus speichern!"
 
@@ -878,7 +878,7 @@ msgstr "Sendet den Inhalt dieses Lesezeichens in der Nachricht."
 
 #: assets/templates/bookmarks/components/share_email.jet.html:18
 msgid "Sends this bookmarks as an attached EPUB file."
-msgstr "Sendet dieses Lesezeichen als angehängte EPUB Datei."
+msgstr "Sendet dieses Lesezeichen als angehängte EPUB-Datei."
 
 # | msgid "From date"
 #: assets/templates/bookmarks/components/share_email.jet.html:30
@@ -896,7 +896,7 @@ msgstr "Nachricht senden"
 #: assets/templates/bookmarks/components/share_email.jet.html:49
 #, python-format
 msgid "The bookmark was sent to %s"
-msgstr "Dieses Lesezeichen wurde gesendet an %s"
+msgstr "Dieses Lesezeichen wurde an %s gesendet"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:56
 #: assets/templates/bookmarks/components/share_link.jet.html:25
@@ -1154,7 +1154,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:44
 msgid "Note: upload the ZIP file directly, not its contents"
-msgstr "Hinweis: Lade die ZIP Datei direkt hoch, nicht deren Inhalt"
+msgstr "Hinweis: Lade die ZIP-Datei direkt hoch, nicht deren Inhalt"
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32
@@ -1329,7 +1329,7 @@ msgstr "Lies mehr über Lesezeichen in der <a class=\"%s\" href=\"%s\">Dokumenta
 # | msgid "Readeck Bookmark Collections"
 #: assets/templates/bookmarks/index.jet.html:85
 msgid "Readeck Browser Extension"
-msgstr "Readeck Browser Erweiterung"
+msgstr "Readeck Browser-Erweiterung"
 
 # | msgid "Import bookmarks"
 #: assets/templates/bookmarks/index.jet.html:101
@@ -1800,7 +1800,7 @@ msgstr "Sprache"
 # | msgid "Settings"
 #: assets/templates/profile/index.jet.html:48
 msgid "Email settings"
-msgstr "E-Mail Einstellungen"
+msgstr "E-Mail-Einstellungen"
 
 #: assets/templates/profile/index.jet.html:49
 msgid ""
@@ -1809,7 +1809,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"    Diese optionalen Parameter werden verwendet wenn Readeck E-Mails "
+"    Diese optionalen Parameter werden verwendet, wenn Readeck E-Mails "
 "versendet.\n"
 "    "
 
@@ -1828,7 +1828,6 @@ msgid "Send EPUB to"
 msgstr "Sende EPUB an"
 
 #: assets/templates/profile/index.jet.html:62
-#, fuzzy
 msgid "This address is used to prefill the recipient when you send an e-book by email."
 msgstr ""
 "Diese Adresse wird verwendet, um den Empfänger vor-auszufüllen, wenn du ein "
@@ -1843,7 +1842,7 @@ msgid ""
 msgstr ""
 "\n"
 "        Falls du E-Books an einen Kindle senden möchtest, musst du die \n"
-"        folgende E-Mail Adresse in deinem Kindle Konto bestätigen:\n"
+"        folgende E-Mail-Adresse in deinem Kindle-Konto bestätigen:\n"
 "        "
 
 #: assets/templates/profile/password.jet.html:9

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-23 06:30+0000\n"
-"PO-Revision-Date: 2025-05-23 11:09+0000\n"
+"PO-Revision-Date: 2025-05-23 18:49+0000\n"
 "Last-Translator: eih <eih@noreply.codeberg.org>\n"
 "Language-Team: Turkish <https://translate.codeberg.org/projects/readeck/"
 "application/tr/>\n"
@@ -385,7 +385,7 @@ msgstr "Okunmamış"
 
 #: assets/templates/bookmarks/base.jet.html:35
 msgid "Archive"
-msgstr ""
+msgstr "Arşiv"
 
 #: assets/templates/bookmarks/base.jet.html:38
 msgid "Favorites"
@@ -424,7 +424,7 @@ msgstr "Koleksiyonlar"
 
 #: assets/templates/bookmarks/base.jet.html:88
 msgid "Did you know?"
-msgstr ""
+msgstr "Biliyor muydunuz?"
 
 #: assets/templates/bookmarks/base.jet.html:89
 #: assets/templates/bookmarks/index.jet.html:87
@@ -433,15 +433,19 @@ msgid ""
 "            With the Browser Extension, you can save pages, images and selections\n"
 "            directly from your browser!"
 msgstr ""
+"\n"
+"            Tarayıcı Eklentisini kullanarak sayfaları, görselleri ve fareyle "
+"seçtiklerinizi \n"
+"            tarayıcınızdan ayrılmadan kaydedebilirsiniz!"
 
 #: assets/templates/bookmarks/base.jet.html:96
 #: assets/templates/bookmarks/index.jet.html:94
 msgid "Learn more"
-msgstr ""
+msgstr "Daha fazla bilgi"
 
 #: assets/templates/bookmarks/base.jet.html:105
 msgid "Don't remind me"
-msgstr ""
+msgstr "Tekrar hatırlatma"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:80
@@ -451,32 +455,32 @@ msgstr ""
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:111
 msgid "Bookmark information"
-msgstr ""
+msgstr "Yer imi bilgileri"
 
 #: assets/templates/bookmarks/bookmark.jet.html:12
 msgid "Bookmark loading"
-msgstr ""
+msgstr "Yer imi yükleniyor"
 
 #: assets/templates/bookmarks/bookmark.jet.html:43
 msgid "Bookmark is loading"
-msgstr ""
+msgstr "Yer imi yükleniyor"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html:9
 #: assets/templates/bookmarks/bookmark_missing.jet.html:14
 msgid "Bookmark not found"
-msgstr ""
+msgstr "Yer imi bulunamadı"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:17
 msgid "Shared link"
-msgstr ""
+msgstr "Paylaşılan bağlantı"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:54
 msgid "Page not found"
-msgstr ""
+msgstr "Sayfa bulunamadı"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:56
 msgid "Page has expired"
-msgstr ""
+msgstr "Sayfanın geçerlilik süresi doldu"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:78
 #: assets/templates/bookmarks/components/sidebar.jet.html:56
@@ -484,7 +488,7 @@ msgstr ""
 #: assets/templates/epub/bookmark.jet.html:37
 #, python-format
 msgid "Published on %s"
-msgstr ""
+msgstr "%s tarihinde yayınlandı"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:83
 #: assets/templates/bookmarks/components/sidebar.jet.html:61
@@ -492,53 +496,53 @@ msgstr ""
 #: assets/templates/epub/bookmark.jet.html:40
 #, python-format
 msgid "By %s"
-msgstr ""
+msgstr "Yazan %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:91
 #, python-format
 msgid "%d min"
-msgstr ""
+msgstr "%d dakika"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:96
 #, python-format
 msgid "Shared by %s"
-msgstr ""
+msgstr "%s tarafından paylaşıldı"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:97
 msgid "with"
-msgstr ""
+msgstr "paylaşım için kullanılan"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:146
 msgid "Saved with"
-msgstr ""
+msgstr "Kaydetmek için kullanılan"
 
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:8
 msgid "Share by email"
-msgstr ""
+msgstr "E-posta aracılığıyla paylaş"
 
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:18
 #: assets/templates/bookmarks/bookmark_share_link.jet.html:19
 #, python-format
 msgid "Share: %s"
-msgstr ""
+msgstr "Paylaş: %s"
 
 #: assets/templates/bookmarks/bookmark_share_link.jet.html:8
 msgid "Share link"
-msgstr ""
+msgstr "Bağlantıyı paylaş"
 
 #: assets/templates/bookmarks/collection.jet.html:16
 #, python-format
 msgid "Collection %s"
-msgstr ""
+msgstr "Koleksiyon: %s"
 
 #: assets/templates/bookmarks/collection.jet.html:21
 msgid "Collection will be removed in a few seconds."
-msgstr ""
+msgstr "Koleksiyon bir kaç saniye içinde silinecek."
 
 #: assets/templates/bookmarks/collection.jet.html:42
 #: assets/templates/bookmarks/collection.jet.html:55
 msgid "Edit"
-msgstr ""
+msgstr "Düzenle"
 
 #: assets/templates/bookmarks/collection.jet.html:57
 #: assets/templates/bookmarks/index.jet.html:129
@@ -552,30 +556,30 @@ msgstr ""
 #: assets/templates/menu.jet.html:43 docs/http.go:178 docs/http.go:257
 #: docs/http.go:295
 msgid "Documentation"
-msgstr ""
+msgstr "Yardım Belgeleri"
 
 #: assets/templates/bookmarks/collection.jet.html:68
 #: assets/templates/bookmarks/collection_create.jet.html:23
 #: assets/templates/profile/credential.jet.html:63
 msgid "Name"
-msgstr ""
+msgstr "Ad"
 
 #: assets/templates/bookmarks/collection.jet.html:80
 msgid "Delete collection"
-msgstr ""
+msgstr "Koleksiyonu sil"
 
 #: assets/templates/bookmarks/collection_create.jet.html:9
 msgid "New Collection"
-msgstr ""
+msgstr "Yeni Koleksiyon"
 
 #: assets/templates/bookmarks/collection_list.jet.html:9
 #: internal/opds/http.go:74
 msgid "Bookmark Collections"
-msgstr ""
+msgstr "Yer İmi Koleksiyonları"
 
 #: assets/templates/bookmarks/collection_list.jet.html:15
 msgid "Create a new collection"
-msgstr ""
+msgstr "Yeni bir koleksiyon oluştur"
 
 #: assets/templates/bookmarks/collection_list.jet.html:24
 msgid ""
@@ -590,112 +594,114 @@ msgstr ""
 
 #: assets/templates/bookmarks/collection_list.jet.html:33
 msgid "The unread articles (no photos or videos)"
-msgstr ""
+msgstr "Okunmamış yazılar (görsel ya da video yok)"
 
 #: assets/templates/bookmarks/collection_list.jet.html:34
 msgid "The archived articles from \"wikipedia.org\""
-msgstr ""
+msgstr "\"wikipedia.org\" adresli arşivlenmiş yazılar"
 
 #: assets/templates/bookmarks/collection_list.jet.html:35
 msgid "The pictures with the label \"cat\""
-msgstr ""
+msgstr "\"kedi\" ile etiketlenmiş görseller"
 
 #: assets/templates/bookmarks/collection_list.jet.html:36
 msgid "The articles that contain \"shelter\" in their title"
-msgstr ""
+msgstr "Başlığı \"barınak\" içeren yazılar"
 
 #: assets/templates/bookmarks/collection_list.jet.html:39
 #, python-format
 msgid "Read more about collections in the <a class=\"%s\" href=\"%s\">documentation</a>."
 msgstr ""
+"Koleksiyonlar ile ilgili daha fazla bilgi için <a class=\"%s\" href=\"%s\""
+">yardım belgelerine</a> gözatın."
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
 msgid "Export and Share"
-msgstr ""
+msgstr "Dışa Aktar ve Paylaş"
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Delete this bookmark"
-msgstr ""
+msgstr "Bu yer imini sil"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as unread"
-msgstr ""
+msgstr "Okunmadı olarak işaretle"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as read"
-msgstr ""
+msgstr "Okundu olarak işaretle"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Remove from archive"
-msgstr ""
+msgstr "Arşivden çıkar"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Move to archive"
-msgstr ""
+msgstr "Arşive taşı"
 
 #: assets/templates/bookmarks/components/actions.jet.html:9
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
 #: assets/templates/bookmarks/components/card.jet.html:10
 msgid "Remove from favorites"
-msgstr ""
+msgstr "Beğenilenlerden çıkar"
 
 #: assets/templates/bookmarks/components/actions.jet.html:9
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
 #: assets/templates/bookmarks/components/card.jet.html:10
 msgid "Add to favorites"
-msgstr ""
+msgstr "Beğenilenlere ekle"
 
 #: assets/templates/bookmarks/components/actions.jet.html:15
 #: assets/templates/bookmarks/components/card.jet.html:92
 msgid "This bookmark will be removed in a few seconds."
-msgstr ""
+msgstr "Bu yer imi bir kaç saniye içinde kaldırılacak."
 
 #: assets/templates/bookmarks/components/actions.jet.html:24
 msgid "Undo"
-msgstr ""
+msgstr "Geri al"
 
 #: assets/templates/bookmarks/components/actions.jet.html:58
 #: assets/templates/bookmarks/components/list_actions.jet.html:79
 msgid "Download EPUB"
-msgstr ""
+msgstr "EPUB olarak indir"
 
 #: assets/templates/bookmarks/components/actions.jet.html:61
 msgid "Share by Link"
-msgstr ""
+msgstr "Bağlantı aracılığıyla paylaş"
 
 #: assets/templates/bookmarks/components/actions.jet.html:64
 msgid "Send article by Email"
-msgstr ""
+msgstr "Yazıyı e-posta ile gönder"
 
 #: assets/templates/bookmarks/components/actions.jet.html:66
 msgid "Send e-book by Email"
-msgstr ""
+msgstr "E-kitabı e-posta ile gönder"
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
 msgid "Saved with Readeck"
-msgstr ""
+msgstr "Readeck ile kaydedildi"
 
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Go to original page"
-msgstr ""
+msgstr "Asıl sayfaya git"
 
 #: assets/templates/bookmarks/components/card.jet.html:33
 msgctxt "bookmark"
 msgid "Loading"
-msgstr ""
+msgstr "Yükleniyor"
 
 #: assets/templates/bookmarks/components/card.jet.html:75
 #, python-format
 msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d dk."
+msgstr[1] "%d dk."
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"

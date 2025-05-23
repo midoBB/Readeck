@@ -6,15 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CZ 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-23 06:30+0000\n"
-"PO-Revision-Date: 2025-05-16 09:04+0000\n"
+"POT-Creation-Date: 2025-05-22 19:03+0000\n"
+"PO-Revision-Date: 2025-05-23 06:31+0000\n"
 "Last-Translator: Joedmin <joedmin@joedmin.cz>\n"
+"Language-Team: Czech <https://translate.codeberg.org/projects/readeck/"
+"application/cs/>\n"
 "Language: cs_CZ\n"
-"Language-Team: Czech <https://translate.codeberg.org/projects/readeck/application/cs/>\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -420,7 +422,7 @@ msgstr "Sbírky"
 
 #: assets/templates/bookmarks/base.jet.html:88
 msgid "Did you know?"
-msgstr ""
+msgstr "Věděli jste?"
 
 #: assets/templates/bookmarks/base.jet.html:89
 #: assets/templates/bookmarks/index.jet.html:87
@@ -429,15 +431,19 @@ msgid ""
 "            With the Browser Extension, you can save pages, images and selections\n"
 "            directly from your browser!"
 msgstr ""
+"\n"
+"            Pomocí rozšíření prohlížeče můžete ukládat stránky, obrázky a "
+"výběry\n"
+"            přímo z prohlížeče!"
 
 #: assets/templates/bookmarks/base.jet.html:96
 #: assets/templates/bookmarks/index.jet.html:94
 msgid "Learn more"
-msgstr ""
+msgstr "Dozvědět se více"
 
 #: assets/templates/bookmarks/base.jet.html:105
 msgid "Don't remind me"
-msgstr ""
+msgstr "Nepřipomínat"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:80
@@ -1336,21 +1342,18 @@ msgstr "Přečtěte si více o záložkách v <a class=\"%s\" href=\"%s\">dokume
 
 # | msgid "Readeck Bookmark Collections"
 #: assets/templates/bookmarks/index.jet.html:85
-#, fuzzy
 msgid "Readeck Browser Extension"
-msgstr "Sbírky záložek Readecku"
+msgstr "Rozšíření pro prohlížeč Readeck"
 
 # | msgid "Import bookmarks"
 #: assets/templates/bookmarks/index.jet.html:101
-#, fuzzy
 msgid "Import existing bookmarks"
-msgstr "Importovat záložky"
+msgstr "Importovat existující záložky"
 
 # | msgid "" "\n" "          Would you like to import from a similar tool or
 # | from a file with existing bookmarks?\n" "          Try Readeck's import
 # | tool.\n" "        "
 #: assets/templates/bookmarks/index.jet.html:103
-#, fuzzy
 msgid ""
 "\n"
 "              Would you like to import from a similar tool or from a file with existing bookmarks?\n"
@@ -1358,9 +1361,10 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"          Chcete importovat z podobného nástroje nebo ze souboru s existujícími záložkami?\n"
+"              Chcete importovat z podobného nástroje nebo ze souboru s "
+"existujícími záložkami?\n"
 "          Vyzkoušejte nástroj Readecku pro import.\n"
-"        "
+"            "
 
 #: assets/templates/bookmarks/index.jet.html:110
 msgid "Import links and articles"
@@ -2499,4 +2503,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Send email"
 #~ msgstr ""
-

@@ -6,15 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-23 06:30+0000\n"
-"PO-Revision-Date: 2025-05-16 09:04+0000\n"
+"POT-Creation-Date: 2025-05-22 19:03+0000\n"
+"PO-Revision-Date: 2025-05-23 06:31+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
 "Language: zh_CN\n"
-"Language-Team: Chinese (Simplified Han script) <https://translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -420,7 +422,7 @@ msgstr "收藏集"
 
 #: assets/templates/bookmarks/base.jet.html:88
 msgid "Did you know?"
-msgstr ""
+msgstr "您知道吗？"
 
 #: assets/templates/bookmarks/base.jet.html:89
 #: assets/templates/bookmarks/index.jet.html:87
@@ -429,15 +431,18 @@ msgid ""
 "            With the Browser Extension, you can save pages, images and selections\n"
 "            directly from your browser!"
 msgstr ""
+"\n"
+"            使用浏览器扩展程序，您可以直接\n"
+"            从浏览器中保存页面、图片和选定内容！"
 
 #: assets/templates/bookmarks/base.jet.html:96
 #: assets/templates/bookmarks/index.jet.html:94
 msgid "Learn more"
-msgstr ""
+msgstr "了解更多"
 
 #: assets/templates/bookmarks/base.jet.html:105
 msgid "Don't remind me"
-msgstr ""
+msgstr "不再提醒"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:80
@@ -1179,7 +1184,7 @@ msgstr ""
 "\n"
 "    要从 Wallabag 导入您的文章，您必须首先\n"
 "    在 Wallabag 的 <strong>API 客户端管理</strong>菜单中创建 API 客户端。\n"
-"    这将为您提供<strong>客户端 ID</strong> 和<strong>客户端机密</strong>。\n"
+"    这将为您提供<strong>客户端 ID</strong> 和<strong>客户端密钥</strong>。\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:21
@@ -1206,7 +1211,7 @@ msgstr "客户端 ID"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:62
 msgid "Client Secret"
-msgstr "客户端机密"
+msgstr "客户端密钥"
 
 #: assets/templates/bookmarks/import/index.jet.html:9
 msgid "Import your Bookmarks"
@@ -1318,21 +1323,18 @@ msgstr "阅读<a class=\"%s\" href=\"%s\">文档</a>中有关书签的更多信�
 
 # | msgid "Readeck Bookmark Collections"
 #: assets/templates/bookmarks/index.jet.html:85
-#, fuzzy
 msgid "Readeck Browser Extension"
-msgstr "Readeck 书签收藏集"
+msgstr "Readeck 浏览器扩展程序"
 
 # | msgid "Import bookmarks"
 #: assets/templates/bookmarks/index.jet.html:101
-#, fuzzy
 msgid "Import existing bookmarks"
-msgstr "导入书签"
+msgstr "导入现有书签"
 
 # | msgid "" "\n" "          Would you like to import from a similar tool or
 # | from a file with existing bookmarks?\n" "          Try Readeck's import
 # | tool.\n" "        "
 #: assets/templates/bookmarks/index.jet.html:103
-#, fuzzy
 msgid ""
 "\n"
 "              Would you like to import from a similar tool or from a file with existing bookmarks?\n"
@@ -1340,9 +1342,9 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"          您是想从类似工具中导入，还是从具有现有书签的文件中导入？\n"
-"          尝试 Readeck 的导入工具。\n"
-"        "
+"              您想从类似工具或现有书签文件中导入吗？\n"
+"              试试 Readeck 的导入工具。\n"
+"            "
 
 #: assets/templates/bookmarks/index.jet.html:110
 msgid "Import links and articles"
@@ -2475,4 +2477,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Send email"
 #~ msgstr ""
-

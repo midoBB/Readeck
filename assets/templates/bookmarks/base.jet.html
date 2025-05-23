@@ -76,9 +76,9 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- if user.Settings.AddonReminder && isset(.Count) && .Count.Total > 0
       && (pathIs("/bookmarks") || pathIs("/bookmarks/unread"))
   -}}
-    <div class="hidden chrome:hidden firefox:hidden border rounded mt-8 p-2 bg-app-bg text-sm"
+    <div class="hidden chrome:hidden firefox:hidden chrome:block firefox:block border rounded mt-8 p-2 bg-app-bg text-sm"
     data-controller="browser-extension"
-    data-browser-extension-installed-class="hidden chrome:hidden firefox:hidden"
+    data-browser-extension-installed-class="chrome:hidden firefox:hidden"
     >
       <div class="flex gap-2 items-start">
         <p>

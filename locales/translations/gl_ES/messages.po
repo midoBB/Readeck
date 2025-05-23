@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-22 19:03+0000\n"
-"PO-Revision-Date: 2025-05-16 09:04+0000\n"
+"PO-Revision-Date: 2025-05-23 06:31+0000\n"
 "Last-Translator: ghose <ghose@noreply.codeberg.org>\n"
+"Language-Team: Galician <https://translate.codeberg.org/projects/readeck/"
+"application/gl/>\n"
 "Language: gl_ES\n"
-"Language-Team: Galician <https://translate.codeberg.org/projects/readeck/application/gl/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -420,7 +422,7 @@ msgstr "Coleccións"
 
 #: assets/templates/bookmarks/base.jet.html:88
 msgid "Did you know?"
-msgstr ""
+msgstr "Sabes que?"
 
 #: assets/templates/bookmarks/base.jet.html:89
 #: assets/templates/bookmarks/index.jet.html:87
@@ -429,15 +431,19 @@ msgid ""
 "            With the Browser Extension, you can save pages, images and selections\n"
 "            directly from your browser!"
 msgstr ""
+"\n"
+"            Co Complemento para o navegador podes gardar páxinas, imaxes e "
+"fragmentos\n"
+"            directamente desde o navegador!"
 
 #: assets/templates/bookmarks/base.jet.html:96
 #: assets/templates/bookmarks/index.jet.html:94
 msgid "Learn more"
-msgstr ""
+msgstr "Saber máis"
 
 #: assets/templates/bookmarks/base.jet.html:105
 msgid "Don't remind me"
-msgstr ""
+msgstr "Non lembrarmo"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:80
@@ -1314,22 +1320,14 @@ msgid "Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentatio
 msgstr "Aprende máis sobre os marcadores na <a class=\"%s\" href=\"%s\">documentación</a>."
 
 #: assets/templates/bookmarks/index.jet.html:85
-#, fuzzy
-#| msgid "Readeck Bookmark Collections"
 msgid "Readeck Browser Extension"
-msgstr "Coleccións de Marcadores Readeck"
+msgstr "Complemento Readeck para o Navegador"
 
 #: assets/templates/bookmarks/index.jet.html:101
-#, fuzzy
-#| msgid "Import bookmarks"
 msgid "Import existing bookmarks"
-msgstr "Importar marcadores"
+msgstr "Importar marcadores existentes"
 
 #: assets/templates/bookmarks/index.jet.html:103
-#, fuzzy
-#| msgid "" "\n" "          Would you like to import from a similar tool or
-#| from a file with existing bookmarks?\n" "          Try Readeck's import
-#| tool.\n" "        "
 msgid ""
 "\n"
 "              Would you like to import from a similar tool or from a file with existing bookmarks?\n"
@@ -1337,9 +1335,10 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"          Queres importar desde un servizo similar ou desde un ficheiro que inclúe marcadores?\n"
-"        Probar a ferramenta de importación de Readeck.\n"
-"        "
+"              Queres importar desde un servizo equivalente ou desde un "
+"ficheiro que inclúe marcadores?\n"
+"        Proba a ferramenta de importación de Readeck.\n"
+"            "
 
 #: assets/templates/bookmarks/index.jet.html:110
 msgid "Import links and articles"
@@ -2442,4 +2441,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Send email"
 #~ msgstr ""
-

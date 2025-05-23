@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck CZ 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-22 19:03+0000\n"
-"PO-Revision-Date: 2025-05-23 06:31+0000\n"
+"PO-Revision-Date: 2025-05-23 11:09+0000\n"
 "Last-Translator: Joedmin <joedmin@joedmin.cz>\n"
 "Language-Team: Czech <https://translate.codeberg.org/projects/readeck/"
 "application/cs/>\n"
@@ -1164,7 +1164,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:44
 msgid "Note: upload the ZIP file directly, not its contents"
-msgstr ""
+msgstr "Poznámka: nahrajte přímo soubor ZIP, nikoli jeho obsah"
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32

@@ -255,7 +255,24 @@ func TestCSRF(t *testing.T) {
 		},
 		func(assert *require.Assertions, w *httptest.ResponseRecorder, err error) {
 			assert.Equal(412, w.Result().StatusCode)
-			assert.ErrorContains(err, "no origin or referrer")
+			assert.ErrorContains(err, "no referrer")
+		},
+	))
+
+	t.Run("https origin, no referer", testRequest(
+		okStore,
+		func(assert *require.Assertions, r *http.Request) {
+			token, err := b64.DecodeString(Token(r))
+			assert.NoError(err)
+			assert.Equal(okToken, token)
+			r.Method = "POST"
+			r.URL.Scheme = "https"
+			r.URL.Host = "example.net"
+			r.Header.Set("Origin", "https://example.net")
+			r.Header.Set("X-CSRF-Token", Token(r))
+		},
+		func(assert *require.Assertions, w *httptest.ResponseRecorder, _ error) {
+			assert.Equal(200, w.Result().StatusCode)
 		},
 	))
 
@@ -269,7 +286,21 @@ func TestCSRF(t *testing.T) {
 		},
 		func(assert *require.Assertions, w *httptest.ResponseRecorder, err error) {
 			assert.Equal(412, w.Result().StatusCode)
-			assert.ErrorContains(err, `origin http://example.org/ does not match https://example.net/`)
+			assert.ErrorContains(err, "referrer http://example.org/ does not match https://example.net/")
+		},
+	))
+
+	t.Run("http invalid origin", testRequest(
+		okStore,
+		func(_ *require.Assertions, r *http.Request) {
+			r.Method = "POST"
+			r.URL.Scheme = "https"
+			r.URL.Host = "example.net"
+			r.Header.Set("Origin", "http://example.org/")
+		},
+		func(assert *require.Assertions, w *httptest.ResponseRecorder, err error) {
+			assert.Equal(412, w.Result().StatusCode)
+			assert.ErrorContains(err, "origin http://example.org/ does not match https://example.net/")
 		},
 	))
 }

@@ -15,7 +15,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{- if .Form.Get("format").Value() == "html" -}}
         <p class="mb-4">{{ gettext("Sends this bookmark's content in the message.") }}</p>
       {{- else if .Form.Get("format").Value() == "epub" -}}
-        <p class="mb-4">{{ gettext("Sends this bookmarks as an attached EPUB file.") }}</p>
+        <p class="mb-4">{{ gettext("Sends this bookmark as an attached EPUB file.") }}</p>
       {{- end -}}
     {{- end }}
 

@@ -6,17 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-23 18:50+0000\n"
+"POT-Creation-Date: 2025-05-24 13:29+0000\n"
 "PO-Revision-Date: 2025-05-24 10:07+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fito@noreply.codeberg.org>\n"
-"Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/"
-"application/es/>\n"
 "Language: es_ES\n"
+"Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/application/es/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -292,8 +290,7 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"        Proporcione la dirección de correo electrónico que utilizó para "
-"crear\n"
+"        Proporcione la dirección de correo electrónico que utilizó para crear\n"
 "        tu cuenta y le enviaremos un mensaje con un enlace\n"
 "        para recuperar su contraseña.\n"
 "      "
@@ -878,7 +875,9 @@ msgid "Sends this bookmark's content in the message."
 msgstr "Envía el contenido de este marcador en el mensaje."
 
 #: assets/templates/bookmarks/components/share_email.jet.html:18
-msgid "Sends this bookmarks as an attached EPUB file."
+#, fuzzy
+#| msgid "Sends this bookmarks as an attached EPUB file."
+msgid "Sends this bookmark as an attached EPUB file."
 msgstr "Envía este marcador como un archivo EPUB adjunto."
 
 # | msgid "From date"
@@ -1004,9 +1003,12 @@ msgid "Import Links from a CSV File"
 msgstr "Importar enlaces desde un archivo CSV"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
+#, fuzzy
+#| msgid "" "\n" "    Upload a CSV file from Instapaper or any CSV that matches
+#| the format specified bellow.\n" "  "
 msgid ""
 "\n"
-"    Upload a CSV file from Instapaper or any CSV that matches the format specified bellow.\n"
+"    Upload a CSV file from Instapaper or any CSV that matches the format specified below.\n"
 "  "
 msgstr ""
 "\n"
@@ -1768,8 +1770,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"      Si ha olvidado la contraseña de la aplicación o simplemente quiere "
-"cambiarla,\n"
+"      Si ha olvidado la contraseña de la aplicación o simplemente quiere cambiarla,\n"
 "      puede actualizarla para obtener una nueva.\n"
 "    "
 
@@ -1830,9 +1831,7 @@ msgstr "Responder a"
 
 #: assets/templates/profile/index.jet.html:56
 msgid "Add this email address in your outgoing emails so recipients can reply."
-msgstr ""
-"Añada esta dirección de correo electrónico en sus mensajes salientes para "
-"que los destinatarios puedan responder."
+msgstr "Añada esta dirección de correo electrónico en sus mensajes salientes para que los destinatarios puedan responder."
 
 #: assets/templates/profile/index.jet.html:61
 msgid "Send EPUB to"
@@ -2024,15 +2023,15 @@ msgstr "Clave de API no válida"
 msgid "Text File"
 msgstr "Archivo de texto"
 
-#: internal/bookmarks/importer/wallabag.go:238
+#: internal/bookmarks/importer/wallabag.go:242
 msgid "Invalid URL"
 msgstr "URL inválido"
 
-#: internal/bookmarks/importer/wallabag.go:243
+#: internal/bookmarks/importer/wallabag.go:247
 msgid "Invalid credentials"
 msgstr "Credenciales no válidas"
 
-#: internal/bookmarks/importer/wallabag.go:254
+#: internal/bookmarks/importer/wallabag.go:258
 msgid "No access token found"
 msgstr "No se encontró ningún token de acceso"
 
@@ -2505,3 +2504,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "with"
 #~ msgstr "con"
+

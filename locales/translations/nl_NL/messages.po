@@ -6,17 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-23 18:50+0000\n"
+"POT-Creation-Date: 2025-05-24 13:29+0000\n"
 "PO-Revision-Date: 2025-05-24 10:07+0000\n"
 "Last-Translator: Vistaus <vistaus@noreply.codeberg.org>\n"
-"Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/"
-"application/nl/>\n"
 "Language: nl_NL\n"
+"Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/application/nl/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -876,7 +874,9 @@ msgid "Sends this bookmark's content in the message."
 msgstr "Verstuur de inhoud van deze bladwijzer via een bericht."
 
 #: assets/templates/bookmarks/components/share_email.jet.html:18
-msgid "Sends this bookmarks as an attached EPUB file."
+#, fuzzy
+#| msgid "Sends this bookmarks as an attached EPUB file."
+msgid "Sends this bookmark as an attached EPUB file."
 msgstr "Verstuur deze bladwijzers als bijgevoegd epub-bestand."
 
 # | msgid "From date"
@@ -1001,9 +1001,12 @@ msgid "Import Links from a CSV File"
 msgstr "Links importeren uit csv-bestand"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
+#, fuzzy
+#| msgid "" "\n" "    Upload a CSV file from Instapaper or any CSV that matches
+#| the format specified bellow.\n" "  "
 msgid ""
 "\n"
-"    Upload a CSV file from Instapaper or any CSV that matches the format specified bellow.\n"
+"    Upload a CSV file from Instapaper or any CSV that matches the format specified below.\n"
 "  "
 msgstr ""
 "\n"
@@ -2017,15 +2020,15 @@ msgstr "De api-sleutel is ongeldig"
 msgid "Text File"
 msgstr "Tekstbestand"
 
-#: internal/bookmarks/importer/wallabag.go:238
+#: internal/bookmarks/importer/wallabag.go:242
 msgid "Invalid URL"
 msgstr "De url is ongeldig"
 
-#: internal/bookmarks/importer/wallabag.go:243
+#: internal/bookmarks/importer/wallabag.go:247
 msgid "Invalid credentials"
 msgstr "De inloggegevens zijn onjuist"
 
-#: internal/bookmarks/importer/wallabag.go:254
+#: internal/bookmarks/importer/wallabag.go:258
 msgid "No access token found"
 msgstr "Er is geen toegangssleutel gevonden"
 
@@ -2495,3 +2498,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "with"
 #~ msgstr "met"
+

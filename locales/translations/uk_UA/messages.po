@@ -6,18 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-23 18:50+0000\n"
+"POT-Creation-Date: 2025-05-24 13:29+0000\n"
 "PO-Revision-Date: 2025-05-24 10:07+0000\n"
 "Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
-"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
-"application/uk/>\n"
 "Language: uk_UA\n"
+"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/application/uk/>\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -877,7 +874,9 @@ msgid "Sends this bookmark's content in the message."
 msgstr "Надсилає вміст закладки у повідомленні."
 
 #: assets/templates/bookmarks/components/share_email.jet.html:18
-msgid "Sends this bookmarks as an attached EPUB file."
+#, fuzzy
+#| msgid "Sends this bookmarks as an attached EPUB file."
+msgid "Sends this bookmark as an attached EPUB file."
 msgstr "Надсилає закладку як вкладений файл EPUB."
 
 # | msgid "From date"
@@ -1002,9 +1001,12 @@ msgid "Import Links from a CSV File"
 msgstr "Імпортувати посилання з файлу CSV"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
+#, fuzzy
+#| msgid "" "\n" "    Upload a CSV file from Instapaper or any CSV that matches
+#| the format specified bellow.\n" "  "
 msgid ""
 "\n"
-"    Upload a CSV file from Instapaper or any CSV that matches the format specified bellow.\n"
+"    Upload a CSV file from Instapaper or any CSV that matches the format specified below.\n"
 "  "
 msgstr ""
 "\n"
@@ -2008,15 +2010,15 @@ msgstr "Неправильний ключ API"
 msgid "Text File"
 msgstr "Текстовий файл"
 
-#: internal/bookmarks/importer/wallabag.go:238
+#: internal/bookmarks/importer/wallabag.go:242
 msgid "Invalid URL"
 msgstr "Неправильна URL-адреса"
 
-#: internal/bookmarks/importer/wallabag.go:243
+#: internal/bookmarks/importer/wallabag.go:247
 msgid "Invalid credentials"
 msgstr "Неправильні облікові дані"
 
-#: internal/bookmarks/importer/wallabag.go:254
+#: internal/bookmarks/importer/wallabag.go:258
 msgid "No access token found"
 msgstr "Не знайдено токен доступу"
 
@@ -2467,3 +2469,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "with"
 #~ msgstr "з"
+

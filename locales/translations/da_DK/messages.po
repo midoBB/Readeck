@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-23 18:50+0000\n"
+"POT-Creation-Date: 2025-05-24 13:29+0000\n"
 "PO-Revision-Date: 2024-12-02 15:55+0000\n"
 "Last-Translator: toooobeeee <toooobeeee@users.noreply.translate.codeberg.org>\n"
 "Language: da_DK\n"
@@ -495,16 +495,16 @@ msgstr "af %s"
 msgid "%d min"
 msgstr "%d min"
 
+# | msgid "Shared by %s"
 #: assets/templates/bookmarks/bookmark_public.jet.html:97
 #, fuzzy, python-format
-#| msgid "Shared by %s"
 msgid "Shared by %s with %s"
 msgstr "Delt af %s"
 
 # | msgid "Saved with Readeck"
+# | msgid "Saved with"
 #: assets/templates/bookmarks/bookmark_public.jet.html:150
 #, fuzzy, python-format
-#| msgid "Saved with"
 msgid "Saved with %s"
 msgstr "Gemt med Readeck"
 
@@ -879,7 +879,7 @@ msgid "Sends this bookmark's content in the message."
 msgstr ""
 
 #: assets/templates/bookmarks/components/share_email.jet.html:18
-msgid "Sends this bookmarks as an attached EPUB file."
+msgid "Sends this bookmark as an attached EPUB file."
 msgstr ""
 
 # | msgid "From date"
@@ -1008,7 +1008,7 @@ msgstr "Importér links fra en tekst fil"
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
 "\n"
-"    Upload a CSV file from Instapaper or any CSV that matches the format specified bellow.\n"
+"    Upload a CSV file from Instapaper or any CSV that matches the format specified below.\n"
 "  "
 msgstr ""
 
@@ -1978,15 +1978,15 @@ msgstr ""
 msgid "Text File"
 msgstr ""
 
-#: internal/bookmarks/importer/wallabag.go:238
+#: internal/bookmarks/importer/wallabag.go:242
 msgid "Invalid URL"
 msgstr ""
 
-#: internal/bookmarks/importer/wallabag.go:243
+#: internal/bookmarks/importer/wallabag.go:247
 msgid "Invalid credentials"
 msgstr ""
 
-#: internal/bookmarks/importer/wallabag.go:254
+#: internal/bookmarks/importer/wallabag.go:258
 msgid "No access token found"
 msgstr ""
 
@@ -2440,4 +2440,13 @@ msgstr ""
 
 #~ msgid "with"
 #~ msgstr "med"
+
+#~ msgid "Sends this bookmarks as an attached EPUB file."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "    Upload a CSV file from Instapaper or any CSV that matches the format specified bellow.\n"
+#~ "  "
+#~ msgstr ""
 

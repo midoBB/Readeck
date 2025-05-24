@@ -7,14 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-23 18:50+0000\n"
-"PO-Revision-Date: 2025-05-23 11:09+0000\n"
+"PO-Revision-Date: 2025-05-24 10:07+0000\n"
 "Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
+"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
+"application/uk/>\n"
 "Language: uk_UA\n"
-"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/application/uk/>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -499,17 +502,15 @@ msgid "%d min"
 msgstr "%d хв"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:97
-#, fuzzy, python-format
-#| msgid "Shared by %s"
+#, python-format
 msgid "Shared by %s with %s"
-msgstr "Поділились %s"
+msgstr "Поділились %s через %s"
 
 # | msgid "Saved with Readeck"
 #: assets/templates/bookmarks/bookmark_public.jet.html:150
-#, fuzzy, python-format
-#| msgid "Saved with"
+#, python-format
 msgid "Saved with %s"
-msgstr "Збережено за допомогою"
+msgstr "Збережено за допомогою %s"
 
 # | msgid "Share by Link"
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:8
@@ -1275,7 +1276,7 @@ msgstr "Позначає всі посилання як прочитані, не
 
 #: assets/templates/bookmarks/import/progress.jet.html:15
 msgid "Import operation will launch momentarily."
-msgstr "Поцес імпорту почнеться миттєво."
+msgstr "Процес імпорту почнеться миттєво."
 
 #: assets/templates/bookmarks/import/progress.jet.html:17
 msgid "Import operation has started!"
@@ -2466,4 +2467,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "with"
 #~ msgstr "з"
-

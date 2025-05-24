@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-23 18:50+0000\n"
-"PO-Revision-Date: 2025-05-23 06:31+0000\n"
-"Last-Translator: elmau <elmau@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-05-24 10:07+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fito@noreply.codeberg.org>\n"
+"Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/"
+"application/es/>\n"
 "Language: es_ES\n"
-"Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/application/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -43,7 +45,7 @@ msgstr "Menú de acceso rápido"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Home Page"
-msgstr "Página de Inicio"
+msgstr "Página de inicio"
 
 #: assets/templates/_libs/forms.jet.html:1
 #: assets/templates/_libs/forms.jet.html:33
@@ -72,7 +74,7 @@ msgstr "Semana(s)"
 
 #: assets/templates/_libs/forms.jet.html:223
 msgid "Month(s)"
-msgstr "Mes(s)"
+msgstr "Mes(es)"
 
 #: assets/templates/_libs/forms.jet.html:224
 msgid "Year(s)"
@@ -193,7 +195,7 @@ msgstr "Borrar este usuario"
 
 #: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:93
 msgid "New User"
-msgstr "Nuevo Usuario"
+msgstr "Usuario nuevo"
 
 #: assets/templates/admin/user_create.jet.html:42
 msgid "Create user"
@@ -234,16 +236,16 @@ msgstr "Nombre de usuario o correo electrónico"
 
 #: assets/templates/auth/login.jet.html:41
 msgid "Forgot your password?"
-msgstr "¿Olvidaste tu contraseña?"
+msgstr "¿Olvidó su contraseña?"
 
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:71
 msgid "Welcome to Readeck!"
-msgstr "¡Bienvenidos a Readeck!"
+msgstr "Le damos la bienvenida a Readeck."
 
 #: assets/templates/auth/onboarding.jet.html:15
 msgid "We're delighted to have you on board; one more step and you're good to go."
-msgstr "Estamos encantados de tenerte a bordo; Un paso más y listo."
+msgstr "Estamos encantados de tenerle a bordo; un paso más y listo."
 
 #: assets/templates/auth/onboarding.jet.html:32
 #: assets/templates/auth/recover.jet.html:56
@@ -253,7 +255,7 @@ msgstr "debe contener al menos 8 caracteres"
 
 #: assets/templates/auth/onboarding.jet.html:39
 msgid "Please note:"
-msgstr "Ten en cuenta:"
+msgstr "Tenga en cuenta:"
 
 #: assets/templates/auth/onboarding.jet.html:40
 msgid ""
@@ -279,7 +281,7 @@ msgstr "Recuperar contraseña"
 
 #: assets/templates/auth/recover.jet.html:21
 msgid "No worries, it happens to anyone."
-msgstr "No te preocupes, le pasa a cualquiera."
+msgstr "No se preocupe, le pasa a cualquiera."
 
 #: assets/templates/auth/recover.jet.html:22
 msgid ""
@@ -290,8 +292,9 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"Proporcione la dirección de correo electrónico que utilizó para crear\n"
-"        tu cuenta y te enviaremos un mensaje con un enlace\n"
+"        Proporcione la dirección de correo electrónico que utilizó para "
+"crear\n"
+"        tu cuenta y le enviaremos un mensaje con un enlace\n"
 "        para recuperar su contraseña.\n"
 "      "
 
@@ -499,17 +502,15 @@ msgid "%d min"
 msgstr "%d minutos"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:97
-#, fuzzy, python-format
-#| msgid "Shared by %s"
+#, python-format
 msgid "Shared by %s with %s"
-msgstr "Compartido por %s"
+msgstr "Compartido por %s con %s"
 
 # | msgid "Saved with Readeck"
 #: assets/templates/bookmarks/bookmark_public.jet.html:150
-#, fuzzy, python-format
-#| msgid "Saved with"
+#, python-format
 msgid "Saved with %s"
-msgstr "Guardado con"
+msgstr "Guardado con %s"
 
 # | msgid "Share by Link"
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:8
@@ -1082,7 +1083,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Carga un archivo JSON obtenido de tu aplicación de GoodLinks.\n"
+"    Cargue un archivo JSON obtenido de su aplicación de GoodLinks.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:9
@@ -1160,7 +1161,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:44
 msgid "Note: upload the ZIP file directly, not its contents"
-msgstr ""
+msgstr "Nota: cargue el archivo ZIP directamente, no su contenido"
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32
@@ -1376,8 +1377,8 @@ msgstr "Su consulta de búsqueda no arrojó <strong>ningún resultado</strong>."
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
-msgstr[0] "Tu búsqueda ha dado <strong>%d resultado</strong>."
-msgstr[1] "Tu búsqueda ha dado <strong>%d resultados</strong>."
+msgstr[0] "Su búsqueda ha dado <strong>%d resultado</strong>."
+msgstr[1] "Su búsqueda ha dado <strong>%d resultados</strong>."
 
 #: assets/templates/bookmarks/index.jet.html:179
 msgctxt "action"
@@ -1767,8 +1768,9 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"      Si has olvidado la contraseña de aplicación o simplemente quieres cambiarla,\n"
-"      puedes actualizarla para obtener una nueva.\n"
+"      Si ha olvidado la contraseña de la aplicación o simplemente quiere "
+"cambiarla,\n"
+"      puede actualizarla para obtener una nueva.\n"
 "    "
 
 #: assets/templates/profile/credential_list.jet.html:10
@@ -1828,7 +1830,9 @@ msgstr "Responder a"
 
 #: assets/templates/profile/index.jet.html:56
 msgid "Add this email address in your outgoing emails so recipients can reply."
-msgstr "Añade esta dirección de correo electrónico en tus mensajes salientes para que los destinatarios puedan responder."
+msgstr ""
+"Añada esta dirección de correo electrónico en sus mensajes salientes para "
+"que los destinatarios puedan responder."
 
 #: assets/templates/profile/index.jet.html:61
 msgid "Send EPUB to"
@@ -2192,7 +2196,7 @@ msgstr "Su contraseña ha sido cambiada."
 
 #: internal/profile/views.go:191
 msgid "Error: you cannot create more credentials."
-msgstr "Error: no puedes crear más credenciales."
+msgstr "Error: no puede crear más credenciales."
 
 #: internal/profile/views.go:199
 msgid "An error occurred while creating your password."
@@ -2501,4 +2505,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "with"
 #~ msgstr "con"
-

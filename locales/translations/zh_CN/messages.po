@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-23 18:50+0000\n"
-"PO-Revision-Date: 2025-05-23 11:09+0000\n"
+"PO-Revision-Date: 2025-05-24 10:07+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
 "Language: zh_CN\n"
-"Language-Team: Chinese (Simplified Han script) <https://translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -499,16 +501,14 @@ msgid "%d min"
 msgstr "%d 分钟"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:97
-#, fuzzy, python-format
-#| msgid "Shared by %s"
+#, python-format
 msgid "Shared by %s with %s"
-msgstr "由 %s 分享"
+msgstr "由 %s 与 %s 分享"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:150
-#, fuzzy, python-format
-#| msgid "Saved with"
+#, python-format
 msgid "Saved with %s"
-msgstr "已保存"
+msgstr "使用 %s 保存"
 
 # | msgid "Share by Link"
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:8
@@ -2477,4 +2477,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "with"
 #~ msgstr "通过"
-

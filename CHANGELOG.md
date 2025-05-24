@@ -12,6 +12,13 @@
 ### Changed
 - Reverted the SQLite driver to its CGO version
 
+### Fixed
+- Bug in Wallabag import adapter that would not load entries with empty headers
+
+### Improved
+- Check Origin header in CSRF protection
+- Strings that were misspelled or difficult to translate
+
 ## [0.18.2] - 2025-05-07
 ### Added
 - server.base_url setting

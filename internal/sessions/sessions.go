@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"time"
 
-	"codeberg.org/readeck/readeck/pkg/securecookie"
+	"codeberg.org/readeck/readeck/pkg/http/securecookie"
 )
 
 // Payload contains session values.

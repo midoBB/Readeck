@@ -16,8 +16,8 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/profile/preferences"
 	"codeberg.org/readeck/readeck/internal/templates"
-	"codeberg.org/readeck/readeck/pkg/csrf"
 	"codeberg.org/readeck/readeck/pkg/glob"
+	"codeberg.org/readeck/readeck/pkg/http/csrf"
 	"codeberg.org/readeck/readeck/pkg/libjet"
 )
 

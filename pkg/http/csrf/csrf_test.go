@@ -255,7 +255,7 @@ func TestCSRF(t *testing.T) {
 		},
 		func(assert *require.Assertions, w *httptest.ResponseRecorder, err error) {
 			assert.Equal(412, w.Result().StatusCode)
-			assert.ErrorContains(err, "no referrer")
+			assert.ErrorContains(err, "no origin or referrer")
 		},
 	))
 
@@ -269,7 +269,7 @@ func TestCSRF(t *testing.T) {
 		},
 		func(assert *require.Assertions, w *httptest.ResponseRecorder, err error) {
 			assert.Equal(412, w.Result().StatusCode)
-			assert.ErrorContains(err, "referrer does not match")
+			assert.ErrorContains(err, `origin http://example.org/ does not match https://example.net/`)
 		},
 	))
 }

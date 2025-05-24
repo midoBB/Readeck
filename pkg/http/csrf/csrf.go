@@ -115,27 +115,23 @@ func (h *Handler) Protect(next http.Handler) http.Handler {
 
 		if !slices.Contains(safeMethods, r.Method) {
 			if r.URL.Scheme == "https" {
-				referer, err := url.Parse(r.Referer())
+				origin, err := h.getOrigin(r)
 				if err != nil {
-					h.sendError(fmt.Errorf("%w %s", err, "invalid referrer"), w, r)
-					return
-				}
-				if referer.String() == "" {
-					h.sendError(errors.New("no referrer"), w, r)
+					h.sendError(fmt.Errorf("%s: %w", "invalid origin", err), w, r)
 					return
 				}
 
-				valid := referer.Scheme == r.URL.Scheme && referer.Host == r.URL.Host
+				valid := origin.Scheme == r.URL.Scheme && origin.Host == r.URL.Host
 
 				if !valid {
-					h.sendError(errors.New("referrer does not match"), w, r)
+					h.sendError(fmt.Errorf("origin %s does not match %s", origin.String(), r.URL.String()), w, r)
 					return
 				}
 			}
 
 			rToken, err := h.requestToken(r)
 			if err != nil {
-				h.sendError(fmt.Errorf("%w invalid token", err), w, r)
+				h.sendError(fmt.Errorf("invalid token: %w", err), w, r)
 				return
 			}
 
@@ -154,6 +150,20 @@ func (h *Handler) Protect(next http.Handler) http.Handler {
 		// Handle request
 		next.ServeHTTP(w, r)
 	})
+}
+
+func (h *Handler) getOrigin(r *http.Request) (*url.URL, error) {
+	// First, try with Origin
+	if header := r.Header.Get("origin"); header != "" {
+		return url.Parse(header)
+	}
+
+	// Then the referrer
+	if header := r.Referer(); header != "" {
+		return url.Parse(header)
+	}
+
+	return nil, errors.New("no origin or referrer")
 }
 
 // Renew generates a new token and saves it in the storage (usually a cookie).

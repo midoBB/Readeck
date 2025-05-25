@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-24 13:29+0000\n"
+"POT-Creation-Date: 2025-05-25 07:29+0000\n"
 "PO-Revision-Date: 2025-05-23 11:09+0000\n"
 "Last-Translator: ghose <ghose@noreply.codeberg.org>\n"
 "Language: gl_ES\n"
@@ -116,7 +116,7 @@ msgstr "Seguinte"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:35 internal/admin/views.go:62
+#: assets/templates/profile/base.jet.html:30 internal/admin/views.go:62
 #: internal/admin/views.go:92 internal/admin/views.go:132
 msgid "Users"
 msgstr "Usuarias"
@@ -137,8 +137,6 @@ msgstr "Eliminarase a usuaria nuns segundos"
 #: assets/templates/bookmarks/import/form-text.jet.html:36
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:70
 #: assets/templates/bookmarks/label.jet.html:52
-#: assets/templates/profile/credential.jet.html:20
-#: assets/templates/profile/credential_list.jet.html:62
 #: assets/templates/profile/token.jet.html:20
 #: assets/templates/profile/token_list.jet.html:68
 msgid "Cancel"
@@ -169,7 +167,7 @@ msgstr "Grupo"
 #: assets/templates/auth/login.jet.html:30
 #: assets/templates/auth/onboarding.jet.html:29
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:48
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:136
+#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:122
 msgid "Password"
 msgstr "Contrasinal"
 
@@ -180,7 +178,6 @@ msgstr "non cambiará se está baleiro"
 #: assets/templates/admin/user.jet.html:52
 #: assets/templates/bookmarks/collection.jet.html:78
 #: assets/templates/bookmarks/collection_create.jet.html:30
-#: assets/templates/profile/credential.jet.html:88
 #: assets/templates/profile/index.jet.html:80
 #: assets/templates/profile/password.jet.html:36
 #: assets/templates/profile/token.jet.html:75
@@ -204,7 +201,6 @@ msgid "Add a new user"
 msgstr "Engadir unha nova usuaria"
 
 #: assets/templates/admin/user_list.jet.html:30
-#: assets/templates/profile/credential_list.jet.html:46
 #: assets/templates/profile/token_list.jet.html:48
 #, python-format
 msgid "Created on: %s"
@@ -555,7 +551,6 @@ msgstr "Documentación"
 
 #: assets/templates/bookmarks/collection.jet.html:68
 #: assets/templates/bookmarks/collection_create.jet.html:23
-#: assets/templates/profile/credential.jet.html:63
 msgid "Name"
 msgstr "Nome"
 
@@ -871,9 +866,9 @@ msgstr "Guionización"
 msgid "Sends this bookmark's content in the message."
 msgstr "Envía o contido deste marcador na mensaxe."
 
+# | msgid "Sends this bookmarks as an attached EPUB file."
 #: assets/templates/bookmarks/components/share_email.jet.html:18
 #, fuzzy
-#| msgid "Sends this bookmarks as an attached EPUB file."
 msgid "Sends this bookmark as an attached EPUB file."
 msgstr "Envía este marcador como un ficheiro EPUB anexo."
 
@@ -997,10 +992,11 @@ msgstr "Importar Marcadores"
 msgid "Import Links from a CSV File"
 msgstr "Importa ligazóns desde un ficheiro CSV"
 
+# | msgid "" "\n" "    Upload a CSV file from Instapaper or any CSV that
+# matches
+# | the format specified bellow.\n" "  "
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 #, fuzzy
-#| msgid "" "\n" "    Upload a CSV file from Instapaper or any CSV that matches
-#| the format specified bellow.\n" "  "
 msgid ""
 "\n"
 "    Upload a CSV file from Instapaper or any CSV that matches the format specified below.\n"
@@ -1649,132 +1645,16 @@ msgstr "Cambiar a cor do decorado"
 msgid "Settings"
 msgstr "Axustes"
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:100
-#: internal/profile/views.go:135 internal/profile/views.go:180
-#: internal/profile/views.go:248 internal/profile/views.go:279
-#: internal/profile/views.go:339
+#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:86
+#: internal/profile/views.go:121 internal/profile/views.go:165
+#: internal/profile/views.go:225
 msgid "Profile"
 msgstr "Perfil"
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:181
-#: internal/profile/views.go:249
-msgid "Application Passwords"
-msgstr "Contrasinais das aplicacións"
-
-#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:280
-#: internal/profile/views.go:340
+#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:166
+#: internal/profile/views.go:226
 msgid "API Tokens"
 msgstr "Tokens da API"
-
-#: assets/templates/profile/credential.jet.html:9
-msgid "Application Password"
-msgstr "Contrasinal da aplicación"
-
-#: assets/templates/profile/credential.jet.html:19
-msgid "Password will be removed in a few seconds."
-msgstr "Nuns segundos vaise eliminar o contrasinal."
-
-#: assets/templates/profile/credential.jet.html:27
-msgid ""
-"\n"
-"    Your application password was created. Please copy the password below and write it down\n"
-"    or store it in a password manager.\n"
-"  "
-msgstr ""
-"\n"
-"    Creouse un contrasinal para a aplicación. Copia o contrasinal inferior e gárdao de xeito seguro\n"
-"    nun xestor de contrasinais.\n"
-"  "
-
-#: assets/templates/profile/credential.jet.html:32
-msgid "Your password:"
-msgstr "O contrasinal:"
-
-#: assets/templates/profile/credential.jet.html:39
-msgid "Copy"
-msgstr "Copiar"
-
-#: assets/templates/profile/credential.jet.html:44
-#: assets/templates/profile/token.jet.html:25
-msgid "Properties"
-msgstr "Propiedades"
-
-#: assets/templates/profile/credential.jet.html:51
-msgid "Password ID"
-msgstr "ID do contrasinal"
-
-#: assets/templates/profile/credential.jet.html:56
-#: assets/templates/profile/token.jet.html:37
-msgid "Last used"
-msgstr "Último uso"
-
-#: assets/templates/profile/credential.jet.html:57
-#: assets/templates/profile/token.jet.html:38
-msgid "never used"
-msgstr "nunca utilizado"
-
-#: assets/templates/profile/credential.jet.html:69
-#: assets/templates/profile/token.jet.html:50
-msgid "Enabled"
-msgstr "Activado"
-
-#: assets/templates/profile/credential.jet.html:75
-msgid ""
-"\n"
-"    You can limit the permissions granted to this password by choosing one or more\n"
-"    group of permissions below.<br>\n"
-"    Leave all the choices blank to grant all your permissions to this password.\n"
-"  "
-msgstr ""
-"\n"
-"    Podes limitar os permisos concedidos a este contrasinal elexindo un ou varios niveis\n"
-"    de permisos.<br>\n"
-"    Deixa todo sen marcar para conceder todos os permisos a este contrasinal\n"
-"  "
-
-#: assets/templates/profile/credential.jet.html:83
-#: assets/templates/profile/token.jet.html:70
-msgid "Roles"
-msgstr "Roles"
-
-#: assets/templates/profile/credential.jet.html:91
-msgid "Delete password"
-msgstr "Eliminar contrasinal"
-
-#: assets/templates/profile/credential.jet.html:95
-#: assets/templates/profile/credential.jet.html:103
-msgid "Refresh password"
-msgstr "Actualizar contrasinal"
-
-#: assets/templates/profile/credential.jet.html:97
-msgid ""
-"\n"
-"      If you forgot your application password or simply want to change it,\n"
-"      you can refresh it to get a new one.\n"
-"    "
-msgstr ""
-"\n"
-"      Se esqueciches o contrasinal da aplicación ou só queres cambialo,\n"
-"    podes actualizalo para obter un novo.\n"
-"    "
-
-#: assets/templates/profile/credential_list.jet.html:10
-msgid "My Application Passwords"
-msgstr "Contrasinais das Aplicacións"
-
-#: assets/templates/profile/credential_list.jet.html:23
-msgid "Create a new Application Password"
-msgstr "Crear un novo contrasinal de aplicación"
-
-#: assets/templates/profile/credential_list.jet.html:48
-#: assets/templates/profile/token_list.jet.html:54
-#, python-format
-msgid "Last used on: %s"
-msgstr "Último uso: %s"
-
-#: assets/templates/profile/credential_list.jet.html:56
-msgid "This password will be removed in a few seconds."
-msgstr "Vaise eliminar o contrasinal nuns segundos."
 
 #: assets/templates/profile/index.jet.html:9
 msgid "My profile"
@@ -1860,13 +1740,29 @@ msgstr "Token da API"
 msgid "Token will be removed in a few seconds."
 msgstr "Nuns segundos vaise eliminar o token."
 
+#: assets/templates/profile/token.jet.html:25
+msgid "Properties"
+msgstr "Propiedades"
+
 #: assets/templates/profile/token.jet.html:32
 msgid "Token ID"
 msgstr "ID do token"
 
+#: assets/templates/profile/token.jet.html:37
+msgid "Last used"
+msgstr "Último uso"
+
+#: assets/templates/profile/token.jet.html:38
+msgid "never used"
+msgstr "nunca utilizado"
+
 #: assets/templates/profile/token.jet.html:44
 msgid "Application"
 msgstr "Aplicación"
+
+#: assets/templates/profile/token.jet.html:50
+msgid "Enabled"
+msgstr "Activado"
 
 #: assets/templates/profile/token.jet.html:56
 msgid "Expires on"
@@ -1886,12 +1782,18 @@ msgstr ""
 "    Deixa sen marcar todas as opcións para conceder todos os permisos.\n"
 "  "
 
+#: assets/templates/profile/token.jet.html:70
+msgid "Roles"
+msgstr "Roles"
+
 #: assets/templates/profile/token.jet.html:78
 msgid "Delete token"
 msgstr "Eliminar token"
 
 #: assets/templates/profile/token.jet.html:83
-msgid "API authentication"
+#, fuzzy
+#| msgid "API authentication"
+msgid "Authentication"
 msgstr "Autenticación na API"
 
 #: assets/templates/profile/token.jet.html:86
@@ -1899,12 +1801,38 @@ msgid "Your API token"
 msgstr "Token para API"
 
 #: assets/templates/profile/token.jet.html:96
+msgid "How to use it"
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:98
+#, fuzzy
+#| msgid "Create a new API token"
+msgid "As a Bearer Token"
+msgstr "Crear un novo token da API"
+
+#: assets/templates/profile/token.jet.html:100
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
 msgstr "Podes usar este token enviándoo na cabeceira HTTP como un <strong>Authorization: Bearer</strong>."
 
-#: assets/templates/profile/token.jet.html:98
+#: assets/templates/profile/token.jet.html:102
 msgid "HTTP Header"
 msgstr "Cabeceira HTTP"
+
+#: assets/templates/profile/token.jet.html:113
+#, fuzzy
+#| msgid "Password"
+msgid "As a password"
+msgstr "Contrasinal"
+
+#: assets/templates/profile/token.jet.html:115
+msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:116
+msgid ""
+"For example, if an application only accepts a username and password, you can provide this token as a password.\n"
+"  The username is ignored and can be anything, including an empty value."
+msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
@@ -1933,6 +1861,11 @@ msgstr "Crear un novo token da API"
 #, python-format
 msgid "Expires on: %s"
 msgstr "Caduca o: %s"
+
+#: assets/templates/profile/token_list.jet.html:54
+#, python-format
+msgid "Last used on: %s"
+msgstr "Último uso: %s"
 
 #: assets/templates/profile/token_list.jet.html:62
 msgid "This token will be removed in a few seconds."
@@ -2157,43 +2090,31 @@ msgstr "Progreso"
 msgid "All Bookmarks"
 msgstr "Todos os marcadores"
 
-#: internal/profile/forms.go:33
+#: internal/profile/forms.go:32
 msgid "invalid username and/or email"
 msgstr "identificador e/ou correo non válidos"
 
-#: internal/profile/forms.go:34
+#: internal/profile/forms.go:33
 msgid "invalid password"
 msgstr "contrasinal non válido"
 
-#: internal/profile/views.go:87
+#: internal/profile/views.go:73
 msgid "Profile updated."
 msgstr "Perfil actualizado."
 
-#: internal/profile/views.go:123
+#: internal/profile/views.go:109
 msgid "Your password was changed."
 msgstr "Cambiouse o contrasinal."
 
-#: internal/profile/views.go:191
-msgid "Error: you cannot create more credentials."
-msgstr "Erro: non podes crear máis credenciais."
-
-#: internal/profile/views.go:199
-msgid "An error occurred while creating your password."
-msgstr "Houbo un fallo ao crear o contrasinal."
-
-#: internal/profile/views.go:234
-msgid "Password was updated."
-msgstr "Actualizouse o contrasinal."
-
-#: internal/profile/views.go:295
+#: internal/profile/views.go:181
 msgid "An error occurred while creating your token."
 msgstr "Houbo un fallo ao crear o token."
 
-#: internal/profile/views.go:300
+#: internal/profile/views.go:186
 msgid "New token created."
 msgstr "Creouse o novo token."
 
-#: internal/profile/views.go:319
+#: internal/profile/views.go:205
 msgid "Token was updated."
 msgstr "Actualizouse o token."
 
@@ -2453,4 +2374,81 @@ msgstr "%H:%M:%S"
 
 #~ msgid "with"
 #~ msgstr "con"
+
+#~ msgid "Application Passwords"
+#~ msgstr "Contrasinais das aplicacións"
+
+#~ msgid "Application Password"
+#~ msgstr "Contrasinal da aplicación"
+
+#~ msgid "Password will be removed in a few seconds."
+#~ msgstr "Nuns segundos vaise eliminar o contrasinal."
+
+#~ msgid ""
+#~ "\n"
+#~ "    Your application password was created. Please copy the password below and write it down\n"
+#~ "    or store it in a password manager.\n"
+#~ "  "
+#~ msgstr ""
+#~ "\n"
+#~ "    Creouse un contrasinal para a aplicación. Copia o contrasinal inferior e gárdao de xeito seguro\n"
+#~ "    nun xestor de contrasinais.\n"
+#~ "  "
+
+#~ msgid "Your password:"
+#~ msgstr "O contrasinal:"
+
+#~ msgid "Copy"
+#~ msgstr "Copiar"
+
+#~ msgid "Password ID"
+#~ msgstr "ID do contrasinal"
+
+#~ msgid ""
+#~ "\n"
+#~ "    You can limit the permissions granted to this password by choosing one or more\n"
+#~ "    group of permissions below.<br>\n"
+#~ "    Leave all the choices blank to grant all your permissions to this password.\n"
+#~ "  "
+#~ msgstr ""
+#~ "\n"
+#~ "    Podes limitar os permisos concedidos a este contrasinal elexindo un ou varios niveis\n"
+#~ "    de permisos.<br>\n"
+#~ "    Deixa todo sen marcar para conceder todos os permisos a este contrasinal\n"
+#~ "  "
+
+#~ msgid "Delete password"
+#~ msgstr "Eliminar contrasinal"
+
+#~ msgid "Refresh password"
+#~ msgstr "Actualizar contrasinal"
+
+#~ msgid ""
+#~ "\n"
+#~ "      If you forgot your application password or simply want to change it,\n"
+#~ "      you can refresh it to get a new one.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "      Se esqueciches o contrasinal da aplicación ou só queres cambialo,\n"
+#~ "    podes actualizalo para obter un novo.\n"
+#~ "    "
+
+#~ msgid "My Application Passwords"
+#~ msgstr "Contrasinais das Aplicacións"
+
+#~ msgid "Create a new Application Password"
+#~ msgstr "Crear un novo contrasinal de aplicación"
+
+#~ msgid "This password will be removed in a few seconds."
+#~ msgstr "Vaise eliminar o contrasinal nuns segundos."
+
+#~ msgid "Error: you cannot create more credentials."
+#~ msgstr "Erro: non podes crear máis credenciais."
+
+#~ msgid "An error occurred while creating your password."
+#~ msgstr "Houbo un fallo ao crear o contrasinal."
+
+#~ msgid "Password was updated."
+#~ msgstr "Actualizouse o contrasinal."
 

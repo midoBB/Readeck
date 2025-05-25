@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-24 13:29+0000\n"
+"POT-Creation-Date: 2025-05-25 07:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -131,7 +131,7 @@ msgstr ""
 #: assets/templates/auth/login.jet.html:30
 #: assets/templates/auth/onboarding.jet.html:29
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:48
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:136
+#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:122
 msgid "Password"
 msgstr ""
 
@@ -142,7 +142,6 @@ msgstr ""
 #: assets/templates/admin/user.jet.html:52
 #: assets/templates/bookmarks/collection.jet.html:78
 #: assets/templates/bookmarks/collection_create.jet.html:30
-#: assets/templates/profile/credential.jet.html:88
 #: assets/templates/profile/index.jet.html:80
 #: assets/templates/profile/password.jet.html:36
 #: assets/templates/profile/token.jet.html:75
@@ -163,7 +162,7 @@ msgstr ""
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:35 internal/admin/views.go:62
+#: assets/templates/profile/base.jet.html:30 internal/admin/views.go:62
 #: internal/admin/views.go:92 internal/admin/views.go:132
 msgid "Users"
 msgstr ""
@@ -173,7 +172,6 @@ msgid "Add a new user"
 msgstr ""
 
 #: assets/templates/admin/user_list.jet.html:30
-#: assets/templates/profile/credential_list.jet.html:46
 #: assets/templates/profile/token_list.jet.html:48
 #, python-format
 msgid "Created on: %s"
@@ -200,8 +198,6 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-text.jet.html:36
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:70
 #: assets/templates/bookmarks/label.jet.html:52
-#: assets/templates/profile/credential.jet.html:20
-#: assets/templates/profile/credential_list.jet.html:62
 #: assets/templates/profile/token.jet.html:20
 #: assets/templates/profile/token_list.jet.html:68
 msgid "Cancel"
@@ -505,7 +501,6 @@ msgstr ""
 
 #: assets/templates/bookmarks/collection.jet.html:68
 #: assets/templates/bookmarks/collection_create.jet.html:23
-#: assets/templates/profile/credential.jet.html:63
 msgid "Name"
 msgstr ""
 
@@ -1521,87 +1516,15 @@ msgstr ""
 msgid "Documentation"
 msgstr ""
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:100
-#: internal/profile/views.go:135 internal/profile/views.go:180
-#: internal/profile/views.go:248 internal/profile/views.go:279
-#: internal/profile/views.go:339
+#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:86
+#: internal/profile/views.go:121 internal/profile/views.go:165
+#: internal/profile/views.go:225
 msgid "Profile"
 msgstr ""
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:181
-#: internal/profile/views.go:249
-msgid "Application Passwords"
-msgstr ""
-
-#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:280
-#: internal/profile/views.go:340
+#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:166
+#: internal/profile/views.go:226
 msgid "API Tokens"
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:9
-msgid "Application Password"
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:19
-msgid "Password will be removed in a few seconds."
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:27
-msgid ""
-"\n"
-"    Your application password was created. Please copy the password below and write it down\n"
-"    or store it in a password manager.\n"
-"  "
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:32
-msgid "Your password:"
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:39
-msgid "Copy"
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:51
-msgid "Password ID"
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:75
-msgid ""
-"\n"
-"    You can limit the permissions granted to this password by choosing one or more\n"
-"    group of permissions below.<br>\n"
-"    Leave all the choices blank to grant all your permissions to this password.\n"
-"  "
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:91
-msgid "Delete password"
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:95
-#: assets/templates/profile/credential.jet.html:103
-msgid "Refresh password"
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:97
-msgid ""
-"\n"
-"      If you forgot your application password or simply want to change it,\n"
-"      you can refresh it to get a new one.\n"
-"    "
-msgstr ""
-
-#: assets/templates/profile/credential_list.jet.html:10
-msgid "My Application Passwords"
-msgstr ""
-
-#: assets/templates/profile/credential_list.jet.html:23
-msgid "Create a new Application Password"
-msgstr ""
-
-#: assets/templates/profile/credential_list.jet.html:56
-msgid "This password will be removed in a few seconds."
 msgstr ""
 
 #: assets/templates/profile/index.jet.html:9
@@ -1679,7 +1602,6 @@ msgstr ""
 msgid "Token will be removed in a few seconds."
 msgstr ""
 
-#: assets/templates/profile/credential.jet.html:44
 #: assets/templates/profile/token.jet.html:25
 msgid "Properties"
 msgstr ""
@@ -1688,12 +1610,10 @@ msgstr ""
 msgid "Token ID"
 msgstr ""
 
-#: assets/templates/profile/credential.jet.html:56
 #: assets/templates/profile/token.jet.html:37
 msgid "Last used"
 msgstr ""
 
-#: assets/templates/profile/credential.jet.html:57
 #: assets/templates/profile/token.jet.html:38
 msgid "never used"
 msgstr ""
@@ -1702,7 +1622,6 @@ msgstr ""
 msgid "Application"
 msgstr ""
 
-#: assets/templates/profile/credential.jet.html:69
 #: assets/templates/profile/token.jet.html:50
 msgid "Enabled"
 msgstr ""
@@ -1720,7 +1639,6 @@ msgid ""
 "  "
 msgstr ""
 
-#: assets/templates/profile/credential.jet.html:83
 #: assets/templates/profile/token.jet.html:70
 msgid "Roles"
 msgstr ""
@@ -1730,7 +1648,7 @@ msgid "Delete token"
 msgstr ""
 
 #: assets/templates/profile/token.jet.html:83
-msgid "API authentication"
+msgid "Authentication"
 msgstr ""
 
 #: assets/templates/profile/token.jet.html:86
@@ -1738,11 +1656,33 @@ msgid "Your API token"
 msgstr ""
 
 #: assets/templates/profile/token.jet.html:96
-msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
+msgid "How to use it"
 msgstr ""
 
 #: assets/templates/profile/token.jet.html:98
+msgid "As a Bearer Token"
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:100
+msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:102
 msgid "HTTP Header"
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:113
+msgid "As a password"
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:115
+msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:116
+msgid ""
+"For example, if an application only accepts a username and password, you can provide this token as a password.\n"
+"  The username is ignored and can be anything, including an empty value."
 msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:10
@@ -1770,7 +1710,6 @@ msgstr ""
 msgid "Expires on: %s"
 msgstr ""
 
-#: assets/templates/profile/credential_list.jet.html:48
 #: assets/templates/profile/token_list.jet.html:54
 #, python-format
 msgid "Last used on: %s"
@@ -1999,43 +1938,31 @@ msgstr ""
 msgid "All Bookmarks"
 msgstr ""
 
-#: internal/profile/forms.go:33
+#: internal/profile/forms.go:32
 msgid "invalid username and/or email"
 msgstr ""
 
-#: internal/profile/forms.go:34
+#: internal/profile/forms.go:33
 msgid "invalid password"
 msgstr ""
 
-#: internal/profile/views.go:87
+#: internal/profile/views.go:73
 msgid "Profile updated."
 msgstr ""
 
-#: internal/profile/views.go:123
+#: internal/profile/views.go:109
 msgid "Your password was changed."
 msgstr ""
 
-#: internal/profile/views.go:191
-msgid "Error: you cannot create more credentials."
-msgstr ""
-
-#: internal/profile/views.go:199
-msgid "An error occurred while creating your password."
-msgstr ""
-
-#: internal/profile/views.go:234
-msgid "Password was updated."
-msgstr ""
-
-#: internal/profile/views.go:295
+#: internal/profile/views.go:181
 msgid "An error occurred while creating your token."
 msgstr ""
 
-#: internal/profile/views.go:300
+#: internal/profile/views.go:186
 msgid "New token created."
 msgstr ""
 
-#: internal/profile/views.go:319
+#: internal/profile/views.go:205
 msgid "Token was updated."
 msgstr ""
 

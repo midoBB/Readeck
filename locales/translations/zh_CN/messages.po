@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-24 13:29+0000\n"
+"POT-Creation-Date: 2025-05-25 07:29+0000\n"
 "PO-Revision-Date: 2025-05-24 10:07+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
 "Language: zh_CN\n"
@@ -116,7 +116,7 @@ msgstr "下一页"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:35 internal/admin/views.go:62
+#: assets/templates/profile/base.jet.html:30 internal/admin/views.go:62
 #: internal/admin/views.go:92 internal/admin/views.go:132
 msgid "Users"
 msgstr "用户"
@@ -137,8 +137,6 @@ msgstr "将在几秒钟内移除用户"
 #: assets/templates/bookmarks/import/form-text.jet.html:36
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:70
 #: assets/templates/bookmarks/label.jet.html:52
-#: assets/templates/profile/credential.jet.html:20
-#: assets/templates/profile/credential_list.jet.html:62
 #: assets/templates/profile/token.jet.html:20
 #: assets/templates/profile/token_list.jet.html:68
 msgid "Cancel"
@@ -169,7 +167,7 @@ msgstr "组"
 #: assets/templates/auth/login.jet.html:30
 #: assets/templates/auth/onboarding.jet.html:29
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:48
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:136
+#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:122
 msgid "Password"
 msgstr "密码"
 
@@ -180,7 +178,6 @@ msgstr "如果为空，则不会更改"
 #: assets/templates/admin/user.jet.html:52
 #: assets/templates/bookmarks/collection.jet.html:78
 #: assets/templates/bookmarks/collection_create.jet.html:30
-#: assets/templates/profile/credential.jet.html:88
 #: assets/templates/profile/index.jet.html:80
 #: assets/templates/profile/password.jet.html:36
 #: assets/templates/profile/token.jet.html:75
@@ -204,7 +201,6 @@ msgid "Add a new user"
 msgstr "添加新用户"
 
 #: assets/templates/admin/user_list.jet.html:30
-#: assets/templates/profile/credential_list.jet.html:46
 #: assets/templates/profile/token_list.jet.html:48
 #, python-format
 msgid "Created on: %s"
@@ -553,7 +549,6 @@ msgstr "文档"
 
 #: assets/templates/bookmarks/collection.jet.html:68
 #: assets/templates/bookmarks/collection_create.jet.html:23
-#: assets/templates/profile/credential.jet.html:63
 msgid "Name"
 msgstr "名称"
 
@@ -868,9 +863,9 @@ msgstr "连字符"
 msgid "Sends this bookmark's content in the message."
 msgstr "在邮件中发送此书签的内容。"
 
+# | msgid "Sends this bookmarks as an attached EPUB file."
 #: assets/templates/bookmarks/components/share_email.jet.html:18
 #, fuzzy
-#| msgid "Sends this bookmarks as an attached EPUB file."
 msgid "Sends this bookmark as an attached EPUB file."
 msgstr "将此书签作为附加的 EPUB 文件发送。"
 
@@ -993,10 +988,11 @@ msgstr "导入书签"
 msgid "Import Links from a CSV File"
 msgstr "从 CSV 文件导入链接"
 
+# | msgid "" "\n" "    Upload a CSV file from Instapaper or any CSV that
+# matches
+# | the format specified bellow.\n" "  "
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 #, fuzzy
-#| msgid "" "\n" "    Upload a CSV file from Instapaper or any CSV that matches
-#| the format specified bellow.\n" "  "
 msgid ""
 "\n"
 "    Upload a CSV file from Instapaper or any CSV that matches the format specified below.\n"
@@ -1645,132 +1641,16 @@ msgstr "更改主题颜色"
 msgid "Settings"
 msgstr "设置"
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:100
-#: internal/profile/views.go:135 internal/profile/views.go:180
-#: internal/profile/views.go:248 internal/profile/views.go:279
-#: internal/profile/views.go:339
+#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:86
+#: internal/profile/views.go:121 internal/profile/views.go:165
+#: internal/profile/views.go:225
 msgid "Profile"
 msgstr "个人资料"
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:181
-#: internal/profile/views.go:249
-msgid "Application Passwords"
-msgstr "应用程序密码"
-
-#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:280
-#: internal/profile/views.go:340
+#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:166
+#: internal/profile/views.go:226
 msgid "API Tokens"
 msgstr "API 令牌"
-
-#: assets/templates/profile/credential.jet.html:9
-msgid "Application Password"
-msgstr "应用程序密码"
-
-#: assets/templates/profile/credential.jet.html:19
-msgid "Password will be removed in a few seconds."
-msgstr "将在几秒钟内移除密码。"
-
-#: assets/templates/profile/credential.jet.html:27
-msgid ""
-"\n"
-"    Your application password was created. Please copy the password below and write it down\n"
-"    or store it in a password manager.\n"
-"  "
-msgstr ""
-"\n"
-"    您的应用程序密码已创建。请复制下面的密码\n"
-"    并将其写下来或存储在密码管理器中。\n"
-"  "
-
-#: assets/templates/profile/credential.jet.html:32
-msgid "Your password:"
-msgstr "您的密码："
-
-#: assets/templates/profile/credential.jet.html:39
-msgid "Copy"
-msgstr "复制"
-
-#: assets/templates/profile/credential.jet.html:44
-#: assets/templates/profile/token.jet.html:25
-msgid "Properties"
-msgstr "属性"
-
-#: assets/templates/profile/credential.jet.html:51
-msgid "Password ID"
-msgstr "密码 ID"
-
-#: assets/templates/profile/credential.jet.html:56
-#: assets/templates/profile/token.jet.html:37
-msgid "Last used"
-msgstr "上次使用"
-
-#: assets/templates/profile/credential.jet.html:57
-#: assets/templates/profile/token.jet.html:38
-msgid "never used"
-msgstr "从未使用"
-
-#: assets/templates/profile/credential.jet.html:69
-#: assets/templates/profile/token.jet.html:50
-msgid "Enabled"
-msgstr "已启用"
-
-#: assets/templates/profile/credential.jet.html:75
-msgid ""
-"\n"
-"    You can limit the permissions granted to this password by choosing one or more\n"
-"    group of permissions below.<br>\n"
-"    Leave all the choices blank to grant all your permissions to this password.\n"
-"  "
-msgstr ""
-"\n"
-"    您可以通过选择以下一组或多组权限\n"
-"    来限制授予此密码的权限。<br>\n"
-"    将所有选项留空，以授予您对此密码的全部权限。\n"
-"  "
-
-#: assets/templates/profile/credential.jet.html:83
-#: assets/templates/profile/token.jet.html:70
-msgid "Roles"
-msgstr "角色"
-
-#: assets/templates/profile/credential.jet.html:91
-msgid "Delete password"
-msgstr "删除密码"
-
-#: assets/templates/profile/credential.jet.html:95
-#: assets/templates/profile/credential.jet.html:103
-msgid "Refresh password"
-msgstr "刷新密码"
-
-#: assets/templates/profile/credential.jet.html:97
-msgid ""
-"\n"
-"      If you forgot your application password or simply want to change it,\n"
-"      you can refresh it to get a new one.\n"
-"    "
-msgstr ""
-"\n"
-"      如果您忘记了应用程序密码或只是想\n"
-"      更改密码，可以刷新密码以获取新密码。\n"
-"    "
-
-#: assets/templates/profile/credential_list.jet.html:10
-msgid "My Application Passwords"
-msgstr "我的应用程序密码"
-
-#: assets/templates/profile/credential_list.jet.html:23
-msgid "Create a new Application Password"
-msgstr "创建新的应用程序密码"
-
-#: assets/templates/profile/credential_list.jet.html:48
-#: assets/templates/profile/token_list.jet.html:54
-#, python-format
-msgid "Last used on: %s"
-msgstr "上次使用：%s"
-
-#: assets/templates/profile/credential_list.jet.html:56
-msgid "This password will be removed in a few seconds."
-msgstr "将在几秒钟内移除此密码。"
 
 #: assets/templates/profile/index.jet.html:9
 msgid "My profile"
@@ -1856,13 +1736,29 @@ msgstr "API 令牌"
 msgid "Token will be removed in a few seconds."
 msgstr "将在几秒钟内移除令牌。"
 
+#: assets/templates/profile/token.jet.html:25
+msgid "Properties"
+msgstr "属性"
+
 #: assets/templates/profile/token.jet.html:32
 msgid "Token ID"
 msgstr "令牌 ID"
 
+#: assets/templates/profile/token.jet.html:37
+msgid "Last used"
+msgstr "上次使用"
+
+#: assets/templates/profile/token.jet.html:38
+msgid "never used"
+msgstr "从未使用"
+
 #: assets/templates/profile/token.jet.html:44
 msgid "Application"
 msgstr "应用程序"
+
+#: assets/templates/profile/token.jet.html:50
+msgid "Enabled"
+msgstr "已启用"
 
 #: assets/templates/profile/token.jet.html:56
 msgid "Expires on"
@@ -1882,12 +1778,18 @@ msgstr ""
 "    将所有选项留空，以授予您对此令牌的全部权限。\n"
 "  "
 
+#: assets/templates/profile/token.jet.html:70
+msgid "Roles"
+msgstr "角色"
+
 #: assets/templates/profile/token.jet.html:78
 msgid "Delete token"
 msgstr "删除令牌"
 
 #: assets/templates/profile/token.jet.html:83
-msgid "API authentication"
+#, fuzzy
+#| msgid "API authentication"
+msgid "Authentication"
 msgstr "API 验证"
 
 #: assets/templates/profile/token.jet.html:86
@@ -1895,12 +1797,38 @@ msgid "Your API token"
 msgstr "您的 API 令牌"
 
 #: assets/templates/profile/token.jet.html:96
+msgid "How to use it"
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:98
+#, fuzzy
+#| msgid "Create a new API token"
+msgid "As a Bearer Token"
+msgstr "创建新 API 令牌"
+
+#: assets/templates/profile/token.jet.html:100
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
 msgstr "您可以通过将其作为 <strong>验证：Bearer</strong> HTTP 标头传递来使用此令牌。"
 
-#: assets/templates/profile/token.jet.html:98
+#: assets/templates/profile/token.jet.html:102
 msgid "HTTP Header"
 msgstr "HTTP 标头"
+
+#: assets/templates/profile/token.jet.html:113
+#, fuzzy
+#| msgid "Password"
+msgid "As a password"
+msgstr "密码"
+
+#: assets/templates/profile/token.jet.html:115
+msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:116
+msgid ""
+"For example, if an application only accepts a username and password, you can provide this token as a password.\n"
+"  The username is ignored and can be anything, including an empty value."
+msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
@@ -1929,6 +1857,11 @@ msgstr "创建新 API 令牌"
 #, python-format
 msgid "Expires on: %s"
 msgstr "过期时间：%s"
+
+#: assets/templates/profile/token_list.jet.html:54
+#, python-format
+msgid "Last used on: %s"
+msgstr "上次使用：%s"
 
 #: assets/templates/profile/token_list.jet.html:62
 msgid "This token will be removed in a few seconds."
@@ -2153,43 +2086,31 @@ msgstr "进度"
 msgid "All Bookmarks"
 msgstr "全部书签"
 
-#: internal/profile/forms.go:33
+#: internal/profile/forms.go:32
 msgid "invalid username and/or email"
 msgstr "用户名和/或电子邮件地址无效"
 
-#: internal/profile/forms.go:34
+#: internal/profile/forms.go:33
 msgid "invalid password"
 msgstr "无效的密码"
 
-#: internal/profile/views.go:87
+#: internal/profile/views.go:73
 msgid "Profile updated."
 msgstr "个人资料已更新。"
 
-#: internal/profile/views.go:123
+#: internal/profile/views.go:109
 msgid "Your password was changed."
 msgstr "您的密码已更改。"
 
-#: internal/profile/views.go:191
-msgid "Error: you cannot create more credentials."
-msgstr "错误：您无法创建更多凭据。"
-
-#: internal/profile/views.go:199
-msgid "An error occurred while creating your password."
-msgstr "创建密码时出错。"
-
-#: internal/profile/views.go:234
-msgid "Password was updated."
-msgstr "密码已更新。"
-
-#: internal/profile/views.go:295
+#: internal/profile/views.go:181
 msgid "An error occurred while creating your token."
 msgstr "创建令牌时出错。"
 
-#: internal/profile/views.go:300
+#: internal/profile/views.go:186
 msgid "New token created."
 msgstr "新令牌已创建。"
 
-#: internal/profile/views.go:319
+#: internal/profile/views.go:205
 msgid "Token was updated."
 msgstr "令牌已更新。"
 
@@ -2480,4 +2401,81 @@ msgstr "%H:%M:%S"
 
 #~ msgid "with"
 #~ msgstr "通过"
+
+#~ msgid "Application Passwords"
+#~ msgstr "应用程序密码"
+
+#~ msgid "Application Password"
+#~ msgstr "应用程序密码"
+
+#~ msgid "Password will be removed in a few seconds."
+#~ msgstr "将在几秒钟内移除密码。"
+
+#~ msgid ""
+#~ "\n"
+#~ "    Your application password was created. Please copy the password below and write it down\n"
+#~ "    or store it in a password manager.\n"
+#~ "  "
+#~ msgstr ""
+#~ "\n"
+#~ "    您的应用程序密码已创建。请复制下面的密码\n"
+#~ "    并将其写下来或存储在密码管理器中。\n"
+#~ "  "
+
+#~ msgid "Your password:"
+#~ msgstr "您的密码："
+
+#~ msgid "Copy"
+#~ msgstr "复制"
+
+#~ msgid "Password ID"
+#~ msgstr "密码 ID"
+
+#~ msgid ""
+#~ "\n"
+#~ "    You can limit the permissions granted to this password by choosing one or more\n"
+#~ "    group of permissions below.<br>\n"
+#~ "    Leave all the choices blank to grant all your permissions to this password.\n"
+#~ "  "
+#~ msgstr ""
+#~ "\n"
+#~ "    您可以通过选择以下一组或多组权限\n"
+#~ "    来限制授予此密码的权限。<br>\n"
+#~ "    将所有选项留空，以授予您对此密码的全部权限。\n"
+#~ "  "
+
+#~ msgid "Delete password"
+#~ msgstr "删除密码"
+
+#~ msgid "Refresh password"
+#~ msgstr "刷新密码"
+
+#~ msgid ""
+#~ "\n"
+#~ "      If you forgot your application password or simply want to change it,\n"
+#~ "      you can refresh it to get a new one.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "      如果您忘记了应用程序密码或只是想\n"
+#~ "      更改密码，可以刷新密码以获取新密码。\n"
+#~ "    "
+
+#~ msgid "My Application Passwords"
+#~ msgstr "我的应用程序密码"
+
+#~ msgid "Create a new Application Password"
+#~ msgstr "创建新的应用程序密码"
+
+#~ msgid "This password will be removed in a few seconds."
+#~ msgstr "将在几秒钟内移除此密码。"
+
+#~ msgid "Error: you cannot create more credentials."
+#~ msgstr "错误：您无法创建更多凭据。"
+
+#~ msgid "An error occurred while creating your password."
+#~ msgstr "创建密码时出错。"
+
+#~ msgid "Password was updated."
+#~ msgstr "密码已更新。"
 

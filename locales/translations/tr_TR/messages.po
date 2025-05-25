@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-15 06:30+0000\n"
-"PO-Revision-Date: 2025-02-08 10:04+0000\n"
-"Last-Translator: misketmuskat <misketmuskat@users.noreply.translate.codeberg.org>\n"
+"POT-Creation-Date: 2025-05-25 07:29+0000\n"
+"PO-Revision-Date: 2025-05-23 18:49+0000\n"
+"Last-Translator: eih <eih@noreply.codeberg.org>\n"
 "Language: tr_TR\n"
 "Language-Team: Turkish <https://translate.codeberg.org/projects/readeck/application/tr/>\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
@@ -83,11 +83,11 @@ msgctxt "word"
 msgid "or"
 msgstr "veya"
 
-#: assets/templates/_libs/forms.jet.html:255
+#: assets/templates/_libs/forms.jet.html:256
 msgid "Select or drop file"
 msgstr "Dosya seç/bırak"
 
-#: assets/templates/_libs/forms.jet.html:259
+#: assets/templates/_libs/forms.jet.html:260
 msgid "remove"
 msgstr "sil"
 
@@ -116,7 +116,7 @@ msgstr "Sonraki"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:35 internal/admin/views.go:62
+#: assets/templates/profile/base.jet.html:30 internal/admin/views.go:62
 #: internal/admin/views.go:92 internal/admin/views.go:132
 msgid "Users"
 msgstr "Kullanıcılar"
@@ -133,12 +133,10 @@ msgstr "Kullanıcı birkaç saniye içinde silinecek"
 #: assets/templates/bookmarks/import/form-csv.jet.html:35
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:35
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:44
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:51
 #: assets/templates/bookmarks/import/form-text.jet.html:36
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:70
 #: assets/templates/bookmarks/label.jet.html:52
-#: assets/templates/profile/credential.jet.html:20
-#: assets/templates/profile/credential_list.jet.html:62
 #: assets/templates/profile/token.jet.html:20
 #: assets/templates/profile/token_list.jet.html:68
 msgid "Cancel"
@@ -169,18 +167,17 @@ msgstr "Grup"
 #: assets/templates/auth/login.jet.html:30
 #: assets/templates/auth/onboarding.jet.html:29
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:48
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:136
+#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:122
 msgid "Password"
 msgstr "Parola"
 
 #: assets/templates/admin/user.jet.html:49
 msgid "will not change if empty"
-msgstr ""
+msgstr "boş ise değişmeyecek"
 
 #: assets/templates/admin/user.jet.html:52
 #: assets/templates/bookmarks/collection.jet.html:78
 #: assets/templates/bookmarks/collection_create.jet.html:30
-#: assets/templates/profile/credential.jet.html:88
 #: assets/templates/profile/index.jet.html:80
 #: assets/templates/profile/password.jet.html:36
 #: assets/templates/profile/token.jet.html:75
@@ -204,7 +201,6 @@ msgid "Add a new user"
 msgstr "Yeni bir kullanıcı ekle"
 
 #: assets/templates/admin/user_list.jet.html:30
-#: assets/templates/profile/credential_list.jet.html:46
 #: assets/templates/profile/token_list.jet.html:48
 #, python-format
 msgid "Created on: %s"
@@ -342,7 +338,7 @@ msgstr "Oturum açma sayfasına git"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
-msgstr ""
+msgstr "Yer İmlerinde Vurgulananlar"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:17
 msgid "You don't have any highlights yet."
@@ -363,60 +359,84 @@ msgstr ""
 #: assets/templates/bookmarks/annotation_list.jet.html:23
 #, python-format
 msgid "Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</a>."
-msgstr ""
+msgstr "Vurgulamalar ile ilgili daha fazla bilgi için <a class=\"%s\" href=\"%s\">yardım belgelerine</a> göz atın."
 
 #: assets/templates/bookmarks/base.jet.html:13
 #: assets/templates/bookmarks/bookmark.jet.html:15
 #: assets/templates/menu.jet.html:20
 msgid "Bookmarks"
-msgstr ""
+msgstr "Yer İmleri"
 
 #: assets/templates/bookmarks/base.jet.html:29
 msgid "All"
-msgstr ""
+msgstr "Tümü"
 
 #: assets/templates/bookmarks/base.jet.html:32
 msgid "Unread"
-msgstr ""
+msgstr "Okunmamış"
 
 #: assets/templates/bookmarks/base.jet.html:35
 msgid "Archive"
-msgstr ""
+msgstr "Arşiv"
 
 #: assets/templates/bookmarks/base.jet.html:38
 msgid "Favorites"
-msgstr ""
+msgstr "Beğenilenler"
 
 #: assets/templates/bookmarks/base.jet.html:46
 #: internal/bookmarks/routes/views_bookmarks.go:115
 msgid "Articles"
-msgstr ""
+msgstr "Yazılar"
 
 #: assets/templates/bookmarks/base.jet.html:52
 #: internal/bookmarks/routes/views_bookmarks.go:119
 msgid "Videos"
-msgstr ""
+msgstr "Videolar"
 
 #: assets/templates/bookmarks/base.jet.html:58
 #: internal/bookmarks/routes/views_bookmarks.go:117
 msgid "Pictures"
-msgstr ""
+msgstr "Görseller"
 
 #: assets/templates/bookmarks/base.jet.html:68
 #: assets/templates/bookmarks/components/sidebar.jet.html:91
 msgid "Labels"
-msgstr ""
+msgstr "Etiketler"
 
 #: assets/templates/bookmarks/base.jet.html:70
 #: assets/templates/bookmarks/components/sidebar.jet.html:96
 msgid "Highlights"
-msgstr ""
+msgstr "Vurgulamalar"
 
 #: assets/templates/bookmarks/base.jet.html:72
 #: assets/templates/bookmarks/collection.jet.html:11
 #: assets/templates/bookmarks/collection.jet.html:33
 msgid "Collections"
+msgstr "Koleksiyonlar"
+
+#: assets/templates/bookmarks/base.jet.html:88
+msgid "Did you know?"
+msgstr "Biliyor muydunuz?"
+
+#: assets/templates/bookmarks/base.jet.html:89
+#: assets/templates/bookmarks/index.jet.html:87
+msgid ""
+"\n"
+"            With the Browser Extension, you can save pages, images and selections\n"
+"            directly from your browser!"
 msgstr ""
+"\n"
+"            Tarayıcı Eklentisini kullanarak sayfaları, görselleri ve fareyle seçtiklerinizi \n"
+"            tarayıcınızdan ayrılmadan kaydedebilirsiniz!"
+
+#: assets/templates/bookmarks/base.jet.html:96
+#: assets/templates/bookmarks/index.jet.html:94
+msgid "Learn more"
+msgstr "Daha fazla bilgi"
+
+#: assets/templates/bookmarks/base.jet.html:105
+msgid "Don't remind me"
+msgstr "Tekrar hatırlatma"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:80
@@ -426,32 +446,32 @@ msgstr ""
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:111
 msgid "Bookmark information"
-msgstr ""
+msgstr "Yer imi bilgileri"
 
 #: assets/templates/bookmarks/bookmark.jet.html:12
 msgid "Bookmark loading"
-msgstr ""
+msgstr "Yer imi yükleniyor"
 
 #: assets/templates/bookmarks/bookmark.jet.html:43
 msgid "Bookmark is loading"
-msgstr ""
+msgstr "Yer imi yükleniyor"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html:9
 #: assets/templates/bookmarks/bookmark_missing.jet.html:14
 msgid "Bookmark not found"
-msgstr ""
+msgstr "Yer imi bulunamadı"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:17
 msgid "Shared link"
-msgstr ""
+msgstr "Paylaşılan bağlantı"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:54
 msgid "Page not found"
-msgstr ""
+msgstr "Sayfa bulunamadı"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:56
 msgid "Page has expired"
-msgstr ""
+msgstr "Sayfanın geçerlilik süresi doldu"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:78
 #: assets/templates/bookmarks/components/sidebar.jet.html:56
@@ -459,7 +479,7 @@ msgstr ""
 #: assets/templates/epub/bookmark.jet.html:37
 #, python-format
 msgid "Published on %s"
-msgstr ""
+msgstr "%s tarihinde yayınlandı"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:83
 #: assets/templates/bookmarks/components/sidebar.jet.html:61
@@ -467,90 +487,88 @@ msgstr ""
 #: assets/templates/epub/bookmark.jet.html:40
 #, python-format
 msgid "By %s"
-msgstr ""
+msgstr "Yazan %s"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:91
 #, python-format
 msgid "%d min"
-msgstr ""
+msgstr "%d dakika"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:96
-#, python-format
-msgid "Shared by %s"
-msgstr ""
-
+# | msgid "Shared by %s"
 #: assets/templates/bookmarks/bookmark_public.jet.html:97
-msgid "with"
-msgstr ""
+#, fuzzy, python-format
+msgid "Shared by %s with %s"
+msgstr "%s tarafından paylaşıldı"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:146
-msgid "Saved with"
-msgstr ""
+# | msgid "Saved with"
+#: assets/templates/bookmarks/bookmark_public.jet.html:150
+#, fuzzy, python-format
+msgid "Saved with %s"
+msgstr "Kaydetmek için kullanılan"
 
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:8
 msgid "Share by email"
-msgstr ""
+msgstr "E-posta aracılığıyla paylaş"
 
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:18
 #: assets/templates/bookmarks/bookmark_share_link.jet.html:19
 #, python-format
 msgid "Share: %s"
-msgstr ""
+msgstr "Paylaş: %s"
 
 #: assets/templates/bookmarks/bookmark_share_link.jet.html:8
 msgid "Share link"
-msgstr ""
+msgstr "Bağlantıyı paylaş"
 
 #: assets/templates/bookmarks/collection.jet.html:16
 #, python-format
 msgid "Collection %s"
-msgstr ""
+msgstr "Koleksiyon: %s"
 
 #: assets/templates/bookmarks/collection.jet.html:21
 msgid "Collection will be removed in a few seconds."
-msgstr ""
+msgstr "Koleksiyon bir kaç saniye içinde silinecek."
 
 #: assets/templates/bookmarks/collection.jet.html:42
 #: assets/templates/bookmarks/collection.jet.html:55
 msgid "Edit"
-msgstr ""
+msgstr "Düzenle"
 
 #: assets/templates/bookmarks/collection.jet.html:57
-#: assets/templates/bookmarks/index.jet.html:104
-#: assets/templates/bookmarks/index.jet.html:138
-#: assets/templates/bookmarks/index.jet.html:141
+#: assets/templates/bookmarks/index.jet.html:129
+#: assets/templates/bookmarks/index.jet.html:163
+#: assets/templates/bookmarks/index.jet.html:166
 msgid "Filters"
 msgstr ""
 
 #: assets/templates/bookmarks/collection.jet.html:60
-#: assets/templates/bookmarks/index.jet.html:144
+#: assets/templates/bookmarks/index.jet.html:169
 #: assets/templates/menu.jet.html:43 docs/http.go:178 docs/http.go:257
 #: docs/http.go:295
 msgid "Documentation"
-msgstr ""
+msgstr "Yardım Belgeleri"
 
 #: assets/templates/bookmarks/collection.jet.html:68
 #: assets/templates/bookmarks/collection_create.jet.html:23
-#: assets/templates/profile/credential.jet.html:63
 msgid "Name"
-msgstr ""
+msgstr "Ad"
 
 #: assets/templates/bookmarks/collection.jet.html:80
 msgid "Delete collection"
-msgstr ""
+msgstr "Koleksiyonu sil"
 
 #: assets/templates/bookmarks/collection_create.jet.html:9
 msgid "New Collection"
-msgstr ""
+msgstr "Yeni Koleksiyon"
 
 #: assets/templates/bookmarks/collection_list.jet.html:9
 #: internal/opds/http.go:74
 msgid "Bookmark Collections"
-msgstr ""
+msgstr "Yer İmi Koleksiyonları"
 
 #: assets/templates/bookmarks/collection_list.jet.html:15
 msgid "Create a new collection"
-msgstr ""
+msgstr "Yeni bir koleksiyon oluştur"
 
 #: assets/templates/bookmarks/collection_list.jet.html:24
 msgid ""
@@ -565,112 +583,112 @@ msgstr ""
 
 #: assets/templates/bookmarks/collection_list.jet.html:33
 msgid "The unread articles (no photos or videos)"
-msgstr ""
+msgstr "Okunmamış yazılar (görsel ya da video yok)"
 
 #: assets/templates/bookmarks/collection_list.jet.html:34
 msgid "The archived articles from \"wikipedia.org\""
-msgstr ""
+msgstr "\"wikipedia.org\" adresli arşivlenmiş yazılar"
 
 #: assets/templates/bookmarks/collection_list.jet.html:35
 msgid "The pictures with the label \"cat\""
-msgstr ""
+msgstr "\"kedi\" ile etiketlenmiş görseller"
 
 #: assets/templates/bookmarks/collection_list.jet.html:36
 msgid "The articles that contain \"shelter\" in their title"
-msgstr ""
+msgstr "Başlığı \"barınak\" içeren yazılar"
 
 #: assets/templates/bookmarks/collection_list.jet.html:39
 #, python-format
 msgid "Read more about collections in the <a class=\"%s\" href=\"%s\">documentation</a>."
-msgstr ""
+msgstr "Koleksiyonlar ile ilgili daha fazla bilgi için <a class=\"%s\" href=\"%s\">yardım belgelerine</a> gözatın."
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
 msgid "Export and Share"
-msgstr ""
+msgstr "Dışa Aktar ve Paylaş"
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Delete this bookmark"
-msgstr ""
+msgstr "Bu yer imini sil"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as unread"
-msgstr ""
+msgstr "Okunmadı olarak işaretle"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as read"
-msgstr ""
+msgstr "Okundu olarak işaretle"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Remove from archive"
-msgstr ""
+msgstr "Arşivden çıkar"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Move to archive"
-msgstr ""
+msgstr "Arşive taşı"
 
 #: assets/templates/bookmarks/components/actions.jet.html:9
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
 #: assets/templates/bookmarks/components/card.jet.html:10
 msgid "Remove from favorites"
-msgstr ""
+msgstr "Beğenilenlerden çıkar"
 
 #: assets/templates/bookmarks/components/actions.jet.html:9
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
 #: assets/templates/bookmarks/components/card.jet.html:10
 msgid "Add to favorites"
-msgstr ""
+msgstr "Beğenilenlere ekle"
 
 #: assets/templates/bookmarks/components/actions.jet.html:15
 #: assets/templates/bookmarks/components/card.jet.html:92
 msgid "This bookmark will be removed in a few seconds."
-msgstr ""
+msgstr "Bu yer imi bir kaç saniye içinde kaldırılacak."
 
 #: assets/templates/bookmarks/components/actions.jet.html:24
 msgid "Undo"
-msgstr ""
+msgstr "Geri al"
 
 #: assets/templates/bookmarks/components/actions.jet.html:58
 #: assets/templates/bookmarks/components/list_actions.jet.html:79
 msgid "Download EPUB"
-msgstr ""
+msgstr "EPUB olarak indir"
 
 #: assets/templates/bookmarks/components/actions.jet.html:61
 msgid "Share by Link"
-msgstr ""
+msgstr "Bağlantı aracılığıyla paylaş"
 
 #: assets/templates/bookmarks/components/actions.jet.html:64
 msgid "Send article by Email"
-msgstr ""
+msgstr "Yazıyı e-posta ile gönder"
 
 #: assets/templates/bookmarks/components/actions.jet.html:66
 msgid "Send e-book by Email"
-msgstr ""
+msgstr "E-kitabı e-posta ile gönder"
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
 msgid "Saved with Readeck"
-msgstr ""
+msgstr "Readeck ile kaydedildi"
 
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Go to original page"
-msgstr ""
+msgstr "Asıl sayfaya git"
 
 #: assets/templates/bookmarks/components/card.jet.html:33
 msgctxt "bookmark"
 msgid "Loading"
-msgstr ""
+msgstr "Yükleniyor"
 
 #: assets/templates/bookmarks/components/card.jet.html:75
 #, python-format
 msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d dk."
+msgstr[1] "%d dk."
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
@@ -840,7 +858,7 @@ msgid "Sends this bookmark's content in the message."
 msgstr ""
 
 #: assets/templates/bookmarks/components/share_email.jet.html:18
-msgid "Sends this bookmarks as an attached EPUB file."
+msgid "Sends this bookmark as an attached EPUB file."
 msgstr ""
 
 #: assets/templates/bookmarks/components/share_email.jet.html:30
@@ -947,7 +965,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-csv.jet.html:34
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:43
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:49
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
 #: assets/templates/bookmarks/import/form-text.jet.html:35
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:69
 msgid "Import Bookmarks"
@@ -960,7 +978,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
 "\n"
-"    Upload a CSV file from Instapaper or any CSV that matches the format specified bellow.\n"
+"    Upload a CSV file from Instapaper or any CSV that matches the format specified below.\n"
 "  "
 msgstr ""
 
@@ -1081,6 +1099,10 @@ msgid ""
 "    This could lead to different results in Readeck than what you currently\n"
 "    see in Pocket.\n"
 "  "
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:44
+msgid "Note: upload the ZIP file directly, not its contents"
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
@@ -1235,43 +1257,51 @@ msgstr ""
 msgid "Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentation</a>."
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:81
-msgid ""
-"\n"
-"          Would you like to import from a similar tool or from a file with existing bookmarks?\n"
-"          Try Readeck's import tool.\n"
-"        "
+#: assets/templates/bookmarks/index.jet.html:85
+msgid "Readeck Browser Extension"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:88
+#: assets/templates/bookmarks/index.jet.html:101
+msgid "Import existing bookmarks"
+msgstr ""
+
+#: assets/templates/bookmarks/index.jet.html:103
+msgid ""
+"\n"
+"              Would you like to import from a similar tool or from a file with existing bookmarks?\n"
+"              Try Readeck's import tool.\n"
+"            "
+msgstr ""
+
+#: assets/templates/bookmarks/index.jet.html:110
 msgid "Import links and articles"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:112
+#: assets/templates/bookmarks/index.jet.html:137
 msgid "Import bookmarks"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:121
+#: assets/templates/bookmarks/index.jet.html:146
 msgid "Your search query yielded <strong>no results</strong>."
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:123
+#: assets/templates/bookmarks/index.jet.html:148
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/templates/bookmarks/index.jet.html:154
+#: assets/templates/bookmarks/index.jet.html:179
 msgctxt "action"
 msgid "Search"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:156
+#: assets/templates/bookmarks/index.jet.html:181
 msgid "Reset search"
 msgstr ""
 
-#: assets/templates/bookmarks/index.jet.html:159
+#: assets/templates/bookmarks/index.jet.html:184
 msgid "Create a collection"
 msgstr ""
 
@@ -1512,125 +1542,15 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:100
-#: internal/profile/views.go:135 internal/profile/views.go:180
-#: internal/profile/views.go:248 internal/profile/views.go:279
-#: internal/profile/views.go:339
+#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:86
+#: internal/profile/views.go:121 internal/profile/views.go:165
+#: internal/profile/views.go:225
 msgid "Profile"
 msgstr ""
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:181
-#: internal/profile/views.go:249
-msgid "Application Passwords"
-msgstr ""
-
-#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:280
-#: internal/profile/views.go:340
+#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:166
+#: internal/profile/views.go:226
 msgid "API Tokens"
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:9
-msgid "Application Password"
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:19
-msgid "Password will be removed in a few seconds."
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:27
-msgid ""
-"\n"
-"    Your application password was created. Please copy the password below and write it down\n"
-"    or store it in a password manager.\n"
-"  "
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:32
-msgid "Your password:"
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:39
-msgid "Copy"
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:44
-#: assets/templates/profile/token.jet.html:25
-msgid "Properties"
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:51
-msgid "Password ID"
-msgstr ""
-
-# | msgid "Create user"
-#: assets/templates/profile/credential.jet.html:56
-#: assets/templates/profile/token.jet.html:37
-#, fuzzy
-msgid "Last used"
-msgstr "Kullanıcı oluştur"
-
-# | msgid "New User"
-#: assets/templates/profile/credential.jet.html:57
-#: assets/templates/profile/token.jet.html:38
-#, fuzzy
-msgid "never used"
-msgstr "Yeni Kullanıcı"
-
-#: assets/templates/profile/credential.jet.html:69
-#: assets/templates/profile/token.jet.html:50
-msgid "Enabled"
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:75
-msgid ""
-"\n"
-"    You can limit the permissions granted to this password by choosing one or more\n"
-"    group of permissions below.<br>\n"
-"    Leave all the choices blank to grant all your permissions to this password.\n"
-"  "
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:83
-#: assets/templates/profile/token.jet.html:70
-msgid "Roles"
-msgstr ""
-
-#: assets/templates/profile/credential.jet.html:91
-msgid "Delete password"
-msgstr ""
-
-# | msgid "New password"
-#: assets/templates/profile/credential.jet.html:95
-#: assets/templates/profile/credential.jet.html:103
-#, fuzzy
-msgid "Refresh password"
-msgstr "Yeni parola"
-
-#: assets/templates/profile/credential.jet.html:97
-msgid ""
-"\n"
-"      If you forgot your application password or simply want to change it,\n"
-"      you can refresh it to get a new one.\n"
-"    "
-msgstr ""
-
-#: assets/templates/profile/credential_list.jet.html:10
-msgid "My Application Passwords"
-msgstr ""
-
-#: assets/templates/profile/credential_list.jet.html:23
-msgid "Create a new Application Password"
-msgstr ""
-
-# | msgid "Created on: %s"
-#: assets/templates/profile/credential_list.jet.html:48
-#: assets/templates/profile/token_list.jet.html:54
-#, fuzzy, python-format
-msgid "Last used on: %s"
-msgstr "Oluşturulma tarihi: %s"
-
-#: assets/templates/profile/credential_list.jet.html:56
-msgid "This password will be removed in a few seconds."
 msgstr ""
 
 #: assets/templates/profile/index.jet.html:9
@@ -1708,12 +1628,32 @@ msgstr ""
 msgid "Token will be removed in a few seconds."
 msgstr ""
 
+#: assets/templates/profile/token.jet.html:25
+msgid "Properties"
+msgstr ""
+
 #: assets/templates/profile/token.jet.html:32
 msgid "Token ID"
 msgstr ""
 
+# | msgid "Create user"
+#: assets/templates/profile/token.jet.html:37
+#, fuzzy
+msgid "Last used"
+msgstr "Kullanıcı oluştur"
+
+# | msgid "New User"
+#: assets/templates/profile/token.jet.html:38
+#, fuzzy
+msgid "never used"
+msgstr "Yeni Kullanıcı"
+
 #: assets/templates/profile/token.jet.html:44
 msgid "Application"
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:50
+msgid "Enabled"
 msgstr ""
 
 #: assets/templates/profile/token.jet.html:56
@@ -1729,24 +1669,54 @@ msgid ""
 "  "
 msgstr ""
 
+#: assets/templates/profile/token.jet.html:70
+msgid "Roles"
+msgstr ""
+
 #: assets/templates/profile/token.jet.html:78
 msgid "Delete token"
 msgstr ""
 
 #: assets/templates/profile/token.jet.html:83
-msgid "API authentication"
-msgstr ""
+#, fuzzy
+#| msgid "Documentation"
+msgid "Authentication"
+msgstr "Yardım Belgeleri"
 
 #: assets/templates/profile/token.jet.html:86
 msgid "Your API token"
 msgstr ""
 
 #: assets/templates/profile/token.jet.html:96
-msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
+msgid "How to use it"
 msgstr ""
 
 #: assets/templates/profile/token.jet.html:98
+msgid "As a Bearer Token"
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:100
+msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:102
 msgid "HTTP Header"
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:113
+#, fuzzy
+#| msgid "Password"
+msgid "As a password"
+msgstr "Parola"
+
+#: assets/templates/profile/token.jet.html:115
+msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:116
+msgid ""
+"For example, if an application only accepts a username and password, you can provide this token as a password.\n"
+"  The username is ignored and can be anything, including an empty value."
 msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:10
@@ -1773,6 +1743,12 @@ msgstr ""
 #, python-format
 msgid "Expires on: %s"
 msgstr ""
+
+# | msgid "Created on: %s"
+#: assets/templates/profile/token_list.jet.html:54
+#, fuzzy, python-format
+msgid "Last used on: %s"
+msgstr "Oluşturulma tarihi: %s"
 
 #: assets/templates/profile/token_list.jet.html:62
 msgid "This token will be removed in a few seconds."
@@ -1845,15 +1821,15 @@ msgstr ""
 msgid "Text File"
 msgstr ""
 
-#: internal/bookmarks/importer/wallabag.go:238
+#: internal/bookmarks/importer/wallabag.go:242
 msgid "Invalid URL"
 msgstr ""
 
-#: internal/bookmarks/importer/wallabag.go:243
+#: internal/bookmarks/importer/wallabag.go:247
 msgid "Invalid credentials"
 msgstr ""
 
-#: internal/bookmarks/importer/wallabag.go:254
+#: internal/bookmarks/importer/wallabag.go:258
 msgid "No access token found"
 msgstr ""
 
@@ -1999,43 +1975,31 @@ msgstr ""
 msgid "All Bookmarks"
 msgstr ""
 
-#: internal/profile/forms.go:33
+#: internal/profile/forms.go:32
 msgid "invalid username and/or email"
 msgstr ""
 
-#: internal/profile/forms.go:34
+#: internal/profile/forms.go:33
 msgid "invalid password"
 msgstr ""
 
-#: internal/profile/views.go:87
+#: internal/profile/views.go:73
 msgid "Profile updated."
 msgstr ""
 
-#: internal/profile/views.go:123
+#: internal/profile/views.go:109
 msgid "Your password was changed."
 msgstr ""
 
-#: internal/profile/views.go:191
-msgid "Error: you cannot create more credentials."
-msgstr ""
-
-#: internal/profile/views.go:199
-msgid "An error occurred while creating your password."
-msgstr ""
-
-#: internal/profile/views.go:234
-msgid "Password was updated."
-msgstr ""
-
-#: internal/profile/views.go:295
+#: internal/profile/views.go:181
 msgid "An error occurred while creating your token."
 msgstr ""
 
-#: internal/profile/views.go:300
+#: internal/profile/views.go:186
 msgid "New token created."
 msgstr ""
 
-#: internal/profile/views.go:319
+#: internal/profile/views.go:205
 msgid "Token was updated."
 msgstr ""
 
@@ -2312,5 +2276,92 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Send email"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "          Would you like to import from a similar tool or from a file with existing bookmarks?\n"
+#~ "          Try Readeck's import tool.\n"
+#~ "        "
+#~ msgstr ""
+
+#~ msgid "with"
+#~ msgstr "paylaşım için kullanılan"
+
+#~ msgid "Sends this bookmarks as an attached EPUB file."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "    Upload a CSV file from Instapaper or any CSV that matches the format specified bellow.\n"
+#~ "  "
+#~ msgstr ""
+
+#~ msgid "Application Passwords"
+#~ msgstr ""
+
+#~ msgid "Application Password"
+#~ msgstr ""
+
+#~ msgid "Password will be removed in a few seconds."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "    Your application password was created. Please copy the password below and write it down\n"
+#~ "    or store it in a password manager.\n"
+#~ "  "
+#~ msgstr ""
+
+#~ msgid "Your password:"
+#~ msgstr ""
+
+#~ msgid "Copy"
+#~ msgstr ""
+
+#~ msgid "Password ID"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "    You can limit the permissions granted to this password by choosing one or more\n"
+#~ "    group of permissions below.<br>\n"
+#~ "    Leave all the choices blank to grant all your permissions to this password.\n"
+#~ "  "
+#~ msgstr ""
+
+#~ msgid "Delete password"
+#~ msgstr ""
+
+# | msgid "New password"
+#~ msgid "Refresh password"
+#~ msgstr "Yeni parola"
+
+#~ msgid ""
+#~ "\n"
+#~ "      If you forgot your application password or simply want to change it,\n"
+#~ "      you can refresh it to get a new one.\n"
+#~ "    "
+#~ msgstr ""
+
+#~ msgid "My Application Passwords"
+#~ msgstr ""
+
+#~ msgid "Create a new Application Password"
+#~ msgstr ""
+
+#~ msgid "This password will be removed in a few seconds."
+#~ msgstr ""
+
+#~ msgid "API authentication"
+#~ msgstr ""
+
+#~ msgid "Error: you cannot create more credentials."
+#~ msgstr ""
+
+#~ msgid "An error occurred while creating your password."
+#~ msgstr ""
+
+#~ msgid "Password was updated."
 #~ msgstr ""
 

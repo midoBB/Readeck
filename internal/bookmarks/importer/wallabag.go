@@ -110,6 +110,10 @@ func (wa *wallabagArticle) Resources() []tasks.MultipartResource {
 	buf := new(bytes.Buffer)
 	html.Render(buf, root)
 
+	if wa.Headers == nil {
+		wa.Headers = map[string]string{"Content-Type": "text/html"}
+	}
+
 	return []tasks.MultipartResource{
 		{
 			URL:     wa.ArticleURL,

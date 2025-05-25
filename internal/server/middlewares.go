@@ -18,9 +18,9 @@ import (
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth"
-	"codeberg.org/readeck/readeck/pkg/csrf"
 	"codeberg.org/readeck/readeck/pkg/http/accept"
-	"codeberg.org/readeck/readeck/pkg/securecookie"
+	"codeberg.org/readeck/readeck/pkg/http/csrf"
+	"codeberg.org/readeck/readeck/pkg/http/securecookie"
 )
 
 const (

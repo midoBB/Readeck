@@ -93,9 +93,13 @@ if ('noModule' in HTMLScriptElement.prototype) {
         {{- end -}}
       </ul>
 
-      <p class="my-4 text-right">{{ gettext("Shared by %s", .Username) }}
-        {{ gettext("with") }}
-        <a class="link" href="https://readeck.org/">Readeck {{ yield icon(name="o-logo-square") }}</a>
+      <p class="my-4 text-right">
+        {{- gettext(
+          "Shared by %s with %s",
+          html(.Username),
+          `<a class="link" href="https://readeck.org/">Readeck</a>`,
+        ) | raw }}
+        {{ yield icon(name="o-logo-square") -}}
       </p>
 
       <hr>
@@ -143,8 +147,11 @@ if ('noModule' in HTMLScriptElement.prototype) {
   {{- end -}}
 
   <p class="max-w-3xl mx-auto my-8 pt-4 border-t text-right">
-    {{ gettext("Saved with") }}
-    <a class="link" href="https://readeck.org/">Readeck {{ yield icon(name="o-logo-square") }}</a>
+    {{- gettext(
+      "Saved with %s",
+      `<a class="link" href="https://readeck.org/">Readeck</a>`,
+    ) | raw }}
+    {{ yield icon(name="o-logo-square") -}}
   </p>
 </div>
 

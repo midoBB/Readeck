@@ -6,6 +6,7 @@ package db
 
 import (
 	"database/sql"
+	"log/slog"
 	"net/url"
 
 	"github.com/doug-martin/goqu/v9"
@@ -28,6 +29,10 @@ func (c *pgConnector) Dialect() string {
 }
 
 func (c *pgConnector) Open(dsn *url.URL) (*sql.DB, error) {
+	slog.Debug("connect to database",
+		slog.String("driver", c.Name()),
+		slog.String("dsn", dsn.Redacted()),
+	)
 	db, err := sql.Open("pgx", dsn.String())
 	if err != nil {
 		return nil, err

@@ -114,28 +114,40 @@ func (h *Handler) Protect(next http.Handler) http.Handler {
 		r = r.WithContext(ctx)
 
 		if !slices.Contains(safeMethods, r.Method) {
-			if r.URL.Scheme == "https" {
-				referer, err := url.Parse(r.Referer())
+			var origin *url.URL
+			if header := r.Header.Get("origin"); header != "" {
+				origin, err = url.Parse(header)
 				if err != nil {
-					h.sendError(fmt.Errorf("%w %s", err, "invalid referrer"), w, r)
+					h.sendError(fmt.Errorf("%s: %w", "invalid origin", err), w, r)
 					return
 				}
-				if referer.String() == "" {
+
+				if !sameOrigin(r.URL, origin) {
+					h.sendError(fmt.Errorf("origin %s does not match %s", origin.String(), r.URL.String()), w, r)
+					return
+				}
+			}
+
+			if origin == nil && r.URL.Scheme == "https" {
+				origin, err = url.Parse(r.Referer())
+				if err != nil {
+					h.sendError(fmt.Errorf("%s: %w", "invalid referrer", err), w, r)
+					return
+				}
+				if origin.String() == "" {
 					h.sendError(errors.New("no referrer"), w, r)
 					return
 				}
 
-				valid := referer.Scheme == r.URL.Scheme && referer.Host == r.URL.Host
-
-				if !valid {
-					h.sendError(errors.New("referrer does not match"), w, r)
+				if !sameOrigin(r.URL, origin) {
+					h.sendError(fmt.Errorf("referrer %s does not match %s", origin.String(), r.URL.String()), w, r)
 					return
 				}
 			}
 
 			rToken, err := h.requestToken(r)
 			if err != nil {
-				h.sendError(fmt.Errorf("%w invalid token", err), w, r)
+				h.sendError(fmt.Errorf("invalid token: %w", err), w, r)
 				return
 			}
 
@@ -221,4 +233,8 @@ func GetError(r *http.Request) error {
 
 func defaultErrorHandler(w http.ResponseWriter, _ *http.Request) {
 	http.Error(w, http.StatusText(http.StatusForbidden), http.StatusForbidden)
+}
+
+func sameOrigin(a, b *url.URL) bool {
+	return a.Scheme == b.Scheme && a.Host == b.Host
 }

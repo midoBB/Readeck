@@ -18,7 +18,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   ">
     <details class="flex flex-col gap-2 border-b pb-2"
       data-controller="styler-option"
-      data-styler-option-styler-outlet="[data-controller='styler']"
+      data-styler-option-styler-outlet="[data-controller~='styler']"
     >
       <summary class="flex items-center gap-2 p-2 -mx-2 rounded-sm border border-transparent hover:border-gray-300">{{- yield icon(name="o-font") -}}
         <span class="flex-grow font-semibold">{{ gettext("Font") }}</span>
@@ -48,7 +48,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     <div
       class="mt-4 flex items-center gap-2"
       data-controller="styler-option"
-      data-styler-option-styler-outlet="[data-controller='styler']"
+      data-styler-option-styler-outlet="[data-controller~='styler']"
       data-styler-option-values-value="{{- preferences.WidthList()|json() -}}"
     >
       {{- yield icon(name="o-width") -}} <span class="flex-grow">{{ gettext("Width") }}</span>
@@ -69,7 +69,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     <div
       class="mt-4 flex items-center gap-2"
       data-controller="styler-option"
-      data-styler-option-styler-outlet="[data-controller='styler']"
+      data-styler-option-styler-outlet="[data-controller~='styler']"
       data-styler-option-values-value="{{- preferences.FontSizes()|json() -}}"
     >
       {{- yield icon(name="o-font-size") -}} <span class="flex-grow">{{ gettext("Size") }}</span>
@@ -90,7 +90,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     <div
       class="mt-4 flex items-center gap-2"
       data-controller="styler-option"
-      data-styler-option-styler-outlet="[data-controller='styler']"
+      data-styler-option-styler-outlet="[data-controller~='styler']"
       data-styler-option-values-value="{{- preferences.LineHeights()|json() -}}"
     >
       {{- yield icon(name="o-line-height") -}} <span class="flex-grow">{{ gettext("Line height") }}</span>
@@ -111,7 +111,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
     <div class="mt-4 flex items-center gap-2"
      data-controller="styler-option"
-     data-styler-option-styler-outlet="[data-controller='styler']"
+     data-styler-option-styler-outlet="[data-controller~='styler']"
     >
       {{- yield icon(name="o-text-justify") -}} <span class="flex-grow">{{ gettext("Justify") }}</span>
       <div class="btn-group">
@@ -136,7 +136,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
     <div class="mt-4 flex items-center gap-2"
      data-controller="styler-option"
-     data-styler-option-styler-outlet="[data-controller='styler']"
+     data-styler-option-styler-outlet="[data-controller~='styler']"
     >
       {{- yield icon(name="o-text-hyphen") -}} <span class="flex-grow">{{ gettext("Hyphenation") }}</span>
       <div class="btn-group">

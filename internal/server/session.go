@@ -13,7 +13,7 @@ import (
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/sessions"
-	"codeberg.org/readeck/readeck/pkg/securecookie"
+	"codeberg.org/readeck/readeck/pkg/http/securecookie"
 )
 
 type (

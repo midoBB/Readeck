@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-05-15 06:16+0000\n"
-"PO-Revision-Date: 2025-05-15 06:25+0000\n"
+"POT-Creation-Date: 2025-05-25 07:29+0000\n"
+"PO-Revision-Date: 2025-05-25 07:51+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language-Team: French <https://translate.codeberg.org/projects/readeck/"
 "application/fr/>\n"
@@ -85,11 +85,11 @@ msgctxt "word"
 msgid "or"
 msgstr "ou"
 
-#: assets/templates/_libs/forms.jet.html:255
+#: assets/templates/_libs/forms.jet.html:256
 msgid "Select or drop file"
 msgstr "Sélectionnez ou déposez un fichier"
 
-#: assets/templates/_libs/forms.jet.html:259
+#: assets/templates/_libs/forms.jet.html:260
 msgid "remove"
 msgstr "supprimer"
 
@@ -118,7 +118,7 @@ msgstr "Suivante"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:35 internal/admin/views.go:62
+#: assets/templates/profile/base.jet.html:30 internal/admin/views.go:62
 #: internal/admin/views.go:92 internal/admin/views.go:132
 msgid "Users"
 msgstr "Utilisateurs"
@@ -135,12 +135,10 @@ msgstr "L'utilisateur sera supprimé dans quelques secondes"
 #: assets/templates/bookmarks/import/form-csv.jet.html:35
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:35
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:44
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:51
 #: assets/templates/bookmarks/import/form-text.jet.html:36
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:70
 #: assets/templates/bookmarks/label.jet.html:52
-#: assets/templates/profile/credential.jet.html:20
-#: assets/templates/profile/credential_list.jet.html:62
 #: assets/templates/profile/token.jet.html:20
 #: assets/templates/profile/token_list.jet.html:68
 msgid "Cancel"
@@ -171,7 +169,7 @@ msgstr "Groupe"
 #: assets/templates/auth/login.jet.html:30
 #: assets/templates/auth/onboarding.jet.html:29
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:48
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:136
+#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:122
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -182,7 +180,6 @@ msgstr "n'est pas modifié si non renseigné"
 #: assets/templates/admin/user.jet.html:52
 #: assets/templates/bookmarks/collection.jet.html:78
 #: assets/templates/bookmarks/collection_create.jet.html:30
-#: assets/templates/profile/credential.jet.html:88
 #: assets/templates/profile/index.jet.html:80
 #: assets/templates/profile/password.jet.html:36
 #: assets/templates/profile/token.jet.html:75
@@ -206,7 +203,6 @@ msgid "Add a new user"
 msgstr "Ajouter un utilisateur"
 
 #: assets/templates/admin/user_list.jet.html:30
-#: assets/templates/profile/credential_list.jet.html:46
 #: assets/templates/profile/token_list.jet.html:48
 #, python-format
 msgid "Created on: %s"
@@ -420,6 +416,30 @@ msgstr "Annotations"
 msgid "Collections"
 msgstr "Collections"
 
+#: assets/templates/bookmarks/base.jet.html:88
+msgid "Did you know?"
+msgstr "Le saviez-vous ?"
+
+#: assets/templates/bookmarks/base.jet.html:89
+#: assets/templates/bookmarks/index.jet.html:87
+msgid ""
+"\n"
+"            With the Browser Extension, you can save pages, images and selections\n"
+"            directly from your browser!"
+msgstr ""
+"\n"
+"            Avec l'extension, vous pouvez sauver des pages, des images et sélections\n"
+"directement depuis votre navigateur !"
+
+#: assets/templates/bookmarks/base.jet.html:96
+#: assets/templates/bookmarks/index.jet.html:94
+msgid "Learn more"
+msgstr "En savoir plus"
+
+#: assets/templates/bookmarks/base.jet.html:105
+msgid "Don't remind me"
+msgstr "Ne plus me le rappeler"
+
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:80
 msgid "Close panel"
@@ -476,18 +496,15 @@ msgstr "Par %s"
 msgid "%d min"
 msgstr "%d min"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:96
-#, python-format
-msgid "Shared by %s"
-msgstr "Partagé par %s"
-
 #: assets/templates/bookmarks/bookmark_public.jet.html:97
-msgid "with"
-msgstr "avec"
+#, python-format
+msgid "Shared by %s with %s"
+msgstr "Partagé par %s avec %s"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:146
-msgid "Saved with"
-msgstr "Sauvegardé avec"
+#: assets/templates/bookmarks/bookmark_public.jet.html:150
+#, python-format
+msgid "Saved with %s"
+msgstr "Sauvegardé avec %s"
 
 # | msgid "Share by Link"
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:8
@@ -519,14 +536,14 @@ msgid "Edit"
 msgstr "Modifier"
 
 #: assets/templates/bookmarks/collection.jet.html:57
-#: assets/templates/bookmarks/index.jet.html:104
-#: assets/templates/bookmarks/index.jet.html:138
-#: assets/templates/bookmarks/index.jet.html:141
+#: assets/templates/bookmarks/index.jet.html:129
+#: assets/templates/bookmarks/index.jet.html:163
+#: assets/templates/bookmarks/index.jet.html:166
 msgid "Filters"
 msgstr "Filtres"
 
 #: assets/templates/bookmarks/collection.jet.html:60
-#: assets/templates/bookmarks/index.jet.html:144
+#: assets/templates/bookmarks/index.jet.html:169
 #: assets/templates/menu.jet.html:43 docs/http.go:178 docs/http.go:257
 #: docs/http.go:295
 msgid "Documentation"
@@ -534,7 +551,6 @@ msgstr "Documentation"
 
 #: assets/templates/bookmarks/collection.jet.html:68
 #: assets/templates/bookmarks/collection_create.jet.html:23
-#: assets/templates/profile/credential.jet.html:63
 msgid "Name"
 msgstr "Nom"
 
@@ -851,7 +867,7 @@ msgid "Sends this bookmark's content in the message."
 msgstr "Envoie le contenu de ce bookmark dans le message."
 
 #: assets/templates/bookmarks/components/share_email.jet.html:18
-msgid "Sends this bookmarks as an attached EPUB file."
+msgid "Sends this bookmark as an attached EPUB file."
 msgstr "Envoie ce bookmark comme fichier EPUB en pièce jointe."
 
 # | msgid "From date"
@@ -964,7 +980,7 @@ msgstr "Ajoute un label aux liens à partir du titre de leur section"
 #: assets/templates/bookmarks/import/form-csv.jet.html:34
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:43
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:49
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
 #: assets/templates/bookmarks/import/form-text.jet.html:35
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:69
 msgid "Import Bookmarks"
@@ -977,7 +993,7 @@ msgstr "Importez les liens d'un fichier CSV"
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
 "\n"
-"    Upload a CSV file from Instapaper or any CSV that matches the format specified bellow.\n"
+"    Upload a CSV file from Instapaper or any CSV that matches the format specified below.\n"
 "  "
 msgstr ""
 "\n"
@@ -1124,6 +1140,10 @@ msgstr ""
 "Ceci peut entraîner des résultats différents entre Readeck et ce\n"
 "que vous voyez actuellement dans Pocket.\n"
 "  "
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:44
+msgid "Note: upload the ZIP file directly, not its contents"
+msgstr "Note : envoyez le fichier ZIP tel quel, pas son contenu"
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32
@@ -1295,47 +1315,55 @@ msgstr "Vous n'avez aucun bookmark pour le moment<br> Copiez un lien dans le cha
 msgid "Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentation</a>."
 msgstr "En savoir plus sur les bookmarks dans la <a class=\"%s\" href=\"%s\">documentation</a>."
 
-#: assets/templates/bookmarks/index.jet.html:81
+#: assets/templates/bookmarks/index.jet.html:85
+msgid "Readeck Browser Extension"
+msgstr "Extension Readeck pour navigateur"
+
+#: assets/templates/bookmarks/index.jet.html:101
+msgid "Import existing bookmarks"
+msgstr "Importer des bookmarks existants"
+
+#: assets/templates/bookmarks/index.jet.html:103
 msgid ""
 "\n"
-"          Would you like to import from a similar tool or from a file with existing bookmarks?\n"
-"          Try Readeck's import tool.\n"
-"        "
+"              Would you like to import from a similar tool or from a file with existing bookmarks?\n"
+"              Try Readeck's import tool.\n"
+"            "
 msgstr ""
 "\n"
-"          Souhaitez-vous importer depuis un outil similaire ou depuis un fichier contenant des liens existant ?\n"
+"              Souhaitez-vous importer depuis un outil similaire ou depuis un fichier contenant des liens existant ?\n"
 "Essayez l'outil d'importation de Readeck.\n"
-"        "
+"            "
 
-#: assets/templates/bookmarks/index.jet.html:88
+#: assets/templates/bookmarks/index.jet.html:110
 msgid "Import links and articles"
 msgstr "Importer des liens et articles"
 
-#: assets/templates/bookmarks/index.jet.html:112
+#: assets/templates/bookmarks/index.jet.html:137
 msgid "Import bookmarks"
 msgstr "Importer des bookmarks"
 
-#: assets/templates/bookmarks/index.jet.html:121
+#: assets/templates/bookmarks/index.jet.html:146
 msgid "Your search query yielded <strong>no results</strong>."
 msgstr "Votre recherche n'a donné <strong>aucun résultat</strong>."
 
-#: assets/templates/bookmarks/index.jet.html:123
+#: assets/templates/bookmarks/index.jet.html:148
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
 msgstr[0] "Votre recherche a donné <strong>%d résultat</strong>."
 msgstr[1] "Votre recherche a donné <strong>%d résultats</strong>."
 
-#: assets/templates/bookmarks/index.jet.html:154
+#: assets/templates/bookmarks/index.jet.html:179
 msgctxt "action"
 msgid "Search"
 msgstr "Rechercher"
 
-#: assets/templates/bookmarks/index.jet.html:156
+#: assets/templates/bookmarks/index.jet.html:181
 msgid "Reset search"
 msgstr "Réinitialiser la recherche"
 
-#: assets/templates/bookmarks/index.jet.html:159
+#: assets/templates/bookmarks/index.jet.html:184
 msgid "Create a collection"
 msgstr "Créer une collection"
 
@@ -1607,132 +1635,16 @@ msgstr "Changer le thème de couleurs"
 msgid "Settings"
 msgstr "Paramètres"
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:100
-#: internal/profile/views.go:135 internal/profile/views.go:180
-#: internal/profile/views.go:248 internal/profile/views.go:279
-#: internal/profile/views.go:339
+#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:86
+#: internal/profile/views.go:121 internal/profile/views.go:165
+#: internal/profile/views.go:225
 msgid "Profile"
 msgstr "Profil"
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:181
-#: internal/profile/views.go:249
-msgid "Application Passwords"
-msgstr "Mots de passe d'application"
-
-#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:280
-#: internal/profile/views.go:340
+#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:166
+#: internal/profile/views.go:226
 msgid "API Tokens"
 msgstr "Jetons API"
-
-#: assets/templates/profile/credential.jet.html:9
-msgid "Application Password"
-msgstr "Mot de passe d'application"
-
-#: assets/templates/profile/credential.jet.html:19
-msgid "Password will be removed in a few seconds."
-msgstr "Le mot de passe sera supprimé dans quelques secondes."
-
-#: assets/templates/profile/credential.jet.html:27
-msgid ""
-"\n"
-"    Your application password was created. Please copy the password below and write it down\n"
-"    or store it in a password manager.\n"
-"  "
-msgstr ""
-"\n"
-"    Votre mot de passe d'application a été créé. Veuillez copier le mot de passe ci-dessous et\n"
-"notez-le ou stockez-le dans un gestionnaire de mots de passe.\n"
-"  "
-
-#: assets/templates/profile/credential.jet.html:32
-msgid "Your password:"
-msgstr "Votre mot de passe :"
-
-#: assets/templates/profile/credential.jet.html:39
-msgid "Copy"
-msgstr "Copier"
-
-#: assets/templates/profile/credential.jet.html:44
-#: assets/templates/profile/token.jet.html:25
-msgid "Properties"
-msgstr "Propriétés"
-
-#: assets/templates/profile/credential.jet.html:51
-msgid "Password ID"
-msgstr "Identifiant du mot de passe"
-
-#: assets/templates/profile/credential.jet.html:56
-#: assets/templates/profile/token.jet.html:37
-msgid "Last used"
-msgstr "Dernière utilisation"
-
-#: assets/templates/profile/credential.jet.html:57
-#: assets/templates/profile/token.jet.html:38
-msgid "never used"
-msgstr "jamais utilisé"
-
-#: assets/templates/profile/credential.jet.html:69
-#: assets/templates/profile/token.jet.html:50
-msgid "Enabled"
-msgstr "Activé"
-
-#: assets/templates/profile/credential.jet.html:75
-msgid ""
-"\n"
-"    You can limit the permissions granted to this password by choosing one or more\n"
-"    group of permissions below.<br>\n"
-"    Leave all the choices blank to grant all your permissions to this password.\n"
-"  "
-msgstr ""
-"\n"
-"    Vous pouvez limiter les permissions données à ce mot de passe en choisissant une ou\n"
-"plusieurs permissions ci-dessous.<br>\n"
-"Ne choisissez rien pour autoriser tous les permissions à ce mot de passe.\n"
-"  "
-
-#: assets/templates/profile/credential.jet.html:83
-#: assets/templates/profile/token.jet.html:70
-msgid "Roles"
-msgstr "Rôles"
-
-#: assets/templates/profile/credential.jet.html:91
-msgid "Delete password"
-msgstr "Supprimer le mot de passe"
-
-#: assets/templates/profile/credential.jet.html:95
-#: assets/templates/profile/credential.jet.html:103
-msgid "Refresh password"
-msgstr "Renouveler le mot de passe"
-
-#: assets/templates/profile/credential.jet.html:97
-msgid ""
-"\n"
-"      If you forgot your application password or simply want to change it,\n"
-"      you can refresh it to get a new one.\n"
-"    "
-msgstr ""
-"\n"
-"      Si vous avez oublié votre mot de passe d'application ou souhaitez en changer,\n"
-"vous pouvez le renouveler pour en obtenir un nouveau.\n"
-"    "
-
-#: assets/templates/profile/credential_list.jet.html:10
-msgid "My Application Passwords"
-msgstr "Mes mots de passe d'application"
-
-#: assets/templates/profile/credential_list.jet.html:23
-msgid "Create a new Application Password"
-msgstr "Créer un mot de passe d'application"
-
-#: assets/templates/profile/credential_list.jet.html:48
-#: assets/templates/profile/token_list.jet.html:54
-#, python-format
-msgid "Last used on: %s"
-msgstr "Dernière utilisation le : %s"
-
-#: assets/templates/profile/credential_list.jet.html:56
-msgid "This password will be removed in a few seconds."
-msgstr "Ce mot de passe sera supprimé dans quelques secondes."
 
 #: assets/templates/profile/index.jet.html:9
 msgid "My profile"
@@ -1763,8 +1675,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"    Ces paramètres facultatifs sont utilisés par Readeck pour envoyer des "
-"e-mails.\n"
+"    Ces paramètres facultatifs sont utilisés par Readeck pour envoyer des e-mails.\n"
 "    "
 
 #: assets/templates/profile/index.jet.html:55
@@ -1773,9 +1684,7 @@ msgstr "Répondre à"
 
 #: assets/templates/profile/index.jet.html:56
 msgid "Add this email address in your outgoing emails so recipients can reply."
-msgstr ""
-"Ajouter cette adresse e-mail à vos messages afin que les destinataires "
-"puissent répondre."
+msgstr "Ajouter cette adresse e-mail à vos messages afin que les destinataires puissent répondre."
 
 #: assets/templates/profile/index.jet.html:61
 msgid "Send EPUB to"
@@ -1783,9 +1692,7 @@ msgstr "Envoyer EPUB"
 
 #: assets/templates/profile/index.jet.html:62
 msgid "This address is used to prefill the recipient when you send an e-book by email."
-msgstr ""
-"Cette adresse est utilisée pour pré-remplir le destinataire quand vous "
-"envoyez un e-book par email."
+msgstr "Cette adresse est utilisée pour pré-remplir le destinataire quand vous envoyez un e-book par email."
 
 #: assets/templates/profile/index.jet.html:69
 msgid ""
@@ -1795,8 +1702,7 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"        Si vous prévoyez d'envoyer des e-books à un appareil Kindle, vous "
-"devez autoriser\n"
+"        Si vous prévoyez d'envoyer des e-books à un appareil Kindle, vous devez autoriser\n"
 "l'adresse e-mail suivante dans votre compte Kindle :\n"
 "        "
 
@@ -1824,13 +1730,29 @@ msgstr "Jeton API"
 msgid "Token will be removed in a few seconds."
 msgstr "Le jeton sera supprimé dans quelques secondes."
 
+#: assets/templates/profile/token.jet.html:25
+msgid "Properties"
+msgstr "Propriétés"
+
 #: assets/templates/profile/token.jet.html:32
 msgid "Token ID"
 msgstr "Identifiant du jeton"
 
+#: assets/templates/profile/token.jet.html:37
+msgid "Last used"
+msgstr "Dernière utilisation"
+
+#: assets/templates/profile/token.jet.html:38
+msgid "never used"
+msgstr "jamais utilisé"
+
 #: assets/templates/profile/token.jet.html:44
 msgid "Application"
 msgstr "Application"
+
+#: assets/templates/profile/token.jet.html:50
+msgid "Enabled"
+msgstr "Activé"
 
 #: assets/templates/profile/token.jet.html:56
 msgid "Expires on"
@@ -1850,25 +1772,57 @@ msgstr ""
 "Ne choisissez rien pour autoriser tous les permissions à ce jeton.\n"
 "  "
 
+#: assets/templates/profile/token.jet.html:70
+msgid "Roles"
+msgstr "Rôles"
+
 #: assets/templates/profile/token.jet.html:78
 msgid "Delete token"
 msgstr "Supprimer le jeton"
 
 #: assets/templates/profile/token.jet.html:83
-msgid "API authentication"
-msgstr "Authentification API"
+msgid "Authentication"
+msgstr "Authentification"
 
 #: assets/templates/profile/token.jet.html:86
 msgid "Your API token"
 msgstr "Votre jeton API"
 
 #: assets/templates/profile/token.jet.html:96
+msgid "How to use it"
+msgstr "Utilisation"
+
+#: assets/templates/profile/token.jet.html:98
+msgid "As a Bearer Token"
+msgstr "Comme jeton API"
+
+#: assets/templates/profile/token.jet.html:100
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
 msgstr "Vous pouvez utiliser ce jeton en tant qu'en-tête HTTP <strong>Authorization: Bearer</strong>."
 
-#: assets/templates/profile/token.jet.html:98
+#: assets/templates/profile/token.jet.html:102
 msgid "HTTP Header"
 msgstr "En-tête HTTP"
+
+#: assets/templates/profile/token.jet.html:113
+msgid "As a password"
+msgstr "Comment mot de passe"
+
+#: assets/templates/profile/token.jet.html:115
+msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
+msgstr ""
+"Une autre possibilité est d'utiliser ce jeton comme mot de passe pour une "
+"authentification HTTP classique."
+
+#: assets/templates/profile/token.jet.html:116
+msgid ""
+"For example, if an application only accepts a username and password, you can provide this token as a password.\n"
+"  The username is ignored and can be anything, including an empty value."
+msgstr ""
+"Par exemple, si une application n'accepte qu'un nom d'utilisateur et un mot "
+"de passe, vous pouvez fournir ce token comme mot de passe.\n"
+"Le nom d'utilisateur est ignoré et peut être ce que vous voulez, y-compris "
+"une valeur vide."
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
@@ -1897,6 +1851,11 @@ msgstr "Créer un jeton API"
 #, python-format
 msgid "Expires on: %s"
 msgstr "Expire le : %s"
+
+#: assets/templates/profile/token_list.jet.html:54
+#, python-format
+msgid "Last used on: %s"
+msgstr "Dernière utilisation le : %s"
 
 #: assets/templates/profile/token_list.jet.html:62
 msgid "This token will be removed in a few seconds."
@@ -1967,15 +1926,15 @@ msgstr "Clé API invalide"
 msgid "Text File"
 msgstr "Fichier texte"
 
-#: internal/bookmarks/importer/wallabag.go:238
+#: internal/bookmarks/importer/wallabag.go:242
 msgid "Invalid URL"
 msgstr "URL invalide"
 
-#: internal/bookmarks/importer/wallabag.go:243
+#: internal/bookmarks/importer/wallabag.go:247
 msgid "Invalid credentials"
 msgstr "Identifiants invalides"
 
-#: internal/bookmarks/importer/wallabag.go:254
+#: internal/bookmarks/importer/wallabag.go:258
 msgid "No access token found"
 msgstr "Aucun jeton d'accès trouvé"
 
@@ -2121,43 +2080,31 @@ msgstr "Progression"
 msgid "All Bookmarks"
 msgstr "Tous les bookmarks"
 
-#: internal/profile/forms.go:33
+#: internal/profile/forms.go:32
 msgid "invalid username and/or email"
 msgstr "utilisateur et/ou e-mail invalide"
 
-#: internal/profile/forms.go:34
+#: internal/profile/forms.go:33
 msgid "invalid password"
 msgstr "mot de passe invalide"
 
-#: internal/profile/views.go:87
+#: internal/profile/views.go:73
 msgid "Profile updated."
 msgstr "Profil mis à jour."
 
-#: internal/profile/views.go:123
+#: internal/profile/views.go:109
 msgid "Your password was changed."
 msgstr "Votre mot de passe a été modifié."
 
-#: internal/profile/views.go:191
-msgid "Error: you cannot create more credentials."
-msgstr "Erreur : vous ne pouvez plus créer de nouveau mot de passe."
-
-#: internal/profile/views.go:199
-msgid "An error occurred while creating your password."
-msgstr "Une erreur s'est produite lors de la création du mot de passe."
-
-#: internal/profile/views.go:234
-msgid "Password was updated."
-msgstr "Mot de passe mis à jour."
-
-#: internal/profile/views.go:295
+#: internal/profile/views.go:181
 msgid "An error occurred while creating your token."
 msgstr "Une erreur s'est produite lors de la création du jeton."
 
-#: internal/profile/views.go:300
+#: internal/profile/views.go:186
 msgid "New token created."
 msgstr "Nouveau jeton créé."
 
-#: internal/profile/views.go:319
+#: internal/profile/views.go:205
 msgid "Token was updated."
 msgstr "Le jeton a été mis à jour."
 
@@ -2442,3 +2389,83 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Kind regards"
 #~ msgstr "Cordialement"
+
+#~ msgid "with"
+#~ msgstr "avec"
+
+#~ msgid "Application Passwords"
+#~ msgstr "Mots de passe d'application"
+
+#~ msgid "Application Password"
+#~ msgstr "Mot de passe d'application"
+
+#~ msgid "Password will be removed in a few seconds."
+#~ msgstr "Le mot de passe sera supprimé dans quelques secondes."
+
+#~ msgid ""
+#~ "\n"
+#~ "    Your application password was created. Please copy the password below and write it down\n"
+#~ "    or store it in a password manager.\n"
+#~ "  "
+#~ msgstr ""
+#~ "\n"
+#~ "    Votre mot de passe d'application a été créé. Veuillez copier le mot de passe ci-dessous et\n"
+#~ "notez-le ou stockez-le dans un gestionnaire de mots de passe.\n"
+#~ "  "
+
+#~ msgid "Your password:"
+#~ msgstr "Votre mot de passe :"
+
+#~ msgid "Copy"
+#~ msgstr "Copier"
+
+#~ msgid "Password ID"
+#~ msgstr "Identifiant du mot de passe"
+
+#~ msgid ""
+#~ "\n"
+#~ "    You can limit the permissions granted to this password by choosing one or more\n"
+#~ "    group of permissions below.<br>\n"
+#~ "    Leave all the choices blank to grant all your permissions to this password.\n"
+#~ "  "
+#~ msgstr ""
+#~ "\n"
+#~ "    Vous pouvez limiter les permissions données à ce mot de passe en choisissant une ou\n"
+#~ "plusieurs permissions ci-dessous.<br>\n"
+#~ "Ne choisissez rien pour autoriser tous les permissions à ce mot de passe.\n"
+#~ "  "
+
+#~ msgid "Delete password"
+#~ msgstr "Supprimer le mot de passe"
+
+#~ msgid "Refresh password"
+#~ msgstr "Renouveler le mot de passe"
+
+#~ msgid ""
+#~ "\n"
+#~ "      If you forgot your application password or simply want to change it,\n"
+#~ "      you can refresh it to get a new one.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "      Si vous avez oublié votre mot de passe d'application ou souhaitez en changer,\n"
+#~ "vous pouvez le renouveler pour en obtenir un nouveau.\n"
+#~ "    "
+
+#~ msgid "My Application Passwords"
+#~ msgstr "Mes mots de passe d'application"
+
+#~ msgid "Create a new Application Password"
+#~ msgstr "Créer un mot de passe d'application"
+
+#~ msgid "This password will be removed in a few seconds."
+#~ msgstr "Ce mot de passe sera supprimé dans quelques secondes."
+
+#~ msgid "Error: you cannot create more credentials."
+#~ msgstr "Erreur : vous ne pouvez plus créer de nouveau mot de passe."
+
+#~ msgid "An error occurred while creating your password."
+#~ msgstr "Une erreur s'est produite lors de la création du mot de passe."
+
+#~ msgid "Password was updated."
+#~ msgstr "Mot de passe mis à jour."

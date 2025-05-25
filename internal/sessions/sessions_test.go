@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/internal/sessions"
-	"codeberg.org/readeck/readeck/pkg/securecookie"
+	"codeberg.org/readeck/readeck/pkg/http/securecookie"
 )
 
 func TestSession(t *testing.T) {

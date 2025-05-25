@@ -6,6 +6,21 @@
   - send the bookmark's content as a message
   - send the bookmark as an EPUB attachment
 - mosaic view (image wall on bookmark list)
+- browser extension calls to action (onboarding and sidebar)
+- author to the exported EPUB, by [@ruben](https://codeberg.org/ruben)
+
+### Changed
+- Reverted the SQLite driver to its CGO version
+
+### Removed
+- Application passwords. API token can now be used in HTTP Basic Authentication when needed
+
+### Fixed
+- Bug in Wallabag import adapter that would not load entries with empty headers
+
+### Improved
+- Check Origin header in CSRF protection
+- Strings that were misspelled or difficult to translate
 
 ## [0.18.2] - 2025-05-07
 ### Added

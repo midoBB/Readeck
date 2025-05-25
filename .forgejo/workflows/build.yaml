@@ -10,7 +10,12 @@ jobs:
     uses: ./.forgejo/workflows/tests.yaml
     runs-on: docker
 
-  build:
+  # This step prepares files that are about to be embeded in the final build.
+  # - install frontend tooling
+  # - generate static assets (CSS, JS, fonts, etc.)
+  # - generate documentation files
+  # - compile translations
+  generate:
     needs:
       - tests
     runs-on: docker
@@ -18,11 +23,11 @@ jobs:
       image: codeberg.org/readeck/readeck-ci:latest
       volumes:
         - readeck-ci:/workspace
-        - readeck-artifacts:/artifacts
       env:
         HOME: /workspace
         GOPATH: /workspace/go
-        GOCACHE: /workspace/.cache/go-build
+        GOCACHE: /workspace/.cache/go
+        UV_CACHE_DIR: /workspace/.cache/uv
         GOLANGCI_LINT_CACHE: /workspace/.cache/golangci-lint
 
     steps:
@@ -30,24 +35,77 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup project
-        run: |
-          make setup
+      - run: |
+          rm -rf /workspace/workdir
+          mkdir /workspace/workdir
 
       - name: Generate assets
         run: |
-          make generate
+          make setup generate
 
-      - name: Build release
+      - name: Copy workdir
         run: |
-          make release-all
+          tar cf - \
+          --exclude="ftr-site-config" \
+          --exclude="data*" \
+          --exclude="node_modules" \
+          ./ | tar xf - -C /workspace/workdir
+
+  # This step cross builds Readeck using xgo.
+  # It runs directly on the xgo image and calls special Makefile targets.
+  binary:
+    runs-on: docker
+    needs:
+      - generate
+    container:
+      image: docker.io/techknowlogick/xgo:go-1.21.x
+      volumes:
+        - readeck-ci:/workspace
+      env:
+        HOME: /workspace
+        GOPATH: /workspace/go
+        XGO_IN_XGO: 1
+
+    steps:
+      - name: Build binary release files
+        working-directory: /workspace/workdir
+        run: |
+          mkdir -p /workspace/gocache /workspace/workdir/dist
+          ln -s /workspace/gocache /gocache
+          ln -s /workspace/workdir/dist /build
+          make xbuild-linux
+          make xbuild-windows
+          make xbuild-darwin
+          make xbuild-freebsd
+
+  # This last step creates the container image and copies all the artifact
+  # to its destination folder.
+  release:
+    runs-on: docker
+    needs:
+      - binary
+    container:
+      image: codeberg.org/readeck/readeck-ci:latest
+      volumes:
+        - readeck-ci:/workspace
+        - readeck-artifacts:/artifacts
+      env:
+        HOME: /workspace
+
+    steps:
+      - name: Build production image
+        working-directory: /workspace/workdir
+        run: |
+          make build-prod
 
       - name: Build container image
+        working-directory: /workspace/workdir
         run: |
           mkdir -p /workspace/containers/storage
-          make release-container
+          make release
 
       - name: Copy artifacts
+        working-directory: /workspace/workdir
         run: |
           ls -l dist/
           mkdir -p /artifacts

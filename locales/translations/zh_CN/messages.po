@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-25 07:29+0000\n"
-"PO-Revision-Date: 2025-05-24 10:07+0000\n"
+"PO-Revision-Date: 2025-05-26 05:49+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
 "Language: zh_CN\n"
-"Language-Team: Chinese (Simplified Han script) <https://translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -865,7 +867,6 @@ msgstr "在邮件中发送此书签的内容。"
 
 # | msgid "Sends this bookmarks as an attached EPUB file."
 #: assets/templates/bookmarks/components/share_email.jet.html:18
-#, fuzzy
 msgid "Sends this bookmark as an attached EPUB file."
 msgstr "将此书签作为附加的 EPUB 文件发送。"
 
@@ -992,14 +993,13 @@ msgstr "从 CSV 文件导入链接"
 # matches
 # | the format specified bellow.\n" "  "
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
-#, fuzzy
 msgid ""
 "\n"
 "    Upload a CSV file from Instapaper or any CSV that matches the format specified below.\n"
 "  "
 msgstr ""
 "\n"
-"    从 Instapaper 上传 CSV 文件或符合以下指定格式的任何 CSV 文件。\n"
+"    上传来自 Instapaper 的 CSV 文件或任何符合以下指定格式的 CSV 文件。\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
@@ -1787,10 +1787,8 @@ msgid "Delete token"
 msgstr "删除令牌"
 
 #: assets/templates/profile/token.jet.html:83
-#, fuzzy
-#| msgid "API authentication"
 msgid "Authentication"
-msgstr "API 验证"
+msgstr "身份验证"
 
 #: assets/templates/profile/token.jet.html:86
 msgid "Your API token"
@@ -1798,13 +1796,11 @@ msgstr "您的 API 令牌"
 
 #: assets/templates/profile/token.jet.html:96
 msgid "How to use it"
-msgstr ""
+msgstr "使用方法"
 
 #: assets/templates/profile/token.jet.html:98
-#, fuzzy
-#| msgid "Create a new API token"
 msgid "As a Bearer Token"
-msgstr "创建新 API 令牌"
+msgstr "作为持有者令牌"
 
 #: assets/templates/profile/token.jet.html:100
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
@@ -1815,20 +1811,20 @@ msgid "HTTP Header"
 msgstr "HTTP 标头"
 
 #: assets/templates/profile/token.jet.html:113
-#, fuzzy
-#| msgid "Password"
 msgid "As a password"
-msgstr "密码"
+msgstr "作为密码"
 
 #: assets/templates/profile/token.jet.html:115
 msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
-msgstr ""
+msgstr "或者，您可以将此令牌用作 HTTP 基本身份验证的密码。"
 
 #: assets/templates/profile/token.jet.html:116
 msgid ""
 "For example, if an application only accepts a username and password, you can provide this token as a password.\n"
 "  The username is ignored and can be anything, including an empty value."
 msgstr ""
+"例如，如果应用程序仅接受用户名和密码，您可以将此令牌作为密码提供。\n"
+"  用户名被忽略，可以是任何值，包括空值。"
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
@@ -2478,4 +2474,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "密码已更新。"
-

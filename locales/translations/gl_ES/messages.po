@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-25 07:29+0000\n"
-"PO-Revision-Date: 2025-05-23 11:09+0000\n"
+"PO-Revision-Date: 2025-05-27 06:01+0000\n"
 "Last-Translator: ghose <ghose@noreply.codeberg.org>\n"
+"Language-Team: Galician <https://translate.codeberg.org/projects/readeck/"
+"application/gl/>\n"
 "Language: gl_ES\n"
-"Language-Team: Galician <https://translate.codeberg.org/projects/readeck/application/gl/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -496,15 +498,15 @@ msgstr "%d min"
 
 # | msgid "Shared by %s"
 #: assets/templates/bookmarks/bookmark_public.jet.html:97
-#, fuzzy, python-format
+#, python-format
 msgid "Shared by %s with %s"
-msgstr "Compartida por %s"
+msgstr "Compartido por %s con %s"
 
 # | msgid "Saved with"
 #: assets/templates/bookmarks/bookmark_public.jet.html:150
-#, fuzzy, python-format
+#, python-format
 msgid "Saved with %s"
-msgstr "Gardada con"
+msgstr "Gardado con %s"
 
 # | msgid "Share by Link"
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:8
@@ -868,7 +870,6 @@ msgstr "Envía o contido deste marcador na mensaxe."
 
 # | msgid "Sends this bookmarks as an attached EPUB file."
 #: assets/templates/bookmarks/components/share_email.jet.html:18
-#, fuzzy
 msgid "Sends this bookmark as an attached EPUB file."
 msgstr "Envía este marcador como un ficheiro EPUB anexo."
 
@@ -996,14 +997,14 @@ msgstr "Importa ligazóns desde un ficheiro CSV"
 # matches
 # | the format specified bellow.\n" "  "
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
-#, fuzzy
 msgid ""
 "\n"
 "    Upload a CSV file from Instapaper or any CSV that matches the format specified below.\n"
 "  "
 msgstr ""
 "\n"
-"    Sube un ficheiro CSV de Instapaper ou calquera CSV co formato indicado aquí.\n"
+"    Sube un ficheiro CSV de Instapaper ou un CSV que teña o formato indicado "
+"máis abaixo.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
@@ -1313,7 +1314,9 @@ msgstr "«%s» non é un enderezo válido. Queres buscar %s nos teus marcadores?
 
 #: assets/templates/bookmarks/index.jet.html:73
 msgid "You don't have any bookmarks yet.<br> Copy a link in the field above and start saving."
-msgstr "Aínda non tes marcadores.<b>Pega unha ligazón na caixa de texto superior e garda o artigo."
+msgstr ""
+"Aínda non tes marcadores.<br>Pega unha ligazón na caixa de texto superior e "
+"garda o artigo."
 
 #: assets/templates/bookmarks/index.jet.html:75
 #, python-format
@@ -1791,10 +1794,8 @@ msgid "Delete token"
 msgstr "Eliminar token"
 
 #: assets/templates/profile/token.jet.html:83
-#, fuzzy
-#| msgid "API authentication"
 msgid "Authentication"
-msgstr "Autenticación na API"
+msgstr "Autenticación"
 
 #: assets/templates/profile/token.jet.html:86
 msgid "Your API token"
@@ -1802,13 +1803,11 @@ msgstr "Token para API"
 
 #: assets/templates/profile/token.jet.html:96
 msgid "How to use it"
-msgstr ""
+msgstr "Como utilizalo"
 
 #: assets/templates/profile/token.jet.html:98
-#, fuzzy
-#| msgid "Create a new API token"
 msgid "As a Bearer Token"
-msgstr "Crear un novo token da API"
+msgstr "Como Token de autorización"
 
 #: assets/templates/profile/token.jet.html:100
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
@@ -1819,20 +1818,24 @@ msgid "HTTP Header"
 msgstr "Cabeceira HTTP"
 
 #: assets/templates/profile/token.jet.html:113
-#, fuzzy
-#| msgid "Password"
 msgid "As a password"
-msgstr "Contrasinal"
+msgstr "Como un contrasinal"
 
 #: assets/templates/profile/token.jet.html:115
 msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
 msgstr ""
+"De xeito alternativo podes usar este token como contrasinal para "
+"Autenticación Básica HTTP."
 
 #: assets/templates/profile/token.jet.html:116
 msgid ""
 "For example, if an application only accepts a username and password, you can provide this token as a password.\n"
 "  The username is ignored and can be anything, including an empty value."
 msgstr ""
+"Por exemplo, se unha aplicación só acepta identificador e contrasinal, podes "
+"usar este token como contrasinal.\n"
+"  O identificador será ignorado e pode ser calquera cousa, pode mesmo quedar "
+"baleiro."
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
@@ -2451,4 +2454,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "Actualizouse o contrasinal."
-

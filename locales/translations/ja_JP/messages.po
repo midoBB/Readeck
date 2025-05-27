@@ -8,13 +8,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-25 07:29+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: ja\n"
+"PO-Revision-Date: 2025-05-27 06:01+0000\n"
+"Last-Translator: radixm46 <radixm46@noreply.codeberg.org>\n"
+"Language-Team: Japanese <https://translate.codeberg.org/projects/readeck/"
+"application/ja/>\n"
+"Language: ja_JP\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:30
@@ -95,12 +98,12 @@ msgstr ""
 #: assets/templates/_libs/pagination.jet.html:10
 msgctxt "page"
 msgid "Previous"
-msgstr ""
+msgstr "前"
 
 #: assets/templates/_libs/pagination.jet.html:15
 msgctxt "page"
 msgid "Next"
-msgstr ""
+msgstr "次"
 
 #: assets/templates/admin/user.jet.html:19
 msgid "User will be removed in a few seconds"
@@ -332,44 +335,44 @@ msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:29
 msgid "All"
-msgstr ""
+msgstr "すべて"
 
 #: assets/templates/bookmarks/base.jet.html:32
 msgid "Unread"
-msgstr ""
+msgstr "未読"
 
 #: assets/templates/bookmarks/base.jet.html:35
 msgid "Archive"
-msgstr ""
+msgstr "アーカイブ"
 
 #: assets/templates/bookmarks/base.jet.html:38
 msgid "Favorites"
-msgstr ""
+msgstr "お気に入り"
 
 #: assets/templates/bookmarks/base.jet.html:46
 #: internal/bookmarks/routes/views_bookmarks.go:115
 msgid "Articles"
-msgstr ""
+msgstr "記事"
 
 #: assets/templates/bookmarks/base.jet.html:52
 #: internal/bookmarks/routes/views_bookmarks.go:119
 msgid "Videos"
-msgstr ""
+msgstr "動画"
 
 #: assets/templates/bookmarks/base.jet.html:58
 #: internal/bookmarks/routes/views_bookmarks.go:117
 msgid "Pictures"
-msgstr ""
+msgstr "画像"
 
 #: assets/templates/bookmarks/base.jet.html:68
 #: assets/templates/bookmarks/components/sidebar.jet.html:91
 msgid "Labels"
-msgstr ""
+msgstr "ラベル"
 
 #: assets/templates/bookmarks/base.jet.html:70
 #: assets/templates/bookmarks/components/sidebar.jet.html:96
 msgid "Highlights"
-msgstr ""
+msgstr "ハイライト"
 
 #: assets/templates/bookmarks/base.jet.html:88
 msgid "Did you know?"
@@ -476,7 +479,7 @@ msgstr ""
 #: assets/templates/bookmarks/collection.jet.html:11
 #: assets/templates/bookmarks/collection.jet.html:33
 msgid "Collections"
-msgstr ""
+msgstr "コレクション"
 
 #: assets/templates/bookmarks/collection.jet.html:16
 #, python-format
@@ -559,11 +562,11 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as unread"
-msgstr ""
+msgstr "未読にする"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as read"
-msgstr ""
+msgstr "既読にする"
 
 #: assets/templates/bookmarks/components/actions.jet.html:24
 msgid "Undo"
@@ -1485,7 +1488,7 @@ msgstr ""
 
 #: assets/templates/menu.jet.html:1
 msgid "Change theme"
-msgstr ""
+msgstr "テーマを変更"
 
 #: assets/templates/menu.jet.html:1 assets/templates/menu.jet.html:48
 msgid "Sign out"
@@ -1815,67 +1818,67 @@ msgstr ""
 #: internal/bookmarks/routes/forms_bookmarks.go:389
 msgctxt "status"
 msgid "Unviewed"
-msgstr ""
+msgstr "未読"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:390
 msgctxt "status"
 msgid "In-Progress"
-msgstr ""
+msgstr "途中"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:391
 msgctxt "status"
 msgid "Completed"
-msgstr ""
+msgstr "読了"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:625
 msgctxt "sort"
 msgid "Added, most recent first"
-msgstr ""
+msgstr "追加, 最新"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:626
 msgctxt "sort"
 msgid "Added, oldest first"
-msgstr ""
+msgstr "追加, 最古"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:627
 msgctxt "sort"
 msgid "Published, most recent first"
-msgstr ""
+msgstr "公開, 最新"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:628
 msgctxt "sort"
 msgid "Published, oldest first"
-msgstr ""
+msgstr "公開, 最古"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:629
 msgctxt "sort"
 msgid "Title, A to Z"
-msgstr ""
+msgstr "タイトル, A-Z"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:630
 msgctxt "sort"
 msgid "Title, Z to A"
-msgstr ""
+msgstr "タイトル, Z-A"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:631
 msgctxt "sort"
 msgid "Site Name, A to Z"
-msgstr ""
+msgstr "サイト名, A-Z"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:632
 msgctxt "sort"
 msgid "Site Name, Z to A"
-msgstr ""
+msgstr "サイト名, Z-A"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:633
 msgctxt "sort"
 msgid "Duration, shortest first"
-msgstr ""
+msgstr "長さ, 最短"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:634
 msgctxt "sort"
 msgid "Duration, longest first"
-msgstr ""
+msgstr "長さ, 最長"
 
 #: internal/bookmarks/routes/opds.go:56
 msgid "Readeck Bookmarks"
@@ -2000,132 +2003,132 @@ msgstr ""
 #: pkg/strftime/strftime.go:23
 msgctxt "datetime_dl"
 msgid "Sunday"
-msgstr ""
+msgstr "日曜日"
 
 #: pkg/strftime/strftime.go:24
 msgctxt "datetime_dl"
 msgid "Monday"
-msgstr ""
+msgstr "月曜日"
 
 #: pkg/strftime/strftime.go:25
 msgctxt "datetime_dl"
 msgid "Tuesday"
-msgstr ""
+msgstr "火曜日"
 
 #: pkg/strftime/strftime.go:26
 msgctxt "datetime_dl"
 msgid "Wednesday"
-msgstr ""
+msgstr "水曜日"
 
 #: pkg/strftime/strftime.go:27
 msgctxt "datetime_dl"
 msgid "Thursday"
-msgstr ""
+msgstr "木曜日"
 
 #: pkg/strftime/strftime.go:28
 msgctxt "datetime_dl"
 msgid "Friday"
-msgstr ""
+msgstr "金曜日"
 
 #: pkg/strftime/strftime.go:29
 msgctxt "datetime_dl"
 msgid "Saturday"
-msgstr ""
+msgstr "土曜日"
 
 #: pkg/strftime/strftime.go:33
 msgctxt "datetime_ds"
 msgid "Sun"
-msgstr ""
+msgstr "日"
 
 #: pkg/strftime/strftime.go:34
 msgctxt "datetime_ds"
 msgid "Mon"
-msgstr ""
+msgstr "月"
 
 #: pkg/strftime/strftime.go:35
 msgctxt "datetime_ds"
 msgid "Tue"
-msgstr ""
+msgstr "火"
 
 #: pkg/strftime/strftime.go:36
 msgctxt "datetime_ds"
 msgid "Wed"
-msgstr ""
+msgstr "水"
 
 #: pkg/strftime/strftime.go:37
 msgctxt "datetime_ds"
 msgid "Thu"
-msgstr ""
+msgstr "木"
 
 #: pkg/strftime/strftime.go:38
 msgctxt "datetime_ds"
 msgid "Fri"
-msgstr ""
+msgstr "金"
 
 #: pkg/strftime/strftime.go:39
 msgctxt "datetime_ds"
 msgid "Sat"
-msgstr ""
+msgstr "土"
 
 #: pkg/strftime/strftime.go:43
 msgctxt "datetime_ml"
 msgid "January"
-msgstr ""
+msgstr "1月"
 
 #: pkg/strftime/strftime.go:44
 msgctxt "datetime_ml"
 msgid "February"
-msgstr ""
+msgstr "2月"
 
 #: pkg/strftime/strftime.go:45
 msgctxt "datetime_ml"
 msgid "March"
-msgstr ""
+msgstr "3月"
 
 #: pkg/strftime/strftime.go:46
 msgctxt "datetime_ml"
 msgid "April"
-msgstr ""
+msgstr "4月"
 
 #: pkg/strftime/strftime.go:47
 msgctxt "datetime_ml"
 msgid "May"
-msgstr ""
+msgstr "5月"
 
 #: pkg/strftime/strftime.go:48
 msgctxt "datetime_ml"
 msgid "June"
-msgstr ""
+msgstr "6月"
 
 #: pkg/strftime/strftime.go:49
 msgctxt "datetime_ml"
 msgid "July"
-msgstr ""
+msgstr "7月"
 
 #: pkg/strftime/strftime.go:50
 msgctxt "datetime_ml"
 msgid "August"
-msgstr ""
+msgstr "8月"
 
 #: pkg/strftime/strftime.go:51
 msgctxt "datetime_ml"
 msgid "September"
-msgstr ""
+msgstr "9月"
 
 #: pkg/strftime/strftime.go:52
 msgctxt "datetime_ml"
 msgid "October"
-msgstr ""
+msgstr "10月"
 
 #: pkg/strftime/strftime.go:53
 msgctxt "datetime_ml"
 msgid "November"
-msgstr ""
+msgstr "11月"
 
 #: pkg/strftime/strftime.go:54
 msgctxt "datetime_ml"
 msgid "December"
-msgstr ""
+msgstr "12月"
 
 #: pkg/strftime/strftime.go:58
 msgctxt "datetime_ms"
@@ -2190,12 +2193,12 @@ msgstr ""
 #: pkg/strftime/strftime.go:73
 msgctxt "datetime"
 msgid "a.m."
-msgstr ""
+msgstr "午前"
 
 #: pkg/strftime/strftime.go:74
 msgctxt "datetime"
 msgid "p.m."
-msgstr ""
+msgstr "午後"
 
 #: pkg/strftime/strftime.go:75
 #, python-format
@@ -2207,9 +2210,9 @@ msgstr ""
 #, python-format
 msgctxt "datetime"
 msgid "%m/%d/%Y"
-msgstr ""
+msgstr "%m/%d/%Y"
 
 #: pkg/strftime/strftime.go:77
 msgctxt "datetime"
 msgid "%H:%M:%S"
-msgstr ""
+msgstr "%H:%M:%S"

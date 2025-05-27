@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-25 07:29+0000\n"
-"PO-Revision-Date: 2025-05-24 10:07+0000\n"
-"Last-Translator: ckafi <ckafi@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-05-27 12:59+0000\n"
+"Last-Translator: altruizine <altruizine@noreply.codeberg.org>\n"
+"Language-Team: German <https://translate.codeberg.org/projects/readeck/"
+"application/de/>\n"
 "Language: de_DE\n"
-"Language-Team: German <https://translate.codeberg.org/projects/readeck/application/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -867,7 +869,6 @@ msgstr "Sendet den Inhalt dieses Lesezeichens in der Nachricht."
 
 # | msgid "Sends this bookmarks as an attached EPUB file."
 #: assets/templates/bookmarks/components/share_email.jet.html:18
-#, fuzzy
 msgid "Sends this bookmark as an attached EPUB file."
 msgstr "Sendet dieses Lesezeichen als angehängte EPUB-Datei."
 
@@ -996,14 +997,14 @@ msgstr "Importiere Links aus einer CSV Datei"
 # matches
 # | the format specified bellow.\n" "  "
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
-#, fuzzy
 msgid ""
 "\n"
 "    Upload a CSV file from Instapaper or any CSV that matches the format specified below.\n"
 "  "
 msgstr ""
 "\n"
-"    Laden Sie eine CSV-Datei von Instapaper oder einer beliebigen CSV-Datei hoch, die dem unten angegebenen Format entspricht.\n"
+"    Laden Sie eine CSV-Datei von Instapaper oder eine beliebige CSV-Datei "
+"hoch, die dem unten angegebenen Format entspricht.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
@@ -1793,10 +1794,8 @@ msgid "Delete token"
 msgstr "Token löschen"
 
 #: assets/templates/profile/token.jet.html:83
-#, fuzzy
-#| msgid "API authentication"
 msgid "Authentication"
-msgstr "API-Authentifizierung"
+msgstr "Authentifizierung"
 
 #: assets/templates/profile/token.jet.html:86
 msgid "Your API token"
@@ -1804,13 +1803,11 @@ msgstr "Dein API-Token"
 
 #: assets/templates/profile/token.jet.html:96
 msgid "How to use it"
-msgstr ""
+msgstr "Wie es verwendet wird"
 
 #: assets/templates/profile/token.jet.html:98
-#, fuzzy
-#| msgid "Create a new API token"
 msgid "As a Bearer Token"
-msgstr "Erstelle ein neues API-Token"
+msgstr "Als Bearer-Token"
 
 #: assets/templates/profile/token.jet.html:100
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
@@ -1821,20 +1818,24 @@ msgid "HTTP Header"
 msgstr "HTTP-Header"
 
 #: assets/templates/profile/token.jet.html:113
-#, fuzzy
-#| msgid "Password"
 msgid "As a password"
-msgstr "Passwort"
+msgstr "Als Passwort"
 
 #: assets/templates/profile/token.jet.html:115
 msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
 msgstr ""
+"Alternativ kannst du dieses Token als Passwort für HTTP Basic Authentication "
+"verwenden."
 
 #: assets/templates/profile/token.jet.html:116
 msgid ""
 "For example, if an application only accepts a username and password, you can provide this token as a password.\n"
 "  The username is ignored and can be anything, including an empty value."
 msgstr ""
+"Wenn zum Beispiel eine Anwendung ausschließlich Nutzername und Passwort "
+"akzeptiert, kannst du dieses Token als Passwort verwenden.\n"
+"  Der Benutzername wird ignoriert und kann beliebig gesetzt werden, auch auf "
+"einen leeren Wert."
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
@@ -2485,4 +2486,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "Passwort aktualisiert."
-

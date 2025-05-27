@@ -207,6 +207,9 @@ func parseSVGdimension(width, height string) (int, int) {
 		height = strings.TrimSuffix(height, "%")
 	}
 
+	width, _, _ = strings.Cut(width, ".")
+	height, _, _ = strings.Cut(height, ".")
+
 	var w, h int
 	w, _ = strconv.Atoi(width)
 	h, _ = strconv.Atoi(height)

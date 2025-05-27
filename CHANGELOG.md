@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.19.1] - 2025-05-28
+### Fixed
+- pt-PT translation is back
+
 ## [0.19.0] - 2025-05-27
 ### Added
 - share a bookmark by email

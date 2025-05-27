@@ -33,17 +33,20 @@ jobs:
       - name: Build Linux amd64
         run: |
           CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
-            make xbuild/linux/amd64
+            make build
+          mv dist/readeck dist/readeck-linux-amd64
 
       - name: Build Linux arm64
         run: |
           CGO_ENABLED=0 GOOS=linux GOARCH=arm64 \
-            make xbuild/linux/arm64
+            make build
+          mv dist/readeck dist/readeck-linux-arm64
 
       - name: Build Linux armv7
         run: |
           CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 \
-            make xbuild
+            make build
+          mv dist/readeck dist/readeck-linux-arm
 
       - name: Publish Release with assets
         uses: softprops/action-gh-release@v2

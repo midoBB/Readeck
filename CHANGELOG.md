@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [0.19.0] - 2025-05-27
 ### Added
 - share a bookmark by email
   - send the bookmark's content as a message
@@ -17,6 +17,7 @@
 
 ### Fixed
 - Bug in Wallabag import adapter that would not load entries with empty headers
+- Bug when retrieving SVG images
 
 ### Improved
 - Check Origin header in CSRF protection

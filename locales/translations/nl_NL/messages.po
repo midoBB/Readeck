@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-25 07:29+0000\n"
-"PO-Revision-Date: 2025-05-24 10:07+0000\n"
+"PO-Revision-Date: 2025-05-26 05:49+0000\n"
 "Last-Translator: Vistaus <vistaus@noreply.codeberg.org>\n"
+"Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/"
+"application/nl/>\n"
 "Language: nl_NL\n"
-"Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/application/nl/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -870,9 +872,8 @@ msgstr "Verstuur de inhoud van deze bladwijzer via een bericht."
 
 # | msgid "Sends this bookmarks as an attached EPUB file."
 #: assets/templates/bookmarks/components/share_email.jet.html:18
-#, fuzzy
 msgid "Sends this bookmark as an attached EPUB file."
-msgstr "Verstuur deze bladwijzers als bijgevoegd epub-bestand."
+msgstr "Verstuur deze bladwijzer als bijgevoegd epub-bestand."
 
 # | msgid "From date"
 #: assets/templates/bookmarks/components/share_email.jet.html:30
@@ -999,14 +1000,14 @@ msgstr "Links importeren uit csv-bestand"
 # matches
 # | the format specified bellow.\n" "  "
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
-#, fuzzy
 msgid ""
 "\n"
 "    Upload a CSV file from Instapaper or any CSV that matches the format specified below.\n"
 "  "
 msgstr ""
 "\n"
-"    Upload een csv-bestand vanuit Instapaper of elders dat overeenkomt met onderstaande opmaak.\n"
+"    Upload een csv-bestand vanuit Instapaper of elders dat overeenkomt met "
+"onderstaande opmaak.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
@@ -1805,10 +1806,8 @@ msgid "Delete token"
 msgstr "Toegangssleutel wissen"
 
 #: assets/templates/profile/token.jet.html:83
-#, fuzzy
-#| msgid "API authentication"
 msgid "Authentication"
-msgstr "Api-verificatie"
+msgstr "Verificatie"
 
 #: assets/templates/profile/token.jet.html:86
 msgid "Your API token"
@@ -1816,13 +1815,11 @@ msgstr "Mijn api-sleutel"
 
 #: assets/templates/profile/token.jet.html:96
 msgid "How to use it"
-msgstr ""
+msgstr "Hoe te gebruiken"
 
 #: assets/templates/profile/token.jet.html:98
-#, fuzzy
-#| msgid "Create a new API token"
 msgid "As a Bearer Token"
-msgstr "Api-sleutel genereren"
+msgstr "Als sleutelhouder"
 
 #: assets/templates/profile/token.jet.html:100
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
@@ -1833,20 +1830,23 @@ msgid "HTTP Header"
 msgstr "Http-kop"
 
 #: assets/templates/profile/token.jet.html:113
-#, fuzzy
-#| msgid "Password"
 msgid "As a password"
-msgstr "Wachtwoord"
+msgstr "Als wachtwoord"
 
 #: assets/templates/profile/token.jet.html:115
 msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
 msgstr ""
+"Ook kun je deze sleutel als wachtwoord gebruiken i.c.m. HTTP Basic "
+"Authentication."
 
 #: assets/templates/profile/token.jet.html:116
 msgid ""
 "For example, if an application only accepts a username and password, you can provide this token as a password.\n"
 "  The username is ignored and can be anything, including an empty value."
 msgstr ""
+"Voorbeeld: als een app alleen een gebruikersnaam en wachtwoord accepteert, "
+"kun je deze sleutel als wachtwoord gebruiken.\n"
+"  De gebruikersnaam wordt genegeerd en kan van alles zijn, zelfs een lege."
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
@@ -2496,4 +2496,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "Het wachtwoord is bijgewerkt."
-

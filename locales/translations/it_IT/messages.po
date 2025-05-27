@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-25 07:29+0000\n"
-"PO-Revision-Date: 2025-05-23 18:49+0000\n"
-"Last-Translator: Tommi <tommi@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-05-26 05:49+0000\n"
+"Last-Translator: skypixel <skypixel@noreply.codeberg.org>\n"
+"Language-Team: Italian <https://translate.codeberg.org/projects/readeck/"
+"application/it/>\n"
 "Language: it_IT\n"
-"Language-Team: Italian <https://translate.codeberg.org/projects/readeck/application/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -496,16 +498,16 @@ msgstr "%d minuti"
 
 # | msgid "Shared by %s"
 #: assets/templates/bookmarks/bookmark_public.jet.html:97
-#, fuzzy, python-format
+#, python-format
 msgid "Shared by %s with %s"
-msgstr "Condiviso da %s"
+msgstr "Condiviso da %s con %s"
 
 # | msgid "Saved with Readeck"
 # | msgid "Saved with"
 #: assets/templates/bookmarks/bookmark_public.jet.html:150
-#, fuzzy, python-format
+#, python-format
 msgid "Saved with %s"
-msgstr "Salvato con"
+msgstr "Salvato con %s"
 
 # | msgid "Share by Link"
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:8
@@ -1823,13 +1825,11 @@ msgstr "Il tuo gettone API"
 
 #: assets/templates/profile/token.jet.html:96
 msgid "How to use it"
-msgstr ""
+msgstr "Come usarlo"
 
 #: assets/templates/profile/token.jet.html:98
-#, fuzzy
-#| msgid "Create a new API token"
 msgid "As a Bearer Token"
-msgstr "Crea un nuovo gettone API"
+msgstr "Come Token Bearer"
 
 #: assets/templates/profile/token.jet.html:100
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
@@ -1848,6 +1848,8 @@ msgstr "Password"
 #: assets/templates/profile/token.jet.html:115
 msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
 msgstr ""
+"In alternativa, puoi usare questo gettone come una password per "
+"l'autenticazione HTTP Basic."
 
 #: assets/templates/profile/token.jet.html:116
 msgid ""
@@ -2504,4 +2506,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "La tua password è stata aggiornata."
-

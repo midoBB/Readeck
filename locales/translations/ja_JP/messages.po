@@ -1,17 +1,18 @@
-# English (United States) translations for Readeck CN.
-# SPDX-FileCopyrightText: © 2023 Readeck <translate@readeck.com>
+# Translations template for Readeck.
+# SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Readeck CN 1.0.0\n"
+"Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-25 07:29+0000\n"
-"PO-Revision-Date: 2025-05-26 05:49+0000\n"
-"Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
-"Language-Team: Chinese (Simplified Han script) <https://"
-"translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
-"Language: zh_CN\n"
+"PO-Revision-Date: 2025-05-27 06:01+0000\n"
+"Last-Translator: radixm46 <radixm46@noreply.codeberg.org>\n"
+"Language-Team: Japanese <https://translate.codeberg.org/projects/readeck/"
+"application/ja/>\n"
+"Language: ja_JP\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,113 +20,174 @@ msgstr ""
 "X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: assets/templates/_layouts/sidemenu.jet.html:29
-#: assets/templates/bookmarks/bookmark.jet.html:26
-#: assets/templates/error.jet.html:12
-msgid "Menu"
-msgstr "菜单"
-
 #: assets/templates/_layouts/sidemenu.jet.html:30
 msgid "Secondary Menu"
-msgstr "二级菜单"
-
-#: assets/templates/_layouts/sidemenu.jet.html:31
-#: assets/templates/bookmarks/bookmark.jet.html:27
-#: assets/templates/error.jet.html:13
-msgid "Main content"
-msgstr "主要内容"
+msgstr ""
 
 #: assets/templates/_layouts/sidemenu.jet.html:46
 msgid "Close menu"
-msgstr "关闭菜单"
+msgstr ""
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Quick access menu"
-msgstr "快速访问菜单"
+msgstr ""
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Home Page"
-msgstr "主页"
+msgstr ""
 
 #: assets/templates/_libs/forms.jet.html:1
 #: assets/templates/_libs/forms.jet.html:33
 msgid "Required"
-msgstr "必填"
+msgstr ""
 
 #: assets/templates/_libs/forms.jet.html:10
 msgid "Errors"
-msgstr "错误"
+msgstr ""
 
 #: assets/templates/_libs/forms.jet.html:16
 msgid "Please check your form for errors."
-msgstr "请检查您的表单是否有错误。"
+msgstr ""
 
 #: assets/templates/_libs/forms.jet.html:212
 msgid "The previous"
-msgstr "前"
+msgstr ""
 
 #: assets/templates/_libs/forms.jet.html:221
 msgid "Day(s)"
-msgstr "天"
+msgstr ""
 
 #: assets/templates/_libs/forms.jet.html:222
 msgid "Week(s)"
-msgstr "周"
+msgstr ""
 
 #: assets/templates/_libs/forms.jet.html:223
 msgid "Month(s)"
-msgstr "月"
+msgstr ""
 
 #: assets/templates/_libs/forms.jet.html:224
 msgid "Year(s)"
-msgstr "年"
+msgstr ""
 
 #: assets/templates/_libs/forms.jet.html:227
 msgctxt "word"
 msgid "or"
-msgstr "或"
+msgstr ""
 
 #: assets/templates/_libs/forms.jet.html:256
 msgid "Select or drop file"
-msgstr "选择或拖放文件"
+msgstr ""
 
 #: assets/templates/_libs/forms.jet.html:260
 msgid "remove"
-msgstr "移除"
+msgstr ""
 
 #: assets/templates/_libs/pagination.jet.html:1
 msgid "Go to previous page"
-msgstr "转到上一页"
+msgstr ""
 
 #: assets/templates/_libs/pagination.jet.html:1
 #, python-format
 msgid "Go to page %d"
-msgstr "转到第 %d 页"
+msgstr ""
 
 #: assets/templates/_libs/pagination.jet.html:1
 msgid "Go to next page"
-msgstr "转到下一页"
+msgstr ""
 
 #: assets/templates/_libs/pagination.jet.html:10
 msgctxt "page"
 msgid "Previous"
-msgstr "上一页"
+msgstr "前"
 
 #: assets/templates/_libs/pagination.jet.html:15
 msgctxt "page"
 msgid "Next"
-msgstr "下一页"
+msgstr "次"
+
+#: assets/templates/admin/user.jet.html:19
+msgid "User will be removed in a few seconds"
+msgstr ""
+
+#: assets/templates/admin/user.jet.html:31
+#: assets/templates/admin/user_create.jet.html:20
+#: assets/templates/auth/onboarding.jet.html:24
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:41
+#: assets/templates/profile/index.jet.html:22
+msgid "Username"
+msgstr ""
+
+#: assets/templates/admin/user.jet.html:37
+#: assets/templates/admin/user_create.jet.html:26
+#: assets/templates/auth/onboarding.jet.html:37
+#: assets/templates/auth/recover.jet.html:29
+msgid "Email address"
+msgstr ""
+
+#: assets/templates/admin/user.jet.html:41
+#: assets/templates/admin/user_create.jet.html:31
+msgid "Group"
+msgstr ""
+
+#: assets/templates/admin/user.jet.html:46
+#: assets/templates/admin/user_create.jet.html:36
+#: assets/templates/auth/login.jet.html:30
+#: assets/templates/auth/onboarding.jet.html:29
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:48
+#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:122
+msgid "Password"
+msgstr ""
+
+#: assets/templates/admin/user.jet.html:49
+msgid "will not change if empty"
+msgstr ""
+
+#: assets/templates/admin/user.jet.html:52
+#: assets/templates/bookmarks/collection.jet.html:78
+#: assets/templates/bookmarks/collection_create.jet.html:30
+#: assets/templates/profile/index.jet.html:80
+#: assets/templates/profile/password.jet.html:36
+#: assets/templates/profile/token.jet.html:75
+msgid "Save"
+msgstr ""
+
+#: assets/templates/admin/user.jet.html:55
+msgid "Delete this user"
+msgstr ""
+
+#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:93
+msgid "New User"
+msgstr ""
+
+#: assets/templates/admin/user_create.jet.html:42
+msgid "Create user"
+msgstr ""
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
 #: assets/templates/profile/base.jet.html:30 internal/admin/views.go:62
 #: internal/admin/views.go:92 internal/admin/views.go:132
 msgid "Users"
-msgstr "用户"
+msgstr ""
 
-#: assets/templates/admin/user.jet.html:19
-msgid "User will be removed in a few seconds"
-msgstr "将在几秒钟内移除用户"
+#: assets/templates/admin/user_list.jet.html:14
+msgid "Add a new user"
+msgstr ""
+
+#: assets/templates/admin/user_list.jet.html:30
+#: assets/templates/profile/token_list.jet.html:48
+#, python-format
+msgid "Created on: %s"
+msgstr ""
+
+#: assets/templates/admin/user_list.jet.html:31
+#, python-format
+msgid "Last update: %s"
+msgstr ""
+
+#: assets/templates/admin/user_list.jet.html:38
+msgid "This user will be removed in a few seconds."
+msgstr ""
 
 #: assets/templates/admin/user.jet.html:20
 #: assets/templates/admin/user_list.jet.html:44
@@ -142,116 +204,37 @@ msgstr "将在几秒钟内移除用户"
 #: assets/templates/profile/token.jet.html:20
 #: assets/templates/profile/token_list.jet.html:68
 msgid "Cancel"
-msgstr "取消"
-
-#: assets/templates/admin/user.jet.html:31
-#: assets/templates/admin/user_create.jet.html:20
-#: assets/templates/auth/onboarding.jet.html:24
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:41
-#: assets/templates/profile/index.jet.html:22
-msgid "Username"
-msgstr "用户名"
-
-#: assets/templates/admin/user.jet.html:37
-#: assets/templates/admin/user_create.jet.html:26
-#: assets/templates/auth/onboarding.jet.html:37
-#: assets/templates/auth/recover.jet.html:29
-msgid "Email address"
-msgstr "电子邮件地址"
-
-#: assets/templates/admin/user.jet.html:41
-#: assets/templates/admin/user_create.jet.html:31
-msgid "Group"
-msgstr "组"
-
-#: assets/templates/admin/user.jet.html:46
-#: assets/templates/admin/user_create.jet.html:36
-#: assets/templates/auth/login.jet.html:30
-#: assets/templates/auth/onboarding.jet.html:29
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:48
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:122
-msgid "Password"
-msgstr "密码"
-
-#: assets/templates/admin/user.jet.html:49
-msgid "will not change if empty"
-msgstr "如果为空，则不会更改"
-
-#: assets/templates/admin/user.jet.html:52
-#: assets/templates/bookmarks/collection.jet.html:78
-#: assets/templates/bookmarks/collection_create.jet.html:30
-#: assets/templates/profile/index.jet.html:80
-#: assets/templates/profile/password.jet.html:36
-#: assets/templates/profile/token.jet.html:75
-msgid "Save"
-msgstr "保存"
-
-#: assets/templates/admin/user.jet.html:55
-msgid "Delete this user"
-msgstr "删除此用户"
-
-#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:93
-msgid "New User"
-msgstr "新用户"
-
-#: assets/templates/admin/user_create.jet.html:42
-msgid "Create user"
-msgstr "创建用户"
-
-#: assets/templates/admin/user_list.jet.html:14
-msgid "Add a new user"
-msgstr "添加新用户"
-
-#: assets/templates/admin/user_list.jet.html:30
-#: assets/templates/profile/token_list.jet.html:48
-#, python-format
-msgid "Created on: %s"
-msgstr "创建时间：%s"
-
-#: assets/templates/admin/user_list.jet.html:31
-#, python-format
-msgid "Last update: %s"
-msgstr "上次更新：%s"
-
-#: assets/templates/admin/user_list.jet.html:38
-msgid "This user will be removed in a few seconds."
-msgstr "将在几秒钟内移除此用户。"
+msgstr ""
 
 #: assets/templates/auth/login.jet.html:9
 #: assets/templates/auth/login.jet.html:37
 msgid "Sign in"
-msgstr "登录"
+msgstr ""
 
 #: assets/templates/auth/login.jet.html:12
 msgid "Sign in to Readeck"
-msgstr "登录到 Readeck"
+msgstr ""
 
 #: assets/templates/auth/login.jet.html:22
 msgid "Username or email address"
-msgstr "用户名或电子邮件地址"
+msgstr ""
 
 #: assets/templates/auth/login.jet.html:41
 msgid "Forgot your password?"
-msgstr "忘记密码？"
+msgstr ""
 
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:71
 msgid "Welcome to Readeck!"
-msgstr "欢迎使用 Readeck！"
+msgstr ""
 
 #: assets/templates/auth/onboarding.jet.html:15
 msgid "We're delighted to have you on board; one more step and you're good to go."
-msgstr "我们很高兴您能加入我们，还有一步就完成了。"
-
-#: assets/templates/auth/onboarding.jet.html:32
-#: assets/templates/auth/recover.jet.html:56
-#: assets/templates/profile/password.jet.html:32
-msgid "must be at least 8 characters long"
-msgstr "长度不得少于 8 个字符"
+msgstr ""
 
 #: assets/templates/auth/onboarding.jet.html:39
 msgid "Please note:"
-msgstr "请注意："
+msgstr ""
 
 #: assets/templates/auth/onboarding.jet.html:40
 msgid ""
@@ -261,23 +244,18 @@ msgid ""
 "  It will <strong>only</strong> be used, should you need it, for password recovery and internal notifications.\n"
 "  "
 msgstr ""
-"\n"
-"  您可以选填电子邮件地址，该地址仅用于本次安装。\n"
-"  电子邮件地址永远不会被第三方收集、转移或出售。\n"
-"  它<strong>只会</strong>在您需要时用于密码恢复和内部通知。\n"
-"  "
 
 #: assets/templates/auth/onboarding.jet.html:47
 msgid "Finish installation"
-msgstr "完成安装"
+msgstr ""
 
 #: assets/templates/auth/recover.jet.html:9
 msgid "Password recovery"
-msgstr "密码恢复"
+msgstr ""
 
 #: assets/templates/auth/recover.jet.html:21
 msgid "No worries, it happens to anyone."
-msgstr "别担心，任何人都会遇到这种情况。"
+msgstr ""
 
 #: assets/templates/auth/recover.jet.html:22
 msgid ""
@@ -287,24 +265,19 @@ msgid ""
 "        to recover your password.\n"
 "      "
 msgstr ""
-"\n"
-"        请提供您创建账号时使用的电子邮件地址\n"
-"        我们将向您发送一封带有链接的邮件\n"
-"        以便恢复您的密码。\n"
-"      "
 
 #: assets/templates/auth/recover.jet.html:32
 msgid "Send me a recovery link"
-msgstr "向我发送恢复链接"
+msgstr ""
 
 #: assets/templates/auth/recover.jet.html:33
 #: assets/templates/auth/recover.jet.html:58
 msgid "Cancel and go back to sign in"
-msgstr "取消并返回登录页面"
+msgstr ""
 
 #: assets/templates/auth/recover.jet.html:37
 msgid "Almost there!"
-msgstr "差不多了！"
+msgstr ""
 
 #: assets/templates/auth/recover.jet.html:38
 #, python-format
@@ -315,36 +288,37 @@ msgid ""
 "        with further instructions.\n"
 "      "
 msgstr ""
-"\n"
-"        我们已发送一封邮件至\n"
-"        <strong>%s</strong>\n"
-"        其中包含进一步的说明。\n"
-"      "
 
 #: assets/templates/auth/recover.jet.html:54
 #: assets/templates/profile/password.jet.html:29
 msgid "New password"
-msgstr "新密码"
+msgstr ""
+
+#: assets/templates/auth/onboarding.jet.html:32
+#: assets/templates/auth/recover.jet.html:56
+#: assets/templates/profile/password.jet.html:32
+msgid "must be at least 8 characters long"
+msgstr ""
 
 #: assets/templates/auth/recover.jet.html:57
 msgid "Update your password"
-msgstr "更新您的密码"
+msgstr ""
 
 #: assets/templates/auth/recover.jet.html:62
 msgid "Your password has been changed."
-msgstr "您的密码已更改。"
+msgstr ""
 
 #: assets/templates/auth/recover.jet.html:63
 msgid "Go to the sign in page"
-msgstr "转到登录页面"
+msgstr ""
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
-msgstr "书签高亮"
+msgstr ""
 
 #: assets/templates/bookmarks/annotation_list.jet.html:17
 msgid "You don't have any highlights yet."
-msgstr "您还没有任何高亮。"
+msgstr ""
 
 #: assets/templates/bookmarks/annotation_list.jet.html:18
 msgid ""
@@ -353,72 +327,56 @@ msgid ""
 "        for you to easily find them.\n"
 "      "
 msgstr ""
-"\n"
-"        您可以保存文章的高亮部分，它们将出现在此页面上\n"
-"        以便您轻松找到它们。\n"
-"      "
 
 #: assets/templates/bookmarks/annotation_list.jet.html:23
 #, python-format
 msgid "Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</a>."
-msgstr "阅读<a class=\"%s\" href=\"%s\">文档</a>中有关高亮的更多信息。"
-
-#: assets/templates/bookmarks/base.jet.html:13
-#: assets/templates/bookmarks/bookmark.jet.html:15
-#: assets/templates/menu.jet.html:20
-msgid "Bookmarks"
-msgstr "书签"
+msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:29
 msgid "All"
-msgstr "全部"
+msgstr "すべて"
 
 #: assets/templates/bookmarks/base.jet.html:32
 msgid "Unread"
-msgstr "未读"
+msgstr "未読"
 
 #: assets/templates/bookmarks/base.jet.html:35
 msgid "Archive"
-msgstr "归档"
+msgstr "アーカイブ"
 
 #: assets/templates/bookmarks/base.jet.html:38
 msgid "Favorites"
-msgstr "收藏"
+msgstr "お気に入り"
 
 #: assets/templates/bookmarks/base.jet.html:46
 #: internal/bookmarks/routes/views_bookmarks.go:115
 msgid "Articles"
-msgstr "文章"
+msgstr "記事"
 
 #: assets/templates/bookmarks/base.jet.html:52
 #: internal/bookmarks/routes/views_bookmarks.go:119
 msgid "Videos"
-msgstr "视频"
+msgstr "動画"
 
 #: assets/templates/bookmarks/base.jet.html:58
 #: internal/bookmarks/routes/views_bookmarks.go:117
 msgid "Pictures"
-msgstr "图片"
+msgstr "画像"
 
 #: assets/templates/bookmarks/base.jet.html:68
 #: assets/templates/bookmarks/components/sidebar.jet.html:91
 msgid "Labels"
-msgstr "标签"
+msgstr "ラベル"
 
 #: assets/templates/bookmarks/base.jet.html:70
 #: assets/templates/bookmarks/components/sidebar.jet.html:96
 msgid "Highlights"
-msgstr "高亮"
-
-#: assets/templates/bookmarks/base.jet.html:72
-#: assets/templates/bookmarks/collection.jet.html:11
-#: assets/templates/bookmarks/collection.jet.html:33
-msgid "Collections"
-msgstr "收藏集"
+msgstr "ハイライト"
 
 #: assets/templates/bookmarks/base.jet.html:88
 msgid "Did you know?"
-msgstr "您知道吗？"
+msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:89
 #: assets/templates/bookmarks/index.jet.html:87
@@ -427,53 +385,50 @@ msgid ""
 "            With the Browser Extension, you can save pages, images and selections\n"
 "            directly from your browser!"
 msgstr ""
-"\n"
-"            使用浏览器扩展程序，您可以直接\n"
-"            从浏览器中保存页面、图片和选定内容！"
 
 #: assets/templates/bookmarks/base.jet.html:96
 #: assets/templates/bookmarks/index.jet.html:94
 msgid "Learn more"
-msgstr "了解更多"
+msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:105
 msgid "Don't remind me"
-msgstr "不再提醒"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:80
 msgid "Close panel"
-msgstr "关闭面板"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:111
 msgid "Bookmark information"
-msgstr "书签信息"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark.jet.html:12
 msgid "Bookmark loading"
-msgstr "加载书签"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark.jet.html:43
 msgid "Bookmark is loading"
-msgstr "书签正在加载"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html:9
 #: assets/templates/bookmarks/bookmark_missing.jet.html:14
 msgid "Bookmark not found"
-msgstr "未找到书签"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:17
 msgid "Shared link"
-msgstr "分享链接"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:54
 msgid "Page not found"
-msgstr "未找到页面"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:56
 msgid "Page has expired"
-msgstr "页面已过期"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:78
 #: assets/templates/bookmarks/components/sidebar.jet.html:56
@@ -481,7 +436,7 @@ msgstr "页面已过期"
 #: assets/templates/epub/bookmark.jet.html:37
 #, python-format
 msgid "Published on %s"
-msgstr "发布于 %s"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:83
 #: assets/templates/bookmarks/components/sidebar.jet.html:61
@@ -489,87 +444,85 @@ msgstr "发布于 %s"
 #: assets/templates/epub/bookmark.jet.html:40
 #, python-format
 msgid "By %s"
-msgstr "作者 %s"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:91
 #, python-format
 msgid "%d min"
-msgstr "%d 分钟"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:97
 #, python-format
 msgid "Shared by %s with %s"
-msgstr "由 %s 与 %s 分享"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:150
 #, python-format
 msgid "Saved with %s"
-msgstr "使用 %s 保存"
+msgstr ""
 
-# | msgid "Share by Link"
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:8
 msgid "Share by email"
-msgstr "通过电子邮件分享"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:18
 #: assets/templates/bookmarks/bookmark_share_link.jet.html:19
 #, python-format
 msgid "Share: %s"
-msgstr "分享于 %s"
+msgstr ""
 
 #: assets/templates/bookmarks/bookmark_share_link.jet.html:8
 msgid "Share link"
-msgstr "分享链接"
+msgstr ""
+
+#: assets/templates/bookmarks/base.jet.html:72
+#: assets/templates/bookmarks/collection.jet.html:11
+#: assets/templates/bookmarks/collection.jet.html:33
+msgid "Collections"
+msgstr "コレクション"
 
 #: assets/templates/bookmarks/collection.jet.html:16
 #, python-format
 msgid "Collection %s"
-msgstr "收藏集 %s"
+msgstr ""
 
 #: assets/templates/bookmarks/collection.jet.html:21
 msgid "Collection will be removed in a few seconds."
-msgstr "将在几秒钟内移除收藏集。"
+msgstr ""
 
 #: assets/templates/bookmarks/collection.jet.html:42
 #: assets/templates/bookmarks/collection.jet.html:55
 msgid "Edit"
-msgstr "编辑"
+msgstr ""
 
 #: assets/templates/bookmarks/collection.jet.html:57
 #: assets/templates/bookmarks/index.jet.html:129
 #: assets/templates/bookmarks/index.jet.html:163
 #: assets/templates/bookmarks/index.jet.html:166
 msgid "Filters"
-msgstr "筛选器"
-
-#: assets/templates/bookmarks/collection.jet.html:60
-#: assets/templates/bookmarks/index.jet.html:169
-#: assets/templates/menu.jet.html:43 docs/http.go:178 docs/http.go:257
-#: docs/http.go:295
-msgid "Documentation"
-msgstr "文档"
+msgstr ""
 
 #: assets/templates/bookmarks/collection.jet.html:68
 #: assets/templates/bookmarks/collection_create.jet.html:23
 msgid "Name"
-msgstr "名称"
+msgstr ""
 
 #: assets/templates/bookmarks/collection.jet.html:80
 msgid "Delete collection"
-msgstr "删除收藏集"
+msgstr ""
 
 #: assets/templates/bookmarks/collection_create.jet.html:9
 msgid "New Collection"
-msgstr "新收藏集"
+msgstr ""
 
 #: assets/templates/bookmarks/collection_list.jet.html:9
 #: internal/opds/http.go:74
 msgid "Bookmark Collections"
-msgstr "书签收藏集"
+msgstr ""
 
 #: assets/templates/bookmarks/collection_list.jet.html:15
 msgid "Create a new collection"
-msgstr "创建新收藏集"
+msgstr ""
 
 #: assets/templates/bookmarks/collection_list.jet.html:24
 msgid ""
@@ -581,188 +534,176 @@ msgid ""
 "          Here are some examples:\n"
 "        "
 msgstr ""
-"\n"
-"          收藏集可让您通过保存自己选择的搜索请求，\n"
-"          轻松整理和导出书签。\n"
-"          当您创建的新书签符合某个收藏集的标准时，\n"
-"          它就会立即出现。\n"
-"          以下是一些示例：\n"
-"        "
 
 #: assets/templates/bookmarks/collection_list.jet.html:33
 msgid "The unread articles (no photos or videos)"
-msgstr "未读的文章（不含图片和视频）"
+msgstr ""
 
 #: assets/templates/bookmarks/collection_list.jet.html:34
 msgid "The archived articles from \"wikipedia.org\""
-msgstr "来自“wikipedia.org”的归档文章"
+msgstr ""
 
 #: assets/templates/bookmarks/collection_list.jet.html:35
 msgid "The pictures with the label \"cat\""
-msgstr "带有“猫”标签的图片"
+msgstr ""
 
 #: assets/templates/bookmarks/collection_list.jet.html:36
 msgid "The articles that contain \"shelter\" in their title"
-msgstr "标题中包含“庇护所”的文章"
+msgstr ""
 
 #: assets/templates/bookmarks/collection_list.jet.html:39
 #, python-format
 msgid "Read more about collections in the <a class=\"%s\" href=\"%s\">documentation</a>."
-msgstr "阅读<a class=\"%s\" href=\"%s\">文档</a>中有关收藏集的更多信息。"
+msgstr ""
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
 msgid "Export and Share"
-msgstr "导出和分享"
-
-#: assets/templates/bookmarks/components/actions.jet.html:1
-#: assets/templates/bookmarks/components/card.jet.html:1
-msgid "Delete this bookmark"
-msgstr "删除此书签"
+msgstr ""
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as unread"
-msgstr "标记为未读"
+msgstr "未読にする"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as read"
-msgstr "标记为已读"
+msgstr "既読にする"
+
+#: assets/templates/bookmarks/components/actions.jet.html:24
+msgid "Undo"
+msgstr ""
+
+#: assets/templates/bookmarks/components/actions.jet.html:58
+#: assets/templates/bookmarks/components/list_actions.jet.html:79
+msgid "Download EPUB"
+msgstr ""
+
+#: assets/templates/bookmarks/components/actions.jet.html:61
+msgid "Share by Link"
+msgstr ""
+
+#: assets/templates/bookmarks/components/actions.jet.html:64
+msgid "Send article by Email"
+msgstr ""
+
+#: assets/templates/bookmarks/components/actions.jet.html:66
+msgid "Send e-book by Email"
+msgstr ""
+
+#: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
+msgid "Saved with Readeck"
+msgstr ""
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Remove from archive"
-msgstr "从归档移除"
+msgstr ""
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Move to archive"
-msgstr "移至归档"
+msgstr ""
 
 #: assets/templates/bookmarks/components/actions.jet.html:9
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
 #: assets/templates/bookmarks/components/card.jet.html:10
 msgid "Remove from favorites"
-msgstr "从收藏中移除"
+msgstr ""
 
 #: assets/templates/bookmarks/components/actions.jet.html:9
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
 #: assets/templates/bookmarks/components/card.jet.html:10
 msgid "Add to favorites"
-msgstr "添加到收藏"
-
-#: assets/templates/bookmarks/components/actions.jet.html:15
-#: assets/templates/bookmarks/components/card.jet.html:92
-msgid "This bookmark will be removed in a few seconds."
-msgstr "将在几秒钟内移除此书签。"
-
-#: assets/templates/bookmarks/components/actions.jet.html:24
-msgid "Undo"
-msgstr "撤销"
-
-#: assets/templates/bookmarks/components/actions.jet.html:58
-#: assets/templates/bookmarks/components/list_actions.jet.html:79
-msgid "Download EPUB"
-msgstr "下载 EPUB"
-
-#: assets/templates/bookmarks/components/actions.jet.html:61
-msgid "Share by Link"
-msgstr "通过链接分享"
-
-#: assets/templates/bookmarks/components/actions.jet.html:64
-msgid "Send article by Email"
-msgstr "通过电子邮件发送文章"
-
-#: assets/templates/bookmarks/components/actions.jet.html:66
-msgid "Send e-book by Email"
-msgstr "通过电子邮件发送电子书"
-
-#: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
-msgid "Saved with Readeck"
-msgstr "用 Readeck 保存"
+msgstr ""
 
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Go to original page"
-msgstr "转到原始页面"
+msgstr ""
+
+#: assets/templates/bookmarks/components/actions.jet.html:1
+#: assets/templates/bookmarks/components/card.jet.html:1
+msgid "Delete this bookmark"
+msgstr ""
 
 #: assets/templates/bookmarks/components/card.jet.html:33
 msgctxt "bookmark"
 msgid "Loading"
-msgstr "加载"
+msgstr ""
 
 #: assets/templates/bookmarks/components/card.jet.html:75
 #, python-format
 msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
-msgstr[0] "%d 分钟"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/templates/bookmarks/components/actions.jet.html:15
+#: assets/templates/bookmarks/components/card.jet.html:92
+msgid "This bookmark will be removed in a few seconds."
+msgstr ""
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
-msgstr "移除高亮"
+msgstr ""
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
-msgstr "黄色"
+msgstr ""
 
 #: assets/templates/bookmarks/components/content_block.jet.html:48
 msgid "Red"
-msgstr "红色"
+msgstr ""
 
 #: assets/templates/bookmarks/components/content_block.jet.html:49
 msgid "Blue"
-msgstr "蓝色"
+msgstr ""
 
 #: assets/templates/bookmarks/components/content_block.jet.html:50
 msgid "Green"
-msgstr "绿色"
+msgstr ""
 
 #: assets/templates/bookmarks/components/content_block.jet.html:54
 msgid "Highlight"
-msgstr "高亮"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:9
 msgid "Search"
-msgstr "搜索"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:14
 msgid "Title"
-msgstr "标题"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:19
 msgid "Author"
-msgstr "作者"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:24
 msgid "Site"
-msgstr "网站"
-
-#: assets/templates/bookmarks/components/filters.jet.html:29
-#: assets/templates/bookmarks/import/options.jet.html:10
-#: assets/templates/bookmarks/label.jet.html:10
-msgid "Label"
-msgstr "标签"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:34
 msgid "From date"
-msgstr "起始日期"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:40
 msgid "To date"
-msgstr "结束日期"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:45
 msgid "Type"
-msgstr "类型"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:50
 msgctxt "filter"
 msgid "Progress"
-msgstr "进度"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:55
 msgid "Is Favorite"
-msgstr "是否收藏"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:59
 #: assets/templates/bookmarks/components/filters.jet.html:68
@@ -772,7 +713,7 @@ msgstr "是否收藏"
 #: assets/templates/bookmarks/components/reader_control.jet.html:127
 #: assets/templates/bookmarks/components/reader_control.jet.html:152
 msgid "yes"
-msgstr "是"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:60
 #: assets/templates/bookmarks/components/filters.jet.html:69
@@ -782,140 +723,137 @@ msgstr "是"
 #: assets/templates/bookmarks/components/reader_control.jet.html:127
 #: assets/templates/bookmarks/components/reader_control.jet.html:152
 msgid "no"
-msgstr "否"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:64
 msgid "Is Archived"
-msgstr "已归档"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:74
 msgid "Is Loaded"
-msgstr "已加载"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:84
 msgid "With Labels"
-msgstr "有标签"
+msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:94
 msgid "With Errors"
-msgstr "有错误"
+msgstr ""
 
 #: assets/templates/bookmarks/components/labels.jet.html:1
 msgid "Remove label"
-msgstr "移除标签"
+msgstr ""
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:1
 msgid "Add a label"
-msgstr "添加标签"
+msgstr ""
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:35
 msgid "Add label"
-msgstr "添加标签"
+msgstr ""
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Grid view"
-msgstr "网格视图"
+msgstr ""
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Compact view"
-msgstr "紧凑视图"
+msgstr ""
 
-# | msgid "Grid view"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Mosaic view"
-msgstr "拼贴视图"
+msgstr ""
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Sort bookmarks"
-msgstr "排序书签"
+msgstr ""
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Sort options"
-msgstr "排序选项"
+msgstr ""
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Import and export"
-msgstr "导入和导出"
+msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
-msgstr "字体"
+msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:54
 msgid "Width"
-msgstr "宽度"
+msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:75
 msgid "Size"
-msgstr "大小"
+msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:96
 msgid "Line height"
-msgstr "行高"
+msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:116
 msgid "Justify"
-msgstr "对齐"
+msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:141
 msgid "Hyphenation"
-msgstr "连字符"
+msgstr ""
 
 #: assets/templates/bookmarks/components/share_email.jet.html:16
 msgid "Sends this bookmark's content in the message."
-msgstr "在邮件中发送此书签的内容。"
+msgstr ""
 
-# | msgid "Sends this bookmarks as an attached EPUB file."
 #: assets/templates/bookmarks/components/share_email.jet.html:18
 msgid "Sends this bookmark as an attached EPUB file."
-msgstr "将此书签作为附加的 EPUB 文件发送。"
+msgstr ""
 
-# | msgid "From date"
 #: assets/templates/bookmarks/components/share_email.jet.html:30
 msgid "Format"
-msgstr "格式"
+msgstr ""
 
 #: assets/templates/bookmarks/components/share_email.jet.html:40
 msgid "Send To"
-msgstr "发送至"
+msgstr ""
 
 #: assets/templates/bookmarks/components/share_email.jet.html:45
 msgid "Send message"
-msgstr "发送邮件"
+msgstr ""
 
 #: assets/templates/bookmarks/components/share_email.jet.html:49
 #, python-format
 msgid "The bookmark was sent to %s"
-msgstr "书签已发送到 %s"
-
-#: assets/templates/bookmarks/components/share_email.jet.html:56
-#: assets/templates/bookmarks/components/share_link.jet.html:25
-msgid "Go back to the bookmark"
-msgstr "返回书签"
+msgstr ""
 
 #: assets/templates/bookmarks/components/share_link.jet.html:9
 msgid "You can share the following link with your friends."
-msgstr "您可以与朋友分享以下链接。"
+msgstr ""
 
 #: assets/templates/bookmarks/components/share_link.jet.html:10
 #, python-format
 msgid "It expires on %s"
-msgstr "它将于 %s 过期"
+msgstr ""
 
 #: assets/templates/bookmarks/components/share_link.jet.html:22
 msgid "Copy the link"
-msgstr "复制链接"
+msgstr ""
+
+#: assets/templates/bookmarks/components/share_email.jet.html:56
+#: assets/templates/bookmarks/components/share_link.jet.html:25
+msgid "Go back to the bookmark"
+msgstr ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:1
 #: assets/templates/bookmarks/components/sidebar.jet.html:49
 #: assets/templates/emails/bookmark.jet.html:16
 #: assets/templates/epub/bookmark.jet.html:34
 msgid "no site name"
-msgstr "没有网站名称"
+msgstr ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:13
 msgid "Errors occurred during extraction."
-msgstr "提取过程中出错。"
+msgstr ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:69
 #: assets/templates/emails/bookmark.jet.html:27
@@ -923,19 +861,20 @@ msgstr "提取过程中出错。"
 #, python-format
 msgid "About %d minute read"
 msgid_plural "About %d minutes read"
-msgstr[0] "阅读约 %d 分钟"
+msgstr[0] ""
+msgstr[1] ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:99
 msgid "Start selecting text in the article to create a new highlight."
-msgstr "在文章中选择文本以创建新的高亮。"
+msgstr ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:130
 msgid "Links"
-msgstr "链接"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:9
 msgid "Import your Browser's Bookmarks"
-msgstr "导入浏览器的书签"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:15
 msgid ""
@@ -945,62 +884,33 @@ msgid ""
 "    every bookmark found it the file.\n"
 "  "
 msgstr ""
-"\n"
-"    在浏览器中，将书签导出为 HTML 文件。<br>\n"
-"    将此文件上传到下表中，Readeck 将\n"
-"    创建并获取文件中找到的每个书签。\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:22
 msgid "Instructions for Firefox"
-msgstr "Firefox 导入说明"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:23
 msgid "Instructions for Chrome"
-msgstr "Chrome 导入说明"
-
-#: assets/templates/bookmarks/import/form-browser.jet.html:34
-#: assets/templates/bookmarks/import/form-csv.jet.html:27
-#: assets/templates/bookmarks/import/form-goodlinks.jet.html:27
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:42
-#: assets/templates/bookmarks/import/form-text.jet.html:28
-msgid "File"
-msgstr "文件"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:42
 msgid "Convert section titles to labels"
-msgstr "将章节标题转换为标签"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:44
 msgid "Adds a label on links, based on their section title"
-msgstr "根据链接的章节标题添加标签"
-
-#: assets/templates/bookmarks/import/form-browser.jet.html:48
-#: assets/templates/bookmarks/import/form-csv.jet.html:34
-#: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
-#: assets/templates/bookmarks/import/form-omnivore.jet.html:43
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
-#: assets/templates/bookmarks/import/form-text.jet.html:35
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:69
-msgid "Import Bookmarks"
-msgstr "导入书签"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
 msgid "Import Links from a CSV File"
-msgstr "从 CSV 文件导入链接"
+msgstr ""
 
-# | msgid "" "\n" "    Upload a CSV file from Instapaper or any CSV that
-# matches
-# | the format specified bellow.\n" "  "
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
 "\n"
 "    Upload a CSV file from Instapaper or any CSV that matches the format specified below.\n"
 "  "
 msgstr ""
-"\n"
-"    上传来自 Instapaper 的 CSV 文件或任何符合以下指定格式的 CSV 文件。\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
 #, python-format
@@ -1010,55 +920,51 @@ msgid ""
 "    insensitive and, except for <code>%s</code>, every column is optional.\n"
 "  "
 msgstr ""
-"\n"
-"    上传的文件必须包含带有列名的第一行。列名不区分\n"
-"    大小写，除 <code>%s</code> 外，每一列都是可选的。\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:45
 msgid "Here are the columns you can set:"
-msgstr "这是您可以设置的列："
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
 msgid "Field"
-msgstr "字段"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
 msgid "Alias"
-msgstr "别名"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:51
 msgid "Description"
-msgstr "描述"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:58
 msgid "Link address"
-msgstr "链接地址"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:63
 msgid "Bookmark title"
-msgstr "书签标题"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:68
 #, python-format
 msgid "Bookmark's archived state; only valid value is \"%s\""
-msgstr "书签的归档状态；只有有效的值是“%s”"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:73
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
-msgstr "创建日期，可以是 UNIX 时间戳或 RFC-3339 格式的日期"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:78
 msgid "A JSON encoded list of labels"
-msgstr "JSON 编码的标签列表"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:83
 msgid "Example"
-msgstr "示例"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
 msgid "Import Links from a GoodLinks export file"
-msgstr "从 GoodLinks 导出的文件中导入链接"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:15
 msgid ""
@@ -1066,14 +972,11 @@ msgid ""
 "    Upload a JSON file obtained from your GoodLinks app.\n"
 "  "
 msgstr ""
-"\n"
-"    上传从 GoodLinks 应用获得的 JSON 文件。\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:47
 msgid "Import your Omnivore Articles"
-msgstr "导入您的 Omnivore 文章"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:15
 msgid ""
@@ -1082,27 +985,18 @@ msgid ""
 "    Omnivore's settings and enter it in the the form below.\n"
 "  "
 msgstr ""
-"\n"
-"    要从 Omnivore 导入您的文章，您必须首先在 Omnivore\n"
-"    的设置中创建一个 API 密钥，然后在下表中输入。\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:28
 msgid "Omnivore URL"
-msgstr "Omnivore URL"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:30
 msgid "URL of your Omnivore homepage"
-msgstr "您的 Omnivore 主页的 URL"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:36
 msgid "API Key"
-msgstr "API 密钥"
-
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:50
-msgid "Import your Pocket Articles"
-msgstr "导入 Pocket 文章"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
 #, python-format
@@ -1112,10 +1006,6 @@ msgid ""
 "    <a class=\"%s\" href=\"%s\">%s</a>.\n"
 "  "
 msgstr ""
-"\n"
-"    您可以通过访问以下网址导出您在 Pocket 上的文章：<br>\n"
-"    <a class=\"%s\" href=\"%s\">%s</a>。\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:21
 msgid ""
@@ -1124,10 +1014,6 @@ msgid ""
 "    every link found it the file.\n"
 "  "
 msgstr ""
-"\n"
-"    将此文件上传到下表中，Readeck 将\n"
-"    获取并保存文件中找到的每个链接。\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:27
 msgid ""
@@ -1137,20 +1023,15 @@ msgid ""
 "    see in Pocket.\n"
 "  "
 msgstr ""
-"\n"
-"    请注意，Pocket 不允许导出文章内容。\n"
-"    这可能会导致 Readeck 中的结果与您\n"
-"    当前在 Pocket 中看到的结果不同。\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:44
 msgid "Note: upload the ZIP file directly, not its contents"
-msgstr "注意：直接上传 ZIP 文件，而不是其内容"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32
 msgid "Import Links from a Text File"
-msgstr "从文本文件导入链接"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-text.jet.html:15
 msgid ""
@@ -1159,15 +1040,29 @@ msgid ""
 "    all of them and save them in your bookmark list.\n"
 "  "
 msgstr ""
-"\n"
-"    上传一个每行包含一个链接的文本文件，\n"
-"    Readeck 将获取所有链接并将其保存在书签列表中。\n"
-"  "
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:34
+#: assets/templates/bookmarks/import/form-csv.jet.html:27
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:27
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:42
+#: assets/templates/bookmarks/import/form-text.jet.html:28
+msgid "File"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:48
+#: assets/templates/bookmarks/import/form-csv.jet.html:34
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:43
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
+#: assets/templates/bookmarks/import/form-text.jet.html:35
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:69
+msgid "Import Bookmarks"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:53
 msgid "Import your Wallabag Articles"
-msgstr "导入 Wallabag 文章"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:15
 msgid ""
@@ -1177,11 +1072,6 @@ msgid ""
 "    a <strong>Client ID</strong> and <strong>Client secret</strong>.\n"
 "  "
 msgstr ""
-"\n"
-"    要从 Wallabag 导入您的文章，您必须首先\n"
-"    在 Wallabag 的 <strong>API 客户端管理</strong>菜单中创建 API 客户端。\n"
-"    这将为您提供<strong>客户端 ID</strong> 和<strong>客户端密钥</strong>。\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:21
 msgid ""
@@ -1189,29 +1079,26 @@ msgid ""
 "    You can then enter all the necessary information in the form below.\n"
 "  "
 msgstr ""
-"\n"
-"    然后，您可以在下表中输入所有必要的信息。\n"
-"  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:33
 msgid "Wallabag URL"
-msgstr "Wallabag URL"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:35
 msgid "URL of your Wallabag homepage"
-msgstr "您的 Wallabag 主页的 URL"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:55
 msgid "Client ID"
-msgstr "客户端 ID"
+msgstr ""
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:62
 msgid "Client Secret"
-msgstr "客户端密钥"
+msgstr ""
 
 #: assets/templates/bookmarks/import/index.jet.html:9
 msgid "Import your Bookmarks"
-msgstr "导入书签"
+msgstr ""
 
 #: assets/templates/bookmarks/import/index.jet.html:25
 msgid ""
@@ -1219,65 +1106,67 @@ msgid ""
 "    Here you can import your existing bookmark collection from various sources into Readeck.\n"
 "  "
 msgstr ""
-"\n"
-"    在这里，您可以将现有的书签收藏集从各种来源导入 Readeck。\n"
-"  "
 
 #: assets/templates/bookmarks/import/index.jet.html:36
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
-msgstr "导入浏览器的书签、Pinboard、Instapaper"
+msgstr ""
 
 #: assets/templates/bookmarks/import/index.jet.html:40
 msgid "Import Links from a CSV File and Instapaper"
-msgstr "从 CSV 文件和 Instapaper 导入链接"
+msgstr ""
 
 #: assets/templates/bookmarks/import/index.jet.html:44
 msgid "Import your GoodLinks Articles"
-msgstr "导入 GoodLinks 文章"
+msgstr ""
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:50
+msgid "Import your Pocket Articles"
+msgstr ""
 
 #: assets/templates/bookmarks/import/options.jet.html:7
 msgid "Options"
-msgstr "选项"
+msgstr ""
 
 #: assets/templates/bookmarks/import/options.jet.html:12
 msgid "A label to add to all imported bookmarks"
-msgstr "添加到全部导入书签的标签"
+msgstr ""
 
 #: assets/templates/bookmarks/import/options.jet.html:16
 msgid "Ignore links already in your bookmarks"
-msgstr "忽略书签中已有的链接"
+msgstr ""
 
 #: assets/templates/bookmarks/import/options.jet.html:21
 msgid "Archive all links"
-msgstr "归档所有链接"
+msgstr ""
 
 #: assets/templates/bookmarks/import/options.jet.html:23
 msgid "Moves all links to archive, regardless of their original status"
-msgstr "将所有链接移至归档，无论其原始状态如何"
+msgstr ""
 
 #: assets/templates/bookmarks/import/options.jet.html:27
 msgid "Mark all links as read"
-msgstr "将所有链接标记为已读"
+msgstr ""
 
 #: assets/templates/bookmarks/import/options.jet.html:29
 msgid "Marks all links as read, regardless of their original status"
-msgstr "将所有链接标记为已读，无论其原始状态如何"
+msgstr ""
 
 #: assets/templates/bookmarks/import/progress.jet.html:15
 msgid "Import operation will launch momentarily."
-msgstr "导入操作即将开始。"
+msgstr ""
 
 #: assets/templates/bookmarks/import/progress.jet.html:17
 msgid "Import operation has started!"
-msgstr "导入操作已经开始！"
+msgstr ""
 
 #: assets/templates/bookmarks/import/progress.jet.html:21
 msgid "You can keep using Readeck while the import is running."
-msgstr "您可以在导入过程中继续使用 Readeck。"
+msgstr ""
 
 #: assets/templates/bookmarks/import/progress.jet.html:24
 msgid "Import is finished!"
-msgstr "导入完成！"
+msgstr ""
 
 #: assets/templates/bookmarks/import/progress.jet.html:25
 #, python-format
@@ -1286,50 +1175,42 @@ msgid ""
 "      Your bookmarks are now available in your <a class=\"%s\" href=\"%s\">bookmark list</a>.\n"
 "      "
 msgstr ""
-"\n"
-"      您的书签现在可以在您的<a class=\"%s\" href=\"%s\">书签列表</a>中找到。\n"
-"      "
 
 #: assets/templates/bookmarks/index.jet.html:1
 msgid "Bookmark filters"
-msgstr "书签筛选器"
+msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:27
 msgid "Save a new link"
-msgstr "保存新链接"
+msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:40
 msgctxt "button"
 msgid "Save link"
-msgstr "保存链接"
+msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:49
 #, python-format
 msgid "\"%s\" is not a valid address. Did you mean to search your bookmarks for %s?"
-msgstr "“%s”不是有效地址。您的意思是在书签中搜索 %s？"
+msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:73
 msgid "You don't have any bookmarks yet.<br> Copy a link in the field above and start saving."
-msgstr "您还没有任何书签。<br> 复制上面字段中的链接并开始保存。"
+msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:75
 #, python-format
 msgid "Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentation</a>."
-msgstr "阅读<a class=\"%s\" href=\"%s\">文档</a>中有关书签的更多信息。"
+msgstr ""
 
-# | msgid "Readeck Bookmark Collections"
 #: assets/templates/bookmarks/index.jet.html:85
 msgid "Readeck Browser Extension"
-msgstr "Readeck 浏览器扩展程序"
+msgstr ""
 
-# | msgid "Import bookmarks"
 #: assets/templates/bookmarks/index.jet.html:101
 msgid "Import existing bookmarks"
-msgstr "导入现有书签"
+msgstr ""
 
-# | msgid "" "\n" "          Would you like to import from a similar tool or
-# | from a file with existing bookmarks?\n" "          Try Readeck's import
-# | tool.\n" "        "
 #: assets/templates/bookmarks/index.jet.html:103
 msgid ""
 "\n"
@@ -1337,53 +1218,56 @@ msgid ""
 "              Try Readeck's import tool.\n"
 "            "
 msgstr ""
-"\n"
-"              您想从类似工具或现有书签文件中导入吗？\n"
-"              试试 Readeck 的导入工具。\n"
-"            "
 
 #: assets/templates/bookmarks/index.jet.html:110
 msgid "Import links and articles"
-msgstr "导入链接和文章"
+msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:137
 msgid "Import bookmarks"
-msgstr "导入书签"
+msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:146
 msgid "Your search query yielded <strong>no results</strong>."
-msgstr "您的搜索查询<strong>没有结果</strong>。"
+msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:148
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
-msgstr[0] "您的搜索查询得到 <strong>%d 个结果</strong>。"
+msgstr[0] ""
+msgstr[1] ""
 
 #: assets/templates/bookmarks/index.jet.html:179
 msgctxt "action"
 msgid "Search"
-msgstr "搜索"
+msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:181
 msgid "Reset search"
-msgstr "重置搜索"
+msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:184
 msgid "Create a collection"
-msgstr "创建收藏集"
+msgstr ""
+
+#: assets/templates/bookmarks/components/filters.jet.html:29
+#: assets/templates/bookmarks/import/options.jet.html:10
+#: assets/templates/bookmarks/label.jet.html:10
+msgid "Label"
+msgstr ""
 
 #: assets/templates/bookmarks/label.jet.html:37
 msgid "Delete"
-msgstr "删除"
+msgstr ""
 
 #: assets/templates/bookmarks/label.jet.html:51
 msgid "Label will be removed in a few seconds."
-msgstr "将在几秒钟内移除标签。"
+msgstr ""
 
 #: assets/templates/bookmarks/labels.jet.html:8
 msgid "Bookmark Labels"
-msgstr "书签标签"
+msgstr ""
 
 #: assets/templates/bookmarks/labels.jet.html:14
 msgid ""
@@ -1391,148 +1275,145 @@ msgid ""
 "  Labels let your organize your bookmarks the way you want.\n"
 "  You can set anything to a label, including emojis!\n"
 msgstr ""
-"\n"
-"  标签可让您按自己的方式整理书签。\n"
-"  您可以将任何内容设置为标签，包括表情符号！\n"
-
-#: assets/templates/docs/about.jet.html:8
-#: assets/templates/docs/base.jet.html:27 docs/http.go:258
-msgid "About Readeck"
-msgstr "关于 Readeck"
 
 #: assets/templates/docs/about.jet.html:14
 msgid "Version:"
-msgstr "版本："
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:15
 msgid "Built Date:"
-msgstr "构建日期："
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:18
 msgid "System Information"
-msgstr "系统信息"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:20
 msgid "Here are your current system information. Please include them if you report a bug."
-msgstr "这是您当前的系统信息。如果您报告错误，请将其包括在内。"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:33
 msgid "Project"
-msgstr "项目"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:36
 msgid "Main website"
-msgstr "主网站"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:37
 msgid "Sources and issues"
-msgstr "来源和问题"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:38
 msgid "How to contribute"
-msgstr "如何做出贡献"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:39
 msgid "Community Forum"
-msgstr "社区论坛"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:40
 msgid "Matrix Chat"
-msgstr "Matrix 聊天"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:43
 msgid "License"
-msgstr "许可"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:45
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
-msgstr "Readeck 根据“%s”许可条款分发"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:49
 msgid "Here's a short summary of the license conditions:"
-msgstr "以下是许可条件的简短摘要："
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:54
 msgid "Permissions"
-msgstr "权限"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:55
 msgid "Conditions"
-msgstr "条件"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:56
 msgid "Limitations"
-msgstr "限制"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:64
 msgid "Commercial use"
-msgstr "商业用途"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:67
 msgid "Distribution"
-msgstr "分发"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:70
 msgid "Modification"
-msgstr "改进"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:73
 msgid "Patent use"
-msgstr "专利使用"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:76
 msgid "Private use"
-msgstr "个人使用"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:83
 msgid "Disclose source"
-msgstr "披露来源"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:86
 msgid "License and copyright notice"
-msgstr "许可和版权声明"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:89
 msgid "Network use is distribution"
-msgstr "网络使用视为分发"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:92
 msgid "Same license"
-msgstr "相同许可"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:95
 msgid "State changes"
-msgstr "说明变更"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:102
 msgid "Liability"
-msgstr "责任"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:105
 msgid "Warranty"
-msgstr "担保"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:132
 msgid "Third-Party Licenses"
-msgstr "第三方许可"
+msgstr ""
 
 #: assets/templates/docs/about.jet.html:134
 msgid "Readeck includes and/or uses the following open source assets:"
-msgstr "Readeck 包括和/或使用以下开源资产："
+msgstr ""
 
 #: assets/templates/docs/api-docs.jet.html:8
 #: assets/templates/docs/base.jet.html:21
 msgid "API Documentation"
-msgstr "API 文档"
+msgstr ""
 
 #: assets/templates/docs/base.jet.html:9
 msgid "Readeck Help"
-msgstr "Readeck 帮助"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html:8
+#: assets/templates/docs/base.jet.html:27 docs/http.go:258
+msgid "About Readeck"
+msgstr ""
 
 #: assets/templates/docs/base.jet.html:28
 msgid "Changelog"
-msgstr "更新日志"
+msgstr ""
 
 #: assets/templates/emails/bookmark_epub.jet.md:6
 #, python-format
@@ -1542,10 +1423,6 @@ msgid ""
 "\n"
 "Here is your ebook for: **%s**\n"
 msgstr ""
-"\n"
-"您好，\n"
-"\n"
-"这是您的电子书：**%s**\n"
 
 #: assets/templates/emails/recover.jet.md:7
 #, python-format
@@ -1561,16 +1438,6 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
-"\n"
-"您好，\n"
-"\n"
-"您（或其他人）在尝试更改 Readeck 账号\n"
-"（%s）的密码时输入了此电子邮件地址。\n"
-"\n"
-"如果您在等待此邮件，请点击此链接\n"
-"为您的 Readeck 账号设置新密码。\n"
-"\n"
-"%s\n"
 
 #: assets/templates/emails/recover.jet.md:19
 #, python-format
@@ -1590,89 +1457,98 @@ msgid ""
 "\n"
 "If you are not a Readeck user, please ignore this message.\n"
 msgstr ""
-"\n"
-"您好，\n"
-"\n"
-"您（或其他人）在尝试更改 Readeck 账号\n"
-"（%s）的密码时输入了此电子邮件地址。\n"
-"\n"
-"但是，此电子邮件地址未与任何账号关联，\n"
-"因此，尝试更改密码失败。\n"
-"\n"
-"如果您是 %s 上的 Readeck 用户，\n"
-"并且在等待此邮件，请使用您在\n"
-"创建账号时使用的电子邮件地址重试。\n"
-"\n"
-"如果您不是 Readeck 用户，请忽略此邮件。\n"
 
 #: assets/templates/error.jet.html:8
 msgid "Error"
-msgstr "错误"
+msgstr ""
+
+#: assets/templates/_layouts/sidemenu.jet.html:29
+#: assets/templates/bookmarks/bookmark.jet.html:26
+#: assets/templates/error.jet.html:12
+msgid "Menu"
+msgstr ""
+
+#: assets/templates/_layouts/sidemenu.jet.html:31
+#: assets/templates/bookmarks/bookmark.jet.html:27
+#: assets/templates/error.jet.html:13
+msgid "Main content"
+msgstr ""
 
 #: assets/templates/error.jet.html:22
 msgid "Permission denied."
-msgstr "权限不足。"
+msgstr ""
 
 #: assets/templates/error.jet.html:24
 msgid "Page not found."
-msgstr "未找到页面。"
+msgstr ""
 
 #: assets/templates/error.jet.html:26
 msgid "An error occurred."
-msgstr "发生错误。"
+msgstr ""
 
 #: assets/templates/menu.jet.html:1
 msgid "Change theme"
-msgstr "更改主题"
+msgstr "テーマを変更"
 
 #: assets/templates/menu.jet.html:1 assets/templates/menu.jet.html:48
 msgid "Sign out"
-msgstr "登出"
+msgstr ""
 
 #: assets/templates/menu.jet.html:10
 msgid "Open menu"
-msgstr "打开菜单"
+msgstr ""
+
+#: assets/templates/bookmarks/base.jet.html:13
+#: assets/templates/bookmarks/bookmark.jet.html:15
+#: assets/templates/menu.jet.html:20
+msgid "Bookmarks"
+msgstr ""
 
 #: assets/templates/menu.jet.html:33
 msgid "Change color theme"
-msgstr "更改主题颜色"
+msgstr ""
 
 #: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:9
 msgid "Settings"
-msgstr "设置"
+msgstr ""
+
+#: assets/templates/bookmarks/collection.jet.html:60
+#: assets/templates/bookmarks/index.jet.html:169
+#: assets/templates/menu.jet.html:43 docs/http.go:178 docs/http.go:257
+#: docs/http.go:295
+msgid "Documentation"
+msgstr ""
 
 #: assets/templates/profile/base.jet.html:14 internal/profile/views.go:86
 #: internal/profile/views.go:121 internal/profile/views.go:165
 #: internal/profile/views.go:225
 msgid "Profile"
-msgstr "个人资料"
+msgstr ""
 
 #: assets/templates/profile/base.jet.html:21 internal/profile/views.go:166
 #: internal/profile/views.go:226
 msgid "API Tokens"
-msgstr "API 令牌"
+msgstr ""
 
 #: assets/templates/profile/index.jet.html:9
 msgid "My profile"
-msgstr "我的个人资料"
+msgstr ""
 
-# | msgid "Settings"
 #: assets/templates/profile/index.jet.html:19
 msgid "Base settings"
-msgstr "基本设置"
+msgstr ""
 
 #: assets/templates/profile/index.jet.html:28
 msgid "Email Address"
-msgstr "电子邮件地址"
+msgstr ""
 
 #: assets/templates/profile/index.jet.html:33
 msgid "Language"
-msgstr "语言"
+msgstr ""
 
-# | msgid "Settings"
 #: assets/templates/profile/index.jet.html:48
 msgid "Email settings"
-msgstr "电子邮件设置"
+msgstr ""
 
 #: assets/templates/profile/index.jet.html:49
 msgid ""
@@ -1680,25 +1556,22 @@ msgid ""
 "    These, optional, parameters are used when Readeck sends emails.\n"
 "    "
 msgstr ""
-"\n"
-"    这些可选参数在 Readeck 发送邮件时使用。\n"
-"    "
 
 #: assets/templates/profile/index.jet.html:55
 msgid "Reply To"
-msgstr "回复至"
+msgstr ""
 
 #: assets/templates/profile/index.jet.html:56
 msgid "Add this email address in your outgoing emails so recipients can reply."
-msgstr "将此电子邮件地址添加到您的外发邮件中，以便收件人可以回复。"
+msgstr ""
 
 #: assets/templates/profile/index.jet.html:61
 msgid "Send EPUB to"
-msgstr "发送 EPUB 至"
+msgstr ""
 
 #: assets/templates/profile/index.jet.html:62
 msgid "This address is used to prefill the recipient when you send an e-book by email."
-msgstr "当您通过电子邮件发送电子书时，此地址用于预填收件人。"
+msgstr ""
 
 #: assets/templates/profile/index.jet.html:69
 msgid ""
@@ -1707,62 +1580,58 @@ msgid ""
 "        following email address within your Kindle Account:\n"
 "        "
 msgstr ""
-"\n"
-"        如果您打算向 Kindle 设备发送电子书，您必须\n"
-"        在您的 Kindle 账号中批准以下电子邮件地址：\n"
-"        "
 
 #: assets/templates/profile/password.jet.html:9
 msgid "Change my password"
-msgstr "更改我的密码"
+msgstr ""
 
 #: assets/templates/profile/password.jet.html:21
 msgid "Current password"
-msgstr "当前密码"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:1
 msgid "copy token"
-msgstr "复制令牌"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:1
 msgid "copy HTTP header"
-msgstr "复制 HTTP 标头"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:9
 msgid "API Token"
-msgstr "API 令牌"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:19
 msgid "Token will be removed in a few seconds."
-msgstr "将在几秒钟内移除令牌。"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:25
 msgid "Properties"
-msgstr "属性"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:32
 msgid "Token ID"
-msgstr "令牌 ID"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:37
 msgid "Last used"
-msgstr "上次使用"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:38
 msgid "never used"
-msgstr "从未使用"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:44
 msgid "Application"
-msgstr "应用程序"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:50
 msgid "Enabled"
-msgstr "已启用"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:56
 msgid "Expires on"
-msgstr "过期时间"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:62
 msgid ""
@@ -1772,63 +1641,56 @@ msgid ""
 "    Leave all the choices blank to grant all your permissions to this token.\n"
 "  "
 msgstr ""
-"\n"
-"    您可以通过选择以下一组或多组权限\n"
-"    来限制授予此令牌的权限。<br>\n"
-"    将所有选项留空，以授予您对此令牌的全部权限。\n"
-"  "
 
 #: assets/templates/profile/token.jet.html:70
 msgid "Roles"
-msgstr "角色"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:78
 msgid "Delete token"
-msgstr "删除令牌"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:83
 msgid "Authentication"
-msgstr "身份验证"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:86
 msgid "Your API token"
-msgstr "您的 API 令牌"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:96
 msgid "How to use it"
-msgstr "使用方法"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:98
 msgid "As a Bearer Token"
-msgstr "作为持有者令牌"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:100
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
-msgstr "您可以通过将其作为 <strong>验证：Bearer</strong> HTTP 标头传递来使用此令牌。"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:102
 msgid "HTTP Header"
-msgstr "HTTP 标头"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:113
 msgid "As a password"
-msgstr "作为密码"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:115
 msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
-msgstr "或者，您可以将此令牌用作 HTTP 基本身份验证的密码。"
+msgstr ""
 
 #: assets/templates/profile/token.jet.html:116
 msgid ""
 "For example, if an application only accepts a username and password, you can provide this token as a password.\n"
 "  The username is ignored and can be anything, including an empty value."
 msgstr ""
-"例如，如果应用程序仅接受用户名和密码，您可以将此令牌作为密码提供。\n"
-"  用户名被忽略，可以是任何值，包括空值。"
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
-msgstr "我的 API 令牌"
+msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:16
 msgid ""
@@ -1836,72 +1698,69 @@ msgid ""
 "  An API Token is a key that grants you (or another tool like a browser extension)\n"
 "  access to the Readeck API.\n"
 msgstr ""
-"\n"
-"  API 令牌是授予您（或其他工具，如浏览器扩展）\n"
-"  访问 Readeck API 的密钥。\n"
 
 #: assets/templates/profile/token_list.jet.html:20
 #, python-format
 msgid "Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
-msgstr "如果您打算使用它，请阅读 <a href=\"%s\">API 文档</a>。"
+msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:26
 msgid "Create a new API token"
-msgstr "创建新 API 令牌"
+msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:50
 #, python-format
 msgid "Expires on: %s"
-msgstr "过期时间：%s"
+msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:54
 #, python-format
 msgid "Last used on: %s"
-msgstr "上次使用：%s"
+msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:62
 msgid "This token will be removed in a few seconds."
-msgstr "将在几秒钟内移除此令牌。"
+msgstr ""
 
 #: internal/admin/views.go:80
 msgid "User created."
-msgstr "用户已创建。"
+msgstr ""
 
 #: internal/admin/views.go:119
 msgid "User updated."
-msgstr "用户已更新。"
+msgstr ""
 
 #: internal/auth/signin/forms.go:17
 msgid "Invalid user and/or password"
-msgstr "用户和/或密码无效"
+msgstr ""
 
 #: internal/auth/users/forms.go:68
 msgid "password is empty"
-msgstr "密码为空"
+msgstr ""
 
 #: internal/auth/users/forms.go:205
 msgid "Bookmarks : Read Only"
-msgstr "书签：只读"
+msgstr ""
 
 #: internal/auth/users/forms.go:206
 msgid "Bookmarks : Write Only"
-msgstr "书签：只写"
+msgstr ""
 
 #: internal/auth/users/forms.go:207
 msgid "Admin : Read Only"
-msgstr "管理员：只读"
+msgstr ""
 
 #: internal/auth/users/forms.go:208
 msgid "Admin : Write Only"
-msgstr "管理员：只写"
+msgstr ""
 
 #: internal/bookmarks/importer/browser.go:51
 msgid "Browser Bookmarks"
-msgstr "浏览器书签"
+msgstr ""
 
 #: internal/bookmarks/importer/browser.go:75
 msgid "Unable to read HTML content"
-msgstr "无法读取 HTML 内容"
+msgstr ""
 
 #: internal/bookmarks/importer/browser.go:129
 #: internal/bookmarks/importer/csv.go:142
@@ -1910,567 +1769,450 @@ msgstr "无法读取 HTML 内容"
 #: internal/bookmarks/importer/csv.go:167
 #: internal/bookmarks/importer/importer.go:45
 msgid "Empty or invalid import file"
-msgstr "导入文件为空或无效"
+msgstr ""
 
 #: internal/bookmarks/importer/csv.go:118
 msgid "CSV File"
-msgstr "CSV 文件"
+msgstr ""
 
 #: internal/bookmarks/importer/goodlinks.go:44
 msgid "GoodLinks Export File"
-msgstr "GoodLinks 导出文件"
+msgstr ""
 
 #: internal/bookmarks/importer/omnivore.go:247
 msgid "Invalid API Key"
-msgstr "无效的 API 密钥"
+msgstr ""
 
 #: internal/bookmarks/importer/text.go:24
 msgid "Text File"
-msgstr "文本文件"
+msgstr ""
 
 #: internal/bookmarks/importer/wallabag.go:242
 msgid "Invalid URL"
-msgstr "无效的 URL"
+msgstr ""
 
 #: internal/bookmarks/importer/wallabag.go:247
 msgid "Invalid credentials"
-msgstr "无效的凭据"
+msgstr ""
 
 #: internal/bookmarks/importer/wallabag.go:258
 msgid "No access token found"
-msgstr "未找到访问令牌"
+msgstr ""
 
 #: internal/bookmarks/routes/forms_bookmarks.go:139
 msgid "Unable to process input data"
-msgstr "无法处理输入数据"
+msgstr ""
 
 #: internal/bookmarks/routes/forms_bookmarks.go:380
 msgid "Article"
-msgstr "文章"
+msgstr ""
 
 #: internal/bookmarks/routes/forms_bookmarks.go:381
 msgid "Picture"
-msgstr "图片"
+msgstr ""
 
 #: internal/bookmarks/routes/forms_bookmarks.go:382
 msgid "Video"
-msgstr "视频"
+msgstr ""
 
 #: internal/bookmarks/routes/forms_bookmarks.go:389
 msgctxt "status"
 msgid "Unviewed"
-msgstr "未查看"
+msgstr "未読"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:390
 msgctxt "status"
 msgid "In-Progress"
-msgstr "进行中"
+msgstr "途中"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:391
 msgctxt "status"
 msgid "Completed"
-msgstr "已完成"
+msgstr "読了"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:625
 msgctxt "sort"
 msgid "Added, most recent first"
-msgstr "最近添加"
+msgstr "追加, 最新"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:626
 msgctxt "sort"
 msgid "Added, oldest first"
-msgstr "最早添加"
+msgstr "追加, 最古"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:627
 msgctxt "sort"
 msgid "Published, most recent first"
-msgstr "最近发布"
+msgstr "公開, 最新"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:628
 msgctxt "sort"
 msgid "Published, oldest first"
-msgstr "最早发布"
+msgstr "公開, 最古"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:629
 msgctxt "sort"
 msgid "Title, A to Z"
-msgstr "标题，A 到 Z"
+msgstr "タイトル, A-Z"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:630
 msgctxt "sort"
 msgid "Title, Z to A"
-msgstr "标题，Z 到 A"
+msgstr "タイトル, Z-A"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:631
 msgctxt "sort"
 msgid "Site Name, A to Z"
-msgstr "网站名称，A 到 Z"
+msgstr "サイト名, A-Z"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:632
 msgctxt "sort"
 msgid "Site Name, Z to A"
-msgstr "网站名称，Z 到 A"
+msgstr "サイト名, Z-A"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:633
 msgctxt "sort"
 msgid "Duration, shortest first"
-msgstr "耗时最短"
+msgstr "長さ, 最短"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:634
 msgctxt "sort"
 msgid "Duration, longest first"
-msgstr "耗时最长"
+msgstr "長さ, 最長"
 
 #: internal/bookmarks/routes/opds.go:56
 msgid "Readeck Bookmarks"
-msgstr "Readeck 书签"
+msgstr ""
 
 #: internal/bookmarks/routes/opds.go:101
 msgid "Readeck Bookmark Collections"
-msgstr "Readeck 书签收藏集"
+msgstr ""
 
 #: internal/bookmarks/routes/opds.go:138
 #, python-format
 msgid "Readeck Collection: %s"
-msgstr "Readeck 收藏集：%s"
+msgstr ""
 
 #: internal/bookmarks/routes/opds.go:144
 #, python-format
 msgid "Collection ebook - %s"
-msgstr "收藏集电子书 - %s"
+msgstr ""
 
 #: internal/bookmarks/routes/opds.go:151
 #, python-format
 msgid "Browse collection: %s"
-msgstr "浏览收藏集：%s"
+msgstr ""
 
 #: internal/bookmarks/routes/views_bookmarks.go:100
 msgid "All your Bookmarks"
-msgstr "全部书签"
+msgstr ""
 
 #: internal/bookmarks/routes/views_bookmarks.go:105
 msgid "Bookmark Search"
-msgstr "书签搜索"
+msgstr ""
 
 #: internal/bookmarks/routes/views_bookmarks.go:109 internal/opds/http.go:58
 msgid "Unread Bookmarks"
-msgstr "未读书签"
+msgstr ""
 
 #: internal/bookmarks/routes/views_bookmarks.go:111 internal/opds/http.go:62
 msgid "Archived Bookmarks"
-msgstr "已归档书签"
+msgstr ""
 
 #: internal/bookmarks/routes/views_bookmarks.go:113 internal/opds/http.go:66
 msgid "Favorite Bookmarks"
-msgstr "已收藏书签"
+msgstr ""
 
 #: internal/bookmarks/routes/views_collections.go:79
 msgid "Collection updated."
-msgstr "收藏集已更新。"
+msgstr ""
 
 #: internal/bookmarks/routes/views_import.go:28
 #: internal/bookmarks/routes/views_import.go:37
 #: internal/bookmarks/routes/views_import.go:68
 msgid "Import"
-msgstr "导入"
+msgstr ""
 
 #: internal/bookmarks/routes/views_import.go:29
 msgid "Progress"
-msgstr "进度"
+msgstr ""
 
 #: internal/opds/http.go:70
 msgid "All Bookmarks"
-msgstr "全部书签"
+msgstr ""
 
 #: internal/profile/forms.go:32
 msgid "invalid username and/or email"
-msgstr "用户名和/或电子邮件地址无效"
+msgstr ""
 
 #: internal/profile/forms.go:33
 msgid "invalid password"
-msgstr "无效的密码"
+msgstr ""
 
 #: internal/profile/views.go:73
 msgid "Profile updated."
-msgstr "个人资料已更新。"
+msgstr ""
 
 #: internal/profile/views.go:109
 msgid "Your password was changed."
-msgstr "您的密码已更改。"
+msgstr ""
 
 #: internal/profile/views.go:181
 msgid "An error occurred while creating your token."
-msgstr "创建令牌时出错。"
+msgstr ""
 
 #: internal/profile/views.go:186
 msgid "New token created."
-msgstr "新令牌已创建。"
+msgstr ""
 
 #: internal/profile/views.go:205
 msgid "Token was updated."
-msgstr "令牌已更新。"
+msgstr ""
 
 #: pkg/forms/forms.go:28
 msgid "an unexpected error has occurred"
-msgstr "发生意外错误"
+msgstr ""
 
 #: pkg/forms/validators.go:18
 msgid "field is required"
-msgstr "必填字段"
+msgstr ""
 
 #: pkg/forms/validators.go:20
 msgid "not a valid email address"
-msgstr "不是有效的电子邮件地址"
+msgstr ""
 
 #: pkg/forms/validators.go:22
 msgid "invalid URL"
-msgstr "无效的 URL"
+msgstr ""
 
 #: pkg/forms/validators.go:331
 #, python-format
 msgid "must be greater or equal than %d"
-msgstr "必须大于或等于 %d"
+msgstr ""
 
 #: pkg/forms/validators.go:339
 #, python-format
 msgid "must be lower or equal than %d"
-msgstr "必须小于或等于 %d"
+msgstr ""
 
 #: pkg/forms/validators.go:398
 #, python-format
 msgid "%v is not one of %s"
-msgstr "%v 不是 %s 之一"
+msgstr ""
 
 #: pkg/strftime/strftime.go:23
 msgctxt "datetime_dl"
 msgid "Sunday"
-msgstr "星期日"
+msgstr "日曜日"
 
 #: pkg/strftime/strftime.go:24
 msgctxt "datetime_dl"
 msgid "Monday"
-msgstr "星期一"
+msgstr "月曜日"
 
 #: pkg/strftime/strftime.go:25
 msgctxt "datetime_dl"
 msgid "Tuesday"
-msgstr "星期二"
+msgstr "火曜日"
 
 #: pkg/strftime/strftime.go:26
 msgctxt "datetime_dl"
 msgid "Wednesday"
-msgstr "星期三"
+msgstr "水曜日"
 
 #: pkg/strftime/strftime.go:27
 msgctxt "datetime_dl"
 msgid "Thursday"
-msgstr "星期四"
+msgstr "木曜日"
 
 #: pkg/strftime/strftime.go:28
 msgctxt "datetime_dl"
 msgid "Friday"
-msgstr "星期五"
+msgstr "金曜日"
 
 #: pkg/strftime/strftime.go:29
 msgctxt "datetime_dl"
 msgid "Saturday"
-msgstr "星期六"
+msgstr "土曜日"
 
 #: pkg/strftime/strftime.go:33
 msgctxt "datetime_ds"
 msgid "Sun"
-msgstr "周日"
+msgstr "日"
 
 #: pkg/strftime/strftime.go:34
 msgctxt "datetime_ds"
 msgid "Mon"
-msgstr "周一"
+msgstr "月"
 
 #: pkg/strftime/strftime.go:35
 msgctxt "datetime_ds"
 msgid "Tue"
-msgstr "周二"
+msgstr "火"
 
 #: pkg/strftime/strftime.go:36
 msgctxt "datetime_ds"
 msgid "Wed"
-msgstr "周三"
+msgstr "水"
 
 #: pkg/strftime/strftime.go:37
 msgctxt "datetime_ds"
 msgid "Thu"
-msgstr "周四"
+msgstr "木"
 
 #: pkg/strftime/strftime.go:38
 msgctxt "datetime_ds"
 msgid "Fri"
-msgstr "周五"
+msgstr "金"
 
 #: pkg/strftime/strftime.go:39
 msgctxt "datetime_ds"
 msgid "Sat"
-msgstr "周六"
+msgstr "土"
 
 #: pkg/strftime/strftime.go:43
 msgctxt "datetime_ml"
 msgid "January"
-msgstr "一月"
+msgstr "1月"
 
 #: pkg/strftime/strftime.go:44
 msgctxt "datetime_ml"
 msgid "February"
-msgstr "二月"
+msgstr "2月"
 
 #: pkg/strftime/strftime.go:45
 msgctxt "datetime_ml"
 msgid "March"
-msgstr "三月"
+msgstr "3月"
 
 #: pkg/strftime/strftime.go:46
 msgctxt "datetime_ml"
 msgid "April"
-msgstr "四月"
+msgstr "4月"
 
 #: pkg/strftime/strftime.go:47
 msgctxt "datetime_ml"
 msgid "May"
-msgstr "五月"
+msgstr "5月"
 
 #: pkg/strftime/strftime.go:48
 msgctxt "datetime_ml"
 msgid "June"
-msgstr "六月"
+msgstr "6月"
 
 #: pkg/strftime/strftime.go:49
 msgctxt "datetime_ml"
 msgid "July"
-msgstr "七月"
+msgstr "7月"
 
 #: pkg/strftime/strftime.go:50
 msgctxt "datetime_ml"
 msgid "August"
-msgstr "八月"
+msgstr "8月"
 
 #: pkg/strftime/strftime.go:51
 msgctxt "datetime_ml"
 msgid "September"
-msgstr "九月"
+msgstr "9月"
 
 #: pkg/strftime/strftime.go:52
 msgctxt "datetime_ml"
 msgid "October"
-msgstr "十月"
+msgstr "10月"
 
 #: pkg/strftime/strftime.go:53
 msgctxt "datetime_ml"
 msgid "November"
-msgstr "十一月"
+msgstr "11月"
 
 #: pkg/strftime/strftime.go:54
 msgctxt "datetime_ml"
 msgid "December"
-msgstr "十二月"
+msgstr "12月"
 
 #: pkg/strftime/strftime.go:58
 msgctxt "datetime_ms"
 msgid "Jan"
-msgstr "1月"
+msgstr ""
 
 #: pkg/strftime/strftime.go:59
 msgctxt "datetime_ms"
 msgid "Feb"
-msgstr "2月"
+msgstr ""
 
 #: pkg/strftime/strftime.go:60
 msgctxt "datetime_ms"
 msgid "Mar"
-msgstr "3月"
+msgstr ""
 
 #: pkg/strftime/strftime.go:61
 msgctxt "datetime_ms"
 msgid "Apr"
-msgstr "4月"
+msgstr ""
 
 #: pkg/strftime/strftime.go:62
 msgctxt "datetime_ms"
 msgid "May"
-msgstr "5月"
+msgstr ""
 
 #: pkg/strftime/strftime.go:63
 msgctxt "datetime_ms"
 msgid "Jun"
-msgstr "6月"
+msgstr ""
 
 #: pkg/strftime/strftime.go:64
 msgctxt "datetime_ms"
 msgid "Jul"
-msgstr "7月"
+msgstr ""
 
 #: pkg/strftime/strftime.go:65
 msgctxt "datetime_ms"
 msgid "Aug"
-msgstr "8月"
+msgstr ""
 
 #: pkg/strftime/strftime.go:66
 msgctxt "datetime_ms"
 msgid "Sep"
-msgstr "9月"
+msgstr ""
 
 #: pkg/strftime/strftime.go:67
 msgctxt "datetime_ms"
 msgid "Oct"
-msgstr "10月"
+msgstr ""
 
 #: pkg/strftime/strftime.go:68
 msgctxt "datetime_ms"
 msgid "Nov"
-msgstr "11月"
+msgstr ""
 
 #: pkg/strftime/strftime.go:69
 msgctxt "datetime_ms"
 msgid "Dec"
-msgstr "12月"
+msgstr ""
 
 #: pkg/strftime/strftime.go:73
 msgctxt "datetime"
 msgid "a.m."
-msgstr "上午"
+msgstr "午前"
 
 #: pkg/strftime/strftime.go:74
 msgctxt "datetime"
 msgid "p.m."
-msgstr "下午"
+msgstr "午後"
 
 #: pkg/strftime/strftime.go:75
 #, python-format
 msgctxt "datetime"
 msgid "%a %b %e %H:%M:%S %y"
-msgstr "%a %b %e %H:%M:%S %y"
+msgstr ""
 
 #: pkg/strftime/strftime.go:76
 #, python-format
 msgctxt "datetime"
 msgid "%m/%d/%Y"
-msgstr "%Y/%m/%d"
+msgstr "%m/%d/%Y"
 
 #: pkg/strftime/strftime.go:77
 msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
-
-#~ msgid "Invalid Content-Type"
-#~ msgstr "无效Content-Type"
-
-#~ msgid "More information"
-#~ msgstr "更多信息"
-
-#~ msgctxt "action"
-#~ msgid "Filter list"
-#~ msgstr "筛选列表"
-
-#~ msgid "Filters documentation"
-#~ msgstr "筛选文档"
-
-#~ msgid "Unabled to read HTML content"
-#~ msgstr "无法读取 HTML 内容"
-
-#~ msgid "Unabled to open zip file"
-#~ msgstr "无法打开 zip 文件"
-
-#~ msgid "Error: you can not create more credentials."
-#~ msgstr "错误：您无法创建更多凭据。"
-
-#~ msgid "Powered by"
-#~ msgstr "技术支持"
-
-#~ msgid "Invalid upload format"
-#~ msgstr "无效的上传格式"
-
-#~ msgid "Unable to open zip file"
-#~ msgstr "无法打开 zip 文件"
-
-#~ msgid "Kind regards"
-#~ msgstr "亲切问候"
-
-#~ msgid "Send email"
-#~ msgstr ""
-
-#~ msgid "with"
-#~ msgstr "通过"
-
-#~ msgid "Application Passwords"
-#~ msgstr "应用程序密码"
-
-#~ msgid "Application Password"
-#~ msgstr "应用程序密码"
-
-#~ msgid "Password will be removed in a few seconds."
-#~ msgstr "将在几秒钟内移除密码。"
-
-#~ msgid ""
-#~ "\n"
-#~ "    Your application password was created. Please copy the password below and write it down\n"
-#~ "    or store it in a password manager.\n"
-#~ "  "
-#~ msgstr ""
-#~ "\n"
-#~ "    您的应用程序密码已创建。请复制下面的密码\n"
-#~ "    并将其写下来或存储在密码管理器中。\n"
-#~ "  "
-
-#~ msgid "Your password:"
-#~ msgstr "您的密码："
-
-#~ msgid "Copy"
-#~ msgstr "复制"
-
-#~ msgid "Password ID"
-#~ msgstr "密码 ID"
-
-#~ msgid ""
-#~ "\n"
-#~ "    You can limit the permissions granted to this password by choosing one or more\n"
-#~ "    group of permissions below.<br>\n"
-#~ "    Leave all the choices blank to grant all your permissions to this password.\n"
-#~ "  "
-#~ msgstr ""
-#~ "\n"
-#~ "    您可以通过选择以下一组或多组权限\n"
-#~ "    来限制授予此密码的权限。<br>\n"
-#~ "    将所有选项留空，以授予您对此密码的全部权限。\n"
-#~ "  "
-
-#~ msgid "Delete password"
-#~ msgstr "删除密码"
-
-#~ msgid "Refresh password"
-#~ msgstr "刷新密码"
-
-#~ msgid ""
-#~ "\n"
-#~ "      If you forgot your application password or simply want to change it,\n"
-#~ "      you can refresh it to get a new one.\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "      如果您忘记了应用程序密码或只是想\n"
-#~ "      更改密码，可以刷新密码以获取新密码。\n"
-#~ "    "
-
-#~ msgid "My Application Passwords"
-#~ msgstr "我的应用程序密码"
-
-#~ msgid "Create a new Application Password"
-#~ msgstr "创建新的应用程序密码"
-
-#~ msgid "This password will be removed in a few seconds."
-#~ msgstr "将在几秒钟内移除此密码。"
-
-#~ msgid "Error: you cannot create more credentials."
-#~ msgstr "错误：您无法创建更多凭据。"
-
-#~ msgid "An error occurred while creating your password."
-#~ msgstr "创建密码时出错。"
-
-#~ msgid "Password was updated."
-#~ msgstr "密码已更新。"

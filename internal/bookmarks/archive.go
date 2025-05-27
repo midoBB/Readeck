@@ -9,6 +9,7 @@ import (
 	"context"
 	"io"
 	"log/slog"
+	"mime"
 	"net/url"
 	"path"
 	"strconv"
@@ -162,6 +163,10 @@ func imageProcessor(ctx context.Context, arc *archiver.Archiver, input io.Reader
 		return nil, "", err
 	}
 	defer imgSem.Release(1)
+
+	if mt, _, err := mime.ParseMediaType(contentType); err == nil {
+		contentType = mt
+	}
 
 	if _, ok := imageTypes[contentType]; !ok {
 		r, err := io.ReadAll(input)

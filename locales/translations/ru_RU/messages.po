@@ -7,14 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-25 07:29+0000\n"
-"PO-Revision-Date: 2025-05-23 11:09+0000\n"
+"PO-Revision-Date: 2025-05-27 06:01+0000\n"
 "Last-Translator: liilliil <liilliil@noreply.codeberg.org>\n"
+"Language-Team: Russian <https://translate.codeberg.org/projects/readeck/"
+"application/ru/>\n"
 "Language: ru_RU\n"
-"Language-Team: Russian <https://translate.codeberg.org/projects/readeck/application/ru/>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -496,16 +499,16 @@ msgstr "%d мин"
 
 # | msgid "Shared by %s"
 #: assets/templates/bookmarks/bookmark_public.jet.html:97
-#, fuzzy, python-format
+#, python-format
 msgid "Shared by %s with %s"
-msgstr "Поделился %s"
+msgstr "Поделился %s c %s"
 
 # | msgid "Saved with Readeck"
 # | msgid "Saved with"
 #: assets/templates/bookmarks/bookmark_public.jet.html:150
-#, fuzzy, python-format
+#, python-format
 msgid "Saved with %s"
-msgstr "Сохранено"
+msgstr "Сохранено с %s"
 
 # | msgid "Share by Link"
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:8
@@ -874,9 +877,8 @@ msgstr "Отправить закладку сообщением."
 
 # | msgid "Sends this bookmarks as an attached EPUB file."
 #: assets/templates/bookmarks/components/share_email.jet.html:18
-#, fuzzy
 msgid "Sends this bookmark as an attached EPUB file."
-msgstr "Отправить закладку в виде файла EPUB."
+msgstr "Отправить закладки в виде файла EPUB."
 
 # | msgid "From date"
 #: assets/templates/bookmarks/components/share_email.jet.html:30
@@ -1005,14 +1007,14 @@ msgstr "Импортировать ссылки из файла CSV"
 # matches
 # | the format specified bellow.\n" "  "
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
-#, fuzzy
 msgid ""
 "\n"
 "    Upload a CSV file from Instapaper or any CSV that matches the format specified below.\n"
 "  "
 msgstr ""
 "\n"
-"    Загрузите файл CSV из Instapaper или CSV, соответствующий такому формату.\n"
+"    Загрузите файл CSV из Instapaper или CSV, соответствующий такому формату."
+"\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
@@ -1347,7 +1349,7 @@ msgstr "Расширение браузера Readeck"
 # | msgid "Import bookmarks"
 #: assets/templates/bookmarks/index.jet.html:101
 msgid "Import existing bookmarks"
-msgstr "Импортировать ссылки"
+msgstr "Импортировать текущие ссылки"
 
 # | msgid "" "\n" "          Would you like to import from a similar tool or
 # | from a file with existing bookmarks?\n" "          Try Readeck's import
@@ -1360,8 +1362,9 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"              Хотите импортировать уже сохранёные закладки из другого места или файла?\n"
-"          Попробуйте импорт Readeck.\n"
+"              Хотите импортировать уже сохранёные закладки из другого места "
+"или файла?\n"
+"              Попробуйте импорт Readeck.\n"
 "            "
 
 #: assets/templates/bookmarks/index.jet.html:110
@@ -1814,10 +1817,8 @@ msgid "Delete token"
 msgstr "Удалить токен"
 
 #: assets/templates/profile/token.jet.html:83
-#, fuzzy
-#| msgid "API authentication"
 msgid "Authentication"
-msgstr "Авторизация API"
+msgstr "Авторизация"
 
 #: assets/templates/profile/token.jet.html:86
 msgid "Your API token"
@@ -1825,13 +1826,11 @@ msgstr "Ваш токен API"
 
 #: assets/templates/profile/token.jet.html:96
 msgid "How to use it"
-msgstr ""
+msgstr "Как использовать"
 
 #: assets/templates/profile/token.jet.html:98
-#, fuzzy
-#| msgid "Create a new API token"
 msgid "As a Bearer Token"
-msgstr "Создать новый токен API"
+msgstr "Как токен"
 
 #: assets/templates/profile/token.jet.html:100
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
@@ -1842,20 +1841,23 @@ msgid "HTTP Header"
 msgstr "Заголовок HTTP"
 
 #: assets/templates/profile/token.jet.html:113
-#, fuzzy
-#| msgid "Password"
 msgid "As a password"
-msgstr "Пароль"
+msgstr "Как пароль"
 
 #: assets/templates/profile/token.jet.html:115
 msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
 msgstr ""
+"Также можно использовать этот токен как пароль для HTTP Basic Authentication."
 
 #: assets/templates/profile/token.jet.html:116
 msgid ""
 "For example, if an application only accepts a username and password, you can provide this token as a password.\n"
 "  The username is ignored and can be anything, including an empty value."
 msgstr ""
+"Например, если приложение принимает имя пользователя и пароль, можно "
+"предоставить этот токен в качестве пароля.\n"
+"  Имя пользователя проигнорируется и может быть любым, включая пустое "
+"значение."
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
@@ -2509,4 +2511,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "Пароль изменён."
-

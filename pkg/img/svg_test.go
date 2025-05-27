@@ -146,6 +146,14 @@ func TestSvgImage(t *testing.T) {
 				`,
 				800, 1200,
 			},
+			{
+				`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+				<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
+				 viewBox="0 0 200.512 300.123">
+				</svg>
+				`,
+				200, 300,
+			},
 		}
 
 		for i, test := range tests {

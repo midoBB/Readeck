@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-05-25 07:29+0000\n"
-"PO-Revision-Date: 2025-01-03 18:26+0000\n"
-"Last-Translator: User240803 <user240803@users.noreply.translate.codeberg.org>\n"
+"PO-Revision-Date: 2025-05-27 06:01+0000\n"
+"Last-Translator: arpad <user240803@noreply.codeberg.org>\n"
+"Language-Team: Hungarian <https://translate.codeberg.org/projects/readeck/"
+"application/hu/>\n"
 "Language: hu_HU\n"
-"Language-Team: Hungarian <https://translate.codeberg.org/projects/readeck/application/hu/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -182,7 +184,7 @@ msgstr "nem fog változni, ha üres"
 #: assets/templates/profile/password.jet.html:36
 #: assets/templates/profile/token.jet.html:75
 msgid "Save"
-msgstr "Link mentése"
+msgstr "Mentés"
 
 #: assets/templates/admin/user.jet.html:55
 msgid "Delete this user"
@@ -416,7 +418,7 @@ msgstr "Gyűjtemények"
 
 #: assets/templates/bookmarks/base.jet.html:88
 msgid "Did you know?"
-msgstr ""
+msgstr "Tudtad?"
 
 #: assets/templates/bookmarks/base.jet.html:89
 #: assets/templates/bookmarks/index.jet.html:87
@@ -425,15 +427,19 @@ msgid ""
 "            With the Browser Extension, you can save pages, images and selections\n"
 "            directly from your browser!"
 msgstr ""
+"\n"
+"            A Böngésző Bővítmény segítségével weboldalakat, képeket és "
+"gyűjteményeket menthetsz el\n"
+"            közvetlenül a böngészőjéből!"
 
 #: assets/templates/bookmarks/base.jet.html:96
 #: assets/templates/bookmarks/index.jet.html:94
 msgid "Learn more"
-msgstr ""
+msgstr "Tudj meg többet"
 
 #: assets/templates/bookmarks/base.jet.html:105
 msgid "Don't remind me"
-msgstr ""
+msgstr "Ne emlékeztess"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:80
@@ -493,22 +499,21 @@ msgstr "%d perc"
 
 # | msgid "Shared by %s"
 #: assets/templates/bookmarks/bookmark_public.jet.html:97
-#, fuzzy, python-format
+#, python-format
 msgid "Shared by %s with %s"
-msgstr "Megosztotta: %s"
+msgstr "%s megosztotta vele %s"
 
 # | msgid "Saved with Readeck"
 # | msgid "Saved with"
 #: assets/templates/bookmarks/bookmark_public.jet.html:150
-#, fuzzy, python-format
+#, python-format
 msgid "Saved with %s"
-msgstr "Readeckkel mentve"
+msgstr "Mentve %s"
 
 # | msgid "Share by Link"
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:8
-#, fuzzy
 msgid "Share by email"
-msgstr "Megosztás Hivatkozással"
+msgstr "Megosztás e-mail-ben"
 
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:18
 #: assets/templates/bookmarks/bookmark_share_link.jet.html:19
@@ -670,11 +675,11 @@ msgstr "Megosztás Hivatkozással"
 
 #: assets/templates/bookmarks/components/actions.jet.html:64
 msgid "Send article by Email"
-msgstr ""
+msgstr "Cikk küldése e-mail-ben"
 
 #: assets/templates/bookmarks/components/actions.jet.html:66
 msgid "Send e-book by Email"
-msgstr ""
+msgstr "E-könyv küldése e-mail-ben"
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
 msgid "Saved with Readeck"
@@ -691,12 +696,12 @@ msgstr "Betöltés"
 
 # | msgid "%d min"
 #: assets/templates/bookmarks/components/card.jet.html:75
-#, fuzzy, python-format
+#, python-format
 msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
 msgstr[0] "%d perc"
-msgstr[1] ""
+msgstr[1] "%d perc"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
@@ -823,27 +828,23 @@ msgstr "Kompakt nézet"
 
 # | msgid "Grid view"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Mosaic view"
-msgstr "Rácsnézet"
+msgstr "Mozaik nézet"
 
 # | msgid "Import bookmarks"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort bookmarks"
-msgstr "Könyvjelzők importálása"
+msgstr "Könyvjelzők rendezése"
 
 # | msgid "Options"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Sort options"
-msgstr "Lehetőségetk"
+msgstr "Rendezési lehetőségek"
 
 # | msgid "Import links and articles"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Import and export"
-msgstr "Hivatkozások és cikkek importálása"
+msgstr "Importálás és exportálás"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
@@ -871,30 +872,29 @@ msgstr "Kötőjeles írásmód"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:16
 msgid "Sends this bookmark's content in the message."
-msgstr ""
+msgstr "A könyvjelző tartalmának küldése üzenetben."
 
 #: assets/templates/bookmarks/components/share_email.jet.html:18
 msgid "Sends this bookmark as an attached EPUB file."
-msgstr ""
+msgstr "A könyvjelző küldése, mint csatolt EPUB fájl."
 
 # | msgid "From date"
 #: assets/templates/bookmarks/components/share_email.jet.html:30
-#, fuzzy
 msgid "Format"
-msgstr "Dátumtól"
+msgstr "Formátum"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:40
 msgid "Send To"
-msgstr ""
+msgstr "Címzett"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:45
 msgid "Send message"
-msgstr ""
+msgstr "Üzenet küldése"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:49
 #, python-format
 msgid "The bookmark was sent to %s"
-msgstr ""
+msgstr "A könyvjelző elküldve ide: %s"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:56
 #: assets/templates/bookmarks/components/share_link.jet.html:25
@@ -929,11 +929,11 @@ msgstr "A kivonatolás során hibák léptek fel."
 #: assets/templates/bookmarks/components/sidebar.jet.html:69
 #: assets/templates/emails/bookmark.jet.html:27
 #: assets/templates/epub/bookmark.jet.html:45
-#, fuzzy, python-format
+#, python-format
 msgid "About %d minute read"
 msgid_plural "About %d minutes read"
-msgstr[0] "Mintegy %d perc olvasás"
-msgstr[1] ""
+msgstr[0] "Hozzávetőleg %d perc elolvasni"
+msgstr[1] "Hozzávetőleg %d perc elolvasni"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:99
 msgid "Start selecting text in the article to create a new highlight."
@@ -997,9 +997,8 @@ msgstr "Könyvjelzők importálása"
 
 # | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
-#, fuzzy
 msgid "Import Links from a CSV File"
-msgstr "Hivatkozások importálása szöveges fájlból"
+msgstr "Hivatkozások importálása CSV fájlból"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
@@ -1007,6 +1006,10 @@ msgid ""
 "    Upload a CSV file from Instapaper or any CSV that matches the format specified below.\n"
 "  "
 msgstr ""
+"\n"
+"    CSV fájl feltöltése Instapaper-ből vagy bármely más CSV, amely formátuma "
+"megfelel a következők szerint.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
 #, python-format
@@ -1016,57 +1019,57 @@ msgid ""
 "    insensitive and, except for <code>%s</code>, every column is optional.\n"
 "  "
 msgstr ""
+"\n"
+"    A feltöltött fájl első sora az oszlop fejléceket kell tartalmazza. Az "
+"oszlopfejlécek nem\n"
+"    kisbetűérzékenyek, kivéve a  <code>%s</code>, minden oszlop opcionális.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:45
 msgid "Here are the columns you can set:"
-msgstr ""
+msgstr "Ezeket az oszlopokat állíthatja be:"
 
 # | msgid "File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
-#, fuzzy
 msgid "Field"
-msgstr "Fájl"
+msgstr "Mező"
 
 # | msgid "Links"
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
-#, fuzzy
 msgid "Alias"
-msgstr "Hivatkozások"
+msgstr "Alias"
 
 # | msgid "Distribution"
 #: assets/templates/bookmarks/import/form-csv.jet.html:51
-#, fuzzy
 msgid "Description"
-msgstr "Forgalmazás"
+msgstr "Leírás"
 
 # | msgid "Email Address"
 #: assets/templates/bookmarks/import/form-csv.jet.html:58
-#, fuzzy
 msgid "Link address"
-msgstr "E-mail cím"
+msgstr "Hivatkozás cím"
 
 # | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/import/form-csv.jet.html:63
-#, fuzzy
 msgid "Bookmark title"
-msgstr "Könyvjelző Címkék"
+msgstr "Könyvjelző címe"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:68
 #, python-format
 msgid "Bookmark's archived state; only valid value is \"%s\""
-msgstr ""
+msgstr "Archív könyvjelző jelölése; egyedüli elfogadható érték \"%s\""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:73
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
-msgstr ""
+msgstr "Létrehozás dátuma, lehet UNIX időbélyeg vagy RFC-3339 formátumú dátum"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:78
 msgid "A JSON encoded list of labels"
-msgstr ""
+msgstr "JSON kódolású címke lista"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:83
 msgid "Example"
-msgstr ""
+msgstr "Példa"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
 msgid "Import Links from a GoodLinks export file"
@@ -1157,7 +1160,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:44
 msgid "Note: upload the ZIP file directly, not its contents"
-msgstr ""
+msgstr "Megjegyzés: közvetlenül a ZIP fájlt töltse fel, ne a tartalmát"
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32
@@ -1241,9 +1244,8 @@ msgstr "Importálja a Bönégszője Könyvjelzőit, Pinboard vagy Instapaper bej
 
 # | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/index.jet.html:40
-#, fuzzy
 msgid "Import Links from a CSV File and Instapaper"
-msgstr "Hivatkozások importálása szöveges fájlból"
+msgstr "Hivatkozások importálása CSV fájlból és Instapaper-ből"
 
 #: assets/templates/bookmarks/import/index.jet.html:44
 msgid "Import your GoodLinks Articles"
@@ -1263,23 +1265,21 @@ msgstr "Hagyja figyelmen kívül a már könyvjelzőzött hivatkozásokat"
 
 # | msgid "Archived Bookmarks"
 #: assets/templates/bookmarks/import/options.jet.html:21
-#, fuzzy
 msgid "Archive all links"
-msgstr "Archivált Könyvjelzők"
+msgstr "Minden hivatkozás archiválása"
 
 #: assets/templates/bookmarks/import/options.jet.html:23
 msgid "Moves all links to archive, regardless of their original status"
-msgstr ""
+msgstr "Minden link archiválása tekintet nélkül az eredeti státuszára"
 
 # | msgid "Mark as read"
 #: assets/templates/bookmarks/import/options.jet.html:27
-#, fuzzy
 msgid "Mark all links as read"
-msgstr "Olvasottnak jelöl"
+msgstr "Minden hivatkozás olvasottnak jelölése"
 
 #: assets/templates/bookmarks/import/options.jet.html:29
 msgid "Marks all links as read, regardless of their original status"
-msgstr ""
+msgstr "Minden link olvasottnak jelölése tekintet nélkül az eredeti státuszukra"
 
 #: assets/templates/bookmarks/import/progress.jet.html:15
 msgid "Import operation will launch momentarily."
@@ -1310,9 +1310,8 @@ msgstr ""
 
 # | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/index.jet.html:1
-#, fuzzy
 msgid "Bookmark filters"
-msgstr "Könyvjelző Címkék"
+msgstr "Könyvjelző szűrők"
 
 #: assets/templates/bookmarks/index.jet.html:27
 msgid "Save a new link"
@@ -1339,21 +1338,18 @@ msgstr "A könyvjelzőkről bővebben a <a class=\"%s\" href=\"%s\">dokumentáci
 
 # | msgid "Readeck Bookmark Collections"
 #: assets/templates/bookmarks/index.jet.html:85
-#, fuzzy
 msgid "Readeck Browser Extension"
-msgstr "Readeck Könyvjelző Gyűjtemények"
+msgstr "Readeck Böngésző Bővítmény"
 
 # | msgid "Import bookmarks"
 #: assets/templates/bookmarks/index.jet.html:101
-#, fuzzy
 msgid "Import existing bookmarks"
-msgstr "Könyvjelzők importálása"
+msgstr "Létező könyvjelzők importálása"
 
 # | msgid "" "\n" "          Would you like to import from a similar tool or
 # | from a file with existing bookmarks?\n" "          Try Readeck's import
 # | tool.\n" "        "
 #: assets/templates/bookmarks/index.jet.html:103
-#, fuzzy
 msgid ""
 "\n"
 "              Would you like to import from a similar tool or from a file with existing bookmarks?\n"
@@ -1361,9 +1357,10 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"          Szeretne egy hasonló eszközből vagy egy meglévő könyvjelzőket tartalmazó fájlból importálni?\n"
+"              Szeretne egy hasonló eszközből vagy egy meglévő könyvjelzőket "
+"tartalmazó fájlból importálni?\n"
 "          Próbálja ki a Readeck importáló eszközét.\n"
-"        "
+"            "
 
 #: assets/templates/bookmarks/index.jet.html:110
 msgid "Import links and articles"
@@ -1381,8 +1378,10 @@ msgstr "A keresési lekérdezésed <strong>nem hozott eredményt</strong>."
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
-msgstr[0] "Az Ön keresési lekérdezése <strong>%d eredményt</strong> eredményezett."
-msgstr[1] "Az Ön keresési lekérdezése <strong>%d eredményt</strong> eredményezett."
+msgstr[0] ""
+"Az Ön keresési lekérdezése <strong>%d találatot </strong> eredményezett."
+msgstr[1] ""
+"Az Ön keresési lekérdezése <strong>%d találatot </strong> eredményezett."
 
 #: assets/templates/bookmarks/index.jet.html:179
 msgctxt "action"
@@ -1566,6 +1565,10 @@ msgid ""
 "\n"
 "Here is your ebook for: **%s**\n"
 msgstr ""
+"\n"
+"Szia,\n"
+"\n"
+"Itt az e-könyved ehhez: **%s**\n"
 
 #: assets/templates/emails/recover.jet.md:7
 #, python-format
@@ -1678,9 +1681,8 @@ msgstr "Profilom"
 
 # | msgid "Settings"
 #: assets/templates/profile/index.jet.html:19
-#, fuzzy
 msgid "Base settings"
-msgstr "Beállítások"
+msgstr "Alap beállítások"
 
 #: assets/templates/profile/index.jet.html:28
 msgid "Email Address"
@@ -1692,9 +1694,8 @@ msgstr "Nyelv"
 
 # | msgid "Settings"
 #: assets/templates/profile/index.jet.html:48
-#, fuzzy
 msgid "Email settings"
-msgstr "Beállítások"
+msgstr "E-mail beállítások"
 
 #: assets/templates/profile/index.jet.html:49
 msgid ""
@@ -1702,22 +1703,29 @@ msgid ""
 "    These, optional, parameters are used when Readeck sends emails.\n"
 "    "
 msgstr ""
+"\n"
+"    Ezek opcionális paraméterek a Readeck e-mail küldéséhez.\n"
+"    "
 
 #: assets/templates/profile/index.jet.html:55
 msgid "Reply To"
-msgstr ""
+msgstr "Válasz neki"
 
 #: assets/templates/profile/index.jet.html:56
 msgid "Add this email address in your outgoing emails so recipients can reply."
 msgstr ""
+"Adja hozzá ezt az e-mail címet a kimenő levelekhez, hogy címezettek "
+"válaszolhassanak rá."
 
 #: assets/templates/profile/index.jet.html:61
 msgid "Send EPUB to"
-msgstr ""
+msgstr "EPUB küldése ide"
 
 #: assets/templates/profile/index.jet.html:62
 msgid "This address is used to prefill the recipient when you send an e-book by email."
 msgstr ""
+"Ezt a címet használjuk hogy előtöltsük a címzett mezőt amikor e-könyvet küld "
+"e-mail-ben."
 
 #: assets/templates/profile/index.jet.html:69
 msgid ""
@@ -1726,6 +1734,10 @@ msgid ""
 "        following email address within your Kindle Account:\n"
 "        "
 msgstr ""
+"\n"
+"        Ha e-könyvek Kindle eszközre való küldését tervez, előtte\n"
+"        a Kindle Fiókjában jóvá kell hagynia a következő e-mail címet:\n"
+"        "
 
 #: assets/templates/profile/password.jet.html:9
 msgid "Change my password"
@@ -1737,13 +1749,12 @@ msgstr "Jelenlegi jelszó"
 
 # | msgid "API Token"
 #: assets/templates/profile/token.jet.html:1
-#, fuzzy
 msgid "copy token"
-msgstr "API Token"
+msgstr "token másolása"
 
 #: assets/templates/profile/token.jet.html:1
 msgid "copy HTTP header"
-msgstr ""
+msgstr "HTTP fejléc másolása"
 
 #: assets/templates/profile/token.jet.html:9
 msgid "API Token"
@@ -1763,15 +1774,13 @@ msgstr "Token ID"
 
 # | msgid "Patent use"
 #: assets/templates/profile/token.jet.html:37
-#, fuzzy
 msgid "Last used"
-msgstr "Szabadalom felhasználása"
+msgstr "Legutoljára használt"
 
 # | msgid "New User"
 #: assets/templates/profile/token.jet.html:38
-#, fuzzy
 msgid "never used"
-msgstr "Új felhasználó"
+msgstr "sosem használt"
 
 #: assets/templates/profile/token.jet.html:44
 msgid "Application"
@@ -1808,10 +1817,8 @@ msgid "Delete token"
 msgstr "Token törlése"
 
 #: assets/templates/profile/token.jet.html:83
-#, fuzzy
-#| msgid "API authentication"
 msgid "Authentication"
-msgstr "API hitelesítés"
+msgstr "Hitelesítés"
 
 #: assets/templates/profile/token.jet.html:86
 msgid "Your API token"
@@ -1819,13 +1826,11 @@ msgstr "Az Ön API tokenje"
 
 #: assets/templates/profile/token.jet.html:96
 msgid "How to use it"
-msgstr ""
+msgstr "Hogyan használja"
 
 #: assets/templates/profile/token.jet.html:98
-#, fuzzy
-#| msgid "Create a new API token"
 msgid "As a Bearer Token"
-msgstr "Új API token létrehozása"
+msgstr "Mint hordozó token"
 
 #: assets/templates/profile/token.jet.html:100
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
@@ -1833,23 +1838,27 @@ msgstr "Ezt a tokent úgy használhatja, hogy átadja mint <strong>Felhatalmazá
 
 #: assets/templates/profile/token.jet.html:102
 msgid "HTTP Header"
-msgstr ""
+msgstr "HTTP fejléc"
 
 #: assets/templates/profile/token.jet.html:113
-#, fuzzy
-#| msgid "Password"
 msgid "As a password"
-msgstr "Jelszó"
+msgstr "Mint jelszó"
 
 #: assets/templates/profile/token.jet.html:115
 msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
 msgstr ""
+"Alternatívaként használhatja ezt a token-t mint jelszavat Alap HTTP "
+"Azonosításhoz."
 
 #: assets/templates/profile/token.jet.html:116
 msgid ""
 "For example, if an application only accepts a username and password, you can provide this token as a password.\n"
 "  The username is ignored and can be anything, including an empty value."
 msgstr ""
+"Páldául, ha egy alkalmazás csak felhasználónevet és jelszavat fogad el, "
+"használhatja ezt a tokent jelszó gyanánt.\n"
+"  A felhasználónév figyelmet kívül lesz hagyva, így bármi lehet, akár üres "
+"érték is."
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
@@ -1881,9 +1890,9 @@ msgstr "Lejár ekkor: : %s"
 
 # | msgid "Created on: %s"
 #: assets/templates/profile/token_list.jet.html:54
-#, fuzzy, python-format
+#, python-format
 msgid "Last used on: %s"
-msgstr "Létrehozva ekkor: %s"
+msgstr "Legutoljára használva ekkor: %s"
 
 #: assets/templates/profile/token_list.jet.html:62
 msgid "This token will be removed in a few seconds."
@@ -1903,9 +1912,8 @@ msgstr "Érvénytelen felhasználó és/vagy jelszó"
 
 # | msgid "Password ID"
 #: internal/auth/users/forms.go:68
-#, fuzzy
 msgid "password is empty"
-msgstr "Jelszó ID"
+msgstr "üres jelszó"
 
 #: internal/auth/users/forms.go:205
 msgid "Bookmarks : Read Only"
@@ -1942,9 +1950,8 @@ msgstr "Üres vagy érvénytelen importfájl"
 
 # | msgid "File"
 #: internal/bookmarks/importer/csv.go:118
-#, fuzzy
 msgid "CSV File"
-msgstr "Fájl"
+msgstr "CSV Fájl"
 
 #: internal/bookmarks/importer/goodlinks.go:44
 msgid "GoodLinks Export File"
@@ -1972,7 +1979,7 @@ msgstr "Nem található hozzáférési token"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:139
 msgid "Unable to process input data"
-msgstr ""
+msgstr "Bemenő adatok feldolgozása nem lehetséges"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:380
 msgid "Article"
@@ -2169,7 +2176,7 @@ msgstr "kisebbnek vagy egyenlőnek kell lennie, mint %d"
 #: pkg/forms/validators.go:398
 #, python-format
 msgid "%v is not one of %s"
-msgstr ""
+msgstr "%v nem egyike ennek %s"
 
 #: pkg/strftime/strftime.go:23
 msgctxt "datetime_dl"
@@ -2510,4 +2517,3 @@ msgstr "%a %b %e %H:%M:%S %y"
 
 #~ msgid "Password was updated."
 #~ msgstr "A jelszó frissítve lett."
-
